@@ -1,21 +1,23 @@
-//Edited date :14/10/2024
-//change Main layout structure
 import type { Metadata } from 'next';
 import './globals.css';
 import './video-react.css';
 import Header from '@/components/header/Header';
 import Footer from '@/components/home/Footer';
-import '@fortawesome/fontawesome-free/css/all.min.css'
+import '@fortawesome/fontawesome-free/css/all.min.css';
 import '../style/main.css';
-import { GoogleTagManager } from '@next/third-parties/google'
-import {Merriweather} from 'next/font/google'
-// import { Navigation } from 'lucide-react';
-const merriweather = Merriweather({ subsets: ['latin'], weight: ['400', '700'], variable: '--font-merriweather' })
+import { GoogleTagManager } from '@next/third-parties/google';
+import { Merriweather } from 'next/font/google';
+import Script from 'next/script';
 
+const merriweather = Merriweather({ subsets: ['latin'], weight: ['400', '700'], variable: '--font-merriweather' });
+
+const HOTJAR_ID = 5254855;
+const HOTJAR_SRC = 'https://static.hj.contentsquare.net/c/csq-';
 
 export const metadata: Metadata = {
   title: 'Mzar',
-  description: 'مزار, مزارات, رحلات سياحية, رحلات دينية, الخضارة الإسلامية, المعالم المشهورة, إرشاد سياحي, وسيلة مواصلات, برامج سياحية, الأماكن المقدسة, تطبيق سياحي',
+  description:
+    'مزار, مزارات, رحلات سياحية, رحلات دينية, الخضارة الإسلامية, المعالم المشهورة, إرشاد سياحي, وسيلة مواصلات, برامج سياحية, الأماكن المقدسة, تطبيق سياحي',
 };
 
 export default function RootLayout({
@@ -24,14 +26,40 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" id='root'>
-      <GoogleTagManager gtmId='GTM-WS294KJ' />
+    <html lang="en" id="root">
+      <head>
+        {/* Hotjar Analytics */}
+        {process.env.NODE_ENV === 'production' && (
+          <Script
+            id="hotjar"
+            strategy="afterInteractive"
+            dangerouslySetInnerHTML={{
+              __html: `(function (c, s, q, u, a, r, e) { 
+                c.hj=c.hj||function(){(c.hj.q=c.hj.q||[]).push(arguments)};
+                c._hjSettings = { hjid: ${HOTJAR_ID} };
+                r = s.getElementsByTagName('head')[0];
+                e = s.createElement('script');
+                e.async = true;
+                e.src = '${HOTJAR_SRC}' + c._hjSettings.hjid + u;
+                r.appendChild(e);
+              })(window, document, '.js');`
+            }}
+          />
+        )}
+      </head>
+      <GoogleTagManager gtmId="GTM-WS294KJ" />
       <body className="w-full" suppressHydrationWarning={true}>
-        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WS294KJ" height="0" width="0" style={{ display: 'none', visibility: 'hidden' }}></iframe></noscript>
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-WS294KJ"
+            height="0"
+            width="0"
+            style={{ display: 'none', visibility: 'hidden' }}
+          ></iframe>
+        </noscript>
         <Header />
         <>{children}</>
         <Footer />
-
       </body>
     </html>
   );
