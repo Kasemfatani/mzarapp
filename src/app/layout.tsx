@@ -27,26 +27,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" id="root">
-      <head>
-        {/* Hotjar Analytics */}
-        {process.env.NODE_ENV === 'production' && (
-          <Script
-            id="hotjar"
-            strategy="afterInteractive"
-            dangerouslySetInnerHTML={{
-              __html: `(function (c, s, q, u, a, r, e) { 
-                c.hj=c.hj||function(){(c.hj.q=c.hj.q||[]).push(arguments)};
-                c._hjSettings = { hjid: ${HOTJAR_ID} };
-                r = s.getElementsByTagName('head')[0];
-                e = s.createElement('script');
-                e.async = true;
-                e.src = '${HOTJAR_SRC}' + c._hjSettings.hjid + u;
-                r.appendChild(e);
-              })(window, document, '.js');`
-            }}
-          />
-        )}
-      </head>
       <GoogleTagManager gtmId="GTM-WS294KJ" />
       <body className="w-full" suppressHydrationWarning={true}>
         <noscript>
