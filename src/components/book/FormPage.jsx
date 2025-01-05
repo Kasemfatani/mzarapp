@@ -40,6 +40,7 @@ import {
 import { motion } from 'framer-motion'; // Importing the motion component from Framer Motion for animations
 import axios from 'axios';
 import Loading from '@/app/loading';
+import { API_BASE_URL } from '@/lib/apiConfig';
 export default function FormPage(props) {
     const [loading, setLoading] = useState(true); // State for loading indicator
     const [data, setData] = useState(null);
@@ -49,7 +50,7 @@ export default function FormPage(props) {
     const sendPostRequest = async (data,code) => {
         let formData = `${data?.date.getFullYear()}-${data?.date.getMonth() + 1}-${data?.date.getDate()}`;
         let direct = data?.destniation.split('-');
-        const url = 'https://mzarapp.com/api/landing/home/booking';
+        const url = `${API_BASE_URL}/landing/home/booking`;
         console.log(data);
         const queryParams = {
             customer_name: data?.name,
@@ -86,7 +87,7 @@ export default function FormPage(props) {
                 lang: localStorage.getItem('lang'), // Change language dynamically based on state
             };
             // Fetch data from the API with Axios
-            axios.get('https://mzarapp.com/api/landing/home/packages'
+            axios.get(`${API_BASE_URL}/landing/home/packages`
                 , {
                     headers: headers,
                 }).then(response => {
