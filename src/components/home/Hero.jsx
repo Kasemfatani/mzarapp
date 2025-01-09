@@ -4,6 +4,8 @@ import axios from 'axios';
 import Image from 'next/image';
 import Link from 'next/link';
 import hero from '/public/hero.jpg'
+import hero2 from '/public/Website Banner English.png'
+import hero3 from '/public/Website Banner.png'
 import iPhones from '/public/iphones.webp'
 import { motion } from 'framer-motion';
 import Loading from '@/app/loading';
@@ -45,8 +47,8 @@ export default function Hero() {
         }
     }, []);  // Run this effect whenever the `language` changes
     return (
-        <div className="Hero">
-            {
+        <div className="hero">
+            {/* {
                 loading ? <Loading /> :
                     <div className="hero" style={{ backgroundImage: `url(${hero.src})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover', direction: language === 'ar' ? 'rtl' : 'ltr' }}>
                         <div className="relative">
@@ -82,7 +84,9 @@ export default function Hero() {
                             </div>
                         </div>
                     </div>
-            }
+            } */}
+            
+             <Image src={language === 'en' ? hero2 : hero3} alt="Mazar" className="img-banner" />
         </div>
     );
 }

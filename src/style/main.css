@@ -578,6 +578,11 @@ header .side-menu-active {
 .hero {
   margin-bottom: 47px;
 }
+.hero .img-banner {
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
 .hero .img-cont {
   width: 100%;
   min-height: 300px;
@@ -948,7 +953,7 @@ html {
   }
 }
 .genGeb {
-  background-color: rgba(252, 252, 252, 0.9);
+  background-color: #fff;
 }
 .genGeb .genSection {
   display: flex;

@@ -1,5 +1,9 @@
 .hero {
     margin-bottom: 47px;
+    .img-banner{
+        width: 100%;
+        object-fit: cover;
+    }
 
     .img-cont {
         width: 100%;
@@ -447,7 +451,7 @@ html {
       }
 }
 .genGeb {
-    background-color: rgba(252, 252, 252, 0.9);
+    background-color: #fff;
 
     .genSection {
         display: flex;
