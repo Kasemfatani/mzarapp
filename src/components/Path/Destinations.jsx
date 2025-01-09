@@ -11,6 +11,8 @@ export default function PathInfo(pathData) {
 
     let destinations = data.locations
     let [destinationsCopy, setDestinationsCopy] = useState(destinations.slice(0, 4));
+    console.log(destinationsCopy);
+    
     // setDestinationsCopy(destinations.slice(0, 4));
     // if (destinations.length > 4) {
     // }
@@ -38,7 +40,7 @@ export default function PathInfo(pathData) {
                             <div className="text">
                                 <h2>{item.name}</h2>
                                 <h3>{item.title}</h3>
-                                <p>{item.description}</p>
+                                <p>{item.short_description}</p>
 
                             </div>
                         </div>
