@@ -660,6 +660,10 @@ header .side-menu-active {
   height: 50px;
 }
 
+p {
+  text-align: justify;
+}
+
 .rtl {
   direction: rtl;
 }
@@ -1625,13 +1629,19 @@ footer .footer-cont .social {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.destinations .ready-cont {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  border-radius: 30px;
+  overflow: hidden;
+}
 .destinations .ready {
   display: flex;
   padding: 24px;
-  border-radius: 30px;
   align-items: center;
   flex-direction: column;
-  background-color: rgba(2, 90, 180, 0.2);
+  background-color: rgba(255, 255, 255, 0.4);
 }
 .destinations .ready h2 {
   font-size: 24px;
@@ -1643,7 +1653,7 @@ footer .footer-cont .social {
 .destinations .ready p {
   font-size: 16px;
   font-weight: 600;
-  color: #4D4D4D;
+  color: #363636;
   margin-bottom: 32px;
   text-align: center;
 }

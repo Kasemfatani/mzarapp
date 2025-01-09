@@ -192,7 +192,8 @@
                 gap: 7px;
                 flex-wrap: nowrap;
                 align-items: center;
-                img{
+
+                img {
                     width: 30px;
                     aspect-ratio: 1/1;
                     object-fit: contain;
@@ -382,13 +383,21 @@
         }
     }
 
+    .ready-cont {
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        border-radius: 30px;
+        overflow: hidden;
+
+    }
+
     .ready {
         display: flex;
         padding: 24px;
-        border-radius: 30px;
         align-items: center;
         flex-direction: column;
-        background-color: rgba(2, 90, 180, 0.2);
+        background-color: rgba(255, 255, 255, 0.4);
 
         h2 {
             font-size: 24px;
@@ -401,7 +410,7 @@
         p {
             font-size: 16px;
             font-weight: 600;
-            color: #4D4D4D;
+            color: #363636;
             margin-bottom: 32px;
             text-align: center;
         }

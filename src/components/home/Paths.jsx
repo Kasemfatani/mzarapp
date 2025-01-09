@@ -98,8 +98,8 @@ export default function Paths() {
                                     />
                                     <div className="duration">{path.duration}</div>
                                 </div>
-                                <h3>{path.name}</h3>
-                                <p>{path.short_description}</p>
+                                <h3 className={`${language === 'ar' ? 'rtl' : 'ltr'}`}>{path.name}</h3>
+                                <p className={`${language === 'ar' ? 'rtl' : 'ltr'}`}>{path.short_description}</p>
                                 <div className="small-imgs-slider w-full">
                                     <Swiper
                                         // navigation

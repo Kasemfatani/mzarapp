@@ -88,7 +88,7 @@ export default function PathInfo(pathData) {
       </div>
       <div className="facilities-duration">
         <div className="facilities w-full">
-          <h3>{language === 'en' ? 'Facilities' : 'وسائل الرحلة'}</h3>
+          <h3>{language === 'en' ? 'Facilities' : 'تتضمن الرحلة'}</h3>
           <div className="facilities-cont">
             {
               data.services.map((facility, index) =>
