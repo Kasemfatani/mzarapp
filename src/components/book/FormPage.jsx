@@ -51,7 +51,6 @@ export default function FormPage(props) {
         let formData = `${data?.date.getFullYear()}-${data?.date.getMonth() + 1}-${data?.date.getDate()}`;
         let direct = data?.destniation.split('-');
         const url = `${API_BASE_URL}/landing/home/booking`;
-        console.log(data);
         const queryParams = {
             customer_name: data?.name,
             customer_whatsapp: data?.phone,
@@ -111,7 +110,6 @@ export default function FormPage(props) {
     const [captchaa, setCaptchaa] = useState(false);
     function onChange(value) {
         setCaptchaa(true);
-        console.log(captchaa);
     }
     const formSchema = z
         .object({
@@ -132,7 +130,6 @@ export default function FormPage(props) {
         },
     });
     const Submit = (data) => {
-        console.log(data);
         let code = '';
         for (let index = 0; index < countriesCodes.length; index++) {
             if (countriesCodes[index].code==document.querySelector(".PhoneInputCountrySelect").value) {
@@ -143,11 +140,7 @@ export default function FormPage(props) {
         }
         setVisited(true);
         if (captchaa) {
-            console.log("ffffffff");
-            console.log(data);
-            console.log(code);
             let formData = `${data.date.getDate()}-${data.date.getMonth() + 1}-${data.date.getFullYear()}`;
-            console.log(data);
             sendPostRequest(data,code);
         }
     };

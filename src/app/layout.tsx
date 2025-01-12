@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import './video-react.css';
+import mzarImg from '../assets/images/home/og.png';
 import Header from '@/components/header/Header';
 import Footer from '@/components/home/Footer';
 import '@fortawesome/fontawesome-free/css/all.min.css';
@@ -18,6 +19,19 @@ export const metadata: Metadata = {
   title: 'Mzar',
   description:
     'مزار, مزارات, رحلات سياحية, رحلات دينية, الخضارة الإسلامية, المعالم المشهورة, إرشاد سياحي, وسيلة مواصلات, برامج سياحية, الأماكن المقدسة, تطبيق سياحي',
+  openGraph: {
+    title: 'Mzar',
+    description: 'مزار, مزارات, رحلات سياحية, رحلات دينية, الخضارة الإسلامية, المعالم المشهورة, إرشاد سياحي, وسيلة مواصلات, برامج سياحية, الأماكن المقدسة, تطبيق سياحي',
+    images: [
+      {
+        url: `${mzarImg}`,
+        width: 800,
+        height: 600,
+        alt: 'Mzar',
+      },
+    ],
+    siteName: 'Mzar',
+  }
 };
 
 export default function RootLayout({

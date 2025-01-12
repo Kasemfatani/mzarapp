@@ -11,7 +11,6 @@ export default function PathInfo(pathData) {
 
     let destinations = data.locations
     let [destinationsCopy, setDestinationsCopy] = useState(destinations.slice(0, 4));
-    console.log(destinationsCopy);
     
     // setDestinationsCopy(destinations.slice(0, 4));
     // if (destinations.length > 4) {

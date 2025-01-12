@@ -12,7 +12,6 @@ export default function PathInfo(pathData) {
   let [data,setData] = useState(pathData.data);
   // let [language, setLanguage] = useState(pathData.lang);
   let [language, setLanguage] = useState('en');
-  console.log(language);
   useEffect(() => {
     if (typeof window !== 'undefined') {
       // Define the headers with the selected language
@@ -23,8 +22,6 @@ export default function PathInfo(pathData) {
       // Fetch data from the API with Axios
     }
   }, []);
-  
-  console.log(data);
   
   return (
     <div className='container m-auto path'>

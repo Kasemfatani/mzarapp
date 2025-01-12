@@ -18,32 +18,32 @@ import { API_BASE_URL } from '@/lib/apiConfig';
 // } from "@/components/ui/tooltip"
 export default function Hero() {
 
-    const [loading, setLoading] = useState(true); // State for loading indicator
-    const [data, setData] = useState(null);
-    const [error, setError] = useState(null);
+    // const [loading, setLoading] = useState(true); // State for loading indicator
+    // const [data, setData] = useState(null);
+    // const [error, setError] = useState(null);
     const [language, setLanguage] = useState('en');  // Default language is 'en'
     useEffect(() => {
-        setLoading(true);
+        // setLoading(true);
         if (typeof window !== 'undefined') {
             // Define the headers with the selected language
             setLanguage(localStorage.getItem('lang'));
             const headers = {
                 lang: localStorage.getItem('lang'), // Change language dynamically based on state
             };
-            // Fetch data from the API with Axios
-            axios.get(`${API_BASE_URL}/landing/home/features`
-                , {
-                    headers: headers,
-                }).then(response => {
-                    setData(response.data);  // Set the response data to state
-                    setLoading(false);  // Set loading to false
+            // // Fetch data from the API with Axios
+            // axios.get(`${API_BASE_URL}/landing/home/features`
+            //     , {
+            //         headers: headers,
+            //     }).then(response => {
+            //         setData(response.data);  // Set the response data to state
+            //         setLoading(false);  // Set loading to false
 
-                })
-                .catch(error => {
-                    setError(error);  // Handle any errors
-                    console.error('Error fetching data:', error);
-                    setLoading(false)
-                });
+            //     })
+            //     .catch(error => {
+            //         setError(error);  // Handle any errors
+            //         console.error('Error fetching data:', error);
+            //         setLoading(false)
+            //     });
         }
     }, []);  // Run this effect whenever the `language` changes
     return (

@@ -32,7 +32,6 @@ export default function Home() {
         .then(response => {
           setData(response.data);  // Set the response data to state
           setLoading(false);  // Set loading to false
-          console.log(data);
 
         })
         .catch(error => {
@@ -42,7 +41,6 @@ export default function Home() {
         });
     }
   }, []);  // Run this effect whenever the `language` changes
-  console.log(data);
 
   return (
     <>
