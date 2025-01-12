@@ -86,22 +86,22 @@ export default function Header() {
             <Link href="/#about" className={pathname === '/#about' ? 'active' : 'normal-Link'}>{lang === 'en' ? 'About' : 'من نحن'}</Link>
             <Link href="/#about" className={pathname === '/#about' ? 'active' : 'normal-Link'}>{lang === 'en' ? 'Gallery' : 'المعرض'}</Link>
             <Link href="/book" className='book-link' >{lang === 'en' ? 'Book now' : 'احجز الان'}</Link>
-            <div className="lang-btn" onClick={
-              () => {
-                if (lang === 'en') {
-                  localStorage.setItem('lang', 'ar');
-                  setLang('ar');
-                  router.refresh();
-                  router.refresh();
-
-                }
-                else {
-                  localStorage.setItem('lang', 'en');
-                  setLang('en');
-                  router.refresh();
-                }
+            <div
+            className="lang-btn"
+            onClick={() => {
+              if (lang === 'en') {
+                localStorage.setItem('lang', 'ar');
+                setLang('ar');
+              } else {
+                localStorage.setItem('lang', 'en');
+                setLang('en');
               }
-            }>{lang === 'ar' ? 'En' : 'ع'}</div>
+              window.location.reload(); // Reloads the page
+            }}
+          >
+            {/* {lang === 'ar' ? 'En' : 'ع'} */}
+            <Globe size={20} />
+          </div>
           </div>
         </div>
       </div>

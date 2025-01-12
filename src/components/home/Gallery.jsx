@@ -52,7 +52,7 @@ export default function Parteners() {
         <div className="gallery" id='gallery' style={{ direction: language === 'en' ? 'ltr' : 'rtl' }}>
             <div className="container mx-auto">
                 <h2>{language === 'en' ? 'Gallery' : 'المعرض' }</h2>
-                <p>{language === 'en' ? 'Come to see our visitors how enjoy they experience.' : 'استمتع بالتجربة الكاملة مع تطبيقنا'} </p>
+                <p>{language === 'en' ? 'Experience Mzar through the eyes of our visitors from around the world.' : 'استمتع بتجربة مزار كما رآها زوارنا من حول العالم.'} </p>
                 {/* <div className="tabs">
                     <button className={`tab ${activeTab === 'all' ? 'active' : ''}`} onClick={() => setActiveTab('all')}>{language === 'en' ? 'All' : 'الكل' }</button>
                     <button className={`tab ${activeTab === 'photos' ? 'active' : ''}`} onClick={() => setActiveTab('photos')}>{language === 'en' ? 'Photos' : 'الصور'}</button>

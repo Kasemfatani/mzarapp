@@ -40,7 +40,7 @@ export default function SemiAbout() {
                         <h3 className='font-bold text-[#141414]'>{language==='en'?'Tourist transport, religious tourism, routes & destinations':'نقل السياحة، السياحة الدينية، الطرق والوجهات'}</h3>
                         
                         {/* Description text */}
-                        <p className="text-2xl font-medium mb-4 text-[#5A5A5A]">{language==='en'?'It gives you the freedom to choose between programs with various destinations or design a program according to your preferences and then choose the vehicle that is appropriate for you':'يوفر لك الحرية لاختيار برنامج مع وجود وجهات مختلفة او تصميم برنامج حسب احتياجاتك واختيار السيارة المناسبة لك'}</p>
+                        <p className="text-2xl font-medium mb-4 text-[#5A5A5A]">{language==='en'?'Mzar is an innovative app offering a unique journey to explore Makkah’s sacred and historical landmarks. Choose from four exclusive Paths, enjoy audio and text enrichment guidance in six languages, and plan your spiritual journey with ease':'مزار هو تطبيق مبتكر يقدم تجربة استثنائية لاستكشاف المعالم الدينية والتاريخية والثقافية في مكة المكرمة. اختر من بين أربعة مسارات مميزة، واستمتع بخدمة الإثراء المعرفي الصوتي والنصي بـ 6 لغات، مع تخطيط سهل ومريح لرحلتك الروحانية.'}</p>
                         
                     </motion.div>
 

@@ -37,10 +37,10 @@ export default function GenSection() {
                         className={`${language === 'en' ? 'ltr' : 'rtl'} l-side`} > {/* Styling for the left side content */}
                         
                         {/* Section heading */}
-                        <h2 className='font-bold text-[#141414]'>{language==='en'?'Start your spiritual journey with us':'ابدأ رحلتك الروحية معنا'}</h2>
+                        <h2 className='font-bold text-[#141414]'>{language==='en'?'Start Your Spiritual Journey with Us ':'ابدأ رحلتك الإيمانية معنا'}</h2>
                         
                         {/* Description text */}
-                        <p className="text-2xl font-medium mb-4 text-[#5A5A5A]">{language==='en'?'Book your trip today and let us take care of the rest!':'احجز رحلتك اليوم واترك علينا الباقي!'}</p>
+                        <p className="text-2xl font-medium mb-4 text-[#5A5A5A]">{language==='en'?'Book your journey, and let us guide you through the pages of history and biography—connecting with people and places.':'احجز رحلتك، ودعنا نطوف بك في صفحات التاريخ والسيرة .. انسانا ومكانا. '}</p>
                         
                         {/* Call to action button */}
                         <Link href="/book" className='px-8 py-2 text-white rounded-lg bg-primaryColor inline-block w-fit'>{language==='en'?'Book now':'احجز الان'}</Link>

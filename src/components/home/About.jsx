@@ -70,7 +70,7 @@ export default function About() {
                                 </div>
                             </div>
                             <div className="analysis">
-                                <h3>{language === 'en' ? "Our numbers" :'أرقامنا' }</h3>
+                                <h3>{language === 'en' ? "Our Numbers" :'أرقامنا' }</h3>
                                 <div className="counters">
                                     {
                                         numbers?.data.map((num, index) =>

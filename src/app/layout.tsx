@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import './video-react.css';
-import mzarImg from '../assets/images/home/og.png'; // Already imported
+import mzarImg from '../assets/images/home/og.png';
 import Header from '@/components/header/Header';
 import Footer from '@/components/home/Footer';
 import '@fortawesome/fontawesome-free/css/all.min.css';
@@ -15,28 +15,33 @@ const merriweather = Merriweather({ subsets: ['latin'], weight: ['400', '700'], 
 const HOTJAR_ID = 5254855;
 const HOTJAR_SRC = 'https://static.hj.contentsquare.net/c/csq-';
 
-export const metadata: Metadata = {
-  title: 'Mzar',
-  description:
-    'مزار, مزارات, رحلات سياحية, رحلات دينية, الخضارة الإسلامية, المعالم المشهورة, إرشاد سياحي, وسيلة مواصلات, برامج سياحية, الأماكن المقدسة, تطبيق سياحي',
-  openGraph: {
-    title: 'Mzar',
+// Function to generate metadata dynamically
+export async function generateMetadata(): Promise<Metadata> {
+  const lang = typeof window !== 'undefined' && localStorage.getItem('lang') === 'ar' ? 'ar' : 'en'; // Default to 'en'
+
+  return {
+    title: lang === 'ar' ? 'مزار: رحلتك إلى أعماق التاريخ والروحانية' : 'Mzar: Your Journey into the Depths of History and Spirituality',
     description:
       'مزار, مزارات, رحلات سياحية, رحلات دينية, الخضارة الإسلامية, المعالم المشهورة, إرشاد سياحي, وسيلة مواصلات, برامج سياحية, الأماكن المقدسة, تطبيق سياحي',
-    url: 'https://yourwebsite.com', // Replace with your website URL
-    siteName: 'Mzar',
-    images: [
-      {
-        url: mzarImg.src, // Automatically resolves the URL for the imported image
-        width: 1200, // Recommended dimensions for OG images
-        height: 630,
-        alt: 'Mzar - واجهة ومسار',
-      },
-    ],
-    type: 'website',
-    locale: 'ar_EG',
-  },
-};
+    openGraph: {
+      title: lang === 'ar' ? 'مزار' : 'Mzar',
+      description:
+        'مزار, مزارات, رحلات سياحية, رحلات دينية, الخضارة الإسلامية, المعالم المشهورة, إرشاد سياحي, وسيلة مواصلات, برامج سياحية, الأماكن المقدسة, تطبيق سياحي',
+      url: 'https://yourwebsite.com', // Replace with your website URL
+      siteName: lang === 'ar' ? 'مزار' : 'Mzar',
+      images: [
+        {
+          url: mzarImg.src, // Automatically resolves the URL for the imported image
+          width: 1200,
+          height: 630,
+          alt: lang === 'ar' ? 'مزار - واجهة ومسار' : 'Mzar - A destination and path',
+        },
+      ],
+      type: 'website',
+      locale: lang === 'ar' ? 'ar_EG' : 'en_US',
+    },
+  };
+}
 
 export default function RootLayout({
   children,
