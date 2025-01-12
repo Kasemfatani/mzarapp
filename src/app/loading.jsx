@@ -21,14 +21,14 @@ export default function Loading() {
         // </div>
 
 
-        <div class="loading-cont">
-            <div class="loader">
-                <div class="crystal"></div>
-                <div class="crystal"></div>
-                <div class="crystal"></div>
-                <div class="crystal"></div>
-                <div class="crystal"></div>
-                <div class="crystal"></div>
+        <div className="loading-cont">
+            <div className="loader">
+                <div className="crystal"></div>
+                <div className="crystal"></div>
+                <div className="crystal"></div>
+                <div className="crystal"></div>
+                <div className="crystal"></div>
+                <div className="crystal"></div>
             </div>
         </div>
     )
