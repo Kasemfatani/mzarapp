@@ -7,40 +7,33 @@ import Footer from '@/components/home/Footer';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import '../style/main.css';
 import { GoogleTagManager } from '@next/third-parties/google';
-import { Merriweather } from 'next/font/google';
-import Script from 'next/script';
 
-const merriweather = Merriweather({ subsets: ['latin'], weight: ['400', '700'], variable: '--font-merriweather' });
 
-const HOTJAR_ID = 5254855;
-const HOTJAR_SRC = 'https://static.hj.contentsquare.net/c/csq-';
 
-async function fetchSEOData() {
-  try {
-    const res = await fetch('https://dash.mzarapp.com/api/landing/home/seo-landing', {
-      cache: 'no-store', // Ensures fresh data is fetched on each request
-    });
-    if (!res.ok) {
-      throw new Error('Failed to fetch SEO data');
-    }
-    return res.json(); // Return the parsed JSON data
-  } catch (error) {
-    console.error('Error fetching SEO data:', error);
-    return null; // Return null in case of an error
-  }
-}
+// async function fetchSEOData() {
+//   try {
+//     const res = await fetch('https://dash.mzarapp.com/api/landing/home/seo-landing', {
+//       // cache: 'no-store', // Ensures fresh data is fetched on each request
+//     });
+//     if (!res.ok) {
+//       throw new Error('Failed to fetch SEO data');
+//     }
+//     return res.json(); // Return the parsed JSON data
+//   } catch (error) {
+//     console.error('Error fetching SEO data:', error);
+//     return null; // Return null in case of an error
+//   }
+// }
 
 // Function to generate metadata dynamically
 export async function generateMetadata(): Promise<Metadata> {
-  const seoData = await fetchSEOData();
-  console.log(seoData.data.keywords.split(','));
-  
+  // const seoData = await fetchSEOData();
+  // console.log(seoData.data.keywords.split(','));
   const lang = typeof window !== 'undefined' && localStorage.getItem('lang') === 'ar' ? 'ar' : 'en'; // Default to 'en'
-
   return {
     title: lang === 'ar' ? 'مزار: رحلتك إلى أعماق التاريخ والروحانية' : 'Mzar: Your Journey into the Depths of History and Spirituality',
-    keywords:seoData.data.keywords,
-    description: seoData?.description,
+    keywords:"مزار, مزارات, رحلات سياحية, رحلات دينية, الخضارة الإسلامية, المعالم المشهورة, إرشاد سياحي, وسيلة مواصلات, برامج سياحية, الأماكن المقدسة, تطبيق سياحي",
+    description: "مزار هو تطبيق مبتكر يقدم تجربة استثنائية لاستكشاف المعالم الدينية والتاريخية والثقافية في مكة المكرمة. اختر من بين أربعة مسارات مميزة، واستمتع بخدمة الإثراء المعرفي الصوتي والنصي بـ6 لغات، مع تخطيط سهل ومريح لرحلتك الروحانية",
     openGraph: {
       title: lang === 'ar' ? 'مزار' : 'Mzar',
       description:'مزار, مزارات, رحلات سياحية, رحلات دينية, الخضارة الإسلامية, المعالم المشهورة, إرشاد سياحي, وسيلة مواصلات, برامج سياحية, الأماكن المقدسة, تطبيق سياحي',
