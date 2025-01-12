@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import './video-react.css';
-import mzarImg from '../assets/images/home/og.png';
+import mzarImg from '../assets/images/home/og.png'; // Already imported
 import Header from '@/components/header/Header';
 import Footer from '@/components/home/Footer';
 import '@fortawesome/fontawesome-free/css/all.min.css';
@@ -21,17 +21,21 @@ export const metadata: Metadata = {
     'مزار, مزارات, رحلات سياحية, رحلات دينية, الخضارة الإسلامية, المعالم المشهورة, إرشاد سياحي, وسيلة مواصلات, برامج سياحية, الأماكن المقدسة, تطبيق سياحي',
   openGraph: {
     title: 'Mzar',
-    description: 'مزار, مزارات, رحلات سياحية, رحلات دينية, الخضارة الإسلامية, المعالم المشهورة, إرشاد سياحي, وسيلة مواصلات, برامج سياحية, الأماكن المقدسة, تطبيق سياحي',
+    description:
+      'مزار, مزارات, رحلات سياحية, رحلات دينية, الخضارة الإسلامية, المعالم المشهورة, إرشاد سياحي, وسيلة مواصلات, برامج سياحية, الأماكن المقدسة, تطبيق سياحي',
+    url: 'https://yourwebsite.com', // Replace with your website URL
+    siteName: 'Mzar',
     images: [
       {
-        url: `${mzarImg}`,
-        width: 800,
-        height: 600,
-        alt: 'Mzar',
+        url: mzarImg.src, // Automatically resolves the URL for the imported image
+        width: 1200, // Recommended dimensions for OG images
+        height: 630,
+        alt: 'Mzar - واجهة ومسار',
       },
     ],
-    siteName: 'Mzar',
-  }
+    type: 'website',
+    locale: 'ar_EG',
+  },
 };
 
 export default function RootLayout({
