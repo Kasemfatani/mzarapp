@@ -360,6 +360,9 @@
                     font-weight: 700;
                     color: #141414;
                     margin-bottom: 0;
+                    @media screen and (max-width: 767px) {
+                        font-size: 16px;
+                    }
                 }
 
                 h3 {
@@ -367,6 +370,9 @@
                     font-weight: 700;
                     color: $main;
                     margin-bottom: 10px;
+                    @media screen and (max-width: 767px) {
+                        font-size: 12px;
+                    }
                 }
 
                 p {
@@ -379,6 +385,9 @@
                     -webkit-box-orient: vertical;
                     overflow: hidden;
                     text-overflow: ellipsis;
+                    @media screen and (max-width: 767px) {
+                        font-size: 12px;
+                    }
                 }
             }
         }

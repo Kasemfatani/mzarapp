@@ -773,6 +773,7 @@ html {
   background-color: var(--white-color);
   margin: 0 10px;
   width: 90px;
+  height: 100%;
 }
 .paths .path-card .small-imgs-slider .small-swiper-img-name h6 {
   color: #080808;
@@ -780,7 +781,7 @@ html {
   font-weight: 400;
   margin-bottom: 0;
   display: -webkit-box;
-  -webkit-line-clamp: 1;
+  -webkit-line-clamp: 2;
   /* Number of lines */
   -webkit-box-orient: vertical;
   overflow: hidden;
@@ -1622,11 +1623,21 @@ footer .footer-cont .social {
   color: #141414;
   margin-bottom: 0;
 }
+@media screen and (max-width: 767px) {
+  .destinations .destinations-drid .destination .text h2 {
+    font-size: 16px;
+  }
+}
 .destinations .destinations-drid .destination .text h3 {
   font-size: 16px;
   font-weight: 700;
   color: var(--main-color);
   margin-bottom: 10px;
+}
+@media screen and (max-width: 767px) {
+  .destinations .destinations-drid .destination .text h3 {
+    font-size: 12px;
+  }
 }
 .destinations .destinations-drid .destination .text p {
   font-size: 16px;
@@ -1638,6 +1649,11 @@ footer .footer-cont .social {
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+@media screen and (max-width: 767px) {
+  .destinations .destinations-drid .destination .text p {
+    font-size: 12px;
+  }
 }
 .destinations .ready-cont {
   background-repeat: no-repeat;
