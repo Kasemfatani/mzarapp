@@ -37,10 +37,10 @@ export default function SemiAbout() {
                         
                         {/* Section heading */}
                         <h2 className='font-bold text-[#141414]'>{language==='en'?'Mzar App':'تطبيق مزار'}</h2>
-                        <h3 className='font-bold text-[#141414]'>{language==='en'?'Tourist transport, religious tourism, routes & destinations':'نقل السياحة، السياحة الدينية، الطرق والوجهات'}</h3>
+                        <h3 className='font-bold text-[#141414]'>{language==='en'?'Mzar: Your Journey into the Depths of History and Spirituality':'مزار: رحلتك إلى أعماق التاريخ والروحانية'}</h3>
                         
                         {/* Description text */}
-                        <p className="text-2xl font-medium mb-4 text-[#5A5A5A]">{language==='en'?'Mzar is an innovative app offering a unique journey to explore Makkah’s sacred and historical landmarks. Choose from four exclusive Paths, enjoy audio and text enrichment guidance in six languages, and plan your spiritual journey with ease':'مزار هو تطبيق مبتكر يقدم تجربة استثنائية لاستكشاف المعالم الدينية والتاريخية والثقافية في مكة المكرمة. اختر من بين أربعة مسارات مميزة، واستمتع بخدمة الإثراء المعرفي الصوتي والنصي بـ 6 لغات، مع تخطيط سهل ومريح لرحلتك الروحانية.'}</p>
+                        <p className="text-2xl font-medium mb-4 text-[#5A5A5A]">{language==='en'?'Mzar is an innovative app offering a unique journey to explore Makkah’s sacred and historical landmarks. Choose from four exclusive Paths, enjoy audio and text enrichment guidance in six languages, and plan your spiritual journey with ease . ':'مزار هو تطبيق مبتكر يقدم تجربة استثنائية لاستكشاف المعالم الدينية والتاريخية والثقافية في مكة المكرمة. اختر من بين أربعة مسارات مميزة، واستمتع بخدمة الإثراء المعرفي الصوتي والنصي بـ 6 لغات، مع تخطيط سهل ومريح لرحلتك الروحانية.'}</p>
                         
                     </motion.div>
 
