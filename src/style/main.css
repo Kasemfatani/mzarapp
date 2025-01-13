@@ -771,6 +771,8 @@ html {
   padding: 8px;
   border-radius: 8px;
   background-color: var(--white-color);
+  margin: 0 10px;
+  width: 90px;
 }
 .paths .path-card .small-imgs-slider .small-swiper-img-name h6 {
   color: #080808;
@@ -786,7 +788,9 @@ html {
   text-align: center;
 }
 .paths .path-card .small-imgs-slider .samll-img-cont {
-  width: 100%;
+  width: 75px;
+  height: 75px;
+  margin: 0 auto;
   aspect-ratio: 1/1;
 }
 .paths .path-card .small-imgs-slider .samll-img-cont img {

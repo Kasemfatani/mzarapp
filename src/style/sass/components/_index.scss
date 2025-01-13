@@ -223,6 +223,8 @@ html {
                 padding: 8px;
                 border-radius: 8px;
                 background-color: $white;
+                margin:0 10px;
+                width: 90px;
 
                 h6 {
                     color: #080808;
@@ -240,7 +242,10 @@ html {
             }
 
             .samll-img-cont {
-                width: 100%;
+                width: 75px;
+                height: 75px;
+                margin: 0 auto;
+
                 aspect-ratio: 1/1;
 
                 img {

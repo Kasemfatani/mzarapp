@@ -78,7 +78,7 @@ export default function PathInfo(pathData) {
 
                     </div>
                 </div> */}
-                <h2 className='show-more' style={{ display: destinations.length > destinationsCopy.length ? 'block' : 'none' }} onClick={() => setDestinationsCopy([...destinations])}>Show More</h2>
+                <h2 className='show-more' style={{ display: destinations.length > destinationsCopy.length ? 'block' : 'none' }} onClick={() => setDestinationsCopy([...destinations])}>{language === 'en' ? 'Show More' : 'اظهار المزيد'}</h2>
             </div>
 
             <div className="ready-cont" style={{ backgroundImage: `url(${img1.src})`}}>

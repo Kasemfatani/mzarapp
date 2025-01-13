@@ -85,8 +85,9 @@ export default function Hero() {
                         </div>
                     </div>
             } */}
-            
-             <Image src={language === 'en' ? hero2 : hero3} alt="Mazar" className="img-banner" />
+            <Link href='https://hajjconfex.com/visitor-registration' target='_blank'>
+                <Image src={language === 'en' ? hero2 : hero3} alt="Mazar" className="img-banner" />
+            </Link>
         </div>
     );
 }

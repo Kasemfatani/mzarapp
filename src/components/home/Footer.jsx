@@ -16,14 +16,15 @@ export default function Footer() { // Defining the main functional component nam
     }, []);
     return (
         <footer className={`${language === 'en' ? 'ltr' : 'rtl'}`}> {/* Main footer container with padding and background color */}
-            <a href="https://wa.me/+966580121025?text=Good%20Morning%20Mzar" className="fixed-what">
+            <a href="https://wa.me/+966580121025?text=Hello Mzar,
+I’m reaching out to you from the website. Can you assist me?!" className="fixed-what">
                 <i className="fa-brands fa-whatsapp"></i>
             </a>
             <div className="container m-auto"> {/* Container for the footer content */}
                 <div className="footer-cont">
                     <div className="copyRight">
-                        <Image src={c} alt="Mazar" className="img" />
-                        <p>{language === 'en' ? 'Licensed by the Ministry of Tourism ,license number 73104705' : 'مرخصة من وزارة السياحة رقم الترخيص 73104705'}</p>
+                        <i class="fa-regular fa-copyright"></i>
+                        <p>{language === 'en' ? 'All rights reserved for Mzar App. 2025' : 'جميع الحقوق محفوظة لتطبيق مزار 2025'} </p>
                     </div>
                     <div className="social">
                         <Link href={'https://x.com/mzarapp'}><i className="fa-brands fa-x-twitter"></i></Link>

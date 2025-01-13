@@ -9,6 +9,10 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { API_BASE_URL } from '@/lib/apiConfig';
+
+import Marquee from '../ui/marquee';
+import { cn } from '@/lib/utils';
+
 export default function Paths() {
 
 
@@ -41,6 +45,25 @@ export default function Paths() {
                 });
         }
     }, []);  // Run this effect whenever the `language` changes
+
+    const ReviewCard = ({
+        cover,name
+    }) => {
+        return (
+            <figure
+                className={cn(
+
+                )}
+            >
+               <div className="small-swiper-img-name">
+                    <div className="samll-img-cont">
+                        <Image src={cover} alt="Mazar" width={100} height={100} />
+                    </div>
+                    <h6> {name}  </h6>
+                </div>
+            </figure>
+        );
+    };
     return (
         <div className="paths container m-auto" id='paths' style={{direction: `${language === 'ar' ? 'rtl' : 'ltr'}`}}>
             <div className="title">
@@ -73,12 +96,12 @@ export default function Paths() {
                             autoplay: false,
                         },
                         640: {
-                            slidesPerView: 1.2,
+                            slidesPerView: 1.1,
                             autoplay: false,
                             spaceBetween: 16
                         },
                         100: {
-                            slidesPerView: 1.2,
+                            slidesPerView: 1.1,
                             autoplay: false,
                             spaceBetween: 16
 
@@ -101,9 +124,10 @@ export default function Paths() {
                                 <h3 className={`${language === 'ar' ? 'rtl' : 'ltr'}`}>{path.name}</h3>
                                 <p className={`${language === 'ar' ? 'rtl' : 'ltr'}`}>{path.short_description}</p>
                                 <div className="small-imgs-slider w-full">
-                                    <Swiper
+                                    {/* <Swiper
                                         // navigation
                                         // pagination={{ type: "bullets", clickable: true }}
+                                        dir='ltr'
                                         spaceBetween={14}
                                         slidesPerView={4}
                                         autoplay={true}
@@ -126,20 +150,18 @@ export default function Paths() {
                                             <SwiperSlide key={index}>
                                                 <div className="small-swiper-img-name">
                                                     <div className="samll-img-cont">
-                                                        <Image
-                                                            src={location.cover}
-                                                            alt="Mazar"
-                                                            width={100}
-                                                            height={100}
-                                                        />
+                                                        <Image src={location.cover} alt="Mazar" width={100} height={100} />
                                                     </div>
-                                                    <h6>
-                                                        {location.name}
-                                                    </h6>
+                                                    <h6> {location.name}  </h6>
                                                 </div>
                                             </SwiperSlide>
                                         )}
-                                    </Swiper>
+                                    </Swiper> */}
+                                    <Marquee reverse pauseOnHover  className="[--duration:20s]">
+                                        {path.locations.map((review, index) => (
+                                            <ReviewCard key={index} {...review} />
+                                        ))}
+                                    </Marquee>
                                 </div>
                                 <Link href={`/path?id=${path.id}`} className='view-detials'>{language==='en'?'View Details':'عرض التفاصيل'} </Link>
                             </div>
