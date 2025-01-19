@@ -18,9 +18,9 @@ import { API_BASE_URL } from '@/lib/apiConfig';
 // } from "@/components/ui/tooltip"
 export default function Hero() {
 
-    // const [loading, setLoading] = useState(true); // State for loading indicator
-    // const [data, setData] = useState(null);
-    // const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(true); // State for loading indicator
+    const [data, setData] = useState(null);
+    const [error, setError] = useState(null);
     const [language, setLanguage] = useState('en');  // Default language is 'en'
     useEffect(() => {
         // setLoading(true);
@@ -30,25 +30,25 @@ export default function Hero() {
             const headers = {
                 lang: localStorage.getItem('lang'), // Change language dynamically based on state
             };
-            // // Fetch data from the API with Axios
-            // axios.get(`${API_BASE_URL}/landing/home/features`
-            //     , {
-            //         headers: headers,
-            //     }).then(response => {
-            //         setData(response.data);  // Set the response data to state
-            //         setLoading(false);  // Set loading to false
+            // Fetch data from the API with Axios
+            axios.get(`${API_BASE_URL}/landing/home/features`
+                , {
+                    headers: headers,
+                }).then(response => {
+                    setData(response.data);  // Set the response data to state
+                    setLoading(false);  // Set loading to false
 
-            //     })
-            //     .catch(error => {
-            //         setError(error);  // Handle any errors
-            //         console.error('Error fetching data:', error);
-            //         setLoading(false)
-            //     });
+                })
+                .catch(error => {
+                    setError(error);  // Handle any errors
+                    console.error('Error fetching data:', error);
+                    setLoading(false)
+                });
         }
     }, []);  // Run this effect whenever the `language` changes
     return (
         <div className="hero">
-            {/* {
+            {
                 loading ? <Loading /> :
                     <div className="hero" style={{ backgroundImage: `url(${hero.src})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover', direction: language === 'ar' ? 'rtl' : 'ltr' }}>
                         <div className="relative">
@@ -84,10 +84,10 @@ export default function Hero() {
                             </div>
                         </div>
                     </div>
-            } */}
-            <Link href='https://hajjconfex.com/visitor-registration' target='_blank'>
+            }
+            {/* <Link href='https://hajjconfex.com/visitor-registration' target='_blank'>
                 <Image src={language === 'en' ? hero2 : hero3} alt="Mazar" className="img-banner" />
-            </Link>
+            </Link> */}
         </div>
     );
 }
