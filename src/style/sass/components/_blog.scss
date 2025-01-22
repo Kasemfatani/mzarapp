@@ -24,6 +24,7 @@
     border-radius: 10px;
     overflow: hidden;
     width: 100%;
+    max-height: calc(100vh - 148px);
     position: relative;
     .overlay{
         position: absolute;

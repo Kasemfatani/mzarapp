@@ -8,23 +8,6 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import '../style/main.css';
 import { GoogleTagManager } from '@next/third-parties/google';
 
-
-
-// async function fetchSEOData() {
-//   try {
-//     const res = await fetch('https://dash.mzarapp.com/api/landing/home/seo-landing', {
-//       // cache: 'no-store', // Ensures fresh data is fetched on each request
-//     });
-//     if (!res.ok) {
-//       throw new Error('Failed to fetch SEO data');
-//     }
-//     return res.json(); // Return the parsed JSON data
-//   } catch (error) {
-//     console.error('Error fetching SEO data:', error);
-//     return null; // Return null in case of an error
-//   }
-// }
-
 // Function to generate metadata dynamically
 export async function generateMetadata(): Promise<Metadata> {
   // const seoData = await fetchSEOData();
