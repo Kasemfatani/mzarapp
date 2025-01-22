@@ -10,12 +10,17 @@
     .swiper-slide{
             padding-top: 20px;
     }
-
+    .swiper-slide{
+        height: auto;
+    }
     .content-card {
         padding: 20px 16px;
         background-color: $white;
         border-radius: 16px;
-
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        
         &:hover {
             transform: translateY(-20px);
             .img-cont {
@@ -59,7 +64,7 @@
             font-weight: 500;
             margin-bottom: 33px;
             color: #282828;
-
+            height: 100%;
         }
 
     }

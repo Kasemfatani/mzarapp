@@ -2218,10 +2218,16 @@ body {
 .content .swiper-slide {
   padding-top: 20px;
 }
+.content .swiper-slide {
+  height: auto;
+}
 .content .content-card {
   padding: 20px 16px;
   background-color: var(--white-color);
   border-radius: 16px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 .content .content-card:hover {
   transform: translateY(-20px);
@@ -2262,6 +2268,7 @@ body {
   font-weight: 500;
   margin-bottom: 33px;
   color: #282828;
+  height: 100%;
 }
 
 .date-book {

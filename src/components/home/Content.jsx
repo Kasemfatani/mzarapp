@@ -52,73 +52,77 @@ export default function Content() {
     console.log(data);
 
     return (
-        <div className="content" style={{ direction: `${language === 'ar' ? 'rtl' : 'ltr'}` }} >
+        <>
             {
                 loading ? <Loading /> :
-                    <div className="container m-auto">
-                        <h3>{language === 'en' ? 'Read our content' : 'قراءة المحتوى'}</h3>
-                        <div className="path-swiper w-full">
-                            <Swiper
-                                // navigation
-                                // pagination={{ type: "bullets", clickable: true }}
-                                spaceBetween={24}
-                                slidesPerView={7.5}
-                                autoplay={false}
-                                dir='ltr'
-                                loop={true}
-                                modules={[Autoplay, Navigation, Pagination]}
-                                breakpoints={{
-                                    1400: {
-                                        slidesPerView: 3.2,
-                                    },
-                                    1100: {
-                                        slidesPerView: 3.1,
-                                    },
-                                    767: {
-                                        slidesPerView: 2.5,
-                                    },
-                                    768: {
-                                        slidesPerView: 2.5,
-                                        autoplay: false,
-                                    },
-                                    640: {
-                                        slidesPerView: 2.1,
-                                        autoplay: false,
-                                        spaceBetween: 16
-                                    },
-                                    100: {
-                                        slidesPerView: 1.1,
-                                        autoplay: false,
-                                        spaceBetween: 16
+                    data.length > 0 ?
+                        <div className="content" style={{ direction: `${language === 'ar' ? 'rtl' : 'ltr'}` }} >
+                            <div className="container m-auto">
+                                <h3>{language === 'en' ? 'Blogs' : 'المقالات'}</h3>
+                                <div className="path-swiper w-full">
+                                    <Swiper
+                                        // navigation
+                                        // pagination={{ type: "bullets", clickable: true }}
+                                        spaceBetween={24}
+                                        slidesPerView={7.5}
+                                        autoplay={false}
+                                        dir='ltr'
+                                        loop={true}
+                                        modules={[Autoplay, Navigation, Pagination]}
+                                        breakpoints={{
+                                            1400: {
+                                                slidesPerView: 3.2,
+                                            },
+                                            1100: {
+                                                slidesPerView: 3.1,
+                                            },
+                                            767: {
+                                                slidesPerView: 2.5,
+                                            },
+                                            768: {
+                                                slidesPerView: 2.5,
+                                                autoplay: false,
+                                            },
+                                            640: {
+                                                slidesPerView: 2.1,
+                                                autoplay: false,
+                                                spaceBetween: 16
+                                            },
+                                            100: {
+                                                slidesPerView: 1.1,
+                                                autoplay: false,
+                                                spaceBetween: 16
 
-                                    }
-                                }}
-                            >
-                                {data?.map((path) =>
-                                    <SwiperSlide key={path.id}>
-                                        <div className="content-card">
-                                            <div className="img-cont">
-                                                <Image src={path.image} alt="Mazar" width={200} height={200} />
-                                                <div className="overlay"></div>
-                                            </div>
-                                            <h4>{path.title}</h4>
-                                            <p>{ path.description}</p>
-                                            <div className="date-book">
-                                                <div className="date">
-                                                    <i className="fa-regular fa-calendar-days"></i>
-                                                    <span>{path.date}</span>
+                                            }
+                                        }}
+                                    >
+                                        {data?.map((path) =>
+                                            <SwiperSlide key={path.id}>
+                                                <div className="content-card">
+                                                    <div className="img-cont">
+                                                        <Image src={path.image} alt="Mazar" width={200} height={200} />
+                                                        <div className="overlay"></div>
+                                                    </div>
+                                                    <h4>{path.title}</h4>
+                                                    <p>{path.description}</p>
+                                                    <div className="date-book">
+                                                        <div className="date">
+                                                            <i className="fa-regular fa-calendar-days"></i>
+                                                            <span>{path.date}</span>
+                                                        </div>
+                                                        <div className="book">
+                                                            <Link href={`/blog?id=${path.slug}`} className='book-link'>{language === 'en' ? 'Read more' : 'قراءة المزيد'}</Link>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div className="book">
-                                                    <Link href={`/blog?id=${path.slug}`} className='book-link'>{language === 'en' ? 'Read more' : 'قراءة المزيد'}</Link>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </SwiperSlide>
-                                )}
-                            </Swiper>
+                                            </SwiperSlide>
+                                        )}
+                                    </Swiper>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                        : null
             }
-        </div>
+        </>
     );
 }
