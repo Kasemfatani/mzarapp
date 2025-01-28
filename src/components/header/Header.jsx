@@ -31,7 +31,7 @@ export default function Header() {
           <Link href="/#about" className={pathname === '/#about' ? 'active' : 'normal-Link'}>{lang === 'en' ? 'About' : 'من نحن'}</Link>
           <Link href="/#paths" className={pathname === '/#paths' ? 'active' : 'normal-Link'}>{lang === 'en' ? 'Paths' : 'المسارات'}</Link>
           <Link href="/#gallery" className={pathname === '/#about' ? 'active' : 'normal-Link'}>{lang === 'en' ? 'Gallery' : 'المعرض'}</Link>
-          {/* <Link href="/#blogs" className={pathname === '/#about' ? 'active' : 'normal-Link'}>{lang === 'en' ? 'Blogs' : 'المقالات'}</Link> */}
+          <Link href="/#blogs" className={pathname === '/#about' ? 'active' : 'normal-Link'}>{lang === 'en' ? 'Blogs' : 'المقالات'}</Link>
           <Link href="/book" className='book-link' >{lang === 'en' ? 'Book now' : 'احجز الان'}</Link>
           <div
             className="lang-btn"
@@ -86,23 +86,24 @@ export default function Header() {
             <Link href="/#paths" className={pathname === '/#paths' ? 'active' : 'normal-Link'}>{lang === 'en' ? 'Paths' : 'المسارات'}</Link>
             <Link href="/#about" className={pathname === '/#about' ? 'active' : 'normal-Link'}>{lang === 'en' ? 'About' : 'من نحن'}</Link>
             <Link href="/#about" className={pathname === '/#about' ? 'active' : 'normal-Link'}>{lang === 'en' ? 'Gallery' : 'المعرض'}</Link>
+            <Link href="/#blogs" className={pathname === '/#about' ? 'active' : 'normal-Link'}>{lang === 'en' ? 'Blogs' : 'المقالات'}</Link>
             <Link href="/book" className='book-link' >{lang === 'en' ? 'Book now' : 'احجز الان'}</Link>
             <div
-            className="lang-btn"
-            onClick={() => {
-              if (lang === 'en') {
-                localStorage.setItem('lang', 'ar');
-                setLang('ar');
-              } else {
-                localStorage.setItem('lang', 'en');
-                setLang('en');
-              }
-              window.location.reload(); // Reloads the page
-            }}
-          >
-            {/* {lang === 'ar' ? 'En' : 'ع'} */}
-            <Globe size={20} />
-          </div>
+              className="lang-btn"
+              onClick={() => {
+                if (lang === 'en') {
+                  localStorage.setItem('lang', 'ar');
+                  setLang('ar');
+                } else {
+                  localStorage.setItem('lang', 'en');
+                  setLang('en');
+                }
+                window.location.reload(); // Reloads the page
+              }}
+            >
+              {/* {lang === 'ar' ? 'En' : 'ع'} */}
+              <Globe size={20} />
+            </div>
           </div>
         </div>
       </div>

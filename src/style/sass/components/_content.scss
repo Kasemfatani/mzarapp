@@ -37,6 +37,7 @@
             overflow: hidden;
             margin-bottom: 16px;
             position: relative;
+            flex-shrink: 0;
 
             .overlay {
                 position: absolute;

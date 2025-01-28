@@ -2242,6 +2242,7 @@ body {
   overflow: hidden;
   margin-bottom: 16px;
   position: relative;
+  flex-shrink: 0;
 }
 .content .content-card .img-cont .overlay {
   position: absolute;
@@ -2336,21 +2337,36 @@ body {
   margin-bottom: 0;
 }
 
+.blog {
+  font-family: "Noto Naskh Arabic", serif;
+}
 .blog h3 {
   font-size: 32px;
   font-weight: 700;
   margin-bottom: 32px;
+  font-family: "Noto Naskh Arabic", serif;
+}
+.blog h2 {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  font-family: "Noto Naskh Arabic", serif;
 }
 .blog p {
   font-size: 16px;
   font-weight: 500;
   color: #282828;
   margin-bottom: 16px;
+  font-family: "Noto Naskh Arabic", serif;
 }
 .blog h4 {
   font-size: 24px;
   font-weight: 700;
   margin: 32px 0;
+  font-family: "Noto Naskh Arabic", serif;
+}
+.blog li {
+  font-family: "Noto Naskh Arabic", serif;
 }
 
 .blog .container > .img-cont {

@@ -41,13 +41,28 @@ export default function SingleBlog() {
                 });
         }
     }, []);  // Run this effect whenever the `language` changes
-    console.log(data);
-    
+    function formatArabicDate(dateString) {
+        // Parse the input date string into a JavaScript Date object
+        const date = new Date(dateString);
+
+        // Ensure the date is valid
+        if (isNaN(date)) return "Invalid date";
+
+        // Format the date to Arabic
+        const arabicFormatter = new Intl.DateTimeFormat('ar-EG', {
+            day: '2-digit',
+            month: 'long',
+            year: 'numeric',
+        });
+
+        return arabicFormatter.format(date);
+    }
+
     return (
         <>
             {
                 loading ? <Loading /> :
-                    <div className="container mx-auto">
+                    <div className={`container mx-auto ${language === 'en' ? 'ltr' : 'rtl'}`}>
                         <div className="img-cont">
                             <div className="overlay"></div>
                             <Image src={data?.image} width={500} height={500} alt="Mazar" className="img" />
@@ -55,7 +70,7 @@ export default function SingleBlog() {
                         <div className="date-book">
                             <div className="date">
                                 <i className="fa-regular fa-calendar-days"></i>
-                                <span>{data?.date}</span>
+                                <span>{language === 'ar' ? formatArabicDate(data?.date) : data?.date}</span>
                             </div>
                         </div>
                         <h3>{data?.title}</h3>

@@ -1,32 +1,51 @@
-.blog{
-    
-    h3{
+.blog {
+    font-family: "Noto Naskh Arabic", serif;
+
+    h3 {
         font-size: 32px;
         font-weight: 700;
         margin-bottom: 32px;
+        font-family: "Noto Naskh Arabic", serif;
 
     }
-    p{
+
+    h2 {
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 8px;
+        font-family: "Noto Naskh Arabic", serif;
+    }
+
+    p {
         font-size: 16px;
         font-weight: 500;
         color: #282828;
         margin-bottom: 16px;
-    }
-    h4{
-        font-size: 24px;
-        font-weight: 700;
-        margin:  32px 0;
+        font-family: "Noto Naskh Arabic", serif;
     }
 
+    h4 {
+        font-size: 24px;
+        font-weight: 700;
+        margin: 32px 0;
+        font-family: "Noto Naskh Arabic", serif;
+    }
+    li{
+        font-family: "Noto Naskh Arabic", serif;
+    }
+   
+
 }
-.blog .container >.img-cont{
-    margin: 56px  0;
+
+.blog .container>.img-cont {
+    margin: 56px 0;
     border-radius: 10px;
     overflow: hidden;
     width: 100%;
     max-height: calc(100vh - 148px);
     position: relative;
-    .overlay{
+
+    .overlay {
         position: absolute;
         top: 0;
         left: 0;
@@ -34,10 +53,12 @@
         height: 100%;
         background-color: rgba(0, 0, 0, 0.2);
     }
-    .overlay:hover{
+
+    .overlay:hover {
         opacity: 0;
     }
-    img{
+
+    img {
         width: 100%;
         height: 100%;
         -o-object-fit: cover;

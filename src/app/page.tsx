@@ -38,7 +38,7 @@ export default function Home() {
       <Gallery/>
       <About></About>
       <AppExplore/>
-      {/* <Content/> */}
+      <Content/>
       <GenSection/>
       {/* <Latest/> */}
     </main>
