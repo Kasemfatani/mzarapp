@@ -56,7 +56,7 @@ export default function Content() {
             {
                 loading ? <Loading /> :
                     data.length > 0 ?
-                        <div className="content" style={{ direction: `${language === 'ar' ? 'rtl' : 'ltr'}` }} >
+                        <div className="content" style={{ direction: `${language === 'ar' ? 'rtl' : 'ltr'}` }} id='blogs'>
                             <div className="container m-auto">
                                 <h3>{language === 'en' ? 'Blogs' : 'المقالات'}</h3>
                                 <div className="path-swiper w-full">
@@ -66,7 +66,7 @@ export default function Content() {
                                         spaceBetween={24}
                                         slidesPerView={7.5}
                                         autoplay={false}
-                                        dir='ltr'
+                                        dir={language === 'ar' ? 'rtl' : 'ltr'}
                                         loop={true}
                                         modules={[Autoplay, Navigation, Pagination]}
                                         breakpoints={{

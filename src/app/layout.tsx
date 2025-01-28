@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import type { Metadata } from 'next';
 import './globals.css';
 import './video-react.css';
@@ -8,24 +9,20 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import '../style/main.css';
 import { GoogleTagManager } from '@next/third-parties/google';
 
-// Function to generate metadata dynamically
 export async function generateMetadata(): Promise<Metadata> {
-  // const seoData = await fetchSEOData();
-  // console.log(seoData.data.keywords.split(','));
-  const lang = typeof window !== 'undefined' && localStorage.getItem('lang') === 'ar' ? 'ar' : 'en'; // Default to 'en'
+  const lang = typeof window !== 'undefined' && localStorage.getItem('lang') === 'ar' ? 'ar' : 'en';
   return {
     title: lang === 'ar' ? 'مزار: رحلتك إلى أعماق التاريخ والروحانية' : 'Mzar: Your Journey into the Depths of History and Spirituality',
-    keywords:"مزار, مزارات, رحلات سياحية, رحلات دينية, الخضارة الإسلامية, المعالم المشهورة, إرشاد سياحي, وسيلة مواصلات, برامج سياحية, الأماكن المقدسة, تطبيق سياحي",
+    keywords: "مزار, مزارات, رحلات سياحية, رحلات دينية, الخضارة الإسلامية, المعالم المشهورة, إرشاد سياحي, وسيلة مواصلات, برامج سياحية, الأماكن المقدسة, تطبيق سياحي",
     description: "مزار هو تطبيق مبتكر يقدم تجربة استثنائية لاستكشاف المعالم الدينية والتاريخية والثقافية في مكة المكرمة. اختر من بين أربعة مسارات مميزة، واستمتع بخدمة الإثراء المعرفي الصوتي والنصي بـ6 لغات، مع تخطيط سهل ومريح لرحلتك الروحانية",
     openGraph: {
       title: "MzarApp | تطبيق مزار",
-      description:'مزار هو تطبيق مبتكر يقدم تجربة استثنائية لاستكشاف المعالم الدينية والتاريخية والثقافية في مكة المكرمة. اختر من بين أربعة مسارات مميزة، واستمتع بخدمة الإثراء المعرفي الصوتي والنصي بـ6 لغات، مع تخطيط سهل ومريح لرحلتك الروحانية',
-      url: 'https://www.mzarapp.com', 
+      description: 'مزار هو تطبيق مبتكر يقدم تجربة استثنائية لاستكشاف المعالم الدينية والتاريخية والثقافية في مكة المكرمة. اختر من بين أربعة مسارات مميزة، واستمتع بخدمة الإثراء المعرفي الصوتي والنصي بـ6 لغات، مع تخطيط سهل ومريح لرحلتك الروحانية',
+      url: 'https://www.mzarapp.com',
       siteName: "MzarApp | تطبيق مزار",
-      
       images: [
         {
-          url: mzarImg.src, // Automatically resolves the URL for the imported image
+          url: mzarImg.src,
           width: 1200,
           height: 630,
           alt: lang === 'ar' ? 'مزار - واجهة ومسار' : 'Mzar - A destination and path',
@@ -44,6 +41,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" id="root">
+      <Head>
+        {/* Google Fonts */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@100..900&family=Cairo:wght@200..1000&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Noto+Naskh+Arabic:wght@400..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap"rel="stylesheet" />
+      </Head>
       <GoogleTagManager gtmId="GTM-WS294KJ" />
       <body className="w-full" suppressHydrationWarning={true}>
         <noscript>
@@ -55,7 +58,7 @@ export default function RootLayout({
           ></iframe>
         </noscript>
         <Header />
-        <>{children}</>
+        {children}
         <Footer />
       </body>
     </html>
