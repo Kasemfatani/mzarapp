@@ -94,12 +94,12 @@ export default function Paths() {
                             autoplay: false,
                         },
                         640: {
-                            slidesPerView: 1,
+                            slidesPerView: 1.2,
                             autoplay: false,
                             spaceBetween: 16
                         },
                         100: {
-                            slidesPerView: 1,
+                            slidesPerView: 1.2,
                             autoplay: false,
                             spaceBetween: 16
                         }
