@@ -35,7 +35,6 @@
 
 .parteners {
     padding: 30px 0;
-    background-color: #E7F3FF;
     margin-bottom: 50px;
     h2{
         font-size: 32px;
@@ -50,12 +49,14 @@
     .gap-custom {
         gap: 95px;
         margin-left: 40px;
+        align-items: center;
     }
 }
 
 .parts-cont {
     height: 108px;
-
+    background-color: #E7F3FF;
+    margin: auto;
     .partss {
         width: 100%;
         height: 100%;
@@ -64,17 +65,21 @@
     .part-cont {
 
         height: 108px;
+        margin: auto;
+        display: flex
+    ;
+        align-items: center;
+        justify-content: center;
+        margin-top: -8px;
     }
 
     img {
         height: 60%;
 
         width: auto;
-        opacity: 0.7;
     }
 
     img:hover {
-        opacity: 1;
         transform: scale(1.2);
     }
 

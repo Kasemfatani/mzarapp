@@ -15,7 +15,6 @@ import img10 from '/public/gallery/10.png';
 // import img12 from '/public/gallery/bg.png';
 
 import { Fancybox } from "@fancyapps/ui";
-import { motion } from 'framer-motion'; // Importing the motion component from Framer Motion for animations
 import "@fancyapps/ui/dist/fancybox/fancybox.css";
 
 
@@ -68,11 +67,6 @@ export default function Parteners() {
                         {imgs.map((img, idx) => (
                             (img.category === activeTab || activeTab === 'all') ?
                                 <BlurFade key={idx} delay={0.25 + idx * 0.05} inView>
-                                    {/* <Image
-                                        className="mb-4 size-full rounded-lg object-contain"
-                                        src={img.url}
-                                        alt={`Random stock image ${idx + 1}`}
-                                    /> */}
                                     <a href={img.url.src} data-fancybox="gallery">
                                         <figure>
                                             <Image src={img.url} alt="Mazar" width={200} height={200} className="mb-4 size-full rounded-lg object-contain" />

@@ -42,14 +42,14 @@ export default function Parteners() {
         );
     };
     let parts = [{ img: part1.src }, { img: part2 }, { img: part3 }, { img: part4 }, { img: part5 }, { img: part6 }, { img: part7 }, { img: part8 }, { img: part9 }];
-    
+
     return (
         <div className="parteners" style={{ direction: language === 'en' ? 'ltr' : 'rtl' }}>
             <div className="container m-auto">
-                <h2>{language === 'en' ? 'Our Success Partners':'شركاء النجاح'  }</h2>
+                <h2>{language === 'en' ? 'Our Success Partners' : 'شركاء النجاح'}</h2>
             </div>
             <div className="parts-cont">
-                <div className="partss" style={{ direction:'ltr' }}>
+                <div className="partss" style={{ direction: 'ltr' }}>
                     <div className="relative flex  w-full flex-col items-center gap-4 justify-center overflow-hidden  ">
                         <Marquee reverse pauseOnHover className="[--duration:20s]">
                             {parts.map((review, index) => (

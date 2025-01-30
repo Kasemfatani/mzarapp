@@ -47,7 +47,7 @@ export default function Paths() {
     }, []);  // Run this effect whenever the `language` changes
 
     const ReviewCard = ({
-        cover,name
+        cover, name
     }) => {
         return (
             <figure
@@ -55,7 +55,7 @@ export default function Paths() {
 
                 )}
             >
-               <div className="small-swiper-img-name">
+                <div className="small-swiper-img-name">
                     <div className="samll-img-cont">
                         <Image src={cover} alt="Mazar" width={100} height={100} />
                     </div>
@@ -65,46 +65,43 @@ export default function Paths() {
         );
     };
     return (
-        <div className="paths container m-auto" id='paths' style={{direction: `${language === 'ar' ? 'rtl' : 'ltr'}`}}>
+        <div className="paths container m-auto" id='paths' style={{ direction: `${language === 'ar' ? 'rtl' : 'ltr'}` }}>
             <div className="title">
                 <h2>{data?.data.title}</h2>
                 <p>{data?.data.description}</p>
             </div>
             <div className="path-swiper w-full">
                 <Swiper
-                    // navigation
-                    // pagination={{ type: "bullets", clickable: true }}
-                    dir='ltr'
-
+                    dir={'ltr'}
+                    // cssMode={language === 'ar'} // Important for RTL support
                     spaceBetween={32}
                     slidesPerView={7.5}
-                    autoplay={false}
+                    autoplay={true}
                     loop={true}
                     modules={[Autoplay, Navigation, Pagination]}
                     breakpoints={{
                         1400: {
-                            slidesPerView: 2.4,
+                            slidesPerView: 3,
                         },
                         1100: {
-                            slidesPerView: 2.2,
+                            slidesPerView: 3,
                         },
                         767: {
-                            slidesPerView: 1.5,
+                            slidesPerView: 2,
                         },
                         768: {
-                            slidesPerView: 1.5,
+                            slidesPerView: 2,
                             autoplay: false,
                         },
                         640: {
-                            slidesPerView: 1.1,
+                            slidesPerView: 1,
                             autoplay: false,
                             spaceBetween: 16
                         },
                         100: {
-                            slidesPerView: 1.1,
+                            slidesPerView: 1,
                             autoplay: false,
                             spaceBetween: 16
-
                         }
                     }}
                 >
@@ -123,7 +120,7 @@ export default function Paths() {
                                 </div>
                                 <h3 className={`${language === 'ar' ? 'rtl' : 'ltr'}`}>{path.name}</h3>
                                 <p className={`${language === 'ar' ? 'rtl' : 'ltr'}`}>{path.short_description}</p>
-                                <div className="small-imgs-slider w-full">
+                                <div className="small-imgs-slider w-full" dir='ltr'>
                                     {/* <Swiper
                                         // navigation
                                         // pagination={{ type: "bullets", clickable: true }}
@@ -157,13 +154,13 @@ export default function Paths() {
                                             </SwiperSlide>
                                         )}
                                     </Swiper> */}
-                                    <Marquee reverse pauseOnHover  className="[--duration:20s]">
+                                    <Marquee reverse pauseOnHover className="[--duration:20s]">
                                         {path.locations.map((review, index) => (
                                             <ReviewCard key={index} {...review} />
                                         ))}
                                     </Marquee>
                                 </div>
-                                <Link href={`/path?id=${path.id}`} className='view-detials'>{language==='en'?'View Details':'عرض التفاصيل'} </Link>
+                                <Link href={`/path?id=${path.id}`} className='view-detials'>{language === 'en' ? 'View Details' : 'عرض التفاصيل'} </Link>
                             </div>
                         </SwiperSlide>
                     )}
