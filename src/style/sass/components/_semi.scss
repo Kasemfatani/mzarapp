@@ -54,7 +54,7 @@
 }
 
 .parts-cont {
-    height: 108px;
+    height: 150px;
     background-color: #E7F3FF;
     margin: auto;
     .partss {
@@ -63,24 +63,24 @@
     }
 
     .part-cont {
-
-        height: 108px;
+        height: 150px;
         margin: auto;
-        display: flex
-    ;
+        display: flex;
         align-items: center;
         justify-content: center;
         margin-top: -8px;
+        width: 150px;
     }
 
     img {
-        height: 60%;
-
+        height: 100%;
+        width: 100%;
+        object-fit: contain;
         width: auto;
     }
 
     img:hover {
-        transform: scale(1.2);
+        // transform: scale(1.2);
     }
 
 }

@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import part1 from '/public/conf/1.png';
 import part2 from '/public/conf/2.svg';
-import part3 from '/public/conf/3.png';
+import part3 from '/public/conf/9.png';
 import part4 from '/public/conf/4.svg';
 import part6 from '/public/conf/6.png';
 import part5 from '/public/conf/5.png';

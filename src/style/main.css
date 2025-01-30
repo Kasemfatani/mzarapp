@@ -2072,7 +2072,7 @@ body {
 }
 
 .parts-cont {
-  height: 108px;
+  height: 150px;
   background-color: #E7F3FF;
   margin: auto;
 }
@@ -2081,21 +2081,21 @@ body {
   height: 100%;
 }
 .parts-cont .part-cont {
-  height: 108px;
+  height: 150px;
   margin: auto;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-top: -8px;
+  width: 150px;
 }
 .parts-cont img {
-  height: 60%;
+  height: 100%;
+  width: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
   width: auto;
 }
-.parts-cont img:hover {
-  transform: scale(1.2);
-}
-
 .gallery {
   padding: 47px 0;
 }
