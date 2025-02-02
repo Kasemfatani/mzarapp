@@ -10,7 +10,7 @@ import part6 from '/public/conf/6.png';
 import part5 from '/public/conf/5.png';
 import part8 from '/public/conf/8.png';
 import part7 from '/public/conf/7.png';
-
+import part9 from '/public/conf/10.svg';
 import Marquee from '../ui/marquee';
 import { cn } from '@/lib/utils';
 // import { cn } from "@/lib/utils";
@@ -43,7 +43,7 @@ export default function Parteners() {
             </figure>
         );
     };
-    let parts = [{ img: part1.src }, { img: part2 }, { img: part3 }, { img: part4 }, { img: part6 } , { img: part5 }, { img: part7 }, { img: part8 }];
+    let parts = [{ img: part1.src }, { img: part2 }, { img: part3 }, { img: part4 }, { img: part6 } , { img: part5 }, { img: part7 }, { img: part8 }, { img: part9 }];
     
     return (
         <div className="parteners" style={{ direction: language === 'en' ? 'ltr' : 'rtl' }}>
