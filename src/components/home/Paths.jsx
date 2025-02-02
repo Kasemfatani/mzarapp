@@ -14,9 +14,6 @@ import Marquee from '../ui/marquee';
 import { cn } from '@/lib/utils';
 
 export default function Paths() {
-
-
-
     const [loading, setLoading] = useState(true); // State for loading indicator
     const [data, setData] = useState(null);
     const [error, setError] = useState(null);
@@ -45,7 +42,6 @@ export default function Paths() {
                 });
         }
     }, []);  // Run this effect whenever the `language` changes
-
     const ReviewCard = ({
         cover, name
     }) => {
