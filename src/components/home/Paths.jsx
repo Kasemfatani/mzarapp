@@ -70,9 +70,9 @@ export default function Paths() {
                 <h2>{data?.data.title}</h2>
                 <p>{data?.data.description}</p>
             </div>
-            <div className="path-swiper w-full">
+            <div className="path-swiper w-full" style={{ direction: `ltr` }}>
                 <Swiper
-                    dir={'ltr'}
+                    dir={'rtl'}
                     // cssMode={language === 'ar'} // Important for RTL support
                     spaceBetween={32}
                     slidesPerView={7.5}

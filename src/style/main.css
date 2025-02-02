@@ -577,11 +577,15 @@ header .side-menu-active {
 }
 .hero {
   margin-bottom: 47px;
+  height: calc(100vh - 92px);
 }
 .hero .img-banner {
   width: 100%;
   -o-object-fit: cover;
      object-fit: cover;
+}
+.hero .relative {
+  height: 100%;
 }
 .hero .img-cont {
   width: 100%;
@@ -599,6 +603,7 @@ header .side-menu-active {
   gap: 60px;
   padding-top: 56px;
   padding-bottom: 56px;
+  height: 100%;
 }
 .hero .overlay .welcome {
   display: flex;

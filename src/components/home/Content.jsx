@@ -7,20 +7,11 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import img1 from '/public/mecca.jpg';
-import { title } from 'process';
 import Loading from '@/app/loading';
 import axios from 'axios';
 import { API_BASE_URL } from '@/lib/apiConfig';
 export default function Content() {
-    // Run this effect whenever the `language` changes
-    // let data = [
-    //     { id: 1, img: img1, title: 'About umrah and hajj',titleAr: 'عن العمرة والحج', descripition: 'About umrah and hajj About umrah and hajjAbout umrah and hajj....' ,descriptionAr:"عن العمرة والحج عن العمرة والحج عن العمرة والحج عن العمرة والحج"},
-    //     { id: 3, img: img1, title: 'About umrah and hajj',titleAr: 'عن العمرة والحج', descripition: 'About umrah and hajj About umrah and hajjAbout umrah and hajj....' ,descriptionAr:"عن العمرة والحج عن العمرة والحج عن العمرة والحج عن العمرة والحج"},
-    //     { id: 2, img: img1, title: 'About umrah and hajj',titleAr: 'عن العمرة والحج', descripition: 'About umrah and hajj About umrah and hajjAbout umrah and hajj....' ,descriptionAr:"عن العمرة والحج عن العمرة والحج عن العمرة والحج عن العمرة والحج"},
-    //     { id: 4, img: img1, title: 'About umrah and hajj',titleAr: 'عن العمرة والحج', descripition: 'About umrah and hajj About umrah and hajjAbout umrah and hajj....' ,descriptionAr:"عن العمرة والحج عن العمرة والحج عن العمرة والحج عن العمرة والحج"},
-    //     { id: 5, img: img1, title: 'About umrah and hajj',titleAr: 'عن العمرة والحج', descripition: 'About umrah and hajj About umrah and hajjAbout umrah and hajj....' ,descriptionAr:"عن العمرة والحج عن العمرة والحج عن العمرة والحج عن العمرة والحج"},
-    // ]
+
     const [loading, setLoading] = useState(true); // State for loading indicator
     const [data, setData] = useState(null);
     const [error, setError] = useState(null);
@@ -50,6 +41,22 @@ export default function Content() {
         }
     }, []);  // Run this effect whenever the `language` changes
     console.log(data);
+    function formatArabicDate(dateString) {
+        // Parse the input date string into a JavaScript Date object
+        const date = new Date(dateString);
+
+        // Ensure the date is valid
+        if (isNaN(date)) return "Invalid date";
+
+        // Format the date to Arabic
+        const arabicFormatter = new Intl.DateTimeFormat('ar-EG', {
+            day: '2-digit',
+            month: 'long',
+            year: 'numeric',
+        });
+
+        return arabicFormatter.format(date);
+    }
 
     return (
         <>
@@ -59,7 +66,7 @@ export default function Content() {
                         <div className="content" style={{ direction: `${language === 'ar' ? 'rtl' : 'ltr'}` }} id='blogs'>
                             <div className="container m-auto">
                                 <h3>{language === 'en' ? 'Blogs' : 'المقالات'}</h3>
-                                <div className="path-swiper w-full">
+                                <div className="path-swiper w-full" >
                                     <Swiper
                                         // navigation
                                         // pagination={{ type: "bullets", clickable: true }}
@@ -108,7 +115,7 @@ export default function Content() {
                                                     <div className="date-book">
                                                         <div className="date">
                                                             <i className="fa-regular fa-calendar-days"></i>
-                                                            <span>{path.date}</span>
+                                                            <span>{language === 'ar' ? formatArabicDate(path?.date) : path?.date}</span>
                                                         </div>
                                                         <div className="book">
                                                             <Link href={`/blog?id=${path.slug}`} className='book-link'>{language === 'en' ? 'Read more' : 'قراءة المزيد'}</Link>
