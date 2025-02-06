@@ -67,14 +67,14 @@ export default function SingleBlog() {
                             <div className="overlay"></div>
                             <Image src={data?.image} width={500} height={500} alt="Mazar" className="img" />
                         </div>
-                        <div className="date-book">
+                        <div className="date-book mb-3">
                             <div className="date">
                                 <i className="fa-regular fa-calendar-days"></i>
-                                <span>{language === 'ar' ? formatArabicDate(data?.date) : data?.date}</span>
+                                <span className='date-span'>{language === 'ar' ? formatArabicDate(data?.date) : data?.date}</span>
                             </div>
                         </div>
-                        <h3>{data?.title}</h3>
-                        <p>{parse(data?.description)}</p>
+                        <h3 className="title-cont mb-3">{data?.title}</h3>
+                        <p className="description-cont mb-10">{parse(data?.description)}</p>
                     </div>
             }
         </>

@@ -71,6 +71,7 @@ body {
 
     .PhoneInputCountrySelect {
         width: 100%;
+
         // display: none;
         @media screen and (max-width: 767px) {
             font-size: 12px;
@@ -83,6 +84,7 @@ body {
         padding: 3px;
         max-width: 50px;
         display: none;
+
         input:focus-visible {
             border: none;
             outline: none;
@@ -103,6 +105,7 @@ body {
 .book-main-page .book-cont .form form .PhoneInputCountry {
     width: 106px;
     flex-shrink: 0;
+
     @media screen and (max-width: 767px) {
         width: 80px;
     }
@@ -261,6 +264,87 @@ body {
 
         .book-cont {
             flex-direction: column;
+        }
+    }
+}
+
+.new-form {
+    background-color: #FFF;
+    padding: 45px 20px;
+    border-radius: 10px;
+    width: 100%;
+
+    .input-label {
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 19.2px;
+        margin-bottom: 12px !important;
+
+    }
+
+    input,
+    select,
+    .PhoneInput .PhoneInputCountry,
+    .select-trigger,
+    .date-picker {
+        box-shadow: none !important;
+        background-color: #F9F9F9;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 7px;
+        box-shadow: none;
+        height: 48px;
+        margin-top: 0;
+
+        margin-bottom: 16px !important;
+
+        &:focus {
+            box-shadow: none !important;
+            border: 1px solid $main;
+        }
+
+        &:focus-visible {
+            box-shadow: none !important;
+        }
+    }
+
+    input {
+        width: 100%;
+    }
+
+    .submit {
+        background-color: $main;
+        width: 100%;
+        height: 48px;
+        border: 1px solid $main;
+        border-radius: 7px;
+        color: $white;
+
+        &:hover {
+            background-color: $white;
+            color: $main;
+        }
+    }
+}
+
+.book-main-page-new {
+    padding: 50px 0;
+
+    .book-cont {
+        width: 500px;
+        max-width: 100%;
+        margin: 0px auto;
+    }
+}
+button{
+    box-shadow: none !important;
+}
+.car-cont {
+    button {
+        span {
+            display: flex;
+            width: 100%;
+            align-items: center;
+            gap: 20px;
         }
     }
 }

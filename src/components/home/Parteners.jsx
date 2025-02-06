@@ -10,6 +10,8 @@ import part6 from '/public/customers/6.png';
 import part7 from '/public/customers/7.png';
 import part8 from '/public/customers/8.png';
 import part9 from '/public/customers/9.png';
+import part10 from '/public/customers/12.png';
+import part11 from '/public/customers/11.svg';
 // import part10 from '/public/customers/10.png';
 import Marquee from '../ui/marquee';
 import { cn } from '@/lib/utils';
@@ -41,7 +43,7 @@ export default function Parteners() {
             </figure>
         );
     };
-    let parts = [{ img: part1.src }, { img: part2 }, { img: part3 }, { img: part4 }, { img: part5 }, { img: part6 }, { img: part7 }, { img: part8 }, { img: part9 }];
+    let parts = [{ img: part1.src }, { img: part2 }, { img: part3 }, { img: part4 }, { img: part5 }, { img: part6 }, { img: part7 }, { img: part8 }, { img: part9 }, { img: part10 }, { img: part11 }];
     
     return (
         <div className="parteners" style={{ direction: language === 'en' ? 'ltr' : 'rtl' }}>

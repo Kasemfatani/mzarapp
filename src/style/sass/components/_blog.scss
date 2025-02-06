@@ -1,39 +1,32 @@
 .blog {
     font-family: "Noto Naskh Arabic", serif;
-
-    h3 {
-        font-size: 32px;
-        font-weight: 700;
-        margin-bottom: 32px;
+    .description-cont{
+        font-size: 18px;
+        font-weight: 400;
+        color: #404040;
         font-family: "Noto Naskh Arabic", serif;
+        *{
+            font-family: "Noto Naskh Arabic", serif;
+        }
+        a{
+            color: $main;
+            font-size: 18px;
+            font-weight: 700;
 
+        }
     }
-
-    h2 {
-        font-size: 24px;
-        font-weight: 600;
-        margin-bottom: 8px;
+    .title-cont{
         font-family: "Noto Naskh Arabic", serif;
-    }
-
-    p {
-        font-size: 16px;
-        font-weight: 500;
-        color: #282828;
-        margin-bottom: 16px;
-        font-family: "Noto Naskh Arabic", serif;
-    }
-
-    h4 {
         font-size: 24px;
         font-weight: 700;
-        margin: 32px 0;
+
+    }
+    i{
+        font-family: "Font Awesome 6 Free";
+    }
+    .date-span{
         font-family: "Noto Naskh Arabic", serif;
     }
-    li{
-        font-family: "Noto Naskh Arabic", serif;
-    }
-   
 
 }
 

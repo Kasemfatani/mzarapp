@@ -4,7 +4,7 @@ import axios from 'axios';
 // import Example from '../../components/Path/Example';
 import PathInfo from '../../components/Path/PathInfo';
 import Destinations from '../../components/Path/Destinations';
-import { useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import Loading from '../loading';
 import { API_BASE_URL } from '@/lib/apiConfig';
 export default function Home() {
@@ -41,6 +41,16 @@ export default function Home() {
         });
     }
   }, []);  // Run this effect whenever the `language` changes
+  const router = useRouter();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [router.pathname]); // Runs when pathname changes
+
+
+  
+
+
 
   return (
     <>

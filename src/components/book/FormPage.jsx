@@ -111,8 +111,7 @@ export default function FormPage(props) {
     function onChange(value) {
         setCaptchaa(true);
     }
-    const formSchema = z
-        .object({
+    const formSchema = z.object({
 
             name: z.string().min(1, { message: "Name is required" }).max(50, { message: "Name must be at most 50 characters" }),
             phone: z.string().refine(validator.isMobilePhone, { message: "Invalid phone number" }),
