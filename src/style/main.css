@@ -2891,6 +2891,10 @@ button {
   text-align: justify !important;
   font-family: "NotoNaskhArabic", serif;
 }
+.blog .description-cont h2 {
+  font-size: 32px;
+  font-weight: 700;
+}
 .blog .description-cont * {
   font-family: "NotoNaskhArabic", serif;
   text-align: justify !important;
