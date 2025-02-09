@@ -2922,11 +2922,6 @@ button {
   font-family: "NotoNaskhArabic", serif;
   text-align: justify !important;
 }
-.blog .description-cont p:first-of-type {
-  font-size: 20px;
-  font-weight: 700;
-  color: #404040;
-}
 .blog .description-cont a {
   color: var(--main-color);
   font-size: 18px;
