@@ -96,11 +96,11 @@ export default function PathInfo(pathData) {
         </div>
         <div className="flex flex-col gap-2 ll-siide">
           <div className="free-auth">
-            <div className="auth">
+            <Link href="https://book.nusuk.sa/sa-ar/organizer/shrk-mz-r-laol-llsfr-o-lsy-h" className="auth">
               <Image src={img2} alt="Mazar" width={200} height={200}></Image>
-              <h4>{language === 'en' ? 'Autorized by' : 'معتمد من'} </h4>
+              <h4>{language === 'en' ? 'Verified by nusuk' : ' معتمد من نسك'} </h4>
               <i className="fa-solid fa-arrow-up"></i>
-            </div>
+            </Link>
             <div className="free-col">
               <i class="fa-regular fa-calendar"></i>
               <h4>{language === 'en' ? 'Free cancellation' : 'الغاء الحجز مجانا'}</h4>

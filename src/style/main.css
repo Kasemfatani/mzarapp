@@ -293,7 +293,7 @@ html[dir=ltr] .progress-bar {
 
 .fixed-what {
   position: fixed;
-  bottom: 10px;
+  bottom: 122px;
   inset-inline-start: 10px;
   z-index: 10;
   text-decoration: none !important;
@@ -2136,6 +2136,19 @@ footer .footer-cont .social {
   justify-content: space-between;
   gap: 10px;
 }
+@media screen and (max-width: 500px) {
+  .btn-offer-cont .btn-free {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px;
+    gap: 5px;
+    background-color: var(--white-color);
+    border-top: 1px solid #B4B4B4;
+    box-shadow: 0px 0px 14px rgba(50, 50, 50, 0.17);
+  }
+}
 .btn-offer-cont .btn-free .book-link {
   padding: 20px 50px;
   font-size: 20px;
@@ -2161,6 +2174,11 @@ footer .footer-cont .social {
   flex-direction: column;
   gap: 10px;
 }
+@media screen and (max-width: 500px) {
+  .btn-offer-cont .btn-free .price-offer {
+    gap: 5px;
+  }
+}
 .btn-offer-cont .btn-free .price-offer .from {
   font-weight: 700;
   font-size: 16px;
@@ -2182,6 +2200,11 @@ footer .footer-cont .social {
   font-weight: 700;
   font-size: 32px;
   color: var(--main-color);
+}
+@media screen and (max-width: 500px) {
+  .btn-offer-cont .btn-free .price-offer .discounted-price {
+    font-size: 24px;
+  }
 }
 .btn-offer-cont .btn-free .price-offer .original-price {
   font-weight: 700;
