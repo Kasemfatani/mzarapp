@@ -72,3 +72,40 @@
     font-display: swap;
   }
   
+  
+
+@font-face {
+  font-family: 'NotoNaskhArabic';
+  src: url('../webfonts/NotoNaskhArabic/NotoNaskhArabic-Bold.woff2') format('woff2'),
+      url('../webfonts/NotoNaskhArabic/NotoNaskhArabic-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'NotoNaskhArabic';
+  src: url('../webfonts/NotoNaskhArabic/NotoNaskhArabic-Regular.woff2') format('woff2'),
+      url('../webfonts/NotoNaskhArabic/NotoNaskhArabic-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'NotoNaskhArabic';
+  src: url('../webfonts/NotoNaskhArabic/NotoNaskhArabic-Medium.woff2') format('woff2'),
+      url('../webfonts/NotoNaskhArabic/NotoNaskhArabic-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'NotoNaskhArabic';
+  src: url('../webfonts/NotoNaskhArabic/NotoNaskhArabic-SemiBold.woff2') format('woff2'),
+      url('../webfonts/NotoNaskhArabic/NotoNaskhArabic-SemiBold.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}

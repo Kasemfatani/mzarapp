@@ -37,9 +37,9 @@ export default function MapSelector({ data, step, setStep, mainData, setMainData
                             <h3>{addOn.name}</h3>
                             <span className='addon-price'>{addOn.price} {language === 'en' ? 'SAR' : ' ريال سعودي '}</span>
                             <p>{addOn.info}</p>
-                            {
+                            {/* {
                                 addOn.allow_multiple ? <sapn className='allow-multiple'>{language === 'en' ? 'Allow Multiple' : 'السماح بالكثيرة'}</sapn> : null
-                            }
+                            } */}
                         </div>
                     </div>
                 )

@@ -55,74 +55,79 @@ export default function Latest() {
 
 
     return (
-        <div className="content latest"
-            style={{ direction: `${language === 'ar' ? 'rtl' : 'ltr'}` }}
-        >
-            <div className="container m-auto">
-                <h3>{language === 'en' ? 'Latest news' : 'أحدث الأخبار'} </h3>
-                {
-                    loading ? <Loading /> :
-                        <div className="path-swiper w-full">
-                            <Swiper
-                                // navigation
-                                // pagination={{ type: "bullets", clickable: true }}
-                                spaceBetween={24}
-                                slidesPerView={7.5}
-                                autoplay={false}
-                                dir='ltr'
-                                loop={true}
-                                modules={[Autoplay, Navigation, Pagination]}
-                                breakpoints={{
-                                    1400: {
-                                        slidesPerView: 3.2,
-                                    },
-                                    1100: {
-                                        slidesPerView: 3.1,
-                                    },
-                                    767: {
-                                        slidesPerView: 2.5,
-                                    },
-                                    768: {
-                                        slidesPerView: 2.5,
-                                        autoplay: false,
-                                    },
-                                    640: {
-                                        slidesPerView: 2.1,
-                                        autoplay: false,
-                                        spaceBetween: 16
-                                    },
-                                    100: {
-                                        slidesPerView: 1.1,
-                                        autoplay: false,
-                                        spaceBetween: 16
+        <>
+            {
+                data?.length > 0 ?
+                    <div className="content latest" style={{ direction: `${language === 'ar' ? 'rtl' : 'ltr'}` }}>
+                        <div className="container m-auto">
+                            <h3>{language === 'en' ? 'Latest news' : 'أحدث الأخبار'} </h3>
+                            <div className="ltr">
+                                {
+                                    loading ? <Loading /> :
+                                        <div className="path-swiper w-full">
+                                            <Swiper
+                                                // navigation
+                                                // pagination={{ type: "bullets", clickable: true }}
+                                                spaceBetween={24}
+                                                slidesPerView={7.5}
+                                                autoplay={false}
+                                                dir={`${language === 'ar' ? 'rtl' : 'ltr'}`}
+                                                loop={true}
+                                                modules={[Autoplay, Navigation, Pagination]}
+                                                breakpoints={{
+                                                    1400: {
+                                                        slidesPerView: 3.2,
+                                                    },
+                                                    1100: {
+                                                        slidesPerView: 3.1,
+                                                    },
+                                                    767: {
+                                                        slidesPerView: 2.5,
+                                                    },
+                                                    768: {
+                                                        slidesPerView: 2.5,
+                                                        autoplay: false,
+                                                    },
+                                                    640: {
+                                                        slidesPerView: 2.1,
+                                                        autoplay: false,
+                                                        spaceBetween: 16
+                                                    },
+                                                    100: {
+                                                        slidesPerView: 1.1,
+                                                        autoplay: false,
+                                                        spaceBetween: 16
 
-                                    }
-                                }}
-                            >
-                                {data.map((path) =>
-                                    <SwiperSlide key={path.id}>
-                                        <Link href={`/news?id=${path.id}`} className="content-card">
-                                            <div className="img-cont">
-                                                <Image src={path.image} width={200} height={200} alt="Mazar" />
-                                                {/* <div className="overlay">
+                                                    }
+                                                }}
+                                            >
+                                                {data.map((path) =>
+                                                    <SwiperSlide key={path.id}>
+                                                        <Link href={`/news?id=${path.id}`} className="content-card">
+                                                            <div className="img-cont">
+                                                                <Image src={path.image} width={200} height={200} alt="Mazar" />
+                                                                {/* <div className="overlay">
                                                     <div className="padge">
                                                         <span>{language === 'en' ? 'New' : 'جديد'}</span>
                                                     </div>
                                                 </div> */}
-                                            </div>
-                                            <h4>{path.title}</h4>
-                                            <p>{path.description}</p>
+                                                            </div>
+                                                            <h4>{path.title}</h4>
+                                                            <p>{path.description}</p>
 
 
 
-                                        </Link>
-                                    </SwiperSlide>
-                                )}
-                            </Swiper>
+                                                        </Link>
+                                                    </SwiperSlide>
+                                                )}
+                                            </Swiper>
+                                        </div>
+                                }
+                            </div>
                         </div>
-
-                }
-            </div>
-        </div>
+                    </div>
+                    : null
+            }
+        </>
     );
 }
