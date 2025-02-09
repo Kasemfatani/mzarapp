@@ -2922,15 +2922,37 @@ button {
   font-family: "NotoNaskhArabic", serif;
   text-align: justify !important;
 }
+.blog .description-cont span:has(.btn) {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.blog .description-cont code:has(.btn) {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  margin: 20px auto;
+}
+.blog .description-cont .btn {
+  background-color: var(--main-color);
+  color: var(--white-color);
+  padding: 5px 10px;
+  border-radius: 5px;
+  margin: 20px auto;
+}
 .blog .description-cont a {
   color: var(--main-color);
   font-size: 18px;
   font-weight: 700;
 }
-.blog .description-cont ol, .blog .description-cont ul {
+.blog .description-cont ol,
+.blog .description-cont ul {
   padding: 25px;
 }
-.blog .description-cont ol li, .blog .description-cont ul li {
+.blog .description-cont ol li,
+.blog .description-cont ul li {
   font-size: 18px;
   font-weight: 400;
   color: #404040;
@@ -2938,12 +2960,14 @@ button {
   position: relative;
   margin-bottom: 10px;
 }
-.blog .description-cont ol li::after, .blog .description-cont ul li::after {
+.blog .description-cont ol li::after,
+.blog .description-cont ul li::after {
   content: "";
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  inset-inline-start: -18px; /* Adjust for RTL support */
+  inset-inline-start: -18px;
+  /* Adjust for RTL support */
   width: 12px;
   height: 12px;
   border-radius: 50%;
