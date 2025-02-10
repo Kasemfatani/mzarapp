@@ -76,6 +76,7 @@ export default function Riviews({ id }) {
                                             768: {
                                                 slidesPerView: 2,
                                                 autoplay: false,
+                                                Navigation: false
                                             },
                                             640: {
                                                 slidesPerView: 1.2,
