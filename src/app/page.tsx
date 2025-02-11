@@ -40,7 +40,7 @@ export default function Home() {
       <AppExplore/>
       <Content/>
       <GenSection/>
-      {/* <Latest/> */}
+      <Latest/>
     </main>
   );
 }
