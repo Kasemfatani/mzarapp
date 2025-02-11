@@ -1,6 +1,7 @@
 'use client'
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import Flag from "react-world-flags";
 import Image from 'next/image';
 import Link from 'next/link';
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
@@ -127,8 +128,8 @@ export default function Paths() {
                                     />
 
                                 </div>
-                                <h3 className={`${language === 'ar' ? 'rtl' : 'ltr'}`}>{path.name}</h3>
-                                <div className="path-duration">{language === 'en' ? 'Duration' : 'مدة الرحلة'} : {path.duration}</div>
+                                <h3 className={`${language === 'ar' ? 'rtl' : 'ltr'}`}>{path.name} </h3>
+                                <div className="path-duration" style={{ direction: `${language === 'ar' ? 'rtl' : 'ltr'}` }}>{language === 'en' ? 'Duration' : 'مدة الرحلة'} : {path.duration}</div>
                                 <p className={`${language === 'ar' ? 'rtl' : 'ltr'}`}>{path.short_description}</p>
                                 <div className="small-imgs-slider w-full" dir='ltr'>
 
