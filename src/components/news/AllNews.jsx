@@ -77,7 +77,7 @@ export default function AllNews() {
                             </div>
                         </div>
                     </div>
-                    : null
+                    : <p className='text-center text-[100px] flex justify-center items-center min-h-96'>soon</p>
             }
         </div>
     );

@@ -46,7 +46,10 @@ export default function Latest() {
                 data?.length > 0 ?
                     <div className="content latest" style={{ direction: `${language === 'ar' ? 'rtl' : 'ltr'}` }}>
                         <div className="container m-auto">
-                            <h3>{language === 'en' ? 'Latest news' : 'أحدث الأخبار'} </h3>
+                            <div className="flex items-center justify-between">
+                                <h3>{language === 'en' ? 'Latest news' : 'أحدث الأخبار'} </h3>
+                                <Link href={'all-news'}>{language === 'en' ? 'See all' : 'عرض الكل'}</Link>
+                            </div>
                             <div className="ltr">
                                 {
                                     loading ? <Loading /> :
@@ -87,7 +90,7 @@ export default function Latest() {
                                                     }
                                                 }}
                                             >
-                                                {data.map((path) =>
+                                                {data.slice(0, 4).map((path) =>
                                                     <SwiperSlide key={path.id}>
                                                         <Link href={`/news?id=${path.id}`} className="content-card">
                                                             <div className="img-cont">
@@ -100,9 +103,6 @@ export default function Latest() {
                                                             </div>
                                                             <h4>{path.title}</h4>
                                                             <p>{path.description}</p>
-
-
-
                                                         </Link>
                                                     </SwiperSlide>
                                                 )}
