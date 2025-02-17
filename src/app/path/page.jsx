@@ -34,6 +34,7 @@ export default function Home() {
         .then(response => {
           setData(response.data);  // Set the response data to state
           setLoading(false);  // Set loading to false
+          document.title = response.data.name;
 
         })
         .catch(error => {

@@ -74,9 +74,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
     .book-link{
         padding: 8px 32px;
         color: $white;
+        display: flex;
         border-radius: 5px;
         background-color: $main;
         width: fit-content;

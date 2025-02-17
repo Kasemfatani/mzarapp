@@ -299,6 +299,11 @@ html[dir=ltr] .progress-bar {
   text-decoration: none !important;
 }
 
+.swiper {
+  padding: 0 50px !important;
+  margin: 0 -50px !important;
+}
+
 .fixed-what i {
   width: 60px;
   height: 60px;
@@ -2341,6 +2346,12 @@ footer .footer-cont .social {
   min-height: calc(100vh - 192px);
 }
 
+.soon {
+  width: 100%;
+  height: 100%;
+  min-height: calc(100vh - 192px);
+}
+
 .all-news-div {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -2661,6 +2672,8 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 .explore .overll {
   background: rgb(0, 0, 0);
@@ -2973,10 +2986,13 @@ button {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
 }
 .date-book .book-link {
   padding: 8px 32px;
   color: var(--white-color);
+  display: flex;
   border-radius: 5px;
   background-color: var(--main-color);
   width: -moz-fit-content;
@@ -3139,4 +3155,25 @@ button {
   height: 100%;
   -o-object-fit: cover;
   object-fit: cover;
+}
+
+.grid-blogs-cont {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+@media screen and (max-width: 1225px) {
+  .grid-blogs-cont {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media screen and (max-width: 991px) {
+  .grid-blogs-cont {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media screen and (max-width: 500px) {
+  .grid-blogs-cont {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }/*# sourceMappingURL=main.css.map */

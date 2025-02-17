@@ -31,7 +31,7 @@ export default function Header() {
           <Link href="/#paths" className={pathname === '/#paths' ? 'active' : 'normal-Link'}>{lang === 'en' ? 'Paths' : 'المسارات'}</Link>
           <Link href="/#about" className={pathname === '/#about' ? 'active' : 'normal-Link'}>{lang === 'en' ? 'About' : 'من نحن'}</Link>
           <Link href="/#gallery" className={pathname === '/#about' ? 'active' : 'normal-Link'}>{lang === 'en' ? 'Gallery' : 'المعرض'}</Link>
-          <Link href="/#blogs" className={pathname === '/#about' ? 'active' : 'normal-Link'}>{lang === 'en' ? 'Blogs' : 'المقالات'}</Link>
+          <Link href="/blogs" className={pathname === '/#about' ? 'active' : 'normal-Link'}>{lang === 'en' ? 'Blogs' : 'المقالات'}</Link>
           <Link href="/all-news" className={pathname === '/all-news' ? 'active' : 'normal-Link'}>{lang === 'en' ? 'News' : 'الاخبار'}</Link>
           {
             pathname === '/' ?
@@ -49,7 +49,13 @@ export default function Header() {
                 localStorage.setItem('lang', 'en');
                 setLang('en');
               }
-              window.location.reload(); // Reloads the page
+              if(pathname === '/blog'){
+                console.log('here');
+                router.push('/')
+              }
+              else{
+                window.location.reload(); // Reloads the page
+              }
             }}
           >
             {/* {lang === 'ar' ? 'En' : 'ع'} */}
@@ -92,7 +98,7 @@ export default function Header() {
             <Link href="/#paths" className={pathname === '/#paths' ? 'active' : 'normal-Link'}>{lang === 'en' ? 'Paths' : 'المسارات'}</Link>
             <Link href="/#about" className={pathname === '/#about' ? 'active' : 'normal-Link'}>{lang === 'en' ? 'About' : 'من نحن'}</Link>
             <Link href="/#about" className={pathname === '/#about' ? 'active' : 'normal-Link'}>{lang === 'en' ? 'Gallery' : 'المعرض'}</Link>
-            <Link href="/#blogs" className={pathname === '/#about' ? 'active' : 'normal-Link'}>{lang === 'en' ? 'Blogs' : 'المقالات'}</Link>
+            <Link href="/blogs" className={pathname === '/#about' ? 'active' : 'normal-Link'}>{lang === 'en' ? 'Blogs' : 'المقالات'}</Link>
             <Link href="/all-news" className={pathname === '/all-news' ? 'active' : 'normal-Link'}>{lang === 'en' ? 'News' : 'الاخبار'}</Link>
             <Link href="/book" className='book-link' >{lang === 'en' ? 'Book now' : 'احجز الان'}</Link>
             <div
@@ -105,7 +111,13 @@ export default function Header() {
                   localStorage.setItem('lang', 'en');
                   setLang('en');
                 }
-                window.location.reload(); // Reloads the page
+                if(pathname === '/blog'){
+                  console.log('here');
+                  router.push('/')
+                }
+                else{
+                  window.location.reload(); // Reloads the page
+                }
               }}
             >
               {/* {lang === 'ar' ? 'En' : 'ع'} */}

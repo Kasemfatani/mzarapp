@@ -26,7 +26,7 @@ export default function PathInfo(pathData) {
                     destinationsCopy.map((item) =>
                         <div className="destination" key={item.id}>
                             <div className="img-cont">
-                                <Image src={item.cover} width={200} height={200} alt="Mazar"></Image>
+                                <Image src={item.cover} width={200} height={200} alt={`${pathData.data.name} image`}></Image>
                             </div>
                             <div className="text">
                                 <h2>{item.name}</h2>

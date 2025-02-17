@@ -45,11 +45,11 @@ export default function PathInfo(pathData) {
                 <div className="img-cont" key={index}>
                   {
                     index == 2 ?
-                      <Image src={img.image} alt="Mazar" width={200} height={200} />
+                      <Image src={img.image} alt={`${pathData.data.name} image`} width={200} height={200} />
                       :
                       <a href={img.image} data-fancybox="post">
                         <figure>
-                          <Image src={img.image} alt="Mazar" width={200} height={200} />
+                          <Image src={img.image} alt={`${pathData.data.name} image`} width={200} height={200} />
                         </figure>
                       </a>
                   }
@@ -71,7 +71,7 @@ export default function PathInfo(pathData) {
                   {
                     data.services.map((facility, index) =>
                       <div className="facility-cont" key={index}>
-                        <Image src={facility.image} alt="Mazar" width={200} height={200} />
+                        <Image src={facility.image} alt={`${pathData.data.name} image`} width={200} height={200} />
                         <p>{facility.name}</p>
                       </div>
                     )
@@ -97,7 +97,7 @@ export default function PathInfo(pathData) {
         <div className="flex flex-col gap-2 ll-siide">
           <div className="free-auth">
             <Link href="https://book.nusuk.sa/sa-ar/organizer/shrk-mz-r-laol-llsfr-o-lsy-h" className="auth">
-              <Image src={img2} alt="Mazar" width={200} height={200}></Image>
+              <Image src={img2} alt={`${pathData.data.name} image`} width={200} height={200}></Image>
               <h4>{language === 'en' ? 'Verified by nusuk' : ' معتمد من نسك'} </h4>
               <i className="fa-solid fa-arrow-up"></i>
             </Link>
@@ -146,7 +146,7 @@ export default function PathInfo(pathData) {
                     }}
                     key={index}
                     className="place-cont" >
-                    <Image src={img.cover} alt="Mazar" width={200} height={200} />
+                    <Image src={img.cover} alt={`${pathData.data.name} image`} width={200} height={200} />
                     <p>{img.name}</p>
                   </motion.div>
                 )
@@ -179,7 +179,7 @@ export default function PathInfo(pathData) {
 
                       }}
                       className="activity-cont">
-                      <Image src={activity.image} alt="Mazar" width={200} height={200} />
+                      <Image src={activity.image} alt={`${pathData.data.name} image`} width={200} height={200} />
                       <p>{activity.name}</p>
                     </motion.div>
                   )

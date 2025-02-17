@@ -34,7 +34,7 @@ export default function Home() {
       {/* <Parteners/> */}
       <Confiemed/>
       <Paths></Paths>
-      {/* <Explore/> */}
+      <Explore/>
       <Gallery/>
       <About></About>
       <AppExplore/>

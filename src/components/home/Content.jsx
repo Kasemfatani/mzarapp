@@ -117,7 +117,7 @@ export default function Content() {
                                                             <span>{language === 'ar' ? formatArabicDate(path?.date) : path?.date}</span>
                                                         </div>
                                                         <div className="book">
-                                                            <Link href={`/blog?id=${path.slug}`} className='book-link'>{language === 'en' ? 'Read more' : 'قراءة المزيد'}</Link>
+                                                            <a href={`/blog?id=${path.slug}`} className='book-link'>{language === 'en' ? 'Read more' : 'قراءة المزيد'}</a>
                                                         </div>
                                                     </div>
                                                 </div>

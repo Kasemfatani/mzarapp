@@ -17,6 +17,7 @@ export default function SingleBlog() {
     const [language, setLanguage] = useState('en');  // Default language is 'en'
 
     useEffect(() => {
+        
         setLoading(true);
         if (typeof window !== 'undefined') {
             // Define the headers with the selected language
@@ -32,6 +33,7 @@ export default function SingleBlog() {
                 .then(response => {
                     setData(response.data.data);  // Set the response data to state
                     setLoading(false);  // Set loading to false
+                    document.title = response.data.data.title;
 
                 })
                 .catch(error => {
