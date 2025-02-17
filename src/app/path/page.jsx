@@ -50,11 +50,6 @@ export default function Home() {
     window.scrollTo(0, 0);
   }, [router.pathname]); // Runs when pathname changes
 
-
-
-
-
-
   return (
     <>
       {
