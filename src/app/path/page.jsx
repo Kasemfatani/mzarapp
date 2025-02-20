@@ -58,7 +58,7 @@ export default function Home() {
             {
               pathname == '/path' ?
 
-                <a href={`https://wa.me/+966580121025?text=hello! I am interested in ${data.name} , i would like to know more about it`} className="fixed-what">
+                <a href={`https://wa.me/+966580121025?text=hello! I am interested in ${data?.name} , i would like to know more about it`} className="fixed-what">
                   <i className="fa-brands fa-whatsapp"></i>
                 </a>
                 : null

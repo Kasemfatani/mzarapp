@@ -7,7 +7,6 @@ import GenSection from '../components/home/GenSection';
 import AppExplore from '../components/home/AppExplore';
 import Explore from '../components/home/Explore';
 import SemiAbout from '../components/home/SemiAbout';
-import Parteners from '../components/home/Parteners';
 import Gallery from '../components/home/Gallery';
 import Content from '../components/home/Content';
 import Latest from '../components/home/Latest';
