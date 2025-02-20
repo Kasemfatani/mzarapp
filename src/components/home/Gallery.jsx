@@ -4,7 +4,6 @@ import Image from 'next/image';
 import BlurFade from '../ui/blur-fade';
 import img1 from '/public/gallery/1.png';
 import img2 from '/public/gallery/2.png';
-import img3 from '/public/gallery/3.png';
 import img4 from '/public/gallery/4.png';
 import img5 from '/public/gallery/5.png';
 import img6 from '/public/gallery/6.png';
@@ -39,7 +38,6 @@ export default function Parteners() {
     let imgs =
         [
             { url: img1, category: 'photos' },
-            { url: img3, category: 'photos' },
             { url: img10, category: 'photos' },
             { url: img4, category: 'photos' },
             { url: img2, category: 'photos' },

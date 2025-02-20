@@ -61,7 +61,7 @@ export default function Content() {
         <>
             {
                 loading ? <Loading /> :
-                    data.length > 0 ?
+                    data?.length > 0 ?
                         <div className="content" style={{ direction: `${language === 'ar' ? 'rtl' : 'ltr'}` }} id='blogs'>
                             <div className="container m-auto">
                                 <h3>{language === 'en' ? 'Blogs' : 'المقالات'}</h3>
