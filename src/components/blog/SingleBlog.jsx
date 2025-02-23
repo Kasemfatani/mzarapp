@@ -75,6 +75,7 @@ export default function SingleBlog() {
                                 <span className='date-span'>{language === 'ar' ? formatArabicDate(data?.date) : data?.date}</span>
                             </div>
                         </div>
+                        
                         <h3 className="title-cont mb-3">{data?.title}</h3>
                         <p className="description-cont mb-10">{parse(data?.description)}</p>
                     </div>

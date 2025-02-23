@@ -1,10 +1,8 @@
 'use client'
 import React, { useState } from 'react';
 import bg from '/public/bg.png';
-import doneImage from '/public/done.svg';
 import MazarInfo from '../../components/book/MazarInfo';
 import FormPage from '../../components/book/FormPage';
-import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
 export default function Book() {
