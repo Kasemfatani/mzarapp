@@ -3,10 +3,9 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Image from 'next/image';
 import Link from 'next/link';
-import hero from '/public/hero.jpg'
-import hero2 from '/public/Website Banner English.png'
-import hero3 from '/public/Website Banner.png'
+import hero from '/public/hero.jpg';
 import iPhones from '/public/iphones.webp'
+import iPhonesAr from '/public/iphonesAr.webp'
 import { motion } from 'framer-motion';
 import Loading from '@/app/loading';
 import { API_BASE_URL } from '@/lib/apiConfig';
@@ -63,7 +62,7 @@ export default function Hero() {
                                         <Link href="/#paths" className='hero-book-btn'>{language === 'en' ? 'Book Now' : 'احجز الان'}</Link>
                                     </div>
                                     <div className="iPhones">
-                                        <Image src={iPhones} alt="Mazar" className="iphones-img" />
+                                        <Image src={language=="en"?iPhones:iPhonesAr} alt="Mazar" className="iphones-img" />
                                     </div>
                                 </div>
                                 <div className="features container m-auto">

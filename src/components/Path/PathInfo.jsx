@@ -34,13 +34,9 @@ export default function PathInfo(pathData) {
           <div className="t-title">
             <div className="t">
               <h1>{pathData.data.name}</h1>
-
             </div>
-
-
             {/* <p className='desc'>{pathData.data.description}</p> */}
           </div>
-
         </div>
         <div className="pathdata">
           <div className="imgs w-full">
@@ -94,10 +90,7 @@ export default function PathInfo(pathData) {
                   </div>
                 </div>
               </div>
-
             </div>
-
-
           </div>
           <div className="flex flex-col gap-2 ll-siide">
             <div className="free-auth">
@@ -116,7 +109,6 @@ export default function PathInfo(pathData) {
                 <Offer />
               </div>
               <div className="btn-free">
-
                 <div className="price-offer">
                   <span className="from">{language === 'en' ? 'From' : 'من'}</span>
                   <h5>

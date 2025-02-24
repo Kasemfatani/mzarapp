@@ -9,7 +9,7 @@ export default function Blog() {
 
     return (
 
-        <div className="blog container m-auto">
+        <div className="blog">
             <SingleBlog />
             <Content />
         </div>

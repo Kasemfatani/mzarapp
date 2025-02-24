@@ -75,7 +75,18 @@ export default function SingleBlog() {
                                 <span className='date-span'>{language === 'ar' ? formatArabicDate(data?.date) : data?.date}</span>
                             </div>
                         </div>
-                        
+                        <div className="toc">
+                            <h2>{language === 'ar' ? 'محتوى المقالة' : 'Table of Contents'}</h2>
+                            <ul>
+                                {
+                                    data.toc.map((item) =>
+                                        <li key={item.id}>
+                                            <a href={`#${item.id}`}>{item.title}</a>
+                                        </li>
+                                    )
+                                }
+                            </ul>
+                        </div>
                         <h3 className="title-cont mb-3">{data?.title}</h3>
                         <p className="description-cont mb-10">{parse(data?.description)}</p>
                     </div>

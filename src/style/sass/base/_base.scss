@@ -95,8 +95,9 @@ a{
 html {
   scrollbar-width: thin;
   scrollbar-color: $main #fff;
-  scroll-behavior: unset !important;
+  scroll-behavior: smooth;
 }
+
 /*style scroll bar*/
 /* width */
 ::-webkit-scrollbar {
