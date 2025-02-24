@@ -37,7 +37,7 @@ export default function MapSelector({ data, step, setStep, mainData, setMainData
                         </div>
                         <div className="addon-cont">
                             <h3>{addOn.name}</h3>
-                            <span className='addon-price flex gap-3'>{addOn.price}  <Image src={sar} width={20} height={20} alt='sar' /> </span>
+                            <span className='addon-price flex gap-3' style={{direction:"rtl"}}>{addOn.price}  <Image src={sar} width={20} height={20} alt='sar' /> </span>
                             <p>{addOn.info}</p>
                             {/* {
                                 addOn.allow_multiple ? <sapn className='allow-multiple'>{language === 'en' ? 'Allow Multiple' : 'السماح بالكثيرة'}</sapn> : null

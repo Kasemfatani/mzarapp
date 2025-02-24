@@ -111,11 +111,14 @@ export default function PathInfo(pathData) {
               <div className="btn-free">
                 <div className="price-offer">
                   <span className="from">{language === 'en' ? 'From' : 'من'}</span>
-                  <h5>
-                    {/* {language === 'en' ? 'Start from' : 'تبدأ من'} */}
-                    <Image src={sar} alt={`${pathData.data.name} image`} width={40} height={40} /><span className="discounted-price">{pathData.data.starting_price.toFixed(2)}</span>
-                    {/* {language === 'en' ? ' instead of' : 'بدلاً من '} */}
-                    <Image src={sar} alt={`${pathData.data.name} image`} width={20} height={20} /><span className="original-price">{(pathData.data.starting_price * 1.2).toFixed(2)}</span>
+                  <h5 >
+                    <div className='flex gap-2 items-center' style={{ direction: "ltr" }}>
+                      <Image src={sar} alt={`${pathData.data.name} image`} width={30} height={30} /><span className="discounted-price">{pathData.data.starting_price.toFixed(2)}</span>
+                    </div>
+                    <div className='flex gap-2 items-center' style={{ direction: "ltr" }}>
+                      <Image src={sar} alt={`${pathData.data.name} image`} width={15} height={15} /><span className="original-price">{(pathData.data.starting_price * 1.2).toFixed(2)}</span>
+
+                    </div>
                   </h5>
                   <span>{language === 'en' ? 'Per group up to 4 persons ' : 'لكل مجموعة حتى 4 شخص'}</span>
                 </div>
@@ -184,7 +187,7 @@ export default function PathInfo(pathData) {
         </div>
       </div>
       {
-        pathId == 47|| pathId == 49 || pathId == 45 ?
+        pathId == 47 || pathId == 49 || pathId == 45 ?
           < div className="mb-10">
             <Explore />
           </div >
