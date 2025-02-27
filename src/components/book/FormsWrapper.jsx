@@ -52,7 +52,7 @@ export default function FormsWrapper() {
             });
     
             console.log("API Response:", response.data);
-            router.push('/congats');
+            router.push('/congats?name=' + mainData?.name + '&phone=' + mainData?.phone + '&package=' + data?.name);
         } catch (error) {
             console.error("API Error:", error.response ? error.response.data : error.message);
         }
