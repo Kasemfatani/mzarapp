@@ -63,21 +63,7 @@ export default function Header() {
           </div>
 
         </div>
-        {/* <div className="menu-bars">
-          <DropdownMenu>
-            <DropdownMenuTrigger><Menu ></Menu></DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuLabel>My Account</DropdownMenuLabel> 
-              <DropdownMenuSeparator /> 
-              <DropdownMenuItem><Link href="/" className='w-full min-w-48 text-center p-2'>Home</Link></DropdownMenuItem>
-              <DropdownMenuItem><Link href="/#paths" className='w-full min-w-48 text-center p-2'>Paths</Link></DropdownMenuItem>
-              <DropdownMenuItem><Link href="/#about" className='w-full min-w-48 text-center p-2'>About</Link></DropdownMenuItem>
-              <DropdownMenuItem><Link href="/paths" className='w-full min-w-48 bg-primaryColor text-white px-1 py-1 rounded-sm text-center hover:bg-secColor' >Book now</Link></DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-
-        </div> */}
-
+       
         <Menu className='menu-bars' onClick={() => {
           document.querySelector('.side-menu').classList.toggle('side-menu-active')
           document.querySelector('.menu-bars').classList.toggle('hidden')
