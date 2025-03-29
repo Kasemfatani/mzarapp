@@ -1,6 +1,5 @@
 'use client'
 import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
 import Image from 'next/image';
 import part1 from '/public/conf/1.png';
 import part2 from '/public/conf/2.svg';
@@ -11,13 +10,10 @@ import part5 from '/public/conf/5.png';
 import part8 from '/public/conf/8.png';
 import part7 from '/public/conf/7.png';
 import part9 from '/public/conf/10.svg';
-
 import part10 from '/public/conf/12.png';
 import part11 from '/public/conf/11.svg';
 import Marquee from '../ui/marquee';
 import { cn } from '@/lib/utils';
-// import { cn } from "@/lib/utils";
-// import Marquee from "@/components/magicui/marquee";
 
 export default function Parteners() {
     const [language, setLanguage] = useState('en');  // Default language is 'en'
