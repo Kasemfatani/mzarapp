@@ -43,6 +43,28 @@ export default function SingleBlog() {
                 });
         }
     }, []);  // Run this effect whenever the `language` changes
+
+    useEffect(() => {
+        if (data?.structured_data) {
+            const script = document.createElement('script');
+            script.type = 'application/ld+json';
+            script.id = 'structured-data-script';
+    
+            try {
+                // Remove any existing script to avoid duplicates
+                const existingScript = document.getElementById('structured-data-script');
+                if (existingScript) existingScript.remove();
+    
+                // Parse and inject JSON
+                script.text = JSON.stringify(JSON.parse(data.structured_data));
+                document.head.appendChild(script);
+            } catch (err) {
+                console.error('Error parsing structured data JSON:', err);
+            }
+        }
+    }, [data]);
+
+    
     function formatArabicDate(dateString) {
         // Parse the input date string into a JavaScript Date object
         const date = new Date(dateString);
@@ -89,6 +111,7 @@ export default function SingleBlog() {
                         </div>
                         <h3 className="title-cont mb-3">{data?.title}</h3>
                         <p className="description-cont mb-10">{parse(data?.description)}</p>
+                        
                     </div>
             }
         </>

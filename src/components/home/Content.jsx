@@ -56,7 +56,6 @@ export default function Content() {
 
         return arabicFormatter.format(date);
     }
-
     return (
         <>
             {
