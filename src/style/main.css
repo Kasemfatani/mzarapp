@@ -3102,6 +3102,58 @@ button {
   position: relative;
   margin-bottom: 10px;
 }
+
+/* Special Tour Page Styles */
+.special-tour-page {
+  min-height: 100vh;
+  background-color: #f8f9fa;
+}
+
+.special-tour-banner {
+  position: relative;
+  overflow: hidden;
+}
+
+.special-tour-banner h1 {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.special-tour-banner p {
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Gathering Info Component Styles */
+.gathering-info {
+  position: relative;
+}
+
+.gathering-info h2 {
+  position: relative;
+  display: inline-block;
+}
+
+.gathering-info h2:after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background-color: #10b981; /* Green color */
+}
+
+/* RTL support for the gathering info component */
+[dir="rtl"] .gathering-info .mr-4 {
+  margin-right: 0;
+  margin-left: 1rem;
+}
+
+/*End Special Tour Page Styles */
+
 .blog .description-cont ol li::after,
 .blog .description-cont ul li::after {
   content: "";
