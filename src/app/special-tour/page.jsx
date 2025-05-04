@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import SpecialTourBanner from '../../components/special-tour/SpecialTourBanner';
 import GatheringInfo from '../../components/special-tour/GatheringInfo';
 import TourDetails from '../../components/special-tour/TourDetails';
+import AppExplore from '../../components/home/AppExplore';
 
 export default function SpecialTour() {
   const [language, setLanguage] = useState('en');
@@ -22,6 +23,7 @@ export default function SpecialTour() {
       <SpecialTourBanner />
       <GatheringInfo />
       <TourDetails />
+      <AppExplore/>
     </main>
   );
 }
