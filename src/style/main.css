@@ -3152,6 +3152,46 @@ button {
   margin-left: 1rem;
 }
 
+/* Tour Details Component Styles */
+.tour-details {
+  position: relative;
+}
+
+.tour-details h2 {
+  position: relative;
+  display: inline-block;
+}
+
+.tour-details h2:after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background-color: #10b981; /* Green color */
+}
+
+/* RTL support for the tour details component */
+[dir="rtl"] .tour-details .mr-2,
+[dir="rtl"] .tour-details .mr-3 {
+  margin-right: 0;
+  margin-left: 0.5rem;
+}
+
+[dir="rtl"] .tour-details .mr-3 {
+  margin-left: 0.75rem;
+}
+
+[dir="rtl"] .tour-details .border-l-4 {
+  border-left: none;
+  border-right: 4px solid #3b82f6;
+  border-radius: 0;
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+}
+
 /*End Special Tour Page Styles */
 
 .blog .description-cont ol li::after,

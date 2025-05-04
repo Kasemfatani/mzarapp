@@ -42,7 +42,7 @@ export default function GatheringInfo() {
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           {/* Date and Time Card */}
-          <div className="bg-gray-50 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow">
+          <div className="bg-gray-50 rounded-lg p-6 shadow-sm">
             <div className="flex items-start mb-6">
               <Calendar className="w-8 h-8 text-green-600 mr-4" />
               <div>
@@ -61,7 +61,7 @@ export default function GatheringInfo() {
           </div>
           
           {/* Location Card */}
-          <div className="bg-gray-50 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow">
+          <div className="bg-gray-50 rounded-lg p-6 shadow-sm">
             <div className="flex items-start mb-6">
               <MapPin className="w-8 h-8 text-green-600 mr-4" />
               <div>
