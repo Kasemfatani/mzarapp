@@ -22,7 +22,7 @@ export default function Home() {
         setLang('en');
       }
       else{
-        localStorage.setItem('lang', 'en');
+        localStorage.setItem('lang', 'ar'); // Changed from 'en' to 'ar'
       }
     }
   }, []);

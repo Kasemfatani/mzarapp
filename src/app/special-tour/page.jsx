@@ -13,11 +13,8 @@ export default function SpecialTour() {
       <ExperienceDescription />
       <GatheringInfo />
       <TourDetails />
-      <AppExplore/>
+      <AppExplore />
     </main>
   );
 }
-
-
-
 
