@@ -8,13 +8,13 @@ import apple from '/public/apple.png';
 import google from '/public/gogle.png';
 import Image from 'next/image';
 export default function AppExplore() {
-    const [language, setLanguage] = useState('en');  // Default language is 'en'
+    const [language, setLanguage] = useState('ar');  // Changed default from 'en' to 'ar'
     useEffect(() => {
         if (typeof window !== 'undefined') {
             // Define the headers with the selected language
-            setLanguage(localStorage.getItem('lang'));
+            setLanguage(localStorage.getItem('lang') || 'ar');  // Added fallback to 'ar'
             const headers = {
-                lang: localStorage.getItem('lang'), // Change language dynamically based on state
+                lang: localStorage.getItem('lang') || 'ar', // Added fallback to 'ar'
             };
         }
     }, []);

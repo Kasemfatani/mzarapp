@@ -9,16 +9,21 @@ import { usePathname, useRouter } from 'next/navigation';
 export default function Header() {
   const router = useRouter()
   const pathname = usePathname()
+  
+  // Don't render the header on the special-tour page
+  if (pathname === '/special-tour') {
+    return null;
+  }
 
-  let [lang, setLang] = useState('en');
+  let [lang, setLang] = useState('ar');
   useEffect(() => {
     if (typeof window !== 'undefined') {
       if (localStorage.getItem('lang') === 'ar' || localStorage.getItem('lang') === 'en') {
         setLang(localStorage.getItem('lang'));
       }
       else {
-        localStorage.setItem('lang', 'en');
-        setLang('en');
+        localStorage.setItem('lang', 'ar');
+        setLang('ar');
       }
     }
   }, [lang]);
