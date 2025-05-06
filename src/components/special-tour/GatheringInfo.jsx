@@ -15,7 +15,7 @@ export default function GatheringInfo() {
   return (
     <section className="gathering-info py-12 bg-white">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-10 text-primaryColor">
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-10 ">
           {gatheringInfo.title}
         </h2>
         
