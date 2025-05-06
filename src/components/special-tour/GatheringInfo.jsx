@@ -15,15 +15,15 @@ export default function GatheringInfo() {
   return (
     <section className="gathering-info py-12 bg-white">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-10">
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-10 text-primaryColor">
           {gatheringInfo.title}
         </h2>
         
         <div className="max-w-xl mx-auto">
           {/* Date, Time and Location Card */}
-          <div className="bg-gray-50 rounded-lg p-5 shadow-sm">
+          <div className="rounded-lg p-5 shadow-sm">
             <div className="flex items-start mb-4">
-              <Calendar className="w-6 h-6 text-green-600 ml-3" />
+              <Calendar className="w-6 h-6 text-primaryColor ml-3" />
               <div>
                 <h3 className="text-lg font-semibold mb-1">التاريخ</h3>
                 <p className="text-gray-700">{gatheringInfo.date}</p>
@@ -32,7 +32,7 @@ export default function GatheringInfo() {
             </div>
             
             <div className="flex items-start mb-4">
-              <Clock className="w-6 h-6 text-green-600 ml-3" />
+              <Clock className="w-6 h-6 text-primaryColor ml-3" />
               <div>
                 <h3 className="text-lg font-semibold mb-1">الوقت</h3>
                 <p className="text-gray-700">{gatheringInfo.time}</p>
@@ -40,7 +40,7 @@ export default function GatheringInfo() {
             </div>
 
             <div className="flex items-start">
-              <MapPin className="w-6 h-6 text-green-600 ml-3" />
+              <MapPin className="w-6 h-6 text-primaryColor ml-3" />
               <div>
                 <h3 className="text-lg font-semibold mb-1">الموقع</h3>
                 <p className="text-gray-700">{gatheringInfo.location}</p>
@@ -53,4 +53,6 @@ export default function GatheringInfo() {
     </section>
   );
 }
+
+
 
