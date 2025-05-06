@@ -3143,7 +3143,7 @@ button {
   transform: translateX(-50%);
   width: 80px;
   height: 3px;
-  background-color: #10b981; /* Green color */
+  background-color: var(--main-color); /* Changed from #10b981 (green) to var(--main-color) (#025AB4) */
 }
 
 .experience-description p {

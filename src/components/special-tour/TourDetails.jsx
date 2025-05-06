@@ -24,13 +24,13 @@ export default function TourDetails() {
         <div className="max-w-2xl mx-auto">
           {/* Tour Highlights */}
           <div className="bg-white rounded-lg p-5 shadow-sm mb-8">
-            <h3 className="text-xl font-semibold mb-3 text-green-700">
+            <h3 className="text-xl font-semibold mb-3 text-primaryColor">
               معالم الجولة
             </h3>
             <ul className="space-y-2">
               {tourDetails.highlights.map((highlight, index) => (
                 <li key={index} className="flex items-start">
-                  <Check className="w-5 h-5 text-green-600 ml-2 mt-0.5 flex-shrink-0" />
+                  <Check className="w-5 h-5 text-primaryColor ml-2 mt-0.5 flex-shrink-0" />
                   <span className="text-gray-800">{highlight}</span>
                 </li>
               ))}
@@ -38,22 +38,22 @@ export default function TourDetails() {
           </div>
           
           {/* Contact Information */}
-          <div className="bg-green-50 border-r-4 border-green-500 p-5 rounded-l-lg">
-            <h4 className="text-lg font-semibold text-green-800 mb-3 text-center">
+          <div className="bg-primaryColor/10 border-r-4 border-primaryColor p-5 rounded-l-lg">
+            <h4 className="text-lg font-semibold text-primaryColor mb-3 text-center">
               للتواصل والاستفسار
             </h4>
             <div className="space-y-3">
               <div className="flex items-center">
-                <Phone className="w-5 h-5 text-green-600 ml-2 flex-shrink-0" />
+                <Phone className="w-5 h-5 text-primaryColor ml-2 flex-shrink-0" />
                 <div>
-                  <p className="text-green-800 font-medium">للاستفسارات: 0594426243</p>
+                  <p className="text-primaryColor font-medium">للاستفسارات: 0594426243</p>
                 </div>
               </div>
               
               <div className="flex items-center">
-                <MessageCircle className="w-5 h-5 text-green-600 ml-2 flex-shrink-0" />
+                <MessageCircle className="w-5 h-5 text-primaryColor ml-2 flex-shrink-0" />
                 <div>
-                  <p className="text-green-800 font-medium">يمكنكم التواصل عبر تطبيقات واتساب أو عبر قنوات مزار الرسمية.</p>
+                  <p className="text-primaryColor font-medium">يمكنكم التواصل عبر تطبيقات واتساب أو عبر قنوات مزار الرسمية.</p>
                 </div>
               </div>
             </div>
@@ -63,6 +63,8 @@ export default function TourDetails() {
     </section>
   );
 }
+
+
 
 
 
