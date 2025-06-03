@@ -15,6 +15,11 @@ export default function Header() {
     return null;
   }
 
+  // Don't render the header on the custome page
+  if (pathname === '/custom-page') {
+    return null;
+  }
+
   let [lang, setLang] = useState('ar');
   useEffect(() => {
     if (typeof window !== 'undefined') {

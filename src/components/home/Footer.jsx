@@ -9,7 +9,12 @@ import { usePathname } from 'next/navigation';
 
 export default function Footer() { // Defining the main functional component named 'Footer'.
     const [language, setLanguage] = useState('en');  // Default language is 'en'
-    const pathname = usePathname()
+    const pathname = usePathname(); 
+
+    // Don't render the footer on the custome page
+     if (pathname === '/custom-page') {
+        return null;
+    }
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
