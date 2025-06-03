@@ -16,7 +16,7 @@ export default function Header() {
   }
 
   // Don't render the header on the custome page
-  if (pathname === '/saad-alqurashi') {
+  if (pathname === '/saad-alqurashi' || pathname === '/raslania') {
     return null;
   }
 

@@ -12,7 +12,7 @@ export default function Footer() { // Defining the main functional component nam
     const pathname = usePathname(); 
 
     // Don't render the footer on the custome page
-     if (pathname === '/saad-alqurashi') {
+     if (pathname === '/saad-alqurashi' || pathname === '/raslania') {
         return null;
     }
 

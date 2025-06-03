@@ -35,7 +35,7 @@ export const PromoCode = () => {
 					<div className="my-auto order-1 sm:order-2">
 						<div className="flex flex-col gap-2 text-right md:w-[90%] lg:w-[80%]">
 							<h1 className="text-gray-900 text-wrap text-1xl sm:text-2xl md:text-5xl  lg:text-6xl font-bold leading-[72px] tracking-[-1.5px] max-md:max-w-full max-md:text-[40px] max-md:leading-[53px]">
-							إدخال الرمز الترويجي (SJQ) :
+							إدخال الرمز الترويجي (raslania) :
 							</h1>
               <br />
 							<p className="text-[#000000] text-[20px] leading-[24px] text-wrap">
