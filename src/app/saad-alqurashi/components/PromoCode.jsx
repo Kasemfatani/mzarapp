@@ -5,16 +5,16 @@ export const PromoCode = () => {
 			<div className="w-full flex justify-end">
 					<div className="flex gap-4 w-[80%] justify-center sm:justify-between flex-col sm:flex-row">
 						<div className="w-[100%] sm:w-[70%] lg:w-[50%]">
-							<div className="flex flex-col gap-4 text-left w-fit">
+							<div className="flex flex-col gap-4 text-right w-fit">
 								<h1
 									className="text-gray-900 text-xl sm:text-2xl md:text-5xl  lg:text-6xl text-wrap
  font-bold leading-[72px] tracking-[-1.5px] max-md:max-w-full max-md:text-[40px] max-md:leading-[53px]">
-									Enter the promo code
+									الضغط على زر تجرب الواقع المعزز:
 								</h1>
+								<br />
 								<p
-									className="text-[#000000] text-[16px] leading-[24px] text-wrap w-[80%] sm:w-full">
-									Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-									Nobis consectetur, consequuntur
+									className="text-[#000000] text-[20px] leading-[24px] text-wrap w-[80%] sm:w-full">
+									يمكنك اختيار احد القصص المتاحة في التطبيق
 								</p>
 							</div>
 						</div>
@@ -33,18 +33,14 @@ export const PromoCode = () => {
 						<img src="/Mobile.png" alt="" />
 					</div>
 					<div className="my-auto order-1 sm:order-2">
-						<div className="flex flex-col gap-2 text-left md:w-[90%] lg:w-[80%]">
+						<div className="flex flex-col gap-2 text-right md:w-[90%] lg:w-[80%]">
 							<h1 className="text-gray-900 text-wrap text-1xl sm:text-2xl md:text-5xl  lg:text-6xl font-bold leading-[72px] tracking-[-1.5px] max-md:max-w-full max-md:text-[40px] max-md:leading-[53px]">
-								Register in the app
+							إدخال الرمز الترويجي SJQ:
 							</h1>
-
-							<p className="text-[#000000] text-[16px] leading-[24px] text-wrap">
-								Lorem Ipsum is simply dummy text of the printing and typesetting
-								industry.Lorem Ipsum is simply dummy.
+              <br />
+							<p className="text-[#000000] text-[20px] leading-[24px] text-wrap">
+							بعد إدخال الرمز الترويجي سيتم خصم المبلغ كامل وبعد ذلك يرجى الضغط على الدفع للاستمتاع بالقصة
 							</p>
-							<button className="w-[70%] md:w-[60%] lg:w-[50%] px-8 py-4 text-white text-sm sm:text-lg md:text-xl font-semibold rounded-lg bg-gradient-to-r from-blue-600 via-cyan-400 to-green-300">
-									Get Started
-								</button>
 						</div>
 					</div>
 				</div>
