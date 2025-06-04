@@ -4,7 +4,7 @@ export const PromoCode = () => {
 			<div className="w-full px-[66px] py-[57px] max-md:px-5">
 			<div className="w-full flex justify-end">
 					<div className="flex gap-4 w-[80%] justify-center sm:justify-between flex-col sm:flex-row">
-						<div className="w-[100%] sm:w-[70%] lg:w-[50%]">
+						<div className="my-auto w-[100%] sm:w-[70%] lg:w-[50%]">
 							<div className="flex flex-col gap-4 text-right w-fit">
 								<h1
 									className="text-gray-900 text-xl sm:text-2xl md:text-5xl  lg:text-6xl text-wrap
@@ -19,7 +19,7 @@ export const PromoCode = () => {
 							</div>
 						</div>
 						<div>
-							<img src="/Mobile.png" alt="" />
+							<img src="/shared-image3.jpg" alt="" />
 						</div>
 					</div>
 				</div>
@@ -27,13 +27,15 @@ export const PromoCode = () => {
 
 				<br />
 				<br />
+				<br />
+				<br />
 
-		    <div className="flex mx-auto sm:mx-0 gap-2 w-[70%] flex-col sm:flex-row">
-					<div className="order-2 sm:order-1">
-						<img src="/Mobile.png" alt="" />
+		    <div className="flex mx-auto sm:mx-0 gap-8 w-[80%] sm:w-[90%] flex-col sm:flex-row">
+					<div className="order-2 sm:order-1 w-[100%] sm:w-[50%] ">
+						<img src="/shared-image4.jpg" alt=""/>
 					</div>
 					<div className="my-auto order-1 sm:order-2">
-						<div className="flex flex-col gap-2 text-right md:w-[90%] lg:w-[80%]">
+						<div className="flex flex-col gap-2 text-right ">
 							<h1 className="text-gray-900 text-wrap text-1xl sm:text-2xl md:text-5xl  lg:text-6xl font-bold leading-[72px] tracking-[-1.5px] max-md:max-w-full max-md:text-[40px] max-md:leading-[53px]">
 							إدخال الرمز الترويجي (raslania) :
 							</h1>

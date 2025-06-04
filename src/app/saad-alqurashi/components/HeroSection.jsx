@@ -16,7 +16,7 @@ export const HeroSection = () => {
 							
 						</div>
 						<div>
-							<article className="shadow-[0px_4px_8px_-2px_rgba(17,24,39,0.10),0px_2px_4px_-2px_rgba(17,24,39,0.06)] overflow-hidden mt-[88px] p-6 rounded-[10px] border-4 border-solid border-white max-md:mt-10 max-md:px-5 w-[75%] md:w-[50%]">
+							<article className="shadow-[0px_4px_8px_-2px_rgba(17,24,39,0.10),0px_2px_4px_-2px_rgba(17,24,39,0.06)] overflow-hidden mt-[88px] p-6 rounded-[10px] border-4 border-solid border-white max-md:mt-10 max-md:px-5 inline-block">
 								<div className="flex  max-w-full items-center gap-2 overflow-hidden text-2xl text-white font-bold leading-none">
 									<img
 										src="/bytesize_download.png"
@@ -26,7 +26,7 @@ export const HeroSection = () => {
 									<h3 className="self-stretch my-auto">احصل على التطبيق</h3>
 								</div>
 								<div
-									className="flex flex-wrap gap-3 overflow-hidden mt-8"
+									className="flex flex-col sm:flex-row gap-3 overflow-hidden mt-8"
 									role="group"
 									aria-label="Download app">
 									<a
