@@ -2,9 +2,8 @@
 
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { API_BASE_URL } from "@/lib/apiConfig";
 
-export const FAQ = () => {
+export const FAQ = ({ language }) => {
 	const [faqs, setFaqs] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
@@ -12,13 +11,15 @@ export const FAQ = () => {
 	useEffect(() => {
 		const fetchFAQs = async () => {
 			setLoading(true);
+			setError(null);
 			try {
-				
-				const response = await axios.get(`https://app.mzarapp.com/api/customer/faq-ar`);
+				const headers = {
+					lang: language,
+				};
+				const response = await axios.get(`https://app.mzarapp.com/api/customer/faq-ar`, { headers });
 				setFaqs(response.data.data);
-				// console.log(response.data.data);
 			} catch (error) {
-				setError("Failed to fetch FAQs. Please try again later.");
+				setError(language === 'ar' ? "فشل في جلب الأسئلة الشائعة. يرجى المحاولة مرة أخرى في وقت لاحق." : "Failed to fetch FAQs. Please try again later.");
 				console.error("Error fetching FAQ data:", error);
 			} finally {
 				setLoading(false);
@@ -26,21 +27,21 @@ export const FAQ = () => {
 		};
 
 		fetchFAQs();
-	}, []);
+	}, [language]);
 
 	return (
 		<section className="w-full overflow-hidden ">
 			<div className="w-full px-4 sm:px-8 lg:px-[66px] py-8 lg:py-[57px]">
 				<h1 className="text-center text-3xl sm:text-4xl lg:text-5xl text-wrap font-bold leading-tight sm:leading-tight lg:leading-normal tracking-tight">
-					الأسئلة الشائعة
+					{language === 'ar' ? 'الأسئلة الشائعة' : 'Frequently Asked Questions'}
 				</h1>
 				<br />
 				<p className="text-center text-gray-500 text-base sm:text-lg">
-					نحن سعداء للإجابة على أسئلتكم
+					{language === 'ar' ? 'نحن سعداء للإجابة على أسئلتكم' : 'We are happy to answer your questions'}
 				</p>
 
 				<div className="w-full max-w-4xl mx-auto mt-10">
-					{loading && <p className="text-center">Loading...</p>}
+					{loading && <p className="text-center">{language === 'ar' ? 'جاري التحميل...' : 'Loading...'}</p>}
 					{error && <p className="text-center text-red-500">{error}</p>}
 					{!loading && !error && (
 						<div className="space-y-4 ">

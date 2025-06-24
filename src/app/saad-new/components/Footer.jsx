@@ -2,18 +2,18 @@
 
 import { DownloadButtons } from "./DownloadButtons";
 
-export const Footer = () => {
+export const Footer = ({ language }) => {
 	return (
 		<section className="w-full overflow-hidden bg-[linear-gradient(to_right,_#025AB4_0%,_#1AC5BD_50%,_#87DCB5_100%)]">
 			
 			<div className="w-full px-4 sm:px-8 lg:px-[66px] pb-4 pt-8 lg:pt-[57px]">
 				
 				<h1 className="text-center text-white text-2xl sm:text-3xl lg:text-4xl font-bold">
-					ماذا تنتظر؟ حمل الآن!
+					{language === 'ar' ? 'ماذا تنتظر؟ حمل الآن!' : 'What are you waiting for? Download now!'}
 				</h1>
-				<DownloadButtons />
+				<DownloadButtons language={language} />
 				<p className="text-white text-center mt-8 text-sm" >
-  جميع الحقوق محفوظة لشركة <span className="font-semibold">mzarapp.com</span> © {new Date().getFullYear()}
+  {language === 'ar' ? 'جميع الحقوق محفوظة لشركة' : 'All rights reserved to'} <span className="font-semibold">mzarapp.com</span> © {new Date().getFullYear()}
 </p>
 			</div>
 		</section>

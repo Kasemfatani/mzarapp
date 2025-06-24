@@ -18,30 +18,45 @@ const storyImages = [
 	"/shared-image4.jpg",
 ];
 
-// Data for the feature cards
-const featureCards = [
-	{
-		title: "عنوان الميزة",
-		description: "هو نص نائب شائع يستخدم لإظهار العناصر الرسومية في مستند أو عرض مرئي.",
-		icon: "/card-icon.png",
-	},
-	{
-		title: "عنوان الميزة",
-		description: "هو نص نائب شائع يستخدم لإظهار العناصر الرسومية في مستند أو عرض مرئي.",
-		icon: "/card-icon.png",
-	},
-	{
-		title: "عنوان الميزة",
-		description: "هو نص نائب شائع يستخدم لإظهار العناصر الرسومية في مستند أو عرض مرئي.",
-		icon: "/card-icon.png",
-	},
-];
-
-
-export const PromoCode = () => {
+export const PromoCode = ({ language }) => {
 	const [activeIndex, setActiveIndex] = useState(0);
 	const swiperRef = useRef(null);
 	const SLIDE_DELAY = 3500;
+
+	const featureCards = language === 'ar'
+		? [
+			{
+				title: "عنوان الميزة",
+				description: "هو نص نائب شائع يستخدم لإظهار العناصر الرسومية في مستند أو عرض مرئي.",
+				icon: "/card-icon.png",
+			},
+			{
+				title: "عنوان الميزة",
+				description: "هو نص نائب شائع يستخدم لإظهار العناصر الرسومية في مستند أو عرض مرئي.",
+				icon: "/card-icon.png",
+			},
+			{
+				title: "عنوان الميزة",
+				description: "هو نص نائب شائع يستخدم لإظهار العناصر الرسومية في مستند أو عرض مرئي.",
+				icon: "/card-icon.png",
+			},
+		] : [
+			{
+				title: "Feature Title",
+				description: "This is common placeholder text used to display graphic elements in a document or visual presentation.",
+				icon: "/card-icon.png",
+			},
+			{
+				title: "Feature Title",
+				description: "This is common placeholder text used to display graphic elements in a document or visual presentation.",
+				icon: "/card-icon.png",
+			},
+			{
+				title: "Feature Title",
+				description: "This is common placeholder text used to display graphic elements in a document or visual presentation.",
+				icon: "/card-icon.png",
+			},
+		];
 
 	return (
 		<section className="w-full lg:h-screen overflow-hidden">
@@ -51,10 +66,10 @@ export const PromoCode = () => {
 					{/* Text and Cards */}
 					<div className="features w-full md:flex-1">
 						<h1 className="text-3xl sm:text-4xl lg:text-3xl font-bold leading-tight tracking-tight">
-							ميزات الواقع المعزز
+							{language === 'ar' ? 'ميزات الواقع المعزز' : 'Augmented Reality Features'}
 						</h1>
 						<p className="mt-6 md:mt-8 text-base sm:text-lg lg:text-sm">
-							هو نص نائب شائع يستخدم لإظهار العناصر الرسومية في مستند أو عرض مرئي.
+							{language === 'ar' ? 'هو نص نائب شائع يستخدم لإظهار العناصر الرسومية في مستند أو عرض مرئي.' : 'This is common placeholder text used to display graphic elements in a document or visual presentation.'}
 						</p>
 
 						<div className="grid grid-cols-1 sm:grid-cols-2 gap-6 lg:gap-4 mt-12">
@@ -86,7 +101,7 @@ export const PromoCode = () => {
 										alt="Promo code icon"
 									/>
 									<CardTitle className="text-2xl lg:text-lg font-bold">
-										الرمز الترويجي
+										{language === 'ar' ? 'الرمز الترويجي' : 'Promo Code'}
 									</CardTitle>
 								</CardHeader>
 							</Card>
@@ -121,6 +136,7 @@ export const PromoCode = () => {
 
 							<CardContent className="p-0 flex justify-center w-full overflow-hidden">
 								<Swiper
+									key={language}
 									spaceBetween={50}
 									slidesPerView={1}
 									loop={true}
