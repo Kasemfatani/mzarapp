@@ -22,41 +22,53 @@ export const PromoCode = ({ language }) => {
 		language === "ar"
 			? [
 					{
-						title: "عنوان الميزة",
+						title: "رحلة قصصية عبر التاريخ المكي ",
 						description:
-							"هو نص نائب شائع يستخدم لإظهار العناصر الرسومية في مستند أو عرض مرئي.",
+							"انغمس في قصص الأماكن المقدسة من نافذتك، بتقنيات عرض تفاعلية تمزج بين الماضي والحاضر.",
 						icon: "/card-icon.png",
 					},
 					{
-						title: "عنوان الميزة",
+						title: "استكشاف المواقع التاريخية بتقنية الواقع المعزز ",
 						description:
-							"هو نص نائب شائع يستخدم لإظهار العناصر الرسومية في مستند أو عرض مرئي.",
+							"شاهد المواقع كما كانت عليه قديماً، وتعرّف على أسرارها بطريقة إبداعية ومشوقة. ",
 						icon: "/card-icon.png",
 					},
 					{
-						title: "عنوان الميزة",
+						title: "محتوى نصي وصوتي بـ 6 لغات",
 						description:
-							"هو نص نائب شائع يستخدم لإظهار العناصر الرسومية في مستند أو عرض مرئي.",
+							"استمع أو اقرأ القصص باللغات العالمية، لتجربة تلائم الزوار من جميع الخلفيات. ",
+						icon: "/card-icon.png",
+					},
+					{
+						title: "سهولة الاستخدام دون مغادرة موقعك",
+						description:
+							"من غرفتك، أو طاولتك، تبدأ رحلتك الروحانية بثوانٍ فقط. ",
 						icon: "/card-icon.png",
 					},
 			  ]
 			: [
 					{
-						title: "Feature Title",
+						title: "A Storytelling Journey Through Makkah's History",
 						description:
-							"This is common placeholder text used to display graphic elements in a document or visual presentation.",
+							"Dive into the stories of the sacred sites from your window, with interactive displays that blend the past and the present.",
 						icon: "/card-icon.png",
 					},
 					{
-						title: "Feature Title",
+						title: "Explore Historic Landmarks with Augmented Reality",
 						description:
-							"This is common placeholder text used to display graphic elements in a document or visual presentation.",
+							"See the sites as they once were, and uncover their secrets in a creative and engaging way.",
 						icon: "/card-icon.png",
 					},
 					{
-						title: "Feature Title",
+						title: "Audio and Text Content in 6 Languages",
 						description:
-							"This is common placeholder text used to display graphic elements in a document or visual presentation.",
+							"Listen to or read the stories in multiple world languages, offering an experience tailored to visitors from diverse backgrounds. ",
+						icon: "/card-icon.png",
+					},
+					{
+						title: "Easy to Use Without Leaving Your Location",
+						description:
+							"Start your spiritual journey in seconds—from your room, your desk, or anywhere you are. ",
 						icon: "/card-icon.png",
 					},
 			  ];
@@ -69,14 +81,14 @@ export const PromoCode = ({ language }) => {
 					<div className="features w-full  lg:w-[55%]">
 						<h1 className="text-4xl sm:text-5xl lg:text-4xl font-bold leading-tight tracking-tight">
 							{language === "ar"
-								? "ميزات الواقع المعزز"
-								: "Augmented Reality Features"}
+								? "ميزات الواقع المعزز : "
+								: "Augmented Reality Features :"}
 						</h1>
-						<p className="mt-6 md:mt-6 text-lg sm:text-xl lg:text-base">
+						{/* <p className="mt-6 md:mt-6 text-lg sm:text-xl lg:text-base">
 							{language === "ar"
 								? "هو نص نائب شائع يستخدم لإظهار العناصر الرسومية في مستند أو عرض مرئي."
 								: "This is common placeholder text used to display graphic elements in a document or visual presentation."}
-						</p>
+						</p> */}
 
 						<div className="grid grid-cols-1 sm:grid-cols-2 gap-6 lg:gap-4 mt-8">
 							{featureCards.map((card, index) => (
@@ -106,21 +118,22 @@ export const PromoCode = ({ language }) => {
 								{/* Content wrapper */}
 								<div className="relative z-10">
 									<CardHeader className="lg:px-6 lg:py-3">
-										<img
+										{/* <img
 											src="/promo-icon.png"
 											className="mb-4 w-[40px] h-[40px] lg:w-[32px] lg:h-[32px]"
 											alt="Promo code icon"
-										/>
-										<CardTitle className="text-3xl lg:text-xl font-bold">
-											{language === "ar" ? "الرمز الترويجي" : "Promo Code"}
+										/> */}
+										<CardTitle className="text-center text-xl leading-tight tracking-tight">
+										{language === "ar"
+												? "يمكنك الاستفادة من الرمز الترويجي التالي: "
+												: "You can use the following promo code:"} 
 										</CardTitle>
 									</CardHeader>
 									<CardContent>
-										<p className="text-base leading-tight tracking-tight">
-											{language === "ar"
-												? "هو نص نائب شائع يستخدم لإظهار العناصر الرسومية في مستند أو عرض مرئي"
-												: "This is common placeholder text used to display graphic elements in a document or visual presentation."}
+										<p className="text-center text-3xl  font-bold">
+											SJQ
 										</p>
+										
 									</CardContent>
 								</div>
 							</Card>

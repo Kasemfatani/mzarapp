@@ -36,22 +36,27 @@ export const HeroSection = ({ language, setLanguage }) => {
 					</button>
 				</div>
 
-				{/* Main content, takes remaining space and centers its children */}
+				
 				<div className="flex-grow flex flex-col md:flex-row justify-center lg:justify-between items-center gap-5 w-full mt-8 md:mt-0">
 					<div
 						className="flex flex-col justify-center items-center
  my-auto text-center">
 						<div className="font-semibold">
-							<h1 className="text-white text-3xl md:text-5xl lg:text-6xl text-wrap">
+						<p className="text-white text-3xl md:text-4xl lg:text-5xl font-bold text-wrap mb-8">
 								{language === "ar"
-									? "استمتع بتجربة الواقع"
-									: "Enjoy the Augmented Reality"}
-							</h1>
-							<h1 className="text-white text-3xl md:text-5xl lg:text-6xl text-wrap mt-6">
+									? "اكتشف مكة كما لم ترها من قبل! "
+									: "Discover Makkah Like Never Before!"}
+							</p>
+							<p className="text-white text-xl md:text-3xl lg:text-4xl text-wrap">
 								{language === "ar"
-									? "المعزز في تطبيق مزار"
-									: " Experience in Mzar App"}
-							</h1>
+									? "استمتع بتجربة الواقع المعزز من مزار"
+									: "Experience the sacred city through Mzar's Augmented Reality,"}
+							</p>
+							<p className="text-white text-xl md:text-3xl lg:text-4xl text-wrap mt-6">
+								{language === "ar"
+									? "الآن من نافذتك المطلة على أقدس مكان على وجه الأرض. "
+									: "Now from your window overlooking the holiest place on earth."}
+							</p>
 							<br />
 						</div>
 						<DownloadButtons language={language} />
