@@ -8,9 +8,9 @@ import { Autoplay } from "swiper/modules";
 import "swiper/css";
 
 const storyImages = [
-	"/shared-image2.jpg",
-	"/shared-image3.jpg",
-	"/shared-image4.jpg",
+	"/Phone-1.png",
+	"/Phone-2.png",
+	"/Phone-3.png",
 ];
 
 export const PromoCode = ({ language }) => {
@@ -111,9 +111,9 @@ export const PromoCode = ({ language }) => {
 								</Card>
 							))}
 
-							<Card className="relative bg-cover bg-center bg-[url('/promo-bg.png')] text-white w-full shadow-lg overflow-hidden">
+							<Card className="bg-[#1AC5BD] text-white w-full shadow-lg overflow-hidden">
 								{/* Overlay with blur and dark tint */}
-								<div className="absolute inset-0 bg-black bg-opacity-40 backdrop-blur-[1px] z-0"></div>
+								{/* <div className="absolute inset-0 bg-black bg-opacity-45 backdrop-blur-[1px] z-0"></div> */}
 
 								{/* Content wrapper */}
 								<div className="relative z-10">

@@ -11,7 +11,7 @@ export const HeroSection = ({ language, setLanguage }) => {
 	};
 
 	return (
-		<section className="relative w-full min-[1025px]:h-screen overflow-hidden bg-cover bg-center bg-[url('/banner_2.png')]">
+		<section className="relative w-full min-[1025px]:h-screen overflow-hidden bg-cover bg-center bg-[url('/Banner.svg')]">
 			<div className="relative z-10 w-full h-full px-4 sm:px-6 md:px-10 lg:px-[66px] py-6 sm:py-8 md:py-10 lg:py-[57px] flex flex-col">
 				{/* Header for the language switcher */}
 				<div
