@@ -1406,6 +1406,7 @@ footer .footer-cont .social {
     flex-direction: column;
     align-items: flex-start;
     gap: 20px;
+    
   }
 }
 .path .pathHead .t-title {
@@ -1416,7 +1417,7 @@ footer .footer-cont .social {
 .path .pathHead .t-title .t {
   display: flex;
   align-items: center;
-  gap: 10px;
+  /* gap: 10px; */
   flex-wrap: wrap;
 }
 .path .pathHead .t-title .t h5 {
