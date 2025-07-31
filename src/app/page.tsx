@@ -11,6 +11,8 @@ import Gallery from '../components/home/Gallery';
 import Content from '../components/home/Content';
 import Latest from '../components/home/Latest';
 import Confiemed from '../components/home/Confirmed';
+import  DownloadAppSection from '../components/home/DownloadAppSection.jsx';
+
 export default function Home() {
   const [lang, setLang] = useState('en');
   useEffect(() => {
@@ -33,6 +35,7 @@ export default function Home() {
       {/* <Parteners/> */}
       <Confiemed/>
       <Paths></Paths>
+      <DownloadAppSection />
       <Explore/>
       <Gallery/>
       <About></About>
