@@ -16,7 +16,7 @@ export default function DownloadAppSection() {
 			className="relative w-full min-h-[420px] flex items-center bg-cover bg-center bg-[url('/DownloadAppSection-bg.png')] mb-10"
       dir={language === "ar" ? "rtl" : "ltr"}
 		>
-			{/* <div className="absolute inset-0 bg-black/40"></div> */}
+			<div className="absolute inset-0 bg-white/60"></div>
 			<div className="relative z-10 container m-auto flex flex-col md:flex-row items-center justify-between py-10 gap-8">
 				{/* Left: Text & Buttons */}
 				<div className="flex-1 flex flex-col items-start gap-6 max-w-lg">
