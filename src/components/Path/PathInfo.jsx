@@ -26,7 +26,7 @@ export default function PathInfo(pathData) {
 			setLanguage(localStorage.getItem("lang") || "en");
 		}
 	}, []);
-	console.log("check data is most ordered", data.most_ordered);
+	// console.log("check rating_api", data.rating_api);
 	return (
 		<>
 			<div className="container m-auto path">
@@ -49,13 +49,13 @@ export default function PathInfo(pathData) {
 						{/* <p className='desc'>{pathData.data.description}</p> */}
 					</div>
 					<div className=" min-[600px]:self-end">
-						<StarRating rating={4.9} outOf={5} />
+						<StarRating rating={Number(data.rating_api).toFixed(1)} outOf={5} />
 					</div>
 				</div>
 				<div className="pathdata">
 					<div className="imgs w-full">
 						<div className="imgs-grid">
-							{data.package_images.map((img, index) => (
+							{data?.package_images.map((img, index) => (
 								<div className="img-cont" key={index}>
 									{index == 2 ? (
 										<Image

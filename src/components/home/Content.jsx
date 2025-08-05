@@ -9,6 +9,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import Loading from '@/app/loading';
 import axios from 'axios';
+import parse from 'html-react-parser';
 import { API_BASE_URL } from '@/lib/apiConfig';
 export default function Content() {
 
@@ -109,7 +110,7 @@ export default function Content() {
                                                         <div className="overlay"></div>
                                                     </div>
                                                     <h4>{path.title}</h4>
-                                                    <p>{path.description}</p>
+                                                    <p>{parse(path.description)}</p>
                                                     <div className="date-book">
                                                         <div className="date">
                                                             <i className="fa-regular fa-calendar-days"></i>

@@ -17,56 +17,69 @@ import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
 
 export default function Paths() {
-	const [loading, setLoading] = useState(true); // State for loading indicator
+	const [loading, setLoading] = useState(true);
 	const [data, setData] = useState(null);
 	const [error, setError] = useState(null);
-	const [language, setLanguage] = useState("en"); // Default language is 'en'
+	const [language, setLanguage] = useState("en");
 	const [selectedFilter, setSelectedFilter] = useState("all");
-	const filters = [
-		{ key: "all", label: language === "ar" ? "الكل" : "All", icon: null },
-		{
-			key: "makkah",
-			label: language === "ar" ? "مكة" : "Makkah",
-			icon: (
-				<span role="img" aria-label="icon">
-					🕋
-				</span>
-			),
-		},
-		{
-			key: "madinah",
-			label: language === "ar" ? "المدينة" : "AL Madinah AL Munawwarah",
-			icon: (
-				<span role="img" aria-label="icon">
-					🕌
-				</span>
-			),
-		},
-	];
+	const [filters, setFilters] = useState([
+		{ key: "all", label: "All", icon: null },
+	]);
+
 	useEffect(() => {
 		setLoading(true);
 		if (typeof window !== "undefined") {
-			setLanguage(localStorage.getItem("lang"));
-			// Define the headers with the selected language
-			const headers = {
-				lang: localStorage.getItem("lang"), // Change language dynamically based on state
-			};
-			// Fetch data from the API with Axios
+			const lang = localStorage.getItem("lang") || "en";
+			setLanguage(lang);
+			const headers = { lang };
+
+			// Fetch filters (cities)
 			axios
-				.get(`${API_BASE_URL}/landing/home/packages`, {
-					headers: headers,
-				})
+				.get(`${API_BASE_URL}/landing/home/cities`, { headers })
 				.then((response) => {
-					setData(response.data); // Set the response data to state
-					setLoading(false); // Set loading to false
+					const cityFilters = response.data.map((city) => ({
+						key: city.id,
+						label: city.name,
+						icon:
+							city.name.includes("مكة") || city.name.toLowerCase().includes("makkah")
+								? (
+									<span role="img" aria-label="icon">🕋</span>
+								)
+								: city.name.includes("مدينة") || city.name.toLowerCase().includes("madinah")
+								? (
+									<span role="img" aria-label="icon">🕌</span>
+								)
+								: null
+					}));
+					setFilters([
+						{
+							key: "all",
+							label: lang === "ar" ? "الكل" : "All",
+							icon: null
+						},
+						...cityFilters
+					]);
 				})
 				.catch((error) => {
-					setError(error); // Handle any errors
+					console.error("Error fetching filters:", error);
+				});
+
+			// Fetch packages
+			axios
+				.get(`${API_BASE_URL}/landing/home/packages`, { headers })
+				.then((response) => {
+					setData(response.data);
+					console.log("Fetched packages data:", response.data);
+					
+					setLoading(false);
+				})
+				.catch((error) => {
+					setError(error);
 					console.error("Error fetching data:", error);
 					setLoading(false);
 				});
 		}
-	}, []); // Run this effect whenever the `language` changes
+	}, []);
 	const ReviewCard = ({ cover, name }) => {
 		return (
 			<figure className={cn()}>
@@ -79,6 +92,12 @@ export default function Paths() {
 			</figure>
 		);
 	};
+	const filteredPackages =
+  selectedFilter === "all"
+    ? data?.data.packages
+    : data?.data.packages.filter((path) => path.city_id === Number(selectedFilter));
+		console.log("Filtered packages:", filteredPackages);
+		
 	return (
 		<div
 			className="paths container m-auto"
@@ -141,7 +160,7 @@ export default function Paths() {
 						},
 					}}
 				>
-					{data?.data.packages.map((path) => (
+					{filteredPackages?.map((path) => (
 						<SwiperSlide key={path.id}>
 							<div className="path-card">
 								<div className="img-cont">
