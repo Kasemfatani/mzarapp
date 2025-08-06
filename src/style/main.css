@@ -2813,7 +2813,7 @@ button {
   font-size: 24px;
   font-weight: 400;
   color: #5A5A5A;
-  margin-bottom: 40px;
+  /* margin-bottom: 40px; */
 }
 .gallery .tabs {
   width: -moz-fit-content;
