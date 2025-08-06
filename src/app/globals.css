@@ -94,6 +94,54 @@ a {
   font-family: 'DM Serif Display', serif !important;
   cursor: pointer;
 }
+
+/* Custom swiper Styles for .path-swiper */
+
+.custom-swiper-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 24px;
+}
+.custom-prev,
+.custom-next {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #d1d5db;
+  color: #fff;
+  font-size: 2rem;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s;
+  cursor: pointer;
+}
+.custom-prev:hover,
+.custom-next:hover {
+  background: #025ab4;
+}
+.custom-bullet {
+  width: 26px;
+  height: 11px;
+  background: #d1d5db;
+  border-radius: 11px;
+  border: none;
+  margin: 0 4px;
+  transition: background 0.3s, width 0.3s;
+  cursor: pointer;
+}
+.custom-bullet.active {
+  background: #025ab4;
+  width: 39px;
+}
+
+
+/* end of Custom Swiper Styles for .path-swiper*/
+
+
 .customInput {
   @apply shadow-none border-2 px-3 py-10 text-xl placeholder:text-slate-400 outline-primaryColor ring-offset-0 focus:border-none ring-0 !important;
 }

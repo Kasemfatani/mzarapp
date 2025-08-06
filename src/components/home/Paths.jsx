@@ -15,6 +15,7 @@ import img2 from "/public/conf/10.svg";
 import Marquee from "../ui/marquee";
 import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
+import { useRef } from "react";
 
 export default function Paths() {
 	const [loading, setLoading] = useState(true);
@@ -25,6 +26,8 @@ export default function Paths() {
 	const [filters, setFilters] = useState([
 		{ key: "all", label: "All", icon: null },
 	]);
+	const [swiper, setSwiper] = useState(null);
+	const [activeIndex, setActiveIndex] = useState(0);
 
 	useEffect(() => {
 		setLoading(true);
@@ -41,23 +44,25 @@ export default function Paths() {
 						key: city.id,
 						label: city.name,
 						icon:
-							city.name.includes("مكة") || city.name.toLowerCase().includes("makkah")
-								? (
-									<span role="img" aria-label="icon">🕋</span>
-								)
-								: city.name.includes("مدينة") || city.name.toLowerCase().includes("madinah")
-								? (
-									<span role="img" aria-label="icon">🕌</span>
-								)
-								: null
+							city.name.includes("مكة") ||
+							city.name.toLowerCase().includes("makkah") ? (
+								<span role="img" aria-label="icon">
+									🕋
+								</span>
+							) : city.name.includes("مدينة") ||
+							  city.name.toLowerCase().includes("madinah") ? (
+								<span role="img" aria-label="icon">
+									🕌
+								</span>
+							) : null,
 					}));
 					setFilters([
 						{
 							key: "all",
 							label: lang === "ar" ? "الكل" : "All",
-							icon: null
+							icon: null,
 						},
-						...cityFilters
+						...cityFilters,
 					]);
 				})
 				.catch((error) => {
@@ -70,7 +75,7 @@ export default function Paths() {
 				.then((response) => {
 					setData(response.data);
 					console.log("Fetched packages data:", response.data);
-					
+
 					setLoading(false);
 				})
 				.catch((error) => {
@@ -93,11 +98,13 @@ export default function Paths() {
 		);
 	};
 	const filteredPackages =
-  selectedFilter === "all"
-    ? data?.data.packages
-    : data?.data.packages.filter((path) => path.city_id === Number(selectedFilter));
-		console.log("Filtered packages:", filteredPackages);
-		
+		selectedFilter === "all"
+			? data?.data.packages
+			: data?.data.packages.filter(
+					(path) => path.city_id === Number(selectedFilter)
+			  );
+	console.log("Filtered packages:", filteredPackages);
+
 	return (
 		<div
 			className="paths container m-auto"
@@ -114,9 +121,10 @@ export default function Paths() {
 						key={filter.key}
 						variant={selectedFilter === filter.key ? "default" : "outline"}
 						className={cn(
-                "flex items-center gap-2 rounded-full px-6 justify-center w-full",
-                selectedFilter === filter.key && "bg-[var(--main-color)] text-white hover:bg-[var(--sec-color)]"
-            )}
+							"flex items-center gap-2 rounded-full px-6 justify-center w-full",
+							selectedFilter === filter.key &&
+								"bg-[var(--main-color)] text-white hover:bg-[var(--sec-color)]"
+						)}
 						style={{ flex: 1 }} // Each button gets equal width
 						onClick={() => setSelectedFilter(filter.key)}
 					>
@@ -133,6 +141,10 @@ export default function Paths() {
 					slidesPerView={7.5}
 					autoplay={true}
 					loop={true}
+					pagination={false}
+					navigation={false}
+					onSwiper={setSwiper}
+					onSlideChange={(s) => setActiveIndex(s.realIndex)}
 					modules={[Autoplay, Navigation, Pagination]}
 					breakpoints={{
 						1400: {
@@ -214,6 +226,35 @@ export default function Paths() {
 						</SwiperSlide>
 					))}
 				</Swiper>
+				<div className="custom-swiper-controls">
+					<button
+						className="custom-prev"
+						onClick={() => swiper && swiper.slidePrev()}
+						disabled={!swiper}
+					>
+						&lt;
+					</button>
+					{filteredPackages?.map((_, idx) => (
+						<button
+							key={idx}
+							className={`custom-bullet ${activeIndex === idx ? "active" : ""}`}
+							onClick={() =>
+								swiper && swiper.slideToLoop
+									? swiper.slideToLoop(idx)
+									: swiper.slideTo(idx)
+							}
+							disabled={!swiper}
+						/>
+					))}
+					<button
+						className="custom-next"
+						onClick={() => swiper && swiper.slideNext()}
+						disabled={!swiper}
+					>
+						{" "}
+						&gt;
+					</button>
+				</div>
 			</div>
 		</div>
 	);
