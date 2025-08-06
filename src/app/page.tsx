@@ -12,6 +12,9 @@ import Content from "../components/home/Content";
 import Latest from "../components/home/Latest";
 import Confiemed from "../components/home/Confirmed";
 import DownloadAppSection from "../components/home/DownloadAppSection.jsx";
+
+import NewDestinations from "../components/home/NewDestinations";
+
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import axios from "axios";
@@ -111,6 +114,7 @@ export default function Home() {
                 <DownloadAppSection />
                 <Explore />
                 <Gallery />
+                <NewDestinations />
                 <About />
                 <AppExplore />
                 <Content />
