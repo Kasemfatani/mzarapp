@@ -91,14 +91,13 @@ export default function HeroSection() {
 					}}
 				>
 					<div className="container m-auto flex flex-col  justify-center  h-full text-white">
-						<h1 className="text-5xl font-bold mb-5">Gallery</h1>
+						<h1 className="text-5xl font-bold mb-5">
+							{language === "ar" ? "المعرض" : "Gallery"}
+						</h1>
 						<p className="w-[80%] md:w-[60%]">
-							Lorem Ipsum is simply dummy text of the printing and typesetting
-							industry. Lorem Ipsum has been the industry's standard dummy text
-							ever since the 1500s, when an unknown printer took a galley of
-							type and scrambled it to make a type specimen book. It has
-							survived not only five centuries, but also the leap into
-							electronic typesetting
+							{language === "ar"
+								? "استكشف أجمل اللحظات والذكريات من رحلاتنا الدينية إلى مكة المكرمة والمدينة المنورة وغيرها من الأماكن المقدسة. يضم هذا المعرض صورًا توثق روحانية الرحلة وتجارب الزوار في أجواء إيمانية فريدة."
+								: "Explore the most beautiful moments and memories from our journeys to Makkah, Madinah, and other sacred sites. This gallery features photos capturing the spirituality of the trips and the unique experiences of the visitors."}
 						</p>
 					</div>
 				</div>

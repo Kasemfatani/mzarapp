@@ -64,7 +64,8 @@ export default function Content() {
                     data?.length > 0 ?
                         <div className="content" style={{ direction: `${language === 'ar' ? 'rtl' : 'ltr'}` }} id='blogs'>
                             <div className="container m-auto">
-                                <h3>{language === 'en' ? 'Blogs' : 'المقالات'}</h3>
+                                <h3 className="!mb-2">{language === 'en' ? 'Blogs' : 'المقالات'}</h3>
+                                <p className='px-4 mb-3'>{language === 'en' ? 'Read and enjoy historical and religious stories' : 'اقرأ واستمتع بالحكايات التاريخية والدينية '}</p>
                                 <div className="path-swiper w-full" >
                                     <Swiper
                                         // navigation

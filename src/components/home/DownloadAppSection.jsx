@@ -17,18 +17,18 @@ export default function DownloadAppSection() {
       dir={language === "ar" ? "rtl" : "ltr"}
 		>
 			<div className="absolute inset-0 bg-white/60"></div>
-			<div className="relative z-10 container m-auto flex flex-col md:flex-row items-center justify-between py-10 gap-8">
+			<div className="relative z-10 container m-auto flex flex-col md:flex-row items-center justify-evenly py-10 gap-8">
 				{/* Left: Text & Buttons */}
 				<div className="flex-1 flex flex-col items-start gap-6 max-w-lg">
 					<h2 className="text-4xl font-bold text-black">
 						{language === "ar"
-      ? "لوريم إيبسوم هو ببساطة نص شكلي"
-      : "Lorem Ipsum is simply dummy"}
+      ? "تجربة تنقلك عبر الزمن"
+      : "Step Into the Past "}
 					</h2>
 					<p className="text-lg text-black/90">
 						{language === "ar"
-      ? "لوريم إيبسوم هو ببساطة نص شكلي يستخدم في صناعة الطباعة والتنضيد."
-      : "Lorem Ipsum is simply dummy text of the printing and typesetting industry."}
+      ? "اكتشف التاريخ من خلال تقنية الواقع المعزز"
+      : "Relive History with Augmented Reality "}
 					</p>
 					 {/* <button className="flex items-center gap-2 bg-[var(--main-color,#025AB4)] text-white font-semibold px-6 py-3 rounded-lg shadow hover:bg-blue-700 transition">
             Download app

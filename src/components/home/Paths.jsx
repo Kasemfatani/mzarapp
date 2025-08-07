@@ -172,59 +172,83 @@ export default function Paths() {
 						},
 					}}
 				>
-					{filteredPackages?.map((path) => (
-						<SwiperSlide key={path.id}>
-							<div className="path-card">
-								<div className="img-cont">
-									<div className="overlay">
-										{/* <div className="auth">
+					{filteredPackages?.map((path) => {
+						// Find the city label by matching city_id with filters (skip "all")
+						const city = filters.find(
+							(f) => f.key !== "all" && Number(f.key) === path.city_id
+						);
+						return (
+							<SwiperSlide key={path.id}>
+								<div className="path-card">
+									<div className="img-cont">
+										<div className="overlay">
+											{/* <div className="auth">
                                             <h4>{language === 'en' ? 'Autorized by' : 'معتمد من'} </h4>
                                             <Image src={img2} alt="Mazar" width={100} height={100} />
                                         </div> */}
-										{path.most_ordered ? (
-											<div className="most-ordered">
-												{language === "en" ? "Most Ordered" : "الاكثر طلبا"}{" "}
-											</div>
-										) : null}
+											{path.most_ordered ? (
+												<div className="most-ordered">
+													{language === "en" ? "Most Ordered" : "الاكثر طلبا"}{" "}
+												</div>
+											) : null}
+										</div>
+										<Image
+											src={path.cover}
+											alt={`${path.name} image`}
+											className="path-img"
+											width={300}
+											height={300}
+										/>
 									</div>
-									<Image
-										src={path.cover}
-										alt={`${path.name} image`}
-										className="path-img"
-										width={300}
-										height={300}
-									/>
+									{/* City name */}
+									{city && (
+										<div className="city-label text-xs text-gray-500 mb-1 flex items-center gap-1" style={{
+											direction: `${language === "ar" ? "rtl" : "ltr"}`,
+										}}>
+											{/* Use city.icon if available, otherwise a default location icon */}
+											{city.icon ? (
+												city.icon
+											) : (
+												<span role="img" aria-label="location">
+													📍
+												</span>
+											)}
+											{city.label}
+										</div>
+									)}
+									<h3 className={`${language === "ar" ? "rtl" : "ltr"}`}>
+										{path.name}{" "}
+									</h3>
+									<div
+										className="path-duration"
+										style={{
+											direction: `${language === "ar" ? "rtl" : "ltr"}`,
+										}}
+									>
+										{language === "en" ? "Duration" : "مدة الرحلة"} :{" "}
+										{path.duration}
+									</div>
+									<p className={`${language === "ar" ? "rtl" : "ltr"}`}>
+										{path.short_description}
+									</p>
+									<div className="small-imgs-slider w-full" dir="ltr">
+										<Marquee reverse pauseOnHover className="[--duration:20s]">
+											{path.locations.map((review, index) => (
+												<ReviewCard key={index} {...review} />
+											))}
+										</Marquee>
+									</div>
+									<Link
+										scroll={false}
+										href={`/path?id=${path.id}`}
+										className="view-detials"
+									>
+										{language === "en" ? "View Details" : "عرض التفاصيل"}{" "}
+									</Link>
 								</div>
-								<h3 className={`${language === "ar" ? "rtl" : "ltr"}`}>
-									{path.name}{" "}
-								</h3>
-								<div
-									className="path-duration"
-									style={{ direction: `${language === "ar" ? "rtl" : "ltr"}` }}
-								>
-									{language === "en" ? "Duration" : "مدة الرحلة"} :{" "}
-									{path.duration}
-								</div>
-								<p className={`${language === "ar" ? "rtl" : "ltr"}`}>
-									{path.short_description}
-								</p>
-								<div className="small-imgs-slider w-full" dir="ltr">
-									<Marquee reverse pauseOnHover className="[--duration:20s]">
-										{path.locations.map((review, index) => (
-											<ReviewCard key={index} {...review} />
-										))}
-									</Marquee>
-								</div>
-								<Link
-									scroll={false}
-									href={`/path?id=${path.id}`}
-									className="view-detials"
-								>
-									{language === "en" ? "View Details" : "عرض التفاصيل"}{" "}
-								</Link>
-							</div>
-						</SwiperSlide>
-					))}
+							</SwiperSlide>
+						);
+					})}
 				</Swiper>
 				<div className="custom-swiper-controls">
 					<button

@@ -24,44 +24,85 @@ import "swiper/css/pagination";
 const heroSlides = [
 	{
 		bg: hero.src,
-		h1: (
-			<>
-				Explore <span>Makkah</span> with us !
-			</>
-		),
-		p: "Your Makkah tour starts from here",
+		h1: {
+			en: (
+				<>
+					Explore <span>Makkah</span> with us !
+				</>
+			),
+			ar: (
+				<>
+					استكشف <span>مكة</span> معنا!
+				</>
+			),
+		},
+		p: {
+			en: "Your Makkah tour starts from here",
+			ar: "تبدأ جولتك في مكة من هنا",
+		},
 		iphones: iPhones,
 	},
 	{
-		bg: "https://images.unsplash.com/photo-1506744038136-46273834b3fb",
-		h1: (
-			<>
-				Discover <span>Medina</span> Wonders
-			</>
-		),
-		p: "Experience the beauty of Medina",
+		bg: "/madinah1.png",
+		h1: {
+			en: (
+				<>
+					Explore <span>Medina</span> with Us
+				</>
+			),
+			ar: (
+				<>
+					اكتشف <span>المدينة</span> معنا!
+				</>
+			),
+		},
+		p: {
+			en: "Your journey in Al-Madinah Al-Munawwarah starts here",
+			ar: "رحلتك في المدينة المنورة تبدأ من هنا",
+		},
 		iphones: "/DownloadAppSection-phones.png",
 	},
 	{
-		bg: "https://images.unsplash.com/photo-1465101046530-73398c7f28ca",
-		h1: (
-			<>
-				Unveil <span>History</span> in Riyadh
-			</>
-		),
-		p: "Journey through Riyadh's heritage",
+		bg: "/madinah2.jpeg",
+		h1: {
+			en: (
+				<>
+					Prophetic Tales and <span>Historical</span> Landmarks
+				</>
+			),
+			ar: (
+				<>
+					 حكايات نبوية وآثار <span>تاريخية</span>
+				</>
+			),
+		},
+		p: {
+			en: "Discover the history of Al-Madinah Al-Munawwarah",
+			ar: "استكشف تاريخ المدينة المنورة",
+		},
+		iphones: "/DownloadAppSection-phones.png",
+	},
+	{
+		bg: "/makkah2.png",
+		h1: {
+			en: (
+				<>
+					Discover  <span>Makkah</span> Al-Mukarramah 
+				</>
+			),
+			ar: (
+				<>
+					اكتشف <span>مكة</span> المكرمة
+				</>
+			),
+		},
+		p: {
+			en: "Highlighting the most significant religious, historical, and cultural landmarks",
+			ar: "أبرز المعالم الدينية والتاريخية والثقافية",
+		},
 		iphones: iPhonesAr,
 	},
-	{
-		bg: "https://images.unsplash.com/photo-1506744038136-46273834b3fb",
-		h1: (
-			<>
-				Adventure in <span>Jeddah</span>
-			</>
-		),
-		p: "Start your Red Sea adventure",
-		iphones: "/DownloadAppSection-phones.png",
-	},
+	
 ];
 
 export default function Hero() {
@@ -125,9 +166,9 @@ export default function Hero() {
 								<div className="relative">
 									<div className=" bg-black/50 overlay">
 										<div className="welcome container m-auto">
-											<div className="hero-text">
-												<h1>{slide.h1}</h1>
-												<p>{slide.p}</p>
+											<div className="hero-text md:w-[60%]">
+												<h1>{slide.h1[language === "ar" ? "ar" : "en"]}</h1>
+												<p className="text-start">{slide.p[language === "ar" ? "ar" : "en"]}</p>
 												<Link href="/#paths" className="hero-book-btn">
 													{language === "en" ? "Book Now" : "احجز الان"}
 												</Link>
@@ -136,7 +177,7 @@ export default function Hero() {
 												<Image
 													src={slide.iphones}
 													alt="Mazar"
-													className="iphones-img w-[300px] h-[300px]"
+													className="iphones-img w-[300px] h-[300px] "
 													width={300}
 													height={600}
 												/>

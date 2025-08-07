@@ -12,6 +12,23 @@ import img8 from "/public/gallery/8.png";
 import img9 from "/public/gallery/9.png";
 import img10 from "/public/gallery/10.png";
 // import img12 from '/public/gallery/bg.png';
+import img11 from "/public/gallery/11.png";
+import img12 from "/public/gallery/12.png";
+import img13 from "/public/gallery/13.png";
+import img14 from "/public/gallery/14.png";
+import img15 from "/public/gallery/15.png";
+import img16 from "/public/gallery/16.jpeg";
+import img17 from "/public/gallery/17.png";
+import img18 from "/public/gallery/18.png";
+import img19 from "/public/gallery/19.jpg";
+import img20 from "/public/gallery/20.jpg";
+import img21 from "/public/gallery/21.jpg";
+import img22 from "/public/gallery/22.jpg";
+import img23 from "/public/gallery/23.jpg";
+import img24 from "/public/gallery/24.png";
+import img25 from "/public/gallery/25.png";
+import img26 from "/public/gallery/26.png";
+import img27 from "/public/gallery/27.png";
 
 import { Fancybox } from "@fancyapps/ui";
 import "@fancyapps/ui/dist/fancybox/fancybox.css";
@@ -39,12 +56,46 @@ export default function GallerySection() {
 		{ url: img10, category: "photos" },
 		{ url: img4, category: "photos" },
 		{ url: img2, category: "photos" },
-		{ url: img7, category: "videos", video: "https://www.youtube.com/embed/ScMzIvxBSi4" }, // example video
+		{
+			url: img7,
+			category: "videos",
+			video: "https://www.youtube.com/embed/frw4Z53HxGc",
+		}, // example video
 		{ url: img8, category: "photos" },
-		{ url: img5, category: "videos", video: "https://www.youtube.com/embed/ScMzIvxBSi4" }, // example video
-		{ url: img6, category: "videos", video: "https://www.youtube.com/embed/ScMzIvxBSi4" }, // example video
-		{ url: img9, category: "videos", video: "https://www.youtube.com/embed/ScMzIvxBSi4" }, // example video
+		{
+			url: img5,
+			category: "videos",
+			video: "https://www.youtube.com/embed/frw4Z53HxGc",
+		}, // example video
+		{
+			url: img6,
+			category: "videos",
+			video: "https://www.youtube.com/embed/frw4Z53HxGc",
+		}, // example video
+		{
+			url: img9,
+			category: "videos",
+			video: "https://www.youtube.com/embed/frw4Z53HxGc",
+		}, // example video
 		// { url: img12, category: 'photos' },
+		// Add the rest as photos
+		{ url: img11, category: "photos" },
+		{ url: img12, category: "photos" },
+		{ url: img13, category: "photos" },
+		{ url: img14, category: "photos" },
+		{ url: img15, category: "photos" },
+		{ url: img16, category: "photos" },
+		{ url: img17, category: "photos" },
+		{ url: img18, category: "photos" },
+		{ url: img19, category: "photos" },
+		{ url: img20, category: "photos" },
+		{ url: img21, category: "photos" },
+		{ url: img22, category: "photos" },
+		{ url: img23, category: "photos" },
+		{ url: img24, category: "photos" },
+		{ url: img25, category: "photos" },
+		{ url: img26, category: "photos" },
+		{ url: img27, category: "photos" },
 	];
 	let [activeTab, setActiveTab] = useState("all");
 
@@ -129,10 +180,7 @@ export default function GallerySection() {
 															fill="black"
 															opacity="0.5"
 														/>
-														<polygon
-															points="20,16 34,24 20,32"
-															fill="white"
-														/>
+														<polygon points="20,16 34,24 20,32" fill="white" />
 													</svg>
 												</span>
 											</figure>

@@ -44,6 +44,7 @@ export default function Footer() { // Defining the main functional component nam
                         <Link href={'https://www.facebook.com/mzarapp'}><i className="fa-brands fa-facebook"></i></Link>
                         <Link href={'https://www.youtube.com/@mzarapp'}><i className="fa-brands fa-youtube"></i></Link>
                         <Link href={'https://www.tiktok.com/@mzarapp'}><i className="fa-brands fa-tiktok"></i></Link>
+                        <Link href={'https://www.linkedin.com/company/mzarapp'}><i className="fa-brands fa-linkedin"></i></Link>
                     </div>
                 </div>
             </div>

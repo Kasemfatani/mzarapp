@@ -27,7 +27,7 @@ export default function About() {
                     headers: headers,
                 }).then(response => {
                     setData(response.data);  // Set the response data to state
-
+                    // console.log('About Data:', response.data);
                 }).catch(error => {
                     setError(error);  // Handle any errors
                     console.error('Error fetching data:', error);
