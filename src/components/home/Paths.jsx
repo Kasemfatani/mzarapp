@@ -11,6 +11,8 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { API_BASE_URL } from "@/lib/apiConfig";
 import img2 from "/public/conf/10.svg";
+import makkahIcon from "/public/makkah-icon.png";
+import madinahIcon from "/public/madinah-icon.png";
 
 import Marquee from "../ui/marquee";
 import { cn } from "@/lib/utils";
@@ -46,14 +48,24 @@ export default function Paths() {
 						icon:
 							city.name.includes("مكة") ||
 							city.name.toLowerCase().includes("makkah") ? (
-								<span role="img" aria-label="icon">
-									🕋
-								</span>
+								<Image
+									src={makkahIcon}
+									alt="Makkah"
+									width={28}
+									height={28}
+									className="pb-[6px]"
+									style={{ display: "inline-block" }}
+								/>
 							) : city.name.includes("مدينة") ||
 							  city.name.toLowerCase().includes("madinah") ? (
-								<span role="img" aria-label="icon">
-									🕌
-								</span>
+								<Image
+									src={madinahIcon}
+									alt="Madinah"
+									width={28}
+									height={28}
+									className="pb-[6px]"
+									style={{ display: "inline-block" }}
+								/>
 							) : null,
 					}));
 					setFilters([
@@ -202,9 +214,12 @@ export default function Paths() {
 									</div>
 									{/* City name */}
 									{city && (
-										<div className="city-label text-xs text-gray-500 mb-1 flex items-center gap-1" style={{
-											direction: `${language === "ar" ? "rtl" : "ltr"}`,
-										}}>
+										<div
+											className="city-label text-xs text-gray-500 mb-1 flex items-center gap-1"
+											style={{
+												direction: `${language === "ar" ? "rtl" : "ltr"}`,
+											}}
+										>
 											{/* Use city.icon if available, otherwise a default location icon */}
 											{city.icon ? (
 												city.icon

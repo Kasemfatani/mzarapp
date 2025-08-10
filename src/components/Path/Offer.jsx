@@ -62,7 +62,7 @@ export default function Offer({ offerEndDate }) {
 			<span className="ohsol-span">
 				{language === "en"
 					? "Book Now And Get 20% Off"
-					: "احجز الان واحصل على خصم 20٪"}
+					: "احجز الآن واحصل على خصم 20٪"}
 			</span>
 			{!offerEnded && (
 				<div className="uper-header-counter">

@@ -39,12 +39,12 @@ export default function Footer() { // Defining the main functional component nam
                         <p>{language === 'en' ? 'Licensed by the Ministry of Tourism ,license number 73104705' : 'مرخصة من وزارة السياحة رقم الترخيص 73104705'}</p>
                     </div>
                     <div className="social">
-                        <Link href={'https://x.com/mzarapp'}><i className="fa-brands fa-x-twitter"></i></Link>
-                        <Link href={'https://www.instagram.com/mzarapp/'}><i className="fa-brands fa-instagram"></i></Link>
-                        <Link href={'https://www.facebook.com/mzarapp'}><i className="fa-brands fa-facebook"></i></Link>
-                        <Link href={'https://www.youtube.com/@mzarapp'}><i className="fa-brands fa-youtube"></i></Link>
-                        <Link href={'https://www.tiktok.com/@mzarapp'}><i className="fa-brands fa-tiktok"></i></Link>
-                        <Link href={'https://www.linkedin.com/company/mzarapp'}><i className="fa-brands fa-linkedin"></i></Link>
+                        <Link href={'https://x.com/mzarapp'} target='_blank'><i className="fa-brands fa-x-twitter"></i></Link>
+                        <Link href={'https://www.instagram.com/mzarapp/'} target='_blank'><i className="fa-brands fa-instagram"></i></Link>
+                        <Link href={'https://www.facebook.com/mzarapp'} target='_blank'><i className="fa-brands fa-facebook"></i></Link>
+                        <Link href={'https://www.youtube.com/@mzarapp'} target='_blank'><i className="fa-brands fa-youtube"></i></Link>
+                        <Link href={'https://www.tiktok.com/@mzarapp'} target='_blank'><i className="fa-brands fa-tiktok"></i></Link>
+                        <Link href={'https://www.linkedin.com/company/mzarapp'} target='_blank'><i className="fa-brands fa-linkedin"></i></Link>
                     </div>
                 </div>
             </div>

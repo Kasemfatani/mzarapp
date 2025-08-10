@@ -2690,7 +2690,7 @@ button {
 }
 .explore .overll .padg h3 {
   color: var(--white-color);
-  font-family: "--font-merriweather";
+  /* font-family: "--font-merriweather"; */
   font-size: 32px;
   font-weight: 700;
 }

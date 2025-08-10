@@ -39,8 +39,8 @@ export default function PathInfo(pathData) {
 										🔥
 									</span>
 									{language === "ar"
-										? "الرحلة الأكثر شهرة"
-										: "Most Popular Trip"}
+										? "الاكثر طلبا"
+										: "Most Ordered"}
 								</div>
 							)}
 
@@ -199,7 +199,7 @@ export default function PathInfo(pathData) {
 									</span>
 								</div>
 								<Link href={`/book-path?id=${data.id}`} className="book-link">
-									{language === "en" ? "Book Now" : "احجز الان"}
+									{language === "en" ? "Book Now" : "احجز الآن"}
 								</Link>
 							</div>
 						</div>

@@ -63,31 +63,11 @@ const heroSlides = [
 		iphones: "/DownloadAppSection-phones.png",
 	},
 	{
-		bg: "/madinah2.jpeg",
-		h1: {
-			en: (
-				<>
-					Prophetic Tales and <span>Historical</span> Landmarks
-				</>
-			),
-			ar: (
-				<>
-					 حكايات نبوية وآثار <span>تاريخية</span>
-				</>
-			),
-		},
-		p: {
-			en: "Discover the history of Al-Madinah Al-Munawwarah",
-			ar: "استكشف تاريخ المدينة المنورة",
-		},
-		iphones: "/DownloadAppSection-phones.png",
-	},
-	{
 		bg: "/makkah2.png",
 		h1: {
 			en: (
 				<>
-					Discover  <span>Makkah</span> Al-Mukarramah 
+					Discover <span>Makkah</span> Al-Mukarramah
 				</>
 			),
 			ar: (
@@ -102,7 +82,27 @@ const heroSlides = [
 		},
 		iphones: iPhonesAr,
 	},
-	
+
+	{
+		bg: "/madinah2.jpeg",
+		h1: {
+			en: (
+				<>
+					Prophetic Tales and <span>Historical</span> Landmarks
+				</>
+			),
+			ar: (
+				<>
+					حكايات نبوية وآثار <span>تاريخية</span>
+				</>
+			),
+		},
+		p: {
+			en: "Discover the history of Al-Madinah Al-Munawwarah",
+			ar: "استكشف تاريخ المدينة المنورة",
+		},
+		iphones: "/DownloadAppSection-phones.png",
+	},
 ];
 
 export default function Hero() {
@@ -168,9 +168,11 @@ export default function Hero() {
 										<div className="welcome container m-auto">
 											<div className="hero-text md:w-[60%]">
 												<h1>{slide.h1[language === "ar" ? "ar" : "en"]}</h1>
-												<p className="text-start">{slide.p[language === "ar" ? "ar" : "en"]}</p>
+												<p className="text-start">
+													{slide.p[language === "ar" ? "ar" : "en"]}
+												</p>
 												<Link href="/#paths" className="hero-book-btn">
-													{language === "en" ? "Book Now" : "احجز الان"}
+													{language === "en" ? "Book Now" : "احجز الآن"}
 												</Link>
 											</div>
 											<div className="iPhones">
@@ -183,31 +185,34 @@ export default function Hero() {
 												/>
 											</div>
 										</div>
-										<div className="features container m-auto">
-											{data?.data.map((feature, index) => (
-												<motion.div
-													initial={{ opacity: 0, y: -100 }}
-													whileInView={{ opacity: 1, y: 0 }}
-													transition={{
-														type: "spring",
-														bounce: 0.2,
-														duration: index + 1 * 0.3,
-													}}
-													key={index}
-													viewport={{ once: true }}
-													className="feature"
-												>
-													<Image
-														src={feature.icon}
-														alt="Mazar"
-														width={32}
-														height={32}
-														className=" h-8 w-auto "
-													/>
-													<p>{feature.title}</p>
-												</motion.div>
-											))}
-										</div>
+										{/* Only show features on the first slide */}
+										{idx === 0 && (
+											<div className="features container m-auto">
+												{data?.data.map((feature, index) => (
+													<motion.div
+														initial={{ opacity: 0, y: -100 }}
+														whileInView={{ opacity: 1, y: 0 }}
+														transition={{
+															type: "spring",
+															bounce: 0.2,
+															duration: index + 1 * 0.3,
+														}}
+														key={index}
+														viewport={{ once: true }}
+														className="feature"
+													>
+														<Image
+															src={feature.icon}
+															alt="Mazar"
+															width={32}
+															height={32}
+															className=" h-8 w-auto "
+														/>
+														<p>{feature.title}</p>
+													</motion.div>
+												))}
+											</div>
+										)}
 									</div>
 								</div>
 							</div>
