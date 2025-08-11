@@ -9,12 +9,21 @@ export default function HomePopup({ open, adData, lang, onDismiss }) {
 	return (
 		<Dialog open={open}>
 			<DialogContent className="p-0 bg-white rounded-2xl shadow-2xl overflow-visible">
-				<img
-					src="/popup-new.png"
-					alt="New"
-					className="absolute left-0 top-0 w-20 h-20 z-10 -translate-x-[8px] -translate-y-[8px]"
-					style={{ pointerEvents: "none" }}
-				/>
+				{lang === "ar" ? (
+					<img
+						src="/popup-new-ar.png"
+						alt="جديد"
+						className="absolute right-0 top-0 w-20 h-20 z-10 translate-x-[4px] -translate-y-[7px]"
+						style={{ pointerEvents: "none" }}
+					/>
+				) : (
+					<img
+						src="/popup-new.png"
+						alt="New"
+						className="absolute left-0 top-0 w-20 h-20 z-10 -translate-x-[7px] -translate-y-[7px]"
+						style={{ pointerEvents: "none" }}
+					/>
+				)}
 				<img
 					src={adData.image}
 					alt="New Trip"
