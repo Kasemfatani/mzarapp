@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import BlurFade from "../ui/blur-fade";
-import img1 from "/public/gallery/1.png";
+import img20 from "/public/gallery/20.jpg";
 import img2 from "/public/gallery/2.png";
 import img4 from "/public/gallery/4.png";
 import img5 from "/public/gallery/5.png";
@@ -10,7 +10,7 @@ import img6 from "/public/gallery/6.png";
 import img7 from "/public/gallery/7.png";
 import img8 from "/public/gallery/8.png";
 import img9 from "/public/gallery/9.png";
-import img10 from "/public/gallery/10.png";
+import img24 from "/public/gallery/24.png";
 // import img12 from '/public/gallery/bg.png';
 
 import { Fancybox } from "@fancyapps/ui";
@@ -37,8 +37,8 @@ export default function Parteners() {
 		// Your custom options
 	});
 	let imgs = [
-		{ url: img1, category: "photos" },
-		{ url: img10, category: "photos" },
+		{ url: img20, category: "photos" },
+		{ url: img24, category: "photos" },
 		{ url: img4, category: "photos" },
 		{ url: img2, category: "photos" },
 		{ url: img7, category: "videos" },
