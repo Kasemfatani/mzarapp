@@ -3064,7 +3064,7 @@ button {
   font-weight: 700;
 }
 .blog .description-cont * {
-  font-family: "NotoNaskhArabic", serif;
+  font-family: "NotoNaskhArabic", serif !important;
   text-align: justify !important;
 }
 .blog .description-cont span:has(.btn) {
