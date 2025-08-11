@@ -44,8 +44,12 @@ export default function NewDestinations() {
 			<div className="relative z-10 flex flex-col items-center text-center max-w-2xl mx-auto px-4">
 				<div className="flex items-center gap-4 mb-4">
 					<img
-						src="/NewDestinations-img.png"
-						alt="New"
+						src={
+							language === "ar"
+								? "/NewDestinations-img-ar.png"
+								: "/NewDestinations-img.png"
+						}
+						alt={language === "ar" ? "جديد" : "New"}
 						className="w-16 h-16"
 						style={{ objectFit: "contain" }}
 					/>
