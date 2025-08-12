@@ -14,14 +14,14 @@ export default function NewDestinations() {
 	// Texts for both languages
 	const texts = {
 		en: {
-			title: "Explore new destinations starting",
-			desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy",
-			button: "View Tours",
+			title: "Medina is the heart of prophetic history",
+			desc: "Embark on a spiritual journey through prophetic and historical landmarks, where the fragrant biography is evident in every corner.",
+			button: "Discover Now",
 		},
 		ar: {
-			title: "استكشف وجهات جديدة تبدأ",
-			desc: "لوريم إيبسوم هو ببساطة نص شكلي يستخدم في صناعة الطباعة والتنضيد. كان لوريم إيبسوم النص القياسي للصناعة.",
-			button: "عرض الجولات",
+			title: "المدينة المنورة قلب التاريخ النبوي",
+			desc: "انطلق في رحلة روحانية بين المعالم النبوية والتاريخية، حيث تتجلى السيرة العطرة في كل زاوية.",
+			button: "اكتشف الآن",
 		},
 	};
 
