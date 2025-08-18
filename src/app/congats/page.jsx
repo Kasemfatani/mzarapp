@@ -2,10 +2,10 @@
 import React, { useEffect , useState } from 'react';
 import doneImage from '/public/done.svg';
 import Image from 'next/image';
-import { useRouter, useSearchParams } from 'next/navigation';
+// import { useRouter, useSearchParams } from 'next/navigation';
 
 export default function Book() {
-    const searchParams = useSearchParams();  // Fixed variable name
+    // const searchParams = useSearchParams();  // Fixed variable name
     const [language, setLanguage] = useState("en");
     // const name = searchParams.get('name');
     // const phone = searchParams.get('phone');
@@ -45,11 +45,11 @@ export default function Book() {
 
      return (
         <div className="popup" dir={language === "ar" ? "rtl" : "ltr"}>
-            <div className="popup-cont">
+            {/* <div className="popup-cont">
                 <Image src={doneImage} alt="Mazar" className="img" />
                 <h2>{t.title}</h2>
                 <p>{t.desc}</p>
-            </div>
+            </div> */}
         </div>
     );
 }

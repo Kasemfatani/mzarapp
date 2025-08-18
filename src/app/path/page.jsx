@@ -5,54 +5,54 @@ import axios from "axios";
 import PathInfo from "../../components/Path/PathInfo";
 import Destinations from "../../components/Path/Destinations";
 import Riviews from "../../components/Path/Riviews";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+// import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Loading from "../loading";
 import { API_BASE_URL } from "@/lib/apiConfig";
 export default function Home() {
-	const searchParams = useSearchParams();
-	const [pathId, setPathId] = useState(searchParams.get("id"));
+	// const searchParams = useSearchParams();
+	// const [pathId, setPathId] = useState(searchParams.get("id"));
 	// const categoryId = searchParams.get('subId')
 	const [loading, setLoading] = useState(true); // State for loading indicator
 	const [data, setData] = useState(null);
 	const [error, setError] = useState(null);
 	const [language, setLanguage] = useState("en"); // Default language is 'en'
-	const pathname = usePathname();
+	// const pathname = usePathname();
 
-	useEffect(() => {
-		setLoading(true);
-		if (typeof window !== "undefined") {
-			// Define the headers with the selected language
-			setLanguage(localStorage.getItem("lang"));
-			const headers = {
-				lang: localStorage.getItem("lang"), // Change language dynamically based on state
-			};
-			// Fetch data from the API with Axios
-			axios
-				.get(
-					`${API_BASE_URL}/landing/home/packages/details?package_id=${pathId}`,
-					{
-						headers: headers,
-					}
-				)
-				.then((response) => {
-					setData(response.data); // Set the response data to state
-					setLoading(false); // Set loading to false
-					document.title = response.data.name;
-				})
-				.catch((error) => {
-					setError(error); // Handle any errors
-					console.error("Error fetching data:", error);
-					setLoading(false);
-				});
-		}
-	}, []); // Run this effect whenever the `language` changes
-	const router = useRouter();
+	// useEffect(() => {
+	// 	setLoading(true);
+	// 	if (typeof window !== "undefined") {
+	// 		// Define the headers with the selected language
+	// 		setLanguage(localStorage.getItem("lang"));
+	// 		const headers = {
+	// 			lang: localStorage.getItem("lang"), // Change language dynamically based on state
+	// 		};
+	// 		// Fetch data from the API with Axios
+	// 		axios
+	// 			.get(
+	// 				`${API_BASE_URL}/landing/home/packages/details?package_id=${pathId}`,
+	// 				{
+	// 					headers: headers,
+	// 				}
+	// 			)
+	// 			.then((response) => {
+	// 				setData(response.data); // Set the response data to state
+	// 				setLoading(false); // Set loading to false
+	// 				document.title = response.data.name;
+	// 			})
+	// 			.catch((error) => {
+	// 				setError(error); // Handle any errors
+	// 				console.error("Error fetching data:", error);
+	// 				setLoading(false);
+	// 			});
+	// 	}
+	// }, []); // Run this effect whenever the `language` changes
+	// const router = useRouter();
 
-	useEffect(() => {
-		window.scrollTo(0, 0);
-	}, [router.pathname]); // Runs when pathname changes
+	// useEffect(() => {
+	// 	window.scrollTo(0, 0);
+	// }, [router.pathname]); // Runs when pathname changes
 
-	console.log("data in path is ", data);
+	// console.log("data in path is ", data);
 
 	return (
 		<>
@@ -60,7 +60,7 @@ export default function Home() {
 				<Loading />
 			) : (
 				<div className={language === "en" ? "ltr" : "rtl"}>
-					{pathname == "/path"
+					{/* {pathname == "/path"
 						? (() => {
 								const gclid = searchParams.get("gclid");
 								const whatsappText =
@@ -85,7 +85,7 @@ export default function Home() {
 						: null}
 					<PathInfo data={data} lang={language}></PathInfo>
 					<Destinations data={data} lang={language}></Destinations>
-					<Riviews id={pathId} lang={language}></Riviews>
+					<Riviews id={pathId} lang={language}></Riviews> */}
 					{/* <Example></Example> */}
 				</div>
 			)}
