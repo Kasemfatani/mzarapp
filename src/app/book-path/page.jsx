@@ -1,3 +1,4 @@
+"use client"
 import React from "react";
 import FormsWrapperNew from "../../components/book/FormsWrapperNew";
 import FormsWrapper from "../../components/book/FormsWrapper";
