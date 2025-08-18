@@ -1,3 +1,5 @@
+'use client'
+
 import { HeroSection } from './components/HeroSection';
 import RegisterApp from './components/RegisterApp';
 import PromoCode from './components/PromoCode';
