@@ -1,0 +1,343 @@
+"use client";
+import React, { useState, useEffect } from "react";
+import { API_BASE_URL } from "@/lib/apiConfig";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import {
+	Form,
+	FormField,
+	FormItem,
+	FormLabel,
+	FormControl,
+	FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import {
+	Select,
+	SelectTrigger,
+	SelectValue,
+	SelectContent,
+	SelectItem,
+} from "@/components/ui/select";
+import { Calendar } from "@/components/ui/calendar";
+import {
+	Popover,
+	PopoverTrigger,
+	PopoverContent,
+} from "@/components/ui/popover";
+import { CalendarIcon } from "lucide-react";
+import MapSelector from "./MapSelector";
+import Image from "next/image";
+import { format } from "date-fns";
+import LocationPickerMap from "./LocationPickerMap";
+import { isToday } from "date-fns";
+import { useRouter } from "next/navigation";
+import axios from "axios";
+import { toast } from "sonner";
+
+const bookingSchema = z.object({
+	date: z.date({ required_error: "Date is required" }),
+	time: z.string().min(1, "Time is required"),
+	persons: z.string().min(1, "Number of people is required"),
+	car: z.string().min(1, "Vehicle is required"),
+	address: z.string().min(1, "Address is required"),
+});
+
+export default function BookingDetailsForm({ bookingData, bookingId }) {
+	const [language, setLanguage] = useState("en");
+	const [maxSeats, setMaxSeats] = useState(4);
+	const [lat, setLat] = useState(21.425893460537548);
+	const [lng, setLng] = useState(39.82470840448206);
+	const [formLoading, setFormLoading] = useState(false);
+	const router = useRouter();
+
+	useEffect(() => {
+		if (typeof window !== "undefined") {
+			setLanguage(localStorage.getItem("lang") || "en");
+		}
+		console.log("bookingData?.booking_hours is :", bookingData.booking_hours);
+	}, []);
+
+	const form = useForm({
+		resolver: zodResolver(bookingSchema),
+		defaultValues: {
+			date: new Date(),
+			time: "",
+			persons: "",
+			car: "",
+			address: "",
+		},
+	});
+
+	// Update maxSeats when car changes
+	const carValue = form.watch("car");
+	useEffect(() => {
+		if (carValue && bookingData?.cars) {
+			const selectedCar = bookingData.cars.find(
+				(car) => String(car.id) === carValue.split(",")[0]
+			);
+			if (selectedCar) setMaxSeats(Number(selectedCar.number_of_seats));
+		}
+	}, [carValue, bookingData]);
+
+	// Watch the selected date
+	const selectedDate = form.watch("date");
+
+	// Get current time in "HH:mm:ss" format
+	const now = new Date();
+	const currentTimeString = now
+		.toLocaleTimeString("en-GB", { hour12: false })
+		.padStart(8, "0");
+
+	// Filter booking_hours based on selected date
+	const filteredBookingHours = bookingData?.booking_hours?.filter((item) => {
+		if (selectedDate && isToday(selectedDate)) {
+			// Only show times that are after now
+			return item.description > currentTimeString;
+		}
+		return true; // Show all times for other dates
+	});
+
+	const handleSubmit = async (values) => {
+		setFormLoading(true);
+		const carId = values.car.split(",")[0];
+		const payload = {
+			address_name: values.address,
+			visit_date: format(values.date, "yyyy-MM-dd"),
+			lat,
+			lng,
+			transportation_type_id: Number(carId),
+			visit_time_id: Number(values.time),
+			seats: Number(values.persons),
+			booking_id: bookingId,
+		};
+		console.log("payload in detail is :", payload);
+		try {
+			const response = await axios.post(
+				`${API_BASE_URL}/landing/home/booking-pt2`,
+				payload,
+				{
+					headers: { lang: language },
+				}
+			);
+			console.log("Booking pt2 API response:", response.data);
+
+			if (response.data && response.data.status) {
+				setFormLoading(false);
+				router.push("/congats");
+			} else {
+				setFormLoading(false);
+				toast.error(language === "ar" ? "فشل إرسال الحجز. حاول مرة أخرى." : "Failed to submit booking. Please try again.");
+			}
+		} catch (error) {
+			setFormLoading(false);
+			console.log("Booking pt2 API error:", error);
+			toast.error(language === "ar" ? "حدث خطأ أثناء إرسال الحجز." : "An error occurred while submitting your booking.");
+		}
+	};
+
+	return (
+		<Form {...form}>
+			<form
+				onSubmit={form.handleSubmit(handleSubmit)}
+				className="mt-8"
+				style={{ direction: language === "ar" ? "rtl" : "ltr" }}
+			>
+				<div className="flex flex-col md:flex-row gap-8">
+					{/* Booking details */}
+					<div className="flex-1">
+						<h2 className="text-xl font-semibold mb-4">
+							{language === "ar" ? "تفاصيل الحجز" : "Booking details"}
+						</h2>
+						{/* Date */}
+						<FormField
+							control={form.control}
+							name="date"
+							render={({ field }) => (
+								<FormItem className="flex flex-col mb-4">
+									<FormLabel>
+										{language === "ar" ? "التاريخ" : "Date*"}
+									</FormLabel>
+									<Popover>
+										<PopoverTrigger asChild>
+											<FormControl>
+												<Button variant={"outline"} className="date-picker">
+													{field.value ? (
+														format(field.value, "PPP")
+													) : (
+														<span>Pick a date</span>
+													)}
+													<CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+												</Button>
+											</FormControl>
+										</PopoverTrigger>
+										<PopoverContent className="w-auto p-0" align="start">
+											<Calendar
+												mode="single"
+												selected={field.value}
+												onSelect={field.onChange}
+												disabled={(date) =>
+													bookingData?.min_date &&
+													bookingData?.max_date &&
+													(date > new Date(bookingData.max_date) ||
+														date < new Date(bookingData.min_date))
+												}
+												initialFocus
+											/>
+										</PopoverContent>
+									</Popover>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+						{/* Time */}
+						<FormField
+							control={form.control}
+							name="time"
+							render={({ field }) => (
+								<FormItem className="mb-4">
+									<FormLabel>{language === "ar" ? "الوقت" : "Time*"}</FormLabel>
+									<FormControl>
+										<Select onValueChange={field.onChange} value={field.value}>
+											<SelectTrigger className="w-full select-trigger">
+												<SelectValue placeholder="Select Time" />
+											</SelectTrigger>
+											<SelectContent>
+												{filteredBookingHours?.map((item) => (
+													<SelectItem key={item.id} value={String(item.id)}>
+														<span>{item.name}</span>
+														<span className="ml-2 text-xs text-gray-500">
+															{item.description}
+														</span>
+													</SelectItem>
+												))}
+											</SelectContent>
+										</Select>
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+						{/* Vehicle */}
+						<FormField
+							control={form.control}
+							name="car"
+							render={({ field }) => (
+								<FormItem className="mb-4">
+									<FormLabel>
+										{language === "ar" ? "المركبة" : "Vehicle*"}
+									</FormLabel>
+									<FormControl>
+										<Select onValueChange={field.onChange} value={field.value}>
+											<SelectTrigger className="w-full select-trigger">
+												<SelectValue placeholder="Select Vehicle type" />
+											</SelectTrigger>
+											<SelectContent>
+												{bookingData?.cars?.map((item) => (
+													<SelectItem
+														key={item.id}
+														value={`${item.id},${item.number_of_seats}`}
+														disabled={!item.is_enabled}
+													>
+														{item.image && (
+															<Image
+																src={item.image}
+																alt={item.name}
+																width={30}
+																height={30}
+																className="inline-block mr-2"
+															/>
+														)}
+														<span>{item.name}</span>
+													</SelectItem>
+												))}
+											</SelectContent>
+										</Select>
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+						{/* Number of people */}
+						<FormField
+							control={form.control}
+							name="persons"
+							render={({ field }) => (
+								<FormItem className="mb-4">
+									<FormLabel>
+										{language === "ar" ? "عدد الأشخاص" : "Number of people*"}
+									</FormLabel>
+									<FormControl>
+										<Select onValueChange={field.onChange} value={field.value}>
+											<SelectTrigger className="w-full select-trigger">
+												<SelectValue placeholder="Select number of people" />
+											</SelectTrigger>
+											<SelectContent>
+												{Array.from({ length: maxSeats }, (_, i) => (
+													<SelectItem key={i + 1} value={String(i + 1)}>
+														{i + 1}
+													</SelectItem>
+												))}
+											</SelectContent>
+										</Select>
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+					</div>
+					{/* Additional information */}
+					<div className="flex-1">
+						<h2 className="text-xl font-semibold mb-2">
+							{language === "ar" ? "معلومات إضافية" : "Additional information"}
+						</h2>
+						{/* Address */}
+						<FormField
+							control={form.control}
+							name="address"
+							render={({ field }) => (
+								<FormItem className="mb-4">
+									<FormLabel>
+										{language === "ar" ? "العنوان" : "Address*"}
+									</FormLabel>
+									<FormControl>
+										<Input placeholder="Enter your address" {...field} />
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+						{/* Special requests */}
+
+						<label className="">
+							{language === "ar" ? "طلبات خاصة" : "Special requests"}
+						</label>
+						<LocationPickerMap
+							lat={lat}
+							lng={lng}
+							setLat={setLat}
+							setLng={setLng}
+						/>
+					</div>
+				</div>
+				<div className="flex justify-center mt-8">
+					<Button
+						type="submit"
+						className="w-full max-w-md h-[60px] bg-gradient-to-r from-blue-600 to-teal-400 hover:to-teal-500 transition-colors duration-300 text-white text-xl py-4 rounded-xl shadow-lg"
+						disabled={formLoading}
+					>
+						{formLoading
+							? language === "ar"
+								? "جاري الإرسال..."
+								: "Sending..."
+							: language === "ar"
+								? "إرسال الحجز"
+								: "Submit booking"}
+					</Button>
+				</div>
+			</form>
+		</Form>
+	);
+}

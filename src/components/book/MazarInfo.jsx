@@ -24,7 +24,7 @@ export default function MazarInfo() {
       className={`w-full MazarInfo ${language === 'en' ? 'ltr' : 'rtl'}`}>
       <Image src={logo} alt="Mazar" className="img-logo" />
       <h2>{language === 'en' ? 'Join Us on Your Journey' : 'انضم لنا في رحلتك' }</h2>
-      <p> {language === 'en'?`Please fill out the form below to begin your trip planning. Our team is here to make your experience as smooth and enjoyable as possible. Simply provide the details, and we'll handle the rest!`:"يرجى ملء النموذج أدناه لبدء التخطيط لرحلتك. فريقنا هنا لجعل تجربتك سلسة وممتعة قدر الإمكان. ما عليك سوى تقديم التفاصيل، وسنتولى الباقي!"}</p>
+      <p> {language === 'en'?`Please fill out the form to begin your trip planning. Our team is here to make your experience as smooth and enjoyable as possible. Simply provide the details, and we'll handle the rest!`:"يرجى ملء النموذج لبدء التخطيط لرحلتك. فريقنا هنا لجعل تجربتك سلسة وممتعة قدر الإمكان. ما عليك سوى تقديم التفاصيل، وسنتولى الباقي!"}</p>
     </motion.div>
   );
 }

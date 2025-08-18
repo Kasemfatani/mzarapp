@@ -2612,10 +2612,15 @@ body {
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 7px;
   box-shadow: none;
-  height: 48px;
+  height: 55px;
   margin-top: 0;
+  /* margin-bottom: 16px !important; */
+}
+
+.PhoneInputInput {
   margin-bottom: 16px !important;
 }
+
 .new-form input:focus,
 .new-form select:focus,
 .new-form .PhoneInput .PhoneInputCountry:focus,
@@ -2646,6 +2651,11 @@ body {
   background-color: var(--white-color);
   color: var(--main-color);
 }
+
+/* .new-form .date-btn {
+  text-align: start;
+} */
+
 
 .book-main-page-new {
   padding: 50px 0;

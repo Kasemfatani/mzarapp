@@ -148,7 +148,6 @@ export default function Paths() {
 			<div className="path-swiper w-full" style={{ direction: `ltr` }}>
 				<Swiper
 					dir={"rtl"}
-					// cssMode={language === 'ar'} // Important for RTL support
 					spaceBetween={32}
 					slidesPerView={7.5}
 					autoplay={true}
@@ -265,35 +264,49 @@ export default function Paths() {
 						);
 					})}
 				</Swiper>
-				<div className="custom-swiper-controls">
-					<button
-						className="custom-prev"
-						onClick={() => swiper && swiper.slidePrev()}
-						disabled={!swiper}
-					>
-						&lt;
-					</button>
-					{filteredPackages?.map((_, idx) => (
-						<button
-							key={idx}
-							className={`custom-bullet ${activeIndex === idx ? "active" : ""}`}
-							onClick={() =>
-								swiper && swiper.slideToLoop
-									? swiper.slideToLoop(idx)
-									: swiper.slideTo(idx)
-							}
-							disabled={!swiper}
-						/>
-					))}
-					<button
-						className="custom-next"
-						onClick={() => swiper && swiper.slideNext()}
-						disabled={!swiper}
-					>
-						{" "}
-						&gt;
-					</button>
-				</div>
+				{(() => {
+					// Get current slidesPerView based on window width
+					let slidesPerView = 7.5;
+					if (typeof window !== "undefined") {
+						const width = window.innerWidth;
+						if (width >= 1400) slidesPerView = 3;
+						else if (width >= 1100) slidesPerView = 3;
+						else if (width >= 768) slidesPerView = 2;
+						else if (width >= 640) slidesPerView = 1.2;
+						else slidesPerView = 1.2;
+					}
+					return filteredPackages?.length > slidesPerView ? (
+						<div className="custom-swiper-controls">
+							<button
+								className="custom-prev"
+								onClick={() => swiper && swiper.slidePrev()}
+								disabled={!swiper}
+							>
+								&lt;
+							</button>
+							{filteredPackages?.map((_, idx) => (
+								<button
+									key={idx}
+									className={`custom-bullet ${activeIndex === idx ? "active" : ""}`}
+									onClick={() =>
+										swiper && swiper.slideToLoop
+											? swiper.slideToLoop(idx)
+											: swiper.slideTo(idx)
+									}
+									disabled={!swiper}
+								/>
+							))}
+							<button
+								className="custom-next"
+								onClick={() => swiper && swiper.slideNext()}
+								disabled={!swiper}
+							>
+								{" "}
+								&gt;
+							</button>
+						</div>
+					) : null;
+				})()}
 			</div>
 		</div>
 	);
