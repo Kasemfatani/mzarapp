@@ -7,8 +7,6 @@ import Header from '@/components/header/Header';
 import Footer from '@/components/home/Footer';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import '../style/main.css';
-import { Toaster } from "@/components/ui/sonner";
-// import 'react-phone-number-input/style.css';
 import { GoogleTagManager } from '@next/third-parties/google';
 
 
@@ -60,7 +58,6 @@ export default function RootLayout({
           ></iframe>
         </noscript>
         <Header />
-        <Toaster position="top-center" />
         {children}
         <Footer />
       </body>
