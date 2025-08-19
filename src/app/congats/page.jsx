@@ -10,6 +10,7 @@ export default function Book() {
 	const name = searchParams.get("name");
 	const phone = searchParams.get("phone");
 	const package_name = searchParams.get("package");
+	const email = searchParams.get("email"); // <-- added
 
 	useEffect(() => {
 		if (typeof window === "undefined") return;
@@ -26,9 +27,9 @@ export default function Book() {
 			customer_name: name || "",
 			customer_whatsapp: normalizePhone(phone), // safe normalized value
 			package_name: package_name || "",
+			customer_email: email || "", 
 		});
-	}, [name, phone, package_name]); // Added dependency array
-
+	}, [name, phone, package_name, email]); 
 	useEffect(() => {
 		if (typeof window !== "undefined") {
 			setLanguage(localStorage.getItem("lang") || "en");

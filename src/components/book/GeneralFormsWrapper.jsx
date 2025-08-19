@@ -407,6 +407,7 @@ export default function GeneralFormsWrapper() {
 						bookingId={bookingId}
 						contactName={form.getValues("name")}
 						contactPhone={form.getValues("phone")}
+						contactEmail={form.getValues("email")}
 					/>
 				</div>
 			)}

@@ -59,7 +59,13 @@ function getBookingSchema(lang = "en") {
 	});
 }
 
-export default function BookingDetailsForm({ bookingData, bookingId , contactName, contactPhone }) {
+export default function BookingDetailsForm({
+	bookingData,
+	bookingId,
+	contactName,
+	contactPhone,
+	contactEmail,
+}) {
 	const [language, setLanguage] = useState("en");
 	const [maxSeats, setMaxSeats] = useState(4);
 	const [lat, setLat] = useState(21.425893460537548);
@@ -146,16 +152,17 @@ export default function BookingDetailsForm({ bookingData, bookingId , contactNam
 
 			if (response.data && response.data.status) {
 				setFormLoading(false);
-				
 				const qName = contactName ?? "";
 				const qPhone = contactPhone ?? "";
+				const qEmail = contactEmail ?? "";
 				const qPackage = bookingData?.package_name ?? "";
 				router.push(
-					`/congats?name=${encodeURIComponent(qName)}&phone=${encodeURIComponent(
-						qPhone
-					)}&package=${encodeURIComponent(qPackage)}`
+					`/congats?name=${encodeURIComponent(
+						qName
+					)}&phone=${encodeURIComponent(qPhone)}&package=${encodeURIComponent(
+						qPackage
+					)}&email=${encodeURIComponent(qEmail)}`
 				);
-				
 			} else {
 				setFormLoading(false);
 				toast.error(
