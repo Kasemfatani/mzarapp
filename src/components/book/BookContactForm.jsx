@@ -13,7 +13,6 @@ import React, { useEffect, useState } from "react";
 import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
 
-
 export default function BookContactForm({ form, disabled }) {
 	const [language, setLanguage] = useState("en");
 
@@ -32,9 +31,7 @@ export default function BookContactForm({ form, disabled }) {
 				name="name"
 				render={({ field }) => (
 					<FormItem className="mb-4">
-						<FormLabel>
-							{isArabic ? "الاسم الكامل*" : "Full name*"}
-						</FormLabel>
+						<FormLabel>{isArabic ? "الاسم الكامل*" : "Full name*"}</FormLabel>
 						<FormControl>
 							<Input
 								placeholder={isArabic ? "محمد أحمد" : "John Carter"}
@@ -77,15 +74,16 @@ export default function BookContactForm({ form, disabled }) {
 							{language === "ar" ? "رقم الهاتف" : "Phone"}
 						</FormLabel>
 						<FormControl>
-							< PhoneInput
-                    defaultCountry="sa"
-                    value={field.value}
-                    onChange={field.onChange}
-                    disabled={disabled}
-                    className=""
-										forceDialCode={true}
-
-                />
+							<div style={{ direction: "ltr" }}>
+								<PhoneInput
+									defaultCountry="sa"
+									value={field.value}
+									onChange={field.onChange}
+									disabled={disabled}
+									className=""
+									forceDialCode={true}
+								/>
+							</div>
 						</FormControl>
 						<FormMessage className="form-message" />
 					</FormItem>

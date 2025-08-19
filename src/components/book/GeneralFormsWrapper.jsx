@@ -318,14 +318,16 @@ export default function GeneralFormsWrapper() {
 										{language === "ar" ? "رقم الهاتف" : "Phone"}
 									</FormLabel>
 									<FormControl>
-										<PhoneInput
-											defaultCountry="sa"
-											value={field.value}
-											onChange={field.onChange}
-											disabled={success}
-											className=""
-											forceDialCode={true}
-										/>
+										<div style={{ direction: "ltr" }}>
+											<PhoneInput
+												defaultCountry="sa"
+												value={field.value}
+												onChange={field.onChange}
+												disabled={success}
+												className=""
+												forceDialCode={true}
+											/>
+										</div>
 									</FormControl>
 									<FormMessage className="form-message" />
 								</FormItem>
