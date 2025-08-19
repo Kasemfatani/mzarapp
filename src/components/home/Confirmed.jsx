@@ -12,6 +12,7 @@ import part7 from '/public/conf/7.png';
 import part9 from '/public/conf/10.svg';
 import part10 from '/public/conf/12.png';
 import part11 from '/public/conf/11.svg';
+import part12 from '/public/conf/anjum.png';
 import Marquee from '../ui/marquee';
 import { cn } from '@/lib/utils';
 
@@ -42,7 +43,7 @@ export default function Parteners() {
             </figure>
         );
     };
-    let parts = [{ img: part1.src }, { img: part2 }, { img: part3 }, { img: part4 }, { img: part6 } , { img: part5 }, { img: part7 }, { img: part8 }, { img: part9 }, { img: part10 }, { img: part11 }];
+    let parts = [{ img: part1.src }, { img: part2 }, { img: part3 }, { img: part4 }, { img: part6 } , { img: part5 }, { img: part7 }, { img: part8 }, { img: part9 }, { img: part10 }, { img: part11 } , { img: part12 }];
     
     return (
         <div className="parteners" style={{ direction: language === 'en' ? 'ltr' : 'rtl' }}>

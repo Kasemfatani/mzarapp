@@ -24,7 +24,7 @@ export default function MapSelector({ data, step, setStep, mainData, setMainData
     return (
         <div className="addons-cont">
             {
-                data.add_ons.map((addOn, index) =>
+                data?.add_ons.map((addOn, index) =>
                     <div className={addOns.includes(addOn.id) ? 'addon active-addon' : 'addon'} key={index} onClick={() => {
                         if (addOns.includes(addOn.id)) {
                             setAddOns(addOns.filter((id) => id !== addOn.id));

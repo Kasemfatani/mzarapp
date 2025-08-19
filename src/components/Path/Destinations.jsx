@@ -44,7 +44,7 @@ export default function PathInfo(pathData) {
                 <div className="ready ">
                     <h2>{language === 'en' ? 'Ready to start your journey?' : 'مستعد لبدء رحلتك؟'} </h2>
                     <p>{language === 'en' ? 'Please contact us and book your trip' : 'يرجى الاتصال بنا وحجز رحلتك'}</p>
-                    <Link href={`/book-path?id=${data.id}`}>{language === 'en' ? 'Book Now' : 'حجز الان'}</Link>
+                    <Link href={`/book-path?id=${data.id}`}>{language === 'en' ? 'Book Now' : 'حجز الآن'}</Link>
                 </div>
             </div>
         </div>

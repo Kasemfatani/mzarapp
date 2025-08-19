@@ -25,10 +25,10 @@ export default function Explore() {
                         }}
                         viewport={{ once: true }} className="text">
                         <div className="padg">
-                            <h3>{language === 'en' ? 'Reach the peak of Spiritulity' : 'الوصول إلى قمة الروحانية'}</h3>
+                            <h3>{language === 'en' ? 'Ascend to the Peak of Light… with Ease' : 'اصعد إلى قمة النور... بسهولة'}</h3>
                         </div>
-                        <h2>{language=== 'en'?"Explore Hira Cave Comfortably by car transfer to the peak of Al noor mountain":"استكشف كهف حراء بسهولة بواسطة السيارة ثم انتقل إلى قمة جبل النور"}</h2>
-                        <Link href="/book" className='px-8 py-2 text-white rounded-lg bg-primaryColor inline-block w-fit'>{language === 'en' ? 'Book Now' : 'حجز الان'}</Link>
+                        <h2>{language=== 'en'?"Explore the Hira Cave comfortably, With a direct car ride to AlNoor Mountain":"استكشف غار حراء بكل أريحية، مع خدمة الصعود إلى جبل النور بالسيارة"}</h2>
+                        <Link href="/book" className='px-8 py-2 text-white rounded-lg bg-primaryColor inline-block w-fit'>{language === 'en' ? 'Book Now' : 'احجز الآن'}</Link>
                     </motion.div>
                 </div>
             </div>

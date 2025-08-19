@@ -1253,6 +1253,9 @@ footer .footer-cont .social {
     width: 100%;
     text-align: center;
   }
+  .hero {
+    height: auto;
+  }
   .about-section .about-cont .analysis .counters {
     flex-direction: column;
     gap: 60px;
@@ -2609,10 +2612,15 @@ body {
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 7px;
   box-shadow: none;
-  height: 48px;
+  height: 55px !important;
   margin-top: 0;
+  /* margin-bottom: 16px !important; */
+}
+
+.PhoneInputInput {
   margin-bottom: 16px !important;
 }
+
 .new-form input:focus,
 .new-form select:focus,
 .new-form .PhoneInput .PhoneInputCountry:focus,
@@ -2643,6 +2651,11 @@ body {
   background-color: var(--white-color);
   color: var(--main-color);
 }
+
+/* .new-form .date-btn {
+  text-align: start;
+} */
+
 
 .book-main-page-new {
   padding: 50px 0;
@@ -2687,7 +2700,7 @@ button {
 }
 .explore .overll .padg h3 {
   color: var(--white-color);
-  font-family: "--font-merriweather";
+  /* font-family: "--font-merriweather"; */
   font-size: 32px;
   font-weight: 700;
 }
@@ -2707,7 +2720,7 @@ button {
   .explore .overll h2 {
     font-size: 24px;
   }
-}
+  }
 .explore .overll a {
   font-size: 20px;
   font-weight: 700;
@@ -2810,7 +2823,7 @@ button {
   font-size: 24px;
   font-weight: 400;
   color: #5A5A5A;
-  margin-bottom: 40px;
+  /* margin-bottom: 40px; */
 }
 .gallery .tabs {
   width: -moz-fit-content;
@@ -3061,7 +3074,7 @@ button {
   font-weight: 700;
 }
 .blog .description-cont * {
-  font-family: "NotoNaskhArabic", serif;
+  font-family: "Cairo", serif !important;
   text-align: justify !important;
 }
 .blog .description-cont span:has(.btn) {
@@ -3185,7 +3198,7 @@ button {
   background-color: rgba(0, 122, 255, 0.4);
 }
 .blog .title-cont {
-  font-family: "NotoNaskhArabic", serif;
+  font-family: "Cairo", serif;
   font-size: 24px;
   font-weight: 700;
 }
@@ -3193,7 +3206,7 @@ button {
   font-family: "Font Awesome 6 Free";
 }
 .blog .date-span {
-  font-family: "NotoNaskhArabic", serif;
+  font-family: "Cairo", serif;
 }
 
 .blog .container > .img-cont {

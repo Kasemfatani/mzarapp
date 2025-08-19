@@ -9,6 +9,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import Loading from '@/app/loading';
 import axios from 'axios';
+import parse from 'html-react-parser';
 import { API_BASE_URL } from '@/lib/apiConfig';
 export default function Content() {
 
@@ -63,7 +64,8 @@ export default function Content() {
                     data?.length > 0 ?
                         <div className="content" style={{ direction: `${language === 'ar' ? 'rtl' : 'ltr'}` }} id='blogs'>
                             <div className="container m-auto">
-                                <h3>{language === 'en' ? 'Blogs' : 'المقالات'}</h3>
+                                <h3 className="!mb-2">{language === 'en' ? 'Blogs' : 'المقالات'}</h3>
+                                <p className='px-4 mb-3'>{language === 'en' ? 'Read and enjoy historical and religious stories' : 'اقرأ واستمتع بالحكايات التاريخية والدينية '}</p>
                                 <div className="path-swiper w-full" >
                                     <Swiper
                                         // navigation
@@ -109,7 +111,7 @@ export default function Content() {
                                                         <div className="overlay"></div>
                                                     </div>
                                                     <h4>{path.title}</h4>
-                                                    <p>{path.description}</p>
+                                                    <p>{parse(path.description)}</p>
                                                     <div className="date-book">
                                                         <div className="date">
                                                             <i className="fa-regular fa-calendar-days"></i>
