@@ -23,6 +23,10 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import PhnoeInput from "react-phone-number-input";
+
+import { PhoneInput } from "react-international-phone";
+import "react-international-phone/style.css";
+
 import { Input } from "@/components/ui/input";
 import {
 	Select,
@@ -115,6 +119,8 @@ export default function GeneralFormsWrapper() {
 			gclid: gclid || "",
 		};
 
+		console.log("Payload for general API:", payload);
+
 		try {
 			const response = await axios.post(
 				`${API_BASE_URL}/landing/home/booking-pt1`,
@@ -124,7 +130,6 @@ export default function GeneralFormsWrapper() {
 			console.log("Booking API response:", response.data);
 
 			if (response.data && response.data.status) {
-
 				setBookingId(response.data.data.booking_id);
 
 				// Now fetch booking data for the selected package
@@ -273,14 +278,13 @@ export default function GeneralFormsWrapper() {
 										{language === "ar" ? "رقم الهاتف" : "Phone"}
 									</FormLabel>
 									<FormControl>
-										<PhnoeInput
-											initialValueFormat="national"
-											international
-											countryCallingCodeEditable={false}
-											defaultCountry="SA"
-											className=""
+										<PhoneInput
+											defaultCountry="sa"
+											value={field.value}
 											onChange={field.onChange}
 											disabled={success}
+											className=""
+											forceDialCode={true}
 										/>
 									</FormControl>
 									<FormMessage className="form-message" />
@@ -298,7 +302,11 @@ export default function GeneralFormsWrapper() {
 									<FormLabel>
 										{language === "ar" ? "الوجهة" : "Destination"}
 									</FormLabel>
-									<Select onValueChange={field.onChange} value={field.value} disabled={success}>
+									<Select
+										onValueChange={field.onChange}
+										value={field.value}
+										disabled={success}
+									>
 										<FormControl className="date-picker">
 											<SelectTrigger className="w-full justify-between px-4">
 												<SelectValue
@@ -344,10 +352,7 @@ export default function GeneralFormsWrapper() {
 					<h3 className="text-center text-xl font-semibold my-8 bg-gradient-to-r from-blue-600 to-teal-400 bg-clip-text text-transparent">
 						Lorem ipsum dolor sit amet consectetur adipisicing elit.
 					</h3>
-					<BookingDetailsForm
-						bookingData={data.data}
-						bookingId={bookingId}
-					/>
+					<BookingDetailsForm bookingData={data.data} bookingId={bookingId} />
 				</div>
 			)}
 		</div>

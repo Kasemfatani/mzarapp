@@ -10,6 +10,9 @@ import {
 import PhnoeInput from "react-phone-number-input";
 import { Input } from "@/components/ui/input";
 import React, { useEffect, useState } from "react";
+import { PhoneInput } from "react-international-phone";
+import "react-international-phone/style.css";
+
 
 export default function BookContactForm({ form, disabled }) {
 	const [language, setLanguage] = useState("en");
@@ -74,15 +77,15 @@ export default function BookContactForm({ form, disabled }) {
 							{language === "ar" ? "رقم الهاتف" : "Phone"}
 						</FormLabel>
 						<FormControl>
-							<PhnoeInput
-								initialValueFormat="national"
-								international
-								countryCallingCodeEditable={false}
-								defaultCountry="SA"
-								className=""
-								onChange={field.onChange}
-								disabled={disabled}
-							/>
+							< PhoneInput
+                    defaultCountry="sa"
+                    value={field.value}
+                    onChange={field.onChange}
+                    disabled={disabled}
+                    className=""
+										forceDialCode={true}
+
+                />
 						</FormControl>
 						<FormMessage className="form-message" />
 					</FormItem>

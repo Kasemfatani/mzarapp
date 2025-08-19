@@ -2612,7 +2612,7 @@ body {
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 7px;
   box-shadow: none;
-  height: 55px;
+  height: 55px !important;
   margin-top: 0;
   /* margin-bottom: 16px !important; */
 }
