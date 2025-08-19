@@ -71,6 +71,9 @@ export default function BookingDetailsForm({
 	const [lat, setLat] = useState(21.425893460537548);
 	const [lng, setLng] = useState(39.82470840448206);
 	const [formLoading, setFormLoading] = useState(false);
+
+	const [calendarOpen, setCalendarOpen] = useState(false);
+
 	const router = useRouter();
 
 	useEffect(() => {
@@ -204,7 +207,7 @@ export default function BookingDetailsForm({
 									<FormLabel>
 										{language === "ar" ? "التاريخ" : "Date*"}
 									</FormLabel>
-									<Popover>
+									<Popover open={calendarOpen} onOpenChange={setCalendarOpen}>
 										<PopoverTrigger asChild>
 											<FormControl>
 												<Button variant={"outline"} className="date-picker">
@@ -225,7 +228,14 @@ export default function BookingDetailsForm({
 											<Calendar
 												mode="single"
 												selected={field.value}
-												onSelect={field.onChange}
+												onSelect={(date) => {
+													if (date === undefined) {
+														// User clicked the already-selected date, so close the calendar
+														setCalendarOpen(false);
+													} else {
+														field.onChange(date);
+													}
+												}}
 												disabled={(date) =>
 													bookingData?.min_date &&
 													bookingData?.max_date &&
