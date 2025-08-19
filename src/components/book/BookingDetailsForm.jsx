@@ -59,7 +59,7 @@ function getBookingSchema(lang = "en") {
 	});
 }
 
-export default function BookingDetailsForm({ bookingData, bookingId }) {
+export default function BookingDetailsForm({ bookingData, bookingId , contactName, contactPhone }) {
 	const [language, setLanguage] = useState("en");
 	const [maxSeats, setMaxSeats] = useState(4);
 	const [lat, setLat] = useState(21.425893460537548);
@@ -71,7 +71,7 @@ export default function BookingDetailsForm({ bookingData, bookingId }) {
 		if (typeof window !== "undefined") {
 			setLanguage(localStorage.getItem("lang") || "en");
 		}
-		console.log("bookingData?.booking_hours is :", bookingData.booking_hours);
+		console.log("bookingData.package_name is :", bookingData.package_name);
 	}, []);
 
 	// create resolver tied to language so validation messages are localized
@@ -146,7 +146,16 @@ export default function BookingDetailsForm({ bookingData, bookingId }) {
 
 			if (response.data && response.data.status) {
 				setFormLoading(false);
-				router.push("/congats");
+				
+				const qName = contactName ?? "";
+				const qPhone = contactPhone ?? "";
+				const qPackage = bookingData?.package_name ?? "";
+				router.push(
+					`/congats?name=${encodeURIComponent(qName)}&phone=${encodeURIComponent(
+						qPhone
+					)}&package=${encodeURIComponent(qPackage)}`
+				);
+				
 			} else {
 				setFormLoading(false);
 				toast.error(

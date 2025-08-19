@@ -400,7 +400,12 @@ export default function GeneralFormsWrapper() {
 							? "لخدمة أفضل .. رجاء أكمل تفاصيل الحجز التالية"
 							: "For better service .. please fill booking details"}
 					</h3>
-					<BookingDetailsForm bookingData={data.data} bookingId={bookingId} />
+					<BookingDetailsForm
+						bookingData={data.data}
+						bookingId={bookingId}
+						contactName={form.getValues("name")}
+						contactPhone={form.getValues("phone")}
+					/>
 				</div>
 			)}
 		</div>
