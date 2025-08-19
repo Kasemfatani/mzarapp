@@ -77,6 +77,7 @@ export default function Home() {
 											whatsappText
 										)}`}
 										className="fixed-what"
+										target="_blank"
 									>
 										<i className="fa-brands fa-whatsapp"></i>
 									</a>

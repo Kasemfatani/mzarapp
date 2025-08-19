@@ -55,6 +55,7 @@ export default function Footer() {
 									whatsappText
 								)}`}
 								className="fixed-what"
+								target="_blank"
 							>
 								<i className="fa-brands fa-whatsapp"></i>
 							</a>
