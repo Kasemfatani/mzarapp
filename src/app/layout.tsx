@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import type { Metadata } from 'next';
+import React, { Suspense } from 'react'
 import './globals.css';
 import './video-react.css';
 import mzarImg from '../assets/images/home/og.png';
@@ -59,7 +60,9 @@ export default function RootLayout({
         </noscript>
         <Header />
         {children}
-        <Footer />
+        <Suspense fallback={null}>
+          <Footer />
+        </Suspense>
       </body>
     </html>
   );
