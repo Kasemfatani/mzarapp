@@ -171,7 +171,7 @@ export default function Hero() {
 												<p className="text-start">
 													{slide.p[language === "ar" ? "ar" : "en"]}
 												</p>
-												<Link href="/#paths" className="hero-book-btn">
+												<Link href="/book" className="hero-book-btn">
 													{language === "en" ? "Book Now" : "احجز الآن"}
 												</Link>
 											</div>

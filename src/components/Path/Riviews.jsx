@@ -17,6 +17,7 @@ export default function Riviews({ id }) {
 	const [data, setData] = useState([]);
 	const [error, setError] = useState(null);
 	const [language, setLanguage] = useState("en"); // Default language is 'en'
+	const [expandedId, setExpandedId] = useState(null);
 
 	useEffect(() => {
 		setLoading(true);
@@ -74,9 +75,12 @@ export default function Riviews({ id }) {
 				lang: localStorage.getItem("lang"),
 			};
 			axios
-				.post(`${API_BASE_URL}/landing/home/packages/reviews?package_id=49`, {
-					headers,
-				})
+				.post(
+					`${API_BASE_URL}/landing/home/packages/reviews?package_id=${id}`,
+					{
+						headers,
+					}
+				)
 				.then((response) => {
 					setData(response.data);
 					console.log("review data after api call:", response.data);
@@ -153,9 +157,25 @@ export default function Riviews({ id }) {
 									const isoCode = getCountryCodeFromCallingCode(
 										review.country_name
 									);
+
 									return (
 										<SwiperSlide key={review.id}>
-											<div className="review-cont">
+											<div
+												className={`review-cont ${
+													expandedId === review.id ? "expanded" : ""
+												}`}
+												style={{
+													height: expandedId === review.id ? "auto" : "200px",
+													overflow:
+														expandedId === review.id ? "visible" : "hidden",
+													cursor: "pointer",
+												}}
+												onClick={() =>
+													setExpandedId(
+														expandedId === review.id ? null : review.id
+													)
+												}
+											>
 												<div className="title">
 													<h4>{review.customer_name}</h4>
 													{isoCode && <Flag code={isoCode.toUpperCase()} />}
@@ -174,7 +194,19 @@ export default function Riviews({ id }) {
 														></i>
 													))}
 												</div>
-												<p>{review.review}</p>
+												<p>
+													{expandedId === review.id
+														? review.review
+														: review.review?.length > 50
+														? review.review.slice(0, 50) + "..."
+														: review.review || ""}
+												</p>
+												{review.review?.length > 50 &&
+													expandedId !== review.id && (
+														<span className="read-more">
+															{language === "ar" ? "اقرأ المزيد" : "Read more"}
+														</span>
+													)}
 											</div>
 										</SwiperSlide>
 									);

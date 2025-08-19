@@ -157,7 +157,7 @@ export default function PathInfo(pathData) {
 							<div className="cont-offeree">
 								<Offer offerEndDate={data.offer_end_date} />
 							</div>
-							<div className="btn-free">
+							<div className="btn-free z-[100]">
 								<div className="price-offer">
 									<span className="from">
 										{language === "en" ? "From" : "من"}
