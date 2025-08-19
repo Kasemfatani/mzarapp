@@ -37,13 +37,27 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import { toast } from "sonner";
 
-const bookingSchema = z.object({
-	date: z.date({ required_error: "Date is required" }),
-	time: z.string().min(1, "Time is required"),
-	persons: z.string().min(1, "Number of people is required"),
-	car: z.string().min(1, "Vehicle is required"),
-	address: z.string().min(1, "Address is required"),
-});
+// replace static schema with factory that returns localized messages
+function getBookingSchema(lang = "en") {
+	return z.object({
+		date: z.date({
+			required_error: lang === "ar" ? "التاريخ مطلوب" : "Date is required",
+		}),
+		time: z.string().min(1, lang === "ar" ? "الوقت مطلوب" : "Time is required"),
+		persons: z
+			.string()
+			.min(
+				1,
+				lang === "ar" ? "عدد الأشخاص مطلوب" : "Number of people is required"
+			),
+		car: z
+			.string()
+			.min(1, lang === "ar" ? "المركبة مطلوبة" : "Vehicle is required"),
+		address: z
+			.string()
+			.min(1, lang === "ar" ? "العنوان مطلوب" : "Address is required"),
+	});
+}
 
 export default function BookingDetailsForm({ bookingData, bookingId }) {
 	const [language, setLanguage] = useState("en");
@@ -60,8 +74,14 @@ export default function BookingDetailsForm({ bookingData, bookingId }) {
 		console.log("bookingData?.booking_hours is :", bookingData.booking_hours);
 	}, []);
 
+	// create resolver tied to language so validation messages are localized
+	const resolver = React.useMemo(
+		() => zodResolver(getBookingSchema(language)),
+		[language]
+	);
+
 	const form = useForm({
-		resolver: zodResolver(bookingSchema),
+		resolver,
 		defaultValues: {
 			date: new Date(),
 			time: "",
@@ -129,17 +149,25 @@ export default function BookingDetailsForm({ bookingData, bookingId }) {
 				router.push("/congats");
 			} else {
 				setFormLoading(false);
-				toast.error(language === "ar" ? "فشل إرسال الحجز. حاول مرة أخرى." : "Failed to submit booking. Please try again.");
+				toast.error(
+					language === "ar"
+						? "فشل إرسال الحجز. حاول مرة أخرى."
+						: "Failed to submit booking. Please try again."
+				);
 			}
 		} catch (error) {
 			setFormLoading(false);
 			console.log("Booking pt2 API error:", error);
-			toast.error(language === "ar" ? "حدث خطأ أثناء إرسال الحجز." : "An error occurred while submitting your booking.");
+			toast.error(
+				language === "ar"
+					? "حدث خطأ أثناء إرسال الحجز."
+					: "An error occurred while submitting your booking."
+			);
 		}
 	};
 
 	return (
-		<Form {...form}>
+		<Form key={language} {...form}>
 			<form
 				onSubmit={form.handleSubmit(handleSubmit)}
 				className="mt-8"
@@ -167,7 +195,11 @@ export default function BookingDetailsForm({ bookingData, bookingId }) {
 													{field.value ? (
 														format(field.value, "PPP")
 													) : (
-														<span>Pick a date</span>
+														<span>
+															{language === "ar"
+																? "اختر التاريخ"
+																: "Pick a date"}
+														</span>
 													)}
 													<CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
 												</Button>
@@ -198,11 +230,15 @@ export default function BookingDetailsForm({ bookingData, bookingId }) {
 							name="time"
 							render={({ field }) => (
 								<FormItem className="mb-4">
-									<FormLabel>{language === "ar" ? "الوقت" : "Time*"}</FormLabel>
+									<FormLabel>{language === "ar" ? "الوقت" : "Time"}</FormLabel>
 									<FormControl>
 										<Select onValueChange={field.onChange} value={field.value}>
 											<SelectTrigger className="w-full select-trigger">
-												<SelectValue placeholder="Select Time" />
+												<SelectValue
+													placeholder={
+														language === "ar" ? "اختر الوقت" : "Select Time"
+													}
+												/>
 											</SelectTrigger>
 											<SelectContent>
 												{filteredBookingHours?.map((item) => (
@@ -232,7 +268,13 @@ export default function BookingDetailsForm({ bookingData, bookingId }) {
 									<FormControl>
 										<Select onValueChange={field.onChange} value={field.value}>
 											<SelectTrigger className="w-full select-trigger">
-												<SelectValue placeholder="Select Vehicle type" />
+												<SelectValue
+													placeholder={
+														language === "ar"
+															? "اختر نوع المركبة"
+															: "Select Vehicle type"
+													}
+												/>
 											</SelectTrigger>
 											<SelectContent>
 												{bookingData?.cars?.map((item) => (
@@ -272,7 +314,13 @@ export default function BookingDetailsForm({ bookingData, bookingId }) {
 									<FormControl>
 										<Select onValueChange={field.onChange} value={field.value}>
 											<SelectTrigger className="w-full select-trigger">
-												<SelectValue placeholder="Select number of people" />
+												<SelectValue
+													placeholder={
+														language === "ar"
+															? "اختر عدد الأشخاص"
+															: "Select number of people"
+													}
+												/>
 											</SelectTrigger>
 											<SelectContent>
 												{Array.from({ length: maxSeats }, (_, i) => (
@@ -303,7 +351,12 @@ export default function BookingDetailsForm({ bookingData, bookingId }) {
 										{language === "ar" ? "العنوان" : "Address*"}
 									</FormLabel>
 									<FormControl>
-										<Input placeholder="Enter your address" {...field} />
+										<Input
+											placeholder={
+												language === "ar" ? "أدخل عنوانك" : "Enter your address"
+											}
+											{...field}
+										/>
 									</FormControl>
 									<FormMessage />
 								</FormItem>
@@ -333,8 +386,8 @@ export default function BookingDetailsForm({ bookingData, bookingId }) {
 								? "جاري الإرسال..."
 								: "Sending..."
 							: language === "ar"
-								? "إرسال الحجز"
-								: "Submit booking"}
+							? "إرسال الحجز"
+							: "Submit booking"}
 					</Button>
 				</div>
 			</form>

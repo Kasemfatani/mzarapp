@@ -38,12 +38,39 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 // Validation schema
-const formSchema = z.object({
-	name: z.string().min(1, { message: "Name is required" }).max(50),
-	email: z.string().email().min(1, { message: "Email is required" }).max(510),
-	phone: z.string().min(1, { message: "Phone number is required" }).max(50),
-	destination: z.string().min(1, { message: "Destination is required" }),
-});
+function getFormSchema(lang = "en") {
+	return z.object({
+		name: z
+			.string()
+			.min(1, { message: lang === "ar" ? "الاسم مطلوب" : "Name is required" })
+			.max(50, {
+				message:
+					lang === "ar"
+						? "يجب ألا يزيد الاسم عن 50 حرفًا"
+						: "Name must be at most 50 characters",
+			}),
+		email: z
+			.string()
+			.email({
+				message: lang === "ar" ? "البريد الإلكتروني غير صالح" : "Invalid email",
+			})
+			.min(1, {
+				message:
+					lang === "ar" ? "البريد الإلكتروني مطلوب" : "Email is required",
+			})
+			.max(510),
+		phone: z
+			.string()
+			.min(5, {
+				message:
+					lang === "ar" ? "رقم الهاتف مطلوب" : "Phone number is required",
+			})
+			.max(50),
+		destination: z.string().min(1, {
+			message: lang === "ar" ? "الوجهة مطلوبة" : "Destination is required",
+		}),
+	});
+}
 
 export default function GeneralFormsWrapper() {
 	const searchParams = useSearchParams();
@@ -92,8 +119,15 @@ export default function GeneralFormsWrapper() {
 		}
 	}, []);
 
+	// create resolver from localized schema and update when language changes
+	const resolver = React.useMemo(
+		() => zodResolver(getFormSchema(language)),
+		[language]
+	);
+
+	// use the resolver in useForm
 	const form = useForm({
-		resolver: zodResolver(formSchema),
+		resolver,
 		defaultValues: {
 			name: "",
 			email: "",
@@ -119,39 +153,44 @@ export default function GeneralFormsWrapper() {
 			gclid: gclid || "",
 		};
 
-		console.log("Payload for general API:", payload);
-
 		try {
 			const response = await axios.post(
 				`${API_BASE_URL}/landing/home/booking-pt1`,
 				payload,
 				{ headers: { lang: language } }
 			);
-			console.log("Booking API response:", response.data);
 
 			if (response.data && response.data.status) {
 				setBookingId(response.data.data.booking_id);
-
-				// Now fetch booking data for the selected package
+				// fetch booking data
 				const bookingDataRes = await axios.get(
 					`${API_BASE_URL}/landing/home/packages-booking-data?package_id=${package_id}`,
 					{ headers: { lang: language } }
 				);
-				setData(bookingDataRes.data); // Pass this data to BookingDetailsForm
+				setData(bookingDataRes.data);
 				setFormLoading(false);
 				setSuccess(true);
-				toast.success("Your request was sent successfully!", {
-					duration: 7000,
-					className: "sonner-toast-large",
-				});
+				toast.success(
+					language === "ar"
+						? "تم إرسال طلبك بنجاح!"
+						: "Your request was sent successfully!",
+					{ duration: 7000, className: "sonner-toast-large" }
+				);
 			} else {
 				setFormLoading(false);
-				toast.error("Failed to submit your request. Please try again.");
+				toast.error(
+					language === "ar"
+						? "فشل إرسال الطلب. الرجاء المحاولة مرة أخرى."
+						: "Failed to submit your request. Please try again."
+				);
 			}
 		} catch (error) {
 			setFormLoading(false);
-			console.log("Booking API error:", error);
-			toast.error("An error occurred. Please try again.");
+			toast.error(
+				language === "ar"
+					? "حدث خطأ. الرجاء المحاولة مرة أخرى."
+					: "An error occurred. Please try again."
+			);
 		}
 	};
 
@@ -178,7 +217,8 @@ export default function GeneralFormsWrapper() {
 						: "Fill out the form to book your experience"}
 				</h3>
 			</div>
-			<Form {...form}>
+			{/* remount form subtree when language changes so Zod messages update immediately */}
+			<Form key={language} {...form}>
 				<form onSubmit={form.handleSubmit(handleSubmit)}>
 					<div className="grid grid-cols-1 md:grid-cols-2 gap-6 ">
 						{/* Row 1: Full name & Email */}
@@ -340,7 +380,13 @@ export default function GeneralFormsWrapper() {
 								className="w-full max-w-md h-[60px] bg-gradient-to-r from-blue-600 to-teal-400 text-white text-xl py-4 rounded-xl shadow-lg hover:from-blue-700 hover:to-teal-500 transition-colors duration-300"
 								disabled={formLoading}
 							>
-								{formLoading ? "Sending..." : "Send Request"}
+								{formLoading
+									? language === "ar"
+										? "جاري الإرسال..."
+										: "Sending..."
+									: language === "ar"
+									? "إرسال الطلب"
+									: "Send Request"}
 							</Button>
 						</div>
 					)}
@@ -350,7 +396,9 @@ export default function GeneralFormsWrapper() {
 			{success && (
 				<div className="mt-4 border-t border-[#E5E7EB]">
 					<h3 className="text-center text-xl font-semibold my-8 bg-gradient-to-r from-blue-600 to-teal-400 bg-clip-text text-transparent">
-						Lorem ipsum dolor sit amet consectetur adipisicing elit.
+						{language === "ar"
+							? "لخدمة أفضل .. رجاء أكمل تفاصيل الحجز التالية"
+							: "For better service .. please fill booking details"}
 					</h3>
 					<BookingDetailsForm bookingData={data.data} bookingId={bookingId} />
 				</div>
