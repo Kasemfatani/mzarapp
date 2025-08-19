@@ -84,7 +84,7 @@ const heroSlides = [
 	},
 
 	{
-		bg: "/madinah2.jpeg",
+		bg: "/madinah2.jpg",
 		h1: {
 			en: (
 				<>
