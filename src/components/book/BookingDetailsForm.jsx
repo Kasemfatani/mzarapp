@@ -270,9 +270,9 @@ export default function BookingDetailsForm({
 												{filteredBookingHours?.map((item) => (
 													<SelectItem key={item.id} value={String(item.id)}>
 														<span>{item.name}</span>
-														<span className="ml-2 text-xs text-gray-500">
+														{/* <span className="ml-2 text-xs text-gray-500">
 															{item.description}
-														</span>
+														</span> */}
 													</SelectItem>
 												))}
 											</SelectContent>
