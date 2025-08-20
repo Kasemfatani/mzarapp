@@ -15,6 +15,9 @@ export default function LocationPickerMap({ lat, lng, setLat, setLng }) {
 
 	// Load Google Maps script only once
 	useEffect(() => {
+		// Only initialize map if ref is attached
+		if (!mapRef.current) return;
+
 		let scriptLoaded = !!window.google;
 		if (!scriptLoaded) {
 			const script = document.createElement("script");
@@ -22,7 +25,7 @@ export default function LocationPickerMap({ lat, lng, setLat, setLng }) {
 				"https://maps.googleapis.com/maps/api/js?key=AIzaSyCuS6yzhdLKU-fiY7zfmGX1yDPrHDvfYIE&libraries=places";
 			script.async = true;
 			script.onload = () => {
-				initMap();
+				if (mapRef.current) initMap();
 			};
 			document.body.appendChild(script);
 		} else {
@@ -30,6 +33,7 @@ export default function LocationPickerMap({ lat, lng, setLat, setLng }) {
 		}
 
 		function initMap() {
+			if (!mapRef.current) return; // Ensure ref is attached
 			googleMapRef.current = new window.google.maps.Map(mapRef.current, {
 				center: { lat, lng },
 				zoom: 12,
@@ -69,7 +73,7 @@ export default function LocationPickerMap({ lat, lng, setLat, setLng }) {
 			}
 		}
 		// eslint-disable-next-line
-	}, []);
+	}, [mapRef.current]);
 
 	// Update marker position and map center when lat/lng change
 	useEffect(() => {

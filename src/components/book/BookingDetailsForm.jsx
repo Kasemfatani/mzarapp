@@ -92,7 +92,7 @@ export default function BookingDetailsForm({
 	const form = useForm({
 		resolver,
 		defaultValues: {
-			date: new Date(),
+			date: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000), // 2 days from today
 			time: "",
 			persons: "",
 			car: "",
