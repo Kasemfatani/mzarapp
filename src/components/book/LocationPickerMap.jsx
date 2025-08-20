@@ -82,8 +82,32 @@ export default function LocationPickerMap({ lat, lng, setLat, setLng }) {
 		}
 	}, [lat, lng]);
 
+	const handleMyLocation = () => {
+		if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(
+				(position) => {
+					setLat(position.coords.latitude);
+					setLng(position.coords.longitude);
+				},
+				() => {
+					alert(
+						language === "ar"
+							? "تعذر الحصول على موقعك"
+							: "Unable to get your location"
+					);
+				}
+			);
+		} else {
+			alert(
+				language === "ar"
+					? "المتصفح لا يدعم تحديد الموقع"
+					: "Geolocation is not supported by your browser"
+			);
+		}
+	};
+
 	return (
-		<div className="mt-2">
+		<div className="mt-2 relative">
 			<input
 				id="location-name"
 				type="text"
@@ -98,12 +122,35 @@ export default function LocationPickerMap({ lat, lng, setLat, setLng }) {
 			/>
 			<div
 				ref={mapRef}
+				className=""
 				style={{
 					height: "200px",
 					borderRadius: "16px",
 					width: "100%",
 				}}
 			/>
+			<button
+				type="button"
+				onClick={handleMyLocation}
+				className="absolute bottom-8 left-4 bg-white border border-gray-300 rounded-full shadow-lg p-2 flex items-center justify-center hover:bg-blue-100 transition"
+				title={language === "ar" ? "اظهر موقعي الحالي" : "Show my location"}
+			>
+				<svg
+					width="24"
+					height="24"
+					fill="none"
+					stroke="#2196f3"
+					strokeWidth="2"
+					strokeLinecap="round"
+					strokeLinejoin="round"
+				>
+					<circle cx="12" cy="12" r="3" />
+					<path d="M12 2v2" />
+					<path d="M12 20v2" />
+					<path d="M2 12h2" />
+					<path d="M20 12h2" />
+				</svg>
+			</button>
 		</div>
 	);
 }
