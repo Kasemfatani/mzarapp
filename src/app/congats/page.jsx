@@ -3,14 +3,18 @@ import React, { useEffect, useState } from "react";
 import doneImage from "/public/done.svg";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
+import { toast } from "sonner";
+
 
 export default function Book() {
+	const router = useRouter();
 	const searchParams = useSearchParams(); // Fixed variable name
 	const [language, setLanguage] = useState("en");
 	const name = searchParams.get("name");
 	const phone = searchParams.get("phone");
 	const package_name = searchParams.get("package");
-	const email = searchParams.get("email"); // <-- added
+	const email = searchParams.get("email"); 
+	const [countdown, setCountdown] = useState(9);
 
 	useEffect(() => {
 		if (typeof window === "undefined") return;
@@ -35,6 +39,48 @@ export default function Book() {
 			setLanguage(localStorage.getItem("lang") || "en");
 		}
 	}, []);
+
+	useEffect(() => {
+        const interval = setInterval(() => {
+            setCountdown((prev) => {
+                if (prev <= 1) {
+                    clearInterval(interval);
+                    return 0;
+                }
+                return prev - 1;
+            });
+        }, 1000);
+
+        return () => clearInterval(interval);
+    }, []);
+
+    useEffect(() => {
+        if (countdown === 0) {
+						toast.dismiss("redirect-toast");
+            router.push("/");
+        } else if (countdown === 9) {
+            toast.info(
+                language === "ar"
+                    ? `سيتم تحويلك للصفحة الرئيسية خلال ${countdown} ثانية.`
+                    : `You will be redirected to the homepage in ${countdown} seconds.`,
+                {
+                    duration: 8000,
+                    position: "bottom-center",
+                    id: "redirect-toast",
+										className: "sonner-toast-large",
+                }
+            );
+        } else {
+            toast.message(
+                language === "ar"
+                    ? `سيتم تحويلك للصفحة الرئيسية خلال ${countdown} ثانية.`
+                    : `You will be redirected to the homepage in ${countdown} seconds.`,
+                {
+                    id: "redirect-toast",
+                }
+            );
+        }
+    }, [countdown, language, router]);
 
 	const texts = {
 		en: {
