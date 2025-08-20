@@ -1,79 +1,79 @@
 import { useEffect, useRef, useState } from "react";
+import { Loader } from "@googlemaps/js-api-loader";
 
 export default function LocationPickerMap({ lat, lng, setLat, setLng }) {
 	const mapRef = useRef(null);
 	const markerRef = useRef(null);
 	const googleMapRef = useRef(null);
-	const [language, setLanguage] = useState("en");
 
-	useEffect(() => {
-		if (typeof window !== "undefined") {
-			const lang = localStorage.getItem("lang") || "en";
-			setLanguage(lang);
-		}
-	}, []);
+	// read language synchronously so Loader gets correct language on first creation
+	const initialLang =
+		typeof window !== "undefined" ? localStorage.getItem("lang") || "en" : "en";
+	const [language, setLanguage] = useState(initialLang);
+
+	// single Loader instance
+	const loaderRef = useRef(null);
 
 	// Load Google Maps script only once
 	useEffect(() => {
-		// Only initialize map if ref is attached
 		if (!mapRef.current) return;
+		let mounted = true;
 
-		let scriptLoaded = !!window.google;
-		if (!scriptLoaded) {
-			const script = document.createElement("script");
-			script.src =
-				"https://maps.googleapis.com/maps/api/js?key=AIzaSyCuS6yzhdLKU-fiY7zfmGX1yDPrHDvfYIE&libraries=places";
-			script.async = true;
-			script.onload = () => {
-				if (mapRef.current) initMap();
-			};
-			document.body.appendChild(script);
-		} else {
-			initMap();
+		if (!loaderRef.current) {
+			loaderRef.current = new Loader({
+				apiKey: "AIzaSyCuS6yzhdLKU-fiY7zfmGX1yDPrHDvfYIE",
+				libraries: ["places"],
+				language: language === "ar" ? "ar" : "en",
+			});
 		}
 
-		function initMap() {
-			if (!mapRef.current) return; // Ensure ref is attached
-			googleMapRef.current = new window.google.maps.Map(mapRef.current, {
+		loaderRef.current.load().then(() => {
+			if (!mounted || !mapRef.current) return;
+
+			const map = new window.google.maps.Map(mapRef.current, {
 				center: { lat, lng },
 				zoom: 12,
 			});
+			googleMapRef.current = map;
 
-			markerRef.current = new window.google.maps.Marker({
-				map: googleMapRef.current,
+			const marker = new window.google.maps.Marker({
+				map,
 				position: { lat, lng },
 				draggable: true,
 			});
+			markerRef.current = marker;
 
-			window.google.maps.event.addListener(
-				markerRef.current,
-				"dragend",
-				function () {
-					const newLat = this.getPosition().lat();
-					const newLng = this.getPosition().lng();
-					setLat(newLat);
-					setLng(newLng);
-				}
-			);
+			marker.addListener("dragend", () => {
+				const pos = marker.getPosition();
+				if (!pos) return;
+				setLat(pos.lat());
+				setLng(pos.lng());
+			});
 
-			// Add autocomplete input
 			const input = document.getElementById("location-name");
 			if (input) {
 				const autocomplete = new window.google.maps.places.Autocomplete(input);
-				autocomplete.addListener("place_changed", function () {
+				autocomplete.addListener("place_changed", () => {
 					const place = autocomplete.getPlace();
 					if (!place.geometry) return;
 					const newLat = place.geometry.location.lat();
 					const newLng = place.geometry.location.lng();
-					googleMapRef.current.setCenter(place.geometry.location);
-					markerRef.current.setPosition(place.geometry.location);
+					map.setCenter(place.geometry.location);
+					marker.setPosition(place.geometry.location);
 					setLat(newLat);
 					setLng(newLng);
 				});
 			}
-		}
-		// eslint-disable-next-line
-	}, [mapRef.current]);
+		});
+
+		return () => {
+			mounted = false;
+			try {
+				markerRef.current?.setMap(null);
+			} catch (e) {}
+		};
+		// do NOT include `language` here to avoid recreating Loader with different options
+	}, [mapRef]);
 
 	// Update marker position and map center when lat/lng change
 	useEffect(() => {
