@@ -1,9 +1,17 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function LocationPickerMap({ lat, lng, setLat, setLng }) {
 	const mapRef = useRef(null);
 	const markerRef = useRef(null);
 	const googleMapRef = useRef(null);
+	const [language, setLanguage] = useState("en");
+
+	useEffect(() => {
+		if (typeof window !== "undefined") {
+			const lang = localStorage.getItem("lang") || "en";
+			setLanguage(lang);
+		}
+	}, []);
 
 	// Load Google Maps script only once
 	useEffect(() => {
@@ -41,9 +49,24 @@ export default function LocationPickerMap({ lat, lng, setLat, setLng }) {
 					const newLng = this.getPosition().lng();
 					setLat(newLat);
 					setLng(newLng);
-					
 				}
 			);
+
+			// Add autocomplete input
+			const input = document.getElementById("location-name");
+			if (input) {
+				const autocomplete = new window.google.maps.places.Autocomplete(input);
+				autocomplete.addListener("place_changed", function () {
+					const place = autocomplete.getPlace();
+					if (!place.geometry) return;
+					const newLat = place.geometry.location.lat();
+					const newLng = place.geometry.location.lng();
+					googleMapRef.current.setCenter(place.geometry.location);
+					markerRef.current.setPosition(place.geometry.location);
+					setLat(newLat);
+					setLng(newLng);
+				});
+			}
 		}
 		// eslint-disable-next-line
 	}, []);
@@ -60,10 +83,27 @@ export default function LocationPickerMap({ lat, lng, setLat, setLng }) {
 	}, [lat, lng]);
 
 	return (
-		<div
-			className="mt-4"
-			ref={mapRef}
-			style={{ height: "250px", borderRadius: "16px", width: "100%" }}
-		/>
+		<div className="mt-2">
+			<input
+				id="location-name"
+				type="text"
+				placeholder={
+					language === "ar" ? "ابحث عن موقع" : "Search for a location"
+				}
+				style={{
+					width: "100%",
+					padding: "10px",
+					marginBottom: "10px",
+				}}
+			/>
+			<div
+				ref={mapRef}
+				style={{
+					height: "200px",
+					borderRadius: "16px",
+					width: "100%",
+				}}
+			/>
+		</div>
 	);
 }
