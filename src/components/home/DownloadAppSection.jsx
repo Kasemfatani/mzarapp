@@ -25,7 +25,7 @@ export default function DownloadAppSection() {
       ? "تجربة تنقلك عبر الزمن"
       : "Step Into the Past "}
 					</h2>
-					<p className="text-lg text-black/90">
+					<p className="text-lg text-black font-medium">
 						{language === "ar"
       ? "اكتشف التاريخ من خلال تقنية الواقع المعزز"
       : "Relive History with Augmented Reality "}
