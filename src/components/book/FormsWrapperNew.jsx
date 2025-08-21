@@ -70,6 +70,7 @@ export default function FormsWrapperNew() {
 	const [formLoading, setFormLoading] = useState(false);
 	const [success, setSuccess] = useState(false);
 	const [bookingId, setBookingId] = useState(null);
+	const [refNo, setRefNo] = useState(""); 
 
 	useEffect(() => {
 		setLoading(true);
@@ -132,6 +133,7 @@ export default function FormsWrapperNew() {
 
 			if (response.data && response.data.status) {
 				setBookingId(response.data.data.booking_id);
+				setRefNo(response.data.data.ref_no);
 				setFormLoading(false);
 				setSuccess(true);
 				toast.success(
@@ -225,6 +227,12 @@ export default function FormsWrapperNew() {
 			{/* Render the second form below after success */}
 			{success && (
 				<div className="mt-4 border-t border-[#E5E7EB]">
+					{/* Reference number display */}
+					<div className="text-center text-lg font-bold my-4 bg-gradient-to-r from-blue-600 to-teal-400 bg-clip-text text-transparent">
+						{language === "ar"
+							? `رقم الحجز الخاص بك هو: ${refNo}`
+							: `Your booking reference number is: ${refNo}`}
+					</div>
 					<h3 className="text-center text-xl font-semibold my-8 bg-gradient-to-r from-blue-600 to-teal-400 bg-clip-text text-transparent">
 						{language === "ar"
 							? "لخدمة أفضل .. رجاء أكمل تفاصيل الحجز التالية"

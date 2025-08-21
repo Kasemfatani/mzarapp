@@ -3,14 +3,19 @@ import React, { useEffect, useState } from "react";
 import doneImage from "/public/done.svg";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
+import { toast } from "sonner";
+
 
 export default function Book() {
+	const router = useRouter();
 	const searchParams = useSearchParams(); // Fixed variable name
 	const [language, setLanguage] = useState("en");
 	const name = searchParams.get("name");
 	const phone = searchParams.get("phone");
 	const package_name = searchParams.get("package");
-	const email = searchParams.get("email"); // <-- added
+	const email = searchParams.get("email"); 
+	const refNo = searchParams.get("refNo");
+	const [countdown, setCountdown] = useState(9);
 
 	useEffect(() => {
 		if (typeof window === "undefined") return;
@@ -36,14 +41,58 @@ export default function Book() {
 		}
 	}, []);
 
+	useEffect(() => {
+        const interval = setInterval(() => {
+            setCountdown((prev) => {
+                if (prev <= 1) {
+                    clearInterval(interval);
+                    return 0;
+                }
+                return prev - 1;
+            });
+        }, 1000);
+
+        return () => clearInterval(interval);
+    }, []);
+
+    useEffect(() => {
+        if (countdown === 0) {
+						toast.dismiss("redirect-toast");
+            router.push("/");
+        } else if (countdown === 9) {
+            toast.info(
+                language === "ar"
+                    ? `سيتم تحويلك للصفحة الرئيسية خلال ${countdown} ثانية.`
+                    : `You will be redirected to the homepage in ${countdown} seconds.`,
+                {
+                    duration: 8000,
+                    position: "bottom-center",
+                    id: "redirect-toast",
+										className: "sonner-toast-large",
+                }
+            );
+        } else {
+            toast.message(
+                language === "ar"
+                    ? `سيتم تحويلك للصفحة الرئيسية خلال ${countdown} ثانية.`
+                    : `You will be redirected to the homepage in ${countdown} seconds.`,
+                {
+                    id: "redirect-toast",
+                }
+            );
+        }
+    }, [countdown, language, router]);
+
 	const texts = {
 		en: {
 			title: "Welcome to Mazar",
 			desc: "Our team will contact you shortly on WhatsApp to guide you through the next steps of your journey. We look forward to assisting you!",
+			refLabel: "Your booking reference number:",
 		},
 		ar: {
 			title: "مرحبًا بك في مزار",
 			desc: "سيتواصل معك فريقنا قريبًا عبر الواتساب لإرشادك في الخطوات التالية من رحلتك. نتطلع لخدمتك!",
+			refLabel: "رقم الحجز الخاص بك هو:",
 		},
 	};
 
@@ -53,6 +102,11 @@ export default function Book() {
 		<div className="popup" dir={language === "ar" ? "rtl" : "ltr"}>
 			<div className="popup-cont">
 				<Image src={doneImage} alt="Mazar" className="img" />
+				{refNo && (
+				<div className="text-center text-lg font-bold my-4 bg-gradient-to-r from-blue-600 to-teal-400 bg-clip-text text-transparent">
+						{t.refLabel} {refNo}
+					</div>
+				)}
 				<h2>{t.title}</h2>
 				<p>{t.desc}</p>
 			</div>

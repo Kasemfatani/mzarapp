@@ -38,9 +38,7 @@ export default function PathInfo(pathData) {
 									<span role="img" aria-label="fire">
 										🔥
 									</span>
-									{language === "ar"
-										? "الاكثر طلبا"
-										: "Most Ordered"}
+									{language === "ar" ? "الاكثر طلبا" : "Most Ordered"}
 								</div>
 							)}
 
@@ -48,9 +46,14 @@ export default function PathInfo(pathData) {
 						</div>
 						{/* <p className='desc'>{pathData.data.description}</p> */}
 					</div>
-					<div className=" min-[600px]:self-end">
-						<StarRating rating={Number(data.rating_api).toFixed(1)} outOf={5} />
-					</div>
+					{data.rating_api && Number(data.rating_api) > 0 ? (
+						<div className=" min-[600px]:self-end">
+							<StarRating
+								rating={Number(data.rating_api).toFixed(1)}
+								outOf={5}
+							/>
+						</div>
+					) : null}
 				</div>
 				<div className="pathdata">
 					<div className="imgs w-full">

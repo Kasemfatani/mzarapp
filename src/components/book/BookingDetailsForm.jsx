@@ -21,14 +21,20 @@ import {
 	SelectContent,
 	SelectItem,
 } from "@/components/ui/select";
-import { Calendar } from "@/components/ui/calendar";
+// import { Calendar } from "@/components/ui/calendar";
+
+import { Calendar } from "react-multi-date-picker";
+import arabic from "react-date-object/calendars/arabic"
+import arabic_ar from "react-date-object/locales/arabic_ar"
+import { Controller } from "react-hook-form";
+
 import {
 	Popover,
 	PopoverTrigger,
 	PopoverContent,
 } from "@/components/ui/popover";
 import { CalendarIcon } from "lucide-react";
-import MapSelector from "./MapSelector";
+// import MapSelector from "./MapSelector";
 import Image from "next/image";
 import { format } from "date-fns";
 import LocationPickerMap from "./LocationPickerMap";
@@ -80,7 +86,7 @@ export default function BookingDetailsForm({
 		if (typeof window !== "undefined") {
 			setLanguage(localStorage.getItem("lang") || "en");
 		}
-		console.log("bookingData.package_name is :", bookingData.package_name);
+		console.log("bookingData is :", bookingData);
 	}, []);
 
 	// create resolver tied to language so validation messages are localized
@@ -92,13 +98,18 @@ export default function BookingDetailsForm({
 	const form = useForm({
 		resolver,
 		defaultValues: {
-			date: new Date(),
+			date: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000), // 2 days from today
 			time: "",
 			persons: "",
 			car: "",
 			address: "",
 		},
 	});
+
+	// ensure address field is registered (we'll use the map input as the address)
+	useEffect(() => {
+		form.register("address");
+	}, [form]);
 
 	// Update maxSeats when car changes
 	const carValue = form.watch("car");
@@ -152,6 +163,7 @@ export default function BookingDetailsForm({
 				}
 			);
 			console.log("Booking pt2 API response:", response.data);
+			console.log("Booking pt2 API response response.data.data.ref_no:", response.data.data.ref_no);
 
 			if (response.data && response.data.status) {
 				setFormLoading(false);
@@ -159,12 +171,13 @@ export default function BookingDetailsForm({
 				const qPhone = contactPhone ?? "";
 				const qEmail = contactEmail ?? "";
 				const qPackage = bookingData?.package_name ?? "";
+				const refNo = response.data.data.ref_no ?? "";
 				router.push(
 					`/congats?name=${encodeURIComponent(
 						qName
 					)}&phone=${encodeURIComponent(qPhone)}&package=${encodeURIComponent(
 						qPackage
-					)}&email=${encodeURIComponent(qEmail)}`
+					)}&email=${encodeURIComponent(qEmail)}&refNo=${encodeURIComponent(refNo)}`
 				);
 			} else {
 				setFormLoading(false);
@@ -199,7 +212,7 @@ export default function BookingDetailsForm({
 							{language === "ar" ? "تفاصيل الحجز" : "Booking details"}
 						</h2>
 						{/* Date */}
-						<FormField
+						<Controller
 							control={form.control}
 							name="date"
 							render={({ field }) => (
@@ -225,7 +238,7 @@ export default function BookingDetailsForm({
 											</FormControl>
 										</PopoverTrigger>
 										<PopoverContent className="w-auto p-0" align="start">
-											<Calendar
+											{/* <Calendar
 												mode="single"
 												selected={field.value}
 												onSelect={(date) => {
@@ -243,6 +256,32 @@ export default function BookingDetailsForm({
 														date < new Date(bookingData.min_date))
 												}
 												initialFocus
+											/> */}
+											<Calendar
+												value={field.value || null}
+												onChange={(d) => {
+													// d is a DateObject (react-date-object) or null
+													const jsDate = d
+														? typeof d.toDate === "function"
+															? d.toDate()
+															: new Date(d)
+														: null;
+													if (jsDate) {
+														field.onChange(jsDate); // store JS Date in react-hook-form
+														setCalendarOpen(false);
+													}
+												}}
+												highlightToday={false}
+												minDate={new Date(bookingData.min_date)}
+												maxDate={new Date(bookingData.max_date)}
+												calendar={language === "ar" ? arabic : ''}
+												locale={language === "ar" ? arabic_ar : ''}
+												// calendar={language === "ar" ? islamic : gregorian}
+												// locale={language === "ar" ? arabicLocale : gregorianLocale}
+												// months={1}
+												// format="YYYY/MM/DD" // adjust visible format inside picker if desired
+												// inputClass="hidden" // hide the internal input (we use the popover trigger)
+												// className="w-64"
 											/>
 										</PopoverContent>
 									</Popover>
@@ -270,9 +309,9 @@ export default function BookingDetailsForm({
 												{filteredBookingHours?.map((item) => (
 													<SelectItem key={item.id} value={String(item.id)}>
 														<span>{item.name}</span>
-														<span className="ml-2 text-xs text-gray-500">
+														{/* <span className="ml-2 text-xs text-gray-500">
 															{item.description}
-														</span>
+														</span> */}
 													</SelectItem>
 												))}
 											</SelectContent>
@@ -368,7 +407,7 @@ export default function BookingDetailsForm({
 							{language === "ar" ? "معلومات إضافية" : "Additional information"}
 						</h2>
 						{/* Address */}
-						<FormField
+						{/* <FormField
 							control={form.control}
 							name="address"
 							render={({ field }) => (
@@ -387,17 +426,26 @@ export default function BookingDetailsForm({
 									<FormMessage />
 								</FormItem>
 							)}
-						/>
+						/> */}
 						{/* Special requests */}
 
 						<label className="">
-							{language === "ar" ? "طلبات خاصة" : "Special requests"}
+							{language === "ar" ? "العنوان" : "Address*"}
 						</label>
+						{/* show validation error for address (react-hook-form) */}
+						{form.formState.errors.address?.message && (
+							<p className="text-sm text-destructive mt-1">
+								{String(form.formState.errors.address.message)}
+							</p>
+						)}
 						<LocationPickerMap
 							lat={lat}
 							lng={lng}
 							setLat={setLat}
 							setLng={setLng}
+							onAddressChange={(addr) =>
+								form.setValue("address", addr, { shouldValidate: true })
+							}
 						/>
 					</div>
 				</div>
