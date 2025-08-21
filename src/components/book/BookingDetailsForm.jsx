@@ -21,12 +21,12 @@ import {
 	SelectContent,
 	SelectItem,
 } from "@/components/ui/select";
-// import { Calendar } from "@/components/ui/calendar";
-
-import { Calendar } from "react-multi-date-picker";
-import arabic from "react-date-object/calendars/arabic"
-import arabic_ar from "react-date-object/locales/arabic_ar"
-import { Controller } from "react-hook-form";
+import { Calendar } from "@/components/ui/calendar";
+import { arSA } from "date-fns/locale";
+// import { Calendar } from "react-multi-date-picker";
+// import arabic from "react-date-object/calendars/arabic"
+// import arabic_ar from "react-date-object/locales/arabic_ar"
+// import { Controller } from "react-hook-form";
 
 import {
 	Popover,
@@ -163,7 +163,10 @@ export default function BookingDetailsForm({
 				}
 			);
 			console.log("Booking pt2 API response:", response.data);
-			console.log("Booking pt2 API response response.data.data.ref_no:", response.data.data.ref_no);
+			console.log(
+				"Booking pt2 API response response.data.data.ref_no:",
+				response.data.data.ref_no
+			);
 
 			if (response.data && response.data.status) {
 				setFormLoading(false);
@@ -177,7 +180,9 @@ export default function BookingDetailsForm({
 						qName
 					)}&phone=${encodeURIComponent(qPhone)}&package=${encodeURIComponent(
 						qPackage
-					)}&email=${encodeURIComponent(qEmail)}&refNo=${encodeURIComponent(refNo)}`
+					)}&email=${encodeURIComponent(qEmail)}&refNo=${encodeURIComponent(
+						refNo
+					)}`
 				);
 			} else {
 				setFormLoading(false);
@@ -212,7 +217,7 @@ export default function BookingDetailsForm({
 							{language === "ar" ? "تفاصيل الحجز" : "Booking details"}
 						</h2>
 						{/* Date */}
-						<Controller
+						<FormField
 							control={form.control}
 							name="date"
 							render={({ field }) => (
@@ -238,8 +243,9 @@ export default function BookingDetailsForm({
 											</FormControl>
 										</PopoverTrigger>
 										<PopoverContent className="w-auto p-0" align="start">
-											{/* <Calendar
+											<Calendar
 												mode="single"
+												locale={language === "ar" ? arSA : undefined}
 												selected={field.value}
 												onSelect={(date) => {
 													if (date === undefined) {
@@ -256,8 +262,8 @@ export default function BookingDetailsForm({
 														date < new Date(bookingData.min_date))
 												}
 												initialFocus
-											/> */}
-											<Calendar
+											/>
+											{/* <Calendar
 												value={field.value || null}
 												onChange={(d) => {
 													// d is a DateObject (react-date-object) or null
@@ -274,15 +280,9 @@ export default function BookingDetailsForm({
 												highlightToday={false}
 												minDate={new Date(bookingData.min_date)}
 												maxDate={new Date(bookingData.max_date)}
-												calendar={language === "ar" ? arabic : ''}
-												locale={language === "ar" ? arabic_ar : ''}
-												// calendar={language === "ar" ? islamic : gregorian}
-												// locale={language === "ar" ? arabicLocale : gregorianLocale}
-												// months={1}
-												// format="YYYY/MM/DD" // adjust visible format inside picker if desired
-												// inputClass="hidden" // hide the internal input (we use the popover trigger)
-												// className="w-64"
-											/>
+												calendar={language === "ar" ? arabic : ""}
+												locale={language === "ar" ? arabic_ar : ""}
+											/> */}
 										</PopoverContent>
 									</Popover>
 									<FormMessage />
