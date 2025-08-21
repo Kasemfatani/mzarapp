@@ -163,6 +163,7 @@ export default function BookingDetailsForm({
 				}
 			);
 			console.log("Booking pt2 API response:", response.data);
+			console.log("Booking pt2 API response response.data.data.ref_no:", response.data.data.ref_no);
 
 			if (response.data && response.data.status) {
 				setFormLoading(false);
@@ -170,12 +171,13 @@ export default function BookingDetailsForm({
 				const qPhone = contactPhone ?? "";
 				const qEmail = contactEmail ?? "";
 				const qPackage = bookingData?.package_name ?? "";
+				const refNo = response.data.data.ref_no ?? "";
 				router.push(
 					`/congats?name=${encodeURIComponent(
 						qName
 					)}&phone=${encodeURIComponent(qPhone)}&package=${encodeURIComponent(
 						qPackage
-					)}&email=${encodeURIComponent(qEmail)}`
+					)}&email=${encodeURIComponent(qEmail)}&refNo=${encodeURIComponent(refNo)}`
 				);
 			} else {
 				setFormLoading(false);

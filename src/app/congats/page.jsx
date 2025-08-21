@@ -14,6 +14,7 @@ export default function Book() {
 	const phone = searchParams.get("phone");
 	const package_name = searchParams.get("package");
 	const email = searchParams.get("email"); 
+	const refNo = searchParams.get("refNo");
 	const [countdown, setCountdown] = useState(9);
 
 	useEffect(() => {
@@ -86,10 +87,12 @@ export default function Book() {
 		en: {
 			title: "Welcome to Mazar",
 			desc: "Our team will contact you shortly on WhatsApp to guide you through the next steps of your journey. We look forward to assisting you!",
+			refLabel: "Your booking reference number:",
 		},
 		ar: {
 			title: "مرحبًا بك في مزار",
 			desc: "سيتواصل معك فريقنا قريبًا عبر الواتساب لإرشادك في الخطوات التالية من رحلتك. نتطلع لخدمتك!",
+			refLabel: "رقم الحجز الخاص بك هو:",
 		},
 	};
 
@@ -99,6 +102,11 @@ export default function Book() {
 		<div className="popup" dir={language === "ar" ? "rtl" : "ltr"}>
 			<div className="popup-cont">
 				<Image src={doneImage} alt="Mazar" className="img" />
+				{refNo && (
+				<div className="text-center text-lg font-bold my-4 bg-gradient-to-r from-blue-600 to-teal-400 bg-clip-text text-transparent">
+						{t.refLabel} {refNo}
+					</div>
+				)}
 				<h2>{t.title}</h2>
 				<p>{t.desc}</p>
 			</div>
