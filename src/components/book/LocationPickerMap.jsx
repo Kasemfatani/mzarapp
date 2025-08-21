@@ -1,7 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import { Loader } from "@googlemaps/js-api-loader";
 
-export default function LocationPickerMap({ lat, lng, setLat, setLng }) {
+export default function LocationPickerMap({
+	lat,
+	lng,
+	setLat,
+	setLng,
+	onAddressChange,
+}) {
 	const mapRef = useRef(null);
 	const markerRef = useRef(null);
 	const googleMapRef = useRef(null);
@@ -9,7 +15,7 @@ export default function LocationPickerMap({ lat, lng, setLat, setLng }) {
 	// read language synchronously so Loader gets correct language on first creation
 	const initialLang =
 		typeof window !== "undefined" ? localStorage.getItem("lang") || "en" : "en";
-	const [language, setLanguage] = useState(initialLang);
+	const [language] = useState(initialLang); // keep local language only; no prop required
 
 	// single Loader instance
 	const loaderRef = useRef(null);
@@ -18,6 +24,7 @@ export default function LocationPickerMap({ lat, lng, setLat, setLng }) {
 	useEffect(() => {
 		if (!mapRef.current) return;
 		let mounted = true;
+		let inputBlurHandler = null;
 
 		if (!loaderRef.current) {
 			loaderRef.current = new Loader({
@@ -55,14 +62,27 @@ export default function LocationPickerMap({ lat, lng, setLat, setLng }) {
 				const autocomplete = new window.google.maps.places.Autocomplete(input);
 				autocomplete.addListener("place_changed", () => {
 					const place = autocomplete.getPlace();
-					if (!place.geometry) return;
-					const newLat = place.geometry.location.lat();
-					const newLng = place.geometry.location.lng();
-					map.setCenter(place.geometry.location);
-					marker.setPosition(place.geometry.location);
-					setLat(newLat);
-					setLng(newLng);
+					// prefer formatted_address when available, fallback to input value
+					const address = place?.formatted_address || input.value;
+
+					if (place?.geometry) {
+						const newLat = place.geometry.location.lat();
+						const newLng = place.geometry.location.lng();
+						map.setCenter(place.geometry.location);
+						marker.setPosition(place.geometry.location);
+						setLat(newLat);
+						setLng(newLng);
+					}
+
+					if (typeof onAddressChange === "function") onAddressChange(address);
 				});
+
+				// also push manual edits to parent on blur
+				inputBlurHandler = () => {
+					if (typeof onAddressChange === "function")
+						onAddressChange(input.value);
+				};
+				input.addEventListener("blur", inputBlurHandler);
 			}
 		});
 
@@ -71,6 +91,9 @@ export default function LocationPickerMap({ lat, lng, setLat, setLng }) {
 			try {
 				markerRef.current?.setMap(null);
 			} catch (e) {}
+			const input = document.getElementById("location-name");
+			if (input && inputBlurHandler)
+				input.removeEventListener("blur", inputBlurHandler);
 		};
 		// do NOT include `language` here to avoid recreating Loader with different options
 	}, [mapRef]);
@@ -128,7 +151,7 @@ export default function LocationPickerMap({ lat, lng, setLat, setLng }) {
 				ref={mapRef}
 				className=""
 				style={{
-					height: "200px",
+					height: "300px",
 					borderRadius: "16px",
 					width: "100%",
 				}}

@@ -100,6 +100,11 @@ export default function BookingDetailsForm({
 		},
 	});
 
+	// ensure address field is registered (we'll use the map input as the address)
+	useEffect(() => {
+		form.register("address");
+	}, [form]);
+
 	// Update maxSeats when car changes
 	const carValue = form.watch("car");
 	useEffect(() => {
@@ -368,7 +373,7 @@ export default function BookingDetailsForm({
 							{language === "ar" ? "معلومات إضافية" : "Additional information"}
 						</h2>
 						{/* Address */}
-						<FormField
+						{/* <FormField
 							control={form.control}
 							name="address"
 							render={({ field }) => (
@@ -387,17 +392,26 @@ export default function BookingDetailsForm({
 									<FormMessage />
 								</FormItem>
 							)}
-						/>
+						/> */}
 						{/* Special requests */}
 
 						<label className="">
-							{language === "ar" ? "طلبات خاصة" : "Special requests"}
+							{language === "ar" ? "العنوان" : "Address*"}
 						</label>
+						{/* show validation error for address (react-hook-form) */}
+						{form.formState.errors.address?.message && (
+							<p className="text-sm text-destructive mt-1">
+								{String(form.formState.errors.address.message)}
+							</p>
+						)}
 						<LocationPickerMap
 							lat={lat}
 							lng={lng}
 							setLat={setLat}
 							setLng={setLng}
+							onAddressChange={(addr) =>
+								form.setValue("address", addr, { shouldValidate: true })
+							}
 						/>
 					</div>
 				</div>
