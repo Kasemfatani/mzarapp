@@ -21,14 +21,20 @@ import {
 	SelectContent,
 	SelectItem,
 } from "@/components/ui/select";
-import { Calendar } from "@/components/ui/calendar";
+// import { Calendar } from "@/components/ui/calendar";
+
+import { Calendar } from "react-multi-date-picker";
+import arabic from "react-date-object/calendars/arabic"
+import arabic_ar from "react-date-object/locales/arabic_ar"
+import { Controller } from "react-hook-form";
+
 import {
 	Popover,
 	PopoverTrigger,
 	PopoverContent,
 } from "@/components/ui/popover";
 import { CalendarIcon } from "lucide-react";
-import MapSelector from "./MapSelector";
+// import MapSelector from "./MapSelector";
 import Image from "next/image";
 import { format } from "date-fns";
 import LocationPickerMap from "./LocationPickerMap";
@@ -80,7 +86,7 @@ export default function BookingDetailsForm({
 		if (typeof window !== "undefined") {
 			setLanguage(localStorage.getItem("lang") || "en");
 		}
-		console.log("bookingData.package_name is :", bookingData.package_name);
+		console.log("bookingData is :", bookingData);
 	}, []);
 
 	// create resolver tied to language so validation messages are localized
@@ -204,7 +210,7 @@ export default function BookingDetailsForm({
 							{language === "ar" ? "تفاصيل الحجز" : "Booking details"}
 						</h2>
 						{/* Date */}
-						<FormField
+						<Controller
 							control={form.control}
 							name="date"
 							render={({ field }) => (
@@ -230,7 +236,7 @@ export default function BookingDetailsForm({
 											</FormControl>
 										</PopoverTrigger>
 										<PopoverContent className="w-auto p-0" align="start">
-											<Calendar
+											{/* <Calendar
 												mode="single"
 												selected={field.value}
 												onSelect={(date) => {
@@ -248,6 +254,32 @@ export default function BookingDetailsForm({
 														date < new Date(bookingData.min_date))
 												}
 												initialFocus
+											/> */}
+											<Calendar
+												value={field.value || null}
+												onChange={(d) => {
+													// d is a DateObject (react-date-object) or null
+													const jsDate = d
+														? typeof d.toDate === "function"
+															? d.toDate()
+															: new Date(d)
+														: null;
+													if (jsDate) {
+														field.onChange(jsDate); // store JS Date in react-hook-form
+														setCalendarOpen(false);
+													}
+												}}
+												highlightToday={false}
+												minDate={new Date(bookingData.min_date)}
+												maxDate={new Date(bookingData.max_date)}
+												calendar={language === "ar" ? arabic : ''}
+												locale={language === "ar" ? arabic_ar : ''}
+												// calendar={language === "ar" ? islamic : gregorian}
+												// locale={language === "ar" ? arabicLocale : gregorianLocale}
+												// months={1}
+												// format="YYYY/MM/DD" // adjust visible format inside picker if desired
+												// inputClass="hidden" // hide the internal input (we use the popover trigger)
+												// className="w-64"
 											/>
 										</PopoverContent>
 									</Popover>
