@@ -11,6 +11,7 @@ import "../style/main.css";
 import { Toaster } from "@/components/ui/sonner";
 // import 'react-phone-number-input/style.css';
 import { GoogleTagManager } from "@next/third-parties/google";
+import Script from "next/script";
 
 export async function generateMetadata(): Promise<Metadata> {
 	const lang =
@@ -64,22 +65,20 @@ export default function RootLayout({
 					href="https://fonts.gstatic.com"
 					crossOrigin="anonymous"
 				/>
-				{/* Hotjar Tracking Code for https://mzarapp.com/ */}
-				<script
-					dangerouslySetInnerHTML={{
-						__html: `
-              (function(h,o,t,j,a,r){
-                h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
-                h._hjSettings={hjid:5050444,hjsv:6};
-                a=o.getElementsByTagName('head')[0];
-                r=o.createElement('script');r.async=1;
-                r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
-                a.appendChild(r);
-              })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
-            `,
-					}}
-				/>
 			</Head>
+			{/* Hotjar Tracking Code for https://mzarapp.com/ */}
+			<Script id="hotjar" strategy="afterInteractive">
+				{`
+          (function(h,o,t,j,a,r){
+            h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+            h._hjSettings={hjid:5050444,hjsv:6};
+            a=o.getElementsByTagName('head')[0];
+            r=o.createElement('script');r.async=1;
+            r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+            a.appendChild(r);
+          })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+        `}
+			</Script>
 			<GoogleTagManager gtmId="GTM-WS294KJ" />
 			<body className="w-full" suppressHydrationWarning={true}>
 				<noscript>
