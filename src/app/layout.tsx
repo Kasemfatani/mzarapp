@@ -80,6 +80,19 @@ export default function RootLayout({
         `}
 			</Script>
 			<GoogleTagManager gtmId="GTM-WS294KJ" />
+			{/* Google tag (gtag.js) for AW-16518722477 */}
+			<Script
+				src="https://www.googletagmanager.com/gtag/js?id=AW-16518722477"
+				strategy="afterInteractive"
+			/>
+			<Script id="gtag-init" strategy="afterInteractive">
+				{`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'AW-16518722477');
+        `}
+			</Script>
 			<body className="w-full" suppressHydrationWarning={true}>
 				<noscript>
 					<iframe
