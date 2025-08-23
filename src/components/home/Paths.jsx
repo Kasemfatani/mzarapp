@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import axios from "axios";
 import Flag from "react-world-flags";
 import Image from "next/image";
@@ -30,8 +31,10 @@ export default function Paths() {
 	]);
 	const [swiper, setSwiper] = useState(null);
 	const [activeIndex, setActiveIndex] = useState(0);
+	const searchParams = useSearchParams();
 
 	useEffect(() => {
+		// Fetch data once on mount (unchanged)
 		setLoading(true);
 		if (typeof window !== "undefined") {
 			const lang = localStorage.getItem("lang") || "en";
@@ -86,8 +89,6 @@ export default function Paths() {
 				.get(`${API_BASE_URL}/landing/home/packages`, { headers })
 				.then((response) => {
 					setData(response.data);
-					console.log("Fetched packages data:", response.data);
-
 					setLoading(false);
 				})
 				.catch((error) => {
@@ -97,6 +98,21 @@ export default function Paths() {
 				});
 		}
 	}, []);
+
+	// New effect: apply filter whenever search params change
+	useEffect(() => {
+		if (!searchParams) return;
+		const qf = searchParams.get("filter");
+		if (qf) {
+			setSelectedFilter(Number(qf));
+			// optionally scroll into view if you want Paths to auto-scroll on URL change:
+			// const el = document.getElementById("paths");
+			// if (el) el.scrollIntoView({ behavior: "smooth" });
+		}
+		// if no filter param, you may want to reset to "all":
+		// else setSelectedFilter("all");
+	}, [searchParams]);
+
 	const ReviewCard = ({ cover, name }) => {
 		return (
 			<figure className={cn()}>
@@ -288,7 +304,9 @@ export default function Paths() {
 							{filteredPackages?.map((_, idx) => (
 								<button
 									key={idx}
-									className={`custom-bullet ${activeIndex === idx ? "active" : ""}`}
+									className={`custom-bullet ${
+										activeIndex === idx ? "active" : ""
+									}`}
 									onClick={() =>
 										swiper && swiper.slideToLoop
 											? swiper.slideToLoop(idx)
