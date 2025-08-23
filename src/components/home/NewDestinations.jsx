@@ -1,9 +1,11 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function NewDestinations() {
 	const [language, setLanguage] = useState("en"); // Default language is 'en'
+	const router = useRouter();
 
 	useEffect(() => {
 		if (typeof window !== "undefined") {
@@ -61,8 +63,18 @@ export default function NewDestinations() {
 					{t.desc}
 				</p>
 				<Link
-					href="#"
+					href="/?filter=2#paths"
 					className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-3 rounded-lg transition"
+					onClick={(e) => {
+						e.preventDefault();
+						// push new url; Paths will react via useSearchParams
+						router.push("/?filter=2#paths");
+						// scroll to paths after a short delay to allow route/url update
+						setTimeout(() => {
+							const el = document.getElementById("paths");
+							if (el) el.scrollIntoView({ behavior: "smooth" });
+						}, 50);
+					}}
 				>
 					{t.button}
 				</Link>
