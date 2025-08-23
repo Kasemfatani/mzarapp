@@ -20,15 +20,15 @@ export default function Header() {
     return null;
   }
 
-  let [lang, setLang] = useState('ar');
+  let [lang, setLang] = useState('en');
   useEffect(() => {
     if (typeof window !== 'undefined') {
       if (localStorage.getItem('lang') === 'ar' || localStorage.getItem('lang') === 'en') {
         setLang(localStorage.getItem('lang'));
       }
       else {
-        localStorage.setItem('lang', 'ar');
-        setLang('ar');
+        localStorage.setItem('lang', 'en');
+        setLang('en');
       }
     }
   }, [lang]);
