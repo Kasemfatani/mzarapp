@@ -54,8 +54,8 @@ export default function Paths() {
 								<Image
 									src={makkahIcon}
 									alt="Makkah"
-									width={28}
-									height={28}
+									width={18}
+									height={18}
 									className="pb-[6px]"
 									style={{ display: "inline-block" }}
 								/>
@@ -64,8 +64,8 @@ export default function Paths() {
 								<Image
 									src={madinahIcon}
 									alt="Madinah"
-									width={28}
-									height={28}
+									width={18}
+									height={18}
 									className="pb-[6px]"
 									style={{ display: "inline-block" }}
 								/>
