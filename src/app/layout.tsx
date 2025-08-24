@@ -65,6 +65,30 @@ export default function RootLayout({
 					href="https://fonts.gstatic.com"
 					crossOrigin="anonymous"
 				/>
+				<script
+					type="application/ld+json"
+					dangerouslySetInnerHTML={{
+						__html: JSON.stringify({
+							"@context": "https://schema.org",
+							"@graph": [
+								{
+									"@type": "Organization",
+									"@id": "https://www.mzarapp.com#organization",
+									name: "MzarApp",
+									url: "https://www.mzarapp.com",
+									logo: mzarImg.src,
+								},
+								{
+									"@type": "WebSite",
+									"@id": "https://www.mzarapp.com#website",
+									name: "MzarApp",
+									url: "https://www.mzarapp.com",
+									publisher: { "@id": "https://www.mzarapp.com#organization" },
+								},
+							],
+						}),
+					}}
+				/>
 			</Head>
 			{/* Hotjar Tracking Code for https://mzarapp.com/ */}
 			<Script id="hotjar" strategy="afterInteractive">
