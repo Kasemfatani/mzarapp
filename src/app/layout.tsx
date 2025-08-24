@@ -32,7 +32,7 @@ export async function generateMetadata(): Promise<Metadata> {
 			description:
 				"مزار هو تطبيق مبتكر يقدم تجربة استثنائية لاستكشاف المعالم الدينية والتاريخية والثقافية في مكة المكرمة. اختر من بين أربعة مسارات مميزة، واستمتع بخدمة الإثراء المعرفي الصوتي والنصي بـ6 لغات، مع تخطيط سهل ومريح لرحلتك الروحانية",
 			url: "https://www.mzarapp.com",
-			siteName: "MzarApp | تطبيق مزار",
+			siteName: "MzarApp",
 			images: [
 				{
 					url: mzarImg.src,
