@@ -18,6 +18,15 @@ export default function Home() {
 	const [language, setLanguage] = useState("en"); // Default language is 'en'
 	const pathname = usePathname();
 
+	// Get gclid from URL or localStorage
+	function getGclid() {
+		let gclid = searchParams.get("gclid");
+		if (!gclid && typeof window !== "undefined") {
+			gclid = localStorage.getItem("gclid");
+		}
+		return gclid;
+	}
+
 	useEffect(() => {
 		setLoading(true);
 		if (typeof window !== "undefined") {
@@ -62,7 +71,7 @@ export default function Home() {
 				<div className={language === "en" ? "ltr" : "rtl"}>
 					{pathname == "/path"
 						? (() => {
-								const gclid = searchParams.get("gclid");
+								const gclid = getGclid();
 								const whatsappText =
 									language === "en"
 										? `I am interested in ${data?.name}.${

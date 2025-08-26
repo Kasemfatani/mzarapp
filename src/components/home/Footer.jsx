@@ -18,6 +18,22 @@ export default function Footer() {
 	const [language, setLanguage] = useState("en"); // Default language is 'en'
 	const pathname = usePathname();
 	const searchParams = useSearchParams();
+	const [gclid, setGclid] = useState("");
+
+	// Store gclid in localStorage if present in URL
+	useEffect(() => {
+		if (typeof window !== "undefined") {
+			const urlGclid = searchParams.get("gclid");
+			if (urlGclid) {
+				localStorage.setItem("gclid", urlGclid);
+				setGclid(urlGclid);
+			} else {
+				const stored = localStorage.getItem("gclid") || "";
+				setGclid(stored);
+			}
+			setLanguage(localStorage.getItem("lang"));
+		}
+	}, [searchParams]);
 
 	// Don't render the footer on the custome page
 	if (
@@ -28,19 +44,12 @@ export default function Footer() {
 		return null;
 	}
 
-	useEffect(() => {
-		if (typeof window !== "undefined") {
-			// Define the headers with the selected language
-			setLanguage(localStorage.getItem("lang"));
-		}
-	}, []);
 	return (
 		<footer className={`${language === "en" ? "ltr" : "rtl"}`}>
 			{" "}
 			{/* Main footer container with padding and background color */}
 			{pathname != "/path"
 				? (() => {
-						const gclid = searchParams.get("gclid");
 						const whatsappText =
 							language === "en"
 								? `Hello, I am interested to know more about Mzar.${
