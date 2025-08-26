@@ -75,14 +75,23 @@ function getFormSchema(lang = "en") {
 export default function GeneralFormsWrapper() {
 	const searchParams = useSearchParams();
 
-	const gclid = searchParams.get("gclid");
+	// Get gclid from URL or localStorage
+	function getGclid() {
+		let gclid = searchParams.get("gclid");
+		if (!gclid && typeof window !== "undefined") {
+			gclid = localStorage.getItem("gclid");
+		}
+		return gclid;
+	}
+	const gclid = getGclid();
+
 	const [data, setData] = useState(null);
 	const [loading, setLoading] = useState(true);
 	const [language, setLanguage] = useState("en");
 	const [formLoading, setFormLoading] = useState(false);
 	const [success, setSuccess] = useState(false);
 	const [bookingId, setBookingId] = useState(null);
-	const [refNo, setRefNo] = useState(""); 
+	const [refNo, setRefNo] = useState("");
 	const [cities, setCities] = useState([
 		{ id: "all", name: language === "ar" ? "الكل" : "All" },
 	]);
@@ -153,7 +162,7 @@ export default function GeneralFormsWrapper() {
 			package_id: package_id,
 			gclid: gclid || "",
 		};
-
+		console.log("Booking payload in <GeneralFormsWrapper />:", payload);
 		try {
 			const response = await axios.post(
 				`${API_BASE_URL}/landing/home/booking-pt1`,

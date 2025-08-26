@@ -63,14 +63,24 @@ function truncateText(text, maxLength = 120) {
 export default function FormsWrapperNew() {
 	const searchParams = useSearchParams();
 	const [pathId] = useState(searchParams.get("id"));
-	const gclid = searchParams.get("gclid");
+
+	// Get gclid from URL or localStorage
+	function getGclid() {
+		let gclid = searchParams.get("gclid");
+		if (!gclid && typeof window !== "undefined") {
+			gclid = localStorage.getItem("gclid");
+		}
+		return gclid;
+	}
+	const gclid = getGclid();
+
 	const [data, setData] = useState(null);
 	const [loading, setLoading] = useState(true);
 	const [language, setLanguage] = useState("en");
 	const [formLoading, setFormLoading] = useState(false);
 	const [success, setSuccess] = useState(false);
 	const [bookingId, setBookingId] = useState(null);
-	const [refNo, setRefNo] = useState(""); 
+	const [refNo, setRefNo] = useState("");
 
 	useEffect(() => {
 		setLoading(true);
@@ -123,7 +133,7 @@ export default function FormsWrapperNew() {
 			package_id: Number(pathId),
 			gclid: gclid || "",
 		};
-
+		console.log("Booking payload in <FormsWrapperNew />:", payload);
 		try {
 			const response = await axios.post(
 				`${API_BASE_URL}/landing/home/booking-pt1`,
