@@ -29,6 +29,10 @@ import img24 from "/public/gallery/24.png";
 import img25 from "/public/gallery/25.png";
 import img26 from "/public/gallery/26.png";
 import img27 from "/public/gallery/27.png";
+import mzar_vid from "/public/gallery/mzar_vid.jpg";
+import Nigerian_vid from "/public/gallery/Nigerian_vid.jpg";
+import french from "/public/gallery/french.jpg";
+import algerian from "/public/gallery/algerian.jpg";
 
 import { Fancybox } from "@fancyapps/ui";
 import "@fancyapps/ui/dist/fancybox/fancybox.css";
@@ -57,23 +61,23 @@ export default function GallerySection() {
 		{ url: img4, category: "photos" },
 		{ url: img2, category: "photos" },
 		{
-			url: img7,
+			url: mzar_vid,
 			category: "videos",
 			video: "https://youtu.be/frw4Z53HxGc?list=PLoPKxH4hhiFrKx9huiJeYr9Z7gjDKivEZ",
 		}, // example video
 		{ url: img8, category: "photos" },
 		{
-			url: img5,
+			url: Nigerian_vid,
 			category: "videos",
 			video: "https://youtu.be/k-aQ_gDa-vA?list=PLoPKxH4hhiFpEjdVj_Hir58jNz8lzr3w2",
 		}, // example video
 		{
-			url: img6,
+			url: french,
 			category: "videos",
 			video: "https://youtu.be/ZsRMu_2a-GE?list=PLoPKxH4hhiFpEjdVj_Hir58jNz8lzr3w2",
 		}, // example video
 		{
-			url: img9,
+			url: algerian,
 			category: "videos",
 			video: "https://youtu.be/WqdzzShydag?list=PLoPKxH4hhiFpEjdVj_Hir58jNz8lzr3w2",
 		}, // example video
@@ -96,6 +100,10 @@ export default function GallerySection() {
 		{ url: img25, category: "photos" },
 		{ url: img26, category: "photos" },
 		{ url: img27, category: "photos" },
+		{ url: img7, category: "photos" },
+		{ url: img5, category: "photos" },
+		{ url: img6, category: "photos" },
+		{ url: img9, category: "photos" },
 	];
 	let [activeTab, setActiveTab] = useState("all");
 
