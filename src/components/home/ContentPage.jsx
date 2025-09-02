@@ -12,6 +12,8 @@ import "swiper/css/pagination";
 import Loading from '@/app/loading';
 import axios from 'axios';
 import { API_BASE_URL } from '@/lib/apiConfig';
+import parse from 'html-react-parser';
+
 export default function ContentPage() {
 
     const [loading, setLoading] = useState(true); // State for loading indicator
@@ -77,7 +79,7 @@ export default function ContentPage() {
                                                     <div className="overlay"></div>
                                                 </div>
                                                 <h4>{path.title}</h4>
-                                                <p>{path.description}</p>
+                                                <p>{parse(path.description)}</p>
                                                 <div className="date-book">
                                                     <div className="date">
                                                         <i className="fa-regular fa-calendar-days"></i>
