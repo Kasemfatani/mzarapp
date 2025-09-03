@@ -214,11 +214,12 @@ export default function PathInfo(props) {
                                         href={`https://wa.me/+966580121025?text=${encodeURIComponent(
                                             whatsappText
                                         )}`}
-                                        className="book-link"
+                                        className="book-link-whatsapp"
                                         target="_blank"
                                         rel="noopener noreferrer"
                                     >
-                                        {language === "en" ? "Book Now" : "احجز الآن"}
+                                        <i className="fa-brands fa-whatsapp" aria-hidden="true"></i>
+          <span>{language === "en" ? "Book now via WhatsApp" : "احجز الآن عبر واتساب"}</span>
                                     </a>
                                 ) : (
                                     <Link href={`/book-path?id=${data.id}`} className="book-link">

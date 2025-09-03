@@ -2173,6 +2173,43 @@ footer .footer-cont .social {
     font-size: 16px;
   }
 }
+
+
+/* WhatsApp-styled Book Now button (same layout as .book-link but WhatsApp color) */
+.btn-offer-cont .btn-free .book-link-whatsapp {
+  padding: 18px 35px;
+  font-size: 18px;
+  font-weight: 700;
+  background-color: #25D366; /* WhatsApp green */
+  border: 1px solid #25D366;
+  color: var(--white-color);
+  border-radius: 5px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: all ease-in-out 0.3s;
+}
+.btn-offer-cont .btn-free .book-link-whatsapp i {
+  font-size: 20px;
+  line-height: 1;
+  /* icon spacing handled by gap, add fallback margin for older browsers */
+  margin-inline-end: 6px;
+}
+.btn-offer-cont .btn-free .book-link-whatsapp:hover {
+  background-color: var(--white-color);
+  color: #25D366;
+  border-color: #25D366;
+}
+@media screen and (max-width: 500px) {
+  .btn-offer-cont .btn-free .book-link-whatsapp {
+    padding:  5px 15px;
+    font-size: 16px;
+  }
+}
+
+/*end WhatsApp-styled Book Now button (same layout as .book-link but WhatsApp color) */
+
+
 .btn-offer-cont .btn-free .price-offer {
   display: flex;
   flex-direction: column;
