@@ -48,7 +48,7 @@ export default function Footer() {
 		<footer className={`${language === "en" ? "ltr" : "rtl"}`}>
 			{" "}
 			{/* Main footer container with padding and background color */}
-			{pathname != "/path"
+			{pathname !== "/path" && pathname !== "/makkah-mzar"
 				? (() => {
 						const whatsappText =
 							language === "en"
