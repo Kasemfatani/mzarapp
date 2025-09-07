@@ -13,7 +13,7 @@ export default function DownloadAppSection() {
 
 	return (
 		<section
-			className="relative w-full min-h-[420px] flex items-center bg-cover bg-center bg-[url('/DownloadAppSection-bg.png')] mb-10"
+			className="relative w-full min-h-[420px] flex items-center bg-cover bg-center bg-[url('/DownloadAppSection-bg.webp')] mb-10"
       dir={language === "ar" ? "rtl" : "ltr"}
 		>
 			<div className="absolute inset-0 bg-white/60"></div>

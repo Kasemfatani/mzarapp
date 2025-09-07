@@ -33,7 +33,7 @@ export default function NewDestinations() {
 		<section
 			className="relative flex flex-col items-center justify-center py-20"
 			style={{
-				backgroundImage: "url('/NewDestinations-bg.jpg')",
+				backgroundImage: "url('/NewDestinations-bg.webp')",
 				backgroundSize: "cover",
 				backgroundPosition: "center",
 				minHeight: 350,
