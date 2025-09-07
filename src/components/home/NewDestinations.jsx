@@ -49,7 +49,7 @@ export default function NewDestinations() {
 						src={
 							language === "ar"
 								? "/NewDestinations-img-ar.png"
-								: "/NewDestinations-img.png"
+								: "/NewDestinations-img.webp"
 						}
 						alt={language === "ar" ? "جديد" : "New"}
 						className="w-16 h-16"

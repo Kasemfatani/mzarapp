@@ -3,14 +3,14 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import BlurFade from "../ui/blur-fade";
 import img20 from "/public/gallery/20.webp";
-import img2 from "/public/gallery/2.png";
+import img2 from "/public/gallery/2.webp";
 import img4 from "/public/gallery/4.webp";
 import img5 from "/public/gallery/5.png";
 import img6 from "/public/gallery/6.png";
-import img7 from "/public/gallery/7.png";
+import img7 from "/public/gallery/7.webp";
 import img8 from "/public/gallery/8.webp";
 import img9 from "/public/gallery/9.png";
-import img24 from "/public/gallery/24.png";
+import img24 from "/public/gallery/24.webp";
 // import img12 from '/public/gallery/bg.png';
 
 import { Fancybox } from "@fancyapps/ui";

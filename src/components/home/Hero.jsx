@@ -60,10 +60,10 @@ const heroSlides = [
 			en: "Your journey in Al-Madinah Al-Munawwarah starts here",
 			ar: "رحلتك في المدينة المنورة تبدأ من هنا",
 		},
-		iphones: "/DownloadAppSection-phones.png",
+		iphones: "/DownloadAppSection-phones.webp",
 	},
 	{
-		bg: "/makkah2.png",
+		bg: "/makkah2.webp",
 		h1: {
 			en: (
 				<>
@@ -101,7 +101,7 @@ const heroSlides = [
 			en: "Discover the history of Al-Madinah Al-Munawwarah",
 			ar: "استكشف تاريخ المدينة المنورة",
 		},
-		iphones: "/DownloadAppSection-phones.png",
+		iphones: "/DownloadAppSection-phones.webp",
 	},
 ];
 

@@ -18,7 +18,7 @@ export default function HomePopup({ open, adData, lang, onDismiss }) {
 					/>
 				) : (
 					<img
-						src="/popup-new.png"
+						src="/popup-new.webp"
 						alt="New"
 						className="absolute left-0 top-0 w-20 h-20 z-10 -translate-x-[7px] -translate-y-[7px]"
 						style={{ pointerEvents: "none" }}

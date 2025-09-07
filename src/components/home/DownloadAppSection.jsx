@@ -39,7 +39,7 @@ export default function DownloadAppSection() {
 				{/* Right: Phones */}
 				<div className="">
 					<Image
-						src="/DownloadAppSection-phones.png"
+						src="/DownloadAppSection-phones.webp"
 						alt="Phone 1"
 						width={342}
 						height={340}
