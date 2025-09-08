@@ -1,5 +1,6 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
+import Loading from "@/app/loading";
 import Hero from "../components/home/Hero";
 import Paths from "../components/home/Paths";
 import About from "../components/home/About";
@@ -74,15 +75,17 @@ export default function Home() {
 				<SemiAbout />
 				<Confiemed />
 				<Paths />
-				<DownloadAppSection />
-				<Explore />
-				<Gallery />
-				<NewDestinations />
-				<About />
-				<AppExplore />
-				<Content />
-				<GenSection />
-				<Latest />
+				<Suspense fallback={<Loading />}>
+					<DownloadAppSection />
+					<Explore />
+					<Gallery />
+					<NewDestinations />
+					<About />
+					<AppExplore />
+					<Content />
+					<GenSection />
+					<Latest />
+				</Suspense>
 			</main>
 		</>
 	);

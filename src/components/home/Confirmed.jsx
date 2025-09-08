@@ -7,10 +7,10 @@ import part3 from '/public/conf/9.png';
 import part4 from '/public/conf/4.svg';
 import part6 from '/public/conf/6.png';
 import part5 from '/public/conf/5.png';
-import part8 from '/public/conf/8.png';
+import part8 from '/public/conf/8.webp';
 import part7 from '/public/conf/7.png';
 import part9 from '/public/conf/10.svg';
-import part10 from '/public/conf/12.png';
+import part10 from '/public/conf/12.webp';
 import part11 from '/public/conf/11.svg';
 import part12 from '/public/conf/anjum.png';
 import Marquee from '../ui/marquee';
@@ -38,7 +38,7 @@ export default function Parteners() {
                 )}
             >
                 <div className="part-cont" >
-                    <Image src={img} alt="Mazar" width={200} height={200} />
+                    <Image src={img} alt="Mazar" width={200} height={200} priority/>
                 </div>
             </figure>
         );

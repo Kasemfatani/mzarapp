@@ -15,19 +15,22 @@ export default function HomePopup({ open, adData, lang, onDismiss }) {
 						alt="جديد"
 						className="absolute right-0 top-0 w-20 h-20 z-10 translate-x-[4px] -translate-y-[7px]"
 						style={{ pointerEvents: "none" }}
+						fetchpriority="high"
 					/>
 				) : (
 					<img
-						src="/popup-new.png"
+						src="/popup-new.webp"
 						alt="New"
 						className="absolute left-0 top-0 w-20 h-20 z-10 -translate-x-[7px] -translate-y-[7px]"
 						style={{ pointerEvents: "none" }}
+						fetchpriority="high"
 					/>
 				)}
 				<img
 					src={adData.image}
 					alt="New Trip"
 					className="rounded-t-2xl w-full h-56 object-cover pt-5 px-5"
+					fetchpriority="high"
 				/>
 				<div className="p-6 text-center" dir={lang === "ar" ? "rtl" : "ltr"}>
 					<h2 className="text-2xl font-semibold mb-2">{adData.title}</h2>

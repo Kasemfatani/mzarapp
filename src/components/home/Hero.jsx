@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
-import hero from "/public/hero.jpg";
+import hero from "/public/hero.webp";
 import iPhones from "/public/iphones.webp";
 import iPhonesAr from "/public/iphonesAr.webp";
 import { motion } from "framer-motion";
@@ -43,7 +43,7 @@ const heroSlides = [
 		iphones: iPhones,
 	},
 	{
-		bg: "/madinah1.png",
+		bg: "/madinah1.webp",
 		h1: {
 			en: (
 				<>
@@ -60,10 +60,10 @@ const heroSlides = [
 			en: "Your journey in Al-Madinah Al-Munawwarah starts here",
 			ar: "رحلتك في المدينة المنورة تبدأ من هنا",
 		},
-		iphones: "/DownloadAppSection-phones.png",
+		iphones: "/DownloadAppSection-phones.webp",
 	},
 	{
-		bg: "/makkah2.png",
+		bg: "/makkah2.webp",
 		h1: {
 			en: (
 				<>
@@ -84,7 +84,7 @@ const heroSlides = [
 	},
 
 	{
-		bg: "/madinah2.jpg",
+		bg: "/madinah2.webp",
 		h1: {
 			en: (
 				<>
@@ -101,7 +101,7 @@ const heroSlides = [
 			en: "Discover the history of Al-Madinah Al-Munawwarah",
 			ar: "استكشف تاريخ المدينة المنورة",
 		},
-		iphones: "/DownloadAppSection-phones.png",
+		iphones: "/DownloadAppSection-phones.webp",
 	},
 ];
 
@@ -182,6 +182,7 @@ export default function Hero() {
 													className="iphones-img w-[300px] h-[300px] "
 													width={300}
 													height={600}
+													priority
 												/>
 											</div>
 										</div>
@@ -207,6 +208,7 @@ export default function Hero() {
 															width={32}
 															height={32}
 															className=" h-8 w-auto "
+															priority
 														/>
 														<p>{feature.title}</p>
 													</motion.div>

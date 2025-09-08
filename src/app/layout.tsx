@@ -65,6 +65,7 @@ export default function RootLayout({
 					href="https://fonts.gstatic.com"
 					crossOrigin="anonymous"
 				/>
+				<link rel="preload" as="image" href="/hero.webp" />
 				<script
 					type="application/ld+json"
 					dangerouslySetInnerHTML={{
