@@ -1,6 +1,6 @@
 'use client'
 import Link from 'next/link';
-import exp from '/public/exp.png'
+import exp from '/public/exp.webp'
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 

@@ -54,6 +54,7 @@ export default function NewDestinations() {
 						alt={language === "ar" ? "جديد" : "New"}
 						className="w-16 h-16"
 						style={{ objectFit: "contain" }}
+						loading="lazy"
 					/>
 					<h2 className="text-3xl md:text-4xl font-bold text-white ">
 						{t.title}

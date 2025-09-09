@@ -47,11 +47,11 @@ const Latest = dynamic(() => import("../components/home/Latest"), {
 	loading: () => <Loading />,
 });
 
-import { Dialog, DialogContent } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
+// import { Dialog, DialogContent } from "@/components/ui/dialog";
+// import { Button } from "@/components/ui/button";
 import axios from "axios";
 import { API_BASE_URL } from "@/lib/apiConfig";
-import parse from "html-react-parser";
+// import parse from "html-react-parser";
 
 export default function Home() {
 	const [lang, setLang] = useState("en");
