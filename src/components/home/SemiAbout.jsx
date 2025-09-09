@@ -58,7 +58,7 @@ export default function SemiAbout() {
                         
                         
                         {/* Image component for optimized rendering */}
-                        <Image src={img} alt="Mazar" className="img" priority/>
+                        <Image src={img} alt="Mazar" className="img"/>
                     </motion.div>
                 </div>
             </div>

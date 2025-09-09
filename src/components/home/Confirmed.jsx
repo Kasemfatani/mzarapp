@@ -38,7 +38,7 @@ export default function Parteners() {
                 )}
             >
                 <div className="part-cont" >
-                    <Image src={img} alt="Mazar" width={200} height={200} priority/>
+                    <Image src={img} alt="Mazar" width={200} height={200} loading="lazy"/>
                 </div>
             </figure>
         );
