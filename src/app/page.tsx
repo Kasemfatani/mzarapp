@@ -1,21 +1,51 @@
 "use client";
 import React, { useEffect, useState, Suspense } from "react";
 import Loading from "@/app/loading";
+import dynamic from "next/dynamic";
 import Hero from "../components/home/Hero";
-import Paths from "../components/home/Paths";
-import About from "../components/home/About";
-import GenSection from "../components/home/GenSection";
-import AppExplore from "../components/home/AppExplore";
-import Explore from "../components/home/Explore";
 import SemiAbout from "../components/home/SemiAbout";
-import Gallery from "../components/home/Gallery";
-import Content from "../components/home/Content";
-import Latest from "../components/home/Latest";
-import Confiemed from "../components/home/Confirmed";
-import DownloadAppSection from "../components/home/DownloadAppSection.jsx";
 import HomePopup from "../components/home/HomePopup";
 
-import NewDestinations from "../components/home/NewDestinations";
+// Dynamically import components inside Suspense
+const Confiemed = dynamic(() => import("../components/home/Confirmed"), {
+	loading: () => <Loading />,
+});
+const Paths = dynamic(() => import("../components/home/Paths"), {
+	loading: () => <Loading />,
+});
+const DownloadAppSection = dynamic(
+	() => import("../components/home/DownloadAppSection"),
+	{
+		loading: () => <Loading />,
+	}
+);
+const Explore = dynamic(() => import("../components/home/Explore"), {
+	loading: () => <Loading />,
+});
+const Gallery = dynamic(() => import("../components/home/Gallery"), {
+	loading: () => <Loading />,
+});
+const NewDestinations = dynamic(
+	() => import("../components/home/NewDestinations"),
+	{
+		loading: () => <Loading />,
+	}
+);
+const About = dynamic(() => import("../components/home/About"), {
+	loading: () => <Loading />,
+});
+const AppExplore = dynamic(() => import("../components/home/AppExplore"), {
+	loading: () => <Loading />,
+});
+const Content = dynamic(() => import("../components/home/Content"), {
+	loading: () => <Loading />,
+});
+const GenSection = dynamic(() => import("../components/home/GenSection"), {
+	loading: () => <Loading />,
+});
+const Latest = dynamic(() => import("../components/home/Latest"), {
+	loading: () => <Loading />,
+});
 
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
@@ -44,9 +74,7 @@ export default function Home() {
 				})
 				.then((response) => {
 					setAdData(response.data);
-					// if (localStorage.getItem(popupKey) !== "1") {
 					setShowPopup(true);
-					// }
 					setCheckedStorage(true);
 				})
 				.catch(() => {
@@ -73,9 +101,9 @@ export default function Home() {
 			<main>
 				<Hero />
 				<SemiAbout />
-				<Confiemed />
-				<Paths />
 				<Suspense fallback={<Loading />}>
+					<Confiemed />
+					<Paths />
 					<DownloadAppSection />
 					<Explore />
 					<Gallery />
