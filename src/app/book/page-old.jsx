@@ -1,6 +1,6 @@
 'use client'
 import React, { useState } from 'react';
-import bg from '/public/bg.png';
+import bg from '/public/bg.webp';
 import MazarInfo from '../../components/book/MazarInfo';
 import FormPage from '../../components/book/FormPage';
 import { useRouter } from 'next/navigation';

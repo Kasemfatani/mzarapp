@@ -57,8 +57,7 @@ export default function Paths() {
 									width={18}
 									height={18}
 									className="pb-[6px]"
-									style={{ display: "inline-block" }}
-									priority
+									style={{ display: "inline-block" }}				
 								/>
 							) : city.name.includes("مدينة") ||
 							  city.name.toLowerCase().includes("madinah") ? (
@@ -69,7 +68,6 @@ export default function Paths() {
 									height={18}
 									className="pb-[6px]"
 									style={{ display: "inline-block" }}
-									priority
 								/>
 							) : null,
 					}));
@@ -120,7 +118,7 @@ export default function Paths() {
 			<figure className={cn()}>
 				<div className="small-swiper-img-name">
 					<div className="samll-img-cont">
-						<Image src={cover} alt={`path image`} width={100} height={100}  priority/>
+						<Image src={cover} alt={`path image`} width={100} height={100} />
 					</div>
 					<h6> {name} </h6>
 				</div>
@@ -227,8 +225,7 @@ export default function Paths() {
 											alt={`${path.name} image`}
 											className="path-img"
 											width={300}
-											height={300}
-											priority
+											height={300}					
 										/>
 									</div>
 									{/* City name */}

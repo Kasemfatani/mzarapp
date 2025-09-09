@@ -14,7 +14,6 @@ export default function SpecialTourBanner() {
           layout="fill"
           objectFit="cover"
           objectPosition="center"
-          priority
           className="transform scale-100 md:scale-100 sm:scale-[0.9] xs:scale-[0.8]"
         />
         

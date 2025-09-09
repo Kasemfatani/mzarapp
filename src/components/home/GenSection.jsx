@@ -2,7 +2,7 @@
 import Link from 'next/link'; // Importing the Link component for navigation within the app
 import React, { useEffect, useState } from 'react'; // Importing React to use JSX and create the component
 import img from '/public/start.webp'; // Importing the image for the section (e.g., a logo or background image)
-import bg from '/public/bg.png'; // Importing the background image for the section
+// import bg from '/public/bg.webp'; // Importing the background image for the section
 import Image from 'next/image'; // Importing the Image component for optimized image rendering
 import { motion } from 'framer-motion'; // Importing the motion component from Framer Motion for animations
 
@@ -20,7 +20,7 @@ export default function GenSection() {
     }, []); 
     return (
         // The parent div with a background image and no-repeat style
-        <div style={{ backgroundImage: `url(${bg.src})`, backgroundRepeat: 'no-repeat' }} className=''>
+        <div  className=''>
             <div className="genGeb"> {/* Wrapper for the section content */}
                 <div className="container m-auto genSection "> {/* Main container for the section content */}
 
