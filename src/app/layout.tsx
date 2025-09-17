@@ -9,42 +9,63 @@ import Footer from "@/components/home/Footer";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "../style/main.css";
 import { Toaster } from "@/components/ui/sonner";
-// import 'react-phone-number-input/style.css';
 import { GoogleTagManager } from "@next/third-parties/google";
 import Script from "next/script";
+import { headers } from "next/headers"; // <-- Import headers
 
 export async function generateMetadata(): Promise<Metadata> {
-	const lang =
-		typeof window !== "undefined" && localStorage.getItem("lang") === "ar"
-			? "ar"
-			: "en";
-	return {
-		title:"مزار: رحلتك إلى أعماق التاريخ والروحانية",
-		keywords:
-			"مزار, مزارات, رحلات سياحية, رحلات دينية, الخضارة الإسلامية, المعالم المشهورة, إرشاد سياحي, وسيلة مواصلات, برامج سياحية, الأماكن المقدسة, تطبيق سياحي",
-		description:
-			"مزار هو تطبيق مبتكر يقدم تجربة استثنائية لاستكشاف المعالم الدينية والتاريخية والثقافية في مكة المكرمة. اختر من بين أربعة مسارات مميزة، واستمتع بخدمة الإثراء المعرفي الصوتي والنصي بـ6 لغات، مع تخطيط سهل ومريح لرحلتك الروحانية",
-		openGraph: {
-			title: "MzarApp",
-			description:
-				"مزار هو تطبيق مبتكر يقدم تجربة استثنائية لاستكشاف المعالم الدينية والتاريخية والثقافية في مكة المكرمة. اختر من بين أربعة مسارات مميزة، واستمتع بخدمة الإثراء المعرفي الصوتي والنصي بـ6 لغات، مع تخطيط سهل ومريح لرحلتك الروحانية",
-			url: "https://www.mzarapp.com",
-			siteName: "MzarApp",
-			images: [
-				{
-					url: mzarImg.src,
-					width: 1200,
-					height: 630,
-					alt:
-						lang === "ar"
-							? "مزار - واجهة ومسار"
-							: "Mzar - A destination and path",
-				},
-			],
-			type: "website",
-			locale: lang === "ar" ? "ar_EG" : "en_US",
-		},
-	};
+    const acceptLang = headers().get("accept-language");
+    const lang = acceptLang && acceptLang.startsWith("ar") ? "ar" : "en";
+
+    return lang === "ar"
+        ? {
+                title: "مزار: رحلتك إلى أعماق التاريخ والروحانية",
+                keywords:
+                    "مزار, مزارات, رحلات سياحية, رحلات دينية, الخضارة الإسلامية, المعالم المشهورة, إرشاد سياحي, وسيلة مواصلات, برامج سياحية, الأماكن المقدسة, تطبيق سياحي",
+                description:
+                    "مزار هو تطبيق مبتكر يقدم تجربة استثنائية لاستكشاف المعالم الدينية والتاريخية والثقافية في مكة المكرمة. اختر من بين أربعة مسارات مميزة، واستمتع بخدمة الإثراء المعرفي الصوتي والنصي بـ6 لغات، مع تخطيط سهل ومريح لرحلتك الروحانية",
+                openGraph: {
+                    title: "مزار: رحلتك إلى أعماق التاريخ والروحانية",
+                    description:
+                        "مزار هو تطبيق مبتكر يقدم تجربة استثنائية لاستكشاف المعالم الدينية والتاريخية والثقافية في مكة المكرمة. اختر من بين أربعة مسارات مميزة، واستمتع بخدمة الإثراء المعرفي الصوتي والنصي بـ6 لغات، مع تخطيط سهل ومريح لرحلتك الروحانية",
+                    url: "https://www.mzarapp.com",
+                    siteName: "تطبيق مزار",
+                    images: [
+                        {
+                            url: mzarImg.src,
+                            width: 1200,
+                            height: 630,
+                            alt: "مزار - واجهة ومسار",
+                        },
+                    ],
+                    type: "website",
+                    locale: "ar_EG",
+                },
+          }
+        : {
+                title: "Mzar: Your Journey into the Depths of History and Spirituality",
+                keywords:
+                    "Mzar, Mazar, Religious Tourism, Islamic Civilization, Famous Landmarks, Tourist Guide, Transportation, Tour Programs, Holy Places, Tourism App",
+                description:
+                    "Mzar is an innovative app offering an exceptional experience to explore religious, historical, and cultural landmarks in Mecca. Choose from four unique routes, enjoy audio and text enrichment in 6 languages, and plan your spiritual journey easily.",
+                openGraph: {
+                    title: "Mzar: Your Journey into the Depths of History and Spirituality",
+                    description:
+                        "Mzar is an innovative app offering an exceptional experience to explore religious, historical, and cultural landmarks in Mecca. Choose from four unique routes, enjoy audio and text enrichment in 6 languages, and plan your spiritual journey easily.",
+                    url: "https://www.mzarapp.com",
+                    siteName: "MzarApp",
+                    images: [
+                        {
+                            url: mzarImg.src,
+                            width: 1200,
+                            height: 630,
+                            alt: "Mzar - A destination and path",
+                        },
+                    ],
+                    type: "website",
+                    locale: "en_US",
+                },
+          };
 }
 
 export default function RootLayout({
