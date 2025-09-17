@@ -19,10 +19,7 @@ export async function generateMetadata(): Promise<Metadata> {
 			? "ar"
 			: "en";
 	return {
-		title:
-			lang === "ar"
-				? "مزار: رحلتك إلى أعماق التاريخ والروحانية"
-				: "Mzar: Your Journey into the Depths of History and Spirituality",
+		title:"مزار: رحلتك إلى أعماق التاريخ والروحانية",
 		keywords:
 			"مزار, مزارات, رحلات سياحية, رحلات دينية, الخضارة الإسلامية, المعالم المشهورة, إرشاد سياحي, وسيلة مواصلات, برامج سياحية, الأماكن المقدسة, تطبيق سياحي",
 		description:
