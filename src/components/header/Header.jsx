@@ -59,10 +59,15 @@ export default function Header() {
 							<i className="fa-solid fa-phone"></i>
 							920005785
 						</a>
-						<span className="flex items-center gap-1">
+						<a
+							href="https://wa.me/+966580121025"
+							target="_blank"
+							rel="noopener noreferrer"
+							className="flex items-center gap-1 hover:underline"
+						>
 							<i className="fa-brands fa-whatsapp"></i>
 							+966580121025
-						</span>
+						</a>
 					</div>
 					{/* Right: Social Icons */}
 					<div className="flex items-center gap-4">

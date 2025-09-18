@@ -179,9 +179,14 @@ export default function Footer() {
 							</div>
 							<div className="flex items-center gap-2">
 								<i className="fa-brands fa-whatsapp text-[#025AB4]"></i>
-								<span className="ltr:ml-2 rtl:mr-2 text-[#025AB4]">
+								<a
+									href="https://wa.me/+966580121025"
+									target="_blank"
+									rel="noopener noreferrer"
+									className="ltr:ml-2 rtl:mr-2 text-[#025AB4] hover:underline"
+								>
 									+966580121025
-								</span>
+								</a>
 							</div>
 							<div className="flex items-center gap-2">
 								<i className="fa-solid fa-envelope text-[#025AB4]"></i>
