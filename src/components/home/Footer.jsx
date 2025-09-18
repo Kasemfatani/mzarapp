@@ -72,39 +72,152 @@ export default function Footer() {
 				  })()
 				: null}
 			<div className="container m-auto">
-				{" "}
-				{/* Container for the footer content */}
+				<div className="flex flex-col items-center">
+					{/* New top blue section */}
+					<div className="w-[80%] rounded-2xl bg-[#42C8C7] flex flex-col md:flex-row items-center justify-between px-8 py-6 mb-8">
+						<div className="text-white font-bold text-xl md:text-2xl md:max-w-[60%]">
+							{language === "en" ? (
+								<>
+									Mzar Is A Strategic Partner Of The Royal Commission For Makkah
+									City And Holy Sites
+								</>
+							) : (
+								<>
+									مزار شريك استراتيجي للهيئة الملكية لمدينة مكة المكرمة والمشاعر
+									المقدسة
+								</>
+							)}
+						</div>
+						<div className="flex flex-col items-end gap-2 mt-6 md:mt-0">
+							<img
+								src="/conf/royal-commission.png"
+								alt="Royal Commission"
+								className="h-[107px]"
+								style={{ objectFit: "contain" }}
+							/>
+							{/* <div className="text-black text-sm md:text-base text-right leading-tight">
+							<div className="font-bold">
+								الهيئة الملكية لمدينة مكة المكرمة والمشاعر المقدسة
+							</div>
+							<div className="uppercase text-[#B5A16C] font-bold">
+								ROYAL COMMISSION FOR
+								<br />
+								MAKKAH CITY AND HOLY SITES
+							</div>
+						</div> */}
+						</div>
+					</div>
+
+					{/* New 3-column grid */}
+					<div className="w-[80%] grid grid-cols-1 md:grid-cols-3 gap-8 pb-8 border-b border-[#42C8C7] justify-items-center">
+						{/* Left: Logo + Social */}
+						<div className="flex flex-col items-center md:items-start gap-4">
+							<img src="logo.svg" alt="Mzar Logo" className="h-16" />
+							<div className="flex gap-4 mt-2">
+								<Link href="https://x.com/mzarapp" target="_blank">
+									<i className="fa-brands fa-x-twitter text-2xl text-[#025AB4]"></i>
+								</Link>
+								<Link href="https://www.instagram.com/mzarapp/" target="_blank">
+									<i className="fa-brands fa-instagram text-2xl text-[#025AB4]"></i>
+								</Link>
+								<Link href="https://www.facebook.com/mzarapp" target="_blank">
+									<i className="fa-brands fa-facebook text-2xl text-[#025AB4]"></i>
+								</Link>
+								<Link href="https://www.youtube.com/@mzarapp" target="_blank">
+									<i className="fa-brands fa-youtube text-2xl text-[#025AB4]"></i>
+								</Link>
+								<Link href="https://www.tiktok.com/@mzarapp" target="_blank">
+									<i className="fa-brands fa-tiktok text-2xl text-[#025AB4]"></i>
+								</Link>
+								<Link
+									href="https://www.linkedin.com/company/mzarapp"
+									target="_blank"
+								>
+									<i className="fa-brands fa-linkedin text-2xl text-[#025AB4]"></i>
+								</Link>
+							</div>
+						</div>
+						{/* Center: Website Links */}
+						<div className="flex flex-col items-center md:items-start gap-2">
+							<div className="font-bold text-lg mb-2">
+								{language === "en" ? "Quick Links" : "روابط سريعة"}
+							</div>
+							<Link href="/" className="hover:text-[#025AB4]">
+								{language === "en" ? "Home" : "الرئيسية"}
+							</Link>
+							<Link href="/#paths" className="hover:text-[#025AB4]">
+								{language === "en" ? "Paths" : "المسارات"}
+							</Link>
+							<Link href="/#about" className="hover:text-[#025AB4]">
+								{language === "en" ? "About" : "من نحن"}
+							</Link>
+							<Link href="/#gallery" className="hover:text-[#025AB4]">
+								{language === "en" ? "Gallery" : "المعرض"}
+							</Link>
+							<Link href="/blogs" className="hover:text-[#025AB4]">
+								{language === "en" ? "Blogs" : "المقالات"}
+							</Link>
+							{/* Add more links if needed */}
+							{/* <Link href="/book" className="hover:text-[#025AB4]">
+								{language === "en" ? "Book now" : "احجز الآن"}
+							</Link> */}
+						</div>
+						{/* Right: Contact Us */}
+						<div className="flex flex-col items-center md:items-start gap-2">
+							<div className="font-bold text-lg mb-2">
+								{language === "en" ? "Contact us" : "تواصل معنا"}
+							</div>
+							<div className="flex items-center gap-2">
+								<i className="fa-solid fa-phone text-[#025AB4]"></i>
+								<a
+									href="tel:920005785"
+									className="ltr:ml-2 rtl:mr-2 text-[#025AB4] hover:underline"
+									dir="ltr"
+								>
+									920005785
+								</a>
+							</div>
+							<div className="flex items-center gap-2">
+								<i className="fa-brands fa-whatsapp text-[#025AB4]"></i>
+								<a
+									href="https://wa.me/+966580121025"
+									target="_blank"
+									rel="noopener noreferrer"
+									className="ltr:ml-2 rtl:mr-2 text-[#025AB4] hover:underline"
+								>
+									+966580121025
+								</a>
+							</div>
+							<div className="flex items-center gap-2">
+								<i className="fa-solid fa-envelope text-[#025AB4]"></i>
+								<a
+									href="mailto:contact@mzarapp.com"
+									className="ltr:ml-2 rtl:mr-2 text-[#025AB4] hover:underline"
+								>
+									contact@mzarapp.com
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				{/* Existing copyright bar */}
 				<div className="footer-cont">
 					<div className="copyRight">
 						<Image src={c} alt="Mazar" className="img" />
 						<p>
 							{language === "en"
-								? "Licensed by the Ministry of Tourism ,license number 73104705"
-								: "مرخصة من وزارة السياحة رقم الترخيص 73104705"}
+								? "Licensed by the Ministry of Tourism, license number 73104705 | Licensed Activity: Tour Organization"
+								: "مرخصة من وزارة السياحة رقم الترخيص 73104705 | تنظيم الرحلات السياحية"}
 						</p>
 					</div>
-					<div className="social">
-						<Link href={"https://x.com/mzarapp"} target="_blank">
-							<i className="fa-brands fa-x-twitter"></i>
-						</Link>
-						<Link href={"https://www.instagram.com/mzarapp/"} target="_blank">
-							<i className="fa-brands fa-instagram"></i>
-						</Link>
-						<Link href={"https://www.facebook.com/mzarapp"} target="_blank">
-							<i className="fa-brands fa-facebook"></i>
-						</Link>
-						<Link href={"https://www.youtube.com/@mzarapp"} target="_blank">
-							<i className="fa-brands fa-youtube"></i>
-						</Link>
-						<Link href={"https://www.tiktok.com/@mzarapp"} target="_blank">
-							<i className="fa-brands fa-tiktok"></i>
-						</Link>
-						<Link
-							href={"https://www.linkedin.com/company/mzarapp"}
-							target="_blank"
-						>
-							<i className="fa-brands fa-linkedin"></i>
-						</Link>
+					{/* Replace social with text */}
+					<div className="text-[#025AB4] text-sm font-medium flex items-center">
+						{language === "en" ? (
+							<>CR: 4031282010</>
+						) : (
+							<>السجل التجاري : 4031282010</>
+						)}
 					</div>
 				</div>
 			</div>

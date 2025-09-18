@@ -11,7 +11,7 @@ import "../style/main.css";
 import { Toaster } from "@/components/ui/sonner";
 import { GoogleTagManager } from "@next/third-parties/google";
 import Script from "next/script";
-import { headers } from "next/headers"; // <-- Import headers
+import { headers } from "next/headers"; 
 
 export async function generateMetadata(): Promise<Metadata> {
     const acceptLang = headers().get("accept-language");
