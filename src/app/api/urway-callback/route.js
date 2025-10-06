@@ -57,7 +57,7 @@ async function finalize(req, method, bodyOrParams) {
 			return NextResponse.redirect(
 				`${appBase}/payment?status=processing-issue&ref=${encodeURIComponent(
 					tranIdEarly
-				)}`
+				)}&session=1`
 			);
 		}
 		return NextResponse.redirect(`${appBase}/payment?status=failed`);
@@ -76,7 +76,7 @@ async function finalize(req, method, bodyOrParams) {
 			return NextResponse.redirect(
 				`${appBase}/payment?status=processing-issue&ref=${encodeURIComponent(
 					tranIdEarly
-				)}`
+				)}&paymentSession=1`
 			);
 		}
 		return NextResponse.redirect(`${appBase}/payment?status=failed`);
@@ -95,7 +95,7 @@ async function finalize(req, method, bodyOrParams) {
 			return NextResponse.redirect(
 				`${appBase}/payment?status=processing-issue&ref=${encodeURIComponent(
 					tranIdEarly
-				)}`
+				)}&draft=1`
 			);
 		}
 		return NextResponse.redirect(`${appBase}/payment?status=failed`);
@@ -204,10 +204,10 @@ async function finalize(req, method, bodyOrParams) {
 		// Redirect to processing-issue page with ref
 		const issueRedirect = `${
 			process.env.APP_URL || "http://localhost:3000"
-		}/payment?status=processing-issue&ref=${encodeURIComponent(tranId)}`;
+		}/payment?status=processing-issue&ref=${encodeURIComponent(tranId)}&apiError=1`;
 		return NextResponse.redirect(issueRedirect);
 	}
-	return null; // unreachable
+	// No explicit return needed; all code paths above return a Response
 }
 
 export async function GET(req) {
