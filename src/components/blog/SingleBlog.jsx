@@ -7,9 +7,9 @@ import { API_BASE_URL } from "@/lib/apiConfig";
 import Image from "next/image";
 import parse from "html-react-parser";
 
-export default function SingleBlog() {
+export default function SingleBlog({ slug }) {
 	const searchParams = useSearchParams();
-	const [pathId, setPathId] = useState(searchParams.get("id"));
+	const [pathId, setPathId] = useState(slug);
 	const [loading, setLoading] = useState(true); // State for loading indicator
 	const [data, setData] = useState(null);
 	const [error, setError] = useState(null);
@@ -91,6 +91,10 @@ export default function SingleBlog() {
 		<>
 			{loading ? (
 				<Loading />
+			) : error || !data ? (
+				<div className="text-center text-red-500 py-10">
+					{language === "ar" ? "المقالة غير موجودة" : "Blog not found"}
+				</div>
 			) : (
 				<div
 					className={`container mx-auto ${language === "en" ? "ltr" : "rtl"}`}
