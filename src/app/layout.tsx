@@ -12,6 +12,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { GoogleTagManager } from "@next/third-parties/google";
 import Script from "next/script";
 import { headers } from "next/headers"; 
+import TrackingScripts from "@/components/TrackingScripts";
 
 export async function generateMetadata(): Promise<Metadata> {
     const acceptLang = headers().get("accept-language");
@@ -110,7 +111,7 @@ export default function RootLayout({
 				/>
 			</Head>
 			{/* Hotjar Tracking Code for https://mzarapp.com/ */}
-			<Script id="hotjar" strategy="afterInteractive">
+			{/* <Script id="hotjar" strategy="afterInteractive">
 				{`
           (function(h,o,t,j,a,r){
             h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
@@ -121,21 +122,21 @@ export default function RootLayout({
             a.appendChild(r);
           })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
         `}
-			</Script>
-			<GoogleTagManager gtmId="GTM-WS294KJ" />
+			</Script> */}
+			{/* <GoogleTagManager gtmId="GTM-WS294KJ" /> */}
 			{/* Google tag (gtag.js) for AW-16518722477 */}
-			<Script
+			{/* <Script
 				src="https://www.googletagmanager.com/gtag/js?id=AW-16518722477"
 				strategy="afterInteractive"
-			/>
-			<Script id="gtag-init" strategy="afterInteractive">
+			/> */}
+			{/* <Script id="gtag-init" strategy="afterInteractive">
 				{`
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
           gtag('config', 'AW-16518722477');
         `}
-			</Script>
+			</Script> */}
 			<body className="w-full" suppressHydrationWarning={true}>
 				<noscript>
 					<iframe
@@ -147,6 +148,7 @@ export default function RootLayout({
 				</noscript>
 				<Header />
 				<Toaster position="top-center" />
+				<TrackingScripts />
 				{children}
 				<Suspense fallback={null}>
 					<Footer />
