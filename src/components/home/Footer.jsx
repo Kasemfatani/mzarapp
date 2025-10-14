@@ -94,6 +94,7 @@ export default function Footer() {
 								alt="Royal Commission"
 								className="h-[107px]"
 								style={{ objectFit: "contain" }}
+								loading="lazy"
 							/>
 							{/* <div className="text-black text-sm md:text-base text-right leading-tight">
 							<div className="font-bold">
