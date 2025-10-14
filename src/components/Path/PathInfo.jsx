@@ -18,9 +18,12 @@ export default function PathInfo(props) {
 
     const searchParams = useSearchParams();
     const [pathId, setPathId] = useState(searchParams.get("id"));
-    Fancybox.bind("[data-fancybox]", {
-        // Your custom options
-    });
+    useEffect(() => {
+        Fancybox.bind("[data-fancybox]", {});
+        return () => {
+            Fancybox.destroy();
+        };
+    }, []);
 
     // use local state initialized from props.data
     let [data, setData] = useState(initialData);
@@ -71,6 +74,7 @@ export default function PathInfo(props) {
                                             alt={`${data.name} image`}
                                             width={200}
                                             height={200}
+                                            priority={true}
                                         />
                                     ) : (
                                         <a href={img.image} data-fancybox="post">
@@ -80,6 +84,7 @@ export default function PathInfo(props) {
                                                     alt={`${data.name} image`}
                                                     width={200}
                                                     height={200}
+                                                    priority={true}
                                                 />
                                             </figure>
                                         </a>
