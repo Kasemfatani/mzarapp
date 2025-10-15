@@ -27,15 +27,20 @@ export default function Header() {
 	let [lang, setLang] = useState("en");
 	useEffect(() => {
 		if (typeof window !== "undefined") {
-			if (
-				localStorage.getItem("lang") === "ar" ||
-				localStorage.getItem("lang") === "en"
-			) {
-				setLang(localStorage.getItem("lang"));
+			let currentLang = localStorage.getItem("lang");
+			if (currentLang === "ar" || currentLang === "en") {
+				setLang(currentLang);
 			} else {
 				localStorage.setItem("lang", "en");
 				setLang("en");
+				currentLang = "en";
 			}
+			// Always set the cookie to match localStorage
+			const oneYear = 60 * 60 * 24 * 365;
+			const isHTTPS = window.location.protocol === "https:";
+			document.cookie = `lang=${currentLang}; path=/; max-age=${oneYear}; samesite=lax${
+				isHTTPS ? "; secure" : ""
+			}`;
 		}
 	}, [lang]);
 	return (
@@ -142,18 +147,26 @@ export default function Header() {
 						<div
 							className="lang-btn"
 							onClick={() => {
-								if (lang === "en") {
-									localStorage.setItem("lang", "ar");
-									setLang("ar");
-								} else {
-									localStorage.setItem("lang", "en");
-									setLang("en");
-								}
+								const nextLang = lang === "en" ? "ar" : "en";
+
+								// Keep localStorage
+								localStorage.setItem("lang", nextLang);
+
+								// Also set a cookie for server-side usage (1 year)
+								const oneYear = 60 * 60 * 24 * 365;
+								const isHTTPS =
+									typeof window !== "undefined" &&
+									window.location.protocol === "https:";
+								document.cookie = `lang=${nextLang}; path=/; max-age=${oneYear}; samesite=lax${
+									isHTTPS ? "; secure" : ""
+								}`;
+
+								setLang(nextLang);
+
 								if (pathname === "/blog") {
-									console.log("here");
 									router.push("/");
 								} else {
-									window.location.reload(); // Reloads the page
+									window.location.reload();
 								}
 							}}
 						>
@@ -235,18 +248,26 @@ export default function Header() {
 							<div
 								className="lang-btn"
 								onClick={() => {
-									if (lang === "en") {
-										localStorage.setItem("lang", "ar");
-										setLang("ar");
-									} else {
-										localStorage.setItem("lang", "en");
-										setLang("en");
-									}
+									const nextLang = lang === "en" ? "ar" : "en";
+
+									// Keep localStorage
+									localStorage.setItem("lang", nextLang);
+
+									// Also set a cookie for server-side usage (1 year)
+									const oneYear = 60 * 60 * 24 * 365;
+									const isHTTPS =
+										typeof window !== "undefined" &&
+										window.location.protocol === "https:";
+									document.cookie = `lang=${nextLang}; path=/; max-age=${oneYear}; samesite=lax${
+										isHTTPS ? "; secure" : ""
+									}`;
+
+									setLang(nextLang);
+
 									if (pathname === "/blog") {
-										console.log("here");
 										router.push("/");
 									} else {
-										window.location.reload(); // Reloads the page
+										window.location.reload();
 									}
 								}}
 							>

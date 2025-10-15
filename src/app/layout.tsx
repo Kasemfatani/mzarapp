@@ -2,7 +2,7 @@ import Head from "next/head";
 import type { Metadata } from "next";
 import React, { Suspense } from "react";
 import "./globals.css";
-import "./video-react.css";
+//import "./video-react.css";
 import mzarImg from "../assets/images/home/og.png";
 import Header from "@/components/header/Header";
 import Footer from "@/components/home/Footer";
