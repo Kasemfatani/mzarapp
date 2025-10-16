@@ -2,9 +2,10 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Fancybox } from "@fancyapps/ui";
+// REMOVE static import to avoid early bind and duplicate instances
+// import { Fancybox } from "@fancyapps/ui";
 import { motion } from "framer-motion";
-//import "@fancyapps/ui/dist/fancybox/fancybox.css";
+// import "@fancyapps/ui/dist/fancybox/fancybox.css";
 import img1 from "/public/Thaw.jpg";
 import img2 from "/public/conf/10.png";
 import sar from "/public/sar.png";
@@ -12,18 +13,19 @@ import Offer from "./Offer";
 import Explore from "../home/Explore";
 import StarRating from "./StarRating.jsx";
 import { useSearchParams } from "next/navigation";
+
 export default function PathInfo(props) {
     // destructure props correctly
     const { data: initialData = {}, lang, whatsappText } = props;
 
     const searchParams = useSearchParams();
     const [pathId, setPathId] = useState(searchParams.get("id"));
-    useEffect(() => {
-        Fancybox.bind("[data-fancybox]", {});
-        return () => {
-            Fancybox.destroy();
-        };
-    }, []);
+
+    // REMOVE this earlier bind; we’ll do one dynamic bind below
+    // useEffect(() => {
+    //   Fancybox.bind("[data-fancybox]", {});
+    //   return () => Fancybox.destroy();
+    // }, []);
 
     // use local state initialized from props.data
     let [data, setData] = useState(initialData);
@@ -35,6 +37,40 @@ export default function PathInfo(props) {
         }
     }, [lang]);
     // console.log("check rating_api", data.rating_api);
+
+    // Single dynamic import + delegated bind, with CSS fallback
+    useEffect(() => {
+        let unbind;
+        let destroyed = false;
+
+        (async () => {
+            // Ensure CSS is present (pin to v5)
+            const cssHref = "https://cdn.jsdelivr.net/npm/@fancyapps/ui@5/dist/fancybox/fancybox.css";
+            if (!document.querySelector(`link[href="${cssHref}"]`)) {
+                const link = document.createElement("link");
+                link.rel = "stylesheet";
+                link.href = cssHref;
+                link.crossOrigin = "anonymous";
+                document.head.appendChild(link);
+            }
+
+            const { Fancybox } = await import("@fancyapps/ui");
+            if (destroyed) return;
+
+            // Delegated binding
+            unbind = Fancybox.bind("[data-fancybox]", {
+                // options if needed
+            });
+        })();
+
+        return () => {
+            destroyed = true;
+            try {
+                if (unbind) unbind();
+            } catch {}
+        };
+    }, []);
+
     return (
         <>
             <div className="container m-auto path">

@@ -31,49 +31,15 @@ export default function DeferredCssLinks() {
 		const removeFA = addStylesheet(
 			"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
 		);
-		// const removeFancybox = addStylesheet(
-		// 	"https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.css"
-		// );
+		const removeFancybox = addStylesheet(
+			"https://cdn.jsdelivr.net/npm/@fancyapps/ui@5/dist/fancybox/fancybox.css"
+		);
 
 		return () => {
 			removeFA?.();
-			// removeFancybox?.();
+			removeFancybox?.();
 		};
 	}, []);
 
-	return (
-		<>
-			{/* Defer Font Awesome (non‑blocking) */}
-			{/* <link
-				rel="stylesheet"
-				href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
-				media="print"
-				crossOrigin="anonymous"
-				// @ts-ignore: swap media after load
-				onLoad={(e) => (e.currentTarget.media = "all")}
-			/> */}
-			{/* <noscript>
-				<link
-					rel="stylesheet"
-					href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
-					crossOrigin="anonymous"
-				/>
-			</noscript> */}
-
-			{/* Defer Fancybox CSS (optional) */}
-			<link
-				rel="stylesheet"
-				href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.css"
-				media="print"
-				// @ts-ignore
-				onLoad={(e) => (e.currentTarget.media = "all")}
-			/>
-			<noscript>
-				<link
-					rel="stylesheet"
-					href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.css"
-				/>
-			</noscript>
-		</>
-	);
+	return null;
 }
