@@ -6,7 +6,7 @@ import Link from "next/link";
 // import { Fancybox } from "@fancyapps/ui";
 import { motion } from "framer-motion";
 // import "@fancyapps/ui/dist/fancybox/fancybox.css";
-import img1 from "/public/Thaw.jpg";
+import img1 from "/public/Thaw.webp";
 import img2 from "/public/conf/10.png";
 import sar from "/public/sar.png";
 import Offer from "./Offer";
