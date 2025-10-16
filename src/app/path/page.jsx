@@ -6,6 +6,7 @@ import { cookies, headers } from "next/headers";
 import { notFound } from "next/navigation";
 import PathInfo from "@/components/Path/PathInfo";
 import Destinations from "@/components/Path/Destinations";
+import LazyRiviews from "@/components/Path/LazyRiviews";
 import Loading from "../loading";
 import { API_BASE_URL } from "@/lib/apiConfig";
 
@@ -45,7 +46,7 @@ export default async function PathPage({ searchParams }) {
 			<PathInfo data={data} lang={lang} />
 			<Destinations data={data} lang={lang} />
 			<Suspense fallback={<Loading />}>
-				<Riviews id={pathId} lang={lang} />
+				<LazyRiviews id={pathId} lang={lang} />
 			</Suspense>
 		</div>
 	);
