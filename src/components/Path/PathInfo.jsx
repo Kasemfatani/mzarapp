@@ -158,7 +158,7 @@ export default function PathInfo(props) {
                                 <i className="fa-solid fa-arrow-up"></i>
                             </Link>
                             <div className="free-col">
-                                <i class="fa-regular fa-calendar"></i>
+                                <i className="fa-regular fa-calendar"></i>
                                 <h4>
                                     {language === "en"
                                         ? "Free cancellation"

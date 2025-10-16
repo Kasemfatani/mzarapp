@@ -90,7 +90,7 @@ export default function Footer() {
 						</div>
 						<div className="flex flex-col items-end gap-2 mt-6 md:mt-0">
 							<img
-								src="/conf/royal-commission.png"
+								src="/conf/royal-commission.webp"
 								alt="Royal Commission"
 								className="h-[107px]"
 								style={{ objectFit: "contain" }}
