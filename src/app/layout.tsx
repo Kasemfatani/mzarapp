@@ -6,13 +6,14 @@ import "./globals.css";
 import mzarImg from "../assets/images/home/og.png";
 import Header from "@/components/header/Header";
 import Footer from "@/components/home/Footer";
-import "@fortawesome/fontawesome-free/css/all.min.css";
+//import "@fortawesome/fontawesome-free/css/all.min.css";
 import "../style/main.css";
 import { Toaster } from "@/components/ui/sonner";
 import { GoogleTagManager } from "@next/third-parties/google";
 import Script from "next/script";
 import { headers } from "next/headers"; 
 import TrackingScripts from "@/components/TrackingScripts";
+import DeferredCssLinks from "@/components/DeferredCssLinks"; // ADD
 
 export async function generateMetadata(): Promise<Metadata> {
     const acceptLang = headers().get("accept-language");
@@ -78,12 +79,13 @@ export default function RootLayout({
 		<html lang="en" id="root">
 			<Head>
 				{/* Google Fonts */}
-				<link rel="preconnect" href="https://fonts.googleapis.com" />
-				<link
+				{/* Remove Google Fonts preconnects (no longer needed) */}
+				{/* <link rel="preconnect" href="https://fonts.googleapis.com" /> */}
+				{/* <link
 					rel="preconnect"
 					href="https://fonts.gstatic.com"
 					crossOrigin="anonymous"
-				/>
+				/> */}
 				<link rel="preload" as="image" href="/hero.webp" />
 				<script
 					type="application/ld+json"
@@ -149,6 +151,7 @@ export default function RootLayout({
 				<Header />
 				<Toaster position="top-center" />
 				<TrackingScripts />
+				<DeferredCssLinks /> {/* Load heavy CSS non‑blocking */}
 				{children}
 				<Suspense fallback={null}>
 					<Footer />
