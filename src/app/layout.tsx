@@ -5,7 +5,7 @@ import "./globals.css";
 //import "./video-react.css";
 import mzarImg from "../assets/images/home/og.png";
 import Header from "@/components/header/Header";
-import Footer from "@/components/home/Footer";
+import LazyFooter from "@/components/home/LazyFooter";
 //import "@fortawesome/fontawesome-free/css/all.min.css";
 import "../style/main.css";
 import { Toaster } from "@/components/ui/sonner";
@@ -154,7 +154,7 @@ export default function RootLayout({
 				<DeferredCssLinks /> {/* Load heavy CSS non‑blocking */}
 				{children}
 				<Suspense fallback={null}>
-					<Footer />
+					<LazyFooter />
 				</Suspense>
 			</body>
 		</html>
