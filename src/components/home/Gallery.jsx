@@ -79,7 +79,7 @@ export default function Parteners() {
 				<section id="photos" className="w-full md:w-[70%] ">
 					<div className="grid grid-cols-3 grid-rows-3 gap-2 h-[650px]">
 						<div className="col-span-1 row-span-2">
-							<a href={imgs[0].url.src} data-fancybox="gallery">
+							<a href={imgs[0].url.src} data-fancybox="gall">
 								<Image
 									src={imgs[0].url}
 									alt="Mazar"
@@ -88,7 +88,7 @@ export default function Parteners() {
 							</a>
 						</div>
 						<div className="col-span-2 row-span-1">
-							<a href={imgs[1].url.src} data-fancybox="gallery">
+							<a href={imgs[1].url.src} data-fancybox="gall">
 								<Image
 									src={imgs[1].url}
 									alt="Mazar"
@@ -97,7 +97,7 @@ export default function Parteners() {
 							</a>
 						</div>
 						<div className="col-span-1 row-span-1">
-							<a href={imgs[2].url.src} data-fancybox="gallery">
+							<a href={imgs[2].url.src} data-fancybox="gall">
 								<Image
 									src={imgs[2].url}
 									alt="Mazar"
@@ -106,7 +106,7 @@ export default function Parteners() {
 							</a>
 						</div>
 						<div className="col-span-1">
-							<a href={imgs[3].url.src} data-fancybox="gallery">
+							<a href={imgs[3].url.src} data-fancybox="gall">
 								<Image
 									src={imgs[3].url}
 									alt="Mazar"
@@ -115,7 +115,7 @@ export default function Parteners() {
 							</a>
 						</div>
 						<div className="col-span-2">
-							<a href={imgs[4].url.src} data-fancybox="gallery">
+							<a href={imgs[4].url.src} data-fancybox="gall">
 								<Image
 									src={imgs[4].url}
 									alt="Mazar"
@@ -124,7 +124,7 @@ export default function Parteners() {
 							</a>
 						</div>
 						<div className="col-span-1">
-							<a href={imgs[5].url.src} data-fancybox="gallery">
+							<a href={imgs[5].url.src} data-fancybox="gall">
 								<Image
 									src={imgs[5].url}
 									alt="Mazar"
