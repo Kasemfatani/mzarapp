@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import Hero from "../components/home/Hero";
 import SemiAbout from "../components/home/SemiAbout";
 import HomePopup from "../components/home/HomePopup";
+import LazyHomeSections from "@/components/home/LazyHomeSections";
 
 // Dynamically import components inside Suspense
 const Confiemed = dynamic(() => import("../components/home/Confirmed"), {
@@ -100,20 +101,9 @@ export default function Home() {
 			)}
 			<main>
 				<Hero />
-				<SemiAbout />
-				<Suspense fallback={<Loading />}>
-					<Confiemed />
-					<Paths />
-					<DownloadAppSection />
-					<Explore />
-					<Gallery />
-					<NewDestinations />
-					<About />
-					<AppExplore />
-					<Content />
-					<GenSection />
-					<Latest />
-				</Suspense>
+				<SemiAbout />{" "}
+				<LazyHomeSections />{" "}
+				{/* SemiAbout → Latest will load only when this enters view */}
 			</main>
 		</>
 	);
