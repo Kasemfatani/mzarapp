@@ -83,7 +83,7 @@ export default function Riviews({ id }) {
 				)
 				.then((response) => {
 					setData(response.data);
-					console.log("review data after api call:", response.data);
+					// console.log("review data after api call:", response.data);
 					setLoading(false);
 				})
 				.catch((error) => {
@@ -95,7 +95,7 @@ export default function Riviews({ id }) {
 	}, []); // Run this effect whenever the `language` changes
 
 	// console.log("Language in reviews:", language);
-	console.log("review data:", data);
+	// console.log("review data:", data);
 
 	function getCountryCodeFromCallingCode(callingCode) {
 		// Remove "+" if present
