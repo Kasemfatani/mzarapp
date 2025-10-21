@@ -28,7 +28,7 @@ export default function Explore() {
                             <h3>{language === 'en' ? 'Ascend to the Peak of Light… with Ease' : 'اصعد إلى قمة النور... بسهولة'}</h3>
                         </div>
                         <h2>{language=== 'en'?"Explore the Hira Cave comfortably, With a direct car ride to AlNoor Mountain":"استكشف غار حراء بكل أريحية، مع خدمة الصعود إلى جبل النور بالسيارة"}</h2>
-                        <Link href="/book" className='px-8 py-2 text-white rounded-lg bg-primaryColor inline-block w-fit'>{language === 'en' ? 'Book Now' : 'احجز الآن'}</Link>
+                        <Link href="/book" className='px-8 py-2 text-white rounded-lg bg-[var(--main-color)] text-white hover:bg-[var(--sec-color)] hover:text-black inline-block w-fit'>{language === 'en' ? 'Book Now' : 'احجز الآن'}</Link>
                     </motion.div>
                 </div>
             </div>

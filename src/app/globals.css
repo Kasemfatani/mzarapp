@@ -135,7 +135,7 @@ a {
 
 .custom-prev:hover,
 .custom-next:hover {
-  background: #025ab4;
+  background: var(--main-color);
 }
 .custom-bullet {
   width: 26px;
@@ -148,7 +148,7 @@ a {
   cursor: pointer;
 }
 .custom-bullet.active {
-  background: #025ab4;
+  background: var(--main-color);
   width: 39px;
 }
 

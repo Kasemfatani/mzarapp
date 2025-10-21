@@ -64,7 +64,7 @@ export default function Parteners() {
 							? "Experience Mzar through the eyes of our visitors from around the world."
 							: "استمتع بتجربة مزار كما رآها زوارنا من حول العالم."}{" "}
 					</p>
-					<button className="bg-blue-500 text-white px-6 py-2 rounded-lg text-base font-medium hover:bg-blue-600 transition">
+					<button className="bg-[var(--main-color)] text-white px-6 py-2 rounded-lg text-base font-medium hover:bg-[var(--sec-color)] hover:text-black transition">
 						<Link href="/gallary">
 							{language === "en" ? "see more" : "شاهد المزيد"}
 						</Link>

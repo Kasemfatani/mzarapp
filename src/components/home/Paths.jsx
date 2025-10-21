@@ -151,7 +151,7 @@ export default function Paths() {
 						className={cn(
 							"flex items-center gap-2 rounded-full px-6 justify-center w-full",
 							selectedFilter === filter.key &&
-								"bg-[var(--main-color)] text-white hover:bg-[var(--sec-color)]"
+								"bg-[var(--main-color)] text-white hover:bg-[var(--sec-color)] hover:text-black"
 						)}
 						style={{ flex: 1 }} // Each button gets equal width
 						onClick={() => setSelectedFilter(filter.key)}

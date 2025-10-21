@@ -2,7 +2,7 @@
   --main-color: #3C6652 ;
   --main-hover: #42A8C3;
   --sec-color: #E7D3AF;
-  --main-bg : #E7D3AF;
+  --main-bg : #F8F2E7;
   --second-bg: #E7D3AF;
   --text-color: #333333;
   --back-color: #F1F5F9;
@@ -910,6 +910,7 @@ p {
 }
 .paths .path-card .view-detials:hover {
   background-color: var(--sec-color);
+  color: black;
 }
 .paths .path-swiper .swiper-wrapper {
   padding: 24px 10px;
@@ -946,7 +947,7 @@ p {
   }
 }
 .about-section {
-  background-color: #E2E9F0;
+  background-color: var(--main-bg);
   padding-top: 40px;
   padding-bottom: 40px;
 }
@@ -1186,6 +1187,7 @@ p {
 }
 
 footer {
+  background-color: #857856;
   padding-top: 20px;
   padding-bottom: 20px;
 }
@@ -1193,15 +1195,16 @@ footer .footer-cont {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-top: 1px solid var(--main-color);
+  border-top: 1px solid white;
   padding-top: 32px;
 }
 footer .footer-cont i {
   font-size: 24px;
-  color: #025AB4;
+  color: white;
 }
 footer .footer-cont .copyRight {
   display: flex;
+  color: white;
   align-items: center;
   gap: 6px;
 }
@@ -1210,7 +1213,7 @@ footer .footer-cont .copyRight img {
   height: 13px;
 }
 footer .footer-cont .copyRight p {
-  color: rgba(2, 90, 180, 0.6);
+  color: white;
   font-size: 16px;
   font-weight: 500;
 }
@@ -2834,7 +2837,7 @@ button {
 
 .parts-cont {
   height: 150px;
-  background-color: #E7F3FF;
+  background-color: var(--main-bg);
   margin: auto;
 }
 .parts-cont .partss {
@@ -2974,7 +2977,7 @@ button {
 
 .content {
   padding: 48px 0;
-  background-color: #E7F3FF;
+  background-color: var(--main-bg);
 }
 .content h3 {
   font-size: 32px;
@@ -3055,7 +3058,8 @@ button {
   width: fit-content;
 }
 .date-book .book-link:hover {
-  background-color: var(--main-hover);
+  background-color: var(--sec-color);
+  color: black;
 }
 .date-book .date {
   display: flex;

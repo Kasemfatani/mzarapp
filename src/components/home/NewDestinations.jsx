@@ -65,7 +65,7 @@ export default function NewDestinations() {
 				</p>
 				<Link
 					href="/?filter=2#paths"
-					className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-3 rounded-lg transition"
+					className="bg-[var(--main-color)] text-white hover:bg-[var(--sec-color)] hover:text-black font-semibold px-8 py-3 rounded-lg transition"
 					onClick={(e) => {
 						e.preventDefault();
 						// push new url; Paths will react via useSearchParams
