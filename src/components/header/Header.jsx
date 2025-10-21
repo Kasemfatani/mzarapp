@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState, useCallback } from "react";
-import logo from "../../assets/images/home/logo.svg";
+import logo from "/public/Home/header-logo.png";
 import Image from "next/image";
 import Link from "next/link";
 import { Globe, Menu, X } from "lucide-react";
@@ -59,7 +59,7 @@ export default function Header() {
 
 	return (
 		<>
-			<div className="md:h-[34px] bg-[#025AB4] text-white text-sm">
+			<div className="md:h-[34px] bg-[#857856] text-white text-sm">
 				<div className="container m-auto flex flex-col md:flex-row items-center justify-between pt-2 gap-2 md:gap-0">
 					{/* Left: Email and Phone */}
 					<div className="flex items-center gap-4">
@@ -118,7 +118,7 @@ export default function Header() {
 				<div className="container m-auto flex items-center gap-2 justify-between">
 					<Link href="/">
 						{" "}
-						<Image src={logo} alt="logo" className="logo-img" />
+						<Image src={logo} alt="logo" className="" width={138} height={46} />
 					</Link>
 					<div className="links">
 						<Link

@@ -1,13 +1,16 @@
 :root {
-  --main-color: #025AB4 ;
+  --main-color: #3C6652 ;
   --main-hover: #42A8C3;
-  --sec-color: #1AC5BD;
-  --text-color: ##333333;
+  --sec-color: #E7D3AF;
+  --main-bg : #E7D3AF;
+  --second-bg: #E7D3AF;
+  --text-color: #333333;
   --back-color: #F1F5F9;
   --black-color: #000;
   --white-color: #fff;
   --border-color: #f0f0f0;
   --border-radius: 24px;
+  --hero-text-color: #FFFAFA;
   font-size: 16px;
 }
 
@@ -530,20 +533,20 @@ header .links .active {
   color: #181818;
 }
 header .links a:hover {
-  color: var(--sec-color);
+  color: var(--main-color);
 }
 header .links .book-link {
   padding-left: 32px;
   padding-right: 32px;
-  background-color: var(--sec-color);
+  background-color: var(--main-color);
   border-radius: 8px;
   height: 55px;
   line-height: 55px;
   color: var(--white-color);
 }
 header .links .book-link:hover {
-  background-color: var(--main-color);
-  color: var(--white-color);
+  background-color: var(--sec-color );
+  color: var(--black-color);
 }
 header .menu-bars {
   display: none;
@@ -653,21 +656,21 @@ header .side-menu-active {
   max-width: 450px;
   font-size: 56px;
   font-weight: 600;
-  color: var(--white-color);
+  color: var(--hero-text-color);
 }
 .hero .overlay .hero-text h1 span {
-  background: linear-gradient(259.5deg, #87DCB5 -11.8%, #1AC5BD 29.76%, #025AB4 68.44%);
+  background: var(--sec-color);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 .hero .overlay .hero-text p {
   font-size: 32px;
   font-weight: 600;
-  color: var(--white-color);
+  color: var(--hero-text-color);
   margin-bottom: 24px;
 }
 .hero .overlay .hero-text a {
-  background-color: var(--sec-color);
+  background-color: var(--main-color);
   color: var(--white-color);
   padding: 10px 32px;
   border-radius: 5px;
@@ -675,7 +678,8 @@ header .side-menu-active {
   width: fit-content;
 }
 .hero .overlay .hero-text a:hover {
-  background-color: var(--main-color);
+  background-color: var(--sec-color);
+  color: var(--black-color);
 }
 .hero .overlay .features {
   display: grid;
@@ -689,8 +693,14 @@ header .side-menu-active {
   padding: 16px 24px;
   border-radius: 10px;
   gap: 16px;
-  background: linear-gradient(116.84deg, #FFFAFA 64.25%, #1AC5BD 179.19%);
-  transition: background-color 1000ms linear;
+  background: rgba(231, 211, 175, 0.6);
+  /* transition: background-color 1000ms linear; */
+  /* The blur effect */
+  backdrop-filter: blur(8px); 
+  -webkit-backdrop-filter: blur(8px); /* For Safari support */
+  
+  /* Required for backdrop-filter to work */
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 .hero .overlay .features .feature p {
   color: #181818;
