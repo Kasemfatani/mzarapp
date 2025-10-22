@@ -452,7 +452,7 @@ export default function BookingDetailsForm({
 				<div className="flex justify-center mt-8">
 					<Button
 						type="submit"
-						className="w-full max-w-md h-[60px] bg-gradient-to-r from-blue-600 to-teal-400 hover:to-teal-500 transition-colors duration-300 text-white text-xl py-4 rounded-xl shadow-lg"
+						className="w-full max-w-md h-[60px] bg-[var(--main-color)] text-white hover:bg-[var(--sec-color)] hover:text-black  text-xl py-4 rounded-xl shadow-lg"
 						disabled={formLoading}
 					>
 						{formLoading

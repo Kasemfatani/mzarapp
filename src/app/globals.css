@@ -155,6 +155,20 @@ a {
 
 /* end of Custom Swiper Styles for .path-swiper*/
 
+
+/* Space for bullets */
+
+
+/* Place the bullets at the very bottom of that padding area */
+/* .trips-swiper .swiper-pagination,
+.trips-swiper .swiper-pagination-bullets.swiper-pagination-horizontal {
+  bottom: 0 !important;
+} */
+
+#trips  .swiper {
+  overflow:visible ; 
+}
+
 /* Make the whole toast larger */
 .sonner-toast-large {
   font-size: 1.2rem !important;

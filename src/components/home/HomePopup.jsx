@@ -65,13 +65,13 @@ export default function HomePopup({ adData, lang }) {
 					<div className="flex gap-4 justify-center mt-4">
 						<Button
 							variant="outline"
-							className="flex-1 border-cyan-400 text-cyan-500"
+							className="flex-1 border border-[var(--main-color)] text-gray-600"
 							onClick={handleDismiss}
 						>
 							{lang === "ar" ? "إغلاق" : "Dismiss"}
 						</Button>
 						<Button
-							className="flex-1 bg-cyan-500 bg-gradient-to-r from-[#025AB4] via-[#1AC5BD] to-[#87DCB5] text-white"
+							className="flex-1 bg-[var(--main-color)] text-white hover:bg-[var(--sec-color)] hover:text-black"
 							onClick={handleDismiss}
 							asChild
 						>

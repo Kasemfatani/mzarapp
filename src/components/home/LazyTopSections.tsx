@@ -4,7 +4,12 @@ import dynamic from "next/dynamic";
 import { useInView } from "react-intersection-observer";
 import Loading from "@/app/loading";
 
+
 const Confirmed = dynamic(() => import("./Confirmed"), {
+	ssr: false,
+	loading: () => <Loading />,
+});
+const About = dynamic(() => import("./About"), {
 	ssr: false,
 	loading: () => <Loading />,
 });
@@ -14,7 +19,7 @@ const Paths = dynamic(() => import("./Paths"), {
 });
 
 export default function LazyTopSections() {
-	const { ref, inView } = useInView({ triggerOnce: true, rootMargin: "300px" });
+	const { ref, inView } = useInView({ triggerOnce: true, rootMargin: "0px" });
 	const [shouldLoad, setShouldLoad] = useState(false);
 	const pendingHashRef = useRef<string | null>(null);
 
@@ -75,6 +80,8 @@ export default function LazyTopSections() {
 		<div ref={ref}>
 			{shouldLoad ? (
 				<Suspense fallback={<Loading />}>
+          {/* <Trips /> */}
+					<About />
 					<Confirmed />
 					<Paths />
 				</Suspense>

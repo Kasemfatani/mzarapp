@@ -220,7 +220,7 @@ export default function GeneralFormsWrapper() {
 			style={{ direction: language === "ar" ? "rtl" : "ltr" }}
 		>
 			<div className="flex flex-col items-center mb-8">
-				<img src="/logo.svg" alt="MZAR Logo" className="h-14 mb-2" />
+				<img src="/Home/header-logo.png" alt="MZAR Logo" className="h-14 mb-2" />
 				<h2 className="font-semibold text-2xl md:text-3xl text-center text-black mb-2 mt-2">
 					{language === "ar" ? "احجز الآن" : "Make a reservation"}
 				</h2>
@@ -392,7 +392,7 @@ export default function GeneralFormsWrapper() {
 						<div className="flex justify-center mt-8">
 							<Button
 								type="submit"
-								className="w-full max-w-md h-[60px] bg-gradient-to-r from-blue-600 to-teal-400 text-white text-xl py-4 rounded-xl shadow-lg hover:from-blue-700 hover:to-teal-500 transition-colors duration-300"
+								className="w-full max-w-md h-[60px] bg-[var(--main-color)] text-white hover:bg-[var(--sec-color)] hover:text-black text-xl py-4 rounded-xl shadow-lg "
 								disabled={formLoading}
 							>
 								{formLoading
@@ -411,12 +411,12 @@ export default function GeneralFormsWrapper() {
 			{success && (
 				<div className="mt-4 border-t border-[#E5E7EB]">
 					{/* Reference number display */}
-					<div className="text-center text-lg font-bold my-4 bg-gradient-to-r from-blue-600 to-teal-400 bg-clip-text text-transparent">
+					<div className="text-center text-lg font-bold my-4 bg-[var(--main-color)] bg-clip-text text-transparent">
 						{language === "ar"
 							? `رقم الحجز الخاص بك هو: ${refNo}`
 							: `Your booking reference number is: ${refNo}`}
 					</div>
-					<h3 className="text-center text-xl font-semibold my-8 bg-gradient-to-r from-blue-600 to-teal-400 bg-clip-text text-transparent">
+					<h3 className="text-center text-xl font-semibold my-8 bg-[var(--main-color)] bg-clip-text text-transparent">
 						{language === "ar"
 							? "لخدمة أفضل .. رجاء أكمل تفاصيل الحجز التالية"
 							: "For better service .. please fill booking details"}

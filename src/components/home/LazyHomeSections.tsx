@@ -20,7 +20,7 @@ const NewDestinations = dynamic(() => import("./NewDestinations"), {
 	ssr: false,
 	loading: () => <Loading />,
 });
-const About = dynamic(() => import("./About"), {
+const Why = dynamic(() => import("./Why"), {
 	ssr: false,
 	loading: () => <Loading />,
 });
@@ -36,10 +36,11 @@ const GenSection = dynamic(() => import("./GenSection"), {
 	ssr: false,
 	loading: () => <Loading />,
 });
-const Latest = dynamic(() => import("./Latest"), {
-	ssr: false,
-	loading: () => <Loading />,
-});
+// const Latest = dynamic(() => import("./Latest"), {
+// 	ssr: false,
+// 	loading: () => <Loading />,
+// });
+
 
 export default function LazyHomeSections() {
 	const { ref, inView } = useInView({ triggerOnce: true, rootMargin: "150px" });
@@ -109,15 +110,16 @@ export default function LazyHomeSections() {
 		<div ref={ref}>
 			{shouldLoad ? (
 				<Suspense fallback={<Loading />}>
+					<Why />
 					<DownloadAppSection />
 					<Explore />
 					<Gallery />
 					<NewDestinations />
-					<About />
+					
 					<AppExplore />
 					<Content />
 					<GenSection />
-					<Latest />
+					{/* <Latest /> */}
 				</Suspense>
 			) : null}
 		</div>

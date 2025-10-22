@@ -3,8 +3,8 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import hero from "/public/hero.webp";
-import iPhones from "/public/iphones.webp";
-import iPhonesAr from "/public/iphonesAr.webp";
+import iPhones from "/public/Home/Phone-Mockup.png"; //should be eng ver
+import iPhonesAr from "/public/Home/Phone-Mockup.png";
 import { motion } from "framer-motion";
 import Loading from "@/app/loading";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -168,7 +168,12 @@ export default function Hero() {
 												<Image
 													src={slide.iphones}
 													alt="Mazar"
-													className="iphones-img w-[300px] h-[300px] "
+													className={
+														"iphones-img h-[300px]" +
+														(slide.iphones === "/DownloadAppSection-phones.webp"
+															? ""
+															: " w-[178px]")
+													}
 													width={300}
 													height={600}
 													priority
