@@ -119,7 +119,7 @@ export default function Book() {
 			<div className="popup-cont">
 				<Image src={doneImage} alt="Mazar" className="img" />
 				{refNo && (
-					<div className="text-center text-lg font-bold my-4 bg-gradient-to-r from-blue-600 to-teal-400 bg-clip-text text-transparent">
+					<div className="text-center text-lg font-bold my-4 bg-[var(--main-color)] bg-clip-text text-transparent">
 						{t.refLabel} {refNo}
 					</div>
 				)}

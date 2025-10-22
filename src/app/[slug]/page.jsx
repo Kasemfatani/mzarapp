@@ -2,6 +2,7 @@ import { cookies, headers } from "next/headers";
 import { notFound } from "next/navigation";
 import SingleBlog from "@/components/blog/SingleBlog";
 import Content from "@/components/home/Content";
+import LazyContent from "@/components/home/LazyContent";
 import { API_BASE_URL } from "@/lib/apiConfig";
 
 // 1. Import 'cache' from 'react'
@@ -66,7 +67,7 @@ export default async function BlogSlugPage({ params }) {
 	return (
 		<div className="blog">
 			<SingleBlog data={data} lang={lang} />
-			<Content />
+			<LazyContent />
 		</div>
 	);
 }

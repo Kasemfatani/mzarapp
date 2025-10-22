@@ -3,14 +3,46 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Register local fonts from /public/fonts */
+@font-face {
+  font-family: "TheYearOfTheCamel";
+  src: url("/fonts/the-year-of-the-camel-extrabold.otf") format("opentype");
+  font-weight: 800 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "TheYearOfHandicrafts";
+  src: url("/fonts/TheYearofHandicrafts-SemiBold.otf") format("opentype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "ReadexPro";
+  src: url("/fonts/ReadexPro-VariableFont_HEXP,wght.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
-  font-family: 'Cairo', sans-serif;
+  /* default: English */
+  --font-body: "TheYearOfTheCamel", system-ui, sans-serif;
+  --font-heading: "TheYearOfTheCamel", system-ui, sans-serif;
   overflow-y: scroll;
 }
 html body[data-scroll-locked] {
   /* --removed-body-scroll-bar-size: 0 !important; */
   margin-right: 0 !important;
 }
+
+/* When the document language is Arabic */
+html[lang="ar"] {
+  --font-body: "ReadexPro", system-ui, sans-serif;
+  --font-heading: "TheYearOfHandicrafts", system-ui, sans-serif;
+}
+
 /* @media (prefers-color-scheme: dark) {
   :root {
   }
@@ -29,7 +61,7 @@ html body[data-scroll-locked] {
   border-bottom: 2px dashed #2977b7;
 }
 body {
-  font-family: 'Cairo';
+  font-family: var(--font-body); 
   box-sizing: border-box;
   font-style: normal;
   font-weight: 400;
@@ -135,7 +167,7 @@ a {
 
 .custom-prev:hover,
 .custom-next:hover {
-  background: #025ab4;
+  background: var(--main-color);
 }
 .custom-bullet {
   width: 26px;
@@ -148,12 +180,26 @@ a {
   cursor: pointer;
 }
 .custom-bullet.active {
-  background: #025ab4;
+  background: var(--main-color);
   width: 39px;
 }
 
 
 /* end of Custom Swiper Styles for .path-swiper*/
+
+
+/* Space for bullets */
+
+
+/* Place the bullets at the very bottom of that padding area */
+/* .trips-swiper .swiper-pagination,
+.trips-swiper .swiper-pagination-bullets.swiper-pagination-horizontal {
+  bottom: 0 !important;
+} */
+
+#trips  .swiper {
+  overflow:visible ; 
+}
 
 /* Make the whole toast larger */
 .sonner-toast-large {
@@ -307,8 +353,8 @@ a {
 .ltr{
   direction:ltr;
 }
-/* story animation for swiper in promo code */
-@keyframes story {
+/* story animation for swiper in promo code in PromoCode in saad-new page */
+/* @keyframes story {
 	from {
 		width: 0%;
 	}
@@ -319,4 +365,12 @@ a {
 
 .animate-story {
 	animation: story linear forwards;
-}
+} */
+
+/* end of story animation for swiper in promo code */
+
+
+/* Global overrides (beat legacy Cairo rules) */
+body { font-family: var(--font-body) !important; }
+h1, h2, h3, h4, h5, h6,
+.font-heading { font-family: var(--font-heading) !important; }

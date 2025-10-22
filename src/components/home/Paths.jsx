@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import axios from "axios";
-import Flag from "react-world-flags";
+// import Flag from "react-world-flags";
 import Image from "next/image";
 import Link from "next/link";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
@@ -11,14 +11,14 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { API_BASE_URL } from "@/lib/apiConfig";
-import img2 from "/public/conf/10.svg";
+// import img2 from "/public/conf/10.svg";
 import makkahIcon from "/public/makkah-icon.png";
 import madinahIcon from "/public/madinah-icon.png";
 
 import Marquee from "../ui/marquee";
 import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
-import { useRef } from "react";
+// import { useRef } from "react";
 
 export default function Paths() {
 	const [loading, setLoading] = useState(true);
@@ -151,7 +151,7 @@ export default function Paths() {
 						className={cn(
 							"flex items-center gap-2 rounded-full px-6 justify-center w-full",
 							selectedFilter === filter.key &&
-								"bg-[var(--main-color)] text-white hover:bg-[var(--sec-color)]"
+								"bg-[var(--main-color)] text-white hover:bg-[var(--sec-color)] hover:text-black"
 						)}
 						style={{ flex: 1 }} // Each button gets equal width
 						onClick={() => setSelectedFilter(filter.key)}

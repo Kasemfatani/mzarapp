@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react"; // Importing React to use JSX syntax and create components.
-import c from "/public/c.svg";
+// import c from "/public/c.svg";
 import {
 	Facebook,
 	Instagram,
@@ -45,7 +45,7 @@ export default function Footer() {
 	}
 
 	return (
-		<footer className={`${language === "en" ? "ltr" : "rtl"}`}>
+		<footer className={`${language === "en" ? "ltr" : "rtl"} mt-8 overflow-visible`}>
 			{" "}
 			{/* Main footer container with padding and background color */}
 			{pathname !== "/path" && pathname !== "/makkah-mzar"
@@ -74,8 +74,8 @@ export default function Footer() {
 			<div className="container m-auto">
 				<div className="flex flex-col items-center">
 					{/* New top blue section */}
-					<div className="w-[80%] rounded-2xl bg-[#42C8C7] flex flex-col md:flex-row items-center justify-between px-8 py-6 mb-8">
-						<div className="text-white font-bold text-xl md:text-2xl md:max-w-[60%]">
+					<div className="w-[80%] rounded-2xl bg-[var(--sec-color)] flex flex-col md:flex-row items-center justify-between px-8 py-6 mb-8  -mt-[50px]">
+						<div className="text-black font-bold text-xl md:text-2xl md:max-w-[60%]">
 							{language === "en" ? (
 								<>
 									Mzar Is A Strategic Partner Of The Royal Commission For Makkah
@@ -110,90 +110,90 @@ export default function Footer() {
 					</div>
 
 					{/* New 3-column grid */}
-					<div className="w-[80%] grid grid-cols-1 md:grid-cols-3 gap-8 pb-8 border-b border-[#42C8C7] justify-items-center">
+					<div className="w-[80%] grid grid-cols-1 md:grid-cols-3 gap-8 pb-8 justify-items-center">
 						{/* Left: Logo + Social */}
 						<div className="flex flex-col items-center md:items-start gap-4">
-							<img src="logo.svg" alt="Mzar Logo" className="h-16" />
+							<img src="/Home/footer-logo.png" alt="Mzar Logo" className="" width={187} />
 							<div className="flex gap-4 mt-2">
 								<Link href="https://x.com/mzarapp" target="_blank">
-									<i className="fa-brands fa-x-twitter text-2xl text-[#025AB4]"></i>
+									<i className="fa-brands fa-x-twitter text-2xl text-white"></i>
 								</Link>
 								<Link href="https://www.instagram.com/mzarapp/" target="_blank">
-									<i className="fa-brands fa-instagram text-2xl text-[#025AB4]"></i>
+									<i className="fa-brands fa-instagram text-2xl text-white"></i>
 								</Link>
 								<Link href="https://www.facebook.com/mzarapp" target="_blank">
-									<i className="fa-brands fa-facebook text-2xl text-[#025AB4]"></i>
+									<i className="fa-brands fa-facebook text-2xl text-white"></i>
 								</Link>
 								<Link href="https://www.youtube.com/@mzarapp" target="_blank">
-									<i className="fa-brands fa-youtube text-2xl text-[#025AB4]"></i>
+									<i className="fa-brands fa-youtube text-2xl text-white"></i>
 								</Link>
 								<Link href="https://www.tiktok.com/@mzarapp" target="_blank">
-									<i className="fa-brands fa-tiktok text-2xl text-[#025AB4]"></i>
+									<i className="fa-brands fa-tiktok text-2xl text-white"></i>
 								</Link>
 								<Link
 									href="https://www.linkedin.com/company/mzarapp"
 									target="_blank"
 								>
-									<i className="fa-brands fa-linkedin text-2xl text-[#025AB4]"></i>
+									<i className="fa-brands fa-linkedin text-2xl text-white"></i>
 								</Link>
 							</div>
 						</div>
 						{/* Center: Website Links */}
 						<div className="flex flex-col items-center md:items-start gap-2">
-							<div className="font-bold text-lg mb-2">
+							<div className="font-bold text-lg mb-2 text-white">
 								{language === "en" ? "Quick Links" : "روابط سريعة"}
 							</div>
-							<Link href="/" className="hover:text-[#025AB4]">
+							<Link href="/" className="text-white hover:text-black">
 								{language === "en" ? "Home" : "الرئيسية"}
 							</Link>
-							<Link href="/#paths" className="hover:text-[#025AB4]">
+							<Link href="/#paths" className="text-white hover:text-black">
 								{language === "en" ? "Paths" : "المسارات"}
 							</Link>
-							<Link href="/#about" className="hover:text-[#025AB4]">
+							<Link href="/#about" className="text-white hover:text-black">
 								{language === "en" ? "About" : "من نحن"}
 							</Link>
-							<Link href="/#gallery" className="hover:text-[#025AB4]">
+							<Link href="/#gallery" className="text-white hover:text-black">
 								{language === "en" ? "Gallery" : "المعرض"}
 							</Link>
-							<Link href="/blogs" className="hover:text-[#025AB4]">
+							<Link href="/blogs" className="text-white hover:text-black">
 								{language === "en" ? "Blogs" : "المقالات"}
 							</Link>
 							{/* Add more links if needed */}
-							{/* <Link href="/book" className="hover:text-[#025AB4]">
+							{/* <Link href="/book" className="text-white hover:text-black">
 								{language === "en" ? "Book now" : "احجز الآن"}
 							</Link> */}
 						</div>
 						{/* Right: Contact Us */}
 						<div className="flex flex-col items-center md:items-start gap-2">
-							<div className="font-bold text-lg mb-2">
+							<div className="font-bold text-lg mb-2 text-white">
 								{language === "en" ? "Contact us" : "تواصل معنا"}
 							</div>
 							<div className="flex items-center gap-2">
-								<i className="fa-solid fa-phone text-[#025AB4]"></i>
+								<i className="fa-solid fa-phone text-white"></i>
 								<a
 									href="tel:920005785"
-									className="ltr:ml-2 rtl:mr-2 text-[#025AB4] hover:underline"
+									className="ltr:ml-2 rtl:mr-2 text-white hover:underline"
 									dir="ltr"
 								>
 									920005785
 								</a>
 							</div>
 							<div className="flex items-center gap-2">
-								<i className="fa-brands fa-whatsapp text-[#025AB4]"></i>
+								<i className="fa-brands fa-whatsapp text-white"></i>
 								<a
 									href="https://wa.me/+966580121025"
 									target="_blank"
 									rel="noopener noreferrer"
-									className="ltr:ml-2 rtl:mr-2 text-[#025AB4] hover:underline"
+									className="ltr:ml-2 rtl:mr-2 text-white hover:underline"
 								>
 									+966580121025
 								</a>
 							</div>
 							<div className="flex items-center gap-2">
-								<i className="fa-solid fa-envelope text-[#025AB4]"></i>
+								<i className="fa-solid fa-envelope text-white"></i>
 								<a
 									href="mailto:contact@mzarapp.com"
-									className="ltr:ml-2 rtl:mr-2 text-[#025AB4] hover:underline"
+									className="ltr:ml-2 rtl:mr-2 text-white hover:underline"
 								>
 									contact@mzarapp.com
 								</a>
@@ -205,7 +205,7 @@ export default function Footer() {
 				{/* Existing copyright bar */}
 				<div className="footer-cont">
 					<div className="copyRight">
-						<Image src={c} alt="Mazar" className="img" />
+						&copy;
 						<p>
 							{language === "en"
 								? "Licensed by the Ministry of Tourism, license number 73104705 | Licensed Activity: Tour Organization"
@@ -213,7 +213,7 @@ export default function Footer() {
 						</p>
 					</div>
 					{/* Replace social with text */}
-					<div className="text-[#025AB4] text-sm font-medium flex items-center">
+					<div className="text-white text-sm font-medium flex items-center">
 						{language === "en" ? (
 							<>CR: 4031282010</>
 						) : (

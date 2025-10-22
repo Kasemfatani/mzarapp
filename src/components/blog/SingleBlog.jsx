@@ -50,6 +50,7 @@ export default function SingleBlog({ data, lang }) {
                     height={500}
                     alt="Mazar"
                     className="img"
+                    priority
                 />
             </div>
             <div className="date-book mb-3">

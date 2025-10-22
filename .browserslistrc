@@ -1,0 +1,6 @@
+# Targets modern, evergreen browsers (no IE11 or legacy mobile)
+> 0.5%
+last 2 versions
+not dead
+not IE 11
+not op_mini all

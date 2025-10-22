@@ -1,6 +1,6 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import logo from "../../assets/images/home/logo.svg";
+import React, { useEffect, useState, useCallback } from "react";
+import logo from "/public/Home/header-logo.png";
 import Image from "next/image";
 import Link from "next/link";
 import { Globe, Menu, X } from "lucide-react";
@@ -43,9 +43,23 @@ export default function Header() {
 			}`;
 		}
 	}, [lang]);
+
+	const handleAnchorClick = useCallback((e, hash) => {
+		if (typeof window === "undefined") return;
+		// if already on home page, prevent default nav and trigger lazy load + update hash
+		if (window.location.pathname === "/") {
+			e.preventDefault();
+			// tell lazy wrappers to load
+			window.dispatchEvent(new CustomEvent("mzar:anchor", { detail: hash }));
+			// update URL (this triggers native scroll if element exists; lazy will handle if not)
+			if (window.location.hash !== hash) window.location.hash = hash;
+		}
+		// else allow Link to navigate to "/" with the hash
+	}, []);
+
 	return (
 		<>
-			<div className="md:h-[34px] bg-[#025AB4] text-white text-sm">
+			<div className="md:h-[34px] bg-[#857856] text-white text-sm">
 				<div className="container m-auto flex flex-col md:flex-row items-center justify-between pt-2 gap-2 md:gap-0">
 					{/* Left: Email and Phone */}
 					<div className="flex items-center gap-4">
@@ -104,7 +118,7 @@ export default function Header() {
 				<div className="container m-auto flex items-center gap-2 justify-between">
 					<Link href="/">
 						{" "}
-						<Image src={logo} alt="logo" className="logo-img" />
+						<Image src={logo} alt="logo" className="" width={138} height={46} />
 					</Link>
 					<div className="links">
 						<Link
@@ -115,18 +129,21 @@ export default function Header() {
 						</Link>
 						<Link
 							href="/#paths"
+							onClick={(e) => handleAnchorClick(e, "#paths")}
 							className={pathname === "/#paths" ? "active" : "normal-Link"}
 						>
 							{lang === "en" ? "Paths" : "المسارات"}
 						</Link>
 						<Link
 							href="/#about"
+							onClick={(e) => handleAnchorClick(e, "#about")}
 							className={pathname === "/#about" ? "active" : "normal-Link"}
 						>
 							{lang === "en" ? "About" : "من نحن"}
 						</Link>
 						<Link
 							href="/#gallery"
+							onClick={(e) => handleAnchorClick(e, "#gallery")}
 							className={pathname === "/#about" ? "active" : "normal-Link"}
 						>
 							{lang === "en" ? "Gallery" : "المعرض"}
@@ -214,18 +231,21 @@ export default function Header() {
 							</Link>
 							<Link
 								href="/#paths"
+								onClick={(e) => handleAnchorClick(e, "#paths")}
 								className={pathname === "/#paths" ? "active" : "normal-Link"}
 							>
 								{lang === "en" ? "Paths" : "المسارات"}
 							</Link>
 							<Link
 								href="/#about"
+								onClick={(e) => handleAnchorClick(e, "#about")}
 								className={pathname === "/#about" ? "active" : "normal-Link"}
 							>
 								{lang === "en" ? "About" : "من نحن"}
 							</Link>
 							<Link
-								href="/#about"
+								href="/#gallery"
+								onClick={(e) => handleAnchorClick(e, "#gallery")}
 								className={pathname === "/#about" ? "active" : "normal-Link"}
 							>
 								{lang === "en" ? "Gallery" : "المعرض"}

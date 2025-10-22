@@ -1,17 +1,20 @@
 :root {
-  --main-color: #025AB4 ;
+  --main-color: #3C6652 ;
   --main-hover: #42A8C3;
-  --sec-color: #1AC5BD;
-  --text-color: ##333333;
+  --sec-color: #E7D3AF;
+  --main-bg : #F8F2E7;
+  --second-bg: #E7D3AF;
+  --text-color: #333333;
   --back-color: #F1F5F9;
   --black-color: #000;
   --white-color: #fff;
   --border-color: #f0f0f0;
   --border-radius: 24px;
+  --hero-text-color: #FFFAFA;
   font-size: 16px;
 }
 
-@font-face {
+/* @font-face {
   font-family: "Cairo";
   src: url("../webfonts/Cairo/Cairo-Bold.woff2") format("woff2"), url("../webfonts/Cairo/Cairo-Bold.woff") format("woff");
   font-weight: 700;
@@ -94,9 +97,9 @@
   font-weight: 600;
   font-style: normal;
   font-display: swap;
-}
+} */
 body {
-  font-family: "Cairo";
+  
   box-sizing: border-box;
   font-style: normal;
   font-weight: 400;
@@ -111,7 +114,7 @@ body {
   margin: 0;
   padding: 0;
   transition: all 0.3s ease;
-  font-family: "Cairo";
+  
 }
 
 figure {
@@ -530,20 +533,20 @@ header .links .active {
   color: #181818;
 }
 header .links a:hover {
-  color: var(--sec-color);
+  color: var(--main-color);
 }
 header .links .book-link {
   padding-left: 32px;
   padding-right: 32px;
-  background-color: var(--sec-color);
+  background-color: var(--main-color);
   border-radius: 8px;
   height: 55px;
   line-height: 55px;
   color: var(--white-color);
 }
 header .links .book-link:hover {
-  background-color: var(--main-color);
-  color: var(--white-color);
+  background-color: var(--sec-color );
+  color: var(--black-color);
 }
 header .menu-bars {
   display: none;
@@ -653,21 +656,21 @@ header .side-menu-active {
   max-width: 450px;
   font-size: 56px;
   font-weight: 600;
-  color: var(--white-color);
+  color: var(--hero-text-color);
 }
 .hero .overlay .hero-text h1 span {
-  background: linear-gradient(259.5deg, #87DCB5 -11.8%, #1AC5BD 29.76%, #025AB4 68.44%);
+  background: var(--sec-color);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 .hero .overlay .hero-text p {
   font-size: 32px;
   font-weight: 600;
-  color: var(--white-color);
+  color: var(--hero-text-color);
   margin-bottom: 24px;
 }
 .hero .overlay .hero-text a {
-  background-color: var(--sec-color);
+  background-color: var(--main-color);
   color: var(--white-color);
   padding: 10px 32px;
   border-radius: 5px;
@@ -675,7 +678,8 @@ header .side-menu-active {
   width: fit-content;
 }
 .hero .overlay .hero-text a:hover {
-  background-color: var(--main-color);
+  background-color: var(--sec-color);
+  color: var(--black-color);
 }
 .hero .overlay .features {
   display: grid;
@@ -689,8 +693,14 @@ header .side-menu-active {
   padding: 16px 24px;
   border-radius: 10px;
   gap: 16px;
-  background: linear-gradient(116.84deg, #FFFAFA 64.25%, #1AC5BD 179.19%);
-  transition: background-color 1000ms linear;
+  background: rgba(231, 211, 175, 0.6);
+  /* transition: background-color 1000ms linear; */
+  /* The blur effect */
+  backdrop-filter: blur(8px); 
+  -webkit-backdrop-filter: blur(8px); /* For Safari support */
+  
+  /* Required for backdrop-filter to work */
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 .hero .overlay .features .feature p {
   color: #181818;
@@ -900,6 +910,7 @@ p {
 }
 .paths .path-card .view-detials:hover {
   background-color: var(--sec-color);
+  color: black;
 }
 .paths .path-swiper .swiper-wrapper {
   padding: 24px 10px;
@@ -936,7 +947,7 @@ p {
   }
 }
 .about-section {
-  background-color: #E2E9F0;
+  background-color: var(--main-bg);
   padding-top: 40px;
   padding-bottom: 40px;
 }
@@ -1176,6 +1187,7 @@ p {
 }
 
 footer {
+  background-color: #857856;
   padding-top: 20px;
   padding-bottom: 20px;
 }
@@ -1183,15 +1195,16 @@ footer .footer-cont {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-top: 1px solid var(--main-color);
+  border-top: 1px solid white;
   padding-top: 32px;
 }
 footer .footer-cont i {
   font-size: 24px;
-  color: #025AB4;
+  color: white;
 }
 footer .footer-cont .copyRight {
   display: flex;
+  color: white;
   align-items: center;
   gap: 6px;
 }
@@ -1200,7 +1213,7 @@ footer .footer-cont .copyRight img {
   height: 13px;
 }
 footer .footer-cont .copyRight p {
-  color: rgba(2, 90, 180, 0.6);
+  color: white;
   font-size: 16px;
   font-weight: 500;
 }
@@ -1519,7 +1532,7 @@ footer .footer-cont .social {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(2, 90, 180, 0.6);
+  background-color: rgba(60, 102, 82, 0.6);
   z-index: 10;
   display: flex;
   align-items: center;
@@ -1535,7 +1548,7 @@ footer .footer-cont .social {
 }
 .path .pathdata .places {
   padding: 25px;
-  background-color: rgba(30, 198, 188, 0.1);
+  background-color: var(--main-bg );
   border-radius: 30px;
   height: -moz-fit-content;
   height: fit-content;
@@ -1654,7 +1667,7 @@ footer .footer-cont .social {
 .path .activities {
   display: flex;
   padding: 24px;
-  background-color: rgba(30, 198, 188, 0.1);
+  background-color: var(--main-bg);
   border-radius: 30px;
   margin-bottom: 32px;
   flex-direction: column;
@@ -1825,7 +1838,7 @@ footer .footer-cont .social {
 }
 .destinations .ready a:hover {
   background-color: var(--sec-color);
-  color: #FFFAFA;
+  color: black;
 }
 
 .original-price {
@@ -2125,7 +2138,7 @@ footer .footer-cont .social {
 .btn-offer-cont .uper-header-counter-cont .ohsol-span {
   font-weight: 700;
   font-size: 20px;
-  font-family: Cairo;
+ 
   color: #222;
 }
 @media screen and (max-width: 500px) {
@@ -2824,7 +2837,7 @@ button {
 
 .parts-cont {
   height: 150px;
-  background-color: #E7F3FF;
+  background-color: var(--main-bg);
   margin: auto;
 }
 .parts-cont .partss {
@@ -2892,6 +2905,9 @@ button {
   width: 200px;
   height: 200px;
   perspective: 800px;
+  background: #F8F2E7; /* subtle background */
+  border-radius: 50%;
+  box-shadow: 0 0 32px 0 #E7D3AF44;
 }
 
 .crystal {
@@ -2906,7 +2922,9 @@ button {
   animation: spin 4s linear infinite, emerge 2s ease-in-out infinite alternate, fadeIn 0.3s ease-out forwards;
   border-radius: 10px;
   visibility: hidden;
+  box-shadow: 0 4px 24px 0 #85785633; /* soft olive shadow */
 }
+
 
 @keyframes spin {
   from {
@@ -2932,39 +2950,35 @@ button {
     opacity: 0.8;
   }
 }
+/* Brand color gradients for each crystal */
 .crystal:nth-child(1) {
-  background: linear-gradient(45deg, #003366, #336699);
+  background: linear-gradient(45deg, #3C6652, #E7D3AF);
   animation-delay: 0s;
 }
-
 .crystal:nth-child(2) {
-  background: linear-gradient(45deg, #003399, #3366cc);
+  background: linear-gradient(45deg, #E7D3AF, #857856);
   animation-delay: 0.3s;
 }
-
 .crystal:nth-child(3) {
-  background: linear-gradient(45deg, #0066cc, #3399ff);
+  background: linear-gradient(45deg, #857856, #3C6652);
   animation-delay: 0.6s;
 }
-
 .crystal:nth-child(4) {
-  background: linear-gradient(45deg, #0099ff, #66ccff);
+  background: linear-gradient(45deg, #3C6652, #F8F2E7);
   animation-delay: 0.9s;
 }
-
 .crystal:nth-child(5) {
-  background: linear-gradient(45deg, #33ccff, #99ccff);
+  background: linear-gradient(45deg, #E7D3AF, #F8F2E7);
   animation-delay: 1.2s;
 }
-
 .crystal:nth-child(6) {
-  background: linear-gradient(45deg, #66ffff, #ccffff);
+  background: linear-gradient(45deg, #857856, #E7D3AF);
   animation-delay: 1.5s;
 }
 
 .content {
   padding: 48px 0;
-  background-color: #E7F3FF;
+  background-color: var(--main-bg);
 }
 .content h3 {
   font-size: 32px;
@@ -3045,7 +3059,8 @@ button {
   width: fit-content;
 }
 .date-book .book-link:hover {
-  background-color: var(--main-hover);
+  background-color: var(--sec-color);
+  color: black;
 }
 .date-book .date {
   display: flex;
@@ -3096,22 +3111,22 @@ button {
   margin-bottom: 0;
 }
 
-.blog {
+/* .blog {
   font-family: "NotoNaskhArabic", serif;
-}
+} */
 .blog .description-cont {
   font-size: 18px;
   font-weight: 400;
   color: #404040;
   text-align: justify !important;
-  font-family: "NotoNaskhArabic", serif;
+ 
 }
 .blog .description-cont h2 {
   font-size: 32px;
   font-weight: 700;
 }
 .blog .description-cont * {
-  font-family: "Cairo", serif !important;
+  /* font-family: "Cairo", serif !important; */
   text-align: justify !important;
 }
 .blog .description-cont span:has(.btn) {
@@ -3148,7 +3163,7 @@ button {
   font-size: 18px;
   font-weight: 400;
   color: #404040;
-  font-family: "NotoNaskhArabic", serif;
+  
   position: relative;
   margin-bottom: 10px;
 }
@@ -3198,7 +3213,7 @@ button {
 
 .experience-description p {
   color: #4b5563;
-  font-family: "NotoNaskhArabic", serif;
+  
   line-height: 1.8;
   text-align: right;
 }
@@ -3235,16 +3250,16 @@ button {
   background-color: rgba(0, 122, 255, 0.4);
 }
 .blog .title-cont {
-  font-family: "Cairo", serif;
+  /* font-family: "Cairo", serif; */
   font-size: 24px;
   font-weight: 700;
 }
 .blog i {
   font-family: "Font Awesome 6 Free";
 }
-.blog .date-span {
+/* .blog .date-span {
   font-family: "Cairo", serif;
-}
+} */
 
 .blog .container > .img-cont {
   margin: 56px 0;
@@ -3315,3 +3330,13 @@ button {
   padding-inline-start: 10px;
   color: var(--main-color);
 }/*# sourceMappingURL=main.css.map */
+
+
+/* Font override to replace legacy 'Cairo' usages */
+/* html, body, body * {
+  font-family: var(--font-body) !important;
+}
+h1, h2, h3, h4, h5, h6,
+.font-heading {
+  font-family: var(--font-heading) !important;
+} */

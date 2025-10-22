@@ -1,11 +1,34 @@
 "use client";
+import React, { useEffect, useState } from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import parse from "html-react-parser";
-import React from "react";
 
-export default function HomePopup({ open, adData, lang, onDismiss }) {
+export default function HomePopup({ adData, lang }) {
+	const [open, setOpen] = useState(false);
+	// const popupKey =
+	// 	lang === "ar" ? "homepage_popup_dismissed_ar" : "homepage_popup_dismissed";
+
+	// useEffect(() => {
+	// 	if (!adData) return;
+	// 	const dismissed = localStorage.getItem(popupKey);
+	// 	if (!dismissed) setOpen(true);
+	// }, [adData, popupKey]);
+
+	useEffect(() => {
+		if (!adData) return;
+		setOpen(true);
+	}, [adData]);
+
+	// console.log('adData in HomePopup:', adData);
+
+	const handleDismiss = () => {
+		setOpen(false);
+		// localStorage.setItem(popupKey, "1");
+	};
+
 	if (!adData) return null;
+
 	return (
 		<Dialog open={open}>
 			<DialogContent className="p-0 bg-white rounded-2xl shadow-2xl overflow-visible">
@@ -42,14 +65,14 @@ export default function HomePopup({ open, adData, lang, onDismiss }) {
 					<div className="flex gap-4 justify-center mt-4">
 						<Button
 							variant="outline"
-							className="flex-1 border-cyan-400 text-cyan-500"
-							onClick={onDismiss}
+							className="flex-1 border border-[var(--main-color)] text-gray-600"
+							onClick={handleDismiss}
 						>
 							{lang === "ar" ? "إغلاق" : "Dismiss"}
 						</Button>
 						<Button
-							className="flex-1 bg-cyan-500 bg-gradient-to-r from-[#025AB4] via-[#1AC5BD] to-[#87DCB5] text-white"
-							onClick={onDismiss}
+							className="flex-1 bg-[var(--main-color)] text-white hover:bg-[var(--sec-color)] hover:text-black"
+							onClick={handleDismiss}
 							asChild
 						>
 							<a href={`/path?id=${adData.package_id}`}>
