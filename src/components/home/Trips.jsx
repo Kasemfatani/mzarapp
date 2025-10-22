@@ -307,7 +307,7 @@ export default function Trips() {
 					{trips.map((trip, idx) => (
 						<SwiperSlide key={trip.id}>
 							<article
-								className="h-[600px] md:h-[670px] flex flex-col justify-between
+								className="h-[640px] md:h-[670px] flex flex-col justify-between
  rounded-3xl shadow-lg transition-all duration-300 ease-out bg-white
     hover:bg-[var(--sec-color)] hover:scale-105
   " 

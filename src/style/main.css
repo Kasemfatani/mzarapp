@@ -1548,7 +1548,7 @@ footer .footer-cont .social {
 }
 .path .pathdata .places {
   padding: 25px;
-  background-color: rgba(30, 198, 188, 0.1);
+  background-color: var(--main-bg );
   border-radius: 30px;
   height: -moz-fit-content;
   height: fit-content;
@@ -1667,7 +1667,7 @@ footer .footer-cont .social {
 .path .activities {
   display: flex;
   padding: 24px;
-  background-color: rgba(30, 198, 188, 0.1);
+  background-color: var(--main-bg);
   border-radius: 30px;
   margin-bottom: 32px;
   flex-direction: column;
@@ -1838,7 +1838,7 @@ footer .footer-cont .social {
 }
 .destinations .ready a:hover {
   background-color: var(--sec-color);
-  color: #FFFAFA;
+  color: black;
 }
 
 .original-price {
