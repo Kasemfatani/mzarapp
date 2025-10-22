@@ -14,7 +14,7 @@
   font-size: 16px;
 }
 
-@font-face {
+/* @font-face {
   font-family: "Cairo";
   src: url("../webfonts/Cairo/Cairo-Bold.woff2") format("woff2"), url("../webfonts/Cairo/Cairo-Bold.woff") format("woff");
   font-weight: 700;
@@ -97,9 +97,9 @@
   font-weight: 600;
   font-style: normal;
   font-display: swap;
-}
+} */
 body {
-  font-family: "Cairo";
+  
   box-sizing: border-box;
   font-style: normal;
   font-weight: 400;
@@ -114,7 +114,7 @@ body {
   margin: 0;
   padding: 0;
   transition: all 0.3s ease;
-  font-family: "Cairo";
+  
 }
 
 figure {
@@ -2138,7 +2138,7 @@ footer .footer-cont .social {
 .btn-offer-cont .uper-header-counter-cont .ohsol-span {
   font-weight: 700;
   font-size: 20px;
-  font-family: Cairo;
+ 
   color: #222;
 }
 @media screen and (max-width: 500px) {
@@ -2905,6 +2905,9 @@ button {
   width: 200px;
   height: 200px;
   perspective: 800px;
+  background: #F8F2E7; /* subtle background */
+  border-radius: 50%;
+  box-shadow: 0 0 32px 0 #E7D3AF44;
 }
 
 .crystal {
@@ -2919,7 +2922,9 @@ button {
   animation: spin 4s linear infinite, emerge 2s ease-in-out infinite alternate, fadeIn 0.3s ease-out forwards;
   border-radius: 10px;
   visibility: hidden;
+  box-shadow: 0 4px 24px 0 #85785633; /* soft olive shadow */
 }
+
 
 @keyframes spin {
   from {
@@ -2945,33 +2950,29 @@ button {
     opacity: 0.8;
   }
 }
+/* Brand color gradients for each crystal */
 .crystal:nth-child(1) {
-  background: linear-gradient(45deg, #003366, #336699);
+  background: linear-gradient(45deg, #3C6652, #E7D3AF);
   animation-delay: 0s;
 }
-
 .crystal:nth-child(2) {
-  background: linear-gradient(45deg, #003399, #3366cc);
+  background: linear-gradient(45deg, #E7D3AF, #857856);
   animation-delay: 0.3s;
 }
-
 .crystal:nth-child(3) {
-  background: linear-gradient(45deg, #0066cc, #3399ff);
+  background: linear-gradient(45deg, #857856, #3C6652);
   animation-delay: 0.6s;
 }
-
 .crystal:nth-child(4) {
-  background: linear-gradient(45deg, #0099ff, #66ccff);
+  background: linear-gradient(45deg, #3C6652, #F8F2E7);
   animation-delay: 0.9s;
 }
-
 .crystal:nth-child(5) {
-  background: linear-gradient(45deg, #33ccff, #99ccff);
+  background: linear-gradient(45deg, #E7D3AF, #F8F2E7);
   animation-delay: 1.2s;
 }
-
 .crystal:nth-child(6) {
-  background: linear-gradient(45deg, #66ffff, #ccffff);
+  background: linear-gradient(45deg, #857856, #E7D3AF);
   animation-delay: 1.5s;
 }
 
@@ -3110,22 +3111,22 @@ button {
   margin-bottom: 0;
 }
 
-.blog {
+/* .blog {
   font-family: "NotoNaskhArabic", serif;
-}
+} */
 .blog .description-cont {
   font-size: 18px;
   font-weight: 400;
   color: #404040;
   text-align: justify !important;
-  font-family: "NotoNaskhArabic", serif;
+ 
 }
 .blog .description-cont h2 {
   font-size: 32px;
   font-weight: 700;
 }
 .blog .description-cont * {
-  font-family: "Cairo", serif !important;
+  /* font-family: "Cairo", serif !important; */
   text-align: justify !important;
 }
 .blog .description-cont span:has(.btn) {
@@ -3162,7 +3163,7 @@ button {
   font-size: 18px;
   font-weight: 400;
   color: #404040;
-  font-family: "NotoNaskhArabic", serif;
+  
   position: relative;
   margin-bottom: 10px;
 }
@@ -3212,7 +3213,7 @@ button {
 
 .experience-description p {
   color: #4b5563;
-  font-family: "NotoNaskhArabic", serif;
+  
   line-height: 1.8;
   text-align: right;
 }
@@ -3249,16 +3250,16 @@ button {
   background-color: rgba(0, 122, 255, 0.4);
 }
 .blog .title-cont {
-  font-family: "Cairo", serif;
+  /* font-family: "Cairo", serif; */
   font-size: 24px;
   font-weight: 700;
 }
 .blog i {
   font-family: "Font Awesome 6 Free";
 }
-.blog .date-span {
+/* .blog .date-span {
   font-family: "Cairo", serif;
-}
+} */
 
 .blog .container > .img-cont {
   margin: 56px 0;
@@ -3329,3 +3330,13 @@ button {
   padding-inline-start: 10px;
   color: var(--main-color);
 }/*# sourceMappingURL=main.css.map */
+
+
+/* Font override to replace legacy 'Cairo' usages */
+/* html, body, body * {
+  font-family: var(--font-body) !important;
+}
+h1, h2, h3, h4, h5, h6,
+.font-heading {
+  font-family: var(--font-heading) !important;
+} */

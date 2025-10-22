@@ -3,14 +3,46 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Register local fonts from /public/fonts */
+@font-face {
+  font-family: "TheYearOfTheCamel";
+  src: url("/fonts/the-year-of-the-camel-extrabold.otf") format("opentype");
+  font-weight: 800 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "TheYearOfHandicrafts";
+  src: url("/fonts/TheYearofHandicrafts-SemiBold.otf") format("opentype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "ReadexPro";
+  src: url("/fonts/ReadexPro-VariableFont_HEXP,wght.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
-  font-family: 'Cairo', sans-serif;
+  /* default: English */
+  --font-body: "TheYearOfTheCamel", system-ui, sans-serif;
+  --font-heading: "TheYearOfTheCamel", system-ui, sans-serif;
   overflow-y: scroll;
 }
 html body[data-scroll-locked] {
   /* --removed-body-scroll-bar-size: 0 !important; */
   margin-right: 0 !important;
 }
+
+/* When the document language is Arabic */
+html[lang="ar"] {
+  --font-body: "ReadexPro", system-ui, sans-serif;
+  --font-heading: "TheYearOfHandicrafts", system-ui, sans-serif;
+}
+
 /* @media (prefers-color-scheme: dark) {
   :root {
   }
@@ -29,7 +61,7 @@ html body[data-scroll-locked] {
   border-bottom: 2px dashed #2977b7;
 }
 body {
-  font-family: 'Cairo';
+  font-family: var(--font-body); 
   box-sizing: border-box;
   font-style: normal;
   font-weight: 400;
@@ -336,3 +368,9 @@ a {
 } */
 
 /* end of story animation for swiper in promo code */
+
+
+/* Global overrides (beat legacy Cairo rules) */
+body { font-family: var(--font-body) !important; }
+h1, h2, h3, h4, h5, h6,
+.font-heading { font-family: var(--font-heading) !important; }
