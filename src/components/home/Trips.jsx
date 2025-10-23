@@ -47,7 +47,7 @@ export default function Trips() {
 	const trips = [
 		{
 			id: 1,
-			img: "/gallery/1.png",
+			img: "/Home/Enrichment-Trips.webp",
 			rating: "4.93",
 			title: {
 				en: "Enrichment Trips",
@@ -75,7 +75,7 @@ export default function Trips() {
 		},
 		{
 			id: 2,
-			img: "/gallery/6.png",
+			img: "/Home/Mosques-Tours.webp",
 			rating: "4.88",
 			title: {
 				en: "Two Holy Mosques Tours",
@@ -103,7 +103,7 @@ export default function Trips() {
 		},
 		{
 			id: 3,
-			img: "/gallery/9.png",
+			img: "/Home/Landmarks.webp",
 			rating: "4.93",
 			title: {
 				en: "Landmarks on the Way",
@@ -129,7 +129,7 @@ export default function Trips() {
 		},
 		{
 			id: 4,
-			img: "/gallery/10.png",
+			img: "/Home/Tourist-Bus.webp",
 			rating: "4.90",
 			title: {
 				en: "Tourist Bus",
@@ -157,7 +157,7 @@ export default function Trips() {
 		},
 		{
 			id: 5,
-			img: "/gallery/11.png",
+			img: "/Home/Makkah-Story.webp",
 			rating: "4.86",
 			title: {
 				en: "Historic Makkah Story via Augmented Reality",
