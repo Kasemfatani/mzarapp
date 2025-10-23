@@ -1,15 +1,17 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Navigation, Pagination } from "swiper/modules";
+import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 export default function Trips() {
 	const [language, setLanguage] = useState("en");
+	const [activeIndex, setActiveIndex] = useState(2); // match initialSlide
+	const swiperRef = useRef(null); // <-- keep swiper instance
 
 	useEffect(() => {
 		if (typeof window !== "undefined") {
@@ -45,7 +47,7 @@ export default function Trips() {
 	const trips = [
 		{
 			id: 1,
-			img: "/gallery/1.png",
+			img: "/Home/Enrichment-Trips.webp",
 			rating: "4.93",
 			title: {
 				en: "Enrichment Trips",
@@ -73,7 +75,7 @@ export default function Trips() {
 		},
 		{
 			id: 2,
-			img: "/gallery/6.png",
+			img: "/Home/Mosques-Tours.webp",
 			rating: "4.88",
 			title: {
 				en: "Two Holy Mosques Tours",
@@ -101,7 +103,7 @@ export default function Trips() {
 		},
 		{
 			id: 3,
-			img: "/gallery/9.png",
+			img: "/Home/Landmarks.webp",
 			rating: "4.93",
 			title: {
 				en: "Landmarks on the Way",
@@ -127,7 +129,7 @@ export default function Trips() {
 		},
 		{
 			id: 4,
-			img: "/gallery/10.png",
+			img: "/Home/Tourist-Bus.webp",
 			rating: "4.90",
 			title: {
 				en: "Tourist Bus",
@@ -155,7 +157,7 @@ export default function Trips() {
 		},
 		{
 			id: 5,
-			img: "/gallery/11.png",
+			img: "/Home/Makkah-Story.webp",
 			rating: "4.86",
 			title: {
 				en: "Historic Makkah Story via Augmented Reality",
@@ -198,7 +200,6 @@ export default function Trips() {
 				<Link
 					href="/#paths"
 					className="inline-flex w-full items-center justify-center rounded-xl bg-[var(--main-color)] text-white py-3 text-sm font-semibold  hover:hover:text-gray-300 transition-colors"
-					
 				>
 					{L.discover}
 				</Link>
@@ -211,7 +212,6 @@ export default function Trips() {
 					target="_blank"
 					rel="noopener noreferrer"
 					className="inline-flex w-full items-center justify-center rounded-xl bg-[var(--main-color)] text-white py-3 text-sm font-semibold  hover:text-gray-300 transition-colors"
-					
 				>
 					{L.whatsApp}
 				</Link>
@@ -252,6 +252,19 @@ export default function Trips() {
 		);
 	};
 
+	useEffect(() => {
+		const swiper = swiperRef.current;
+		if (!swiper) return;
+
+		const interval = setInterval(() => {
+			const current = swiper.realIndex ?? swiper.activeIndex ?? 0;
+			const next = (current + 1) % trips.length;
+			swiper.slideTo(next, 600);
+		}, 3500);
+
+		return () => clearInterval(interval);
+	}, [trips.length]);
+
 	return (
 		<section
 			id="trips"
@@ -268,18 +281,29 @@ export default function Trips() {
 			{/* Cards */}
 			<div className="w-full" dir="ltr">
 				<Swiper
-					modules={[Autoplay, Navigation, Pagination]}
+					modules={[Navigation, Pagination]}
 					initialSlide={2}
 					centeredSlides
-					loop
-					autoplay={{ delay: 3500, disableOnInteraction: false }}
+					// centeredSlidesBounds: remove at top-level
 					spaceBetween={25}
 					slidesPerView={3.5}
+					slidesPerGroup={1}
+					onSwiper={(swiper) => {
+						swiperRef.current = swiper;
+						// Force-disable bounds in case it was set via params or breakpoints
+						swiper.params.centeredSlidesBounds = false;
+						swiper.update();
+						swiper.slideTo(2, 0);
+					}}
+					onSlideChange={(swiper) => {
+						setActiveIndex(swiper.realIndex);
+					}}
 					breakpoints={{
 						1280: {
 							slidesPerView: 3.5,
 							spaceBetween: 25,
-							centeredSlides: false,
+							centeredSlides: true,
+							// centeredSlidesBounds: false,  // ensure NOT true
 						},
 						1024: {
 							slidesPerView: 3.5,
@@ -305,13 +329,21 @@ export default function Trips() {
 					className="trips-swiper overflow-visible"
 				>
 					{trips.map((trip, idx) => (
-						<SwiperSlide key={trip.id}>
+						<SwiperSlide
+							key={trip.id}
+							onClick={() => {
+								// setActiveIndex(idx);
+								swiperRef.current?.slideTo(idx, 500);
+							}}
+						>
 							<article
-								className="h-[640px] md:h-[670px] flex flex-col justify-between
- rounded-3xl shadow-lg transition-all duration-300 ease-out bg-white
-    hover:bg-[var(--sec-color)] hover:scale-105
-  " 
-	style={{ direction: language === "ar" ? "rtl" : "ltr" }}
+								className={
+									"flex flex-col justify-between rounded-3xl shadow-lg transition-all duration-300 ease-out " +
+									(activeIndex === idx
+										? "bg-[var(--sec-color)] scale-105"
+										: "bg-white")
+								}
+								style={{ direction: language === "ar" ? "rtl" : "ltr" }}
 							>
 								{/* Image */}
 								<div className="p-4">
@@ -334,33 +366,31 @@ export default function Trips() {
 								{/* Content */}
 
 								<h3 className="text-lg font-semibold text-[#333] mb-1 px-5">
-										{language === "ar" ? trip.title.ar : trip.title.en}
-									</h3>
-									<p className="text-sm text-gray-600 mb-3 px-5">
-										{language === "ar" ? trip.blurb.ar : trip.blurb.en}
-									</p>
-									<div className="px-5">
-											<ul className="mb-4 list-disc ps-5 text-sm text-[#333] space-y-1">
-										{(language === "ar"
-											? trip.features.ar
-											: trip.features.en
-										).map((f, i) => (
-											<li key={i}>{f}</li>
-										))}
-									</ul>
-									</div>
-									<div className="px-5">
-										{renderButtons(trip.buttonType)}
-									</div>
-									
+									{language === "ar" ? trip.title.ar : trip.title.en}
+								</h3>
+								<p className="text-sm text-gray-600 mb-3 px-5">
+									{language === "ar" ? trip.blurb.ar : trip.blurb.en}
+								</p>
 
-									
+								{/* Only show features if active */}
+								{activeIndex === idx && (
+									<div className="px-5">
+										<ul className="mb-4 list-disc ps-5 text-sm text-[#333] space-y-1">
+											{(language === "ar"
+												? trip.features.ar
+												: trip.features.en
+											).map((f, i) => (
+												<li key={i}>{f}</li>
+											))}
+										</ul>
+									</div>
+								)}
+								<div className="px-5">{renderButtons(trip.buttonType)}</div>
+
 								<div
 									className="px-5 pb-5 "
 									style={{ direction: language === "ar" ? "rtl" : "ltr" }}
-								>
-									
-								</div>
+								></div>
 							</article>
 						</SwiperSlide>
 					))}
