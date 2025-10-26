@@ -713,9 +713,9 @@ header .side-menu-active {
   height: 50px;
 }
 
-p {
+/* p {
   text-align: justify;
-}
+} */
 
 .rtl {
   direction: rtl;
@@ -1602,19 +1602,21 @@ footer .footer-cont .social {
   font-weight: 600;
   margin-bottom: 5px;
 }
-.path .facilities-duration .facilities .facilities-cont {
+.path  .facilities .facilities-cont {
   display: flex;
   gap: 75px;
   flex-wrap: wrap;
   align-items: center;
+  /* justify-content: space-between; */
+  justify-content: space-around;
 }
-.path .facilities-duration .facilities .facility-cont {
+.path .facilities .facility-cont {
   display: flex;
   gap: 7px;
   flex-wrap: nowrap;
   align-items: center;
 }
-.path .facilities-duration .facilities .facility-cont img {
+.path .facilities .facility-cont img {
   width: 30px;
   aspect-ratio: 1/1;
   -o-object-fit: contain;
@@ -1904,7 +1906,7 @@ footer .footer-cont .social {
   width: -moz-fit-content;
   width: fit-content;
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   gap: 5px;
 }
 .uper-header-counter .days {
@@ -1913,18 +1915,18 @@ footer .footer-cont .social {
   align-items: center;
   gap: 2px;
   border-radius: 10px;
-  color: var(--main-color);
+  color: var(--second-bg);
   width: 35px;
 }
 .uper-header-counter .days span {
   font-size: 32px;
   font-weight: 700;
-  color: var(--main-color);
+  color: var(--second-bg);
 }
 .uper-header-counter .days p {
   font-size: 8px;
   font-weight: 700;
-  color: var(--main-color);
+  color: var(--second-bg);
 }
 @media screen and (max-width: 500px) {
   .uper-header-counter .days {
@@ -2108,11 +2110,11 @@ footer .footer-cont .social {
   align-items: center;
 }
 
-.btn-offer-cont {
+/* .btn-offer-cont {
   padding: 10px 16px;
   border-radius: 13px;
   background-color: #F6F6F6;
-}
+} */
 .btn-offer-cont .cont-offeree {
   padding-bottom: 16px;
   border-bottom: 1px solid #B4B4B4;
@@ -2125,7 +2127,7 @@ footer .footer-cont .social {
   flex-direction: column;
   padding: 10px 20px;
   border-radius: 10px;
-  color: var(--main-color);
+  color: var(--second-bg);
   width: -moz-fit-content;
   width: fit-content;
   margin: auto;
@@ -2133,7 +2135,7 @@ footer .footer-cont .social {
 .btn-offer-cont .uper-header-counter-cont .nokteten {
   font-size: 32px;
   font-weight: 700;
-  color: var(--main-color);
+  color: var(--second-bg);
 }
 .btn-offer-cont .uper-header-counter-cont .ohsol-span {
   font-weight: 700;
@@ -2166,8 +2168,8 @@ footer .footer-cont .social {
     box-shadow: 0px 0px 14px rgba(50, 50, 50, 0.17);
   }
 }
-.btn-offer-cont .btn-free .book-link {
-  padding: 20px 50px;
+ .book-link {
+  padding: 10px 30px;
   font-size: 20px;
   font-weight: 700;
   background-color: var(--main-color);
@@ -2176,12 +2178,12 @@ footer .footer-cont .social {
   border-radius: 5px;
   transition: all ease-in-out 0.3s;
 }
-.btn-offer-cont .btn-free .book-link:hover {
+ .book-link:hover {
   background-color: var(--white-color);
   color: var(--main-color);
 }
 @media screen and (max-width: 500px) {
-  .btn-offer-cont .btn-free .book-link {
+   .book-link {
     padding: 10px;
     font-size: 16px;
   }
@@ -2189,7 +2191,7 @@ footer .footer-cont .social {
 
 
 /* WhatsApp-styled Book Now button (same layout as .book-link but WhatsApp color) */
-.btn-offer-cont .btn-free .book-link-whatsapp {
+ .book-link-whatsapp {
   padding: 18px 35px;
   font-size: 18px;
   font-weight: 700;
@@ -2202,19 +2204,19 @@ footer .footer-cont .social {
   gap: 10px;
   transition: all ease-in-out 0.3s;
 }
-.btn-offer-cont .btn-free .book-link-whatsapp i {
+ .book-link-whatsapp i {
   font-size: 20px;
   line-height: 1;
   /* icon spacing handled by gap, add fallback margin for older browsers */
   margin-inline-end: 6px;
 }
-.btn-offer-cont .btn-free .book-link-whatsapp:hover {
+ .book-link-whatsapp:hover {
   background-color: var(--white-color);
   color: #25D366;
   border-color: #25D366;
 }
 @media screen and (max-width: 500px) {
-  .btn-offer-cont .btn-free .book-link-whatsapp {
+   .book-link-whatsapp {
     padding:  5px 15px;
     font-size: 16px;
   }

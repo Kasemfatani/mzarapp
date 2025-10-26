@@ -6,13 +6,15 @@ import Link from "next/link";
 // import { Fancybox } from "@fancyapps/ui";
 import { motion } from "framer-motion";
 // import "@fancyapps/ui/dist/fancybox/fancybox.css";
-import img1 from "/public/Thaw.webp";
+// import img1 from "/public/Thaw.webp";
 import img2 from "/public/conf/10.png";
-import sar from "/public/sar.png";
-import Offer from "./Offer";
-import LazyExplore from "../home/LazyExplore";
+// import sar from "/public/sar.png";
+// import Offer from "./Offer";
+// import LazyExplore from "../home/LazyExplore";
 import LazyPathExtra from "./LazyPathExtra";
 import StarRating from "./StarRating.jsx";
+// import ExpandableDescription from "./ExpandableDescription";
+// import PathOffer from "./PathOffer";
 import { useSearchParams } from "next/navigation";
 
 export default function PathInfo(props) {
@@ -31,6 +33,8 @@ export default function PathInfo(props) {
 	// use local state initialized from props.data
 	let [data, setData] = useState(initialData);
 	const [language, setLanguage] = useState(lang || "en");
+
+	// console.log('data is ', data);
 
 	useEffect(() => {
 		if (typeof window !== "undefined") {
@@ -76,250 +80,237 @@ export default function PathInfo(props) {
 	return (
 		<>
 			<div className="container m-auto path">
-				<div className="pathHead">
-					<div className="t-title">
-						<div className="t flex-col gap-0">
+				<div className="flex flex-col md:flex-row justify-between">
+					<div className="mb-2 md:mb-0">
+						<div className="flex flex-col md:flex-row gap-3 md:gap-6">
+							<h1 className="text-5xl font-bold">{data.name}</h1>
 							{data.most_ordered && (
-								<div className="inline-flex items-center self-start gap-2 px-3 py-1 mb-2 border-2 border-cyan-400 rounded-lg text-cyan-500 font-semibold text-xs bg-white w-fit">
+								<div className="inline-flex items-center gap-2 px-3 py-1 mb-2 bg-[var(--main-bg)] rounded-lg  font-semibold  w-fit text-[var(--second-bg)]">
 									<span role="img" aria-label="fire">
 										🔥
 									</span>
 									{language === "ar" ? "الاكثر طلبا" : "Most Ordered"}
 								</div>
 							)}
-
-							{/* use local data variable */}
-							<h1>{data.name}</h1>
 						</div>
-						{/* <p className='desc'>{data.description}</p> */}
+
+						{data.rating_api && Number(data.rating_api) > 0 ? (
+							<div className="mt-4">
+								<StarRating
+									rating={Number(data.rating_api).toFixed(1)}
+									outOf={1}
+								/>
+							</div>
+						) : null}
 					</div>
-
-					{data.rating_api && Number(data.rating_api) > 0 ? (
-						<div className=" min-[600px]:self-end">
-							<StarRating
-								rating={Number(data.rating_api).toFixed(1)}
-								outOf={5}
-							/>
+					<div className="free-auth border-t md:border-0 pt-4 md:pt-0">
+						<Link
+							href="https://book.nusuk.sa/sa-ar/organizer/shrk-mz-r-laol-llsfr-o-lsy-h"
+							className="auth"
+						>
+							<Image
+								src={img2}
+								alt={`${data.name} image`}
+								width={200}
+								height={200}
+							></Image>
+							<h4>
+								{language === "en" ? "Verified by nusuk" : " معتمد من نسك"}{" "}
+							</h4>
+							<i className="fa-solid fa-arrow-up"></i>
+						</Link>
+						<div className="free-col">
+							<i className="fa-regular fa-calendar"></i>
+							<h4>
+								{language === "en" ? "Free cancellation" : "الغاء الحجز مجانا"}
+							</h4>
 						</div>
-					) : null}
+					</div>
 				</div>
+				<br />
 
-				<div className="pathdata">
-					<div className="imgs w-full">
-						<div className="imgs-grid">
-							{data?.package_images.map((img, index) => (
-								<div className="img-cont" key={index}>
-									{index == 2 ? (
-										<Image
-											src={img.image}
-											alt={`${data.name} image`}
-											width={200}
-											height={200}
-											priority={true}
-										/>
-									) : (
-										<a href={img.image} data-fancybox="post">
-											<figure>
-												<Image
-													src={img.image}
-													alt={`${data.name} image`}
-													width={200}
-													height={200}
-													priority={true}
-												/>
-											</figure>
-										</a>
+				{/* New image grid display */}
+				{data?.package_images?.length > 0 && (
+					<div className="w-[90%] mx-auto mb-8">
+						{/* Mobile: one row, horizontal scroll, one image per view */}
+						<div className="md:hidden grid grid-flow-col auto-cols-[100%] gap-3 overflow-x-auto snap-x snap-mandatory no-scrollbar">
+							{data.package_images.map((img, idx) => (
+								<a
+									key={`m-${idx}`}
+									href={img.image}
+									data-fancybox="path-img-mobile"
+									className="relative rounded-xl overflow-hidden aspect-[4/3] snap-start"
+								>
+									<Image
+										src={img.image}
+										alt={`${data.name} image`}
+										fill
+										className="object-cover"
+										sizes="100vw"
+										priority={idx === 0}
+									/>
+									{/* Show all photos button sits on top of the first image (mobile) */}
+									{idx === 0 && (
+										<button
+											type="button"
+											className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-white/80 text-gray-800 px-4 py-2 rounded-full text-sm font-semibold shadow hover:bg-white transition"
+											onClick={(e) => {
+												e.preventDefault();
+												window.Fancybox?.open(
+													data.package_images.map((x) => ({
+														src: x.image,
+														type: "image",
+													}))
+												);
+											}}
+										>
+											{language === "ar" ? "عرض كل الصور" : "Show all photos"}
+										</button>
 									)}
-									{index == 2 ? (
-										<div className="rest">
-											<a href={img.image} data-fancybox="post">
-												+{data.package_images.length - 2}
-											</a>
-										</div>
-									) : null}
-								</div>
+								</a>
 							))}
 						</div>
 
-						<div className="faci-acti">
-							<div className="facilities-duration">
-								<div className="facilities w-full">
-									<h3>{language === "en" ? "Facilities" : "تتضمن الرحلة"}</h3>
-									<div className="facilities-cont">
-										{data.services.map((facility, index) => (
-											<div className="facility-cont" key={index}>
-												<Image
-													src={facility.image}
-													alt={`${data.name} image`}
-													width={200}
-													height={200}
-												/>
-												<p>{facility.name}</p>
-											</div>
-										))}
-									</div>
-								</div>
-								<div className="duration w-full">
-									<div className="hh">
-										<p className="trip-duration-head">
-											{language === "en" ? "Trip duration:" : "مدة الرحلة:"}
-										</p>
-										<p className="trip-duration-title">{data.duration}</p>
-									</div>
-									<div
-										className="trip-data ready-cont"
-										style={{ backgroundImage: `url(${img1.src})` }}
-									>
-										<h4>
-											{language === "en"
-												? "Best time to visit"
-												: "وقت الزيارة المفضل"}{" "}
-										</h4>
-										<p>{data.best_visit_time}</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div className="flex flex-col gap-2 ll-siide">
-						<div className="free-auth">
-							<Link
-								href="https://book.nusuk.sa/sa-ar/organizer/shrk-mz-r-laol-llsfr-o-lsy-h"
-								className="auth"
-							>
-								<Image
-									src={img2}
-									alt={`${data.name} image`}
-									width={200}
-									height={200}
-								></Image>
-								<h4>
-									{language === "en" ? "Verified by nusuk" : " معتمد من نسك"}{" "}
-								</h4>
-								<i className="fa-solid fa-arrow-up"></i>
-							</Link>
-							<div className="free-col">
-								<i className="fa-regular fa-calendar"></i>
-								<h4>
-									{language === "en"
-										? "Free cancellation"
-										: "الغاء الحجز مجانا"}
-								</h4>
-							</div>
-						</div>
-						<div className="btn-offer-cont">
-							<div className="cont-offeree">
-								<Offer offerEndDate={data.offer_end_date} />
-							</div>
-							<div className="btn-free z-[100]">
-								<div className="price-offer">
-									<span className="from">
-										{language === "en" ? "From" : "من"}
-									</span>
-									<h5>
-										<div
-											className="flex gap-2 items-center"
-											style={{ direction: "ltr" }}
-										>
-											<Image
-												src={sar}
-												alt={`${data.name} image`}
-												width={30}
-												height={30}
-											/>
-											<span className="discounted-price">
-												{data.starting_price.toFixed(2)}
-											</span>
-										</div>
-										<div
-											className="flex gap-2 items-center"
-											style={{ direction: "ltr" }}
-										>
-											<Image
-												src={sar}
-												alt={`${data.name} image`}
-												width={15}
-												height={15}
-											/>
-											<span className="original-price">
-												{data.original_price && !isNaN(data.original_price)
-													? Number(data.original_price).toFixed(2)
-													: (data.starting_price * 1.2).toFixed(2)}
-											</span>
-										</div>
-									</h5>
-									<span>
-										{language === "en"
-											? "Per group up to 4 persons "
-											: "لكل مجموعة حتى 4 شخص"}
-									</span>
-								</div>
-								{whatsappText ? (
-									<a
-										href={`https://wa.me/+966580121025?text=${encodeURIComponent(
-											whatsappText
-										)}`}
-										className="book-link-whatsapp"
-										target="_blank"
-										rel="noopener noreferrer"
-									>
-										<i className="fa-brands fa-whatsapp" aria-hidden="true"></i>
-										<span>
-											{language === "en"
-												? "Book now via WhatsApp"
-												: "احجز الآن عبر واتساب"}
-										</span>
-									</a>
-								) : (
-									<Link href={`/book-path?id=${data.id}`} className="book-link">
-										{language === "en" ? "Book Now" : "احجز الآن"}
-									</Link>
-								)}
-							</div>
-						</div>
-
-						<div className="places w-full">
-							<h4>{language === "en" ? "During the trip" : "خلال الرحلة"}</h4>
-							<p>
-								{language === "en"
-									? "See the trip content and places you will visit"
-									: "شاهد محتوى الرحلة والأماكن التي ستزورها"}
-							</p>
-							<div className="places-grid">
-								{data.locations.map((img, index) => (
-									<motion.div
-										initial={{ opacity: 0, y: -100 }} // Initial animation state (faded and shifted left)
-										whileInView={{ opacity: 1, y: 0 }} // Animation state when in view (fully visible and reset position)
-										viewport={{ once: true, amount: 0.8 }}
-										transition={{
-											delay: index * 0.2,
-											type: "spring", // Using spring animation for smooth motion
-											bounce: 0.2, // Small bounce effect for the animation
-											duration: 0.3, // Duration of the animation
+						{/* Desktop/Tablet: 5 cols x 2 rows with big 2x2 on the left */}
+						<div className="hidden md:grid grid-cols-5 grid-rows-2 gap-3">
+							{/* Big main image (2 cols x 2 rows) */}
+							<div className="relative rounded-xl overflow-hidden col-span-2 row-span-2 aspect-[4/3]">
+								<a href={data.package_images[0].image} data-fancybox="path-img">
+									<Image
+										src={data.package_images[0].image}
+										alt={`${data.name} image`}
+										fill
+										className="object-cover"
+										sizes="(max-width: 1024px) 60vw, 720px"
+										priority
+									/>
+									<button
+										type="button"
+										className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-white/80 text-gray-800 px-4 py-2 rounded-full text-sm font-semibold shadow hover:bg-white transition"
+										onClick={(e) => {
+											e.preventDefault();
+											window.Fancybox?.open(
+												data.package_images.map((x) => ({
+													src: x.image,
+													type: "image",
+												}))
+											);
 										}}
-										key={index}
-										className="place-cont"
 									>
-										<Image
-											src={img.cover}
-											alt={`${data.name} image`}
-											width={200}
-											height={200}
-										/>
-										<p>{img.name}</p>
-									</motion.div>
-								))}
+										{language === "ar" ? "عرض كل الصور" : "Show all photos"}
+									</button>
+								</a>
+							</div>
+
+							{/* Right panel: continuous horizontal scroll of small images (2 rows, auto columns). */}
+							<div className="col-span-3 row-span-2 overflow-x-auto no-scrollbar">
+								<div
+									className="
+      grid grid-rows-2 grid-flow-col
+      gap-3 snap-x snap-mandatory
+      auto-cols-[calc((100%-(0.75rem*2))/3)]
+    "
+								>
+									{(() => {
+										// All images after the first (big) one
+										const extra = data.package_images.slice(1);
+
+										// If less than 6 small images, duplicate from start to fill 6 cells (3 cols x 2 rows)
+										const needFill = Math.max(0, 6 - extra.length);
+										const visibleFill =
+											needFill > 0
+												? extra.concat(extra.slice(0, needFill))
+												: extra;
+
+										// Render all when >6 (scrolls); otherwise exactly 6 (some duplicated to fill the grid)
+										const smallList = extra.length > 6 ? extra : visibleFill;
+
+										return smallList.map((img, idx) => (
+											<a
+												key={`small-${idx + 1}`}
+												href={img.image}
+												data-fancybox="path-img"
+												className="relative rounded-xl overflow-hidden aspect-[4/3] snap-start"
+											>
+												<Image
+													src={img.image}
+													alt={`${data.name} image`}
+													fill
+													className="object-cover"
+													sizes="(max-width: 1280px) 33vw, 240px"
+													priority={idx < 2}
+												/>
+											</a>
+										));
+									})()}
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-				<LazyPathExtra data={data} language={language} pathId={pathId} />
+				)}
+				{/* end of images grid */}
+
+				{/* what is include */}
+				<section>
+					<h3 className="text-2xl mb-4 text-center md:text-start">
+						{language === "en" ? "Facilities" : "تتضمن الرحلة"}
+					</h3>
+					<div className="w-[90%] mx-auto facilities">
+						<div
+							className=" flex md:flex-wrap flex-col md:flex-row justify-center md:justify-around items-center gap-4 md:gap-0
+						"
+						>
+							{data.services.map((facility, index) => (
+								<div className="facility-cont" key={index}>
+									<Image
+										src={facility.image}
+										alt={`${data.name} image`}
+										width={200}
+										height={200}
+									/>
+									<p>{facility.name}</p>
+								</div>
+							))}
+						</div>
+						<div className="px-4 py-2 mt-6 bg-[var(--second-bg)] rounded-lg text-white flex flex-col md:flex-row gap-2 md:gap-0">
+							<div className="flex-1 md:border-e">
+								<p className="text-center">
+									{language === "en" ? "Trip duration:" : "مدة الرحلة:"}
+								</p>
+								<h4 className="text-xl font-bold text-center">
+									{data.duration}
+								</h4>
+							</div>
+							<div className="flex-1 border-t md:border-t-0 pt-2 md:pt-0 ">
+								<p className="text-center">
+									{language === "en"
+										? "Best time to visit"
+										: "وقت الزيارة المفضل"}{" "}
+								</p>
+								<h4 className="text-xl font-bold text-center">
+									{data.best_visit_time}
+								</h4>
+							</div>
+						</div>
+					</div>
+				</section>
+
+				{/* overview / description */}
+				<br />
+				<br />
+				{/* description and offer are loaded lazily via LazyPathExtra */}
+				<LazyPathExtra
+					data={data}
+					language={language}
+					pathId={pathId}
+					whatsappText={whatsappText}
+				/>
 			</div>
-            {(pathId == 47 || pathId == 49 || pathId == 45) && (
+			{/* {(pathId == 47 || pathId == 49 || pathId == 45) && (
 				<div className="mb-10">
 					<LazyExplore />
 				</div>
-			)}
+			)} */}
 		</>
 	);
 }

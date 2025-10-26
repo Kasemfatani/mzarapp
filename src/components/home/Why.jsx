@@ -20,22 +20,22 @@ export default function Why() {
 			title: "Why Choose Mzar . . . ?",
 			cards: [
 				{
-					img: "/Home/smart-phone.png",
+					img: "/Home/Audio-Guide.png",
 					title: "Audio Guide",
 					desc: "Listen to authentic stories through our audio guide available in 6 different languages.",
 				},
 				{
-					img: "/Home/seo.png",
+					img: "/Home/Verified.png",
 					title: "Arrival Verification",
 					desc: "When you reach the site, the audio guide starts automatically to confirm you are at the exact location.",
 				},
 				{
-					img: "/Home/route.png",
+					img: "/Home/Our-Filter.png",
 					title: "Our Unique Filters",
 					desc: "Capture your memories using our exclusive filters that include the destination name and visit date.",
 				},
 				{
-					img: "/Home/smart-phone.png",
+					img: "/Home/AR.png",
 					title: "Augmented Reality Experience",
 					desc: "Open your camera and point it at the landmark to discover each site's story through AR technology.",
 				},
@@ -47,22 +47,22 @@ export default function Why() {
 			title: "لماذا تختار مزار . . . ؟",
 			cards: [
 				{
-					img: "/Home/smart-phone.png",
+					img: "/Home/Audio-Guide.png",
 					title: "الدليل الصوتي",
 					desc: "استمع إلى القصص الأصيلة من خلال المرشد الصوتي المتوفر ب٦ لغات مختلفة.",
 				},
 				{
-					img: "/Home/seo.png",
+					img: "/Home/Verified.png",
 					title: "التحقق من الوصول إلى الوجهة",
 					desc: "عند وصولك إلى الموقع، يبدأ المرشد الصوتي تلقائيًا ليؤكد أنك في المكان الصحيح تماماً.",
 				},
 				{
-					img: "/Home/route.png",
+					img: "/Home/Our-Filter.png",
 					title: "فلاترنا المميزة",
 					desc: "التقط ذكرياتك باستخدام فلاترنا الفريدة التي تتضمن اسم الوجهة وتاريخ الزيارة.",
 				},
 				{
-					img: "/Home/smart-phone.png",
+					img: "/Home/AR.png",
 					title: "تجربة الواقع المعزز",
 					desc: "افتح كاميرتك ووجّهها نحو المعلم لتكتشف قصة كل موقع من خلال تقنية الواقع المعزز.",
 				},
