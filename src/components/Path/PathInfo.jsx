@@ -93,9 +93,8 @@ export default function PathInfo(props) {
 								</div>
 							)}
 						</div>
-						<p className="mt-2 text-sm text-gray-500 font-semibold">
-							Lorem Ipsum is simply dummy text of the printing and typesetting
-							industry.
+						<p className="mt-2 text-sm text-gray-500 font-semibold w-full md:w-[70%]">
+							{data.short_description ? data.short_description : ""}
 						</p>
 						{data.rating_api && Number(data.rating_api) > 0 ? (
 							<div className="mt-4">

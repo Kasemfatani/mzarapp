@@ -14,7 +14,7 @@ const StarRating = ({ rating = 0, outOf = 1, language }) => (
 		))} */}
 		<img src="path/star.png" />
 		<span className="text-gray-700  text-base ">
-			{rating} (200 {language === "ar" ? "مراجعة" : "reviews"})
+			{rating} (7000 {language === "ar" ? "مراجعة" : "reviews"})
 		</span>
 	</div>
 );

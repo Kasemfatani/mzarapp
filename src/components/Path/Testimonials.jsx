@@ -334,18 +334,13 @@ export default function Testimonials({ lang = "en", packageName }) {
 							)}
 						</p>
 
-						{/* changed to whatsapp link, same styling */}
-						<a
-							href={`https://wa.me/+966580121025?text=${encodeURIComponent(
-								whatsappText
-							)}`}
-							target="_blank"
-							rel="noopener noreferrer"
+						<Link
+							href={id ? `/book-path?id=${id}` : "/book"}
 							className="book-link text-lg md:text-xl max-w-xs w-full"
 							style={{ fontWeight: 700 }}
 						>
-							{language === "en" ? "Book via WhatsApp" : "احجز عبر واتساب"}
-						</a>
+							{language === "en" ? "Book Now" : "حجز الآن"}
+						</Link>
 					</div>
 				</div>
 			</div>

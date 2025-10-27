@@ -25,6 +25,8 @@ export default function Destinations({ data, lang }) {
 			? { title: "الوجهات", prev: "السابق", next: "التالي" }
 			: { title: "Destinations", prev: "Prev", next: "Next" };
 
+			console.log('short_audio ', data.short_audio.ar);
+
 	return (
 		<div className="destinations container m-auto">
 			{/* Header: title left, nav right */}
@@ -40,7 +42,7 @@ export default function Destinations({ data, lang }) {
 						type="button"
 						aria-label={t.prev}
 						onClick={() => swiperRef.current?.slidePrev()}
-						className="w-10 h-10 rounded-full border border-gray-300 text-gray-700 flex items-center justify-center hover:bg-gray-100"
+						className="w-16 md:w-10 h-10 rounded-full border border-gray-300 text-gray-700 flex items-center justify-center hover:bg-gray-100"
 					>
 						{language === "ar" ? "‹" : "‹"}
 					</button>
@@ -48,7 +50,7 @@ export default function Destinations({ data, lang }) {
 						type="button"
 						aria-label={t.next}
 						onClick={() => swiperRef.current?.slideNext()}
-						className="w-10 h-10 rounded-full border border-gray-300 text-gray-700 flex items-center justify-center hover:bg-gray-100"
+						className="w-16 md:w-10 h-10 rounded-full border border-gray-300 text-gray-700 flex items-center justify-center hover:bg-gray-100"
 					>
 						{language === "ar" ? "›" : "›"}
 					</button>
@@ -149,13 +151,13 @@ export default function Destinations({ data, lang }) {
 					</div>
 
 					{/* Features row */}
-					<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 w-full max-w-5xl mt-2">
+					<div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 max-w-5xl mt-2 w-full">
 						<div className="flex items-center gap-3 rounded-xl border border-white/30 bg-white/10 backdrop-blur-sm px-4 py-3 text-white">
-							<div className="w-10 h-10 rounded-lg bg-[#A03D3D] flex items-center justify-center -ms-7">
+							<div className="w-16 md:w-10 h-10 rounded-lg bg-[#A03D3D] flex items-center justify-center -ms-6 md:-ms-7">
 								<i className="fa-solid fa-language text-white" />
 							</div>
 							<div className="">
-								<p className="text-sm md:text-base font-semibold">
+								<p className="text-sm md:text-base font-semibold  md:text-start">
 									{language === "ar" ? "محتوى بـ" : "Content in"} 6{" "}
 									{language === "ar" ? "لغات" : "Languages"}
 								</p>
@@ -163,7 +165,7 @@ export default function Destinations({ data, lang }) {
 						</div>
 
 						<div className="flex items-center gap-3 rounded-xl border border-white/30 bg-white/10 backdrop-blur-sm px-4 py-3 text-white">
-							<div className="w-10 h-10 rounded-lg bg-[#0F6D5C] flex items-center justify-center -ms-7">
+							<div className="w-16 md:w-10 h-10 rounded-lg bg-[#0F6D5C] flex items-center justify-center -ms-6 md:-ms-7">
 								<i className="fa-solid fa-car text-white" />
 							</div>
 							<div className="">
@@ -176,7 +178,7 @@ export default function Destinations({ data, lang }) {
 						</div>
 
 						<div className="flex items-center gap-3 rounded-xl border border-white/30 bg-white/10 backdrop-blur-sm px-4 py-3 text-white">
-							<div className="w-10 h-10 rounded-lg bg-[#8B1C2E] flex items-center justify-center -ms-7">
+							<div className="w-16 md:w-10 h-10 rounded-lg bg-[#8B1C2E] flex items-center justify-center -ms-6 md:-ms-7">
 								<i className="fa-solid fa-book-open text-white" />
 							</div>
 							<div className="">
@@ -186,8 +188,8 @@ export default function Destinations({ data, lang }) {
 							</div>
 						</div>
 
-						<div className="flex items-center gap-3 rounded-xl border border-white/30 bg-white/10 backdrop-blur-sm px-4 py-3 text-white">
-							<div className="w-10 h-10 rounded-lg bg-[#0E8F5B] flex items-center justify-center -ms-7">
+						<div className="flex items-center gap-1 md:gap-3 rounded-xl border border-white/30 bg-white/10 backdrop-blur-sm px-4 py-3 text-white">
+							<div className="w-16 md:w-10 h-10 rounded-lg bg-[#0E8F5B] flex items-center justify-center -ms-6 md:-ms-7">
 								<i className="fa-solid fa-circle-check text-white" />
 							</div>
 							<div className="">
@@ -202,7 +204,7 @@ export default function Destinations({ data, lang }) {
 					{/* listen button at bottom center */}
 					<div className="w-full flex justify-center mt-6">
 						{/* Replaced Link with dialog trigger */}
-						<AudioPreviewDialog language={language} />
+						<AudioPreviewDialog language={language} audio={data.short_audio} />
 					</div>
 				</div>
 			</div>
@@ -242,7 +244,7 @@ export default function Destinations({ data, lang }) {
 						className="book-link text-lg md:text-xl max-w-xs w-full text-center"
 						style={{ fontWeight: 700 }}
 					>
-						{language === "ar" ? "حمِّل التطبيق" : "Download app"}
+						{language === "ar" ? "تحميل تطبيق مزار" : "Download Mzar App"}
 					</Link>
 				</div>
 			</section>

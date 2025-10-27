@@ -8,7 +8,7 @@ import {
 	DialogClose,
 } from "@/components/ui/dialog";
 
-export default function AudioPreviewDialog({ language = "en" }) {
+export default function AudioPreviewDialog({ language = "en" , audio  }) {
 	const [open, setOpen] = useState(false);
 	const LANGS = useMemo(
 		() => [
@@ -16,37 +16,37 @@ export default function AudioPreviewDialog({ language = "en" }) {
 				key: "ar",
 				labelEn: "Arabic",
 				labelAr: "العربية",
-				audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+				audio: audio.ar ? audio.ar : "",
 			},
 			{
 				key: "en",
 				labelEn: "English",
 				labelAr: "الإنجليزية",
-				audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+				audio: audio.en ? audio.en : "",
 			},
 			{
 				key: "fr",
 				labelEn: "French",
 				labelAr: "الفرنسية",
-				audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
+				audio: audio.fr ? audio.fr : "",
 			},
 			{
 				key: "tr",
 				labelEn: "Turkish",
 				labelAr: "التركية",
-				audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3",
+				audio: audio.tr ? audio.tr : "",
 			},
 			{
 				key: "ur",
 				labelEn: "Urdu",
 				labelAr: "الأردية",
-				audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3",
+				audio: audio.ur ? audio.ur : "",
 			},
 			{
 				key: "ms",
 				labelEn: "Malay",
 				labelAr: "الماليزية",
-				audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3",
+				audio: audio.ms ? audio.ms : "",
 			},
 		],
 		[]

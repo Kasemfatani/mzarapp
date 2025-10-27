@@ -123,8 +123,8 @@ export default function Why() {
 				{L.cards.map((card, i) => (
 					<SwiperSlide key={i}>
 						<article className="rounded-[24px] bg-[var(--main-bg)] p-6 h-full flex flex-col gap-4 shadow-[0_2px_10px_rgba(0,0,0,0.04)]" style={{ direction: language === "ar" ? "rtl" : "ltr" }}>
-							<div className="w-12 h-12 rounded-xl flex items-center justify-center">
-								<Image src={card.img} alt={card.title} width={28} height={28} />
+							<div className="w-16 h-16 rounded-xl flex items-center justify-center">
+								<Image src={card.img} alt={card.title} width={40} height={40} />
 							</div>
 							<h3 className="text-xl font-semibold text-[#333]">
 								{card.title}
