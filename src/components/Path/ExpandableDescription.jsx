@@ -6,7 +6,7 @@ export default function ExpandableDescription({ description, language }) {
 	return (
 		<section className="my-6 py-6 border-y">
 			<h3 className="text-2xl mb-4 text-center md:text-start">
-				{language === "en" ? "Description" : "وصف الرحلة"}
+				{language === "en" ? "Overview" : "نظرة عامة"}
 			</h3>
 			<p
 				className={`text-gray-600 transition-all duration-200 ${

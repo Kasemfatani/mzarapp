@@ -8,17 +8,29 @@ import img1 from "/public/bg.webp";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 
-export default function Testimonials({ lang = "en" }) {
+export default function Testimonials({ lang = "en", packageName }) {
 	const [language, setLanguage] = useState(lang || "en");
 	const swiperRef = useRef(null);
 	const searchParams = typeof window !== "undefined" ? useSearchParams() : null;
 	const id = searchParams ? searchParams.get("id") : null;
 
+	// added state for gclid so we can include it in WhatsApp text
+	const [gclid, setGclid] = useState("");
+
 	useEffect(() => {
 		if (typeof window !== "undefined") {
 			setLanguage(localStorage.getItem("lang") || lang || "en");
+			
+			// sync gclid from URL or localStorage
+			const urlGclid = searchParams?.get("gclid");
+			if (urlGclid) {
+				localStorage.setItem("gclid", urlGclid);
+				setGclid(urlGclid);
+			} else {
+				setGclid(localStorage.getItem("gclid") || "");
+			}
 		}
-	}, [lang]);
+	}, [lang, searchParams]);
 
 	const t =
 		language === "ar"
@@ -189,6 +201,19 @@ export default function Testimonials({ lang = "en" }) {
 		},
 	];
 
+	// prefer passed packageName; fall back to id if present; otherwise keep general text
+	const pkgLabel = packageName
+		? packageName
+		: id
+		? `package ${id}`
+		: "your trip";
+	const whatsappText =
+		language === "ar"
+			? `أنا مهتم بـ ${pkgLabel}.${gclid ? ` رمز الخصم (${gclid})` : ""}`
+			: `I am interested in ${pkgLabel}.${
+					gclid ? ` Discount code (${gclid})` : ""
+			  }`;
+
 	return (
 		<div
 			className="container m-auto mb-20"
@@ -308,13 +333,19 @@ export default function Testimonials({ lang = "en" }) {
 								</>
 							)}
 						</p>
-						<Link
-							href={id ? `/book-path?id=${id}` : "/book"}
+
+						{/* changed to whatsapp link, same styling */}
+						<a
+							href={`https://wa.me/+966580121025?text=${encodeURIComponent(
+								whatsappText
+							)}`}
+							target="_blank"
+							rel="noopener noreferrer"
 							className="book-link text-lg md:text-xl max-w-xs w-full"
 							style={{ fontWeight: 700 }}
 						>
-							{language === "en" ? "Book Now" : "حجز الآن"}
-						</Link>
+							{language === "en" ? "Book via WhatsApp" : "احجز عبر واتساب"}
+						</a>
 					</div>
 				</div>
 			</div>

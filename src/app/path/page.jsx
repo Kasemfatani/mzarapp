@@ -37,16 +37,15 @@ export default async function PathPage({ searchParams }) {
 	if (!res.ok) notFound();
 	const data = await res.json();
 	if (!data) notFound();
-
+	
 	return (
 		<div className={lang === "en" ? "ltr" : "rtl"}>
 			<WhatsAppButton name={data?.name} />
 			<PathInfo data={data} lang={lang} />
 			<LazyDestinations data={data} lang={lang} />
 			<Suspense fallback={<Loading />}>
-				<LazyTestimonials lang={lang} />
+				<LazyTestimonials lang={lang} packageName={data?.name} />
 			</Suspense>
-			
 		</div>
 	);
 }

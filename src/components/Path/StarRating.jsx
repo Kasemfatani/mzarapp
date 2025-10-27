@@ -1,7 +1,5 @@
-
-const StarRating = ({ rating = 0, outOf = 1 }) => (
+const StarRating = ({ rating = 0, outOf = 1, language }) => (
 	<div className="flex items-center gap-2">
-		
 		{/* {[...Array(outOf)].map((_, i) => (
 			<svg
 				key={i}
@@ -14,9 +12,10 @@ const StarRating = ({ rating = 0, outOf = 1 }) => (
 				<path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
 			</svg>
 		))} */}
-		<img src='path/star.png'/>
-		<span className="text-gray-700  text-base 
-">{rating}</span>
+		<img src="path/star.png" />
+		<span className="text-gray-700  text-base ">
+			{rating} (200 {language === "ar" ? "مراجعة" : "reviews"})
+		</span>
 	</div>
 );
 

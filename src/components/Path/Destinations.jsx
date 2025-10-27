@@ -6,7 +6,8 @@ import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import "swiper/css";
-import Why from "@/components/home/Why"
+import Why from "@/components/home/Why";
+import AudioPreviewDialog from "@/components/Path/AudioPreviewDialog";
 
 export default function Destinations({ data, lang }) {
 	const [language, setLanguage] = useState(lang || "en");
@@ -200,50 +201,51 @@ export default function Destinations({ data, lang }) {
 					</div>
 					{/* listen button at bottom center */}
 					<div className="w-full flex justify-center mt-6">
-						<Link href='#' className="book-link">
-							{language === "en" ? "Listen to a snippet from the tour" : "استمع إلى مقتطف من الجولة"}
-						</Link>
+						{/* Replaced Link with dialog trigger */}
+						<AudioPreviewDialog language={language} />
 					</div>
 				</div>
 			</div>
 			<br />
-			<Why/>
-			
+			<Why />
+
 			{/* Video section - YouTube embed */}
-            <section className="container m-auto my-12">
-                <h2
-                    className="text-2xl md:text-3xl font-bold text-center mb-6"
-                    style={{ direction: language === "ar" ? "rtl" : "ltr" }}
-                >
-                    {language === "ar" ? "رحلة عاطفية مع مزَار" : "Emotional journey with Mzar"}
-                </h2>
+			<section className="container m-auto my-12">
+				<h2
+					className="text-2xl md:text-3xl font-bold text-center mb-6"
+					style={{ direction: language === "ar" ? "rtl" : "ltr" }}
+				>
+					{language === "ar"
+						? "كيفية تحسين تجربتك مع مزار"
+						: "How to enhance your experience with Mzar"}
+				</h2>
 
-                <div className="w-full max-w-5xl mx-auto rounded-2xl overflow-hidden shadow-lg">
-                    <div className="w-full aspect-video bg-black">
-                        {/* responsive youtube iframe */}
-                        <iframe
-                            className="w-full h-full block"
-                            src="https://www.youtube.com/embed/dMZO88og9Is"
-                            title="Mzar - Emotional journey"
-                            frameBorder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowFullScreen
-                        />
-                    </div>
-                </div>
+				<div className="w-full max-w-5xl mx-auto rounded-2xl overflow-hidden shadow-lg">
+					<div className="w-full aspect-video bg-black">
+						{/* responsive youtube iframe */}
+						<iframe
+							className="w-full h-full block"
+							src="https://www.youtube.com/embed/dMZO88og9Is"
+							title="Mzar - Emotional journey"
+							frameBorder="0"
+							allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+							allowFullScreen
+						/>
+					</div>
+				</div>
 
-                
-
-                <div className="flex justify-center mt-6">
-                    <Link href="https://onelink.to/yb2xky" 
-										target="_blank"
-										rel="noopener noreferrer"
-										className="book-link text-lg md:text-xl max-w-xs w-full text-center" style={{ fontWeight: 700 }}>
-                        {language === "ar" ? "حمِّل التطبيق" : "Download app"}
-                    </Link>
-                </div>
-            </section>
-
+				<div className="flex justify-center mt-6">
+					<Link
+						href="https://onelink.to/yb2xky"
+						target="_blank"
+						rel="noopener noreferrer"
+						className="book-link text-lg md:text-xl max-w-xs w-full text-center"
+						style={{ fontWeight: 700 }}
+					>
+						{language === "ar" ? "حمِّل التطبيق" : "Download app"}
+					</Link>
+				</div>
+			</section>
 		</div>
 	);
 }

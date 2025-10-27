@@ -9,11 +9,11 @@ const Testimonials = dynamic(() => import("./Testimonials"), {
 	loading: () => <Loading />,
 });
 
-export default function LazyTestimonials({ lang }) {
+export default function LazyTestimonials({ lang , packageName }) {
 	const { ref, inView } = useInView({ triggerOnce: true, rootMargin: "200px" });
 	const [shouldLoad, setShouldLoad] = useState(false);
 	if (inView && !shouldLoad) setShouldLoad(true);
 	return (
-		<div ref={ref}>{shouldLoad ? <Testimonials lang={lang} /> : null}</div>
+		<div ref={ref}>{shouldLoad ? <Testimonials lang={lang} packageName={packageName} /> : null}</div>
 	);
 }

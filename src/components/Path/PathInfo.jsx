@@ -80,7 +80,7 @@ export default function PathInfo(props) {
 	return (
 		<>
 			<div className="container m-auto path">
-				<div className="flex flex-col md:flex-row justify-between">
+				<div className="flex flex-col md:flex-row justify-between items-start">
 					<div className="mb-2 md:mb-0">
 						<div className="flex flex-col md:flex-row gap-3 md:gap-6">
 							<h1 className="text-5xl font-bold">{data.name}</h1>
@@ -93,12 +93,16 @@ export default function PathInfo(props) {
 								</div>
 							)}
 						</div>
-
+						<p className="mt-2 text-sm text-gray-500 font-semibold">
+							Lorem Ipsum is simply dummy text of the printing and typesetting
+							industry.
+						</p>
 						{data.rating_api && Number(data.rating_api) > 0 ? (
 							<div className="mt-4">
 								<StarRating
 									rating={Number(data.rating_api).toFixed(1)}
 									outOf={1}
+									language={language}
 								/>
 							</div>
 						) : null}
@@ -253,7 +257,7 @@ export default function PathInfo(props) {
 				{/* what is include */}
 				<section>
 					<h3 className="text-2xl mb-4 text-center md:text-start">
-						{language === "en" ? "Facilities" : "تتضمن الرحلة"}
+						{language === "en" ? "Included/Excluded" : "تتضمن الرحلة"}
 					</h3>
 					<div className="w-[90%] mx-auto facilities">
 						<div
@@ -305,12 +309,61 @@ export default function PathInfo(props) {
 					pathId={pathId}
 					whatsappText={whatsappText}
 				/>
+
+				
 			</div>
 			{/* {(pathId == 47 || pathId == 49 || pathId == 45) && (
 				<div className="mb-10">
 					<LazyExplore />
 				</div>
 			)} */}
+
+			{/* Mobile booking bar  */}
+				<div className="md:hidden fixed bottom-0 w-full bg-[var(--main-bg)] p-4 border-t border-t-gray-300 z-10 flex justify-between items-center">
+					<div className="flex flex-col">
+						<p className="mb-1 text-sm text-black font-semibold">
+							{language === "en" ? "From" : "من"}
+						</p>
+						<div className="flex items-baseline gap-2">
+							<span className="text-base font-bold text-[#7B7154]">
+								{data.starting_price?.toFixed(2)}{" "}
+								{language === "ar" ? "ر.س" : "SAR"}
+							</span>
+							<span className="text-sm  line-through text-gray-400 font-bold">
+								{(data.original_price
+									? Number(data.original_price)
+									: Number(data.starting_price) * 1.25
+								).toFixed(2)}
+							</span>
+						</div>
+						<p className="mt-1 text-sm text-black font-semibold">
+							{language === "en"
+								? "Per group up to 4 persons"
+								: "لكل مجموعة حتى 4 شخص"}
+						</p>
+					</div>
+					{whatsappText ? (
+						<a
+							href={`https://wa.me/+966580121025?text=${encodeURIComponent(
+								whatsappText
+							)}`}
+							className="book-link-whatsapp "
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							<i className="fa-brands fa-whatsapp" aria-hidden="true"></i>
+							<span className="!text-[12px]">
+								{language === "en"
+									? "Book now via WhatsApp"
+									: "احجز الآن عبر واتساب"}
+							</span>
+						</a>
+					) : (
+						<Link href={`/book-path?id=${pathId}`} className="book-link !px-8">
+							{language === "en" ? "Book Now" : "احجز الآن"}
+						</Link>
+					)}
+				</div>
 		</>
 	);
 }

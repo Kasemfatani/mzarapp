@@ -3,10 +3,11 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 // import Example from '../../components/Path/Example';
 import PathInfo from "../../components/Path/PathInfo";
-import Destinations from "../../components/Path/Destinations";
+//import Destinations from "../../components/Path/Destinations";
 // import Riviews from "../../components/Path/Riviews";
-import Testimonials from "../../components/Path/Testimonials";
+//import Testimonials from "../../components/Path/Testimonials";
 import LazyTestimonials from "@/components/Path/LazyTestimonials";
+import LazyDestinations from "@/components/Path/LazyDestinations";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Loading from "../loading";
 import { API_BASE_URL } from "@/lib/apiConfig";
@@ -93,9 +94,9 @@ export default function Home() {
 					) : null}
 
 					<PathInfo data={data} lang={language} whatsappText={whatsappText} />
-					<Destinations data={data} lang={language}></Destinations>
-					<LazyTestimonials lang={language} />
-					 {/* <Riviews id={data?.id} lang={language}></Riviews> */}
+					<LazyDestinations data={data} lang={language}></LazyDestinations>
+					<LazyTestimonials lang={language} packageName={data?.name} />
+					{/* <Riviews id={data?.id} lang={language}></Riviews> */}
 					{/* <Example></Example> */}
 				</div>
 			)}

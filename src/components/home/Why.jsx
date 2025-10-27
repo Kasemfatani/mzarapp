@@ -17,7 +17,7 @@ export default function Why() {
 
 	const t = {
 		en: {
-			title: "Why Choose Mzar . . . ?",
+			title: "Why Mzar?",
 			cards: [
 				{
 					img: "/Home/Audio-Guide.png",
@@ -44,7 +44,7 @@ export default function Why() {
 			next: "Next",
 		},
 		ar: {
-			title: "لماذا تختار مزار . . . ؟",
+			title: "لماذا مزار؟",
 			cards: [
 				{
 					img: "/Home/Audio-Guide.png",
