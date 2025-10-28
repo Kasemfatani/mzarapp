@@ -61,7 +61,7 @@ export default function Home() {
 		window.scrollTo(0, 0);
 	}, [router.pathname]); // Runs when pathname changes
 
-	console.log("data in path is ", data);
+	// console.log("data in path is ", data);
 
 	// compute whatsappText so it's available when passed to PathInfo
 	let whatsappText = null;

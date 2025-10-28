@@ -374,3 +374,7 @@ a {
 body { font-family: var(--font-body) !important; }
 h1, h2, h3, h4, h5, h6,
 .font-heading { font-family: var(--font-heading) !important; }
+
+/* :root { --fancybox-viewport-height: 100dvh; }
+.fancybox__container { height: 100dvh !important; }
+.fancybox__slide { backface-visibility: hidden; } */
