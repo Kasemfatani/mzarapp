@@ -131,7 +131,7 @@ export default function Paths() {
 			: data?.data.packages.filter(
 					(path) => path.city_id === Number(selectedFilter)
 			  );
-	console.log("Filtered packages:", filteredPackages);
+	// console.log("Filtered packages:", filteredPackages);
 
 	return (
 		<div

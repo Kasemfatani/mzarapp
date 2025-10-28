@@ -25,7 +25,7 @@ export default function Destinations({ data, lang }) {
 			? { title: "الوجهات", prev: "السابق", next: "التالي" }
 			: { title: "Destinations", prev: "Prev", next: "Next" };
 
-			console.log('short_audio ', data.short_audio.ar);
+			// console.log('short_audio ', data.short_audio.ar);
 
 	return (
 		<div className="destinations container m-auto">
