@@ -256,7 +256,7 @@ export default function PathInfo(props) {
 				{/* what is include */}
 				<section>
 					<h3 className="text-2xl mb-4 text-center md:text-start">
-						{language === "en" ? "Included/Excluded" : "تتضمن الرحلة"}
+						{language === "en" ? "Included" : "تتضمن الرحلة"}
 					</h3>
 					<div className="w-[90%] mx-auto facilities">
 						<div
