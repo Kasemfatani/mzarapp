@@ -535,8 +535,8 @@ header .links .active {
 header .links a:hover {
   color: var(--main-color);
 }
-header .links .book-link {
-  padding-left: 32px;
+header .links .book-link-header {
+  padding-left: 32px ;
   padding-right: 32px;
   background-color: var(--main-color);
   border-radius: 8px;
@@ -544,7 +544,7 @@ header .links .book-link {
   line-height: 55px;
   color: var(--white-color);
 }
-header .links .book-link:hover {
+header .links .book-link-header:hover {
   background-color: var(--sec-color );
   color: var(--black-color);
 }
@@ -589,7 +589,7 @@ header .side-menu .links a:hover {
   background-color: var(--main-color);
   color: var(--white-color);
 }
-header .side-menu .links .book-link:hover {
+header .side-menu .links .book-link-header:hover {
   background-color: var(--main-color);
 }
 header .side-menu-active {
