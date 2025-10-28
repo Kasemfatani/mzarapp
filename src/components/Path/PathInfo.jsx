@@ -34,7 +34,7 @@ export default function PathInfo(props) {
 	let [data, setData] = useState(initialData);
 	const [language, setLanguage] = useState(lang || "en");
 
-	// console.log('data is ', data);
+	// console.log("data id is ", data.id);
 
 	useEffect(() => {
 		if (typeof window !== "undefined") {
@@ -83,7 +83,14 @@ export default function PathInfo(props) {
 				<div className="flex flex-col md:flex-row justify-between items-start">
 					<div className="mb-2 md:mb-0">
 						<div className="flex flex-col md:flex-row gap-3 md:gap-6">
-							<h1 className="text-5xl font-bold">{data.name}</h1>
+							<h1 className="text-5xl font-bold w-full md:w-[80%]">
+								{" "}
+								{data.id == 45
+									? language === "ar"
+										? "رحلتك إلى المشاعر المقدسة تبدأ من هنا"
+										: "Your journey to Mashair begins here"
+									: data.name}
+							</h1>
 							{data.most_ordered && (
 								<div className="inline-flex items-center gap-2 px-3 py-1 mb-2 bg-[var(--main-bg)] rounded-lg  font-semibold  w-fit text-[var(--second-bg)]">
 									<span role="img" aria-label="fire">
@@ -308,8 +315,6 @@ export default function PathInfo(props) {
 					pathId={pathId}
 					whatsappText={whatsappText}
 				/>
-
-				
 			</div>
 			{/* {(pathId == 47 || pathId == 49 || pathId == 45) && (
 				<div className="mb-10">
@@ -318,51 +323,51 @@ export default function PathInfo(props) {
 			)} */}
 
 			{/* Mobile booking bar  */}
-				<div className="md:hidden fixed bottom-0 w-full bg-[var(--main-bg)] p-4 border-t border-t-gray-300 z-10 flex justify-between items-center">
-					<div className="flex flex-col">
-						<p className="mb-1 text-sm text-black font-semibold">
-							{language === "en" ? "From" : "من"}
-						</p>
-						<div className="flex items-baseline gap-2">
-							<span className="text-base font-bold text-[#7B7154]">
-								{data.starting_price?.toFixed(2)}{" "}
-								{language === "ar" ? "ر.س" : "SAR"}
-							</span>
-							<span className="text-sm  line-through text-gray-400 font-bold">
-								{(data.original_price
-									? Number(data.original_price)
-									: Number(data.starting_price) * 1.25
-								).toFixed(2)}
-							</span>
-						</div>
-						<p className="mt-1 text-sm text-black font-semibold">
-							{language === "en"
-								? "Per group up to 4 persons"
-								: "لكل مجموعة حتى 4 شخص"}
-						</p>
+			<div className="md:hidden fixed bottom-0 w-full bg-[var(--main-bg)] p-4 border-t border-t-gray-300 z-10 flex justify-between items-center">
+				<div className="flex flex-col">
+					<p className="mb-1 text-sm text-black font-semibold">
+						{language === "en" ? "From" : "من"}
+					</p>
+					<div className="flex items-baseline gap-2">
+						<span className="text-base font-bold text-[#7B7154]">
+							{data.starting_price?.toFixed(2)}{" "}
+							{language === "ar" ? "ر.س" : "SAR"}
+						</span>
+						<span className="text-sm  line-through text-gray-400 font-bold">
+							{(data.original_price
+								? Number(data.original_price)
+								: Number(data.starting_price) * 1.25
+							).toFixed(2)}
+						</span>
 					</div>
-					{whatsappText ? (
-						<a
-							href={`https://wa.me/+966580121025?text=${encodeURIComponent(
-								whatsappText
-							)}`}
-							className="book-link-whatsapp "
-							target="_blank"
-							rel="noopener noreferrer"
-						>
-							<i className="fa-brands fa-whatsapp" aria-hidden="true"></i>
-							<span className="!text-[12px]">
-								{language === "en"
-									? "Book now via WhatsApp"
-									: "احجز الآن عبر واتساب"}
-							</span>
-						</a>
-					) : (
-						<Link href={`/book-path?id=${pathId}`} className="book-link !px-8">
-							{language === "en" ? "Book Now" : "احجز الآن"}
-						</Link>
-					)}
+					<p className="mt-1 text-sm text-black font-semibold">
+						{language === "en"
+							? "Per group up to 4 persons"
+							: "لكل مجموعة حتى 4 شخص"}
+					</p>
 				</div>
+				{whatsappText ? (
+					<a
+						href={`https://wa.me/+966580121025?text=${encodeURIComponent(
+							whatsappText
+						)}`}
+						className="book-link-whatsapp "
+						target="_blank"
+						rel="noopener noreferrer"
+					>
+						<i className="fa-brands fa-whatsapp" aria-hidden="true"></i>
+						<span className="!text-[12px]">
+							{language === "en"
+								? "Book now via WhatsApp"
+								: "احجز الآن عبر واتساب"}
+						</span>
+					</a>
+				) : (
+					<Link href={`/book-path?id=${pathId}`} className="book-link !px-8">
+						{language === "en" ? "Book Now" : "احجز الآن"}
+					</Link>
+				)}
+			</div>
 		</>
 	);
 }
