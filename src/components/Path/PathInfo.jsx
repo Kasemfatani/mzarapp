@@ -83,7 +83,10 @@ export default function PathInfo(props) {
 				<div className="flex flex-col md:flex-row justify-between items-start">
 					<div className="mb-2 md:mb-0">
 						<div className="flex flex-col md:flex-row gap-3 md:gap-6">
-							<h1 className="text-5xl font-bold w-full md:w-[80%]">
+							<h1 className={
+    "text-5xl font-bold" +
+    (data.id == 45 ? " md:w-[80%]" : "")
+  }>
 								{" "}
 								{data.id == 45
 									? language === "ar"
