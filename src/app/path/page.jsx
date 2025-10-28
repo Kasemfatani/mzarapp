@@ -6,11 +6,11 @@ import { cookies, headers } from "next/headers";
 import { notFound } from "next/navigation";
 import PathInfo from "@/components/Path/PathInfo";
 //import Destinations from "@/components/Path/Destinations";
-import LazyRiviews from "@/components/Path/LazyRiviews";
+// import LazyRiviews from "@/components/Path/LazyRiviews";
 import LazyDestinations from "@/components/Path/LazyDestinations";
 import Loading from "../loading";
 import { API_BASE_URL } from "@/lib/apiConfig";
-
+import LazyTestimonials from "@/components/Path/LazyTestimonials";
 
 const WhatsAppButton = dynamic(
 	() => import("../../components/Path/WhatsAppButton"),
@@ -37,14 +37,14 @@ export default async function PathPage({ searchParams }) {
 	if (!res.ok) notFound();
 	const data = await res.json();
 	if (!data) notFound();
-
+	
 	return (
 		<div className={lang === "en" ? "ltr" : "rtl"}>
 			<WhatsAppButton name={data?.name} />
 			<PathInfo data={data} lang={lang} />
 			<LazyDestinations data={data} lang={lang} />
 			<Suspense fallback={<Loading />}>
-				<LazyRiviews id={pathId} lang={lang} />
+				<LazyTestimonials lang={lang} packageName={data?.name} />
 			</Suspense>
 		</div>
 	);

@@ -17,25 +17,25 @@ export default function Why() {
 
 	const t = {
 		en: {
-			title: "Why Choose Mzar . . . ?",
+			title: "Why Mzar?",
 			cards: [
 				{
-					img: "/Home/smart-phone.png",
+					img: "/Home/Audio-Guide.png",
 					title: "Audio Guide",
 					desc: "Listen to authentic stories through our audio guide available in 6 different languages.",
 				},
 				{
-					img: "/Home/seo.png",
+					img: "/Home/Verified.png",
 					title: "Arrival Verification",
 					desc: "When you reach the site, the audio guide starts automatically to confirm you are at the exact location.",
 				},
 				{
-					img: "/Home/route.png",
+					img: "/Home/Our-Filter.png",
 					title: "Our Unique Filters",
 					desc: "Capture your memories using our exclusive filters that include the destination name and visit date.",
 				},
 				{
-					img: "/Home/smart-phone.png",
+					img: "/Home/AR.png",
 					title: "Augmented Reality Experience",
 					desc: "Open your camera and point it at the landmark to discover each site's story through AR technology.",
 				},
@@ -44,25 +44,25 @@ export default function Why() {
 			next: "Next",
 		},
 		ar: {
-			title: "لماذا تختار مزار . . . ؟",
+			title: "لماذا مزار؟",
 			cards: [
 				{
-					img: "/Home/smart-phone.png",
+					img: "/Home/Audio-Guide.png",
 					title: "الدليل الصوتي",
 					desc: "استمع إلى القصص الأصيلة من خلال المرشد الصوتي المتوفر ب٦ لغات مختلفة.",
 				},
 				{
-					img: "/Home/seo.png",
+					img: "/Home/Verified.png",
 					title: "التحقق من الوصول إلى الوجهة",
 					desc: "عند وصولك إلى الموقع، يبدأ المرشد الصوتي تلقائيًا ليؤكد أنك في المكان الصحيح تماماً.",
 				},
 				{
-					img: "/Home/route.png",
+					img: "/Home/Our-Filter.png",
 					title: "فلاترنا المميزة",
 					desc: "التقط ذكرياتك باستخدام فلاترنا الفريدة التي تتضمن اسم الوجهة وتاريخ الزيارة.",
 				},
 				{
-					img: "/Home/smart-phone.png",
+					img: "/Home/AR.png",
 					title: "تجربة الواقع المعزز",
 					desc: "افتح كاميرتك ووجّهها نحو المعلم لتكتشف قصة كل موقع من خلال تقنية الواقع المعزز.",
 				},
@@ -123,8 +123,8 @@ export default function Why() {
 				{L.cards.map((card, i) => (
 					<SwiperSlide key={i}>
 						<article className="rounded-[24px] bg-[var(--main-bg)] p-6 h-full flex flex-col gap-4 shadow-[0_2px_10px_rgba(0,0,0,0.04)]" style={{ direction: language === "ar" ? "rtl" : "ltr" }}>
-							<div className="w-12 h-12 rounded-xl flex items-center justify-center">
-								<Image src={card.img} alt={card.title} width={28} height={28} />
+							<div className="w-16 h-16 rounded-xl flex items-center justify-center">
+								<Image src={card.img} alt={card.title} width={40} height={40} />
 							</div>
 							<h3 className="text-xl font-semibold text-[#333]">
 								{card.title}

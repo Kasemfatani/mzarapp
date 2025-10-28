@@ -3,8 +3,11 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 // import Example from '../../components/Path/Example';
 import PathInfo from "../../components/Path/PathInfo";
-import Destinations from "../../components/Path/Destinations";
-import Riviews from "../../components/Path/Riviews";
+//import Destinations from "../../components/Path/Destinations";
+// import Riviews from "../../components/Path/Riviews";
+//import Testimonials from "../../components/Path/Testimonials";
+import LazyTestimonials from "@/components/Path/LazyTestimonials";
+import LazyDestinations from "@/components/Path/LazyDestinations";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Loading from "../loading";
 import { API_BASE_URL } from "@/lib/apiConfig";
@@ -37,12 +40,9 @@ export default function Home() {
 			};
 			// Fetch data from the API with Axios
 			axios
-				.get(
-					`${API_BASE_URL}/landing/home/makkah-mzar`,
-					{
-						headers: headers,
-					}
-				)
+				.get(`${API_BASE_URL}/landing/home/makkah-mzar`, {
+					headers: headers,
+				})
 				.then((response) => {
 					setData(response.data); // Set the response data to state
 					setLoading(false); // Set loading to false
@@ -69,7 +69,9 @@ export default function Home() {
 		const gclid = getGclid();
 		whatsappText =
 			language === "en"
-				? `I am interested in ${data?.name}.${gclid ? ` Discount code (${gclid})` : ""}`
+				? `I am interested in ${data?.name}.${
+						gclid ? ` Discount code (${gclid})` : ""
+				  }`
 				: `أنا مهتم بـ ${data?.name}.${gclid ? ` رمز الخصم (${gclid})` : ""}`;
 	}
 
@@ -92,8 +94,9 @@ export default function Home() {
 					) : null}
 
 					<PathInfo data={data} lang={language} whatsappText={whatsappText} />
-					<Destinations data={data} lang={language}></Destinations>
-					<Riviews id={data?.id} lang={language}></Riviews>
+					<LazyDestinations data={data} lang={language}></LazyDestinations>
+					<LazyTestimonials lang={language} packageName={data?.name} />
+					{/* <Riviews id={data?.id} lang={language}></Riviews> */}
 					{/* <Example></Example> */}
 				</div>
 			)}
