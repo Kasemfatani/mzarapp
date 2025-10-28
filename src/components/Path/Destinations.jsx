@@ -229,9 +229,7 @@ export default function Destinations({ data, lang }) {
 							className="w-full h-full block"
 							src="https://www.youtube.com/embed/dMZO88og9Is"
 							title="Mzar - Emotional journey"
-							frameBorder="0"
-							allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-							allowFullScreen
+							frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen=""
 						/>
 					</div>
 				</div>
