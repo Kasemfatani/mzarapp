@@ -156,7 +156,7 @@ export default function Header() {
 						</Link>
 						{/* <Link href="/all-news" className={pathname === '/all-news' ? 'active' : 'normal-Link'}>{lang === 'en' ? 'News' : 'الاخبار'}</Link> */}
 						{pathname === "/" ? (
-							<Link href="/book" className="book-link">
+							<Link href="/book" className="book-link-header">
 								{lang === "en" ? "Book now" : "احجز الآن"}
 							</Link>
 						) : null}
@@ -262,7 +262,7 @@ export default function Header() {
 							>
 								{lang === "en" ? "News" : "الاخبار"}
 							</Link>
-							<Link href="/book" className="book-link">
+							<Link href="/book" className="book-link-header">
 								{lang === "en" ? "Book now" : "احجز الآن"}
 							</Link>
 							<div
