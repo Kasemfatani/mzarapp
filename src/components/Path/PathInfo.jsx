@@ -77,23 +77,30 @@ export default function PathInfo(props) {
 		};
 	}, []);
 
+	// Title and className logic
+	let title = data.name;
+	if (data.id == 45) {
+		title =
+			language === "ar"
+				? "رحلتك إلى المشاعر المقدسة تبدأ من هنا"
+				: "Your journey to Mashair begins here";
+	} else if (data.id == 73) {
+		title =
+			language === "ar"
+				? "خطوة الهجرة الأولى، قصة قباء"
+				: "From Migration to Foundation : The Story of Quba";
+	}
+	const titleClass =
+		"text-5xl font-bold" +
+		(data.id == 45 || data.id == 73 ? " md:w-[80%]" : "");
+
 	return (
 		<>
 			<div className="container m-auto path">
 				<div className="flex flex-col md:flex-row justify-between items-start">
 					<div className="mb-2 md:mb-0">
 						<div className="flex flex-col md:flex-row gap-3 md:gap-6">
-							<h1 className={
-    "text-5xl font-bold" +
-    (data.id == 45 ? " md:w-[80%]" : "")
-  }>
-								{" "}
-								{data.id == 45
-									? language === "ar"
-										? "رحلتك إلى المشاعر المقدسة تبدأ من هنا"
-										: "Your journey to Mashair begins here"
-									: data.name}
-							</h1>
+							<h1 className={titleClass}>{title}</h1>
 							{data.most_ordered && (
 								<div className="inline-flex items-center gap-2 px-3 py-1 mb-2 bg-[var(--main-bg)] rounded-lg  font-semibold  w-fit text-[var(--second-bg)]">
 									<span role="img" aria-label="fire">
