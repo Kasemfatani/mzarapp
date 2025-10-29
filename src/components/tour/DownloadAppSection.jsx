@@ -24,15 +24,14 @@ export default function DownloadAppSection({ initialLang }) {
       ? "تجربة رقمية تواكب العصر، تربطك بالمكان عبر الذكاء التفاعلي، لتجعل رحلتك أكثر عمقًا ومتعة."
       : " A digital experience that connects you to every place through interactive intelligence , making your journey deeper and more enjoyable"}
 					</h2>
-					 <Link
-												href="#"
-												onClick={(e) => e.preventDefault()}
-												className="inline-block"
-											>
-												<span className="inline-block bg-[var(--main-color)] text-white hover:bg-[var(--sec-color)] hover:text-black px-6 py-3  font-semibold">
-													{ language === "ar" ? "استكشف جولة المسجد الحرام" : "Explore Masjid al-Haram"}
-												</span>
-											</Link>
+					{/* <p className="text-lg text-black font-medium">
+						{language === "ar"
+      ? "اكتشف التاريخ من خلال تقنية الواقع المعزز"
+      : "Relive History with Augmented Reality "}
+					</p> */}
+					 {/* <button className="flex items-center gap-2 bg-[var(--main-color,#025AB4)] text-white font-semibold px-6 py-3 rounded-lg shadow hover:bg-blue-700 transition">
+            Download app
+          </button> */}
 					{/* Use DownloadButtons instead of the old download buttons */}
 					<DownloadButtons language={language} />
 				</div>
