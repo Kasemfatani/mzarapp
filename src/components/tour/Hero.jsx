@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import topKaaba from "/public/tour/top-kaaba.png";
-import heroBg from "/public/tour/hero-bg.webp";
+import heroBg from "/public/tour/hero-bg.png";
 
 export default function Hero({ initialLang }) {
 	const [language, setLanguage] = useState(initialLang || "en");
@@ -58,8 +58,8 @@ export default function Hero({ initialLang }) {
 					{/* Buttons (no links yet) */}
 					<div className="flex flex-col sm:flex-row items-center justify-center  gap-3">
 						<Link
-							href="#"
-							onClick={(e) => e.preventDefault()}
+							href="/haram"
+							// onClick={(e) => e.preventDefault()}
 							className="inline-block"
 						>
 							<span className="inline-block bg-[var(--main-color)] text-white hover:bg-[var(--sec-color)] hover:text-black px-6 py-3  font-semibold">

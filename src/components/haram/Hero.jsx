@@ -45,20 +45,20 @@ export default function Hero({ initialLang }) {
 					<h1 className="text-3xl md:text-6xl text-center font-bold !leading-tight ">
 						{isAr
 							? "جولة المسجد الحرام الإثرائية"
-							: "Masjid al-Haram Enrichment Tour"}
+							: "Enriching Masjid Haram Tour"}
 					</h1>
 
 					{/* Subtext / description */}
 					<p className="text-base md:text-lg text-gray-300 text-center mb-6">
 						{isAr
 							? "(رحلة روحية تعيدك إلى قلب التاريخ، حيث تنبض المعالم بالإيمان والجلال. )"
-							: "(A spiritual journey that takes you back to the heart of history, where landmarks pulse with faith and grandeur.)"}
+							: "(A spiritual journey that takes you to the heart of history  where every landmark breathes faith and majesty.)"}
 					</p>
 
 					<p className="text-base md:text-lg text-gray-300 text-center mb-6">
 						{isAr
 							? "تجربة فريدة داخل المسجد الحرام تتعرف فيها على أقدس المعالم وأعظم القصص، في جولة تجمع بين الأصالة والمعرفة والتقنية الحديثة — لتراها كما لم ترها من قبل."
-							: "A unique experience inside Masjid al-Haram where you discover the holiest landmarks and greatest stories, in a tour that combines authenticity, knowledge, and modern technology — to see it as you've never seen before."}
+							: "Experience a one-of-a-kind journey inside the Grand Mosque, where you’ll discover its holiest landmarks and timeless stories."}
 					</p>
 
 					{/* Buttons (no links yet) */}

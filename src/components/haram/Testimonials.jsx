@@ -285,8 +285,7 @@ export default function Testimonials({ lang = "en" }) {
 								<>في جولةٍ واحدة… ترى التاريخ بعينك، وتسمعه بقلبك.</>
 							) : (
 								<>
-									Book your tour now, and let us tell you the story where it
-									happened.
+									In one tour… see history with your eyes and hear it with your heart.
 								</>
 							)}
 						</p>
@@ -294,7 +293,7 @@ export default function Testimonials({ lang = "en" }) {
 							{language === "ar" ? (
 								<>مزار — نروي القصة حيث وقعت.</>
 							) : (
-								<>Mzar — We tell the story where it happened.</>
+								<>With Mzar, the story is told where it truly happened</>
 							)}
 						</p>
 

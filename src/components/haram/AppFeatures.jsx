@@ -23,11 +23,11 @@ export default function AppFeatures({ initialLang }) {
 				"شهادة رقمية بعد الجولة",
 		  ]
 		: [
-				"Listen to the accompanying guide",
-				"Augmented Reality (AR) displays historical scenes",
-				"Original photos & manuscripts",
-				"Instant translation in 6 languages",
-				"Digital certificate after the tour",
+				"Listen to your personal audio guide ",
+				"Augmented Reality (AR) brings history to life",
+				"Authentic photos and manuscripts",
+				"Instant translation in six languages ",
+				"Digital certificate after your tour",
 		  ];
 
 	return (
@@ -44,8 +44,8 @@ export default function AppFeatures({ initialLang }) {
 				</h2>
 				<p className="max-w-3xl mx-auto text-sm md:text-base text-gray-100/90 mb-6">
 					{isAr
-						? "باستخدام تطبيق “مزار”، ترافقك التجربة لحظة بلحظة — من تحديد موقعك داخل الحرم إلى الترجمة الفورية والشهادة الرقمية بعد الجولة."
-						: "Using the Mzar app, the experience accompanies you step-by-step — from on-site localization inside the Haram to instant translation and a digital certificate after the tour."}
+						? "باستخدام تطبيق “مزار”، ترافقك التجربة لحظة بلحظة —من تحديد موقعك داخل الحرم إلى الترجمة الفورية، لترى الصور التاريخية، وتستمع إلى القصة بلغتك، وتوثّق رحلتك بشهادة زيارة رقمية."
+						: "Mzar guides you every step of the way discover, listen, and relive the sacred stories through smart technology. "}
 				</p>
 
 				{/* Explicit rows: 2 items, 2 items, then 1 centered item */}
@@ -85,7 +85,7 @@ export default function AppFeatures({ initialLang }) {
 						className="inline-block"
 					>
 						<span className="inline-block bg-[var(--main-color)] text-white hover:bg-[var(--sec-color)] hover:text-black px-20 py-3 font-semibold rounded-lg">
-							{isAr ? "جرّب التطبيق الآن" : "Try the App Now"}
+							{isAr ? "جرّب التطبيق الآن" : "Try Mzar App Now"}
 						</span>
 					</Link>
 				</div>

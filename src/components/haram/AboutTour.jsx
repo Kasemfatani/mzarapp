@@ -17,6 +17,13 @@ const features = [
 		valueEn: "Available for men and women",
 	},
 	{
+		icon: "fa-solid fa-wheelchair",
+		ar: "الوصول",
+		en: "Accessibility",
+		valueAr: "مهيأة بالكامل لذوي الاحتياجات الخاصة",
+		valueEn: "Fully equipped for people with special needs",
+	},
+	{
 		//<i class="fa-solid fa-user-group"></i>
 		icon: "fa-solid fa-user-group",
 		ar: "الأعمار",
@@ -27,9 +34,9 @@ const features = [
 	{
 		icon: "fa-regular fa-newspaper",
 		ar: "تفاعل",
-		en: "Interaction",
+		en: "Engagement",
 		valueAr: "صور، خرائط، ومرشد صوتي ذكي",
-		valueEn: "Photos, maps, and smart audio guide",
+		valueEn: "Includes photos, maps, and an intelligent audio guide",
 	},
 	{
 		icon: "fa-solid fa-language",

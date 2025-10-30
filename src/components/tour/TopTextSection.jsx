@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useEffect, useState } from "react";
 
 export default function TopTextSection({ initialLang }) {
@@ -19,12 +20,13 @@ export default function TopTextSection({ initialLang }) {
 			title: isAr ? "جولة المسجد الحرام" : "Masjid al-Haram Tour",
 			desc: isAr
 				? "انضموا إلينا في جولة مميزة داخل الحرم المكي الشريف، نتعرف خلالها على أبرز المعالم التاريخية والإسلامية"
-				: "Join us for a special tour inside the Grand Mosque, exploring its most prominent historical and Islamic landmarks.",
+				: "Join us for an exclusive tour inside the Grand Mosque in Makkah, where you’ll discover the most significant historical and Islamic landmarks.",
 			people: isAr ? "عدد المشاركين: 25 شخصاً" : "Participants: 25 persons",
 			duration: isAr ? "مدة الجولة: 40 دقيقة" : "Tour duration: 40 min",
 			meet: isAr ? "مكان اللقاء: باب السلام" : "Meeting point: Bab Al-Salam",
 			button: {
 				label: isAr ? "استكشف الجولة" : "Explore Tour",
+				link: "/haram",
 				style:
 					"w-full mt-4 rounded-xl bg-green-700 hover:bg-green-800 text-white py-2.5 text-sm font-semibold transition",
 				soon: false,
@@ -41,6 +43,7 @@ export default function TopTextSection({ initialLang }) {
 			meet: isAr ? "مكان اللقاء: باب السلام" : "Meeting point: Bab Al-Salam",
 			button: {
 				label: isAr ? "قريبًا..." : "Soon...",
+				link: "#",
 				style:
 					"w-full mt-4 rounded-xl border border-[#2f4f3f]/40 text-[#2f4f3f] py-2.5 text-sm font-semibold bg-white/60 transition",
 				soon: true,
@@ -51,12 +54,12 @@ export default function TopTextSection({ initialLang }) {
 	return (
 		<section className="py-5 bg-white mb-32">
 			<div className="container mx-auto px-4">
-				<h2 className="text-center text-2xl md:text-3xl font-bold text-gray-900 mb-0">
+				<h2 className="text-center text-2xl md:text-3xl font-bold text-gray-900 mb-6">
 					{isAr
-						? "لماذا يختار الزوار الجولات الإثرائية؟"
-						: "Why do visitors choose Enriching Tours?"}
+						? " اختر جولتك"
+						: "Choose Your Tour"}
 				</h2>
-				<p className="text-center text-gray-500 mt-2">
+				{/* <p className="text-center text-gray-500 mt-2">
 					{isAr
 						? "كثيرون زاروا الحرمين، لكن القليل من عاشوا معانيهما بعمق."
 						: "Many have visited the Holy Mosques, but few have truly experienced their deeper meanings."}
@@ -65,7 +68,7 @@ export default function TopTextSection({ initialLang }) {
 					{isAr
 						? "في جولات “مزار” ستتعرف على الأماكن التي مر بها الأنبياء والصحابة، وتسمع القصص الموثوقة بلغتك، وتشاهد المواقع أمامك حيث وقعت الأحداث. "
 						: "In “Mzar” tours, you will discover the places visited by prophets and companions, hear documented stories in your language, and witness events as they happened."}
-				</p>
+				</p> */}
 
 				{/* Two cards */}
 				<div className="flex flex-col md:flex-row gap-6 justify-center items-stretch max-w-4xl mx-auto">
@@ -101,14 +104,14 @@ export default function TopTextSection({ initialLang }) {
 										<span>{card.meet}</span>
 									</div>
 								</div>
-								<button
-									type="button"
+								<a
+									href={card.button.link}
 									className={card.button.style}
 									disabled={card.button.soon}
 									tabIndex={card.button.soon ? -1 : 0}
 								>
 									{card.button.label}
-								</button>
+								</a>
 							</div>
 						</div>
 					))}

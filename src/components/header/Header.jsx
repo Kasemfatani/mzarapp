@@ -155,7 +155,7 @@ export default function Header() {
 							{lang === "en" ? "Blogs" : "المقالات"}
 						</Link>
 						{/* <Link href="/all-news" className={pathname === '/all-news' ? 'active' : 'normal-Link'}>{lang === 'en' ? 'News' : 'الاخبار'}</Link> */}
-						{pathname === "/" ? (
+						{pathname === "/" || pathname === "/tour" || pathname === "/haram" ? (
 							<Link href="/book" className="book-link-header">
 								{lang === "en" ? "Book now" : "احجز الآن"}
 							</Link>

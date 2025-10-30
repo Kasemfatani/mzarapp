@@ -90,17 +90,17 @@ export default function Stations({ initialLang }) {
 					<h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
 						{isAr
 							? "معالمك في الطريق إلى الروح..."
-							: "Your Landmarks on the Path to the Soul..."}
+							: "Your Landmarks on the Path to the Spirit..."}
 					</h2>
 					<p className="text-gray-600 mb-1">
 						{isAr
 							? "نزور معك أهم محطات المسجد الحرام التي تحمل في طياتها تاريخاً خالداً،"
-							: "We visit with you the most important stations of Masjid al-Haram, each carrying an everlasting history,"}
+							: "Join us as we visit the most significant sites within Al-Masjid Al-Haram — places that hold timeless history."}
 					</p>
 					<p className="text-gray-600">
 						{isAr
 							? "ونروي لك القصص كما وقعت، لتراها أمامك في موضعها الحقيقي."
-							: "and narrate the stories as they happened, so you see them before you in their true place."}
+							: "We bring the stories to life, right where they truly happened."}
 					</p>
 				</div>
 
@@ -140,8 +140,8 @@ export default function Stations({ initialLang }) {
 				{/* Centered text below cards */}
 				<div className="text-center text-black mb-6">
 					{isAr
-						? "في تسعين دقيقة فقط، يعيش الزائر قرونًا من التاريخ والإيمان."
-						: "In just ninety minutes, the visitor lives through centuries of history and faith."}
+						? '"في تسعين دقيقة فقط، يعيش الزائر قرونًا من التاريخ والإيمان."'
+						: '"In just ninety minutes, visitors experience centuries of history and faith."'}
 				</div>
 
 				{/* Button */}
