@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import "swiper/css";
-import img1 from "/public/bg.webp";
+import img1 from "/public/madinah/big-img.webp";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -291,7 +291,7 @@ export default function Testimonials({ lang = "en" }) {
 						</p>
 						<p className="text-lg md:text-2xl text-white mb-8 max-w-2xl">
 							{language === "ar" ? (
-								<>مزار — نروي القصة حيث وقعت.</>
+								<>مزار — نروي التاريخ لتراه بعينك وتسمعه بقلبك. </>
 							) : (
 								<> Mzar ,where history is seen with your eyes and felt with your heart. </>
 							)}

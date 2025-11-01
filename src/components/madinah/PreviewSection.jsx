@@ -5,10 +5,10 @@ import "@fancyapps/ui/dist/fancybox/fancybox.css";
 import { Fancybox } from "@fancyapps/ui";
 
 const images = [
-	"https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80",
-	"https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80",
-	"https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=400&q=80",
-	"https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80",
+	"/madinah/preview-1.webp",
+	"/madinah/preview-2.webp",
+	"/madinah/preview-3.webp",
+	"/madinah/preview-4.webp",
 ];
 
 export default function PreviewSection({ initialLang }) {
@@ -92,7 +92,7 @@ export default function PreviewSection({ initialLang }) {
 						target="_blank"
 						className="inline-block"
 					>
-						<span className="inline-block bg-[var(--main-color)] text-white hover:bg-[var(--sec-color)] hover:text-black px-24 py-3 font-semibold rounded-lg">
+						<span className="inline-block bg-[var(--main-color)] text-white hover:bg-[var(--sec-color)] hover:text-black px-16 md:px-24 py-3 font-semibold rounded-lg">
 							{isAr ? "جرّب تطبيق مزار الآن" : "Try Mzar App Now"}
 						</span>
 					</Link>

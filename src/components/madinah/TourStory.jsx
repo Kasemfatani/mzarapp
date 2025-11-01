@@ -2,8 +2,8 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import bigImg from "/public/haram/big-img.png";
-import smallImg from "/public/haram/small-img.png";
+import bigImg from "/public/madinah/big-img.webp";
+import smallImg from "/public/madinah/small-img.webp";
 import StarRating from "@/components/Path/StarRating";
 
 export default function TourStory({ initialLang }) {
@@ -33,9 +33,9 @@ export default function TourStory({ initialLang }) {
 	return (
 		<section className="py-12 md:py-20 bg-white relative overflow-x-clip">
 			<div className="container mx-auto px-4">
-				<div className="flex flex-col md:flex-row items-center  justify-between ">
+				<div className="flex flex-col md:flex-row items-center gap-6 md:gap-0  justify-between ">
 					{/* Texts side */}
-					<div className="w-full md:w-[80%]">
+					<div className="w-full md:w-[80%] order-2 md:order-1">
 						<div>
 							<div className="flex flex-col md:flex-row items-start mb-4 md:gap-2">
 								<h3 className="text-xl md:text-2xl font-bold mb-4 text-gray-900 w-full md:w-[60%]">
@@ -65,7 +65,7 @@ export default function TourStory({ initialLang }) {
 					</div>
 
 					{/* Images side */}
-					<div className=" flex justify-center md:justify-start">
+					<div className="order-1 md:order-2 flex justify-center md:justify-start">
 						<div className="relative">
 							{/* Big image as background */}
 							<Image

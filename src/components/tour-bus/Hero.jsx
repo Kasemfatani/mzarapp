@@ -2,8 +2,8 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import topKaaba from "/public/madinah/Nabawi.svg";
-import heroBg from "/public/madinah/hero-bg.webp";
+import topKaaba from "/public/haram/top-kaaba.png";
+import heroBg from "/public/tour/hero-bg.webp";
 
 export default function Hero({ initialLang }) {
 	const [language, setLanguage] = useState(initialLang || "en");
@@ -36,27 +36,26 @@ export default function Hero({ initialLang }) {
 
 			<div className="container m-auto px-4 ">
 				<div className="w-full text-center text-white py-16 md:py-0">
-					{/* top kaaba image (image contains text already) */}
-					<Image src={topKaaba} alt="top kaaba"  height={200} className="mx-auto"/>
-
+					
 					{/* Heading */}
-					<h1 className="text-3xl md:text-6xl text-center font-bold !leading-tight ">
+					<h1 className="text-3xl md:text-5xl text-center font-bold !leading-tight ">
 						{isAr
-							? "جولة المسجد النبوي الإثرائية"
-							: "The Enriching Al-Masjid An-Nabawi Tour"}
+							? "الجولات الإثرائية في مكة المكرمة"
+							: "Enriching Tours in Makkah"}
+					</h1>
+					<h1 className="text-3xl md:text-5xl text-center font-bold !leading-tight ">
+						{isAr
+							? "رحلة تجمع بين الإيمان والمعرفة والتقنية."
+							: " A journey that blends faith, knowledge, and technology."}
 					</h1>
 
 					{/* Subtext / description */}
-					<p className="text-base md:text-lg text-gray-300 text-center mb-6">
-						{isAr
-							? "رحلة السكينة والمعرفة في رحاب المسجد النبوي الشريف."
-							: "A journey of peace and knowledge within the sacred grounds of the Prophet’s Mosque ﷺ."}
-					</p>
+					
 
-					<p className="text-base md:text-lg text-gray-300 text-center mb-6">
+					<p className="text-base md:text-lg text-gray-300 text-center mb-6 mt-6">
 						{isAr
-							? "جولة تأخذك إلى حيث خطت أقدام النبي ﷺ وصحابته الكرام، لتتعرف على المعالم المباركة في المسجد النبوي، وتشاهدها كما رآها التاريخ، في تجربة تجمع بين التأمل، والعلم، والتقنية الحديثة."
-							: "Walk where the Prophet ﷺ once stood and explore Al-Masjid An-Nabawi’s sacred landmarks , in an experience that blends reflection, learning, and modern technology. "}
+							? "انطلق معنا في تجربة سياحية روحانية فريدة على متن باص مزار الإثرائي، لتستكشف المعالم التاريخية والإسلامية في مكة المكرمة. استمع إلى القصص بلغتك، وشاهد الأحداث كما رُويت، عبر تقنيات الواقع المعزز والمرشد الصوتي الذكي. "
+							: "Embark on a unique spiritual tour experience aboard the Mzar Enriching Bus, exploring historical and Islamic landmarks in Makkah. Listen to stories in your language and witness events as they were narrated, through augmented reality technologies and smart audio guides."}
 					</p>
 
 					{/* Buttons (no links yet) */}
