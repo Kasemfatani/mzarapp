@@ -14,59 +14,53 @@ const stationsData = {
 		{
 			title: "المحطة الأولى",
 			img: station1,
-			items: ["معرض المسجد الحرام"],
+			items: ["منطقة المصليات", "معرض عمارة المسجد النبوي"],
 		},
 		{
 			title: "المحطة الثانية",
 			img: station2,
-			items: ["الساحات.", "المنارات.", "الأبواب.", "عمارة المسجد الحرام."],
+			items: ["المظلات" , "المنارات و القِبب"],
 		},
 		{
 			title: "المحطة الثالثة",
 			img: station3,
 			items: [
-				"الكعبة المشرفة.",
-				"الحجر أو الحطيم.",
-				"مقام إبراهيم عليه السلام.",
-				"بئر زمزم.",
+				"عمارة المسجد النبوي","الحصوات"
 			],
 		},
 		{
 			title: "المحطة الرابعة",
 			img: station4,
-			items: ["الصفا.", "المروة.", "باب السلام."],
+			items: [" باب السلام ", "المحاريب", "الروضة الشريفة", "بقيع الغرقد", "خَوْخة أبي بكر الصديق"],
 		},
 	],
 	en: [
 		{
 			title: "First Station",
 			img: station1,
-			items: ["Masjid al-Haram Exhibition"],
+			items: ["Prayer Area Zone" , "Exhibition of the Prophet’s Mosque Architecture"],
 		},
 		{
 			title: "Second Station",
 			img: station2,
 			items: [
-				"Courtyards.",
-				"Minarets.",
-				"Gates.",
-				"Architecture of Masjid al-Haram.",
+				"Umbrellas",
+				"Minarets and Domes",
 			],
 		},
 		{
 			title: "Third Station",
 			img: station3,
 			items: [
-				"The Kaaba.",
-				"Hijr Ismail (Hatim).",
-				"Maqam Ibrahim (Station of Abraham).",
-				"Zamzam Well.",
+				"Architecture of the Prophet’s Mosque",
+				"Courtyards",
+				
 			],
 		},
 		{
 			title: "Fourth Station",
 			img: station4,
-			items: ["Safa.", "Marwa.", "Bab Al-Salam."],
+			items: ["Bab Al-Salam (Gate of Peace)", " Abu Bakr Al-Siddiq’s Door", "the Mihrabs (Prayer Niches) ", "The Noble Rawdah", "Al-Baqi’ Al-Gharqad Cemetery "],
 		},
 	],
 };
@@ -89,18 +83,18 @@ export default function Stations({ initialLang }) {
 				<div className="text-center mb-8">
 					<h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
 						{isAr
-							? "معالمك في الطريق إلى الروح..."
-							: "Your Landmarks on the Path to the Spirit..."}
+							? "محطات من النور… حيث سار النبي ﷺ."
+							: "Stations of Light… Where the Prophet ﷺ Walked."}
 					</h2>
 					<p className="text-gray-600 mb-1">
 						{isAr
-							? "نزور معك أهم محطات المسجد الحرام التي تحمل في طياتها تاريخاً خالداً،"
-							: "Join us as we visit the most significant sites within Al-Masjid Al-Haram — places that hold timeless history."}
+							? "نزور في هذه الجولة مواقع مباركة تحمل عبق السيرة النبوية،"
+							: " In this tour, we visit the blessed sites that preserve the fragrance of the Prophet’s life ﷺ."}
 					</p>
 					<p className="text-gray-600">
 						{isAr
-							? "ونروي لك القصص كما وقعت، لتراها أمامك في موضعها الحقيقي."
-							: "We bring the stories to life, right where they truly happened."}
+							? "ونروي القصص كما وردت في الروايات الصحيحة، لتراها بعينك في موضعها الأصلي."
+							: " Hear the authentic stories and witness the landmarks in their original setting, where history truly unfolded."}
 					</p>
 				</div>
 

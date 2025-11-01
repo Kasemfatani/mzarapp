@@ -3,7 +3,8 @@
 import React, { useMemo } from "react";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Autoplay, A11y } from "swiper/modules";
+import { Autoplay, A11y } from "swiper/modules";
+import Link from "next/link";
 
 // Swiper core styles (scoped to this component since it's client-only)
 import "swiper/css";
@@ -92,8 +93,6 @@ export default function BusStops({ initialLang = "en" }) {
 						centeredSlides={false}
 						loop
 						autoplay={{ delay: 3500, disableOnInteraction: false }}
-						
-						
 						breakpoints={{
 							640: { slidesPerView: 1.5, spaceBetween: 16 },
 							768: { slidesPerView: 2.2, spaceBetween: 18 },
@@ -128,16 +127,18 @@ export default function BusStops({ initialLang = "en" }) {
 				</div>
 
 				{/* Below slider: details + map */}
-				<div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 items-start">
+				<div className="mt-12 flex flex-col md:flex-row gap-8 md:gap-0 items-start justify-around ">
 					{/* Text side */}
-					<div className={`${contentOrder}`}>
-						<div className="flex flex-col gap-6 max-w-lg md:max-w-none">
+					<div className={`${contentOrder} `}>
+						<div className="flex flex-col gap-16 max-w-lg md:max-w-none">
 							<div>
 								<h4 className="text-xl font-bold mb-3 text-gray-900">
 									{t.durationTitle}
 								</h4>
 								<div className="inline-flex items-center gap-2 rounded-full bg-[#EAE3D3] text-gray-900 px-4 py-2">
-									<span className="inline-block h-2 w-2 rounded-full bg-emerald-600" />
+									<span className="w-6 h-6 text-[var(--main-color)]">
+										<i className="fa-regular fa-clock"></i>
+									</span>
 									<span className="font-medium">{t.durationText}</span>
 								</div>
 							</div>
@@ -146,11 +147,7 @@ export default function BusStops({ initialLang = "en" }) {
 								<h4 className="text-xl font-bold mb-3 text-gray-900">
 									{t.dailyToursTitle}
 								</h4>
-								<div
-									className={`flex ${
-										isAr ? "justify-start" : "justify-start"
-									} gap-3 flex-wrap`}
-								>
+								<div className={`flex  gap-3 flex-wrap`}>
 									<div className="inline-flex items-center gap-2 rounded-full bg-[#EAE3D3] text-gray-900 px-4 py-2">
 										<span role="img" aria-label="sun">
 											☀️
@@ -158,21 +155,12 @@ export default function BusStops({ initialLang = "en" }) {
 										<span className="font-medium">{t.morning}</span>
 									</div>
 									<div className="inline-flex items-center gap-2 rounded-full bg-[#EAE3D3] text-gray-900 px-4 py-2">
-										<span role="img" aria-label="moon">
-											🌙
-										</span>
+										<span className="w-6 h-6 text-[var(--main-color)]">
+											<i className="fa-regular fa-moon"></i>
+									</span>
 										<span className="font-medium">{t.evening}</span>
 									</div>
 								</div>
-							</div>
-
-							<div>
-								<button
-									type="button"
-									className="mt-2 inline-flex items-center justify-center rounded-md bg-[var(--second-bg)] text-white px-6 py-3 font-semibold hover:opacity-90 transition"
-								>
-									{t.cta}
-								</button>
 							</div>
 						</div>
 					</div>
@@ -181,17 +169,14 @@ export default function BusStops({ initialLang = "en" }) {
 					<div className={`${mapOrder}`}>
 						<div className="relative rounded-2xl overflow-hidden shadow-lg">
 							{/* Using next/image for optimization */}
-							<Image
-								src="https://images.unsplash.com/photo-1524499982521-1ffd58dd89ea?q=80&w=1400&auto=format&fit=crop"
-								width={1400}
-								height={900}
+							<img
+								src="/tour-bus/map-img.webp"
 								alt={
 									isAr
 										? "خريطة مواقع الانطلاق ونقاط التجمع"
 										: "Map of starting and gathering points"
 								}
-								className="w-full h-[220px] sm:h-[260px] md:h-[300px] object-cover select-none"
-								draggable={false}
+								className=" object-cover select-none h-10 md:h-64 w-full"
 							/>
 							<div className="absolute inset-0 bg-black/15" />
 							<div className="absolute inset-0 flex items-end">
@@ -201,6 +186,18 @@ export default function BusStops({ initialLang = "en" }) {
 							</div>
 						</div>
 					</div>
+				</div>
+
+				<div className="flex justify-center mt-6">
+					<Link
+						href="https://onelink.to/yb2xky"
+						target="_blank"
+						className="inline-block"
+					>
+						<span className="inline-block bg-[var(--main-color)] text-white hover:bg-[var(--sec-color)] hover:text-black px-20 py-3 font-semibold rounded-lg">
+							{t.cta}
+						</span>
+					</Link>
 				</div>
 			</div>
 		</section>
