@@ -31,8 +31,8 @@ export default function DownloadAppSection({ initialLang }) {
       : "Relive History with Augmented Reality "}
 					</p> */}
 					 <Link
-							href="#"
-							onClick={(e) => e.preventDefault()}
+							href="https://onelink.to/yb2xky"
+							target="_blank"
 							className="inline-block"
 						>
 							<span className="inline-block bg-[var(--main-color)] text-white hover:bg-[var(--sec-color)] hover:text-black px-6 py-3  font-semibold rounded-md">

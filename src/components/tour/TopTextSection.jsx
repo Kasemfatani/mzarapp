@@ -42,11 +42,11 @@ export default function TopTextSection({ initialLang }) {
 			duration: isAr ? "مدة الجولة: 40 دقيقة" : "Tour duration: 40 min",
 			meet: isAr ? "مكان اللقاء: باب السلام" : "Meeting point: Bab Al-Salam",
 			button: {
-				label: isAr ? "قريبًا..." : "Soon...",
-				link: "#",
+				label: isAr ?  "استكشف الجولة" : "Explore Tour",
+				link: "/madinah",
 				style:
-					"w-full mt-4 rounded-xl border border-[#2f4f3f]/40 text-[#2f4f3f] py-2.5 text-sm font-semibold bg-white/60 transition",
-				soon: true,
+					"w-full mt-4 rounded-xl bg-green-700 hover:bg-green-800 text-white py-2.5 text-sm font-semibold transition",
+				soon: false,
 			},
 		},
 	];
