@@ -127,7 +127,7 @@ export default function BusStops({ initialLang = "en" }) {
 				</div>
 
 				{/* Below slider: details + map */}
-				<div className="mt-12 flex flex-col md:flex-row gap-8 md:gap-0 items-start justify-around ">
+				<div className="mt-12 flex flex-col md:flex-row gap-8 md:gap-0 items-start md:justify-around ">
 					{/* Text side */}
 					<div className={`${contentOrder} `}>
 						<div className="flex flex-col gap-16 max-w-lg md:max-w-none">
@@ -137,7 +137,7 @@ export default function BusStops({ initialLang = "en" }) {
 								</h4>
 								<div className="inline-flex items-center gap-2 rounded-full bg-[#EAE3D3] text-gray-900 px-4 py-2">
 									<span className="w-6 h-6 text-[var(--main-color)]">
-										<i className="fa-regular fa-clock"></i>
+										<img src="/tour-bus/clock.png" alt="clock" />
 									</span>
 									<span className="font-medium">{t.durationText}</span>
 								</div>
@@ -149,15 +149,15 @@ export default function BusStops({ initialLang = "en" }) {
 								</h4>
 								<div className={`flex  gap-3 flex-wrap`}>
 									<div className="inline-flex items-center gap-2 rounded-full bg-[#EAE3D3] text-gray-900 px-4 py-2">
-										<span role="img" aria-label="sun">
-											☀️
+										<span className="w-6 h-6 text-[var(--main-color)]">
+											<img src="/tour-bus/sun.png" alt="sun" />
 										</span>
 										<span className="font-medium">{t.morning}</span>
 									</div>
 									<div className="inline-flex items-center gap-2 rounded-full bg-[#EAE3D3] text-gray-900 px-4 py-2">
 										<span className="w-6 h-6 text-[var(--main-color)]">
-											<i className="fa-regular fa-moon"></i>
-									</span>
+											<img src="/tour-bus/moon.png" alt="moon" />
+										</span>
 										<span className="font-medium">{t.evening}</span>
 									</div>
 								</div>
@@ -176,7 +176,7 @@ export default function BusStops({ initialLang = "en" }) {
 										? "خريطة مواقع الانطلاق ونقاط التجمع"
 										: "Map of starting and gathering points"
 								}
-								className=" object-cover select-none h-10 md:h-64 w-full"
+								className=" object-cover select-none  md:h-64 w-full"
 							/>
 							<div className="absolute inset-0 bg-black/15" />
 							<div className="absolute inset-0 flex items-end">
@@ -190,7 +190,7 @@ export default function BusStops({ initialLang = "en" }) {
 
 				<div className="flex justify-center mt-6">
 					<Link
-						href="https://onelink.to/yb2xky"
+						href="#"
 						target="_blank"
 						className="inline-block"
 					>
