@@ -41,7 +41,7 @@ export default function PackagePrice({ initialLang = "en" }) {
 					className={`flex flex-col md:flex-row items-center justify-center gap-6 md:gap-0 `}
 				>
 					{/* Card */}
-					<div className="w-full md:w-[40%] md:-me-16 z-10 order-2 md:order-1">
+					<div className="w-full md:w-[40%] md:-me-16 z-10 order-2 md:order-1 shadow-2xl">
 						<div className="bg-white rounded-2xl shadow-xl p-8 flex flex-col gap-6">
 							{/* Price row */}
 							<div className="flex items-start justify-center gap-2">

@@ -2,8 +2,8 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import topKaaba from "/public/haram/top-kaaba.png";
-import heroBg from "/public/tour/hero-bg.webp";
+
+import heroBg from "/public/tour-bus/hero-bg.webp";
 
 export default function Hero({ initialLang }) {
 	const [language, setLanguage] = useState(initialLang || "en");
