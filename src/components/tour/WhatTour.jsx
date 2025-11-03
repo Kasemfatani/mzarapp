@@ -1,33 +1,38 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import seoIcon from "/public/Home/seo.png";
-import routeIcon from "/public/Home/route.png";
-import smartPhoneIcon from "/public/Home/smart-phone.png";
+// import seoIcon from "/public/Home/seo.png";
+// import routeIcon from "/public/Home/route.png";
+// import smartPhoneIcon from "/public/Home/smart-phone.png";
+import AR from "/public/Home/AR.png";
+import Audio from "/public/Home/Audio-Guide.png";
+import map from "/public/Home/map.svg";
+import photography from "/public/Home/photography.svg";
+import imageIcon from "/public/Home/image.svg";
 
 const features = [
 	{
-		icon: smartPhoneIcon,
+		icon: Audio,
 		ar: "مرشد صوتي ذكي بلغات العالم",
 		en: "Smart audio guide in world languages",
 	},
 	{
-		icon: routeIcon,
+		icon: AR,
 		ar: "واقع معزز (AR) يعرض القصص والمشاهد",
 		en: "Augmented Reality (AR) for stories & scenes",
 	},
 	{
-		icon: smartPhoneIcon,
+		icon: map,
 		ar: "مواقع دقيقة على الخريطة",
 		en: "Accurate locations on the map",
 	},
 	{
-		icon: seoIcon,
+		icon: imageIcon,
 		ar: "صور تاريخية نادرة",
 		en: "Rare historical photos",
 	},
 	{
-		icon: smartPhoneIcon,
+		icon: photography,
 		ar: "تنظيم ميداني احترافي",
 		en: "Professional field organization",
 	},
