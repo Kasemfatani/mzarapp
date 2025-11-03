@@ -1,0 +1,341 @@
+"use client";
+
+import React, { useEffect, useMemo, useState } from "react";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+	Form,
+	FormField,
+	FormItem,
+	FormLabel,
+	FormMessage,
+	FormControl,
+} from "@/components/ui/form";
+import { cn } from "@/lib/utils";
+import StepsTimelineInfo from "./StepsTimelineInfo";
+import { useRouter } from "next/navigation";
+
+const STORAGE_KEY = "bookTour.selection";
+
+const messages = {
+	en: {
+		steps: {
+			choose: "Choose Tour",
+			info: "Personal Information",
+			pay: "Payment",
+		},
+		discount: "Save more! 10% discount when booking for more than two people.",
+		title: "Enter Information",
+		peopleCount: "Number of people",
+		name: "Full name",
+		email: "Email address",
+		phone: "Mobile phone",
+		whatsapp: "Mobile phone (WhatsApp)",
+		placeholders: {
+			name: "John Doe",
+			email: "example@xyz.com",
+			phone: "966 506552589",
+			whatsapp: "966 506552589",
+		},
+		next: "Next",
+		back: "Back",
+		missingSelection: "Selection missing. Redirecting…",
+		saved: "Saved your info.",
+		requiredName: "Name is required",
+		requiredPhone: "Phone is required",
+		requiredEmail: "Email is required",
+		invalidEmail: "Invalid email",
+		subtotal: "Subtotal",
+		tax: "VAT",
+		taxValue: "15%",
+		totalDollar: "Total in Dollar",
+		total: "Total",
+		currency: "SAR",
+	},
+	ar: {
+		steps: { choose: "اختر جولتك", info: "أدخل المعلومات", pay: "الدفع" },
+		discount: "وفّر أكثر! خصم 10٪ عند الحجز لأكثر من شخصين.",
+		title: "ادخل المعلومات",
+		peopleCount: "عدد الأشخاص",
+		name: "الاسم",
+		email: "عنوان البريد الإلكتروني",
+		phone: "هاتف محمول",
+		whatsapp: "هاتف محمول (واتساب)",
+		placeholders: {
+			name: "ساره مجدي",
+			email: "example@xyz.com",
+			phone: "966 506552589",
+			whatsapp: "966 506552589",
+		},
+		next: "التالي",
+		back: "العودة",
+		missingSelection: "لا توجد بيانات من الخطوة الأولى. سيتم إعادتك…",
+		saved: "تم حفظ معلوماتك.",
+		requiredName: "الاسم مطلوب",
+		requiredPhone: "رقم الجوال مطلوب",
+		requiredEmail: "البريد الإلكتروني مطلوب",
+		invalidEmail: "بريد غير صالح",
+		subtotal: "المجموع الفرعي",
+		tax: "ضريبة القيمة المضافة",
+		taxValue: "15٪",
+		totalDollar: "الإجمالي المقدر بالدولار",
+		total: "الإجمالي",
+		currency: "﷼",
+	},
+};
+
+function schemaFor(lang) {
+    const t = messages[lang];
+    return z.object({
+        people: z.coerce.number().int().min(1).max(20).default(1),
+        name: z.string().min(1, t.requiredName).max(100),
+        email: z.string().email(t.invalidEmail).min(1, t.invalidEmail), // required
+        phone: z.string().optional().or(z.literal("")), // optional
+        whatsapp: z.string().min(1, t.requiredPhone), // required
+    });
+}
+
+const CURRENCY_SVG = (
+	<svg
+		viewBox="0 0 1124.14 1256.39"
+		width="1em"
+		height="1em"
+		fill="currentColor"
+		style={{ display: "inline", verticalAlign: "top" }}
+	>
+		<path d="M699.62,1113.02h0c-20.06,44.48-33.32,92.75-38.4,143.37l424.51-90.24c20.06-44.47,33.31-92.75,38.4-143.37l-424.51,90.24Z" />
+		<path d="M1085.73,895.8c20.06-44.47,33.32-92.75,38.4-143.37l-330.68,70.33v-135.2l292.27-62.11c20.06-44.47,33.32-92.75,38.4-143.37l-330.68,70.27V66.13c-50.67,28.45-95.67,66.32-132.25,110.99v403.35l-132.25,28.11V0c-50.67,28.44-95.67,66.32-132.25,110.99v525.69l-295.91,62.88c-20.06,44.47-33.33,92.75-38.42,143.37l334.33-71.05v170.26l-358.3,76.14c-20.06,44.47-33.32,92.75-38.4,143.37l375.04-79.7c30.53-6.35,56.77-24.4,73.83-49.24l68.78-101.97v-.02c7.14-10.55,11.3-23.27,11.3-36.97v-149.98l132.25-28.11v270.4l424.53-90.28Z" />
+	</svg>
+);
+
+export default function PersonalInfoStep({ initialLang = "en" }) {
+	const lang = initialLang === "ar" ? "ar" : "en";
+	const t = messages[lang];
+	const router = useRouter();
+	const [ready, setReady] = useState(false);
+
+	const form = useForm({
+		resolver: zodResolver(schemaFor(lang)),
+		defaultValues: { people: 1, name: "", email: "", phone: "", whatsapp: "" },
+		mode: "onSubmit",
+	});
+
+	// Guard: ensure selection from step 1 exists, or redirect back.
+	useEffect(() => {
+		if (typeof window === "undefined") return;
+		const raw = localStorage.getItem(STORAGE_KEY);
+		if (!raw) {
+			router.replace("/book-tour");
+			return;
+		}
+		try {
+			const parsed = JSON.parse(raw);
+			// Optionally prefill from previous info if present
+			if (parsed?.info) {
+				form.reset(parsed.info);
+			}
+		} catch {}
+		setReady(true);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
+	const onSubmit = (values) => {
+		// merge into existing storage
+		if (typeof window !== "undefined") {
+			const prev = localStorage.getItem(STORAGE_KEY);
+			let payload = {};
+			try {
+				payload = prev ? JSON.parse(prev) : {};
+			} catch {}
+			const next = { ...payload, info: values };
+			localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
+		}
+		// For now, just stay or you can navigate to /book-tour-pt3 later
+		// router.push("/book-tour-pt3");
+	};
+
+	if (!ready) return null;
+
+	const colBase = "p-4 md:p-6";
+
+	// Calculation logic
+	const people = form.watch("people") || 1;
+	const base = 100 * people;
+	const tax = Math.round(base * 0.15);
+	const totalSar = (base + tax).toFixed(2);
+	const totalUsd = (totalSar / 3.75).toFixed(2);
+
+	const priceBox = (
+		<div className="w-full flex justify-center my-4 md:col-span-3">
+			<div className="w-full max-w-md border-2 border-[var(--main-color,#14532d)] rounded-xl bg-white shadow p-4">
+				<div className="flex flex-col gap-2">
+					<div className="flex justify-between items-center">
+						<span className="text-gray-700 font-medium">{t.subtotal}</span>
+						<span className="text-gray-900">{base}</span>
+					</div>
+					<div className="flex justify-between items-center">
+						<span className="text-gray-700 font-medium">
+							{t.tax}
+							<span className="inline-block ms-2 bg-gray-200 text-[12px] px-2 py-0.5 rounded-full font-bold text-green-800">
+								{t.taxValue}
+							</span>
+						</span>
+						<span className="text-gray-900">{tax}</span>
+					</div>
+					<div className="flex justify-between items-center">
+						<span className="text-gray-700 font-medium">{t.totalDollar}</span>
+						<span className="text-gray-900">{totalUsd}$</span>
+					</div>
+					<hr />
+					<div className="flex justify-between items-center font-bold text-lg">
+						<span>{t.total}</span>
+						<span className="flex items-center gap-1">
+							{totalSar}
+							<span className="text-[1.2em] ms-1">{CURRENCY_SVG}</span>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	);
+
+	return (
+		<div>
+			<h3 className="bg-[var(--sec-color)] text-xl text-center text-white mb-6 py-2">
+				{t.discount}
+			</h3>
+			<section className="container mx-auto px-6 md:px-20 my-12">
+				<h2 className="text-2xl md:text-3xl font-extrabold text-center hidden md:block mb-6">
+					{t.title}
+				</h2>
+
+				<Form {...form}>
+					<form
+						onSubmit={form.handleSubmit(onSubmit)}
+						className={cn("grid grid-cols-1 gap-4", "md:grid-cols-3")}
+					>
+						{/* column: Steps column (both first two active) */}
+						<StepsTimelineInfo t={t} className="" />
+
+						{/* column: Inputs */}
+						<div className={cn(colBase, "md:border-x md:border-dotted")}>
+							<div className="grid gap-4">
+								<FormField
+									control={form.control}
+									name="name"
+									render={({ field }) => (
+										<FormItem>
+											<FormLabel>{t.name}</FormLabel>
+											<FormControl>
+												<Input
+													placeholder={t.placeholders.name}
+													className="h-12 shadow-md"
+													{...field}
+												/>
+											</FormControl>
+											<FormMessage />
+										</FormItem>
+									)}
+								/>
+
+								<FormField
+									control={form.control}
+									name="email"
+									render={({ field }) => (
+										<FormItem>
+											<FormLabel>{t.email}</FormLabel>
+											<FormControl>
+												<Input
+													placeholder={t.placeholders.email}
+													className="h-12 shadow-md ltr"
+													{...field}
+												/>
+											</FormControl>
+											<FormMessage />
+										</FormItem>
+									)}
+								/>
+
+								<FormField
+									control={form.control}
+									name="phone"
+									render={({ field }) => (
+										<FormItem>
+											<FormLabel>{t.phone}</FormLabel>
+											<FormControl>
+												<Input
+													placeholder={t.placeholders.phone}
+													className="h-12 shadow-md ltr"
+													{...field}
+												/>
+											</FormControl>
+											<FormMessage />
+										</FormItem>
+									)}
+								/>
+
+								<FormField
+									control={form.control}
+									name="whatsapp"
+									render={({ field }) => (
+										<FormItem>
+											<FormLabel>{t.whatsapp}</FormLabel>
+											<FormControl>
+												<Input
+													placeholder={t.placeholders.whatsapp}
+													className="h-12 shadow-md ltr"
+													{...field}
+												/>
+											</FormControl>
+											<FormMessage />
+										</FormItem>
+									)}
+								/>
+							</div>
+						</div>
+
+						{/* column: People count */}
+						<div className={cn(colBase)}>
+							<FormField
+								control={form.control}
+								name="people"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel className="mb-2">{t.peopleCount}</FormLabel>
+										<FormControl>
+											<Input
+												type="number"
+												min={1}
+												max={20}
+												step={1}
+												{...field}
+												className="h-12 shadow-md text-center"
+											/>
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+						</div>
+
+						{/* Price Calculation Result */}
+						{priceBox}
+
+						{/* Actions */}
+						<div className="md:col-span-3 flex items-center justify-center mt-4">
+							<Button
+								type="submit"
+								className="min-w-40 bg-[var(--main-color,#14532d)] hover:bg-[var(--sec-color,#86efac)] hover:text-black"
+							>
+								{t.next}
+							</Button>
+						</div>
+					</form>
+				</Form>
+			</section>
+		</div>
+	);
+}

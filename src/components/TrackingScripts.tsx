@@ -12,6 +12,10 @@ const SCRIPT_PATHS = [
 	"/gallary",
 	"/makkah-mzar",
 	"/path",
+	"/tour",
+	"/tour-bus",
+	"/madinah",
+	"/haram",
 ];
 
 export default function TrackingScripts() {
