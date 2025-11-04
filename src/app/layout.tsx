@@ -14,6 +14,7 @@ import Script from "next/script";
 import { headers, cookies } from "next/headers";
 import TrackingScripts from "@/components/TrackingScripts";
 import DeferredCssLinks from "@/components/DeferredCssLinks"; // ADD
+import ScrollToTopOnPageChange from "@/components/ScrollToTopOnPageChange";
 
 export async function generateMetadata(): Promise<Metadata> {
 	const acceptLang = headers().get("accept-language");
@@ -116,8 +117,8 @@ export default function RootLayout({
 					}}
 				/>
 			</Head>
-		
 			<body className="w-full" suppressHydrationWarning={true}>
+				<ScrollToTopOnPageChange />
 				<noscript>
 					<iframe
 						src="https://www.googletagmanager.com/ns.html?id=GTM-WS294KJ"
@@ -129,7 +130,7 @@ export default function RootLayout({
 				<Header />
 				<Toaster position="top-center" />
 				<TrackingScripts />
-				<DeferredCssLinks /> {/* Load heavy CSS non‑blocking */}
+				<DeferredCssLinks />
 				{children}
 				<Suspense fallback={null}>
 					<LazyFooter />
