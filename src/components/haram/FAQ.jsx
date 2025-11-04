@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 
 export default function FAQ({ initialLang = "en" }) {
-	const [openIndex, setOpenIndex] = useState(1); // open the 2nd item by default (to match the screenshot)
+	const [openIndex, setOpenIndex] = useState(1); // open the 2nd item by default
 	const isAr = initialLang === "ar";
 
 	const items = [
@@ -12,8 +12,8 @@ export default function FAQ({ initialLang = "en" }) {
 				? "هل الجولة تشمل دخول الحرم من الداخل؟"
 				: "Does the tour include entry inside the Haram?",
 			a: isAr
-				? "لا يشمل الدخول إلى داخل الحرم. الجولة هي خارجية حول المعالم المحيطة."
-				: "Entry inside the Haram is not included. The tour is around nearby landmarks.",
+				? "الجولة داخل نطاق المسجد الحرام وتشمل المحطات التاريخية المعتمدة رسميًا."
+				: "The tour is within the boundaries of Masjid Al-Haram and includes officially recognized historical stations.",
 		},
 		{
 			q: isAr ? "هل يمكن الحجز للعائلات؟" : "Can families book the tour?",
@@ -26,16 +26,16 @@ export default function FAQ({ initialLang = "en" }) {
 				? "هل الخدمة متوفرة بلغات أخرى؟"
 				: "Is the service available in other languages?",
 			a: isAr
-				? "نعم، نوفر دليلاً صوتياً بعدة لغات مدعومة داخل التطبيق."
-				: "Yes, the in‑app audio guide supports multiple languages.",
+				? "نعم، تتوفر بست لغات عبر المرشد الصوتي والتطبيق."
+				: "Yes, it is available in six languages via the audio guide and the app.",
 		},
 		{
 			q: isAr
 				? "كيف أستلم شهادة الزيارة؟"
 				: "How do I receive the visit certificate?",
 			a: isAr
-				? "ستصلك الشهادة رقميًا بعد انتهاء الجولة، ويمكنك تنزيلها من التطبيق."
-				: "You’ll receive a digital certificate after the tour and can download it in the app.",
+				? "تصلك الشهادة الرقمية مباشرة بعد انتهاء الجولة عبر تطبيق مزار."
+				: "You will receive the digital certificate directly after the tour via the Mzar app.",
 		},
 	];
 
@@ -69,27 +69,29 @@ export default function FAQ({ initialLang = "en" }) {
 							>
 								{/* Icon (plus / x) */}
 								<span
-									className={`w-6 h-6 flex items-center justify-center text-[#6B6B7B] ${
-										isAr ? "order-1" : "order-1"
-									}`}
+									className={`w-6 h-6 flex items-center justify-center text-[#6B6B7B] order-1`}
 									aria-hidden="true"
 								>
 									{isOpen ? "×" : "+"}
 								</span>
 
 								<div>
-                  {/* Number */}
-									<span className={`text-sm md:text-base font-semibold ${
-										isOpen ? "text-[#B89C73]" : "text-[#6B6B7B]"}  tabular-nums`}>
+									{/* Number */}
+									<span
+										className={`text-sm md:text-base font-semibold ${
+											isOpen ? "text-[#B89C73]" : "text-[#6B6B7B]"
+										}  tabular-nums`}
+									>
 										{String(idx + 1).padStart(2, "0")}
 									</span>
 									{/* Question */}
-									<span className={`flex-1 ${
-										isOpen ? "text-[#B89C73]" : "text-[#141414]"}  text-base md:text-lg font-medium text-center ms-2`}>
+									<span
+										className={`flex-1 ${
+											isOpen ? "text-[#B89C73]" : "text-[#141414]"
+										}  text-base md:text-lg font-medium text-center ms-2`}
+									>
 										{item.q}
 									</span>
-
-									
 								</div>
 							</button>
 
