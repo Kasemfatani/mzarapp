@@ -1,10 +1,9 @@
 import { cookies, headers } from "next/headers";
 import Hero from "@/components/tour/Hero";
 import WhatTour from "@/components/tour/WhatTour";
-import TourStory from "@/components/tour/TourStory";
-import DownloadAppSection from "@/components/tour/DownloadAppSection";
-import TopTextSection from "@/components/tour/TopTextSection";
-import Testimonials from "@/components/tour/Testimonials";
+import LazyTourSections from "@/components/tour/LazyTourSections";
+import LazyTestimonials from "@/components/tour/LazyTestimonials";
+
 
 export const revalidate = 300;
 
@@ -18,11 +17,9 @@ export default function TourPage() {
 		<div className={lang === "en" ? "ltr" : "rtl"}>
 			<Hero initialLang={lang} />
 			<WhatTour initialLang={lang} />
-			<TourStory initialLang={lang} />
-			<DownloadAppSection initialLang={lang} />
-			<TopTextSection initialLang={lang} />
+			<LazyTourSections initialLang={lang} />
 			<br /> <br />
-			<Testimonials lang={lang} />
+			<LazyTestimonials initialLang={lang} />
 		</div>
 	);
 }
