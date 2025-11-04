@@ -17,6 +17,9 @@ import {
 import { cn } from "@/lib/utils";
 import StepsTimelineInfo from "./StepsTimelineInfo";
 import { useRouter } from "next/navigation";
+import { PhoneInput } from "react-international-phone";
+import "react-international-phone/style.css";
+import { parsePhoneNumberFromString } from "libphonenumber-js";
 
 const STORAGE_KEY = "bookTour.selection";
 
@@ -87,15 +90,15 @@ const messages = {
 	},
 };
 
-function schemaFor(lang) {
-    const t = messages[lang];
-    return z.object({
-        people: z.coerce.number().int().min(1).max(20).default(1),
-        name: z.string().min(1, t.requiredName).max(100),
-        email: z.string().email(t.invalidEmail).min(1, t.invalidEmail), // required
-        phone: z.string().optional().or(z.literal("")), // optional
-        whatsapp: z.string().min(1, t.requiredPhone), // required
-    });
+function schemaFor(lang, max_people_count) {
+	const t = messages[lang];
+	return z.object({
+		people: z.coerce.number().int().min(1).max(max_people_count).default(1),
+		name: z.string().min(1, t.requiredName).max(100),
+		email: z.string().email(t.invalidEmail).min(1, t.invalidEmail), // required
+		phone: z.string().optional().or(z.literal("")), // optional
+		whatsapp: z.string().min(1, t.requiredPhone), // required
+	});
 }
 
 const CURRENCY_SVG = (
@@ -111,46 +114,45 @@ const CURRENCY_SVG = (
 	</svg>
 );
 
-export default function PersonalInfoStep({ initialLang = "en" }) {
+export default function PersonalInfoStep({
+	initialLang = "en",
+	max_people_count = 20,
+	tax_amount = 0.15,
+	start_price = 20,
+}) {
 	const lang = initialLang === "ar" ? "ar" : "en";
 	const t = messages[lang];
 	const router = useRouter();
-	const [ready, setReady] = useState(false);
+	const [ready, setReady] = useState(true);
 
 	const form = useForm({
-		resolver: zodResolver(schemaFor(lang)),
+		resolver: zodResolver(schemaFor(lang, max_people_count)),
 		defaultValues: { people: 1, name: "", email: "", phone: "", whatsapp: "" },
 		mode: "onSubmit",
 	});
 
-	// Guard: ensure selection from step 1 exists, or redirect back.
-	useEffect(() => {
-		if (typeof window === "undefined") return;
-		const raw = localStorage.getItem(STORAGE_KEY);
-		if (!raw) {
-			router.replace("/book-tour");
-			return;
-		}
-		try {
-			const parsed = JSON.parse(raw);
-			// Optionally prefill from previous info if present
-			if (parsed?.info) {
-				form.reset(parsed.info);
-			}
-		} catch {}
-		setReady(true);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
-
 	const onSubmit = (values) => {
-		// merge into existing storage
+		// Parse phone and whatsapp
+		const phoneParsed = parsePhoneNumberFromString(values.phone || "");
+		const whatsappParsed = parsePhoneNumberFromString(values.whatsapp || "");
+		const info = {
+			...values,
+			phone: phoneParsed ? phoneParsed.nationalNumber : values.phone,
+			phone_country_code: phoneParsed ? phoneParsed.countryCallingCode : "",
+			whatsapp: whatsappParsed
+				? whatsappParsed.nationalNumber
+				: values.whatsapp,
+			whatsapp_country_code: whatsappParsed
+				? whatsappParsed.countryCallingCode
+				: "",
+		};
 		if (typeof window !== "undefined") {
 			const prev = localStorage.getItem(STORAGE_KEY);
 			let payload = {};
 			try {
 				payload = prev ? JSON.parse(prev) : {};
 			} catch {}
-			const next = { ...payload, info: values };
+			const next = { ...payload, info };
 			localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
 		}
 		// For now, just stay or you can navigate to /book-tour-pt3 later
@@ -163,8 +165,8 @@ export default function PersonalInfoStep({ initialLang = "en" }) {
 
 	// Calculation logic
 	const people = form.watch("people") || 1;
-	const base = 100 * people;
-	const tax = Math.round(base * 0.15);
+	const base = start_price * people;
+	const tax = base * tax_amount;
 	const totalSar = (base + tax).toFixed(2);
 	const totalUsd = (totalSar / 3.75).toFixed(2);
 
@@ -192,7 +194,7 @@ export default function PersonalInfoStep({ initialLang = "en" }) {
 					<hr />
 					<div className="flex justify-between items-center font-bold text-lg">
 						<span>{t.total}</span>
-						<span className="flex items-center gap-1">
+						<span className="flex items-center gap-1 rtl">
 							{totalSar}
 							<span className="text-[1.2em] ms-1">{CURRENCY_SVG}</span>
 						</span>
@@ -207,7 +209,7 @@ export default function PersonalInfoStep({ initialLang = "en" }) {
 			<h3 className="bg-[var(--sec-color)] text-xl text-center text-white mb-6 py-2">
 				{t.discount}
 			</h3>
-			<section className="container mx-auto px-6 md:px-20 my-12">
+			<section id="PersonalInfoStep" className="container mx-auto px-6 md:px-20 my-12">
 				<h2 className="text-2xl md:text-3xl font-extrabold text-center hidden md:block mb-6">
 					{t.title}
 				</h2>
@@ -265,12 +267,16 @@ export default function PersonalInfoStep({ initialLang = "en" }) {
 									render={({ field }) => (
 										<FormItem>
 											<FormLabel>{t.phone}</FormLabel>
-											<FormControl>
-												<Input
-													placeholder={t.placeholders.phone}
-													className="h-12 shadow-md ltr"
-													{...field}
-												/>
+											<FormControl className="w-full">
+												<div style={{ direction: "ltr" }}>
+													<PhoneInput
+														defaultCountry="sa"
+														value={field.value}
+														onChange={field.onChange}
+														className=""
+														forceDialCode={true}
+													/>
+												</div>
 											</FormControl>
 											<FormMessage />
 										</FormItem>
@@ -284,11 +290,15 @@ export default function PersonalInfoStep({ initialLang = "en" }) {
 										<FormItem>
 											<FormLabel>{t.whatsapp}</FormLabel>
 											<FormControl>
-												<Input
-													placeholder={t.placeholders.whatsapp}
-													className="h-12 shadow-md ltr"
-													{...field}
-												/>
+												<div style={{ direction: "ltr" }}>
+													<PhoneInput
+														defaultCountry="sa"
+														value={field.value}
+														onChange={field.onChange}
+														className="h-full"
+														forceDialCode={true}
+													/>
+												</div>
 											</FormControl>
 											<FormMessage />
 										</FormItem>
@@ -309,7 +319,7 @@ export default function PersonalInfoStep({ initialLang = "en" }) {
 											<Input
 												type="number"
 												min={1}
-												max={20}
+												max={max_people_count}
 												step={1}
 												{...field}
 												className="h-12 shadow-md text-center"
