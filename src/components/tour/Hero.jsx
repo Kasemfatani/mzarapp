@@ -69,7 +69,7 @@ export default function Hero({ initialLang }) {
 
 						<Link
 							href="/madinah"
-							target="_blank"
+							
 							className="inline-block"
 						>
 							<span className="inline-block bg-[var(--main-color)] text-white hover:bg-[var(--sec-color)] hover:text-black px-6 py-3  font-semibold">

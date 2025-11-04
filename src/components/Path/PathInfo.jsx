@@ -275,10 +275,13 @@ export default function PathInfo(props) {
 					<h3 className="text-2xl mb-4 text-center md:text-start">
 						{language === "en" ? "Included" : "تتضمن الرحلة"}
 					</h3>
-					<div className="w-[90%] mx-auto facilities">
+					<div className="md:w-[90%] mx-auto facilities">
 						<div
-							className=" flex md:flex-wrap flex-col md:flex-row justify-center md:justify-around items-center gap-4 md:gap-0
-						"
+							className="
+    grid grid-cols-2 md:flex md:flex-wrap
+    justify-center md:justify-around items-center
+    gap-4 md:gap-0 w-[90%] md:w-auto mx-auto md:mx-0
+  "
 						>
 							{data.services.map((facility, index) => (
 								<div className="facility-cont" key={index}>

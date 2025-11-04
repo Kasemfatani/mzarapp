@@ -1,14 +1,10 @@
 import { cookies, headers } from "next/headers";
 import Hero from "@/components/haram/Hero";
-// import WhatTour from "@/components/haram/WhatTour";
 import TourStory from "@/components/haram/TourStory";
-import AboutTour from "@/components/haram/AboutTour";
-import Stations from "@/components/haram/Stations";
-import AppFeatures from "@/components/haram/AppFeatures";
-import PreviewSection from "@/components/haram/PreviewSection";
-import DownloadAppSection from "@/components/haram/DownloadAppSection";
-import Testimonials from "@/components/haram/Testimonials";
-import FAQ from "@/components/haram/FAQ"; 
+import LazyHaramSections from "@/components/haram/LazyHaramSections";
+import LazyPreviewSection from "@/components/haram/LazyPreviewSection";
+import LazyTestimonials from "@/components/haram/LazyTestimonials";
+
 export const revalidate = 300;
 
 export default function TourPage() {
@@ -21,19 +17,9 @@ export default function TourPage() {
 		<div className={lang === "en" ? "ltr" : "rtl"}>
 			<Hero initialLang={lang} />
 			<TourStory initialLang={lang} />
-			<AboutTour initialLang={lang} />
-			<Stations initialLang={lang} />
-			<AppFeatures initialLang={lang} />
-			<PreviewSection initialLang={lang} />
-			<DownloadAppSection initialLang={lang} />
-			<Testimonials lang={lang} />
-			<FAQ initialLang={lang} /> 
-			{/* <WhatTour initialLang={lang} />
-			<TourStory initialLang={lang} />
-			<DownloadAppSection initialLang={lang} />
-			<TopTextSection initialLang={lang} />
-			<br /> <br />
-			*/}
+			<LazyHaramSections initialLang={lang} />
+			<LazyPreviewSection initialLang={lang} />
+			<LazyTestimonials initialLang={lang} />
 		</div>
 	);
 }

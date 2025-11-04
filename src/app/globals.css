@@ -213,6 +213,28 @@ a {
   padding: 0 15px !important;
 }
 
+/*  PersonalInfoStep  in book-tour  */
+
+#PersonalInfoStep .react-international-phone-input-container {
+  height: 3rem !important;
+}
+
+#PersonalInfoStep .react-international-phone-country-selector-button {
+  height: 100% !important;
+}
+
+#PersonalInfoStep .react-international-phone-input {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/*  PersonalInfoStep  in book-tour  */
+
+
+.destinations-swiper .swiper-wrapper {
+  padding-bottom: 1.25rem ;
+}
+
 
 .customInput {
   @apply shadow-none border-2 px-3 py-10 text-xl placeholder:text-slate-400 outline-primaryColor ring-offset-0 focus:border-none ring-0 !important;

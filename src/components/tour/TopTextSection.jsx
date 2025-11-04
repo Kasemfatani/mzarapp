@@ -71,7 +71,7 @@ export default function TopTextSection({ initialLang }) {
 				</p> */}
 
 				{/* Two cards */}
-				<div className="flex flex-col md:flex-row gap-6 justify-center items-stretch max-w-4xl mx-auto">
+				<div className="flex flex-col md:flex-row gap-24 md:gap-6 justify-center items-stretch max-w-4xl mx-auto">
 					{cards.map((card, idx) => (
 						<div
 							key={idx}
@@ -79,7 +79,7 @@ export default function TopTextSection({ initialLang }) {
 							style={{ minWidth: 0 }}
 						>
 							
-							<div className="bg-[#8B7B5A]/90 text-white text-center px-6 py-6 flex flex-col items-center -mb-32 rounded-3xl">
+							<div className="bg-[#8B7B5A]/90 text-white text-center px-6 py-6 flex flex-col items-center -mb-16 md:-mb-32 rounded-3xl">
 								<h3 className="text-xl md:text-2xl font-bold mb-2">
 									{card.title}
 								</h3>
