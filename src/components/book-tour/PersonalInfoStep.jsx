@@ -20,6 +20,7 @@ import { useRouter } from "next/navigation";
 import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
+import { toast } from "sonner";
 
 const STORAGE_KEY = "bookTour.selection";
 
@@ -44,6 +45,7 @@ const messages = {
 			whatsapp: "966 506552589",
 		},
 		next: "Next",
+		pay: "Pay",
 		back: "Back",
 		missingSelection: "Selection missing. Redirecting…",
 		saved: "Saved your info.",
@@ -74,6 +76,7 @@ const messages = {
 			whatsapp: "966 506552589",
 		},
 		next: "التالي",
+		pay: "الدفع",
 		back: "العودة",
 		missingSelection: "لا توجد بيانات من الخطوة الأولى. سيتم إعادتك…",
 		saved: "تم حفظ معلوماتك.",
@@ -124,6 +127,7 @@ export default function PersonalInfoStep({
 	const t = messages[lang];
 	const router = useRouter();
 	const [ready, setReady] = useState(true);
+	const [isLoading, setIsLoading] = useState(false); // Add loading state
 
 	const form = useForm({
 		resolver: zodResolver(schemaFor(lang, max_people_count)),
@@ -131,7 +135,8 @@ export default function PersonalInfoStep({
 		mode: "onSubmit",
 	});
 
-	const onSubmit = (values) => {
+	const onSubmit = async (values) => {
+		setIsLoading(true); // Start loading
 		// Parse phone and whatsapp
 		const phoneParsed = parsePhoneNumberFromString(values.phone || "");
 		const whatsappParsed = parsePhoneNumberFromString(values.whatsapp || "");
@@ -146,6 +151,8 @@ export default function PersonalInfoStep({
 				? whatsappParsed.countryCallingCode
 				: "",
 		};
+
+		// Save to localStorage under bookTour.selection
 		if (typeof window !== "undefined") {
 			const prev = localStorage.getItem(STORAGE_KEY);
 			let payload = {};
@@ -154,9 +161,39 @@ export default function PersonalInfoStep({
 			} catch {}
 			const next = { ...payload, info };
 			localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
+			
 		}
-		// For now, just stay or you can navigate to /book-tour-pt3 later
-		// router.push("/book-tour-pt3");
+
+		// Compute total amount in SAR (same as UI box)
+		const peopleCount = Number(info.people || 1);
+		const base = start_price * peopleCount;
+		const tax = base * tax_amount;
+		const totalSar = Number((base + tax).toFixed(2));
+
+		try {
+			// Init URWAY payment
+			const res = await fetch("/api/pay/urway/init", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({
+					amount: totalSar,
+					lang,
+					flow: "bus",
+					successPath: "/book-tour-success",
+					failPath: "/book-tour",
+				}),
+			});
+			const json = await res.json();
+			if (!res.ok || !json?.paymentUrl) {
+				throw new Error(json?.error || "Failed to start payment");
+			}
+			window.location.href = json.paymentUrl;
+			// No need to setIsLoading(false) here, as navigation will occur
+		} catch (e) {
+			console.error("URWAY init error", e);
+			toast.error(lang === "ar" ? "فشل بدء الدفع" : "Failed to start payment");
+			setIsLoading(false); // Stop loading on error
+		}
 	};
 
 	if (!ready) return null;
@@ -209,7 +246,10 @@ export default function PersonalInfoStep({
 			<h3 className="bg-[var(--sec-color)] text-xl text-center text-white mb-6 py-2">
 				{t.discount}
 			</h3>
-			<section id="PersonalInfoStep" className="container mx-auto px-6 md:px-20 my-12">
+			<section
+				id="PersonalInfoStep"
+				className="container mx-auto px-6 md:px-20 my-12"
+			>
 				<h2 className="text-2xl md:text-3xl font-extrabold text-center hidden md:block mb-6">
 					{t.title}
 				</h2>
@@ -339,8 +379,16 @@ export default function PersonalInfoStep({
 							<Button
 								type="submit"
 								className="min-w-40 bg-[var(--main-color,#14532d)] hover:bg-[var(--sec-color,#86efac)] hover:text-black"
+								disabled={isLoading}
 							>
-								{t.next}
+								{isLoading ? (
+									<span className="flex items-center gap-2">
+										
+										{lang === "ar" ? "جاري التحميل..." : "Loading..."}
+									</span>
+								) : (
+									t.pay
+								)}
 							</Button>
 						</div>
 					</form>
