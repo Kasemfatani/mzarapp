@@ -200,7 +200,7 @@ export default function SuccessSummary({ initialLang = "en" }) {
 					)}
 				>
 					<a
-						href="/book-tour/ticket"
+						href="#"
 						target="_blank"
 						rel="noopener noreferrer"
 						className="inline-flex items-center justify-center h-12 px-6 rounded-lg text-white bg-[var(--main-color,#14532d)] hover:bg-[var(--sec-color,#86efac)] hover:text-black transition-colors"
