@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination } from "swiper/modules";
+import { Pagination , Autoplay  } from "swiper/modules";
 import "swiper/css";
 import img1 from "/public/bg.webp";
 import Link from "next/link";
@@ -215,10 +215,12 @@ export default function Testimonials({ lang = "en" }) {
 				{/* Slider */}
 				<div style={{ direction: "ltr" }}>
 					<Swiper
-						modules={[Pagination]}
+						modules={[Pagination , Autoplay]}
 						onSwiper={(s) => (swiperRef.current = s)}
 						spaceBetween={24}
 						slidesPerView={2.5}
+						loop={true}
+						autoplay={{ delay: 3500, disableOnInteraction: false }}
 						breakpoints={{
 							1280: { slidesPerView: 2.5, spaceBetween: 24 },
 							1024: { slidesPerView: 2, spaceBetween: 20 },
@@ -298,7 +300,7 @@ export default function Testimonials({ lang = "en" }) {
 						</p>
 
 						<Link
-							href="/book"
+							href="#"
 							className="book-link text-lg md:text-xl max-w-xs w-full"
 							style={{ fontWeight: 700 }}
 						>
