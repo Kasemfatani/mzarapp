@@ -6,8 +6,19 @@ import Link from "next/link";
 
 export default function DownloadAppSection({ initialLang }) {
 	const [language, setLanguage] = useState(initialLang || "en");
+	const [gclid, setGclid] = useState("");
+
+	useEffect(() => {
+		if (typeof window !== "undefined") {
+			const stored = localStorage.getItem("gclid") || "";
+			setGclid(stored);
+		}
+	}, []);
 
 	const isAr = language === "ar";
+	const whatsappText = isAr
+		? `أريد حجز جولة. ${gclid ? ` رمز الخصم (${gclid})` : ""}`
+		: `I want to book a tour. ${gclid ? ` Discount code (${gclid})` : ""}`;
 
 	return (
 		<section className="relative w-full min-h-[420px] flex items-center bg-[var(--main-bg)]   mb-10">
@@ -53,7 +64,7 @@ export default function DownloadAppSection({ initialLang }) {
 						{/* WhatsApp CTA next to download buttons */}
 						<a
 							href={`https://wa.me/+966580121025?text=${encodeURIComponent(
-								isAr ? "أريد حجز جولة" : "I want to book a tour"
+								whatsappText
 							)}`}
 							target="_blank"
 							rel="noopener noreferrer"

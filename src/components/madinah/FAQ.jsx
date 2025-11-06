@@ -3,39 +3,41 @@
 import React, { useState } from "react";
 
 export default function FAQ({ initialLang = "en" }) {
-	const [openIndex, setOpenIndex] = useState(1); // open the 2nd item by default (to match the screenshot)
+	const [openIndex, setOpenIndex] = useState(1); // open the 2nd item by default
 	const isAr = initialLang === "ar";
 
 	const items = [
 		{
 			q: isAr
-				? "هل الجولة تشمل دخول الحرم من الداخل؟"
-				: "Does the tour include entry inside the Haram?",
+				? "هل تشمل الجولة الدخول إلى الروضة الشريفة؟"
+				: "Does the tour include entry to Al-Rawdah Al-Sharifah?",
 			a: isAr
-				? "لا يشمل الدخول إلى داخل الحرم. الجولة هي خارجية حول المعالم المحيطة."
-				: "Entry inside the Haram is not included. The tour is around nearby landmarks.",
-		},
-		{
-			q: isAr ? "هل يمكن الحجز للعائلات؟" : "Can families book the tour?",
-			a: isAr
-				? "نعم، الجولة متاحة للعائلات والمجموعات الصغيرة."
-				: "Yes, the tour is available for families and small groups.",
+				? "الجولة تمر بالمناطق المجاورة للروضة وفق التنظيم الرسمي، وتشرح معالمها بالتفصيل."
+				: "The tour passes by the areas adjacent to Al-Rawdah according to official regulations, and explains its landmarks in detail.",
 		},
 		{
 			q: isAr
-				? "هل الخدمة متوفرة بلغات أخرى؟"
-				: "Is the service available in other languages?",
+				? "هل يمكن الحجز لمجموعة خاصة؟"
+				: "Can I book for a private group?",
 			a: isAr
-				? "نعم، نوفر دليلاً صوتياً بعدة لغات مدعومة داخل التطبيق."
-				: "Yes, the in‑app audio guide supports multiple languages.",
+				? "نعم، يمكن حجز جولة VIP لمجموعة أو وفد محدد."
+				: "Yes, you can book a VIP tour for a specific group or delegation.",
 		},
 		{
 			q: isAr
-				? "كيف أستلم شهادة الزيارة؟"
-				: "How do I receive the visit certificate?",
+				? "هل تتوفر ترجمة فورية أثناء الجولة؟"
+				: "Is live translation available during the tour?",
 			a: isAr
-				? "ستصلك الشهادة رقميًا بعد انتهاء الجولة، ويمكنك تنزيلها من التطبيق."
-				: "You’ll receive a digital certificate after the tour and can download it in the app.",
+				? "نعم، عبر الترجمة الفورية في التطبيق بعدة لغات."
+				: "Yes, via live translation in the app in multiple languages.",
+		},
+		{
+			q: isAr
+				? "هل الجولة مناسبة لكبار السن؟"
+				: "Is the tour suitable for seniors?",
+			a: isAr
+				? "نعم، جميع المسارات مهيأة للكراسي المتحركة، مع تنظيم مريح للحركة."
+				: "Yes, all routes are wheelchair accessible, with comfortable movement arrangements.",
 		},
 	];
 
@@ -69,34 +71,36 @@ export default function FAQ({ initialLang = "en" }) {
 							>
 								{/* Icon (plus / x) */}
 								<span
-									className={`w-6 h-6 flex items-center justify-center text-[#6B6B7B] ${
-										isAr ? "order-1" : "order-1"
-									}`}
+									className={`w-6 h-6 flex items-center justify-center text-[#6B6B7B] order-1`}
 									aria-hidden="true"
 								>
 									{isOpen ? "×" : "+"}
 								</span>
 
 								<div>
-                  {/* Number */}
-									<span className={`text-sm md:text-base font-semibold ${
-										isOpen ? "text-[#B89C73]" : "text-[#6B6B7B]"}  tabular-nums`}>
+									{/* Number */}
+									<span
+										className={`text-sm md:text-base font-semibold ${
+											isOpen ? "text-[#B89C73]" : "text-[#6B6B7B]"
+										}  tabular-nums`}
+									>
 										{String(idx + 1).padStart(2, "0")}
 									</span>
 									{/* Question */}
-									<span className={`flex-1 ${
-										isOpen ? "text-[#B89C73]" : "text-[#141414]"}  text-base md:text-lg font-medium text-center ms-2`}>
+									<span
+										className={`flex-1 ${
+											isOpen ? "text-[#B89C73]" : "text-[#141414]"
+										}  text-base md:text-lg font-medium text-center ms-2`}
+									>
 										{item.q}
 									</span>
-
-									
 								</div>
 							</button>
 
 							{/* Answer */}
 							{isOpen && (
 								<div className="px-5 md:px-6 pb-6 -mt-2">
-									<p className="text-[#6F6C90] text-sm md:text-base leading-7 text-start">
+									<p className="text-[var(--main-color)] text-sm md:text-base leading-7 text-start">
 										{item.a}
 									</p>
 								</div>

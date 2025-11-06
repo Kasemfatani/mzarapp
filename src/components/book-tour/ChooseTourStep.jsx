@@ -78,6 +78,7 @@ export default function ChooseTourStep({
 	initialLang = "en",
 	times = [],
 	gatheringPoints = [],
+	busId,
 	onSaved,
 }) {
 	const lang = initialLang === "ar" ? "ar" : "en";
@@ -119,6 +120,7 @@ export default function ChooseTourStep({
 				time: values.time,
 				meetingPoint: values.meetingPoint,
 				lang,
+				bus_id: busId
 			};
 			localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
 		}

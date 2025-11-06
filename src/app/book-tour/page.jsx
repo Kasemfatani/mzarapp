@@ -6,8 +6,9 @@ import ChooseTourStep from "@/components/book-tour/ChooseTourStep";
 import PersonalInfoStep from "@/components/book-tour/PersonalInfoStep";
 import Loading from "@/app/loading";
 import { API_BASE_URL } from "@/lib/apiConfig";
+import { toast } from "sonner"; // ADD
 
-export default function TourPage() {
+export default function BookTourPage() {
 	const [lang, setLang] = useState(null);
 	const [step, setStep] = useState(1);
 
@@ -40,7 +41,7 @@ export default function TourPage() {
 				const json = await res.json();
 
 				if (active) setBusData(json);
-				console.log("Fetched bus booking data:", json);
+				// console.log("Fetched bus booking data:", json);
 			} catch (err) {
 				console.error("Error fetching bus booking data:", err);
 				if (active) setBusData(null);
@@ -54,6 +55,23 @@ export default function TourPage() {
 		};
 	}, [lang]);
 
+	// Show toast if payment failed
+	useEffect(() => {
+		function getQueryParams() {
+			if (typeof window !== "undefined") {
+				const params = new URLSearchParams(window.location.search);
+				if (params.get("status") === "failed") {
+					toast.error(
+						lang === "ar"
+							? "فشلت عملية الدفع. يرجى المحاولة مرة أخرى."
+							: "Payment failed. Please try again."
+					);
+				}
+			}
+		}
+		if (lang) getQueryParams();
+	}, [lang]);
+
 	if (loading) return <Loading />;
 
 	return (
@@ -62,18 +80,20 @@ export default function TourPage() {
 			{step === 1 && busData && (
 				<ChooseTourStep
 					initialLang={lang}
-					// Will wire these in the step component next
 					times={busData.times}
 					gatheringPoints={busData.gathering_points}
+					busId={busData.id}
 					onSaved={() => setStep(2)}
 				/>
 			)}
-			{step === 2 && <PersonalInfoStep 
-			initialLang={lang} 
-			max_people_count={busData.max_people_count}
-			tax_amount={busData.tax}
-			start_price={busData.start_price}
-			/>}
+			{step === 2 && (
+				<PersonalInfoStep
+					initialLang={lang}
+					max_people_count={busData.max_people_count}
+					tax_amount={busData.tax}
+					start_price={busData.start_price}
+				/>
+			)}
 		</div>
 	);
 }

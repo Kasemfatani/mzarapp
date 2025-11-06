@@ -8,6 +8,8 @@ import ComparisonTable from "@/components/tour-bus/ComparisonTable";
 import Testimonials from "@/components/tour-bus/Testimonials";
 import FAQ from "@/components/tour-bus/FAQ"; 
 import Confirmed from "@/components/tour-bus/Confirmed";
+import LazyTopBusSections from "@/components/tour-bus/LazyTopBusSections";
+import LazyBottomBusSections from "@/components/tour-bus/LazyBottomBusSections";
 
 export const revalidate = 300;
 
@@ -21,13 +23,8 @@ export default function TourPage() {
 		<div className={lang === "en" ? "ltr" : "rtl"}>
 			<Hero initialLang={lang} />
 			<WhatTour initialLang={lang} />
-			<BusStops initialLang={lang} />
-			<PackagePrice initialLang={lang} />
-			<StepsSection initialLang={lang} />
-			<ComparisonTable initialLang={lang} />
-			<Testimonials lang={lang} />
-			<FAQ initialLang={lang} />
-			< Confirmed />
+			<LazyTopBusSections initialLang={lang} />
+			<LazyBottomBusSections initialLang={lang} />
 		</div>
 	);
 }
