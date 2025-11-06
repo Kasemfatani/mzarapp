@@ -96,7 +96,7 @@ export default function FAQ({ initialLang = "en" }) {
 							{/* Answer */}
 							{isOpen && (
 								<div className="px-5 md:px-6 pb-6 -mt-2">
-									<p className="text-[#6F6C90] text-sm md:text-base leading-7 text-start">
+									<p className="text-[var(--main-color)] text-sm md:text-base leading-7 text-start">
 										{item.a}
 									</p>
 								</div>

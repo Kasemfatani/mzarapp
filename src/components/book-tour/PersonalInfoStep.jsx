@@ -100,7 +100,7 @@ function schemaFor(lang, max_people_count) {
 		name: z.string().min(1, t.requiredName).max(100),
 		email: z.string().email(t.invalidEmail).min(1, t.invalidEmail), // required
 		phone: z.string().optional().or(z.literal("")), // optional
-		whatsapp: z.string().min(1, t.requiredPhone), // required
+		whatsapp: z.string().min(7, t.requiredPhone), // required
 	});
 }
 
