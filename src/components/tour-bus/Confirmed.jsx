@@ -120,7 +120,7 @@ export default function Parteners() {
 						</p>
 
 						<Link
-							href="#"
+							href="/book-tour"
 							className="book-link text-lg md:text-xl max-w-xs w-full"
 							style={{ fontWeight: 700 }}
 						>

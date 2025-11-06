@@ -84,7 +84,7 @@ export default function PackagePrice({ initialLang = "en" }) {
 								</ul>
 							</div>
 							{/* Button */}
-							<Link href="#" target="_blank" className="inline-block">
+							<Link href="https://onelink.to/yb2xky" target="_blank" className="inline-block">
 								<span className="inline-block bg-[var(--main-color)] text-white text-center hover:bg-[var(--sec-color)] hover:text-black w-full py-3 font-semibold rounded-lg">
 									{isAr
 										? "احجز جولتك الآن عبر تطبيق مزار"

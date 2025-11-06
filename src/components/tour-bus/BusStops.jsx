@@ -190,8 +190,8 @@ export default function BusStops({ initialLang = "en" }) {
 
 				<div className="flex justify-center mt-6">
 					<Link
-						href="#"
-						target="_blank"
+						href="/book-tour"
+						
 						className="inline-block"
 					>
 						<span className="inline-block bg-[var(--main-color)] text-white hover:bg-[var(--sec-color)] hover:text-black px-20 py-3 font-semibold rounded-lg">
