@@ -29,11 +29,12 @@ export default function StepsTimelineInfo({ t, className }) {
 
 			{/* Step 2: Personal Info - active too */}
 			<div className="flex flex-col items-center">
-				<div className="text-[13px] font-semibold text-[var(--main-color,#14532d)]">
-					{t.steps.info}
-				</div>
+				
 				<div className="mt-2 h-9 w-9 rounded-full border-2 border-[var(--main-color,#14532d)] text-[var(--main-color,#14532d)] grid place-items-center">
 					<UserRound className="h-5 w-5" />
+				</div>
+				<div className="text-[13px] font-semibold text-[var(--main-color,#14532d)]">
+					{t.steps.info}
 				</div>
 			</div>
 

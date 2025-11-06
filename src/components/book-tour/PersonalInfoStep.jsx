@@ -137,16 +137,24 @@ export default function PersonalInfoStep({
 
 	const onSubmit = async (values) => {
 		setIsLoading(true); // Start loading
+
 		// Parse phone and whatsapp
 		const phoneParsed = parsePhoneNumberFromString(values.phone || "");
 		const whatsappParsed = parsePhoneNumberFromString(values.whatsapp || "");
+
+		// Remove leading zero if present
+		const stripLeadingZero = (num) =>
+			num && num.startsWith("0") ? num.replace(/^0+/, "") : num;
+
 		const info = {
 			...values,
-			phone: phoneParsed ? phoneParsed.nationalNumber : values.phone,
+			phone: phoneParsed
+				? stripLeadingZero(phoneParsed.nationalNumber)
+				: stripLeadingZero(values.phone),
 			phone_country_code: phoneParsed ? phoneParsed.countryCallingCode : "",
 			whatsapp: whatsappParsed
-				? whatsappParsed.nationalNumber
-				: values.whatsapp,
+				? stripLeadingZero(whatsappParsed.nationalNumber)
+				: stripLeadingZero(values.whatsapp),
 			whatsapp_country_code: whatsappParsed
 				? whatsappParsed.countryCallingCode
 				: "",
@@ -161,7 +169,6 @@ export default function PersonalInfoStep({
 			} catch {}
 			const next = { ...payload, info };
 			localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
-			
 		}
 
 		// Compute total amount in SAR (same as UI box)
@@ -383,7 +390,6 @@ export default function PersonalInfoStep({
 							>
 								{isLoading ? (
 									<span className="flex items-center gap-2">
-										
 										{lang === "ar" ? "جاري التحميل..." : "Loading..."}
 									</span>
 								) : (

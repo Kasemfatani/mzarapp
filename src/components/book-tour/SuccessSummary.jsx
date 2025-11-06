@@ -112,6 +112,9 @@ export default function SuccessSummary({ initialLang = "en" }) {
 			}
 			setSelection(sel || null);
 
+			// Clear localStorage to prevent resubmission on refresh
+			// localStorage.removeItem(STORAGE_KEY);
+
 			if (
 				!sel ||
 				!sel.date ||
@@ -174,14 +177,14 @@ export default function SuccessSummary({ initialLang = "en" }) {
 				setFinalizeError(true);
 				setSubmitting(false);
 				// Optional gentle toast confirming payment and guiding next step
-				toast.success(
-					lang === "ar" ? "تم الدفع بنجاح" : "Payment successful"
-				);
-				toast.warning(
-					lang === "ar"
-						? "حدثت مشكلة أثناء إتمام الحجز. يُرجى التواصل مع الدعم."
-						: "We couldn’t finalize your booking. Please contact support."
-				);
+				// toast.success(
+				// 	lang === "ar" ? "تم الدفع بنجاح" : "Payment successful"
+				// );
+				// toast.warning(
+				// 	lang === "ar"
+				// 		? "حدثت مشكلة أثناء إتمام الحجز. يُرجى التواصل مع الدعم."
+				// 		: "We couldn’t finalize your booking. Please contact support."
+				// );
 			}
 		})();
 	}, [lang]);
@@ -243,7 +246,7 @@ export default function SuccessSummary({ initialLang = "en" }) {
 						{bookingNo ? (
 							<div className="text-muted-foreground mb-4 text-lg">
 								<span className="font-semibold">{t.bookingNo}</span>{" "}
-								<span className="font-mono">#{bookingNo}</span>
+								<span className="font-mono">{bookingNo}</span>
 							</div>
 						) : null}
 						<p className="max-w-2xl text-gray-700 mb-8">
