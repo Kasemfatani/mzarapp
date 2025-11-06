@@ -87,11 +87,11 @@ export default function PathInfo(props) {
 	} else if (data.id == 73) {
 		title =
 			language === "ar"
-				? "خطوة الهجرة الأولى، قصة قباء"
-				: "From Migration to Foundation : The Story of Quba";
+				? "اكتشف قصة قباء : امشِ حيث مشى النبي ﷺ"
+				: " Discover The Story of Quba : Walk Where the Prophet ﷺ Walked";
 	}
 	const titleClass =
-		"text-5xl font-bold" +
+		"text-4xl font-bold" +
 		(data.id == 45 || data.id == 73 ? " md:w-[80%]" : "");
 
 	return (
@@ -123,7 +123,7 @@ export default function PathInfo(props) {
 							</div>
 						) : null}
 					</div>
-					<div className="free-auth border-t md:border-0 pt-4 md:pt-0">
+					<div className="free-auth border-t md:border-0 pt-4 md:pt-0 md:w-[40%]">
 						<Link
 							href="https://book.nusuk.sa/sa-ar/organizer/shrk-mz-r-laol-llsfr-o-lsy-h"
 							className="auth"
