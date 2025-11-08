@@ -230,6 +230,13 @@ a {
 
 /*  PersonalInfoStep  in book-tour  */
 
+#hero-hotel .center-nav {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 50px;
+  border-top-right-radius: 0; 
+  border-bottom-right-radius: 50px;
+}
+
 
 .destinations-swiper .swiper-wrapper {
   padding-bottom: 1.25rem ;

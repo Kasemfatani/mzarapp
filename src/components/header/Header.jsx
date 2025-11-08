@@ -19,7 +19,7 @@ export default function Header() {
 	if (
 		pathname === "/saad-alqurashi" ||
 		pathname === "/saad-new" ||
-		pathname === "/raslania"
+		pathname === "/raslania" 
 	) {
 		return null;
 	}
