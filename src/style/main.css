@@ -2130,7 +2130,7 @@ footer .footer-cont .social {
   color: var(--second-bg);
   width: -moz-fit-content;
   width: fit-content;
-  margin: auto;
+  /* margin: auto; */
 }
 .btn-offer-cont .uper-header-counter-cont .nokteten {
   font-size: 32px;

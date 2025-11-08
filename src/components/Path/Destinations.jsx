@@ -25,7 +25,7 @@ export default function Destinations({ data, lang }) {
 			? { title: "الوجهات", prev: "السابق", next: "التالي" }
 			: { title: "Destinations", prev: "Prev", next: "Next" };
 
-			// console.log('short_audio ', data.short_audio.ar);
+	console.log("data is", data.id);
 
 	return (
 		<div className="destinations container m-auto">
@@ -75,9 +75,20 @@ export default function Destinations({ data, lang }) {
 			>
 				{destinations.map((item) => (
 					<SwiperSlide key={item.id}>
-						<article className="rounded-[20px] bg-white shadow-2xl overflow-hidden h-[410px] flex flex-col">
+						<article
+							className={`rounded-[20px] overflow-hidden h-[410px] flex flex-col shadow-2xl ${
+								data.id === 45 && (item.id === 15 || item.id === 13)
+									? "bg-[var(--sec-color)] border-2 border-[#EAD7A1]"
+									: "bg-white"
+							}`}
+						>
 							{/* Image */}
 							<div className="relative h-48 w-full">
+								{data.id === 45 && (item.id === 15 || item.id === 13) && (
+									<div className={language === "ar" ? "ribbon-rtl" : "ribbon"}>
+										<span>{language === "ar" ? "خاص" : "SPECIAL"}</span>
+									</div>
+								)}
 								<Image
 									src={item.cover}
 									alt={`${data.name} image`}
@@ -95,7 +106,6 @@ export default function Destinations({ data, lang }) {
 								<p className="text-sm text-gray-600 leading-6 line-clamp-5">
 									{item.short_description}
 								</p>
-								{/* Spacer to keep buttons aligned if needed */}
 								<div className="mt-auto" />
 							</div>
 						</article>
@@ -229,7 +239,10 @@ export default function Destinations({ data, lang }) {
 							className="w-full h-full block"
 							src="https://www.youtube.com/embed/dMZO88og9Is"
 							title="Mzar - Emotional journey"
-							frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen=""
+							frameborder="0"
+							allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+							referrerpolicy="strict-origin-when-cross-origin"
+							allowfullscreen=""
 						/>
 					</div>
 				</div>

@@ -14,17 +14,20 @@ export default function PathOffer({
 		originalPrice && !isNaN(originalPrice)
 			? Number(originalPrice)
 			: Number(startingPrice) * 1.25; // fallback: 25% more
+		
+	const isAr = language === "ar";
 
 	return (
 		<section className="py-4 bg-[var(--main-bg)]">
-			<h2 className="text-2xl mb-4 text-center ">
+			<h2 className="text-2xl mb-2 text-center ">
 				{language === "en" ? "Get 20% Off" : "احصل على خصم 20٪"}
 			</h2>
-			<div className="flex flex-col md:flex-row gap-2 md:gap-0">
-				<div className="flex-1 btn-offer-cont md:border-e md:border-e-black">
+			<div className="flex flex-col  gap-4 w-[90%] mx-auto">
+				<div className=" btn-offer-cont flex justify-center items-center">
+					<p>{language === "en" ? "Ends within" : "ينتهي خلال"}</p>
 					<Offer language={language} />
 				</div>
-				<div className="flex-1 border-t md:border-t-0 pt-2 md:pt-0 flex flex-col items-center justify-center">
+				<div className="border-t md:border-b  py-2  flex flex-col items-center justify-center">
 					<div className="flex flex-col">
 						<p className="mb-1 text-sm text-black font-semibold">
 							{language === "en" ? "From" : "من"}
@@ -46,10 +49,35 @@ export default function PathOffer({
 								: "لكل مجموعة حتى 4 شخص"}
 						</p>
 					</div>
-
-					
 				</div>
 			</div>
+
+			{/* NEW: Icons row above CTA */}
+			<div className="w-full flex flex-col md:flex-row items-start md:items-center justify-center gap-3 md:gap-8 mt-3 px-6">
+				<div className="flex items-center gap-2">
+					<img src="/path/checked.png" alt="Checked" />
+					<span className="text-sm md:text-base font-medium text-[var(--main-color)]">
+						{isAr ? "تأكيد فوري للحجز" : "Instant booking confirmation"}
+					</span>
+				</div>
+
+				<div className="flex items-center gap-2">
+					<img src="/path/hand.png" alt="hand" />
+					<span className="text-sm md:text-base font-medium text-[var(--main-color)]">
+						{isAr ? "استرجاع مالي سهل" : "Easy refunds"}
+					</span>
+				</div>
+
+				<div className="flex items-center gap-2">
+					<img src="/path/wrong.png" alt="wrong" />
+					<span className="text-sm md:text-base font-medium text-[var(--main-color)]">
+						{isAr
+							? "إلغاء مجاني"
+							: "Free cancellation up to 24 hours in advance"}
+					</span>
+				</div>
+			</div>
+
 			{/* Booking link at the bottom center */}
 			<div className="w-full flex justify-center mt-6">
 				{whatsappText ? (
@@ -70,7 +98,7 @@ export default function PathOffer({
 					</a>
 				) : (
 					<Link href={`/book-path?id=${pathId}`} className="book-link">
-						{language === "en" ? "Book Now" : "احجز الآن"}
+						{language === "en" ? "Book now and get 20% discount" : "احجز الآن واحصل على خصم 20٪"}
 					</Link>
 				)}
 			</div>
