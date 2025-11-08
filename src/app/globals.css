@@ -354,6 +354,31 @@ a {
   border-top: 3px solid #a79360;
 }
 
+/* Make ribbon bigger on small screens */
+@media (max-width: 640px) {
+  .ribbon,
+  .ribbon-rtl {
+    width: 100px;
+    height: 100px;
+  }
+  .ribbon span,
+  .ribbon-rtl span {
+    font-size: 16px;
+    line-height: 28px;
+    width: 140px;
+    top: 32px;
+    /* Adjust left/right for bigger size */
+    left: -32px;
+    right: -32px;
+  }
+  .ribbon span {
+    left: -32px;
+  }
+  .ribbon-rtl span {
+    right: -32px;
+  }
+}
+
 /*  end ribbon RTL */
 
 .customInput {
