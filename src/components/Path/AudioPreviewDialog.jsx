@@ -8,7 +8,7 @@ import {
 	DialogClose,
 } from "@/components/ui/dialog";
 
-export default function AudioPreviewDialog({ language = "en" , audio  }) {
+export default function AudioPreviewDialog({ language = "en" , audio = {} }) {
 	const [open, setOpen] = useState(false);
 	const LANGS = useMemo(
 		() => [

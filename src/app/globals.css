@@ -230,11 +230,156 @@ a {
 
 /*  PersonalInfoStep  in book-tour  */
 
+#hero-hotel .center-nav {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 50px;
+  border-top-right-radius: 0; 
+  border-bottom-right-radius: 50px;
+}
+
 
 .destinations-swiper .swiper-wrapper {
   padding-bottom: 1.25rem ;
 }
 
+/*  ribbon  */
+
+.ribbon {
+  position: absolute;
+  left: -5px;
+  top: -5px;
+  z-index: 10;
+  overflow: hidden;
+  width: 75px;
+  height: 75px;
+  text-align: right;
+}
+
+.ribbon span {
+  font-size: 10px;
+  font-weight: bold;
+  color: #fff;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 20px;
+  transform: rotate(-45deg);
+  width: 100px;
+  display: block;
+  background: #EAD7A1;
+  background: linear-gradient(#EAD7A1 0%, #d4bc87 100%);
+  box-shadow: 0 3px 10px -5px rgba(0, 0, 0, 1);
+  position: absolute;
+  top: 19px;
+  left: -21px;
+}
+
+.ribbon span::before {
+  content: "";
+  position: absolute;
+  left: 0px;
+  top: 100%;
+  z-index: -1;
+  border-left: 3px solid #a79360;
+  border-right: 3px solid transparent;
+  border-bottom: 3px solid transparent;
+  border-top: 3px solid #a79360;
+}
+
+.ribbon span::after {
+  content: "";
+  position: absolute;
+  right: 0px;
+  top: 100%;
+  z-index: -1;
+  border-left: 3px solid transparent;
+  border-right: 3px solid #a79360;
+  border-bottom: 3px solid transparent;
+  border-top: 3px solid #a79360;
+}
+
+/*  ribbon  */
+
+/*  ribbon RTL for Arabic */
+.ribbon-rtl {
+  position: absolute;
+  right: -5px;
+  left: auto;
+  top: -5px;
+  z-index: 10;
+  overflow: hidden;
+  width: 75px;
+  height: 75px;
+  text-align: left;
+}
+
+.ribbon-rtl span {
+  font-size: 10px;
+  font-weight: bold;
+  color: #fff;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 20px;
+  transform: rotate(45deg);
+  width: 100px;
+  display: block;
+  background: #EAD7A1;
+  background: linear-gradient(#EAD7A1 0%, #d4bc87 100%);
+  box-shadow: 0 3px 10px -5px rgba(0, 0, 0, 1);
+  position: absolute;
+  top: 19px;
+  right: -21px;
+}
+
+.ribbon-rtl span::before {
+  content: "";
+  position: absolute;
+  right: 0px;
+  top: 100%;
+  z-index: -1;
+  border-right: 3px solid #a79360;
+  border-left: 3px solid transparent;
+  border-bottom: 3px solid transparent;
+  border-top: 3px solid #a79360;
+}
+
+.ribbon-rtl span::after {
+  content: "";
+  position: absolute;
+  left: 0px;
+  top: 100%;
+  z-index: -1;
+  border-right: 3px solid transparent;
+  border-left: 3px solid #a79360;
+  border-bottom: 3px solid transparent;
+  border-top: 3px solid #a79360;
+}
+
+/* Make ribbon bigger on small screens */
+@media (max-width: 640px) {
+  .ribbon,
+  .ribbon-rtl {
+    width: 100px;
+    height: 100px;
+  }
+  .ribbon span,
+  .ribbon-rtl span {
+    font-size: 16px;
+    line-height: 28px;
+    width: 140px;
+    top: 32px;
+    /* Adjust left/right for bigger size */
+    left: -32px;
+    right: -32px;
+  }
+  .ribbon span {
+    left: -32px;
+  }
+  .ribbon-rtl span {
+    right: -32px;
+  }
+}
+
+/*  end ribbon RTL */
 
 .customInput {
   @apply shadow-none border-2 px-3 py-10 text-xl placeholder:text-slate-400 outline-primaryColor ring-offset-0 focus:border-none ring-0 !important;

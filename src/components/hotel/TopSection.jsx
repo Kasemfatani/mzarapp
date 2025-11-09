@@ -6,12 +6,11 @@ import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import "swiper/css";
-import Why from "@/components/home/Why";
 import AudioPreviewDialog from "@/components/Path/AudioPreviewDialog";
 
-export default function Destinations({ data, lang }) {
+export default function TopSection({ data, lang }) {
 	const [language, setLanguage] = useState(lang || "en");
-	const swiperRef = useRef(null);
+	
 
 	useEffect(() => {
 		if (typeof window !== "undefined") {
@@ -19,100 +18,52 @@ export default function Destinations({ data, lang }) {
 		}
 	}, [lang]);
 
-	const destinations = data.locations || [];
-	const t =
-		language === "ar"
-			? { title: "الوجهات", prev: "السابق", next: "التالي" }
-			: { title: "Destinations", prev: "Prev", next: "Next" };
+	
+	
 
-	console.log("data is", data.id);
+			// console.log('short_audio ', data.short_audio.ar);
 
 	return (
-		<div className="destinations container m-auto">
-			{/* Header: title left, nav right */}
-			<div
-				className="flex items-center justify-between gap-4 mb-2"
-				style={{ direction: language === "ar" ? "rtl" : "ltr" }}
-			>
-				<h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#333]">
-					{t.title}
-				</h2>
-				<div className="flex items-center gap-3">
-					<button
-						type="button"
-						aria-label={t.prev}
-						onClick={() => swiperRef.current?.slidePrev()}
-						className="w-16 md:w-10 h-10 rounded-full border border-gray-300 text-gray-700 flex items-center justify-center hover:bg-gray-100"
-					>
-						{language === "ar" ? "‹" : "‹"}
-					</button>
-					<button
-						type="button"
-						aria-label={t.next}
-						onClick={() => swiperRef.current?.slideNext()}
-						className="w-16 md:w-10 h-10 rounded-full border border-gray-300 text-gray-700 flex items-center justify-center hover:bg-gray-100"
-					>
-						{language === "ar" ? "›" : "›"}
-					</button>
+		<div className="container m-auto ">
+			
+			
+		
+			{/* Video section - YouTube embed */}
+			<section className=" my-12">
+				{/* <h2
+					className="text-2xl md:text-3xl font-bold text-center mb-6"
+					style={{ direction: language === "ar" ? "rtl" : "ltr" }}
+				>
+					{language === "ar"
+						? "كيفية تحسين تجربتك مع مزار"
+						: "How to enhance your experience with Mzar"}
+				</h2> */}
+
+				<div className="w-full max-w-5xl mx-auto rounded-2xl overflow-hidden shadow-lg">
+					<div className="w-full aspect-video bg-black">
+						{/* responsive youtube iframe */}
+						<iframe
+							className="w-full h-full block"
+							src="https://www.youtube.com/embed/dMZO88og9Is"
+							title="Mzar - Emotional journey"
+							frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen=""
+						/>
+					</div>
 				</div>
-			</div>
 
-			{/* Slider */}
-			<Swiper
-				modules={[Pagination]}
-				onSwiper={(s) => (swiperRef.current = s)}
-				slidesPerView={4}
-				spaceBetween={18}
-				loop={false}
-				breakpoints={{
-					1280: { slidesPerView: 4, spaceBetween: 18 },
-					1024: { slidesPerView: 3, spaceBetween: 20 },
-					768: { slidesPerView: 2, spaceBetween: 16 },
-					0: { slidesPerView: 1, spaceBetween: 12 },
-				}}
-				className="destinations-swiper"
-				style={{ direction: language === "ar" ? "rtl" : "ltr" }}
-			>
-				{destinations.map((item) => (
-					<SwiperSlide key={item.id}>
-						<article
-							className={`rounded-[20px] overflow-hidden h-[410px] flex flex-col shadow-2xl ${
-								data.id === 45 && (item.id === 15 || item.id === 13)
-									? "bg-[var(--sec-color)] border-2 border-[#EAD7A1]"
-									: "bg-white"
-							}`}
-						>
-							{/* Image */}
-							<div className="relative h-48 w-full">
-								{data.id === 45 && (item.id === 15 || item.id === 13) && (
-									<div className={language === "ar" ? "ribbon-rtl" : "ribbon"}>
-										<span>{language === "ar" ? "خاص" : "SPECIAL"}</span>
-									</div>
-								)}
-								<Image
-									src={item.cover}
-									alt={`${data.name} image`}
-									fill
-									className="object-cover"
-									sizes="(max-width: 1280px) 50vw, 25vw"
-								/>
-							</div>
-
-							{/* Text */}
-							<div className="p-5 flex flex-col gap-2 flex-1">
-								<h3 className="text-lg md:text-xl font-semibold text-[#141414]">
-									{item.name}
-								</h3>
-								<p className="text-sm text-gray-600 leading-6 line-clamp-5">
-									{item.short_description}
-								</p>
-								<div className="mt-auto" />
-							</div>
-						</article>
-					</SwiperSlide>
-				))}
-			</Swiper>
-
+				{/* <div className="flex justify-center mt-6">
+					<Link
+						href="https://onelink.to/yb2xky"
+						target="_blank"
+						rel="noopener noreferrer"
+						className="book-link text-lg md:text-xl max-w-xs w-full text-center"
+						style={{ fontWeight: 700 }}
+					>
+						{language === "ar" ? "تحميل تطبيق مزار" : "Download Mzar App"}
+					</Link>
+				</div> */}
+			</section>
+			
 			{/* New banner  */}
 			<div
 				className="ready-cont relative overflow-hidden rounded-[30px]"
@@ -214,51 +165,10 @@ export default function Destinations({ data, lang }) {
 					{/* listen button at bottom center */}
 					<div className="w-full flex justify-center mt-6">
 						{/* Replaced Link with dialog trigger */}
-						<AudioPreviewDialog language={language} audio={data.short_audio} />
+						<AudioPreviewDialog language={language}  />
 					</div>
 				</div>
 			</div>
-			<br />
-			<Why />
-
-			{/* Video section - YouTube embed */}
-			<section className="container m-auto my-12">
-				<h2
-					className="text-2xl md:text-3xl font-bold text-center mb-6"
-					style={{ direction: language === "ar" ? "rtl" : "ltr" }}
-				>
-					{language === "ar"
-						? "كيفية تحسين تجربتك مع مزار"
-						: "How to enhance your experience with Mzar"}
-				</h2>
-
-				<div className="w-full max-w-5xl mx-auto rounded-2xl overflow-hidden shadow-lg">
-					<div className="w-full aspect-video bg-black">
-						{/* responsive youtube iframe */}
-						<iframe
-							className="w-full h-full block"
-							src="https://www.youtube.com/embed/dMZO88og9Is"
-							title="Mzar - Emotional journey"
-							frameborder="0"
-							allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-							referrerpolicy="strict-origin-when-cross-origin"
-							allowfullscreen=""
-						/>
-					</div>
-				</div>
-
-				<div className="flex justify-center mt-6">
-					<Link
-						href="https://onelink.to/yb2xky"
-						target="_blank"
-						rel="noopener noreferrer"
-						className="book-link text-lg md:text-xl max-w-xs w-full text-center"
-						style={{ fontWeight: 700 }}
-					>
-						{language === "ar" ? "تحميل تطبيق مزار" : "Download Mzar App"}
-					</Link>
-				</div>
-			</section>
 		</div>
 	);
 }
