@@ -7,10 +7,10 @@ const featuresAr = [
 	"تجربة الواقع المعزز: افتح كاميرتك ووجّهها نحو المعلم لتكتشف قصة كل موقع من خلال تقنية الواقع المعزز.",
 ];
 const featuresEn = [
-	"Audio Guide: Listen to authentic stories with our audio guide available in 6 different languages.",
-	"Destination Verification: When you arrive, the audio guide starts automatically to confirm you’re in the right place.",
-	"Unique Filters: Capture your memories with our special filters showing the destination name and visit date.",
-	"AR Experience: Open your camera and point it at the landmark to discover each site's story with AR technology.",
+	"Audio Guide: Listen to authentic stories through the audio tour guide in 6 different languages.",
+	"Arrival verification at the exact destination: When you arrive at the destination, the audio guide starts instantly, confirming you’re exactly where you should be.",
+	"Our Filters: Capture memories with our unique filters that contain the name of the destination and the date of visit.",
+	"Augmented Reality experience: Unlock each site’s story through Augmented Reality by opening your camera and pointing at the landmark.",
 ];
 
 export default function WhyMzarSection({ lang = "ar" }) {
@@ -65,13 +65,17 @@ export default function WhyMzarSection({ lang = "ar" }) {
 						<div className="bg-[#e5ddcb] text-[#7a6a4d] rounded-lg px-4 py-2 text-sm md:text-base font-semibold w-fit mx-auto text-center">
 							{isAr
 								? "مزار.. وجهتك الأولى لاكتشاف الحكاية خلف كل معلم."
-								: "Mzar... Your first destination to discover the story behind every landmark."}
+								: "Mzar... your first destination to discover the story behind every landmark."}
 						</div>
 						<a
-							href="#"
+							href="https://wa.me/+966580121025"
+							target="_blank"
+							rel="noopener noreferrer"
 							className="bg-[#3a6c5a] hover:bg-[#29513f] text-white text-center rounded-xl px-6 py-2 text-base font-bold transition w-full"
 						>
-							{isAr ? "للمزيد تواصل معنا الآن" : "Contact us now for more"}
+							{isAr
+								? "للمزيد تواصل معنا الآن"
+								: "For more details, contact us now "}
 						</a>
 					</div>
 				</div>

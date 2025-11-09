@@ -25,10 +25,10 @@ export default function HiraSection({ lang = "ar" }) {
 
           {/* Texts + buttons side */}
 					<div className=" flex flex-col items-start gap-3 sm:gap-4">
-						<h3 className="font-bold leading-snug text-white text-[13px] xs:text-[20px] sm:text-[28px] md:text-[36px] lg:text-[44px] drop-shadow">
+						<h3 className="font-bold leading-snug text-white text-[13px] xs:text-[20px] sm:text-[28px] md:text-[36px] lg:text-[44px] drop-shadow md:w-[80%]">
 							{isAr
 								? "استكشف غار حراء بكل أريحية مع خدمة الصعود بالسيارة إلى قمة جبل النور"
-								: "Explore Hira Cave with ease using the car service to the top of Jabal Al-Noor"}
+								: "Explore Hira Cave comfortably via our vehicle-access service to the top of Jabal Al-Noor"}
 						</h3>
 						<DownloadButtons language={lang} />
 					</div>

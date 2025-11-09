@@ -29,8 +29,16 @@ export default function Hero({ initialLang }) {
 
 	const t = {
 		nav: isAr
-			? ["الرئيسية", "خدمات", "لماذا مزار؟"]
-			: ["Home", "Services", "Why Mzar?"],
+			? [
+					{ label: "الرئيسية", href: "/" },
+					{ label: "خدمات", href: "/#services" },
+					{ label: "لماذا مزار؟", href: "/#why" },
+			  ]
+			: [
+					{ label: "Home", href: "/" },
+					{ label: "Services", href: "/#services" },
+					{ label: "Why Mzar?", href: "/#why" },
+			  ],
 		getApp: isAr ? "احصل على التطبيق" : "Get the App",
 		giftHead: isAr ? "احصل على هديتك الحصرية!" : "Get your exclusive gift!",
 		giftSub: isAr
@@ -123,14 +131,13 @@ export default function Hero({ initialLang }) {
 
 						{/* Center: Nav (desktop only) */}
 						<ul className="center-nav pointer-events-auto hidden md:flex justify-center items-center gap-8 text-black  bg-gray-300 w-[50%]">
-							{t.nav.map((label) => (
-								<li key={label}>
+							{t.nav.map((item) => (
+								<li key={item.label}>
 									<Link
-										href="#"
-										onClick={(e) => e.preventDefault()}
+										href={item.href}
 										className="hover:text-[var(--main-color)] transition-colors"
 									>
-										{label}
+										{item.label}
 									</Link>
 								</li>
 							))}
@@ -185,17 +192,14 @@ export default function Hero({ initialLang }) {
 							ref={menuRef}
 							className="md:hidden absolute w-[80%] z-30 mx-4 rounded-2xl bg-white/95 shadow-2xl border border-gray-200 flex flex-col items-stretch gap-2 py-4 px-4 animate-fade-in text-center"
 						>
-							{t.nav.map((label) => (
+							{t.nav.map((item) => (
 								<Link
-									key={label}
-									href="#"
-									onClick={(e) => {
-										e.preventDefault();
-										setMobileMenuOpen(false);
-									}}
+									key={item.label}
+									href={item.href}
+									onClick={() => setMobileMenuOpen(false)}
 									className="py-2 px-3 rounded-lg text-[var(--main-color)] font-semibold text-base hover:bg-gray-100 transition"
 								>
-									{label}
+									{item.label}
 								</Link>
 							))}
 							<hr className="my-2" />
@@ -204,7 +208,6 @@ export default function Hero({ initialLang }) {
 								<Link
 									href="https://onelink.to/yb2xky"
 									onClick={(e) => {
-										
 										setMobileMenuOpen(false);
 									}}
 									target="_blank"
