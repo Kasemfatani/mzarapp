@@ -3,10 +3,12 @@ import Hero from "@/components/hotel/Hero";
 import Trips from "@/components/hotel/Trips";
 import TopSection from "@/components/hotel/TopSection";
 import PartnerSection from "@/components/hotel/PartnerSection";
-// import TourStory from "@/components/haram/TourStory";
-// import LazyHaramSections from "@/components/haram/LazyHaramSections";
-// import LazyPreviewSection from "@/components/haram/LazyPreviewSection";
-// import LazyTestimonials from "@/components/haram/LazyTestimonials";
+import KnowledgeBanner from "@/components/hotel/KnowledgeBanner";
+import WhyMzarSection from "@/components/hotel/WhyMzarSection";
+import HiraSection from "@/components/hotel/HiraSection";
+import HotelFooter from "@/components/hotel/HotelFooter";
+
+
 
 export const revalidate = 300;
 
@@ -22,10 +24,11 @@ export default function HotelPage() {
 			<Trips />
 			<TopSection lang={lang} />
 			<PartnerSection lang={lang} hotelName="HHH" />
-			{/* <TourStory initialLang={lang} />
-			<LazyHaramSections initialLang={lang} />
-			<LazyPreviewSection initialLang={lang} />
-			<LazyTestimonials initialLang={lang} /> */}
+			<KnowledgeBanner lang={lang} />
+			<WhyMzarSection lang={lang} />
+			<HiraSection lang={lang} />
+			<HotelFooter lang={lang} />
+			
 		</div>
 	);
 }

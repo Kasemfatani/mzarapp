@@ -171,7 +171,7 @@ export default function Trips() {
 				<Link
 					href="https://onelink.to/yb2xky"
 					target="_blank"
-					className="inline-flex w-full items-center justify-center rounded-xl bg-[var(--main-color)] text-white py-3 text-sm font-semibold hover:text-gray-300 transition-colors"
+					className="inline-flex w-full items-center justify-center rounded-xl bg-[var(--main-color)] text-white px-2 py-3 text-sm font-semibold hover:text-gray-300 transition-colors"
 					rel="noopener noreferrer"
 				>
 					{L.BusTourButton}
