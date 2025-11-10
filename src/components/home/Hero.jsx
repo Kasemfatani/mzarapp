@@ -136,9 +136,9 @@ export default function Hero() {
 				<Loading />
 			) : (
 				<Swiper
-					modules={[Autoplay, Pagination]}
+					modules={[Autoplay]}
 					autoplay={{ delay: 5000 }}
-					pagination={{ clickable: true }}
+					// pagination={{ clickable: true }}
 					loop
 				>
 					{heroSlides.map((slide, idx) => (
@@ -154,7 +154,7 @@ export default function Hero() {
 							>
 								<div className="relative">
 									<div className=" bg-black/50 overlay">
-										<div className="welcome container m-auto">
+										<div className="welcome container md:m-auto">
 											<div className="hero-text md:w-[60%]">
 												<h1>{slide.h1[language === "ar" ? "ar" : "en"]}</h1>
 												<p className="text-start">
@@ -182,7 +182,7 @@ export default function Hero() {
 										</div>
 										{/* Only show features on the first slide */}
 										{idx === 0 && (
-											<div className="features container m-auto">
+											<div className="features container md:m-auto">
 												{features.map((feature, index) => (
 													<motion.div
 														initial={{ opacity: 0, y: -100 }}
