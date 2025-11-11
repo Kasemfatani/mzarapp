@@ -50,6 +50,10 @@ html[lang="ar"] {
 /* * {
   transition: all 0.3s ease;
 } */
+
+
+
+
 .side-menu {
   transition: all 0.3s ease;
 }
@@ -545,3 +549,70 @@ h1, h2, h3, h4, h5, h6,
 /* :root { --fancybox-viewport-height: 100dvh; }
 .fancybox__container { height: 100dvh !important; }
 .fancybox__slide { backface-visibility: hidden; } */
+
+/* Fancybox mobile viewport fix - prevents content from sitting below viewport */
+:root { 
+  --fancybox-viewport-height: 100dvh; 
+}
+
+.fancybox__container { 
+  height: 100dvh !important;
+  width: 100vw !important;
+  /* Prevent overscroll bounce while modal is open */
+  overscroll-behavior: contain;
+  /* Lock position to prevent jumping */
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+}
+
+.fancybox__viewport {
+  height: 100dvh !important;
+  width: 100vw !important;
+}
+
+.fancybox__track {
+  height: 100dvh !important;
+  width: 100vw !important;
+}
+
+.fancybox__slide { 
+  backface-visibility: hidden;
+  /* Center content properly on all screen sizes */
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  /* Prevent content from moving */
+  overflow: hidden !important;
+}
+
+.fancybox__content {
+  /* Allow transforms for carousel positioning - removed transform: none */
+  position: relative !important;
+  /* Prevent horizontal jitter by locking width */
+  max-width: 100% !important;
+}
+
+/* Ensure images are properly constrained on mobile */
+@media (max-width: 768px) {
+  .fancybox__content {
+    max-height: 85dvh !important;
+    max-width: 90vw !important;
+    margin: 0 auto !important;
+  }
+  
+  .fancybox__image {
+    max-height: 85dvh !important;
+    max-width: 90vw !important;
+    width: auto !important;
+    height: auto !important;
+    object-fit: contain !important;
+    /* Allow transforms for image positioning - removed transform: none */
+  }
+}
+
+/* Prevent the jittery drag behavior while still allowing carousel */
+.fancybox__slide.is-selected .fancybox__content {
+  /* Lock the active slide in place */
+  will-change: auto !important;
+}
