@@ -13,8 +13,8 @@ import img9 from "/public/gallery/9.png";
 import img24 from "/public/gallery/24.webp";
 // import img12 from '/public/gallery/bg.png';
 
-import { Fancybox } from "@fancyapps/ui";
-import "@fancyapps/ui/dist/fancybox/fancybox.css";
+// import { Fancybox } from "@fancyapps/ui";
+// import "@fancyapps/ui/dist/fancybox/fancybox.css";
 import Link from "next/link";
 
 
@@ -33,9 +33,83 @@ export default function Parteners() {
 			setLanguage(localStorage.getItem("lang"));
 		}
 	}, []); // Run this effect whenever the `language` changes
-	Fancybox.bind("[data-fancybox]", {
-		// Your custom options
-	});
+
+	// Bind Fancybox once per mount; cleanup on unmount
+//   useEffect(() => {
+//   Fancybox.bind('[data-fancybox="gall"]', {
+//     hideScrollbar: false,
+//     compact: true,
+//     // Disable ALL drag behaviors to stop jitter
+//     dragToClose: false,
+//     Thumbs: { autoStart: false },
+//     Images: { 
+//       zoom: false,
+//       click: false,
+//       // Disable drag/pan completely
+//       drag: false,
+//       // Fit images properly
+//       fit: "contain",
+//       initialSize: "fit",
+//     },
+//     // Disable all touch gestures that cause movement
+//     touch: {
+//       vertical: false,
+//       momentum: false,
+//     },
+//     // Minimal toolbar
+//     Toolbar: {
+//       display: {
+//         left: [],
+//         middle: [],
+//         right: ["close"],
+//       },
+//     },
+//     // Lock carousel - prevent accidental swipes changing images
+//     Carousel: {
+//       infinite: false,
+//     },
+//   });
+
+//   return () => {
+//     Fancybox.unbind('[data-fancybox="gall"]');
+//     Fancybox.close();
+//   };
+// }, []);
+
+
+useEffect(() => {
+		let unbind;
+		let destroyed = false;
+
+		(async () => {
+			// Ensure CSS is present (pin to v5)
+			const cssHref =
+				"https://cdn.jsdelivr.net/npm/@fancyapps/ui@5/dist/fancybox/fancybox.css";
+			if (!document.querySelector(`link[href="${cssHref}"]`)) {
+				const link = document.createElement("link");
+				link.rel = "stylesheet";
+				link.href = cssHref;
+				link.crossOrigin = "anonymous";
+				document.head.appendChild(link);
+			}
+
+			const { Fancybox } = await import("@fancyapps/ui");
+			if (destroyed) return;
+
+			// Delegated binding
+			unbind = Fancybox.bind("[data-fancybox]", {
+				// options if needed
+			});
+		})();
+
+		return () => {
+			destroyed = true;
+			try {
+				if (unbind) unbind();
+			} catch {}
+		};
+	}, []);
+
 	let imgs = [
 		{ url: img20, category: "photos" },
 		{ url: img24, category: "photos" },
