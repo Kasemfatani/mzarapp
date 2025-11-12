@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 const stationImg = "/haram/station-img.png"; 
-const station1 = "/haram/station-1.webp"; 
+const station1 = "/haram/station-1-new.webp"; 
 const station2 = "/haram/station-2-new.webp";
 const station3 = "/haram/station-3-new.webp";
 const station4 = "/haram/station-4-new.webp";
@@ -147,8 +147,7 @@ export default function Stations({ initialLang }) {
 				{/* Button */}
 				<div className="flex justify-center">
 					<Link
-						href="#"
-						onClick={(e) => e.preventDefault()}
+						href="/book-haram"
 						className="inline-block"
 					>
 						<span className="inline-block bg-[var(--main-color)] text-white hover:bg-[var(--sec-color)] hover:text-black px-16 py-3 font-semibold rounded-lg">
