@@ -5,10 +5,10 @@ import "@fancyapps/ui/dist/fancybox/fancybox.css";
 import { Fancybox } from "@fancyapps/ui";
 
 const images = [
-	"https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80",
-	"https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80",
-	"https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=400&q=80",
-	"https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80",
+	"/haram/preview-1.webp",
+	"/haram/preview-2.webp",
+	"/haram/preview-3.webp",
+	"/haram/preview-4.webp",
 ];
 
 export default function PreviewSection({ initialLang }) {

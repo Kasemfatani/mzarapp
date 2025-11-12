@@ -5,9 +5,9 @@ import Link from "next/link";
 
 const stationImg = "/haram/station-img.png"; 
 const station1 = "/haram/station-1.webp"; 
-const station2 = "/haram/station-2.jpg";
-const station3 = "/haram/station-3.webp";
-const station4 = "/haram/station-4.webp";
+const station2 = "/haram/station-2-new.webp";
+const station3 = "/haram/station-3-new.webp";
+const station4 = "/haram/station-4-new.webp";
 
 const stationsData = {
 	ar: [
