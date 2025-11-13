@@ -8,7 +8,7 @@ import { API_BASE_URL_NEW } from "@/lib/apiConfig";
 import { toast } from "sonner";
 // import DownloadButtons from "./DownloadButtons"
 
-const STORAGE_KEY = "haramTour.selection";
+const STORAGE_KEY = "madinahTour.selection";
 
 const messages = {
 	en: {
@@ -99,7 +99,7 @@ export default function SuccessSummary({ initialLang = "en" }) {
 					lang === "ar" ? "فشلت عملية الدفع" : "Payment was not successful"
 				);
 				// Keep behavior: go back to booking if payment didn't succeed
-				window.location.replace("/book-haram");
+				window.location.replace("/book-madinah");
 				return;
 			}
 
@@ -312,6 +312,7 @@ export default function SuccessSummary({ initialLang = "en" }) {
 						</div>
 
 						{/* Show trip_id, customer_id, process_id */}
+
 						<div className="flex flex-col gap-2 mb-4">
 							{selection.trip_id ? (
 								<div>

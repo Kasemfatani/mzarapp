@@ -42,8 +42,8 @@ export default function HeroTop({ initialLang }) {
 						{/* Heading */}
 						<h1 className="text-3xl md:text-5xl text-center font-bold !leading-tight ">
 							{isAr
-								? "الجولات الإثرائية – جولة المسجد الحرام"
-								: "Enriching Tours – Masjid Haram Tour"}
+								? "الجولات الإثرائية – جولة المسجد النبوي"
+								: "Enriching Tours – Masjid An-Nabawi Tour"}
 						</h1>
 						
 						

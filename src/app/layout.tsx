@@ -1,4 +1,4 @@
-import Head from "next/head";
+// import Head from "next/head";
 import type { Metadata } from "next";
 import React, { Suspense } from "react";
 import "./globals.css";
@@ -9,8 +9,8 @@ import LazyFooter from "@/components/home/LazyFooter";
 //import "@fortawesome/fontawesome-free/css/all.min.css";
 import "../style/main.css";
 import { Toaster } from "@/components/ui/sonner";
-import { GoogleTagManager } from "@next/third-parties/google";
-import Script from "next/script";
+// import { GoogleTagManager } from "@next/third-parties/google";
+// import Script from "next/script";
 import { headers, cookies } from "next/headers";
 import TrackingScripts from "@/components/TrackingScripts";
 import DeferredCssLinks from "@/components/DeferredCssLinks"; // ADD
@@ -81,8 +81,8 @@ export default function RootLayout({
 	const lang = langCookie === "ar" ? "ar" : "en";
 
 	return (
-		<html lang={lang} id="root">
-			<Head>
+		<html lang={lang} id="root" suppressHydrationWarning={true}>
+			<head>
 				{/* Google Fonts */}
 				{/* Remove Google Fonts preconnects (no longer needed) */}
 				{/* <link rel="preconnect" href="https://fonts.googleapis.com" /> */}
@@ -116,7 +116,7 @@ export default function RootLayout({
 						}),
 					}}
 				/>
-			</Head>
+			</head>
 			<body className="w-full" suppressHydrationWarning={true}>
 				<ScrollToTopOnPageChange />
 				<noscript>

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-import heroBg from "/public/book-tour/hero_2.webp";
+import heroBg from "/public/book-tour/hero-bg.webp";
 
 export default function HeroTop({ initialLang }) {
 	const [language, setLanguage] = useState(initialLang || "en");
