@@ -8,10 +8,10 @@ const ComparisonTable = dynamic(() => import("./ComparisonTable"), {
 	ssr: false,
 	loading: () => <Loading />,
 });
-// const Testimonials = dynamic(() => import("./Testimonials"), {
-// 	ssr: false,
-// 	loading: () => <Loading />,
-// });
+const Testimonials = dynamic(() => import("./Testimonials"), {
+	ssr: false,
+	loading: () => <Loading />,
+});
 const FAQ = dynamic(() => import("./FAQ"), {
 	ssr: false,
 	loading: () => <Loading />,
@@ -33,7 +33,7 @@ export default function LazyBottomBusSections({ initialLang }) {
 			{shouldLoad ? (
 				<>
 					<ComparisonTable initialLang={initialLang} />
-					{/* <Testimonials lang={initialLang} /> */}
+					<Testimonials lang={initialLang} />
 					<FAQ initialLang={initialLang} />
 					<Confirmed />
 				</>
