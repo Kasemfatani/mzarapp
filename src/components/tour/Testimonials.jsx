@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination , Autoplay  } from "swiper/modules";
+import { Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import img1 from "/public/bg.webp";
 import Link from "next/link";
@@ -215,7 +215,7 @@ export default function Testimonials({ lang = "en" }) {
 				{/* Slider */}
 				<div style={{ direction: "ltr" }}>
 					<Swiper
-						modules={[Pagination , Autoplay]}
+						modules={[Pagination, Autoplay]}
 						onSwiper={(s) => (swiperRef.current = s)}
 						spaceBetween={24}
 						slidesPerView={2.5}
@@ -299,13 +299,22 @@ export default function Testimonials({ lang = "en" }) {
 							)}
 						</p>
 
-						<Link
-							href="#"
-							className="book-link text-lg md:text-xl max-w-xs w-full"
-							style={{ fontWeight: 700 }}
-						>
-							{language === "en" ? "Book Now" : "حجز الآن"}
-						</Link>
+						<div className="flex flex-col md:flex-row gap-4 w-full ">
+							<Link
+								href="/book-haram"
+								className="book-link !text-base  w-full"
+								style={{ fontWeight: 700 }}
+							>
+								{language === "en" ? "Book Masjid Al Haram Tour" : "حجز جولة المسجد الحرام"}
+							</Link>
+							<Link
+								href="/book-madinah"
+								className="book-link !text-base  w-full"
+								style={{ fontWeight: 700 }}
+							>
+								{language === "en" ? "Book Masjid An-Nabawi Tour" : "حجز جولة المسجد النبوي"}
+							</Link>
+						</div>
 					</div>
 				</div>
 			</div>

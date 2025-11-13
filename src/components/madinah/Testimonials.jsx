@@ -300,7 +300,7 @@ export default function Testimonials({ lang = "en" }) {
 						</p>
 
 						<Link
-							href="#"
+							href="/book-madinah"
 							className="book-link text-lg md:text-xl max-w-xs w-full"
 							style={{ fontWeight: 700 }}
 						>

@@ -62,8 +62,8 @@ export default function Hero({ initialLang }) {
 					{/* Buttons (no links yet) */}
 					<div className="flex flex-col sm:flex-row items-center justify-center  gap-3">
 						<Link
-							href="#"
-							onClick={(e) => e.preventDefault()}
+							href="/book-madinah"
+							
 							className="inline-block"
 						>
 							<span className="inline-block bg-[var(--main-color)] text-white hover:bg-[var(--sec-color)] hover:text-black px-6 py-3  font-semibold rounded-lg">

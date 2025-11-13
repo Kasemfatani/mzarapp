@@ -141,8 +141,8 @@ export default function Stations({ initialLang }) {
 				{/* Button */}
 				<div className="flex justify-center">
 					<Link
-						href="#"
-						onClick={(e) => e.preventDefault()}
+						href="/book-madinah"
+						
 						className="inline-block"
 					>
 						<span className="inline-block bg-[var(--main-color)] text-white hover:bg-[var(--sec-color)] hover:text-black px-16 py-3 font-semibold rounded-lg">
