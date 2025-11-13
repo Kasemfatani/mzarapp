@@ -44,7 +44,7 @@ export default function AppFeatures({ initialLang }) {
 				</h2>
 				<p className="max-w-3xl mx-auto text-sm md:text-base text-gray-100/90 mb-6">
 					{isAr
-						? "باستخدام تطبيق “مزار”، ترافقك التجربة لحظة بلحظة —من تحديد موقعك داخل الحرم إلى الترجمة الفورية، لترى الصور التاريخية، وتستمع إلى القصة بلغتك، وتوثّق رحلتك بشهادة زيارة رقمية."
+						? "باستخدام تطبيق “مزار”، ترافقك التجربة لحظة بلحظة —من تحديد موقعك إلى الترجمة الفورية، لترى الصور التاريخية، وتستمع إلى القصة بلغتك، وتوثّق رحلتك بشهادة زيارة رقمية."
 						: "Mzar guides you every step of the way discover, listen, and relive the sacred stories through smart technology. "}
 				</p>
 

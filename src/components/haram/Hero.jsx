@@ -98,7 +98,7 @@ export default function Hero({ initialLang }) {
 							: "لكل مجموعة حتى 5 شخص"}
 					</p>
 				</div>
-				<Link href="#" className="book-link !px-8" >
+				<Link href="/book-haram" className="book-link !px-8" >
 					{language === "en" ? "Book Now" : "احجز الآن"}
 				</Link>
 			</div>
