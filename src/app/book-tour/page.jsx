@@ -76,7 +76,7 @@ export default function BookTourPage() {
 
 	return (
 		<div className={lang === "en" ? "ltr" : "rtl"}>
-			<Hero initialLang={lang} />
+			<Hero initialLang={lang} step={step} setStep={setStep} />
 			{step === 1 && busData && (
 				<ChooseTourStep
 					initialLang={lang}

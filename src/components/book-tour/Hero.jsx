@@ -5,7 +5,7 @@ import Link from "next/link";
 
 import heroBg from "/public/book-tour/hero-bg.webp";
 
-export default function Hero({ initialLang }) {
+export default function Hero({ initialLang, step, setStep }) {
 	const [language, setLanguage] = useState(initialLang || "en");
 
 	// useEffect(() => {
@@ -20,11 +20,14 @@ export default function Hero({ initialLang }) {
 	return (
 		<div className="mb-6">
 			<br />
-			<img src="/Home/header-logo.png" alt="logo" width={138} height={46} className="mx-auto"/>
-			<section
-				
-				className="relative mt-6 py-10 w-full overflow-hidden flex justify-center items-center"
-			>
+			<img
+				src="/Home/header-logo.png"
+				alt="logo"
+				width={138}
+				height={46}
+				className="mx-auto"
+			/>
+			<section className="relative mt-6 py-10 w-full overflow-hidden flex justify-center items-center">
 				{/* background image */}
 				<div className="absolute inset-0 -z-10">
 					<Image
@@ -45,19 +48,24 @@ export default function Hero({ initialLang }) {
 								? "الجولات الإثرائية – باص مزار السياحي"
 								: "Enriching Tours – Mzar Tour Bus"}
 						</h1>
-						
-						{/* Buttons (no links yet) */}
-						<div className="mt-6 flex flex-col sm:flex-row items-center justify-center  gap-3">
-							<Link
-								href="#"
-								onClick={(e) => e.preventDefault()}
-								className="inline-block"
-							>
-								<span className="inline-block bg-[var(--main-color)] text-white hover:bg-[var(--sec-color)] hover:text-black px-6 py-3  font-semibold rounded-lg">
-									{isAr ? "العودة للجولات" : "Back to Tours"}
-								</span>
-							</Link>
-						</div>
+
+						{/* Show button only if step === 2 */}
+						{step === 2 && (
+							<div className="mt-6 flex flex-col sm:flex-row items-center justify-center  gap-3">
+								<Link
+									href="#"
+									onClick={(e) => {
+										e.preventDefault();
+										setStep(1);
+									}}
+									className="inline-block"
+								>
+									<span className="inline-block bg-[var(--main-color)] text-white hover:bg-[var(--sec-color)] hover:text-black px-6 py-3  font-semibold rounded-lg">
+										{isAr ? "العودة للجولات" : "Back to Tours"}
+									</span>
+								</Link>
+							</div>
+						)}
 					</div>
 				</div>
 			</section>
