@@ -259,7 +259,12 @@ export default function Trips() {
 		const interval = setInterval(() => {
 			const current = swiper.realIndex ?? swiper.activeIndex ?? 0;
 			const next = (current + 1) % trips.length;
-			swiper.slideTo(next, 600);
+			// Use slideToLoop for loop mode
+			if (swiper.slideToLoop) {
+				swiper.slideToLoop(next, 600);
+			} else {
+				swiper.slideTo(next, 600);
+			}
 		}, 3500);
 
 		return () => clearInterval(interval);
@@ -284,16 +289,20 @@ export default function Trips() {
 					modules={[Navigation, Pagination]}
 					initialSlide={2}
 					centeredSlides
-					// centeredSlidesBounds: remove at top-level
+					loop={true}
 					spaceBetween={25}
 					slidesPerView={3.5}
 					slidesPerGroup={1}
 					onSwiper={(swiper) => {
 						swiperRef.current = swiper;
-						// Force-disable bounds in case it was set via params or breakpoints
 						swiper.params.centeredSlidesBounds = false;
 						swiper.update();
-						swiper.slideTo(2, 0);
+						// Use slideToLoop for loop mode
+						if (swiper.slideToLoop) {
+							swiper.slideToLoop(2, 0);
+						} else {
+							swiper.slideTo(2, 0);
+						}
 					}}
 					onSlideChange={(swiper) => {
 						setActiveIndex(swiper.realIndex);
@@ -303,7 +312,6 @@ export default function Trips() {
 							slidesPerView: 3.5,
 							spaceBetween: 25,
 							centeredSlides: true,
-							// centeredSlidesBounds: false,  // ensure NOT true
 						},
 						1024: {
 							slidesPerView: 3.5,
@@ -332,8 +340,12 @@ export default function Trips() {
 						<SwiperSlide
 							key={trip.id}
 							onClick={() => {
-								// setActiveIndex(idx);
-								swiperRef.current?.slideTo(idx, 500);
+								// Use slideToLoop for loop mode
+								if (swiperRef.current?.slideToLoop) {
+									swiperRef.current.slideToLoop(idx, 500);
+								} else {
+									swiperRef.current?.slideTo(idx, 500);
+								}
 							}}
 						>
 							<article
@@ -364,7 +376,6 @@ export default function Trips() {
 								</div>
 
 								{/* Content */}
-
 								<h3 className="text-lg font-semibold text-[#333] mb-1 px-5">
 									{language === "ar" ? trip.title.ar : trip.title.en}
 								</h3>
