@@ -18,8 +18,8 @@ export default function FAQ({ initialLang = "en" }) {
 		{
 			q: isAr ? "هل يمكن الحجز للعائلات؟" : "Can families book the tour?",
 			a: isAr
-				? "نعم، الجولة متاحة للعائلات والمجموعات الصغيرة."
-				: "Yes, the tour is available for families and small groups.",
+				? "لا، الجولة متاحة للرجال فقط."
+				: "No, available only for men.",
 		},
 		{
 			q: isAr

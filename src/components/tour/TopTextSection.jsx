@@ -20,10 +20,10 @@ export default function TopTextSection({ initialLang }) {
 			title: isAr ? "جولة المسجد الحرام" : "Masjid al-Haram Tour",
 			desc: isAr
 				? "انضموا إلينا في جولة مميزة داخل الحرم المكي الشريف، نتعرف خلالها على أبرز المعالم التاريخية والإسلامية"
-				: "Join us for an exclusive tour inside the Grand Mosque in Makkah, where you’ll discover the most significant historical and Islamic landmarks.",
+				: "Join us for an EXCLUSIVE tour inside the Grand Mosque in Makkah, where you’ll discover the most significant historical and Islamic landmarks.",
 			people: isAr ? "عدد المشاركين: 25 شخصاً" : "Participants: 25 persons",
-			duration: isAr ? "مدة الجولة: 40 دقيقة" : "Tour duration: 40 min",
-			meet: isAr ? "مكان اللقاء: باب السلام" : "Meeting point: Bab Al-Salam",
+			duration: isAr ? "مدة الجولة:  90 دقيقة" : "Tour duration:  90 min",
+			meet: isAr ? "مكان اللقاء:  توسعة الملك عبدالله" : "Meeting point: King Abdullah Expansion",
 			button: {
 				label: isAr ? "استكشف الجولة" : "Explore Tour",
 				link: "/haram",
@@ -39,8 +39,8 @@ export default function TopTextSection({ initialLang }) {
 				? "انضموا إلينا في جولة مميزة داخل الحرم النبوي الشريف، نتعرف خلالها على أبرز المعالم التاريخية والإسلامية"
 				: "Join us for a special tour inside the Prophet’s Mosque, exploring its most prominent historical and Islamic landmarks.",
 			people: isAr ? "عدد المشاركين: 25 شخصاً" : "Participants: 25 persons",
-			duration: isAr ? "مدة الجولة: 40 دقيقة" : "Tour duration: 40 min",
-			meet: isAr ? "مكان اللقاء: باب السلام" : "Meeting point: Bab Al-Salam",
+			duration: isAr ? "مدة الجولة:  90 دقيقة" : "Tour duration:  90 min",
+			meet: isAr ? "مكان اللقاء: معرض عمارة المسجد النبوي" : "Meeting point: The Exhibition of the Architecture of Al-Masjid an-Nabawi",
 			button: {
 				label: isAr ?  "استكشف الجولة" : "Explore Tour",
 				link: "/madinah",
@@ -98,10 +98,10 @@ export default function TopTextSection({ initialLang }) {
 										<span>{card.duration}</span>
 									</div>
 									<div className="flex items-center justify-center gap-2">
-										<span className="inline-block">
+										<span className="inline-block ">
 											<i className="fa-solid fa-location-dot" />
 										</span>
-										<span>{card.meet}</span>
+										<span >{card.meet}</span>
 									</div>
 								</div>
 								<a

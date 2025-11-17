@@ -45,8 +45,15 @@ export default function Footer() {
 		return null;
 	}
 
+	const hideTopSection =
+		pathname === "/madinah" || pathname === "/haram" || pathname === "/tour" ||
+		(pathname === "/path" &&
+			(searchParams.get("id") === "74" || searchParams.get("id") === "73"));
+
 	return (
-		<footer className={`${language === "en" ? "ltr" : "rtl"} mt-8 overflow-visible`}>
+		<footer
+			className={`${language === "en" ? "ltr" : "rtl"} mt-8 overflow-visible`}
+		>
 			{" "}
 			{/* Main footer container with padding and background color */}
 			{pathname !== "/path" && pathname !== "/makkah-mzar"
@@ -74,30 +81,31 @@ export default function Footer() {
 				: null}
 			<div className="container m-auto">
 				<div className="flex flex-col items-center">
-					{/* New top blue section */}
-					<div className="w-[80%] rounded-2xl bg-[var(--sec-color)] flex flex-col md:flex-row items-center justify-between px-8 py-6 mb-8  -mt-[50px]">
-						<div className="text-black font-bold text-xl md:text-2xl md:max-w-[60%]">
-							{language === "en" ? (
-								<>
-									Mzar Is A Strategic Partner Of The Royal Commission For Makkah
-									City And Holy Sites
-								</>
-							) : (
-								<>
-									مزار شريك استراتيجي للهيئة الملكية لمدينة مكة المكرمة والمشاعر
-									المقدسة
-								</>
-							)}
-						</div>
-						<div className="flex flex-col items-end gap-2 mt-6 md:mt-0">
-							<img
-								src="/conf/royal-commission.webp"
-								alt="Royal Commission"
-								className="h-[107px]"
-								style={{ objectFit: "contain" }}
-								loading="lazy"
-							/>
-							{/* <div className="text-black text-sm md:text-base text-right leading-tight">
+					{/* New top section */}
+					{!hideTopSection && (
+						<div className="w-[80%] rounded-2xl bg-[var(--sec-color)] flex flex-col md:flex-row items-center justify-between px-8 py-6 mb-8  -mt-[50px]">
+							<div className="text-black font-bold text-xl md:text-2xl md:max-w-[60%]">
+								{language === "en" ? (
+									<>
+										Mzar Is A Strategic Partner Of The Royal Commission For
+										Makkah City And Holy Sites
+									</>
+								) : (
+									<>
+										مزار شريك استراتيجي للهيئة الملكية لمدينة مكة المكرمة
+										والمشاعر المقدسة
+									</>
+								)}
+							</div>
+							<div className="flex flex-col items-end gap-2 mt-6 md:mt-0">
+								<img
+									src="/conf/royal-commission.webp"
+									alt="Royal Commission"
+									className="h-[107px]"
+									style={{ objectFit: "contain" }}
+									loading="lazy"
+								/>
+								{/* <div className="text-black text-sm md:text-base text-right leading-tight">
 							<div className="font-bold">
 								الهيئة الملكية لمدينة مكة المكرمة والمشاعر المقدسة
 							</div>
@@ -107,14 +115,20 @@ export default function Footer() {
 								MAKKAH CITY AND HOLY SITES
 							</div>
 						</div> */}
+							</div>
 						</div>
-					</div>
+					)}
 
 					{/* New 3-column grid */}
 					<div className="w-[80%] grid grid-cols-1 md:grid-cols-3 gap-8 pb-8 justify-items-center">
 						{/* Left: Logo + Social */}
 						<div className="flex flex-col items-center md:items-start gap-4">
-							<img src="/Home/footer-logo.png" alt="Mzar Logo" className="" width={187} />
+							<img
+								src="/Home/footer-logo.png"
+								alt="Mzar Logo"
+								className=""
+								width={187}
+							/>
 							<div className="flex gap-4 mt-2">
 								<Link href="https://x.com/mzarapp" target="_blank">
 									<i className="fa-brands fa-x-twitter text-2xl text-white"></i>

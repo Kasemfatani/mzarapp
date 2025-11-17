@@ -35,8 +35,8 @@ const features = [
 		icon: "fa-regular fa-newspaper",
 		ar: "تفاعل",
 		en: "Engagement",
-		valueAr: "صور، خرائط، ومرشد صوتي ذكي",
-		valueEn: "Includes photos, maps, and an intelligent audio guide",
+		valueAr: "صور، خرائط، ترجمة فورية، ومرشد سياحي",
+		valueEn: "Includes photos, maps, Instant translation, and a tour guide",
 	},
 	{
 		icon: "fa-solid fa-language",

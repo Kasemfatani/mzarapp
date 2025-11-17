@@ -16,14 +16,14 @@ export default function AppFeatures({ initialLang }) {
 
 	const features = isAr
 		? [
-				"استماع إلى المرشد المرافق",
+				"مرشد سياحي مرافق",
 				"واقع معزز (AR) يعرض المشاهد التاريخية",
 				"صور ومخطوطات أصلية",
 				"ترجمة فورية بست لغات",
 				"شهادة رقمية بعد الجولة",
 		  ]
 		: [
-				"Listen to your personal audio guide ",
+				"Escort tour guide",
 				"Augmented Reality (AR) brings history to life",
 				"Authentic photos and manuscripts",
 				"Instant translation in six languages ",

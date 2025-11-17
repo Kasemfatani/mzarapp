@@ -13,8 +13,8 @@ import imageIcon from "/public/Home/image.svg";
 const features = [
 	{
 		icon: Audio,
-		ar: "مرشد صوتي ذكي بلغات العالم",
-		en: "Smart audio guide in world languages",
+		ar: "ترجمة فورية بعدة لغات",
+		en: "Instant translation in multiple languages",
 	},
 	{
 		icon: AR,
@@ -23,8 +23,8 @@ const features = [
 	},
 	{
 		icon: map,
-		ar: "مواقع دقيقة على الخريطة",
-		en: "Accurate locations on the map",
+		ar: "دقة الموقع",
+		en: "Accurate of the site",
 	},
 	{
 		icon: imageIcon,
@@ -33,8 +33,8 @@ const features = [
 	},
 	{
 		icon: photography,
-		ar: "تنظيم ميداني احترافي",
-		en: "Professional field organization",
+		ar: "تنظيم ميداني احترافي ومرشد سياحي",
+		en: "Professional field organization & Tour guide",
 	},
 ];
 

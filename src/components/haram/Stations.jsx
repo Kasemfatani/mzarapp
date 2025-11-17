@@ -140,8 +140,8 @@ export default function Stations({ initialLang }) {
 				{/* Centered text below cards */}
 				<div className="text-center text-black mb-6">
 					{isAr
-						? '"في تسعين دقيقة فقط، يعيش الزائر قرونًا من التاريخ والإيمان."'
-						: '"In just ninety minutes, visitors experience centuries of history and faith."'}
+						? '"في 90 دقيقة فقط، يعيش الزائر قرونًا من التاريخ والإيمان."'
+						: '"In just 90 minutes, visitors experience centuries of history and faith."'}
 				</div>
 
 				{/* Button */}
