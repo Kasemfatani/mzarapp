@@ -265,7 +265,7 @@ export default function Trips() {
 			} else {
 				swiper.slideTo(next, 600);
 			}
-		}, 3500);
+		}, 5500);
 
 		return () => clearInterval(interval);
 	}, [trips.length]);
@@ -290,8 +290,8 @@ export default function Trips() {
 					initialSlide={2}
 					centeredSlides
 					loop={true}
-					spaceBetween={25}
-					slidesPerView={3.5}
+					spaceBetween={20}
+					slidesPerView={3}
 					slidesPerGroup={1}
 					onSwiper={(swiper) => {
 						swiperRef.current = swiper;
@@ -309,13 +309,13 @@ export default function Trips() {
 					}}
 					breakpoints={{
 						1280: {
-							slidesPerView: 3.5,
-							spaceBetween: 25,
+							slidesPerView: 3,
+							spaceBetween: 20,
 							centeredSlides: true,
 						},
 						1024: {
-							slidesPerView: 3.5,
-							spaceBetween: 25,
+							slidesPerView: 3,
+							spaceBetween: 20,
 							centeredSlides: true,
 						},
 						768: {

@@ -409,14 +409,44 @@ export default function PersonalInfoStep({
 									<FormItem>
 										<FormLabel className="mb-2">{t.peopleCount}</FormLabel>
 										<FormControl>
-											<Input
-												type="number"
-												min={1}
-												max={max_people_count}
-												step={1}
-												{...field}
-												className="h-12 shadow-md text-center"
-											/>
+											<div className="relative flex items-center justify-center">
+												<button
+													type="button"
+													onClick={() =>
+														field.onChange(Math.max(1, (field.value || 1) - 1))
+													}
+													className="absolute left-2 top-1/2 -translate-y-1/2 z-10 text-lg font-bold px-2 py-1 rounded-full hover:bg-gray-100"
+													tabIndex={-1}
+													aria-label="Decrease"
+												>
+													-
+												</button>
+												<Input
+													type="number"
+													min={1}
+													max={max_people_count}
+													step={1}
+													{...field}
+													className="tour-booking-number-input h-12 shadow-md text-center appearance-none w-full px-10"
+													style={{
+														MozAppearance: "textfield",
+													}}
+													onWheel={(e) => e.target.blur()} // prevent accidental scroll
+												/>
+												<button
+													type="button"
+													onClick={() =>
+														field.onChange(
+															Math.min(max_people_count, (field.value || 1) + 1)
+														)
+													}
+													className="absolute right-2 top-1/2 -translate-y-1/2 z-10 text-lg font-bold px-2 py-1 rounded-full hover:bg-gray-100"
+													tabIndex={-1}
+													aria-label="Increase"
+												>
+													+
+												</button>
+											</div>
 										</FormControl>
 										<FormMessage />
 									</FormItem>
