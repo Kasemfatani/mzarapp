@@ -17,6 +17,8 @@ import {
 } from "@/components/ui/form";
 import { cn } from "@/lib/utils";
 import StepsTimeline from "./StepsTimeline";
+import { API_BASE_URL_NEW } from "@/lib/apiConfig";
+
 
 const STORAGE_KEY = "madinahTour.selection";
 
@@ -73,6 +75,10 @@ export default function ChooseTourStep({
 	gatheringPointAddress = "",
 	busId,
 	onSaved,
+	leftSeats,
+	setLeftSeats,
+	minSeats,
+	setMinSeats,
 }) {
 	const lang = initialLang === "ar" ? "ar" : "en";
 	const t = messages[lang];
@@ -91,20 +97,76 @@ export default function ChooseTourStep({
 		mode: "onSubmit",
 	});
 
-	// Prefill from storage, if exists
-	// useEffect(() => {
-	// 	if (typeof window === "undefined") return;
-	// 	try {
-	// 		const raw = localStorage.getItem(STORAGE_KEY);
-	// 		if (!raw) return;
-	// 		const parsed = JSON.parse(raw);
-	// 		if (parsed?.date) parsed.date = new Date(parsed.date);
-	// 		form.reset(parsed);
-	// 	} catch {}
-
-	// }, []);
+	const [savedMsg, setSavedMsg] = useState("");
+		const [availabilityMsg, setAvailabilityMsg] = useState("");
+		const [checking, setChecking] = useState(false);
+	
+		// Check availability when date and time are selected
+		useEffect(() => {
+			const values = form.getValues();
+			if (values.date && values.time && values.time.id) {
+				setChecking(true);
+				setAvailabilityMsg("");
+				const params = new URLSearchParams({
+					tour_id: busId,
+					date: format(values.date, "yyyy-MM-dd"),
+					time_id: values.time.id,
+				});
+				fetch(
+					`${API_BASE_URL_NEW}/landing/landing-guided-tour/check-availability?${params.toString()}`,
+					{
+						method: "GET",
+						headers: { lang },
+					}
+				)
+					.then((res) => res.json())
+					.then((data) => {
+						if (data.status && data.data) {
+							// console.log("data availability", data);
+							setLeftSeats?.(data.data.left_seats);
+							setMinSeats?.(data.data.min_seats);
+							if (data.data.left_seats === 0) {
+								setAvailabilityMsg(
+									isAr
+										? "لا توجد مقاعد متاحة، يرجى تغيير التاريخ أو الوقت."
+										: "No seats left, please change date or time."
+								);
+							} else {
+								setAvailabilityMsg("");
+							}
+						} else {
+							// console.log("data not status", data);
+							setLeftSeats?.(0);
+							setMinSeats?.(null);
+							setAvailabilityMsg(
+								isAr
+									? "حدث خطأ في التحقق من التوفر."
+									: "Error checking availability."
+							);
+						}
+					})
+					.catch((e) => {
+						// console.log("error data", e);
+						setLeftSeats?.(0);
+						setMinSeats?.(null);
+						setAvailabilityMsg(
+							isAr
+								? "حدث خطأ في التحقق من التوفر."
+								: "Error checking availability."
+						);
+					})
+					.finally(() => setChecking(false));
+			} else {
+				setLeftSeats?.(null);
+				setMinSeats?.(null);
+				setAvailabilityMsg("");
+			}
+			// eslint-disable-next-line react-hooks/exhaustive-deps
+		}, [form.watch("date"), form.watch("time")]);
+	
 
 	const onSubmit = (values) => {
+		if (leftSeats === 0) return;
 		if (typeof window !== "undefined") {
 			const payload = {
 				...values,
@@ -117,8 +179,6 @@ export default function ChooseTourStep({
 		onSaved?.(values);
 		setSavedMsg(t.saved);
 	};
-
-	const [savedMsg, setSavedMsg] = useState("");
 
 	const colBase = "  p-4 md:p-6 ";
 	const sectionTitle = "text-base md:text-lg font-semibold mb-3 md:mb-4";
@@ -197,6 +257,23 @@ export default function ChooseTourStep({
 											);
 										})}
 									</div>
+									{/* Show left seats info */}
+									{leftSeats !== null && (
+										<div className="mt-3 text-center text-base text-blue-600 font-semibold">
+											{leftSeats === 0
+												? isAr
+													? "لا توجد مقاعد متاحة، يرجى تغيير التاريخ أو الوقت."
+													: "No seats left, please change date or time."
+												: isAr
+												? `المقاعد المتبقية: ${leftSeats}`
+												: `Seats left: ${leftSeats}`}
+										</div>
+									)}
+									{availabilityMsg && leftSeats !== 0 && (
+										<div className="mt-2 text-center text-red-600">
+											{availabilityMsg}
+										</div>
+									)}
 									<FormMessage />
 								</FormItem>
 							)}
@@ -222,6 +299,7 @@ export default function ChooseTourStep({
 							<Button
 								type="submit"
 								className="min-w-40 bg-[var(--main-color,#14532d)] hover:bg-[var(--sec-color,#86efac)] hover:text-black"
+								disabled={leftSeats === 0 || checking}
 							>
 								{t.next}
 							</Button>

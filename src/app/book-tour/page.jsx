@@ -12,6 +12,10 @@ export default function BookTourPage() {
 	const [lang, setLang] = useState(null);
 	const [step, setStep] = useState(1);
 
+	// how many seats left  from API
+	const [leftSeats, setLeftSeats] = useState(null);
+	
+
 	// API data + loading
 	const [busData, setBusData] = useState(null);
 	const [loading, setLoading] = useState(true);
@@ -84,6 +88,9 @@ export default function BookTourPage() {
 					gatheringPoints={busData.gathering_points}
 					busId={busData.id}
 					onSaved={() => setStep(2)}
+					leftSeats={leftSeats}
+					setLeftSeats={setLeftSeats}
+					
 				/>
 			)}
 			{step === 2 && (
