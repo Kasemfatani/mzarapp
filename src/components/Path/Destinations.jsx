@@ -8,6 +8,7 @@ import { Pagination } from "swiper/modules";
 import "swiper/css";
 import Why from "@/components/home/Why";
 import AudioPreviewDialog from "@/components/Path/AudioPreviewDialog";
+import ExclusiveSlide from "@/components/Path/ExclusiveSlide";
 
 export default function Destinations({ data, lang }) {
 	const [language, setLanguage] = useState(lang || "en");
@@ -25,7 +26,7 @@ export default function Destinations({ data, lang }) {
 			? { title: "الوجهات", prev: "السابق", next: "التالي" }
 			: { title: "Destinations", prev: "Prev", next: "Next" };
 
-	console.log("data is", data.id);
+	console.log("data is", data);
 
 	return (
 		<div className="destinations container m-auto">
@@ -73,43 +74,53 @@ export default function Destinations({ data, lang }) {
 				className="destinations-swiper"
 				style={{ direction: language === "ar" ? "rtl" : "ltr" }}
 			>
-				{destinations.map((item) => (
-					<SwiperSlide key={item.id}>
-						<article
-							className={`rounded-[20px] overflow-hidden h-[410px] flex flex-col shadow-2xl ${
-								data.id === 45 && (item.id === 15 || item.id === 13)
-									? "bg-[var(--sec-color)] border-2 border-[#EAD7A1]"
-									: "bg-white"
-							}`}
-						>
-							{/* Image */}
-							<div className="relative h-48 w-full">
-								{data.id === 45 && (item.id === 15 || item.id === 13) && (
-									<div className={language === "ar" ? "ribbon-rtl" : "ribbon"}>
-										<span>{language === "ar" ? "خاص" : "SPECIAL"}</span>
-									</div>
-								)}
-								<Image
-									src={item.cover}
-									alt={`${data.name} image`}
-									fill
-									className="object-cover"
-									sizes="(max-width: 1280px) 50vw, 25vw"
-								/>
-							</div>
+				{destinations.map((item, idx) => (
+					<React.Fragment key={item.id}>
+						<SwiperSlide>
+							<article
+								className={`rounded-[20px] overflow-hidden h-[410px] flex flex-col shadow-2xl ${
+									data.id === 45 && (item.id === 15 || item.id === 13)
+										? "bg-[var(--sec-color)] border-2 border-[#EAD7A1]"
+										: "bg-white"
+								}`}
+							>
+								{/* Image */}
+								<div className="relative h-48 w-full">
+									{data.id === 45 && (item.id === 15 || item.id === 13) && (
+										<div
+											className={language === "ar" ? "ribbon-rtl" : "ribbon"}
+										>
+											<span>{language === "ar" ? "خاص" : "SPECIAL"}</span>
+										</div>
+									)}
+									<Image
+										src={item.cover}
+										alt={`${data.name} image`}
+										fill
+										className="object-cover"
+										sizes="(max-width: 1280px) 50vw, 25vw"
+									/>
+								</div>
 
-							{/* Text */}
-							<div className="p-5 flex flex-col gap-2 flex-1">
-								<h3 className="text-lg md:text-xl font-semibold text-[#141414]">
-									{item.name}
-								</h3>
-								<p className="text-sm text-gray-600 leading-6 line-clamp-5">
-									{item.short_description}
-								</p>
-								<div className="mt-auto" />
-							</div>
-						</article>
-					</SwiperSlide>
+								{/* Text */}
+								<div className="p-5 flex flex-col gap-2 flex-1">
+									<h3 className="text-lg md:text-xl font-semibold text-[#141414]">
+										{item.name}
+									</h3>
+									<p className="text-sm text-gray-600 leading-6 line-clamp-5">
+										{item.short_description}
+									</p>
+									<div className="mt-auto" />
+								</div>
+							</article>
+						</SwiperSlide>
+						{/* Insert ExclusiveSlide after item.id === 15, only if data.id === 45 */}
+						{data.id === 45 && item.id === 15 && (
+							<SwiperSlide key="exclusive-slide">
+								<ExclusiveSlide language={language} />
+							</SwiperSlide>
+						)}
+					</React.Fragment>
 				))}
 			</Swiper>
 
