@@ -19,7 +19,6 @@ import { cn } from "@/lib/utils";
 import StepsTimeline from "./StepsTimeline";
 import { API_BASE_URL_NEW } from "@/lib/apiConfig";
 
-
 const STORAGE_KEY = "madinahTour.selection";
 
 const messages = {
@@ -66,7 +65,6 @@ const schema = (lang) =>
 			.refine((val) => val && val.id && val.name, {
 				message: messages[lang].requiredTime,
 			}),
-		
 	});
 
 export default function ChooseTourStep({
@@ -79,6 +77,8 @@ export default function ChooseTourStep({
 	setLeftSeats,
 	minSeats,
 	setMinSeats,
+	lat,
+	lng,
 }) {
 	const lang = initialLang === "ar" ? "ar" : "en";
 	const t = messages[lang];
@@ -98,55 +98,44 @@ export default function ChooseTourStep({
 	});
 
 	const [savedMsg, setSavedMsg] = useState("");
-		const [availabilityMsg, setAvailabilityMsg] = useState("");
-		const [checking, setChecking] = useState(false);
-	
-		// Check availability when date and time are selected
-		useEffect(() => {
-			const values = form.getValues();
-			if (values.date && values.time && values.time.id) {
-				setChecking(true);
-				setAvailabilityMsg("");
-				const params = new URLSearchParams({
-					tour_id: busId,
-					date: format(values.date, "yyyy-MM-dd"),
-					time_id: values.time.id,
-				});
-				fetch(
-					`${API_BASE_URL_NEW}/landing/landing-guided-tour/check-availability?${params.toString()}`,
-					{
-						method: "GET",
-						headers: { lang },
-					}
-				)
-					.then((res) => res.json())
-					.then((data) => {
-						if (data.status && data.data) {
-							// console.log("data availability", data);
-							setLeftSeats?.(data.data.left_seats);
-							setMinSeats?.(data.data.min_seats);
-							if (data.data.left_seats === 0) {
-								setAvailabilityMsg(
-									isAr
-										? "لا توجد مقاعد متاحة، يرجى تغيير التاريخ أو الوقت."
-										: "No seats left, please change date or time."
-								);
-							} else {
-								setAvailabilityMsg("");
-							}
-						} else {
-							// console.log("data not status", data);
-							setLeftSeats?.(0);
-							setMinSeats?.(null);
+	const [availabilityMsg, setAvailabilityMsg] = useState("");
+	const [checking, setChecking] = useState(false);
+
+	// Check availability when date and time are selected
+	useEffect(() => {
+		const values = form.getValues();
+		if (values.date && values.time && values.time.id) {
+			setChecking(true);
+			setAvailabilityMsg("");
+			const params = new URLSearchParams({
+				tour_id: busId,
+				date: format(values.date, "yyyy-MM-dd"),
+				time_id: values.time.id,
+			});
+			fetch(
+				`${API_BASE_URL_NEW}/landing/landing-guided-tour/check-availability?${params.toString()}`,
+				{
+					method: "GET",
+					headers: { lang },
+				}
+			)
+				.then((res) => res.json())
+				.then((data) => {
+					if (data.status && data.data) {
+						// console.log("data availability", data);
+						setLeftSeats?.(data.data.left_seats);
+						setMinSeats?.(data.data.min_seats);
+						if (data.data.left_seats === 0) {
 							setAvailabilityMsg(
 								isAr
-									? "حدث خطأ في التحقق من التوفر."
-									: "Error checking availability."
+									? "لا توجد مقاعد متاحة، يرجى تغيير التاريخ أو الوقت."
+									: "No seats left, please change date or time."
 							);
+						} else {
+							setAvailabilityMsg("");
 						}
-					})
-					.catch((e) => {
-						// console.log("error data", e);
+					} else {
+						// console.log("data not status", data);
 						setLeftSeats?.(0);
 						setMinSeats?.(null);
 						setAvailabilityMsg(
@@ -154,16 +143,26 @@ export default function ChooseTourStep({
 								? "حدث خطأ في التحقق من التوفر."
 								: "Error checking availability."
 						);
-					})
-					.finally(() => setChecking(false));
-			} else {
-				setLeftSeats?.(null);
-				setMinSeats?.(null);
-				setAvailabilityMsg("");
-			}
-			// eslint-disable-next-line react-hooks/exhaustive-deps
-		}, [form.watch("date"), form.watch("time")]);
-	
+					}
+				})
+				.catch((e) => {
+					// console.log("error data", e);
+					setLeftSeats?.(0);
+					setMinSeats?.(null);
+					setAvailabilityMsg(
+						isAr
+							? "حدث خطأ في التحقق من التوفر."
+							: "Error checking availability."
+					);
+				})
+				.finally(() => setChecking(false));
+		} else {
+			setLeftSeats?.(null);
+			setMinSeats?.(null);
+			setAvailabilityMsg("");
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [form.watch("date"), form.watch("time")]);
 
 	const onSubmit = (values) => {
 		if (leftSeats === 0) return;
@@ -283,18 +282,49 @@ export default function ChooseTourStep({
 					{/* Meeting point column */}
 					<div className={cn(colBase, "")}>
 						<h3 className={sectionTitle}>{t.meeting}</h3>
-						<div className="p-3 rounded border bg-white text-black">
-							{gatheringPointAddress ||
-								(isAr ? "لا يوجد عنوان نقطة تجمع" : "No meeting point address")}
+						<div className="flex items-stretch gap-1 ">
+							{/* Address box */}
+							<div className="p-3 rounded border bg-white text-black min-w-[240px] max-w-[340px]">
+								{gatheringPointAddress ||
+									(isAr
+										? "لا يوجد عنوان نقطة تجمع"
+										: "No meeting point address")}
+							</div>
+
+							{/* Map button OUTSIDE the address box */}
+							{lat && lng && (
+								<a
+									href={`https://www.google.com/maps/search/?api=1&query=${lat},${lng}`}
+									target="_blank"
+									rel="noopener noreferrer"
+									aria-label={
+										isAr
+											? "افتح الموقع في خرائط جوجل"
+											: "Open location in Google Maps"
+									}
+									title={
+										isAr ? "افتح الموقع في خرائط جوجل" : "Open in Google Maps"
+									}
+									className="group inline-flex items-center gap-2 p-3 rounded-md border  hover:bg-blue-50  transition "
+								>
+									{/* New pin icon (SVG) */}
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										viewBox="0 0 24 24"
+										fill="currentColor"
+										className="h-5 w-5 text-[var(--main-color,#14532d)] group-hover:text-blue-700"
+									>
+										<path d="M12 2.75A6.25 6.25 0 0 0 5.75 9c0 1.73.66 3.33 1.92 4.79 1.02 1.17 2.08 2.3 3.11 3.45.4.45.8.9 1.2 1.36.1.12.28.12.38 0 .39-.46.8-.91 1.2-1.36 1.03-1.15 2.09-2.28 3.11-3.45A7.53 7.53 0 0 0 18.25 9 6.25 6.25 0 0 0 12 2.75Zm0 8.5A2.25 2.25 0 1 1 12 7a2.25 2.25 0 0 1 0 4.25Z" />
+									</svg>
+								</a>
+							)}
 						</div>
 					</div>
 
 					{/* Footer actions */}
 					<div className={cn("md:col-span-4")}>
 						<div
-							className={cn(
-								"flex items-center justify-center  mt-2 md:mt-4"
-							)}
+							className={cn("flex items-center justify-center  mt-2 md:mt-4")}
 						>
 							<Button
 								type="submit"

@@ -92,14 +92,17 @@ export default function BookTourPage() {
 					setLeftSeats={setLeftSeats}
 					minSeats={minSeats}
 					setMinSeats={setMinSeats}
+					lat={busData.gathering_point_lat}
+					lng={busData.gathering_point_lng}
 				/>
 			)}
 			{step === 2 && (
 				<PersonalInfoStep
 					initialLang={lang}
-					max_people_count={busData.max_people_count}
+					max_people_count={leftSeats}
 					tax_amount={busData.tax}
 					start_price={busData.price}
+					minSeats={minSeats}
 				/>
 			)}
 		</div>

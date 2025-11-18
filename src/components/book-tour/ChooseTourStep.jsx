@@ -129,7 +129,7 @@ export default function ChooseTourStep({
 					if (data.status && data.data) {
 						// console.log("data availability", data);
 						setLeftSeats?.(data.data.left_seats);
-						
+
 						if (data.data.left_seats === 0) {
 							setAvailabilityMsg(
 								isAr
@@ -142,7 +142,7 @@ export default function ChooseTourStep({
 					} else {
 						// console.log("data not status", data);
 						setLeftSeats?.(0);
-						
+
 						setAvailabilityMsg(
 							isAr
 								? "حدث خطأ في التحقق من التوفر."
@@ -153,7 +153,7 @@ export default function ChooseTourStep({
 				.catch((e) => {
 					// console.log("error data", e);
 					setLeftSeats?.(0);
-					
+
 					setAvailabilityMsg(
 						isAr
 							? "حدث خطأ في التحقق من التوفر."
@@ -163,7 +163,7 @@ export default function ChooseTourStep({
 				.finally(() => setChecking(false));
 		} else {
 			setLeftSeats?.(null);
-			
+
 			setAvailabilityMsg("");
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -178,7 +178,7 @@ export default function ChooseTourStep({
 				time: values.time,
 				meetingPoint: values.meetingPoint,
 				lang,
-				bus_id: busId
+				bus_id: busId,
 			};
 			localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
 		}
@@ -293,21 +293,51 @@ export default function ChooseTourStep({
 										{gatheringPoints.map((pt) => {
 											const active = field.value?.id === pt.id;
 											return (
-												<button
-													type="button"
-													key={pt.id}
-													onClick={() =>
-														field.onChange({ id: pt.id, name: pt.name })
-													}
-													className={cn(
-														"w-full text-center rounded-md border px-4 py-2 font-medium",
-														active
-															? "bg-[var(--main-color,#14532d)] text-white border-[var(--main-color,#14532d)]"
-															: "hover:bg-muted/40"
+												<div className="flex items-stretch gap-1 " key={pt.id}>
+													<button
+														type="button"
+														onClick={() =>
+															field.onChange({ id: pt.id, name: pt.name })
+														}
+														className={cn(
+															"w-full text-center rounded-md border px-4 py-2 font-medium",
+															active
+																? "bg-[var(--main-color,#14532d)] text-white border-[var(--main-color,#14532d)]"
+																: "hover:bg-muted/40"
+														)}
+													>
+														{pt.name}
+													</button>
+													{/* Map button OUTSIDE */}
+													{pt.lat && pt.lng && (
+														<a
+															href={`https://www.google.com/maps/search/?api=1&query=${pt.lat},${pt.lng}`}
+															target="_blank"
+															rel="noopener noreferrer"
+															aria-label={
+																isAr
+																	? "افتح الموقع في خرائط جوجل"
+																	: "Open location in Google Maps"
+															}
+															title={
+																isAr
+																	? "افتح الموقع في خرائط جوجل"
+																	: "Open in Google Maps"
+															}
+															className="group inline-flex items-center gap-2 p-3 rounded-md border  hover:bg-blue-50  transition "
+														>
+															{/* New pin icon (SVG) */}
+															<svg
+																xmlns="http://www.w3.org/2000/svg"
+																viewBox="0 0 24 24"
+																fill="currentColor"
+																className="h-5 w-5 text-[var(--main-color,#14532d)] group-hover:text-blue-700"
+															>
+																<path d="M12 2.75A6.25 6.25 0 0 0 5.75 9c0 1.73.66 3.33 1.92 4.79 1.02 1.17 2.08 2.3 3.11 3.45.4.45.8.9 1.2 1.36.1.12.28.12.38 0 .39-.46.8-.91 1.2-1.36 1.03-1.15 2.09-2.28 3.11-3.45A7.53 7.53 0 0 0 18.25 9 6.25 6.25 0 0 0 12 2.75Zm0 8.5A2.25 2.25 0 1 1 12 7a2.25 2.25 0 0 1 0 4.25Z" />
+															</svg>
+														</a>
 													)}
-												>
-													{pt.name}
-												</button>
+												</div>
 											);
 										})}
 									</div>
@@ -326,7 +356,8 @@ export default function ChooseTourStep({
 						>
 							<Button
 								type="submit"
-								className="min-w-40 bg-[var(--main-color,#14532d)] hover:bg-[var(--sec-color,#86efac)] hover:text-black" disabled={leftSeats === 0 || checking}
+								className="min-w-40 bg-[var(--main-color,#14532d)] hover:bg-[var(--sec-color,#86efac)] hover:text-black"
+								disabled={leftSeats === 0 || checking}
 							>
 								{t.next}
 							</Button>
