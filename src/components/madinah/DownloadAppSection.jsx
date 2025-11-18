@@ -87,7 +87,7 @@ export default function DownloadAppSection({ initialLang }) {
 				{/* Right: Phones */}
 				<div className="">
 					<Image
-						src="/haram/download-phone.png"
+						src={ isAr ? "/haram/download-phone.png" : "/haram/download-phone-en.webp"}
 						alt="Phone 1"
 						width={342}
 						height={340}

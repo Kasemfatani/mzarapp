@@ -33,7 +33,7 @@ export default function AppFeatures({ initialLang }) {
 	return (
 		<section
 			className="relative bg-cover bg-center py-16"
-			style={{ backgroundImage: "url('/madinah/big-img.webp')" }}
+			style={{ backgroundImage: "url('/madinah/banner-bg.webp')" }}
 		>
 			<div className="absolute inset-0 bg-black/70" aria-hidden="true" />
 			<div className="container mx-auto px-4 relative z-10 text-center text-white">

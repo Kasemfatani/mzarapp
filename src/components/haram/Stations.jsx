@@ -39,12 +39,12 @@ const stationsData = {
 	],
 	en: [
 		{
-			title: "First Station",
+			title: "1st Station",
 			img: station1,
 			items: ["Masjid al-Haram Exhibition"],
 		},
 		{
-			title: "Second Station",
+			title: "2nd Station",
 			img: station2,
 			items: [
 				"Courtyards.",
@@ -54,7 +54,7 @@ const stationsData = {
 			],
 		},
 		{
-			title: "Third Station",
+			title: "3rd Station",
 			img: station3,
 			items: [
 				"The Kaaba.",
@@ -64,7 +64,7 @@ const stationsData = {
 			],
 		},
 		{
-			title: "Fourth Station",
+			title: "4th Station",
 			img: station4,
 			items: ["Safa.", "Marwa.", "Bab Al-Salam."],
 		},

@@ -84,7 +84,7 @@ export default function TourStory({ initialLang }) {
 									alt=""
 									width={220}
 									height={160}
-									className="rounded-xl border-4 border-white shadow-md"
+									className="rounded-xl border-4 border-white shadow-md h-[190px]"
 									draggable={false}
 								/>
 							</div>

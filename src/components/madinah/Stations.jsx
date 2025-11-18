@@ -36,12 +36,12 @@ const stationsData = {
 	],
 	en: [
 		{
-			title: "First Station",
+			title: "1st Station",
 			img: station1,
 			items: ["Prayer Area Zone" , "Exhibition of the Prophet’s Mosque Architecture"],
 		},
 		{
-			title: "Second Station",
+			title: "2nd Station",
 			img: station2,
 			items: [
 				"Umbrellas",
@@ -49,7 +49,7 @@ const stationsData = {
 			],
 		},
 		{
-			title: "Third Station",
+			title: "3rd Station",
 			img: station3,
 			items: [
 				"Architecture of the Prophet’s Mosque",
@@ -58,7 +58,7 @@ const stationsData = {
 			],
 		},
 		{
-			title: "Fourth Station",
+			title: "4th Station",
 			img: station4,
 			items: ["Bab Al-Salam (Gate of Peace)", " Abu Bakr Al-Siddiq’s Door", "the Mihrabs (Prayer Niches) ", "The Noble Rawdah", "Al-Baqi’ Al-Gharqad Cemetery "],
 		},
