@@ -32,6 +32,12 @@ const features = [
 		mzar: "yes",
 		normal: "no",
 	},
+	{
+		ar: " وصول حصري إلى عدة معالم تاريخية",
+		en: "Exclusive access to several historical landmarks",
+		mzar: "yes",
+		normal: "no",
+	},
 ];
 
 function CheckIcon() {
@@ -77,17 +83,17 @@ export default function ComparisonTable({ initialLang = "ar" }) {
 						: "The difference between a regular tour and the Mzar Enriching Experience"}
 				</h2>
 				<div className="overflow-x-auto">
-					<table className="min-w-[700px] w-full border-separate border-spacing-0 rounded-2xl overflow-hidden">
+					<table className="md:min-w-[700px] w-full border-separate border-spacing-0 rounded-2xl overflow-hidden">
 						<thead>
 							<tr>
-								<th className="bg-black text-white text-lg font-semibold py-4 px-2 w-1/2">
+								<th className="bg-black text-white text-lg font-semibold py-4 px-2  md:w-1/2">
 									{isAr ? "الميزة" : "Feature"}
 								</th>
 
-								<th className="bg-black text-white text-lg font-semibold py-4 px-2 w-1/4">
+								<th className="bg-black text-white text-lg font-semibold py-4 px-2  md:w-1/4">
 									{isAr ? "باص مزار" : "Mzar Bus"}
 								</th>
-								<th className="bg-black text-white text-lg font-semibold py-4 px-2 w-1/4">
+								<th className="bg-black text-white text-lg font-semibold py-4 px-2  md:w-1/4">
 									{isAr ? "الجولات التقليدية" : "Traditional Tours"}
 								</th>
 							</tr>

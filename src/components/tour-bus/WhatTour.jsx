@@ -6,6 +6,7 @@ import seoIcon from "/public/Home/seo.png";
 import smartPhoneIcon from "/public/Home/smart-phone.png";
 import AR_icon from "/public/Home/AR-icon.png";
 import bus_icon from "/public/Home/bus-icon.png";
+import Audio_Guide from "/public/Home/Audio-Guide.png";
 
 const features = [
 	{
@@ -24,9 +25,9 @@ const features = [
 		en: "Augmented Reality (AR) technologies",
 	},
 	{
-		icon: smartPhoneIcon,
-		ar: "مرشد صوتي بـ 8 لغات عالمية ",
-		en: "Smart audio guide in 8 languages",
+		icon: Audio_Guide,
+		ar: "مرشد صوتي بـ 6 لغات عالمية ",
+		en: "Smart audio guide in 6 languages",
 	},
 	{
 		icon: bus_icon,
@@ -53,13 +54,13 @@ export default function WhatTour({ initialLang }) {
 				</h2>
 				<p className="text-center text-gray-500 mb-2">
 					{isAr
-						? "الجولات الإثرائية هي خدمة سياحية مبتكرة تقدمها شركة مزار، تجمع بين التنقل الميداني والمعرفة الموثقة والتقنيات الحديثة."
-						: 'The Enriching Tours is an innovative tour service provided by Mzar Company, combining field mobility, documented knowledge, and modern technologies.'}
+						? "تجمع جولات مزار الإثرائية بين الاستكشاف الميداني والتاريخ الموثق والتقنية الحديثة."
+						: 'Mzar’s enrichment tours blend on-site exploration with verified history and modern technology.'}
 				</p>
 				<p className="text-center text-gray-500 mb-10 ">
 					{isAr
-						? "نطلق الباص من قلب مكة المكرمة ليمر على أهم المعالم التاريخية، بينما يستمع الزوار إلى القصص التوثيقية بلغاتهم عبر المرشد الصوتي الذكي. إنها أكثر من جولة… إنها تجربة تلهمك وتقرّبك من روح المكان."
-						: "We start the bus from the heart of Makkah to pass by the most important historical landmarks, while visitors listen to documented stories in their languages through the smart audio guide. It is more than a tour... it is an experience that inspires you and brings you closer to the spirit of the place."}
+						? "انطلاقًا من قلب مكة، تأخذك حافلة الجولة إلى المعالم التاريخية الرئيسية بينما تستمع إلى قصص أصيلة بلغتك المختارة عبر دليلنا الصوتي الذكي."
+						: "Starting from the heart of Makkah, the tour bus takes you to key historical landmarks while you listen to authentic stories in your chosen language through our smart audio guide."}
 				</p>
 				<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 max-w-6xl mx-auto">
 					{features.map((f, i) => (
@@ -83,10 +84,10 @@ export default function WhatTour({ initialLang }) {
 						</div>
 					))}
 				</div>
-				<p className="text-center bg-[var(--second-bg)] text-white mt-16 p-4 rounded-lg w-fit mx-auto">
+				<p className="text-center bg-[var(--second-bg)] text-white mt-16 p-4 rounded-lg w-fit mx-auto text-lg">
 					{isAr
-						? '"استكشف مكة كما لم ترها من قبل – عبر رحلة تجمع الإيمان بالتقنية"'
-						: '"Explore Makkah like never before – through a journey that blends faith with technology."'}
+						? '"استكشف مكة كما لم ترها من قبل عبر رحلة تجمع الإيمان بالتقنية"'
+						: '"Explore Makkah like never before through a journey that blends faith with technology."'}
 				</p>
 			</div>
 		</section>

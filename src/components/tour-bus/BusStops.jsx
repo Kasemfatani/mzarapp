@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo } from "react";
+import React, { useMemo, useEffect } from "react";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, A11y } from "swiper/modules";
@@ -13,37 +13,44 @@ import "swiper/css/pagination";
 
 const stopsData = [
 	{
-		img: "https://images.unsplash.com/photo-1482192505345-5655af888cc4?q=80&w=1200&auto=format&fit=crop",
-		arTitle: "بئر طوى – بداية الطريق إلى مكة",
-		enTitle: "Bir Tuwa – Gateway to Makkah",
+		img: "/tour-bus/Bir_Tuwa.webp",
+		arTitle: "بئر طوى",
+		enTitle: "Tuwa Well",
 		arDesc: "انطلق معنا في تجربة سياحية روحية فريدة على متن باص مزار.",
 		enDesc: "Begin a unique spiritual tour onboard the Mzar bus.",
 	},
 	{
-		img: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200&auto=format&fit=crop",
-		arTitle: "حصن تاريخي",
-		enTitle: "Historic Fortress",
+		img: "/tour-bus/Al-Jinn_Mosque.webp",
+		arTitle: "مسجد الجن",
+		enTitle: "Al-Jinn Mosque",
 		arDesc: "محطة تُعيد لك تفاصيل التاريخ وتربطك بالمكان.",
 		enDesc: "A stop that brings history alive and connects you to place.",
 	},
 	{
-		img: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=1200&auto=format&fit=crop",
-		arTitle: "معلم أثري",
-		enTitle: "Archaeological Landmark",
+		img: "/tour-bus/Royal_Palaces.webp",
+		arTitle: "القصور الملكية",
+		enTitle: "Royal Palaces",
 		arDesc: "قصص موثّقة تسمعها بلغتك عبر المرشد الصوتي الذكي.",
 		enDesc: "Verified stories in your language via a smart audio guide.",
 	},
 	{
-		img: "https://images.unsplash.com/photo-1482192505345-5655af888cc4?q=80&w=1200&auto=format&fit=crop",
-		arTitle: "طريق الحجاج",
-		enTitle: "Pilgrims’ Route",
+		img: "/tour-bus/Bayah_Mosque.webp",
+		arTitle: "مسجد البيعة",
+		enTitle: "Bay’ah Mosque",
 		arDesc: "بين كل محطة حكاية تُثري تجربتك وتلهمك.",
 		enDesc: "A story at every stop to enrich and inspire.",
 	},
 	{
-		img: "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?q=80&w=1200&auto=format&fit=crop",
+		img: "/tour-bus/Jabal_Al-Rahmah.webp",
 		arTitle: "جبل الرحمة",
-		enTitle: "Mount of Mercy",
+		enTitle: "Jabal Al-Rahmah",
+		arDesc: "نختم الجولة عند معلم خالد في الذاكرة.",
+		enDesc: "Concluding at an iconic, unforgettable site.",
+	},
+	{
+		img: "/tour-bus/Cultural_District.webp",
+		arTitle: "حي حراء الثقافي",
+		enTitle: "Hira Cultural District",
 		arDesc: "نختم الجولة عند معلم خالد في الذاكرة.",
 		enDesc: "Concluding at an iconic, unforgettable site.",
 	},
@@ -51,6 +58,39 @@ const stopsData = [
 
 export default function BusStops({ initialLang = "en" }) {
 	const isAr = initialLang === "ar";
+
+	useEffect(() => {
+		let unbind;
+		let destroyed = false;
+
+		(async () => {
+			// Ensure CSS is present (pin to v5)
+			const cssHref =
+				"https://cdn.jsdelivr.net/npm/@fancyapps/ui@5/dist/fancybox/fancybox.css";
+			if (!document.querySelector(`link[href="${cssHref}"]`)) {
+				const link = document.createElement("link");
+				link.rel = "stylesheet";
+				link.href = cssHref;
+				link.crossOrigin = "anonymous";
+				document.head.appendChild(link);
+			}
+
+			const { Fancybox } = await import("@fancyapps/ui");
+			if (destroyed) return;
+
+			// Delegated binding
+			unbind = Fancybox.bind("[data-fancybox]", {
+				// options if needed
+			});
+		})();
+
+		return () => {
+			destroyed = true;
+			try {
+				if (unbind) unbind();
+			} catch {}
+		};
+	}, []);
 
 	const t = useMemo(
 		() => ({
@@ -116,9 +156,9 @@ export default function BusStops({ initialLang = "en" }) {
 										<h3 className="text-white font-bold text-lg mb-1">
 											{isAr ? s.arTitle : s.enTitle}
 										</h3>
-										<p className="text-white/90 text-sm">
+										{/* <p className="text-white/90 text-sm">
 											{isAr ? s.arDesc : s.enDesc}
-										</p>
+										</p> */}
 									</div>
 								</article>
 							</SwiperSlide>
@@ -127,9 +167,9 @@ export default function BusStops({ initialLang = "en" }) {
 				</div>
 
 				{/* Below slider: details + map */}
-				<div className="mt-12 flex flex-col md:flex-row gap-8 md:gap-0 items-start md:justify-around ">
+				<div className="mt-12 flex flex-col md:flex-row gap-8 md:gap-9 items-start  ">
 					{/* Text side */}
-					<div className={`${contentOrder} `}>
+					<div className={` md:w-[55%] `}>
 						<div className="flex flex-col gap-16 max-w-lg md:max-w-none">
 							<div>
 								<h4 className="text-xl font-bold mb-3 text-gray-900">
@@ -166,34 +206,39 @@ export default function BusStops({ initialLang = "en" }) {
 					</div>
 
 					{/* Map side */}
-					<div className={`${mapOrder}`}>
+					<div className={` md:w-[45%]`}>
 						<div className="relative rounded-2xl overflow-hidden shadow-lg">
-							{/* Using next/image for optimization */}
-							<img
-								src="/tour-bus/map-img.webp"
-								alt={
-									isAr
-										? "خريطة مواقع الانطلاق ونقاط التجمع"
-										: "Map of starting and gathering points"
-								}
-								className=" object-cover select-none  md:h-64 w-full"
-							/>
-							<div className="absolute inset-0 bg-black/15" />
-							<div className="absolute inset-0 flex items-end">
+							<a
+								data-fancybox="map"
+								href={isAr ? "/tour-bus/map-ar.webp" : "/tour-bus/map-en.webp"}
+								className="block"
+								tabIndex={0}
+							>
+								<img
+									src={isAr ? "/tour-bus/map-ar.webp" : "/tour-bus/map-en.webp"}
+									alt={
+										isAr
+											? "خريطة مواقع الانطلاق ونقاط التجمع"
+											: "Map of starting and gathering points"
+									}
+									className="object-cover select-none md:h-64 w-full cursor-zoom-in"
+								/>
+								<span className="sr-only">
+									{isAr ? "تكبير الخريطة" : "Enlarge map"}
+								</span>
+							</a>
+							{/* <div className="absolute inset-0 bg-black/15" /> */}
+							{/* <div className="absolute inset-0 flex items-end">
 								<p className="m-4 sm:m-6 md:m-8 bg-white/80 backdrop-blur px-4 py-2 rounded-md text-gray-900 font-semibold">
 									{t.mapCta}
 								</p>
-							</div>
+							</div> */}
 						</div>
 					</div>
 				</div>
 
 				<div className="flex justify-center mt-6">
-					<Link
-						href="/book-tour"
-						
-						className="inline-block"
-					>
+					<Link href="/book-tour" className="inline-block">
 						<span className="inline-block bg-[var(--main-color)] text-white hover:bg-[var(--sec-color)] hover:text-black px-20 py-3 font-semibold rounded-lg">
 							{t.cta}
 						</span>
