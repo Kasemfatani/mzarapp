@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination , Autoplay  } from "swiper/modules";
 import "swiper/css";
-import img1 from "/public/madinah/banner-bg.webp";
+import img1 from "/public/madinah/banner-bg2.webp";
 import Link from "next/link";
 import Image from "next/image";
 
