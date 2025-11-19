@@ -46,9 +46,7 @@ export default function Footer() {
 	}
 
 	const hideTopSection =
-		pathname === "/madinah" || pathname === "/haram" || pathname === "/tour" ||
-		(pathname === "/path" &&
-			(searchParams.get("id") === "74" || searchParams.get("id") === "73"));
+		pathname === "/madinah" || pathname === "/haram" || pathname === "/tour" || pathname === "/book-haram" || pathname === "/book-haram-success" || pathname === "/book-madinah" || pathname === "/book-madinah-success" || pathname === "/book-tour" || pathname === "/book-tour-success" || (pathname === "/path" && (searchParams.get("id") === "74" || searchParams.get("id") === "73"));
 
 	return (
 		<footer
