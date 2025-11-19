@@ -8,7 +8,7 @@ import { Pagination } from "swiper/modules";
 import "swiper/css";
 import AudioPreviewDialog from "@/components/Path/AudioPreviewDialog";
 
-export default function TopSection({ data, lang }) {
+export default function TopSection({ audio, lang }) {
 	const [language, setLanguage] = useState(lang || "en");
 	
 
@@ -165,7 +165,7 @@ export default function TopSection({ data, lang }) {
 					{/* listen button at bottom center */}
 					<div className="w-full flex justify-center mt-6">
 						{/* Replaced Link with dialog trigger */}
-						<AudioPreviewDialog language={language}  />
+						<AudioPreviewDialog language={language} audio={audio} />
 					</div>
 				</div>
 			</div>
