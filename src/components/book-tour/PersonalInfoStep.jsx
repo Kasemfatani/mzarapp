@@ -21,6 +21,7 @@ import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
 import { toast } from "sonner";
+import { API_BASE_URL_NEW } from "@/lib/apiConfig";
 
 const STORAGE_KEY = "bookTour.selection";
 
@@ -162,26 +163,70 @@ export default function PersonalInfoStep({
 				: "",
 		};
 
-		// Save to localStorage under bookTour.selection
-		if (typeof window !== "undefined") {
-			const prev = localStorage.getItem(STORAGE_KEY);
-			let payload = {};
-			try {
-				payload = prev ? JSON.parse(prev) : {};
-			} catch {}
-			const next = { ...payload, info };
-			localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
-		}
-
-		// Compute total amount in SAR (same as UI box)
-		const peopleCount = Number(info.people || 1);
-		const base = start_price * peopleCount;
-		const tax = base * tax_amount;
-		const totalSar = Number((base + tax).toFixed(2));
-
+		// Get selection data from localStorage
+		let selection = {};
 		try {
-			// Init URWAY payment
-			const res = await fetch("/api/pay/urway/init", {
+			const raw = localStorage.getItem(STORAGE_KEY);
+			if (raw) selection = JSON.parse(raw);
+		} catch {}
+
+		// Build payload for booking API
+		const payload = {
+			name: info.name,
+			email: info.email,
+			phone: info.phone || null,
+			whatsapp: info.whatsapp,
+			phone_country_code: info.phone_country_code || null,
+			whatsapp_country_code: info.whatsapp_country_code,
+			bus_id: selection.bus_id,
+			date: selection.date,
+			time_id: selection.time?.id,
+			meetingPoint_id: Number(selection.meetingPoint.id),
+			people: info.people,
+			payment_method: "online",
+		};
+		try {
+			const res = await fetch(
+				`${API_BASE_URL_NEW}/customer/landing-bus-trip/booking`,
+				{
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify(payload),
+				}
+			);
+			const json = await res.json();
+
+			if (!res.ok || !json.status) {
+				toast.error(
+					<>
+						{lang === "ar"
+							? "حدث خطأ أثناء إرسال المعلومات: "
+							: "Something went wrong sending the info: "}
+						{json.message}
+					</>
+				);
+				setIsLoading(false);
+				return;
+			}
+
+			// Save trip_id, customer_id, process_id to localStorage
+			const { trip_id, customer_id, process_id , ticket} = json.data || {};
+			const updatedSelection = {
+				...selection,
+				trip_id,
+				customer_id,
+				process_id,
+				ticket,
+			};
+			localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedSelection));
+
+			// Proceed to URWAY payment
+			const peopleCount = Number(info.people || 1);
+			const base = start_price * peopleCount;
+			const tax = base * tax_amount;
+			const totalSar = Number((base + tax).toFixed(2));
+
+			const urwayRes = await fetch("/api/pay/urway/init", {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify({
@@ -192,16 +237,19 @@ export default function PersonalInfoStep({
 					failPath: "/book-tour",
 				}),
 			});
-			const json = await res.json();
-			if (!res.ok || !json?.paymentUrl) {
-				throw new Error(json?.error || "Failed to start payment");
+			const urwayJson = await urwayRes.json();
+			if (!urwayRes.ok || !urwayJson?.paymentUrl) {
+				throw new Error(urwayJson?.error || "Failed to start payment");
 			}
-			window.location.href = json.paymentUrl;
-			// No need to setIsLoading(false) here, as navigation will occur
+			window.location.href = urwayJson.paymentUrl;
 		} catch (e) {
-			console.error("URWAY init error", e);
-			toast.error(lang === "ar" ? "فشل بدء الدفع" : "Failed to start payment");
-			setIsLoading(false); // Stop loading on error
+			console.error("Booking or URWAY error", e);
+			toast.error(
+				lang === "ar"
+					? "فشل إرسال المعلومات أو بدء الدفع"
+					: "Failed to send info or start payment"
+			);
+			setIsLoading(false);
 		}
 	};
 
