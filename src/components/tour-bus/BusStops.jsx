@@ -233,7 +233,9 @@ export default function BusStops({ initialLang = "en" }) {
 									{t.mapCta}
 								</p>
 							</div> */}
+							
 						</div>
+						<p className="text-center mt-1">{isAr ? "انقر على الصورة للتكبير" : "click on the image to enlarge"}</p>
 					</div>
 				</div>
 
