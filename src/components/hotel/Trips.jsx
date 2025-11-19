@@ -21,7 +21,7 @@ export default function Trips() {
 
 	const t = {
 		en: {
-			title: "Enjoy the Mazar experience through three distinctive trips",
+			title: "Enjoy Mzar's Exclusive Experiences",
 			desc: "Hand-picked experiences crafted for your journey.",
 			soon: "Soon...",
 			details: "details",
@@ -35,7 +35,7 @@ export default function Trips() {
 
 		},
 		ar: {
-			title: "استمتع بتجربة مزار عبر ثلاث رحلات مميزة",
+			title: "استمتع بتجارب مزار المميزة",
 			desc: "تجارب مختارة بعناية لتناسب رحلتك.",
 			soon: "قريبًا...",
 			details: "التفاصيل",
@@ -143,10 +143,9 @@ export default function Trips() {
 		if (type === "enrichment") {
 			return (
 				<Link
-					href="https://wa.me/+966580121025"
-					target="_blank"
-					rel="noopener noreferrer"
-					className="inline-flex w-full items-center justify-center rounded-xl bg-[var(--main-color)] text-white py-3 text-sm font-semibold  hover:text-gray-300 transition-colors"
+					href="/#paths"
+					
+					className="inline-flex w-full items-center justify-center rounded-xl bg-[var(--main-color)] text-white py-3 text-sm font-semibold  hover:text-gray-300 transition-colors text-center"
 				>
 					{L.EnrichmentButton}
 				</Link>
@@ -156,10 +155,9 @@ export default function Trips() {
 		if (type === "TwoMosques") {
 			return (
 				<Link
-					href="https://wa.me/+966580121025"
-					target="_blank"
-					rel="noopener noreferrer"
-					className="inline-flex w-full items-center justify-center rounded-xl bg-[var(--main-color)] text-white px-2 py-3 text-sm font-semibold  hover:text-gray-300 transition-colors"
+					href="/tour"
+					
+					className="inline-flex w-full items-center justify-center rounded-xl bg-[var(--main-color)] text-white px-2 py-3 text-sm font-semibold  hover:text-gray-300 transition-colors text-center"
 				>
 					{L.TwoMosquesButton}
 				</Link>
@@ -169,10 +167,8 @@ export default function Trips() {
 		if (type === "TouristBus") {
 			return (
 				<Link
-					href="https://onelink.to/yb2xky"
-					target="_blank"
-					className="inline-flex w-full items-center justify-center rounded-xl bg-[var(--main-color)] text-white px-2 py-3 text-sm font-semibold hover:text-gray-300 transition-colors"
-					rel="noopener noreferrer"
+					href="/tour-bus"
+					className="inline-flex w-full items-center justify-center rounded-xl bg-[var(--main-color)] text-white px-2 py-3 text-sm font-semibold hover:text-gray-300 transition-colors text-center"
 				>
 					{L.BusTourButton}
 				</Link>

@@ -14,19 +14,22 @@ export default function LazyFooter(props) {
 	const [shouldLoad, setShouldLoad] = useState(false);
 	const pathname = usePathname();
 
-	// Don't render the footer on the custome page
-	if (
-		pathname === "/saad-alqurashi" ||
-		pathname === "/saad-new" ||
-		pathname === "/raslania" ||
-		pathname === "/hotel"
-	) {
-		return null;
-	}
+	
 
 	useEffect(() => {
 		if (inView) setShouldLoad(true);
 	}, [inView]);
+
+	// Decide whether to skip rendering AFTER hooks are called
+  const skipFooter =
+    pathname === "/saad-alqurashi" ||
+    pathname === "/saad-new" ||
+    pathname === "/raslania" ||
+    pathname === "/hotel";
+
+  if (skipFooter) {
+    return null;
+  }
 
 	return (
 		<div ref={ref} style={{ minHeight: 260 }}>
