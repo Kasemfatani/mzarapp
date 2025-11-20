@@ -62,7 +62,7 @@ export async function generateMetadata(): Promise<Metadata> {
 					siteName: "MzarApp",
 					images: [
 						{
-							url: mzarImg.src,
+							url: `${siteUrl}share.png`,
 							width: 1200,
 							height: 630,
 							alt: "Mzar - A destination and path",
