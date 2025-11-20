@@ -5,14 +5,14 @@ import Image from "next/image";
 // import routeIcon from "/public/Home/route.png";
 // import smartPhoneIcon from "/public/Home/smart-phone.png";
 import AR from "/public/Home/AR.png";
-import Audio from "/public/Home/Audio-Guide.png";
+import tour_guide from "/public/Home/tour-guide.png";
 import map from "/public/Home/map.svg";
 import photography from "/public/Home/photography.svg";
 import imageIcon from "/public/Home/image.svg";
 
 const features = [
 	{
-		icon: Audio,
+		icon: tour_guide,
 		ar: "ترجمة فورية بعدة لغات",
 		en: "Instant translation in multiple languages",
 	},
