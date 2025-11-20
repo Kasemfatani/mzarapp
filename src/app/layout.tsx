@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import React, { Suspense } from "react";
 import "./globals.css";
 //import "./video-react.css";
-import mzarImg from "../assets/images/home/og.png";
+import mzarImg from "/public/share.png";
 import Header from "@/components/header/Header";
 import LazyFooter from "@/components/home/LazyFooter";
 //import "@fortawesome/fontawesome-free/css/all.min.css";
