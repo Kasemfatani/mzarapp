@@ -20,6 +20,8 @@ export async function generateMetadata(): Promise<Metadata> {
 	const acceptLang = headers().get("accept-language");
 	const lang = acceptLang && acceptLang.startsWith("ar") ? "ar" : "en";
 
+	const siteUrl = process.env.APP_URL || "https://www.mzarapp.com/";
+
 	return lang === "ar"
 		? {
 				title: "مزار: رحلتك إلى أعماق التاريخ والروحانية",
@@ -35,7 +37,7 @@ export async function generateMetadata(): Promise<Metadata> {
 					siteName: "تطبيق مزار",
 					images: [
 						{
-							url: mzarImg.src,
+							url: `${siteUrl}share.png`,
 							width: 1200,
 							height: 630,
 							alt: "مزار - واجهة ومسار",
