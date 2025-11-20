@@ -167,10 +167,10 @@ export default function BusStops({ initialLang = "en" }) {
 				</div>
 
 				{/* Below slider: details + map */}
-				<div className="mt-12 flex flex-col md:flex-row gap-8 md:gap-9 items-start  ">
+				<div className="mt-12 flex flex-col md:flex-row gap-8 md:gap-9 items-center  ">
 					{/* Text side */}
 					<div className={` md:w-[55%] `}>
-						<div className="flex flex-col gap-16 max-w-lg md:max-w-none">
+						<div className="flex flex-col  gap-16 max-w-lg md:max-w-none">
 							<div>
 								<h4 className="text-xl font-bold mb-3 text-gray-900">
 									{t.durationTitle}
@@ -221,7 +221,7 @@ export default function BusStops({ initialLang = "en" }) {
 											? "خريطة مواقع الانطلاق ونقاط التجمع"
 											: "Map of starting and gathering points"
 									}
-									className="object-cover select-none md:h-64 w-full cursor-zoom-in"
+									className="object-cover select-none  w-full cursor-zoom-in"
 								/>
 								<span className="sr-only">
 									{isAr ? "تكبير الخريطة" : "Enlarge map"}
@@ -235,7 +235,7 @@ export default function BusStops({ initialLang = "en" }) {
 							</div> */}
 							
 						</div>
-						<p className="text-center mt-1">{isAr ? "انقر على الصورة للتكبير" : "click on the image to enlarge"}</p>
+						{/* <p className="text-center mt-1">{isAr ? "انقر على الصورة للتكبير" : "click on the image to enlarge"}</p> */}
 					</div>
 				</div>
 

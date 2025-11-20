@@ -13,8 +13,8 @@ import imageIcon from "/public/Home/image.svg";
 const features = [
 	{
 		icon: tour_guide,
-		ar: "ترجمة فورية بعدة لغات",
-		en: "Instant translation in multiple languages",
+		ar: "مرشد سياحي مرافق",
+		en: "Accompanied Tour Guide",
 	},
 	{
 		icon: AR,
