@@ -98,7 +98,7 @@ export default function BusStops({ initialLang = "en" }) {
 				? "من بئر طوى إلى جبل الرحمة.. بين كل محطة حكاية"
 				: "From Bir Tuwa to Mount Arafat... a story at every stop",
 			durationTitle: isAr ? "مدة الجولة" : "Tour Duration",
-			durationText: isAr ? "المدة: 90 دقيقة." : "Duration: 90 minutes.",
+			durationText: isAr ? "المدة: 5 ساعات." : "Duration: 5 hours.",
 			dailyToursTitle: isAr ? "الجولات اليومية:" : "Daily Tours:",
 			morning: isAr
 				? "صباحية: 7:00 ص – 12:00 م"
