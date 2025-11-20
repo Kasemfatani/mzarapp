@@ -44,8 +44,8 @@ export default function TopSection({ audio, lang }) {
 						{/* responsive youtube iframe */}
 						<iframe
 							className="w-full h-full block"
-							src="https://www.youtube.com/embed/dMZO88og9Is"
-							title="Mzar - Emotional journey"
+							src="https://www.youtube.com/embed/S8VDz0V1QwM"
+							title="Mzar"
 							frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen=""
 						/>
 					</div>
