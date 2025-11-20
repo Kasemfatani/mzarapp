@@ -106,7 +106,7 @@ export default function Trips() {
 			rating: "4.90",
 			title: {
 				en: "Tourist Bus",
-				ar: "الباص السياحي",
+				ar: "الجولات الإثرائية",
 			},
 			blurb: {
 				en: "Affordable introductory tours to visit the most prominent historical and enrichment landmarks of Makkah in an innovative knowledge experience.",
