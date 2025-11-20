@@ -79,14 +79,14 @@ export default function Destinations({ data, lang }) {
 						<SwiperSlide>
 							<article
 								className={`rounded-[20px] overflow-hidden h-[410px] flex flex-col shadow-2xl ${
-									data.id === 45 && (item.id === 15 || item.id === 13)
+									data.id === 45 && ( item.id === 13)
 										? "bg-[var(--sec-color)] border-2 border-[#EAD7A1]"
 										: "bg-white"
 								}`}
 							>
 								{/* Image */}
 								<div className="relative h-48 w-full">
-									{data.id === 45 && (item.id === 15 || item.id === 13) && (
+									{data.id === 45 && ( item.id === 13) && (
 										<div
 											className={language === "ar" ? "ribbon-rtl" : "ribbon"}
 										>
