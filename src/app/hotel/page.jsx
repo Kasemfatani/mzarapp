@@ -1,12 +1,11 @@
 import { cookies, headers } from "next/headers";
 import Hero from "@/components/hotel/Hero";
 import Trips from "@/components/hotel/Trips";
-import TopSection from "@/components/hotel/TopSection";
-import PartnerSection from "@/components/hotel/PartnerSection";
-import KnowledgeBanner from "@/components/hotel/KnowledgeBanner";
-import WhyMzarSection from "@/components/hotel/WhyMzarSection";
-import HiraSection from "@/components/hotel/HiraSection";
-import HotelFooter from "@/components/hotel/HotelFooter";
+
+import LazyTopSections from "@/components/hotel/LazyTopSections";
+
+import LazyBottomSections from "@/components/hotel/LazyBottomSections";
+
 import { notFound } from "next/navigation";
 import { API_BASE_URL } from "@/lib/apiConfig";
 
@@ -35,12 +34,14 @@ export default async function HotelPage() {
 		<div className={lang === "en" ? "ltr" : "rtl"}>
 			<Hero initialLang={lang} />
 			<Trips />
-			<TopSection lang={lang} audio={data.short_audio}/>
+			<LazyTopSections lang={lang} audio={data.short_audio} hotelName="HHH"/>
+			{/* <TopSection lang={lang} audio={data.short_audio}/>
 			<PartnerSection lang={lang} hotelName="HHH" />
-			<KnowledgeBanner lang={lang} />
-			<WhyMzarSection lang={lang} />
+			<KnowledgeBanner lang={lang} /> */}
+			<LazyBottomSections lang={lang} />
+			{/* <WhyMzarSection lang={lang} />
 			<HiraSection lang={lang} />
-			<HotelFooter lang={lang} />
+			<HotelFooter lang={lang} /> */}
 			
 		</div>
 	);
