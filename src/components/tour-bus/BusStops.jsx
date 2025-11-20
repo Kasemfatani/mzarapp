@@ -112,8 +112,7 @@ export default function BusStops({ initialLang = "en" }) {
 		[isAr]
 	);
 
-	const contentOrder = isAr ? "md:order-1" : "md:order-2";
-	const mapOrder = isAr ? "md:order-2" : "md:order-1";
+	
 
 	return (
 		<section className="py-16 bg-[#F5F1E8]">
