@@ -38,8 +38,8 @@ export async function generateMetadata(): Promise<Metadata> {
 					images: [
 						{
 							url: `${siteUrl}share.png`,
-							width: 1200,
-							height: 630,
+							width: 1236,
+							height: 412,
 							alt: "مزار - واجهة ومسار",
 						},
 					],
@@ -63,8 +63,8 @@ export async function generateMetadata(): Promise<Metadata> {
 					images: [
 						{
 							url: mzarImg.src,
-							width: 1200,
-							height: 630,
+							width: 1236,
+							height: 412,
 							alt: "Mzar - A destination and path",
 						},
 					],
