@@ -52,8 +52,8 @@ export default function TourStory({ initialLang }) {
 							</ul>
 							<div className="mt-4">
 								<Link
-									href="#"
-									onClick={(e) => e.preventDefault()}
+									href="/book-madinah"
+									
 									className="inline-block"
 								>
 									<span className="inline-block bg-[var(--main-color)] text-white hover:bg-[var(--sec-color)] hover:text-black px-6 py-3 font-semibold rounded-lg">
@@ -84,7 +84,7 @@ export default function TourStory({ initialLang }) {
 									alt=""
 									width={220}
 									height={160}
-									className="rounded-xl border-4 border-white shadow-md"
+									className="rounded-xl border-4 border-white shadow-md h-[190px]"
 									draggable={false}
 								/>
 							</div>

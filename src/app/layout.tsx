@@ -1,16 +1,16 @@
-import Head from "next/head";
+// import Head from "next/head";
 import type { Metadata } from "next";
 import React, { Suspense } from "react";
 import "./globals.css";
 //import "./video-react.css";
-import mzarImg from "../assets/images/home/og.png";
+import mzarImg from "/public/share.png";
 import Header from "@/components/header/Header";
 import LazyFooter from "@/components/home/LazyFooter";
 //import "@fortawesome/fontawesome-free/css/all.min.css";
 import "../style/main.css";
 import { Toaster } from "@/components/ui/sonner";
-import { GoogleTagManager } from "@next/third-parties/google";
-import Script from "next/script";
+// import { GoogleTagManager } from "@next/third-parties/google";
+// import Script from "next/script";
 import { headers, cookies } from "next/headers";
 import TrackingScripts from "@/components/TrackingScripts";
 import DeferredCssLinks from "@/components/DeferredCssLinks"; // ADD
@@ -19,6 +19,8 @@ import ScrollToTopOnPageChange from "@/components/ScrollToTopOnPageChange";
 export async function generateMetadata(): Promise<Metadata> {
 	const acceptLang = headers().get("accept-language");
 	const lang = acceptLang && acceptLang.startsWith("ar") ? "ar" : "en";
+
+	const siteUrl = process.env.APP_URL || "https://www.mzarapp.com/";
 
 	return lang === "ar"
 		? {
@@ -35,7 +37,7 @@ export async function generateMetadata(): Promise<Metadata> {
 					siteName: "تطبيق مزار",
 					images: [
 						{
-							url: mzarImg.src,
+							url: `${siteUrl}share.png`,
 							width: 1200,
 							height: 630,
 							alt: "مزار - واجهة ومسار",
@@ -60,7 +62,7 @@ export async function generateMetadata(): Promise<Metadata> {
 					siteName: "MzarApp",
 					images: [
 						{
-							url: mzarImg.src,
+							url: `${siteUrl}share.png`,
 							width: 1200,
 							height: 630,
 							alt: "Mzar - A destination and path",
@@ -81,8 +83,8 @@ export default function RootLayout({
 	const lang = langCookie === "ar" ? "ar" : "en";
 
 	return (
-		<html lang={lang} id="root">
-			<Head>
+		<html lang={lang} id="root" suppressHydrationWarning={true}>
+			<head>
 				{/* Google Fonts */}
 				{/* Remove Google Fonts preconnects (no longer needed) */}
 				{/* <link rel="preconnect" href="https://fonts.googleapis.com" /> */}
@@ -116,7 +118,7 @@ export default function RootLayout({
 						}),
 					}}
 				/>
-			</Head>
+			</head>
 			<body className="w-full" suppressHydrationWarning={true}>
 				<ScrollToTopOnPageChange />
 				<noscript>

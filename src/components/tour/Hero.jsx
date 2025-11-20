@@ -45,7 +45,7 @@ export default function Hero({ initialLang }) {
 					<h1 className="text-3xl md:text-6xl text-center font-bold !leading-tight mb-4">
 						{isAr
 							? "رحلةٌ تعيدك إلى زمن النبوة… لتعيش القصة حيث وقعت. "
-							: "The enriching Haramain Tour"}
+							: "The enriching Haramain Tours"}
 					</h1>
 
 					{/* Subtext / description */}

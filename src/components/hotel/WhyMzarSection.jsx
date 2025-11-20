@@ -1,3 +1,6 @@
+"use client";
+import React, { useEffect } from "react";
+
 import Image from "next/image";
 
 const featuresAr = [
@@ -13,25 +16,72 @@ const featuresEn = [
 	"Augmented Reality experience: Unlock each site’s story through Augmented Reality by opening your camera and pointing at the landmark.",
 ];
 
+const images = [
+	"/gallery/4.webp",
+	"/gallery/19.jpg",
+	"/gallery/25.png",
+	"/gallery/17.png",
+];
+
 export default function WhyMzarSection({ lang = "ar" }) {
 	const isAr = lang === "ar";
+
+	useEffect(() => {
+			let unbind;
+			let destroyed = false;
+	
+			(async () => {
+				// Ensure CSS is present (pin to v5)
+				const cssHref =
+					"https://cdn.jsdelivr.net/npm/@fancyapps/ui@5/dist/fancybox/fancybox.css";
+				if (!document.querySelector(`link[href="${cssHref}"]`)) {
+					const link = document.createElement("link");
+					link.rel = "stylesheet";
+					link.href = cssHref;
+					link.crossOrigin = "anonymous";
+					document.head.appendChild(link);
+				}
+	
+				const { Fancybox } = await import("@fancyapps/ui");
+				if (destroyed) return;
+	
+				// Delegated binding
+				unbind = Fancybox.bind("[data-fancybox]", {
+					Thumbs: false, // Disable the thumbnail bar
+				});
+			})();
+	
+			return () => {
+				destroyed = true;
+				try {
+					if (unbind) unbind();
+				} catch {}
+			};
+		}, []);
+
 	return (
 		<section className="w-full bg-white py-10 px-2 flex justify-center">
 			<div
 				className={`flex flex-col md:flex-row  items-center gap-8 max-w-6xl w-full`}
 			>
 				{/* Image side */}
-				<div className="w-full md:w-1/2 flex justify-center">
-					<div className="overflow-hidden">
-						<Image
-							src="/hotel/why-img.webp"
-							alt={isAr ? "لماذا مزار" : "Why Mzar"}
-							width={600}
-							height={400}
-							className="object-cover w-full h-auto"
-							priority
-						/>
-					</div>
+				<div className="w-full md:w-1/2 grid grid-cols-2 grid-rows-2 gap-2">
+					{images.map((img, i) => (
+							<a
+								key={i}
+								href={img}
+								data-fancybox="preview-imgs"
+								className="aspect-[4/3] rounded-2xl overflow-hidden bg-gray-200 block "
+							>
+								<img
+									src={img}
+									alt={`Preview ${i + 1}`}
+									className="w-full h-full object-cover transition-transform duration-200 hover:scale-105"
+									loading="lazy"
+									draggable={false}
+								/>
+							</a>
+						))}
 				</div>
 				{/* Text side */}
 				<div className="w-full md:w-1/2 flex flex-col items-start md:items-start gap-6">

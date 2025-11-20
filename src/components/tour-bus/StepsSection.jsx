@@ -120,7 +120,7 @@ export default function StepsSection({ initialLang = "ar" }) {
           ))}
         </div>
         <div className="flex justify-center mt-12">
-          <span className="bg-[#8B7B5A] text-white rounded-lg px-8 py-3 text-base md:text-lg font-semibold">
+          <span className="bg-[#8B7B5A] text-white rounded-lg px-8 py-3 text-base md:text-lg text-center font-semibold">
             {isAr
               ? "التقِ بالمكان حيث حدثت القصة"
               : "Meet the place where the story happened"}

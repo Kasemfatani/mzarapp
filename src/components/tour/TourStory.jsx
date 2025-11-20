@@ -71,8 +71,8 @@ export default function TourStory({ initialLang }) {
 				{/* Centered text below */}
 				<div className="mt-10 text-center text-lg md:text-xl font-semibold text-gray-800">
 					{isAr
-						? '"في تسعين دقيقة فقط، يعيش الزائر قرونًا من التاريخ والإيمان." '
-						: ' "In just ninety minutes, visitors experience centuries of history and faith." '}
+						? '"في 90 دقيقة فقط، يعيش الزائر قرونًا من التاريخ والإيمان." '
+						: ' "In just 90 minutes, visitors experience centuries of history and faith." '}
 				</div>
 			</div>
 			{/* Optional: subtle background pattern */}

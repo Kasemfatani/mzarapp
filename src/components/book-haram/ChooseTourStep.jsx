@@ -1,0 +1,346 @@
+"use client";
+
+import React, { useEffect, useState } from "react";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { startOfToday, addDays, format } from "date-fns";
+import { arSA, enUS } from "date-fns/locale";
+import { Calendar } from "@/components/ui/calendar";
+import { Button } from "@/components/ui/button";
+import {
+	Form,
+	FormField,
+	FormItem,
+	FormMessage,
+	FormControl,
+} from "@/components/ui/form";
+import { cn } from "@/lib/utils";
+import StepsTimeline from "./StepsTimeline";
+import { API_BASE_URL_NEW } from "@/lib/apiConfig";
+
+const STORAGE_KEY = "haramTour.selection";
+
+const messages = {
+	en: {
+		steps: {
+			choose: "Choose Tour",
+			info: "Personal Information",
+			pay: "Payment",
+		},
+		calendar: "Select Date",
+		time: "Choose Time:",
+		meeting: "Gathering point:",
+		next: "Next",
+		saved: "Saved. Proceeding to the next step soon.",
+		requiredDate: "Please select a date",
+		requiredTime: "Please choose a time",
+		requiredMeet: "Please select a meeting point",
+	},
+	ar: {
+		steps: { choose: "اختر جولتك", info: "أدخل المعلومات", pay: "الدفع" },
+		calendar: "اختر التاريخ",
+		time: "اختيار الوقت:",
+		meeting: "نقطة التجمع:",
+		next: "التالي",
+		saved: "تم الحفظ. سيتم الانتقال للخطوة التالية قريبًا.",
+		requiredDate: "يرجى اختيار تاريخ",
+		requiredTime: "يرجى اختيار الوقت",
+		requiredMeet: "يرجى اختيار نقطة التجمع",
+	},
+};
+
+const schema = (lang) =>
+	z.object({
+		date: z
+			.date({ invalid_type_error: messages[lang].requiredDate })
+			.refine(Boolean, {
+				message: messages[lang].requiredDate,
+			}),
+		time: z
+			.object({
+				id: z.any(),
+				name: z.string(),
+			})
+			.refine((val) => val && val.id && val.name, {
+				message: messages[lang].requiredTime,
+			}),
+	});
+
+export default function ChooseTourStep({
+	initialLang = "en",
+	times = [],
+	gatheringPointAddress = "",
+	busId,
+	onSaved,
+	leftSeats,
+	setLeftSeats,
+	minSeats,
+	setMinSeats,
+	lat,
+	lng,
+}) {
+	const lang = initialLang === "ar" ? "ar" : "en";
+	const t = messages[lang];
+	const isAr = lang === "ar";
+
+	const today = startOfToday();
+	const tomorrow = addDays(today, 1);
+	const maxDate = addDays(today, 14);
+
+	const form = useForm({
+		resolver: zodResolver(schema(lang)),
+		defaultValues: {
+			date: undefined,
+			time: undefined,
+		},
+		mode: "onSubmit",
+	});
+
+	const [savedMsg, setSavedMsg] = useState("");
+	const [availabilityMsg, setAvailabilityMsg] = useState("");
+	const [checking, setChecking] = useState(false);
+
+	// Check availability when date and time are selected
+	useEffect(() => {
+		const values = form.getValues();
+		if (values.date && values.time && values.time.id) {
+			setChecking(true);
+			setAvailabilityMsg("");
+			const params = new URLSearchParams({
+				tour_id: busId,
+				date: format(values.date, "yyyy-MM-dd"),
+				time_id: values.time.id,
+			});
+			fetch(
+				`${API_BASE_URL_NEW}/landing/landing-guided-tour/check-availability?${params.toString()}`,
+				{
+					method: "GET",
+					headers: { lang },
+				}
+			)
+				.then((res) => res.json())
+				.then((data) => {
+					if (data.status && data.data) {
+						// console.log("data availability", data);
+						setLeftSeats?.(data.data.left_seats);
+						setMinSeats?.(data.data.min_seats);
+						if (data.data.left_seats === 0) {
+							setAvailabilityMsg(
+								isAr
+									? "لا توجد مقاعد متاحة، يرجى تغيير التاريخ أو الوقت."
+									: "No seats left, please change date or time."
+							);
+						} else {
+							setAvailabilityMsg("");
+						}
+					} else {
+						// console.log("data not status", data);
+						setLeftSeats?.(0);
+						setMinSeats?.(null);
+						setAvailabilityMsg(
+							isAr
+								? "حدث خطأ في التحقق من التوفر."
+								: "Error checking availability."
+						);
+					}
+				})
+				.catch((e) => {
+					// console.log("error data", e);
+					setLeftSeats?.(0);
+					setMinSeats?.(null);
+					setAvailabilityMsg(
+						isAr
+							? "حدث خطأ في التحقق من التوفر."
+							: "Error checking availability."
+					);
+				})
+				.finally(() => setChecking(false));
+		} else {
+			setLeftSeats?.(null);
+			setMinSeats?.(null);
+			setAvailabilityMsg("");
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [form.watch("date"), form.watch("time")]);
+
+	const onSubmit = (values) => {
+		if (leftSeats === 0) return;
+		if (typeof window !== "undefined") {
+			const payload = {
+				...values,
+				date: format(values.date, "yyyy-MM-dd"),
+				time: values.time,
+				tour_id: busId,
+			};
+			localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+		}
+		onSaved?.(values);
+		setSavedMsg(t.saved);
+	};
+
+	const colBase = "  p-4 md:p-6 ";
+	const sectionTitle = "text-base md:text-lg font-semibold mb-3 md:mb-4";
+
+	return (
+		<section className=" mx-auto px-6 md:px-6 my-12">
+			<Form {...form}>
+				<form
+					onSubmit={form.handleSubmit(onSubmit)}
+					className={cn("grid grid-cols-1 gap-4 ", "md:grid-cols-4")}
+				>
+					{/* Steps column */}
+					<StepsTimeline t={t} isAr={isAr} />
+
+					{/* Calendar column */}
+					<div className={cn(colBase, "flex justify-center items-start ")}>
+						<div>
+							<h3 className={sectionTitle}>{t.calendar}</h3>
+							<FormField
+								control={form.control}
+								name="date"
+								render={({ field }) => (
+									<FormItem>
+										<FormControl>
+											<Calendar
+												mode="single"
+												selected={field.value}
+												onSelect={field.onChange}
+												disabled={(date) => {
+													// Only allow Sunday (0), Tuesday (2), Wednesday (3)
+													const day = date.getDay();
+													return (
+														![0, 2, 3].includes(day) ||
+														date < tomorrow ||
+														date > maxDate
+													);
+												}}
+												locale={isAr ? arSA : enUS}
+												className="rounded-md border w-auto max-w-full"
+											/>
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+						</div>
+					</div>
+
+					{/* Time column */}
+					<div className={cn(colBase, "md:ms-2 md:border-x md:border-dotted")}>
+						<h3 className={sectionTitle}>{t.time}</h3>
+						<FormField
+							control={form.control}
+							name="time"
+							render={({ field }) => (
+								<FormItem>
+									<div className="grid gap-3">
+										{times.map((time) => {
+											const active = field.value?.id === time.id;
+											return (
+												<button
+													type="button"
+													key={time.id}
+													onClick={() =>
+														field.onChange({ id: time.id, name: time.name })
+													}
+													className={cn(
+														"w-full text-center rounded-md border px-4 py-2 font-medium",
+														active
+															? "bg-[var(--main-color,#14532d)] text-white border-[var(--main-color,#14532d)]"
+															: "hover:bg-muted/40"
+													)}
+												>
+													<div className="font-medium">{time.name}</div>
+												</button>
+											);
+										})}
+									</div>
+									{/* Show left seats info */}
+									{leftSeats !== null && (
+										<div className="mt-3 text-center text-base text-blue-600 font-semibold">
+											{leftSeats === 0
+												? isAr
+													? "لا توجد مقاعد متاحة، يرجى تغيير التاريخ أو الوقت."
+													: "No seats left, please change date or time."
+												: isAr
+												? `المقاعد المتبقية: ${leftSeats}`
+												: `Seats left: ${leftSeats}`}
+										</div>
+									)}
+									{availabilityMsg && leftSeats !== 0 && (
+										<div className="mt-2 text-center text-red-600">
+											{availabilityMsg}
+										</div>
+									)}
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+					</div>
+
+					{/* Meeting point column */}
+					<div className={cn(colBase, "")}>
+						<h3 className={sectionTitle}>{t.meeting}</h3>
+						<div className="flex items-stretch gap-1 ">
+							{/* Address box */}
+							<div className="p-3 rounded border bg-white text-black min-w-[240px] max-w-[340px]">
+								{gatheringPointAddress ||
+									(isAr
+										? "لا يوجد عنوان نقطة تجمع"
+										: "No meeting point address")}
+							</div>
+
+							{/* Map button OUTSIDE the address box */}
+							{lat && lng && (
+								<a
+									href={`https://www.google.com/maps/search/?api=1&query=${lat},${lng}`}
+									target="_blank"
+									rel="noopener noreferrer"
+									aria-label={
+										isAr
+											? "افتح الموقع في خرائط جوجل"
+											: "Open location in Google Maps"
+									}
+									title={
+										isAr ? "افتح الموقع في خرائط جوجل" : "Open in Google Maps"
+									}
+									className="group inline-flex items-center gap-2 p-3 rounded-md border  hover:bg-blue-50  transition "
+								>
+									{/* New pin icon (SVG) */}
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										viewBox="0 0 24 24"
+										fill="currentColor"
+										className="h-5 w-5 text-[var(--main-color,#14532d)] group-hover:text-blue-700"
+									>
+										<path d="M12 2.75A6.25 6.25 0 0 0 5.75 9c0 1.73.66 3.33 1.92 4.79 1.02 1.17 2.08 2.3 3.11 3.45.4.45.8.9 1.2 1.36.1.12.28.12.38 0 .39-.46.8-.91 1.2-1.36 1.03-1.15 2.09-2.28 3.11-3.45A7.53 7.53 0 0 0 18.25 9 6.25 6.25 0 0 0 12 2.75Zm0 8.5A2.25 2.25 0 1 1 12 7a2.25 2.25 0 0 1 0 4.25Z" />
+									</svg>
+									
+								</a>
+							)}
+						</div>
+					</div>
+
+					{/* Footer actions */}
+					<div className={cn("md:col-span-4")}>
+						<div
+							className={cn("flex items-center justify-center  mt-2 md:mt-4")}
+						>
+							<Button
+								type="submit"
+								className="min-w-40 bg-[var(--main-color,#14532d)] hover:bg-[var(--sec-color,#86efac)] hover:text-black"
+								disabled={leftSeats === 0 || checking}
+							>
+								{t.next}
+							</Button>
+						</div>
+						{savedMsg && (
+							<p className="text-center mt-3 text-green-700">{savedMsg}</p>
+						)}
+					</div>
+				</form>
+			</Form>
+		</section>
+	);
+}

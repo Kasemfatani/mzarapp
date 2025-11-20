@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/form";
 import { cn } from "@/lib/utils";
 import StepsTimeline from "./StepsTimeline";
+import { API_BASE_URL_NEW } from "@/lib/apiConfig";
 
 const STORAGE_KEY = "bookTour.selection";
 
@@ -80,6 +81,8 @@ export default function ChooseTourStep({
 	gatheringPoints = [],
 	busId,
 	onSaved,
+	leftSeats,
+	setLeftSeats,
 }) {
 	const lang = initialLang === "ar" ? "ar" : "en";
 	const t = messages[lang];
@@ -99,20 +102,75 @@ export default function ChooseTourStep({
 		mode: "onSubmit",
 	});
 
-	// Prefill from storage, if exists
-	// useEffect(() => {
-	// 	if (typeof window === "undefined") return;
-	// 	try {
-	// 		const raw = localStorage.getItem(STORAGE_KEY);
-	// 		if (!raw) return;
-	// 		const parsed = JSON.parse(raw);
-	// 		if (parsed?.date) parsed.date = new Date(parsed.date);
-	// 		form.reset(parsed);
-	// 	} catch {}
+	const [savedMsg, setSavedMsg] = useState("");
+	const [availabilityMsg, setAvailabilityMsg] = useState("");
+	const [checking, setChecking] = useState(false);
 
-	// }, []);
+	// Check availability when date and time are selected
+	useEffect(() => {
+		const values = form.getValues();
+		if (values.date && values.time && values.time.id) {
+			setChecking(true);
+			setAvailabilityMsg("");
+			const params = new URLSearchParams({
+				bus_id: busId,
+				date: format(values.date, "yyyy-MM-dd"),
+				time_id: values.time.id,
+			});
+			fetch(
+				`${API_BASE_URL_NEW}/customer/landing-bus-trip/check-availability?${params.toString()}`,
+				{
+					method: "GET",
+					headers: { lang },
+				}
+			)
+				.then((res) => res.json())
+				.then((data) => {
+					if (data.status && data.data) {
+						// console.log("data availability", data);
+						setLeftSeats?.(data.data.left_seats);
+
+						if (data.data.left_seats === 0) {
+							setAvailabilityMsg(
+								isAr
+									? "لا توجد مقاعد متاحة، يرجى تغيير التاريخ أو الوقت."
+									: "No seats left, please change date or time."
+							);
+						} else {
+							setAvailabilityMsg("");
+						}
+					} else {
+						// console.log("data not status", data);
+						setLeftSeats?.(0);
+
+						setAvailabilityMsg(
+							isAr
+								? "حدث خطأ في التحقق من التوفر."
+								: "Error checking availability."
+						);
+					}
+				})
+				.catch((e) => {
+					// console.log("error data", e);
+					setLeftSeats?.(0);
+
+					setAvailabilityMsg(
+						isAr
+							? "حدث خطأ في التحقق من التوفر."
+							: "Error checking availability."
+					);
+				})
+				.finally(() => setChecking(false));
+		} else {
+			setLeftSeats?.(null);
+
+			setAvailabilityMsg("");
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [form.watch("date"), form.watch("time")]);
 
 	const onSubmit = (values) => {
+		if (leftSeats === 0) return;
 		if (typeof window !== "undefined") {
 			const payload = {
 				...values,
@@ -120,15 +178,13 @@ export default function ChooseTourStep({
 				time: values.time,
 				meetingPoint: values.meetingPoint,
 				lang,
-				bus_id: busId
+				bus_id: busId,
 			};
 			localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
 		}
 		onSaved?.(values);
 		setSavedMsg(t.saved);
 	};
-
-	const [savedMsg, setSavedMsg] = useState("");
 
 	const colBase = "  p-4 md:p-6 ";
 	const sectionTitle = "text-base md:text-lg font-semibold mb-3 md:mb-4";
@@ -202,6 +258,23 @@ export default function ChooseTourStep({
 											);
 										})}
 									</div>
+									{/* Show left seats info */}
+									{leftSeats !== null && (
+										<div className="mt-3 text-center text-base text-blue-600 font-semibold">
+											{leftSeats === 0
+												? isAr
+													? "لا توجد مقاعد متاحة، يرجى تغيير التاريخ أو الوقت."
+													: "No seats left, please change date or time."
+												: isAr
+												? `المقاعد المتبقية: ${leftSeats}`
+												: `Seats left: ${leftSeats}`}
+										</div>
+									)}
+									{availabilityMsg && leftSeats !== 0 && (
+										<div className="mt-2 text-center text-red-600">
+											{availabilityMsg}
+										</div>
+									)}
 									<FormMessage />
 								</FormItem>
 							)}
@@ -220,21 +293,51 @@ export default function ChooseTourStep({
 										{gatheringPoints.map((pt) => {
 											const active = field.value?.id === pt.id;
 											return (
-												<button
-													type="button"
-													key={pt.id}
-													onClick={() =>
-														field.onChange({ id: pt.id, name: pt.name })
-													}
-													className={cn(
-														"w-full text-center rounded-md border px-4 py-2 font-medium",
-														active
-															? "bg-[var(--main-color,#14532d)] text-white border-[var(--main-color,#14532d)]"
-															: "hover:bg-muted/40"
+												<div className="flex items-stretch gap-1 " key={pt.id}>
+													<button
+														type="button"
+														onClick={() =>
+															field.onChange({ id: pt.id, name: pt.name })
+														}
+														className={cn(
+															"w-full text-center rounded-md border px-4 py-2 font-medium",
+															active
+																? "bg-[var(--main-color,#14532d)] text-white border-[var(--main-color,#14532d)]"
+																: "hover:bg-muted/40"
+														)}
+													>
+														{pt.name}
+													</button>
+													{/* Map button OUTSIDE */}
+													{pt.lat && pt.lng && (
+														<a
+															href={`https://www.google.com/maps/search/?api=1&query=${pt.lat},${pt.lng}`}
+															target="_blank"
+															rel="noopener noreferrer"
+															aria-label={
+																isAr
+																	? "افتح الموقع في خرائط جوجل"
+																	: "Open location in Google Maps"
+															}
+															title={
+																isAr
+																	? "افتح الموقع في خرائط جوجل"
+																	: "Open in Google Maps"
+															}
+															className="group inline-flex items-center gap-2 p-3 rounded-md border  hover:bg-blue-50  transition "
+														>
+															{/* New pin icon (SVG) */}
+															<svg
+																xmlns="http://www.w3.org/2000/svg"
+																viewBox="0 0 24 24"
+																fill="currentColor"
+																className="h-5 w-5 text-[var(--main-color,#14532d)] group-hover:text-blue-700"
+															>
+																<path d="M12 2.75A6.25 6.25 0 0 0 5.75 9c0 1.73.66 3.33 1.92 4.79 1.02 1.17 2.08 2.3 3.11 3.45.4.45.8.9 1.2 1.36.1.12.28.12.38 0 .39-.46.8-.91 1.2-1.36 1.03-1.15 2.09-2.28 3.11-3.45A7.53 7.53 0 0 0 18.25 9 6.25 6.25 0 0 0 12 2.75Zm0 8.5A2.25 2.25 0 1 1 12 7a2.25 2.25 0 0 1 0 4.25Z" />
+															</svg>
+														</a>
 													)}
-												>
-													{pt.name}
-												</button>
+												</div>
 											);
 										})}
 									</div>
@@ -254,6 +357,7 @@ export default function ChooseTourStep({
 							<Button
 								type="submit"
 								className="min-w-40 bg-[var(--main-color,#14532d)] hover:bg-[var(--sec-color,#86efac)] hover:text-black"
+								disabled={leftSeats === 0 || checking}
 							>
 								{t.next}
 							</Button>

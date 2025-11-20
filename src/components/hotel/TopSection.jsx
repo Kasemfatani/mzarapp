@@ -8,7 +8,7 @@ import { Pagination } from "swiper/modules";
 import "swiper/css";
 import AudioPreviewDialog from "@/components/Path/AudioPreviewDialog";
 
-export default function TopSection({ data, lang }) {
+export default function TopSection({ audio, lang }) {
 	const [language, setLanguage] = useState(lang || "en");
 	
 
@@ -44,8 +44,8 @@ export default function TopSection({ data, lang }) {
 						{/* responsive youtube iframe */}
 						<iframe
 							className="w-full h-full block"
-							src="https://www.youtube.com/embed/dMZO88og9Is"
-							title="Mzar - Emotional journey"
+							src="https://www.youtube.com/embed/S8VDz0V1QwM"
+							title="Mzar"
 							frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen=""
 						/>
 					</div>
@@ -165,7 +165,7 @@ export default function TopSection({ data, lang }) {
 					{/* listen button at bottom center */}
 					<div className="w-full flex justify-center mt-6">
 						{/* Replaced Link with dialog trigger */}
-						<AudioPreviewDialog language={language}  />
+						<AudioPreviewDialog language={language} audio={audio} />
 					</div>
 				</div>
 			</div>

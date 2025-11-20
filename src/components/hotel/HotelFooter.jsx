@@ -40,13 +40,13 @@ export default function HotelFooter({ lang = "ar" }) {
 							height={60}
 							className="object-contain"
 						/>
-						<Image
+						{/* <Image
 							src="/conf/royal-commission.webp"
 							alt="Royal Commission Logo"
 							width={160}
 							height={60}
 							className="object-contain"
-						/>
+						/> */}
 					</div>
 
 					{/* Contact info side */}

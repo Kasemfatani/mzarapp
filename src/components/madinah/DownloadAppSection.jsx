@@ -34,15 +34,18 @@ export default function DownloadAppSection({ initialLang }) {
 
 					{/* three brown pills (two per row, wrapped) */}
 					<div className="flex flex-wrap gap-3 mt-2">
-						<div className="px-6 py-4 rounded-lg bg-[#8B7B5A] text-white font-semibold text-sm">
+						<div className="px-6 py-4 rounded-lg bg-[#8B7B5A] text-white font-semibold text-sm flex  gap-2">
+							<img src="/haram/clock.png" alt="clock" className="w-5" />
 							{isAr ? "المدة: 90 دقيقة" : "Duration: 90 min"}
 						</div>
-						<div className="px-6 py-4 rounded-lg bg-[#8B7B5A] text-white font-semibold text-sm">
+						<div className="px-6 py-4 rounded-lg bg-[#8B7B5A] text-white font-semibold text-sm flex  gap-2">
+							<img src="/haram/price-tag.png" alt="price-tag" className="w-5" />
 							{isAr
-								? "السعر: يبدأ من 99 ريال للشخص."
-								: "Price: from 99 SAR per person"}
+								? "السعر: يبدأ من 499 ريال ل 5 أشخاص"
+								: "Starts from: 499 SAR for 5 people"}
 						</div>
-						<div className="px-6 py-4 rounded-lg bg-[#8B7B5A] text-white font-semibold text-sm">
+						<div className="px-6 py-4 rounded-lg bg-[#8B7B5A] text-white font-semibold text-sm flex  gap-2">
+							<img src="/haram/calendar.png" alt="calendar" className="w-5" />
 							{isAr
 								? "المواعيد: كل أحد، ثلاثاء، وأربعاء"
 								: "Schedule: Sun, Tue & Wed"}
@@ -84,7 +87,7 @@ export default function DownloadAppSection({ initialLang }) {
 				{/* Right: Phones */}
 				<div className="">
 					<Image
-						src="/haram/download-phone.png"
+						src={ isAr ? "/haram/download-phone-ar.webp" : "/haram/download-phone-en.webp"}
 						alt="Phone 1"
 						width={342}
 						height={340}

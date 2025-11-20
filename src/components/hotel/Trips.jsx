@@ -1,17 +1,10 @@
 "use client";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
 
 export default function Trips() {
 	const [language, setLanguage] = useState("en");
-	const [activeIndex, setActiveIndex] = useState(2); // match initialSlide
-	const swiperRef = useRef(null); // <-- keep swiper instance
 
 	useEffect(() => {
 		if (typeof window !== "undefined") {
@@ -21,7 +14,7 @@ export default function Trips() {
 
 	const t = {
 		en: {
-			title: "Enjoy the Mazar experience through three distinctive trips",
+			title: "Enjoy Mzar's Exclusive Experiences",
 			desc: "Hand-picked experiences crafted for your journey.",
 			soon: "Soon...",
 			details: "details",
@@ -29,13 +22,12 @@ export default function Trips() {
 			download: "Download app",
 			discover: "Discover now",
 			whatsApp: "Book your seat now",
-			EnrichmentButton:"Start your journey now",
-			TwoMosquesButton:"Your Holy Mosques tour awaits — book your seat now ",
-			BusTourButton:"Explore Makkah and its history — book your tour today",
-
+			EnrichmentButton: "Start your journey now",
+			TwoMosquesButton: "Your Holy Mosques tour awaits — book your seat now ",
+			BusTourButton: "Explore Makkah and its history — book your tour today",
 		},
 		ar: {
-			title: "استمتع بتجربة مزار عبر ثلاث رحلات مميزة",
+			title: "استمتع بتجارب مزار المميزة",
 			desc: "تجارب مختارة بعناية لتناسب رحلتك.",
 			soon: "قريبًا...",
 			details: "التفاصيل",
@@ -43,9 +35,9 @@ export default function Trips() {
 			download: "تحميل التطبيق",
 			discover: "اكتشف الآن",
 			whatsApp: "احجز مقعدك الآن",
-			EnrichmentButton:"ابدأ رحلتك الآن",
-			TwoMosquesButton:"جولة الحرم في انتظارك – احجز مقعدك فوراً ",
-			BusTourButton:"استكشف مكة وتاريخها – احجز رحلتك",
+			EnrichmentButton: "ابدأ رحلتك الآن",
+			TwoMosquesButton: "جولة الحرم في انتظارك – احجز مقعدك فوراً ",
+			BusTourButton: "استكشف مكة وتاريخها – احجز رحلتك",
 		},
 	};
 
@@ -114,7 +106,7 @@ export default function Trips() {
 			rating: "4.90",
 			title: {
 				en: "Tourist Bus",
-				ar: "الباص السياحي",
+				ar: "الجولات الإثرائية",
 			},
 			blurb: {
 				en: "Affordable introductory tours to visit the most prominent historical and enrichment landmarks of Makkah in an innovative knowledge experience.",
@@ -136,94 +128,39 @@ export default function Trips() {
 			},
 			buttonType: "TouristBus",
 		},
-		
 	];
 
 	const renderButtons = (type) => {
 		if (type === "enrichment") {
 			return (
 				<Link
-					href="https://wa.me/+966580121025"
-					target="_blank"
-					rel="noopener noreferrer"
-					className="inline-flex w-full items-center justify-center rounded-xl bg-[var(--main-color)] text-white py-3 text-sm font-semibold  hover:text-gray-300 transition-colors"
+					href="/#paths"
+					className="inline-flex w-full items-center justify-center rounded-xl bg-[var(--main-color)] text-white py-3 text-sm font-semibold  hover:text-gray-300 transition-colors text-center"
 				>
 					{L.EnrichmentButton}
 				</Link>
 			);
 		}
-
 		if (type === "TwoMosques") {
 			return (
 				<Link
-					href="https://wa.me/+966580121025"
-					target="_blank"
-					rel="noopener noreferrer"
-					className="inline-flex w-full items-center justify-center rounded-xl bg-[var(--main-color)] text-white px-2 py-3 text-sm font-semibold  hover:text-gray-300 transition-colors"
+					href="/tour"
+					className="inline-flex w-full items-center justify-center rounded-xl bg-[var(--main-color)] text-white px-2 py-3 text-sm font-semibold  hover:text-gray-300 transition-colors text-center"
 				>
 					{L.TwoMosquesButton}
 				</Link>
 			);
 		}
-
 		if (type === "TouristBus") {
 			return (
 				<Link
-					href="https://onelink.to/yb2xky"
-					target="_blank"
-					className="inline-flex w-full items-center justify-center rounded-xl bg-[var(--main-color)] text-white px-2 py-3 text-sm font-semibold hover:text-gray-300 transition-colors"
-					rel="noopener noreferrer"
+					href="/tour-bus"
+					className="inline-flex w-full items-center justify-center rounded-xl bg-[var(--main-color)] text-white px-2 py-3 text-sm font-semibold hover:text-gray-300 transition-colors text-center"
 				>
 					{L.BusTourButton}
 				</Link>
 			);
 		}
-
-		// if (type === "book") {
-		// 	return (
-		// 		<Link
-		// 			href="#"
-		// 			className="inline-flex w-full items-center justify-center rounded-xl bg-[var(--main-color)] text-white py-3 text-sm font-semibold hover:bg-[var(--sec-color)] hover:text-black transition-colors"
-		// 			onClick={(e) => e.preventDefault()}
-		// 		>
-		// 			{L.book}
-		// 		</Link>
-		// 	);
-		// }
-		// if (type === "path") {
-		// 	return (
-		// 		<Link
-		// 			href="/#paths"
-		// 			className="inline-flex w-full items-center justify-center rounded-xl bg-[var(--main-color)] text-white py-3 text-sm font-semibold  hover:hover:text-gray-300 transition-colors"
-		// 		>
-		// 			{L.discover}
-		// 		</Link>
-		// 	);
-		// }
-		// if (type === "whatsApp") {
-		// 	return (
-		// 		<Link
-		// 			href="https://wa.me/+966580121025"
-		// 			target="_blank"
-		// 			rel="noopener noreferrer"
-		// 			className="inline-flex w-full items-center justify-center rounded-xl bg-[var(--main-color)] text-white py-3 text-sm font-semibold  hover:text-gray-300 transition-colors"
-		// 		>
-		// 			{L.whatsApp}
-		// 		</Link>
-		// 	);
-		// }
-		// if (type === "download") {
-		// 	return (
-		// 		<Link
-		// 			href="https://onelink.to/yb2xky"
-		// 			target="_blank"
-		// 			className="inline-flex w-full items-center justify-center rounded-xl bg-[var(--main-color)] text-white py-3 text-sm font-semibold hover:text-gray-300 transition-colors"
-		// 			rel="noopener noreferrer"
-		// 		>
-		// 			{L.download}
-		// 		</Link>
-		// 	);
-		// }
 		return (
 			<div
 				className={
@@ -237,28 +174,9 @@ export default function Trips() {
 				>
 					{L.soon}
 				</button>
-				{/* <button
-					type="button"
-					className="flex-1 rounded-xl border-2 border-[#2f4f3f] text-[#2f4f3f] py-2.5 text-sm font-semibold bg-transparent hover:bg-[#2f4f3f] hover:text-white transition"
-				>
-					{L.details}
-				</button> */}
 			</div>
 		);
 	};
-
-	useEffect(() => {
-		const swiper = swiperRef.current;
-		if (!swiper) return;
-
-		const interval = setInterval(() => {
-			const current = swiper.realIndex ?? swiper.activeIndex ?? 0;
-			const next = (current + 1) % trips.length;
-			swiper.slideTo(next, 600);
-		}, 3500);
-
-		return () => clearInterval(interval);
-	}, [trips.length]);
 
 	return (
 		<section
@@ -274,122 +192,58 @@ export default function Trips() {
 			</div>
 
 			{/* Cards */}
-			<div className="w-full" dir="ltr">
-				<Swiper
-					modules={[Navigation, Pagination]}
-					initialSlide={2}
-					centeredSlides
-					// centeredSlidesBounds: remove at top-level
-					spaceBetween={25}
-					slidesPerView={3.5}
-					slidesPerGroup={1}
-					onSwiper={(swiper) => {
-						swiperRef.current = swiper;
-						// Force-disable bounds in case it was set via params or breakpoints
-						swiper.params.centeredSlidesBounds = false;
-						swiper.update();
-						swiper.slideTo(2, 0);
-					}}
-					onSlideChange={(swiper) => {
-						setActiveIndex(swiper.realIndex);
-					}}
-					breakpoints={{
-						1280: {
-							slidesPerView: 3,
-							spaceBetween: 25,
-							centeredSlides: true,
-							// centeredSlidesBounds: false,  // ensure NOT true
-						},
-						1024: {
-							slidesPerView: 3,
-							spaceBetween: 25,
-							centeredSlides: true,
-						},
-						768: {
-							slidesPerView: 3,
-							spaceBetween: 20,
-							centeredSlides: true,
-						},
-						640: {
-							slidesPerView: 2,
-							spaceBetween: 16,
-							centeredSlides: true,
-						},
-						0: {
-							slidesPerView: 1.2,
-							spaceBetween: 16,
-							centeredSlides: true,
-						},
-					}}
-					className="trips-swiper overflow-visible"
-				>
-					{trips.map((trip, idx) => (
-						<SwiperSlide
-							key={trip.id}
-							onClick={() => {
-								// setActiveIndex(idx);
-								swiperRef.current?.slideTo(idx, 500);
-							}}
-						>
-							<article
-								className={
-									"flex flex-col justify-between rounded-3xl shadow-lg transition-all duration-300 ease-out " +
-									(activeIndex === idx
-										? "bg-[var(--sec-color)] scale-105"
-										: "bg-white")
-								}
-								style={{ direction: language === "ar" ? "rtl" : "ltr" }}
-							>
-								{/* Image */}
-								<div className="p-4">
-									<div className="relative rounded-2xl overflow-hidden aspect-[1/1]">
-										<Image
-											src={trip.img}
-											alt={`${
-												language === "ar" ? trip.title.ar : trip.title.en
-											} image`}
-											fill
-											className="object-cover"
-											sizes="(max-width: 768px) 300px, 320px"
-										/>
-										{/* <div className="absolute top-3 left-3 rounded-xl px-3 py-1 text-xs font-semibold text-white bg-[var(--main-color)]">
-											{trip.rating}
-										</div> */}
-									</div>
-								</div>
+			<div
+				className="flex flex-col md:flex-row gap-6 justify-center items-start w-full"
+				dir="ltr"
+			>
+				{trips.map((trip) => (
+					<div
+						key={trip.id}
+						className={
+							"group flex flex-col justify-between rounded-3xl shadow-lg transition-all duration-300 ease-out cursor-pointer w-full md:w-1/3 bg-white hover:bg-[var(--sec-color)] hover:scale-105 hover:z-10"
+						}
+						style={{ direction: language === "ar" ? "rtl" : "ltr" }}
+					>
+						{/* Image */}
+						<div className="p-4">
+							<div className="relative rounded-2xl overflow-hidden aspect-[1/1]">
+								<Image
+									src={trip.img}
+									alt={`${
+										language === "ar" ? trip.title.ar : trip.title.en
+									} image`}
+									fill
+									className="object-cover"
+									sizes="(max-width: 768px) 300px, 320px"
+								/>
+							</div>
+						</div>
 
-								{/* Content */}
-
-								<h3 className="text-lg font-semibold text-[#333] mb-1 px-5">
-									{language === "ar" ? trip.title.ar : trip.title.en}
-								</h3>
-								{/* <p className="text-sm text-gray-600 mb-3 px-5">
+						{/* Content */}
+						<h3 className="text-lg font-semibold text-[#333] mb-1 px-5">
+							{language === "ar" ? trip.title.ar : trip.title.en}
+						</h3>
+						
+						<p className="text-sm text-gray-600 mb-3 px-5 hidden group-hover:block">
 									{language === "ar" ? trip.blurb.ar : trip.blurb.en}
-								</p> */}
-
-								{/* Only show features if active */}
-								{activeIndex === idx && (
-									<div className="px-5">
-										<ul className="mb-4 list-disc ps-5 text-sm text-[#333] space-y-1">
-											{(language === "ar"
-												? trip.features.ar
-												: trip.features.en
-											).map((f, i) => (
-												<li key={i}>{f}</li>
-											))}
-										</ul>
-									</div>
+						</p>
+						{/* Features: hidden by default, shown on hover */}
+						<div className="px-5">
+							<ul className="mb-4 list-disc ps-5 text-sm text-[#333] space-y-1 hidden group-hover:block">
+								{(language === "ar" ? trip.features.ar : trip.features.en).map(
+									(f, i) => (
+										<li key={i}>{f}</li>
+									)
 								)}
-								<div className="px-5">{renderButtons(trip.buttonType)}</div>
-
-								<div
-									className="px-5 pb-5 "
-									style={{ direction: language === "ar" ? "rtl" : "ltr" }}
-								></div>
-							</article>
-						</SwiperSlide>
-					))}
-				</Swiper>
+							</ul>
+						</div>
+						<div className="px-5">{renderButtons(trip.buttonType)}</div>
+						<div
+							className="px-5 pb-5 "
+							style={{ direction: language === "ar" ? "rtl" : "ltr" }}
+						></div>
+					</div>
+				))}
 			</div>
 		</section>
 	);

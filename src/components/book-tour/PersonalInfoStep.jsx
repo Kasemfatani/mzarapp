@@ -21,8 +21,22 @@ import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
 import { toast } from "sonner";
+import { API_BASE_URL_NEW } from "@/lib/apiConfig";
 
 const STORAGE_KEY = "bookTour.selection";
+
+const CURRENCY_SVG = (
+	<svg
+		viewBox="0 0 1124.14 1256.39"
+		width="1em"
+		height="1em"
+		fill="currentColor"
+		style={{ display: "inline", verticalAlign: "top" }}
+	>
+		<path d="M699.62,1113.02h0c-20.06,44.48-33.32,92.75-38.4,143.37l424.51-90.24c20.06-44.47,33.31-92.75,38.4-143.37l-424.51,90.24Z" />
+		<path d="M1085.73,895.8c20.06-44.47,33.32-92.75,38.4-143.37l-330.68,70.33v-135.2l292.27-62.11c20.06-44.47,33.32-92.75,38.4-143.37l-330.68,70.27V66.13c-50.67,28.45-95.67,66.32-132.25,110.99v403.35l-132.25,28.11V0c-50.67,28.44-95.67,66.32-132.25,110.99v525.69l-295.91,62.88c-20.06,44.47-33.33,92.75-38.42,143.37l334.33-71.05v170.26l-358.3,76.14c-20.06,44.47-33.32,92.75-38.4,143.37l375.04-79.7c30.53-6.35,56.77-24.4,73.83-49.24l68.78-101.97v-.02c7.14-10.55,11.3-23.27,11.3-36.97v-149.98l132.25-28.11v270.4l424.53-90.28Z" />
+	</svg>
+);
 
 const messages = {
 	en: {
@@ -39,7 +53,7 @@ const messages = {
 		phone: "Mobile phone",
 		whatsapp: "Mobile phone (WhatsApp)",
 		placeholders: {
-			name: "John Doe",
+			name: "Your Name",
 			email: "example@xyz.com",
 			phone: "966 506552589",
 			whatsapp: "966 506552589",
@@ -70,7 +84,7 @@ const messages = {
 		phone: "هاتف محمول",
 		whatsapp: "هاتف محمول (واتساب)",
 		placeholders: {
-			name: "ساره مجدي",
+			name: " اسمك",
 			email: "example@xyz.com",
 			phone: "966 506552589",
 			whatsapp: "966 506552589",
@@ -89,7 +103,7 @@ const messages = {
 		taxValue: "15٪",
 		totalDollar: "الإجمالي المقدر بالدولار",
 		total: "الإجمالي",
-		currency: "﷼",
+		currency: CURRENCY_SVG,
 	},
 };
 
@@ -104,30 +118,19 @@ function schemaFor(lang, max_people_count) {
 	});
 }
 
-const CURRENCY_SVG = (
-	<svg
-		viewBox="0 0 1124.14 1256.39"
-		width="1em"
-		height="1em"
-		fill="currentColor"
-		style={{ display: "inline", verticalAlign: "top" }}
-	>
-		<path d="M699.62,1113.02h0c-20.06,44.48-33.32,92.75-38.4,143.37l424.51-90.24c20.06-44.47,33.31-92.75,38.4-143.37l-424.51,90.24Z" />
-		<path d="M1085.73,895.8c20.06-44.47,33.32-92.75,38.4-143.37l-330.68,70.33v-135.2l292.27-62.11c20.06-44.47,33.32-92.75,38.4-143.37l-330.68,70.27V66.13c-50.67,28.45-95.67,66.32-132.25,110.99v403.35l-132.25,28.11V0c-50.67,28.44-95.67,66.32-132.25,110.99v525.69l-295.91,62.88c-20.06,44.47-33.33,92.75-38.42,143.37l334.33-71.05v170.26l-358.3,76.14c-20.06,44.47-33.32,92.75-38.4,143.37l375.04-79.7c30.53-6.35,56.77-24.4,73.83-49.24l68.78-101.97v-.02c7.14-10.55,11.3-23.27,11.3-36.97v-149.98l132.25-28.11v270.4l424.53-90.28Z" />
-	</svg>
-);
-
 export default function PersonalInfoStep({
 	initialLang = "en",
 	max_people_count = 20,
 	tax_amount = 0.15,
 	start_price = 20,
+	minSeats = 1,
 }) {
 	const lang = initialLang === "ar" ? "ar" : "en";
 	const t = messages[lang];
 	const router = useRouter();
 	const [ready, setReady] = useState(true);
 	const [isLoading, setIsLoading] = useState(false); // Add loading state
+	const isAr = lang === "ar";
 
 	const form = useForm({
 		resolver: zodResolver(schemaFor(lang, max_people_count)),
@@ -160,26 +163,70 @@ export default function PersonalInfoStep({
 				: "",
 		};
 
-		// Save to localStorage under bookTour.selection
-		if (typeof window !== "undefined") {
-			const prev = localStorage.getItem(STORAGE_KEY);
-			let payload = {};
-			try {
-				payload = prev ? JSON.parse(prev) : {};
-			} catch {}
-			const next = { ...payload, info };
-			localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
-		}
-
-		// Compute total amount in SAR (same as UI box)
-		const peopleCount = Number(info.people || 1);
-		const base = start_price * peopleCount;
-		const tax = base * tax_amount;
-		const totalSar = Number((base + tax).toFixed(2));
-
+		// Get selection data from localStorage
+		let selection = {};
 		try {
-			// Init URWAY payment
-			const res = await fetch("/api/pay/urway/init", {
+			const raw = localStorage.getItem(STORAGE_KEY);
+			if (raw) selection = JSON.parse(raw);
+		} catch {}
+
+		// Build payload for booking API
+		const payload = {
+			name: info.name,
+			email: info.email,
+			phone: info.phone || null,
+			whatsapp: info.whatsapp,
+			phone_country_code: info.phone_country_code || null,
+			whatsapp_country_code: info.whatsapp_country_code,
+			bus_id: selection.bus_id,
+			date: selection.date,
+			time_id: selection.time?.id,
+			meetingPoint_id: Number(selection.meetingPoint.id),
+			people: info.people,
+			payment_method: "online",
+		};
+		try {
+			const res = await fetch(
+				`${API_BASE_URL_NEW}/customer/landing-bus-trip/booking`,
+				{
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify(payload),
+				}
+			);
+			const json = await res.json();
+
+			if (!res.ok || !json.status) {
+				toast.error(
+					<>
+						{lang === "ar"
+							? "حدث خطأ أثناء إرسال المعلومات: "
+							: "Something went wrong sending the info: "}
+						{json.message}
+					</>
+				);
+				setIsLoading(false);
+				return;
+			}
+
+			// Save trip_id, customer_id, process_id to localStorage
+			const { trip_id, customer_id, process_id , ticket} = json.data || {};
+			const updatedSelection = {
+				...selection,
+				trip_id,
+				customer_id,
+				process_id,
+				ticket,
+			};
+			localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedSelection));
+
+			// Proceed to URWAY payment
+			const peopleCount = Number(info.people || 1);
+			const base = start_price * peopleCount;
+			const tax = base * tax_amount;
+			const totalSar = Number((base + tax).toFixed(2));
+
+			const urwayRes = await fetch("/api/pay/urway/init", {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify({
@@ -190,16 +237,19 @@ export default function PersonalInfoStep({
 					failPath: "/book-tour",
 				}),
 			});
-			const json = await res.json();
-			if (!res.ok || !json?.paymentUrl) {
-				throw new Error(json?.error || "Failed to start payment");
+			const urwayJson = await urwayRes.json();
+			if (!urwayRes.ok || !urwayJson?.paymentUrl) {
+				throw new Error(urwayJson?.error || "Failed to start payment");
 			}
-			window.location.href = json.paymentUrl;
-			// No need to setIsLoading(false) here, as navigation will occur
+			window.location.href = urwayJson.paymentUrl;
 		} catch (e) {
-			console.error("URWAY init error", e);
-			toast.error(lang === "ar" ? "فشل بدء الدفع" : "Failed to start payment");
-			setIsLoading(false); // Stop loading on error
+			console.error("Booking or URWAY error", e);
+			toast.error(
+				lang === "ar"
+					? "فشل إرسال المعلومات أو بدء الدفع"
+					: "Failed to send info or start payment"
+			);
+			setIsLoading(false);
 		}
 	};
 
@@ -209,9 +259,9 @@ export default function PersonalInfoStep({
 
 	// Calculation logic
 	const people = form.watch("people") || 1;
-	const base = start_price * people;
-	const tax = base * tax_amount;
-	const totalSar = (base + tax).toFixed(2);
+	const base = (start_price * people).toFixed(2);
+	const tax = (start_price * people * tax_amount).toFixed(2);
+	const totalSar = (parseFloat(base) + parseFloat(tax)).toFixed(2);
 	const totalUsd = (totalSar / 3.75).toFixed(2);
 
 	const priceBox = (
@@ -250,9 +300,6 @@ export default function PersonalInfoStep({
 
 	return (
 		<div>
-			<h3 className="bg-[var(--sec-color)] text-xl text-center text-white mb-6 py-2">
-				{t.discount}
-			</h3>
 			<section
 				id="PersonalInfoStep"
 				className="container mx-auto px-6 md:px-20 my-12"
@@ -363,15 +410,56 @@ export default function PersonalInfoStep({
 									<FormItem>
 										<FormLabel className="mb-2">{t.peopleCount}</FormLabel>
 										<FormControl>
-											<Input
-												type="number"
-												min={1}
-												max={max_people_count}
-												step={1}
-												{...field}
-												className="h-12 shadow-md text-center"
-											/>
+											<div className="relative flex items-center justify-center">
+												<button
+													type="button"
+													onClick={() =>
+														field.onChange(
+															Math.max(minSeats, (field.value || minSeats) - 1)
+														)
+													}
+													className="absolute left-2 top-1/2 -translate-y-1/2 z-10 text-lg font-bold px-2 py-1 rounded-full hover:bg-gray-100"
+													tabIndex={-1}
+													aria-label="Decrease"
+												>
+													-
+												</button>
+												<Input
+													type="number"
+													min={minSeats}
+													max={max_people_count}
+													step={1}
+													{...field}
+													className="tour-booking-number-input h-12 shadow-md text-center appearance-none w-full px-10"
+													style={{
+														MozAppearance: "textfield",
+													}}
+													onWheel={(e) => e.target.blur()} // prevent accidental scroll
+												/>
+												<button
+													type="button"
+													onClick={() =>
+														field.onChange(
+															Math.min(max_people_count, (field.value || 1) + 1)
+														)
+													}
+													className="absolute right-2 top-1/2 -translate-y-1/2 z-10 text-lg font-bold px-2 py-1 rounded-full hover:bg-gray-100"
+													tabIndex={-1}
+													aria-label="Increase"
+												>
+													+
+												</button>
+											</div>
 										</FormControl>
+										<div className="mt-3 text-center text-base text-blue-600 font-semibold">
+											{max_people_count === 0
+												? isAr
+													? "لا توجد مقاعد متاحة، يرجى تغيير التاريخ أو الوقت."
+													: "No seats left, please change date or time."
+												: isAr
+												? `المقاعد المتبقية: ${max_people_count}`
+												: `Seats left: ${max_people_count}`}
+										</div>
 										<FormMessage />
 									</FormItem>
 								)}

@@ -12,6 +12,10 @@ export default function BookTourPage() {
 	const [lang, setLang] = useState(null);
 	const [step, setStep] = useState(1);
 
+	// how many seats left  from API
+	const [leftSeats, setLeftSeats] = useState(null);
+	
+
 	// API data + loading
 	const [busData, setBusData] = useState(null);
 	const [loading, setLoading] = useState(true);
@@ -76,7 +80,7 @@ export default function BookTourPage() {
 
 	return (
 		<div className={lang === "en" ? "ltr" : "rtl"}>
-			<Hero initialLang={lang} />
+			<Hero initialLang={lang} step={step} setStep={setStep} />
 			{step === 1 && busData && (
 				<ChooseTourStep
 					initialLang={lang}
@@ -84,12 +88,15 @@ export default function BookTourPage() {
 					gatheringPoints={busData.gathering_points}
 					busId={busData.id}
 					onSaved={() => setStep(2)}
+					leftSeats={leftSeats}
+					setLeftSeats={setLeftSeats}
+					
 				/>
 			)}
 			{step === 2 && (
 				<PersonalInfoStep
 					initialLang={lang}
-					max_people_count={busData.max_people_count}
+					max_people_count={leftSeats}
 					tax_amount={busData.tax}
 					start_price={busData.start_price}
 				/>

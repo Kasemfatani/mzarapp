@@ -17,169 +17,151 @@ export default function Testimonials({ lang = "en" }) {
 			? { title: "آراء العملاء", prev: "السابق", next: "التالي" }
 			: { title: "Testimonials", prev: "Prev", next: "Next" };
 
-	// 20 hard-coded testimonials (English only, single 'review' field)
+	// hard-coded testimonials 
 	const items = [
 		{
 			id: 1,
-			name: "Asad Ali",
+			name: "latif",
 			country: "Canada",
 			rating: 5,
 			review:
-				"The trip went off without a hitch and was expertly planned. We had a great time and learned a lot thanks to the audio guide, which made every stop come to life. Strongly advised.",
+				"A truly remarkable experience!The audio guide in our native tongue made the trip extremely interesting, and the air-conditioned bus was incredibly comfortable. It was amazing to see Tuwa Well and Al-Jin Mosque and hear their stories via the app. I heartily endorse this tour! ",
 		},
 		{
 			id: 2,
-			name: "Mr. Shafaqat Ali",
-			country: "Australia",
+			name: "Mr. Mohamed Lachhab",
+			country: "Germany",
 			rating: 4,
 			review:
-				"Very friendly and convenient service. The tour was much more meaningful because of the poignant and lucid audio commentary.",
+				"We admired how well-planned everything was; augmented reality technology offered a fresh perspective on ancient locations like Mount Arafat and the Royal Palaces.",
 		},
 		{
 			id: 3,
-			name: "Manar Said",
-			country: "United Kingdom",
+			name: "Dr. Munazaah Ebad",
+			country: "Australia",
 			rating: 5,
 			review:
-				"Amazing insight into Makkah's heritage , the audio guide gave each site more depth and transformed facts into authentic tales we still discuss.",
+				"It was amazing to see sacred sites like Al-Jin Mosque and Jabal Al-Rahmah while using AR to visualize their history. The verified content made everything feel authentic and meaningful.",
 		},
 		{
 			id: 4,
-			name: "Mr. Abdelaziz",
-			country: "Germany",
+			name: "Abrahim Bushra",
+			country: "Canada",
 			rating: 5,
 			review:
-				"The most instructive trip I've ever gone on. We were able to emotionally connect with each landmark thanks to the well-planned route and the audio guide.",
+				"After selecting a time and opening the Mzar app, the entire tour was prepared. Everything went smoothly from Tuwa Well to the Hira Cultural Districts. What most impressed us about the stories was their historical accuracy.",
 		},
 		{
 			id: 5,
-			name: "Ms. Nilar Alom Ispahany",
-			country: "Australia",
+			name: "Mr. Omar SAHRAOUI",
+			country: "France",
 			rating: 4,
 			review:
-				"The tour was fantastic. Our trips were enhanced and made more memorable by the in-app audio guide, and the driver and guide were polite and professional.",
+				"The audio guide in eight languages was what made the trip unforgettable, but the modern bus made the journey more comfortable. Particularly when visiting the Bay'ah Mosque and Hira Cultural District, the historical and religious facts were presented in a beautiful manner.",
 		},
 		{
 			id: 6,
-			name: "Mr. Noredin MOUSSAID",
-			country: "France",
+			name: "Ms. Roma Khatun",
+			country: "United Kingdom",
 			rating: 5,
 			review:
-				"A fascinating experience from beginning to end. The audio narration brought the history to life, and Abdullah and the team were superb.",
+				"I saw familiar locations in a whole new way thanks to the combination of AR storytelling, rich narration, and contemporary buses. The visit to the Hira Cultural District was incredibly motivating.",
 		},
 		{
 			id: 7,
-			name: "Mr. Afaq Punjabi",
+			name: "rubella ahmed",
 			country: "United Kingdom",
 			rating: 4,
 			review:
-				"Good trip, executed and paced well. Each stop became unique and memorable when the stories were told via the audio guide.",
+				"Immersion technology, cozy transportation, and profoundly spiritual narratives. Everything was carefully considered by the Mzar team, particularly the authenticated historical content that lends credibility.",
+		},
+		
+	];
+
+	const itemsAr = [
+		{
+			id: 1,
+			name: "عبدالباسط طاهر",
+			country: "المملكة العربية السعودية",
+			rating: 5,
+			review:
+				"الباص مريح ومكيّف، والتنظيم رائع من أول الحجز عبر التطبيق إلى آخر لحظة. أكثر ما شدّنا هو المرشد الصوتي اللي خلانا نعيش القصص أثناء زيارتنا لبئر طوى ومسجد الجن. تجربة روحانية وممتعة في آن واحد.",
+		},
+		{
+			id: 2,
+			name: "محمد نور",
+			country: "جنوب أفريقيا",
+			rating: 4,
+			review:
+				"من بداية الرحلة شعرنا بالراحة، والمرشد الصوتي زاد التجربة عمقًا. أحببنا كيف شرح تاريخ مسجد البيعة وجبل الرحمة بطريقة مؤثرة وسلسة.",
+		},
+		{
+			id: 3,
+			name: "عامر الطاف",
+			country: "الامارات العربية المتحدة",
+			rating: 5,
+			review:
+				"تجربة الواقع المعزز كانت مدهشة! مجرد ما وجّهنا الكاميرا على المعلم، ظهرت القصص أمامنا بطريقة تفاعلية رائعة، خصوصًا عند زيارة القصور الملكية وحي حراء الثقافي.",
+		},
+		{
+			id: 4,
+			name: "ابراهيم ايت لمعلم",
+			country: "المغرب",
+			rating: 5,
+			review:
+				"جميل كيف مزار جمع التقنية الحديثة مع الإرث الإسلامي. شفنا معالم مثل بئر طوى ومسجد البيعة، وسمعنا القصص الصوتية الموثّقة اللي خلتنا نعيش الحدث. نشكر مزار على هذه التجربة الممتعة",
+		},
+		{
+			id: 5,
+			name: "محمد أمين",
+			country: "ألمانيا",
+			rating: 4,
+			review:
+				"من حجز الرحلة عبر تطبيق مزار إلى ركوب الباص، كل شيء منظم ومريح. الجولة كانت مليئة بالمعلومات والقصص المؤثرة، خاصة عند زيارة جبل الرحمة.",
+		},
+		{
+			id: 6,
+			name: "حامد حسين",
+			country: "باكستان",
+			rating: 5,
+			review:
+				"الباص المكيّف والمرشد الصوتي خلّى الأطفال يستمتعوا بالرحلة، والواقع المعزز كان مثير جدًا لهم. استمتعنا بجمال حي حراء الثقافي وتاريخ الأماكن اللي زرناها. أنصح بهذه الجولة للعائلات",
+		},
+		{
+			id: 7,
+			name: "احمد محمود جمعه",
+			country: "مصر",
+			rating: 4,
+			review:
+				"تنظيم، راحة، ومحتوى غني بالمعلومات. أعجبني أن كل معلم يرافقه قصة موثّقة وصور تاريخية، من مسجد الجن حتى جبل الرحمة. تجربة متكاملة ومبتكرة.",
 		},
 		{
 			id: 8,
-			name: "Ms. Nur Alya",
-			country: "Malaysia",
+			name: "ريحانه تيلا",
+			country: "الامارات العربية المتحدة",
 			rating: 5,
 			review:
-				"The service was first-rate, and everything arrived on schedule. One of the highlights was the audio guide, which transformed facts into heartwarming tales.",
+				"لم أشعر أني في جولة تقليدية، بل في رحلة تفاعلية تجمع بين العلم والتأمل. الصوت، الصور، وحتى التقنيات الجديدة خلت كل محطة لها طابعها الخاص. ",
 		},
 		{
 			id: 9,
-			name: "Ms. Andrea Longley",
-			country: "United Kingdom",
-			rating: 5,
+			name: "فيصل الاحمد",
+			country: "بريطانيا",
+			rating: 4,
 			review:
-				"We thoroughly enjoyed our exploration of the historical sites. A must for first-time visitors, the guided audio helped us comprehend context we were previously unaware of.",
+				"الباصات نظيفة ومريحة جدًا، والمرشد الصوتي دقيق في المعلومة وهادئ في الطرح. استمتعنا كثيرًا عند زيارة القصور الملكية وسماع القصص حول تاريخها.",
 		},
 		{
 			id: 10,
-			name: "Mr. Bodrudduza Numan",
-			country: "Canada",
+			name: "محمد حسن",
+			country: "العراق",
 			rating: 5,
 			review:
-				"The staff was extremely professional, the itinerary was well-considered, and the audio guide turned our walk into an unforgettable educational experience.",
-		},
-		{
-			id: 11,
-			name: "Ms. Mastura SHAHRUM",
-			country: "France",
-			rating: 4,
-			review:
-				"A truly moving day , the itinerary was smart and the audio narration painted vivid scenes from every stop. We departed with a sense of inspiration and enrichment.",
-		},
-		{
-			id: 12,
-			name: "Ms. STEPHANIE SAYEGH",
-			country: "France",
-			rating: 5,
-			review:
-				"It was a gentle, memorable tour; I liked how the audio guide allowed us to take in the stories at our own pace and the careful pacing.",
-		},
-		{
-			id: 13,
-			name: "Mr. Mohammad Siddique",
-			country: "Australia",
-			rating: 5,
-			review:
-				"The tour went smoothly thanks to the attentive staff, the audio guide that clarified details we had never noticed before, and the clear timing.",
-		},
-		{
-			id: 14,
-			name: "Yusuf Ahmed Shehzad Vilchis",
-			country: "Mexico",
-			rating: 5,
-			review:
-				"Everything was accessible to our group thanks to the multilingual audio. The day was unique because everyone could relate to and understood each other.",
-		},
-		{
-			id: 15,
-			name: "Mr. Hassan Howlader",
-			country: "United Kingdom",
-			rating: 4,
-			review:
-				"Great for families ,adults enjoyed the historical depth, and children remained interested with the lively audio stories.",
-		},
-		{
-			id: 16,
-			name: "Mr. Salim Al Harrasi",
-			country: "Oman",
-			rating: 5,
-			review:
-				"Comfortable transportation, courteous personnel, and an audio tour that resembled a discussion with an informed friend.",
-		},
-		{
-			id: 17,
-			name: "Ms. Chahira Ait Belkacem",
-			country: "France",
-			rating: 4,
-			review:
-				"Hearing each landmark through the audio guide gave it a new meaning. This encounter altered my perspective on Makkah's past.",
-		},
-		{
-			id: 18,
-			name: "Mr. Navin Raj",
-			country: "Canada",
-			rating: 5,
-			review:
-				"The in-app stories brought the sites to life in a way that no guidebook could, the driver was professional, and the stops were strategically placed.",
-		},
-		{
-			id: 19,
-			name: "Mr. Kevin Van der Voort",
-			country: "Netherlands",
-			rating: 5,
-			review:
-				"We admired the tour's ability to strike a balance between introspection and exploration. The voices of the audio guide gave the landmarks a more intimate, sentimental quality.",
-		},
-		{
-			id: 20,
-			name: "Dr. Salamatu Garba",
-			country: "Nigeria",
-			rating: 5,
-			review:
-				"Great value , educational narration, seamless operations, and special moments captured with the app's filters.",
+				"من أول ما بدأنا الرحلة من بئر طوى إلى حي حراء، شعرنا أننا نعيش تجربة تجمع الماضي بالمستقبل. كل شيء منظم وسلس، والمرشد الصوتي أضفى روح خاصة للرحلة.",
 		},
 	];
+
+	const testimonials = language === "ar" ? itemsAr : items;
 
 	return (
 		<div className="mb-20">
@@ -229,16 +211,16 @@ export default function Testimonials({ lang = "en" }) {
 						}}
 						className="!overflow-visible"
 					>
-						{items.map((r) => (
+						{testimonials.map((r) => (
 							<SwiperSlide key={r.id}>
-								<article className="bg-[#2E5A46] text-white rounded-2xl p-6 md:p-8 h-[300px] md:h-[320px] shadow-[0_8px_24px_rgba(0,0,0,0.12)] flex flex-col justify-between relative overflow-hidden">
+								<article className="bg-[#2E5A46] text-white rounded-2xl p-6 md:p-8 h-[300px] md:h-[340px] shadow-[0_8px_24px_rgba(0,0,0,0.12)] flex flex-col justify-between relative overflow-hidden">
 									{/* Quote icon decor */}
 									<div className="absolute bottom-2 right-4 text-white pointer-events-none select-none">
 										<i className="fa-solid fa-quote-right text-7xl md:text-8xl" />
 									</div>
 
 									{/* Text */}
-									<p className="text-lg md:text-xl font-semibold leading-8 line-clamp-4">
+									<p className="text-lg md:text-xl font-semibold leading-8 line-clamp-6" dir={language === "ar" ? "rtl" : "ltr"}>
 										{r.review}
 									</p>
 

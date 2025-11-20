@@ -36,12 +36,12 @@ const stationsData = {
 	],
 	en: [
 		{
-			title: "First Station",
+			title: "1st Station",
 			img: station1,
 			items: ["Prayer Area Zone" , "Exhibition of the Prophet’s Mosque Architecture"],
 		},
 		{
-			title: "Second Station",
+			title: "2nd Station",
 			img: station2,
 			items: [
 				"Umbrellas",
@@ -49,7 +49,7 @@ const stationsData = {
 			],
 		},
 		{
-			title: "Third Station",
+			title: "3rd Station",
 			img: station3,
 			items: [
 				"Architecture of the Prophet’s Mosque",
@@ -58,7 +58,7 @@ const stationsData = {
 			],
 		},
 		{
-			title: "Fourth Station",
+			title: "4th Station",
 			img: station4,
 			items: ["Bab Al-Salam (Gate of Peace)", " Abu Bakr Al-Siddiq’s Door", "the Mihrabs (Prayer Niches) ", "The Noble Rawdah", "Al-Baqi’ Al-Gharqad Cemetery "],
 		},
@@ -134,15 +134,15 @@ export default function Stations({ initialLang }) {
 				{/* Centered text below cards */}
 				<div className="text-center text-black mb-6">
 					{isAr
-						? '"في تسعين دقيقة فقط، يعيش الزائر قرونًا من التاريخ والإيمان."'
-						: '"In just ninety minutes, visitors experience centuries of history and faith."'}
+						? '"في 90 دقيقة فقط، يعيش الزائر قرونًا من التاريخ والإيمان."'
+						: '"In just 90 minutes, visitors experience centuries of history and faith."'}
 				</div>
 
 				{/* Button */}
 				<div className="flex justify-center">
 					<Link
-						href="#"
-						onClick={(e) => e.preventDefault()}
+						href="/book-madinah"
+						
 						className="inline-block"
 					>
 						<span className="inline-block bg-[var(--main-color)] text-white hover:bg-[var(--sec-color)] hover:text-black px-16 py-3 font-semibold rounded-lg">

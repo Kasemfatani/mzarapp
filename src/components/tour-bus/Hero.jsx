@@ -41,21 +41,17 @@ export default function Hero({ initialLang }) {
 					<h1 className="text-3xl md:text-5xl text-center font-bold !leading-tight ">
 						{isAr
 							? "الجولات الإثرائية في مكة المكرمة"
-							: "Enriching Tours in Makkah"}
+							: "Enriching Bus Tours in Makkah"}
 					</h1>
-					<h1 className="text-3xl md:text-5xl text-center font-bold !leading-tight ">
-						{isAr
-							? "رحلة تجمع بين الإيمان والمعرفة والتقنية."
-							: " A journey that blends faith, knowledge, and technology."}
-					</h1>
+					
 
 					{/* Subtext / description */}
 					
 
 					<p className="text-base md:text-lg text-gray-300 text-center mb-6 mt-6">
 						{isAr
-							? "انطلق معنا في تجربة سياحية روحانية فريدة على متن باص مزار الإثرائي، لتستكشف المعالم التاريخية والإسلامية في مكة المكرمة. استمع إلى القصص بلغتك، وشاهد الأحداث كما رُويت، عبر تقنيات الواقع المعزز والمرشد الصوتي الذكي. "
-							: "Embark on a unique spiritual tour experience aboard the Mzar Enriching Bus, exploring historical and Islamic landmarks in Makkah. Listen to stories in your language and witness events as they were narrated, through augmented reality technologies and smart audio guides."}
+							? "انضم إلى حافلة المزار الإثرائية في رحلة روحية عبر معالم مكة التاريخية. استمع إلى القصص بلغتك وشاهدها تنبض بالحياة من خلال الواقع المعزز ودليلنا الصوتي الذكي"
+							: " Join the Mzar Enrichment Bus for a spiritual journey through Makkah’s historic landmarks.Hear the stories in your language and watch them come alive through AR and our smart audio guide"}
 					</p>
 
 					{/* Buttons (no links yet) */}

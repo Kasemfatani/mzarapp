@@ -18,7 +18,7 @@ const StepsSection = dynamic(() => import("./StepsSection"), {
 });
 
 export default function LazyTopBusSections({ initialLang }) {
-	const { ref, inView } = useInView({ triggerOnce: true, rootMargin: "200px" });
+	const { ref, inView } = useInView({ triggerOnce: true, rootMargin: "80px" });
 	const [shouldLoad, setShouldLoad] = useState(false);
 
 	if (inView && !shouldLoad) setShouldLoad(true);

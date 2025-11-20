@@ -13,8 +13,8 @@ const features = [
 		icon: "fa-solid fa-user-group",
 		ar: "الفئة",
 		en: "Category",
-		valueAr: "متاحة للرجال والنساء",
-		valueEn: "Available for men and women",
+		valueAr: " متاحة للرجال فقط",
+		valueEn: "Available for men only",
 	},
 	{
 		icon: "fa-solid fa-wheelchair",
@@ -35,8 +35,8 @@ const features = [
 		icon: "fa-regular fa-newspaper",
 		ar: "تفاعل",
 		en: "Engagement",
-		valueAr: "صور، خرائط، ومرشد صوتي ذكي",
-		valueEn: "Includes photos, maps, and an intelligent audio guide",
+		valueAr: "صور، خرائط، ترجمة فورية، ومرشد سياحي",
+		valueEn: "Includes photos, maps, Instant translation, and a tour guide",
 	},
 	{
 		icon: "fa-solid fa-language",

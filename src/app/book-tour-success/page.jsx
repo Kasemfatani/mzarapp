@@ -3,12 +3,11 @@
 import React, { useEffect, useState } from "react";
 import HeroTop from "@/components/book-tour/HeroTop";
 import SuccessSummary from "@/components/book-tour/SuccessSummary";
-
+import Loading from "@/app/loading";
 // export const revalidate = 300;
 
 export default function TourSuccess() {
-	const [lang, setLang] = useState("en");
-
+	const [lang, setLang] = useState(null);
 	// Read language from localStorage (client)
 	useEffect(() => {
 		if (typeof window !== "undefined") {
@@ -16,6 +15,8 @@ export default function TourSuccess() {
 			setLang(storedLang === "ar" ? "ar" : "en");
 		}
 	}, []);
+
+	if (!lang) return <Loading />;
 
 	return (
 		<div className={lang === "en" ? "ltr" : "rtl"}>

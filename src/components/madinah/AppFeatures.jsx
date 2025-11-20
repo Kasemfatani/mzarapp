@@ -16,14 +16,14 @@ export default function AppFeatures({ initialLang }) {
 
 	const features = isAr
 		? [
-				"استماع إلى المرشد المرافق",
+				"مرشد سياحي مرافق",
 				"واقع معزز (AR) يعرض المشاهد التاريخية",
 				"صور ومخطوطات أصلية",
 				"ترجمة فورية بست لغات",
 				"شهادة رقمية بعد الجولة",
 		  ]
 		: [
-				"Listen to your personal audio guide ",
+				"Escort tour guide",
 				"Augmented Reality (AR) brings history to life",
 				"Authentic photos and manuscripts",
 				"Instant translation in six languages ",
@@ -33,7 +33,7 @@ export default function AppFeatures({ initialLang }) {
 	return (
 		<section
 			className="relative bg-cover bg-center py-16"
-			style={{ backgroundImage: "url('/madinah/big-img.webp')" }}
+			style={{ backgroundImage: "url('/madinah/banner-bg.webp')" }}
 		>
 			<div className="absolute inset-0 bg-black/70" aria-hidden="true" />
 			<div className="container mx-auto px-4 relative z-10 text-center text-white">
@@ -44,7 +44,7 @@ export default function AppFeatures({ initialLang }) {
 				</h2>
 				<p className="max-w-3xl mx-auto text-sm md:text-base text-gray-100/90 mb-6">
 					{isAr
-						? "باستخدام تطبيق “مزار”، ترافقك التجربة لحظة بلحظة —من تحديد موقعك داخل الحرم إلى الترجمة الفورية، لترى الصور التاريخية، وتستمع إلى القصة بلغتك، وتوثّق رحلتك بشهادة زيارة رقمية."
+						? "باستخدام تطبيق “مزار”، ترافقك التجربة لحظة بلحظة —من تحديد موقعك إلى الترجمة الفورية، لترى الصور التاريخية، وتستمع إلى القصة بلغتك، وتوثّق رحلتك بشهادة زيارة رقمية."
 						: "Mzar guides you every step of the way discover, listen, and relive the sacred stories through smart technology. "}
 				</p>
 

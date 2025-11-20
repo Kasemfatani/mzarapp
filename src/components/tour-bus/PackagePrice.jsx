@@ -9,12 +9,8 @@ const features = [
 		en: "Full tour",
 	},
 	{
-		ar: "خصم خاص",
-		en: "Special discount",
-	},
-	{
-		ar: "مقاعد مجاورة",
-		en: "Adjacent seats",
+		ar: " وصول حصري إلى عدة معالم تاريخية",
+		en: "Exclusive access to several historical landmarks",
 	},
 	{
 		ar: "تجربة مخصصة وجدول خاص",
@@ -28,7 +24,7 @@ const features = [
 
 export default function PackagePrice({ initialLang = "en" }) {
 	const isAr = initialLang === "ar";
-	const price = 25;
+	const price = 69; // in SAR
 	return (
 		<section className="py-16 bg-white">
 			<div className="container mx-auto px-4">
@@ -97,7 +93,7 @@ export default function PackagePrice({ initialLang = "en" }) {
 					{/* Bus image */}
 					<div className="w-full md:w-1/2 max-w-xl order-1 md:order-2">
 						<Image
-							src="/tour-bus/bus-down.webp"
+							src="/tour-bus/bus-tour.webp"
 							alt={isAr ? "صورة الباص" : "Bus image"}
 							width={700}
 							height={500}

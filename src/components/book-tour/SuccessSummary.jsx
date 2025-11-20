@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { CheckCircle2, Calendar, Clock } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Loading from "@/app/loading";
-import { API_BASE_URL } from "@/lib/apiConfig";
+import { API_BASE_URL_NEW } from "@/lib/apiConfig";
 import { toast } from "sonner";
 // import DownloadButtons from "./DownloadButtons"
 
@@ -76,6 +76,7 @@ export default function SuccessSummary({ initialLang = "en" }) {
 	const [finalizeError, setFinalizeError] = useState(false);
 	const [selection, setSelection] = useState(null);
 	const [copied, setCopied] = useState(false);
+	const [ticketUrl, setTicketUrl] = useState("");
 
 	// On mount: create booking with backend using localStorage + tranid from URL
 	useEffect(() => {
@@ -119,9 +120,9 @@ export default function SuccessSummary({ initialLang = "en" }) {
 				!sel ||
 				!sel.date ||
 				!sel.time?.id ||
-				!sel.meetingPoint?.id ||
-				!sel.info?.name ||
-				!sel.info?.email
+				!sel.customer_id ||
+				!sel.process_id ||
+				!sel.trip_id
 			) {
 				// Payment is ok, but we lack data to create booking
 				setFinalizeError(true);
@@ -132,42 +133,42 @@ export default function SuccessSummary({ initialLang = "en" }) {
 			// Save UI fields
 			setDate(sel.date);
 			setTimeName(sel.time?.name || "");
+			setTicketUrl(sel.ticket || "");
 
 			const payload = {
-				date: sel.date,
-				time_id: Number(sel.time.id),
-				meetingPoint_id: Number(sel.meetingPoint.id),
-				people: Number(sel.info.people || 1),
-				name: sel.info.name,
-				email: sel.info.email,
-				phone: sel.info.phone || "",
-				whatsapp: sel.info.whatsapp || "",
-				phone_country_code: sel.info.phone_country_code || "",
-				whatsapp_country_code: sel.info.whatsapp_country_code || "",
-				bus_id: Number(sel.bus_id || 1),
-				payment_method: "online",
+				trip_id: sel.trip_id,
+				customer_id: sel.customer_id,
+				process_id: sel.process_id,
 				transaction_id: tranid,
 			};
 
 			try {
 				const res = await fetch(
-					`https://app.mzarapp.com/api/customer/landing-bus-trip/booking`,
+					`${API_BASE_URL_NEW}/customer/landing-bus-trip/booking-payment`,
 					{
 						method: "POST",
 						headers: {
 							"Content-Type": "application/json",
-							// If API doesn't expect a 'lang' header, it's safer to omit it
-							// lang,
+							Accept: "application/json",
+							lang,
 						},
 						body: JSON.stringify(payload),
 					}
 				);
 				const json = await res.json().catch(() => ({}));
-				if (!res.ok) {
-					throw new Error(json?.error || "Create booking failed");
+				if (!res.ok || !json.status) {
+					toast.error(
+						(lang === "ar"
+							? "حدث خطأ أثناء إتمام الحجز: "
+							: "Something went wrong finalizing the booking: ") +
+							(json.message || "")
+					);
+					setFinalizeError(true);
+					setSubmitting(false);
+					return;
 				}
 				// If API returns a reference number, capture it
-				const refNo = json?.data?.trip_code || "";
+				const refNo = json?.data?.ref_no || "";
 				if (refNo) setBookingNo(refNo);
 				setData(json?.data || "");
 				setSubmitting(false);
@@ -267,9 +268,9 @@ export default function SuccessSummary({ initialLang = "en" }) {
 								"flex flex-col md:flex-row gap-4 mb-12 w-full justify-center"
 							)}
 						>
-							{data?.ticket ? (
+							{ticketUrl ? (
 								<a
-									href={data.ticket}
+									href={ticketUrl}
 									target="_blank"
 									rel="noopener noreferrer"
 									className="inline-flex items-center justify-center h-12 px-6 rounded-lg text-white bg-[var(--main-color,#14532d)] hover:bg-[var(--sec-color,#86efac)] hover:text-black transition-colors"

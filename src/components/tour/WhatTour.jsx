@@ -5,16 +5,16 @@ import Image from "next/image";
 // import routeIcon from "/public/Home/route.png";
 // import smartPhoneIcon from "/public/Home/smart-phone.png";
 import AR from "/public/Home/AR.png";
-import Audio from "/public/Home/Audio-Guide.png";
+import tour_guide from "/public/Home/tour-guide.png";
 import map from "/public/Home/map.svg";
 import photography from "/public/Home/photography.svg";
 import imageIcon from "/public/Home/image.svg";
 
 const features = [
 	{
-		icon: Audio,
-		ar: "مرشد صوتي ذكي بلغات العالم",
-		en: "Smart audio guide in world languages",
+		icon: tour_guide,
+		ar: "ترجمة فورية بعدة لغات",
+		en: "Instant translation in multiple languages",
 	},
 	{
 		icon: AR,
@@ -23,8 +23,8 @@ const features = [
 	},
 	{
 		icon: map,
-		ar: "مواقع دقيقة على الخريطة",
-		en: "Accurate locations on the map",
+		ar: "دقة الموقع",
+		en: "Accurate of the site",
 	},
 	{
 		icon: imageIcon,
@@ -33,8 +33,8 @@ const features = [
 	},
 	{
 		icon: photography,
-		ar: "تنظيم ميداني احترافي",
-		en: "Professional field organization",
+		ar: "تنظيم ميداني احترافي ومرشد سياحي",
+		en: "Professional field organization & Tour guide",
 	},
 ];
 

@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination , Autoplay  } from "swiper/modules";
+import { Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import img1 from "/public/bg.webp";
 import Link from "next/link";
@@ -17,169 +17,160 @@ export default function Testimonials({ lang = "en" }) {
 			? { title: "آراء العملاء", prev: "السابق", next: "التالي" }
 			: { title: "Testimonials", prev: "Prev", next: "Next" };
 
-	// 20 hard-coded testimonials (English only, single 'review' field)
+	//  hard-coded testimonials 
 	const items = [
 		{
 			id: 1,
-			name: "Asad Ali",
-			country: "Canada",
+			name: "Drame Samba",
+			country: "France",
 			rating: 5,
 			review:
-				"The trip went off without a hitch and was expertly planned. We had a great time and learned a lot thanks to the audio guide, which made every stop come to life. Strongly advised.",
+				"Every stop was immersive thanks to the audio guide; selecting my language was easy, the historical images beautifully told the stories, and the interactive questions kept me interested the entire time",
 		},
 		{
 			id: 2,
-			name: "Mr. Shafaqat Ali",
-			country: "Australia",
+			name: "Mr. Salah",
+			country: "Switzerland",
 			rating: 4,
 			review:
-				"Very friendly and convenient service. The tour was much more meaningful because of the poignant and lucid audio commentary.",
+				"I heartily recommend! It was memorable and instructive Masjid Haram Tour. i am sure it won’t be the last tour with Mzar",
 		},
 		{
 			id: 3,
-			name: "Manar Said",
-			country: "United Kingdom",
+			name: "Olatunji Abdulgafar",
+			country: "Turkey",
 			rating: 5,
 			review:
-				"Amazing insight into Makkah's heritage , the audio guide gave each site more depth and transformed facts into authentic tales we still discuss.",
+				"What a cleverly planned Masjid Haram tour! The rare historical images were fascinating and the quiz questions made it both educational and enjoyable. It felt official because of the certificate.",
 		},
 		{
 			id: 4,
-			name: "Mr. Abdelaziz",
-			country: "Germany",
-			rating: 5,
-			review:
-				"The most instructive trip I've ever gone on. We were able to emotionally connect with each landmark thanks to the well-planned route and the audio guide.",
-		},
-		{
-			id: 5,
-			name: "Ms. Nilar Alom Ispahany",
-			country: "Australia",
-			rating: 4,
-			review:
-				"The tour was fantastic. Our trips were enhanced and made more memorable by the in-app audio guide, and the driver and guide were polite and professional.",
-		},
-		{
-			id: 6,
-			name: "Mr. Noredin MOUSSAID",
-			country: "France",
-			rating: 5,
-			review:
-				"A fascinating experience from beginning to end. The audio narration brought the history to life, and Abdullah and the team were superb.",
-		},
-		{
-			id: 7,
-			name: "Mr. Afaq Punjabi",
-			country: "United Kingdom",
-			rating: 4,
-			review:
-				"Good trip, executed and paced well. Each stop became unique and memorable when the stories were told via the audio guide.",
-		},
-		{
-			id: 8,
-			name: "Ms. Nur Alya",
+			name: "Sham Mahmud",
 			country: "Malaysia",
 			rating: 5,
 			review:
-				"The service was first-rate, and everything arrived on schedule. One of the highlights was the audio guide, which transformed facts into heartwarming tales.",
+				"I appreciated the multilingual audio guide,also The certificate is a sentimental memento, thanks Mzar for this amazing Masjid Haram tour ",
+		},
+		{
+			id: 5,
+			name: "Farookh Kupe",
+			country: "United Arab Emirates",
+			rating: 4,
+			review:
+				"The breadth of experience at Masjid an-Nabawi was what most impressed us. We saw old photographs that surrounded each landmark ,  Suggested for anyone looking for more than a simple visit.",
+		},
+		{
+			id: 6,
+			name: "Zaheer laher",
+			country: "South Africa",
+			rating: 5,
+			review:
+				"Despite my prior visits to Masjid an-Nabawi, this time was completely different thanks to the audio guide. The historical photos added layers of story, the interactive quiz was fun for the family, and the certificate at the end sealed the experience.",
+		},
+		{
+			id: 7,
+			name: "aneil ahmed",
+			country: "United Kingdom",
+			rating: 4,
+			review:
+				"We are delighted that we selected this tour for Masjid an-Nabawi. The tour was enjoyable for people of all ages thanks to the interactive questions, and the multilingual audio guide that covered every detail. An unanticipated benefit was the visitation certificate.",
+		},
+		{
+			id: 8,
+			name: "Adeel imtiaz",
+			country: "Pakistan",
+			rating: 5,
+			review:
+				"We knew this was unique tour at Masjid an-Nabawi. It was a journey we will never forget because the audio guide story, the interactive reflections, and the final certificate.",
 		},
 		{
 			id: 9,
-			name: "Ms. Andrea Longley",
-			country: "United Kingdom",
-			rating: 5,
-			review:
-				"We thoroughly enjoyed our exploration of the historical sites. A must for first-time visitors, the guided audio helped us comprehend context we were previously unaware of.",
-		},
-		{
-			id: 10,
-			name: "Mr. Bodrudduza Numan",
-			country: "Canada",
-			rating: 5,
-			review:
-				"The staff was extremely professional, the itinerary was well-considered, and the audio guide turned our walk into an unforgettable educational experience.",
-		},
-		{
-			id: 11,
-			name: "Ms. Mastura SHAHRUM",
-			country: "France",
-			rating: 4,
-			review:
-				"A truly moving day , the itinerary was smart and the audio narration painted vivid scenes from every stop. We departed with a sense of inspiration and enrichment.",
-		},
-		{
-			id: 12,
-			name: "Ms. STEPHANIE SAYEGH",
+			name: "nerffous",
 			country: "France",
 			rating: 5,
 			review:
-				"It was a gentle, memorable tour; I liked how the audio guide allowed us to take in the stories at our own pace and the careful pacing.",
+				"Just amazing. We received a certificate of our visit after being led by a kind narrator, assisted by rare historical photographs, and engaged by interactive questions at Masjid an-Nabawi. A mind-and-soul-enriching experience.",
 		},
-		{
-			id: 13,
-			name: "Mr. Mohammad Siddique",
-			country: "Australia",
-			rating: 5,
-			review:
-				"The tour went smoothly thanks to the attentive staff, the audio guide that clarified details we had never noticed before, and the clear timing.",
-		},
-		{
-			id: 14,
-			name: "Yusuf Ahmed Shehzad Vilchis",
-			country: "Mexico",
-			rating: 5,
-			review:
-				"Everything was accessible to our group thanks to the multilingual audio. The day was unique because everyone could relate to and understood each other.",
-		},
-		{
-			id: 15,
-			name: "Mr. Hassan Howlader",
-			country: "United Kingdom",
-			rating: 4,
-			review:
-				"Great for families ,adults enjoyed the historical depth, and children remained interested with the lively audio stories.",
-		},
-		{
-			id: 16,
-			name: "Mr. Salim Al Harrasi",
-			country: "Oman",
-			rating: 5,
-			review:
-				"Comfortable transportation, courteous personnel, and an audio tour that resembled a discussion with an informed friend.",
-		},
-		{
-			id: 17,
-			name: "Ms. Chahira Ait Belkacem",
-			country: "France",
-			rating: 4,
-			review:
-				"Hearing each landmark through the audio guide gave it a new meaning. This encounter altered my perspective on Makkah's past.",
-		},
-		{
-			id: 18,
-			name: "Mr. Navin Raj",
-			country: "Canada",
-			rating: 5,
-			review:
-				"The in-app stories brought the sites to life in a way that no guidebook could, the driver was professional, and the stops were strategically placed.",
-		},
-		{
-			id: 19,
-			name: "Mr. Kevin Van der Voort",
-			country: "Netherlands",
-			rating: 5,
-			review:
-				"We admired the tour's ability to strike a balance between introspection and exploration. The voices of the audio guide gave the landmarks a more intimate, sentimental quality.",
-		},
-		{
-			id: 20,
-			name: "Dr. Salamatu Garba",
-			country: "Nigeria",
-			rating: 5,
-			review:
-				"Great value , educational narration, seamless operations, and special moments captured with the app's filters.",
-		},
+		
 	];
+
+	const itemsAr = [
+		{
+			id: 1,
+			name: "على",
+			country: "الامارات العربية المتحدة",
+			rating: 5,
+			review:
+				"جولة المسجد الحرام كانت تجربة إثرائية بكل تفاصيلها!المرشد الصوتي كان رائع، والصور التاريخية خلتنا نعيش الماضي لحظة بلحظة، وأجمل شيء كانت شهادة الزيارة في النهاية",
+		},
+		{
+			id: 2,
+			name: "تميم",
+			country: "كندا",
+			rating: 4,
+			review:
+				"جولة المسجد الحرام كانت مختلفة اخترت اللغة اللي تناسبني، واستمتعت بالمرشد الصوتي، الصور القديمة كانت تبهرنا في كل محطة، والأسئلة كانت تخلينا نشارك ونفكر",
+		},
+		{
+			id: 3,
+			name: "سفيان",
+			country: "بريطانيا",
+			rating: 5,
+			review:
+				"جمعت بين المتعة والمعرفة المرشد الصوتي شرح القصص بأسلوب جميل، واللغة كانت واضحة ومفهومة، أما الصور التاريخية فقدمت لنا مشاهد ما كنا نعرفها من قبل، وختمنا بشهادة نفتخر فيها",
+		},
+		{
+			id: 4,
+			name: " نعيمة",
+			country: "أستراليا",
+			rating: 5,
+			review:
+				"الجولة كانت ممتعة ، كل شيء منظم  ، تسمع القصة بلغتك ، تجربة فعلاً عصرية بتقنيات حديثة",
+		},
+		{
+			id: 5,
+			name: "إقبال سراف",
+			country: "كندا",
+			rating: 4,
+			review:
+				"المرشد الصوتي غيّر تجربتي تمامًا.كنت زرت المسجد النبوي من قبل، لكن مع القصص الصوتية والصور التاريخية، أحسست وكأني أزوره لأول مرة، وشهادة الزيارة كانت مفاجأة جميلة.",
+		},
+		{
+			id: 6,
+			name: "ابراهيم ابا",
+			country: "نيجيريا",
+			rating: 5,
+			review:
+				"جولة تجمع بين التقنية والإثراء.الصوت يروي، الصور تعرض، والأسئلة تثير الفضول ، تجربة متكاملة تعيشك روح المكان، شكرًا مزار",
+		},
+		{
+			id: 7,
+			name: "عبد الرحيم  علي",
+			country: "السويد",
+			rating: 4,
+			review:
+				"استمتعنا بكل لحظة في المسجد النبوي.المرشد الصوتي بلغتنا، الصور القديمة اللي تحكي تاريخ المكان، والأسئلة اللي تخليك تلاحظ التفاصيل أكثر ، كلها خلت التجربة لا تُنسى.",
+		},
+		{
+			id: 8,
+			name: "منار سيد",
+			country: "بريطانيا",
+			rating: 5,
+			review:
+				"رحلة للمسجد النبوي مليئة بالإلهام والمعرفة.كل تفصيل في الجولة كان محسوب : اللغة، الصوت، الصور، الأسئلة، وحتى شهادة الزيارة في النهاية كانت تذكّرنا بعظمة التجربة.",
+		},
+		{
+			id: 9,
+			name: "عائشه الجابري",
+			country: "الإمارات العربية المتحدة",
+			rating: 5,
+			review:
+				"من أجمل التجارب اللي خضتها في المدينة المنورة.\nالتطبيق منظم جدًا، والمرشد الصوتي يرافقك خطوة بخطوة، والصور التاريخية تعيدك إلى البدايات، وشهادة الزيارة كانت تذكار رائع.",
+		},
+		
+	];
+
+	const testimonials = language === "ar" ? itemsAr : items;
 
 	return (
 		<div className="mb-20">
@@ -215,7 +206,7 @@ export default function Testimonials({ lang = "en" }) {
 				{/* Slider */}
 				<div style={{ direction: "ltr" }}>
 					<Swiper
-						modules={[Pagination , Autoplay]}
+						modules={[Pagination, Autoplay]}
 						onSwiper={(s) => (swiperRef.current = s)}
 						spaceBetween={24}
 						slidesPerView={2.5}
@@ -229,16 +220,16 @@ export default function Testimonials({ lang = "en" }) {
 						}}
 						className="!overflow-visible"
 					>
-						{items.map((r) => (
+						{testimonials.map((r) => (
 							<SwiperSlide key={r.id}>
-								<article className="bg-[#2E5A46] text-white rounded-2xl p-6 md:p-8 h-[300px] md:h-[320px] shadow-[0_8px_24px_rgba(0,0,0,0.12)] flex flex-col justify-between relative overflow-hidden">
+								<article className="bg-[#2E5A46] text-white rounded-2xl p-6 md:p-8 h-[300px] md:h-[340px] shadow-[0_8px_24px_rgba(0,0,0,0.12)] flex flex-col justify-between relative overflow-hidden">
 									{/* Quote icon decor */}
 									<div className="absolute bottom-2 right-4 text-white pointer-events-none select-none">
 										<i className="fa-solid fa-quote-right text-7xl md:text-8xl" />
 									</div>
 
 									{/* Text */}
-									<p className="text-lg md:text-xl font-semibold leading-8 line-clamp-4">
+									<p className="text-lg md:text-xl font-semibold leading-8 line-clamp-6" dir={language === "ar" ? "rtl" : "ltr"}>
 										{r.review}
 									</p>
 
@@ -299,13 +290,22 @@ export default function Testimonials({ lang = "en" }) {
 							)}
 						</p>
 
-						<Link
-							href="#"
-							className="book-link text-lg md:text-xl max-w-xs w-full"
-							style={{ fontWeight: 700 }}
-						>
-							{language === "en" ? "Book Now" : "حجز الآن"}
-						</Link>
+						<div className="flex flex-col md:flex-row gap-4 w-full ">
+							<Link
+								href="/book-haram"
+								className="book-link !text-base  w-full"
+								style={{ fontWeight: 700 }}
+							>
+								{language === "en" ? "Book Masjid Al Haram Tour" : "حجز جولة المسجد الحرام"}
+							</Link>
+							<Link
+								href="/book-madinah"
+								className="book-link !text-base  w-full"
+								style={{ fontWeight: 700 }}
+							>
+								{language === "en" ? "Book Masjid An-Nabawi Tour" : "حجز جولة المسجد النبوي"}
+							</Link>
+						</div>
 					</div>
 				</div>
 			</div>

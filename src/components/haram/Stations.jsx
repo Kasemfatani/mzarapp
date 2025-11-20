@@ -4,10 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 
 const stationImg = "/haram/station-img.png"; 
-const station1 = "/haram/station-1.webp"; 
-const station2 = "/haram/station-2.jpg";
-const station3 = "/haram/station-3.webp";
-const station4 = "/haram/station-4.webp";
+const station1 = "/haram/station-1-new.webp"; 
+const station2 = "/haram/station-2-new.webp";
+const station3 = "/haram/station-3-new.webp";
+const station4 = "/haram/station-4-new.webp";
 
 const stationsData = {
 	ar: [
@@ -39,12 +39,12 @@ const stationsData = {
 	],
 	en: [
 		{
-			title: "First Station",
+			title: "1st Station",
 			img: station1,
 			items: ["Masjid al-Haram Exhibition"],
 		},
 		{
-			title: "Second Station",
+			title: "2nd Station",
 			img: station2,
 			items: [
 				"Courtyards.",
@@ -54,7 +54,7 @@ const stationsData = {
 			],
 		},
 		{
-			title: "Third Station",
+			title: "3rd Station",
 			img: station3,
 			items: [
 				"The Kaaba.",
@@ -64,7 +64,7 @@ const stationsData = {
 			],
 		},
 		{
-			title: "Fourth Station",
+			title: "4th Station",
 			img: station4,
 			items: ["Safa.", "Marwa.", "Bab Al-Salam."],
 		},
@@ -140,15 +140,14 @@ export default function Stations({ initialLang }) {
 				{/* Centered text below cards */}
 				<div className="text-center text-black mb-6">
 					{isAr
-						? '"في تسعين دقيقة فقط، يعيش الزائر قرونًا من التاريخ والإيمان."'
-						: '"In just ninety minutes, visitors experience centuries of history and faith."'}
+						? '"في 90 دقيقة فقط، يعيش الزائر قرونًا من التاريخ والإيمان."'
+						: '"In just 90 minutes, visitors experience centuries of history and faith."'}
 				</div>
 
 				{/* Button */}
 				<div className="flex justify-center">
 					<Link
-						href="#"
-						onClick={(e) => e.preventDefault()}
+						href="/book-haram"
 						className="inline-block"
 					>
 						<span className="inline-block bg-[var(--main-color)] text-white hover:bg-[var(--sec-color)] hover:text-black px-16 py-3 font-semibold rounded-lg">

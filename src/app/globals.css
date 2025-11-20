@@ -205,6 +205,10 @@ a {
   overflow:visible ; 
 }
 
+#trips .swiper-wrapper {
+  align-items: center;
+}
+
 /* Make the whole toast larger */
 .sonner-toast-large {
   font-size: 1.2rem !important;
@@ -232,8 +236,19 @@ a {
   height: 100% !important;
 }
 
+/* Hide default number input arrows for all browsers */
+.tour-booking-number-input::-webkit-inner-spin-button,
+.tour-booking-number-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.tour-booking-number-input {
+  -moz-appearance: textfield;
+}
+
 /*  PersonalInfoStep  in book-tour  */
 
+/*  hotel landing */
 #hero-hotel .center-nav {
   border-top-left-radius: 0;
   border-bottom-left-radius: 50px;
@@ -241,6 +256,16 @@ a {
   border-bottom-right-radius: 50px;
 }
 
+
+#hotel_landing .react-international-phone-country-selector button {
+  background-color: rgb(255 255 255 / 0.15) !important;
+}
+
+ #hotel_landing .react-international-phone-input{
+  height: 55px ;
+ }
+
+ /* end hotel landing */
 
 .destinations-swiper .swiper-wrapper {
   padding-bottom: 1.25rem ;
