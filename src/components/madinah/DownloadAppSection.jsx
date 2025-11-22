@@ -47,8 +47,8 @@ export default function DownloadAppSection({ initialLang }) {
 						<div className="px-6 py-4 rounded-lg bg-[#8B7B5A] text-white font-semibold text-sm flex  gap-2">
 							<img src="/haram/calendar.png" alt="calendar" className="w-5" />
 							{isAr
-								? "المواعيد: كل أحد، ثلاثاء، وأربعاء"
-								: "Schedule: Sun, Tue & Wed"}
+								? "  المواعيد: كل أربعاء فقط"
+								: "Schedule: Wednesday only"}
 						</div>
 					</div>
 

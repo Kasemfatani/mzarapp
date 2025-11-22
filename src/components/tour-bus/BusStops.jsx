@@ -95,7 +95,7 @@ export default function BusStops({ initialLang = "en" }) {
 	const t = useMemo(
 		() => ({
 			headline: isAr
-				? "من بئر طوى إلى جبل الرحمة.. بين كل محطة حكاية"
+				? "من بئر طوى إلى جبل الرحمة.. في كل محطة حكاية"
 				: "From Bir Tuwa to Mount Arafat... a story at every stop",
 			durationTitle: isAr ? "مدة الجولة" : "Tour Duration",
 			durationText: isAr ? "المدة: 5 ساعات." : "Duration: 5 hours.",

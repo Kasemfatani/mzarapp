@@ -40,7 +40,7 @@ export default function Hero({ initialLang }) {
 					{/* Heading */}
 					<h1 className="text-3xl md:text-5xl text-center font-bold !leading-tight ">
 						{isAr
-							? "جولات الحافلة الإثرائية في مكة المكرمة"
+							? "حافلة الجولات الإثرائية في مكة المكرمة"
 							: "Enriching Bus Tours in Makkah"}
 					</h1>
 					
@@ -50,7 +50,7 @@ export default function Hero({ initialLang }) {
 
 					<p className="text-base md:text-lg text-gray-300 text-center mb-6 mt-6">
 						{isAr
-							? "انضم إلى حافلة مزار الإثرائية في رحلة عبر معالم مكة التاريخية . استمع إلى القصص بلغتك وشاهدها تنبض بالحياة من خلال الواقع المعزز ودليلنا الصوتي الذكي"
+							? "انضم إلى حافلة الجولات الإثرائية في رحلة عبر معالم مكة التاريخية. استمع إلى القصص بلغتك وشاهدها تنبض بالحياة من خلال الواقع المعزز ودليلنا الصوتي الذكي"
 							: " Join the Mzar Enrichment Bus for a historical journey through Makkah’s historic landmarks.Hear the stories in your language and watch them come alive through AR and our smart audio guide"}
 					</p>
 

@@ -52,7 +52,7 @@ export default function Hero({ initialLang }) {
 						{/* Subtext / description */}
 						<p className="text-base md:text-lg text-gray-300 text-center mb-6">
 							{isAr
-								? "(رحلة روحية تعيدك إلى قلب التاريخ، حيث تنبض المعالم بالإيمان والجلال. )"
+								? "(رحلة اثرائية تعيدك إلى قلب التاريخ، حيث تنبض المعالم بالإيمان والجلال. )"
 								: "(A spiritual journey that takes you to the heart of history  where every landmark breathes faith and majesty.)"}
 						</p>
 

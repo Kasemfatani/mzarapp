@@ -88,8 +88,8 @@ export default function Stations({ initialLang }) {
 					</h2>
 					<p className="text-gray-600 mb-1">
 						{isAr
-							? "نزور في هذه الجولة مواقع مباركة تحمل عبق السيرة النبوية،"
-							: " In this tour, we visit the blessed sites that preserve the fragrance of the Prophet’s life ﷺ."}
+							? "نزور في هذه الجولة مواقع تاريخية تحمل عبق السيرة النبوية،"
+							: " In this tour, we visit the historical sites that preserve the fragrance of the Prophet’s life ﷺ."}
 					</p>
 					<p className="text-gray-600">
 						{isAr

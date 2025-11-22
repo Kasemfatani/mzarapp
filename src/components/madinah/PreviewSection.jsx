@@ -45,8 +45,8 @@ export default function PreviewSection({ initialLang }) {
 					</h2>
 					<p className="text-gray-600 max-w-2xl mx-auto">
 						{isAr
-							? "لمحة من الجولات السابقة التي خاضها الزوار داخل المسجد الحرام؛ بين الدهشة والسكينة، والمعرفة والروحانية."
-							: "A glimpse from previous tours experienced by visitors inside Masjid al-Haram; between awe, tranquility, knowledge, and spirituality."}
+							? "لمحة من الجولات السابقة التي خاضها الزوار داخل المسجد النبوي ؛ بين الدهشة والسكينة، والمعرفة والروحانية."
+							: "A glimpse from previous tours experienced by visitors inside Masjid al-Nabawi; between awe, tranquility, knowledge, and spirituality."}
 					</p>
 				</div>
 
