@@ -19,7 +19,7 @@ export default function TopTextSection({ initialLang }) {
 			bg: "bg-[url('/tour/haram.png')]",
 			title: isAr ? "جولة المسجد الحرام" : "Masjid al-Haram Tour",
 			desc: isAr
-				? "انضموا إلينا في جولة مميزة داخل الحرم المكي الشريف، نتعرف خلالها على أبرز المعالم التاريخية والإسلامية"
+				? "انضموا إلينا في جولة مميزة داخل المسجد الحرام، نتعرف خلالها على أبرز المعالم التاريخية والإسلامية"
 				: "Join us for an EXCLUSIVE tour inside the Grand Mosque in Makkah, where you’ll discover the most significant historical and Islamic landmarks.",
 			people: isAr ? "عدد المشاركين: 25 شخصاً" : "Participants: 25 persons",
 			duration: isAr ? "مدة الجولة:  90 دقيقة" : "Tour duration:  90 min",
@@ -36,7 +36,7 @@ export default function TopTextSection({ initialLang }) {
 			bg: "bg-[url('/tour/mdinah.png')]",
 			title: isAr ? "جولة المسجد النبوي" : "Masjid an-Nabawi Tour",
 			desc: isAr
-				? "انضموا إلينا في جولة مميزة داخل الحرم النبوي الشريف، نتعرف خلالها على أبرز المعالم التاريخية والإسلامية"
+				? "انضموا إلينا في جولة مميزة داخل المسجد النبوي، نتعرف خلالها على أبرز المعالم التاريخية والإسلامية"
 				: "Join us for a special tour inside the Prophet’s Mosque, exploring its most prominent historical and Islamic landmarks.",
 			people: isAr ? "عدد المشاركين: 25 شخصاً" : "Participants: 25 persons",
 			duration: isAr ? "مدة الجولة:  90 دقيقة" : "Tour duration:  90 min",
