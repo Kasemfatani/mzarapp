@@ -20,8 +20,8 @@ export default function TourStory({ initialLang }) {
 		? [
 				"يعيش الزائر في جولة المسجد النبوي تجربةً لا تُنسى بين أروقة المكان الذي شهد الوحي والهداية",
 				"حيث المنبر والمحراب، والروضة الشريفة، ومواطن الدعاء والسلام",
-				"في جولة تمتد لتسعين دقيقة، نحكي لك سيرة النبوة من داخل مسرحها الحقيقي،",
-				"لتشاهد وتسمع وتعيش القصة بروحك قبل عينيك.",
+				"في جولة تمتد لتسعين دقيقة، نحكي لك سيرة النبوة من حيث وقعت",
+				"لتشاهد وتسمع وتعيش القصة  بقلبك قبل عينيك ",
 		  ]
 		: [
 				"In the Al-Masjid An-Nabawi Tour, visitors live an unforgettable experience within the blessed place that witnessed revelation and guidance",
