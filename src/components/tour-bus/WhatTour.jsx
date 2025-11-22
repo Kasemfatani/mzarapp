@@ -16,8 +16,8 @@ const features = [
 	},
 	{
 		icon: seoIcon,
-		ar: "محتوى موثّق تاريخيًا وشرعيًا",
-		en: "Documented historical and religious content",
+		ar: "محتوى موثّق تاريخيًا",
+		en: "Documented historical content",
 	},
 	{
 		icon: AR_icon,
@@ -54,7 +54,7 @@ export default function WhatTour({ initialLang }) {
 				</h2>
 				<p className="text-center text-gray-500 mb-2">
 					{isAr
-						? "تجمع جولات مزار الإثرائية بين الاستكشاف الميداني والتاريخ الموثق والتقنية الحديثة."
+						? "جولات حافلة مزار الإثرائية  بين الاستكشاف الميداني والتاريخ الموثق والتقنية الحديثة."
 						: 'Mzar’s enrichment tours blend on-site exploration with verified history and modern technology.'}
 				</p>
 				<p className="text-center text-gray-500 mb-10 ">

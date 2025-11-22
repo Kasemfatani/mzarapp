@@ -73,8 +73,8 @@ export default function Parteners() {
 				</h2>
 				<p className="text-center w-[75%] mx-auto">
 					{language === "en"
-						? "the enriched tours were presented in collaboration with the Royal Commission for Makkah City and the Holy Sites, supported by the Ministry of Tourism and a number of hotels and tourism entities, to ensure a distinguished and safe experience."
-						: "قدَّم الجولات الإثرائية بالتعاون مع الهيئة الملكية لمدينة مكة والمشاعر المقدسة وبدعم من وزارة السياحة وعدد من الفنادق والجهات السياحية، لضمان تجربة راقية وآمنة. "}
+						? "the enriched tours were presented in collaboration with the Royal Commission for Makkah City and the Holy Sites, supported by a number of hotels and tourism entities, to ensure a distinguished and safe experience."
+						: "تُقدم الجولات الإثرائية بالتعاون مع الهيئة الملكية لمدينة مكة والمشاعر المقدسة  وعدد من الفنادق والجهات السياحية، لضمان تجربة راقية وآمنة. "}
 				</p>
 				<br />
 				<div className="parts-cont">

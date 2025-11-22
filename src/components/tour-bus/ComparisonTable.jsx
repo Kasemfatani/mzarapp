@@ -9,8 +9,8 @@ const features = [
 		normal: "no",
 	},
 	{
-		ar: "محتوى موثَّق شرعياً وتاريخياً",
-		en: "Verified religious & historical content",
+		ar: "محتوى موثَّق تاريخياً",
+		en: "Verified historical content",
 		mzar: "yes",
 		normal: "partial",
 	},
@@ -27,7 +27,7 @@ const features = [
 		normal: "no",
 	},
 	{
-		ar: "دعم الهيئة الملكية لمدينة مكة",
+		ar: "بدعم من الهيئة الملكية لمدينة مكة المكرمة",
 		en: "Supported by Royal Commission for Makkah City",
 		mzar: "yes",
 		normal: "no",
