@@ -25,7 +25,7 @@ export default function Testimonials({ lang = "en" }) {
 			country: "Canada",
 			rating: 5,
 			review:
-				"My Masjid an-Nabawi tour was made much more meaningful by the audio guide in my native tongue. The interactive questions kept us interested, the historical images brought the past to life, and receiving the visit certificate at the conclusion made me feel like I had accomplished something truly unique.",
+				"My Masjid an-Nabawi tour was made much more meaningful by the  Accompanied Tour Guide’s stories. The interactive questions kept us interested, the historical images brought the past to life, and receiving the visit certificate at the conclusion made me feel like I had accomplished something truly unique.",
 		},
 		{
 			id: 2,
@@ -33,7 +33,7 @@ export default function Testimonials({ lang = "en" }) {
 			country: "France",
 			rating: 4,
 			review:
-				"This tour's multilingual audio guide, made every stop an exploration of Masjid an-Nabawi. The final certificate was a beautiful way to wrap things up.",
+				"the tour guide made every stop an exploration of Masjid an-Nabawi. The final certificate was a beautiful way to wrap things up.",
 		},
 		{
 			id: 3,
@@ -49,7 +49,7 @@ export default function Testimonials({ lang = "en" }) {
 			country: "United Kingdom",
 			rating: 5,
 			review:
-				"Everything went really well: the audio guide on the app made sure we didn't miss anything, selecting our language was easy, it is not gonna be the last Tour with Mzar",
+				"Everything went really well: the instant translation feature on the app made sure we didn't miss anything, selecting our language was easy, it is not gonna be the last Tour with Mzar",
 		},
 		{
 			id: 5,
@@ -65,7 +65,7 @@ export default function Testimonials({ lang = "en" }) {
 			country: "South Africa",
 			rating: 5,
 			review:
-				"Despite my prior visits to Masjid an-Nabawi, this time was completely different thanks to the audio guide. The historical photos added layers of story, the interactive quiz was fun for the family, and the certificate at the end sealed the experience.",
+				"Despite my prior visits to Masjid an-Nabawi, this time was completely different thanks to the tour guide . The historical photos added layers of story, the interactive quiz was fun for the family, and the certificate at the end sealed the experience.",
 		},
 		{
 			id: 7,
@@ -73,7 +73,7 @@ export default function Testimonials({ lang = "en" }) {
 			country: "United Kingdom",
 			rating: 4,
 			review:
-				"We are delighted that we selected this tour for Masjid an-Nabawi. The tour was enjoyable for people of all ages thanks to the interactive questions, and the multilingual audio guide that covered every detail. An unanticipated benefit was the visitation certificate.",
+				"We are delighted that we selected this tour for Masjid an-Nabawi. The tour was enjoyable for people of all ages thanks to the interactive questions, and the  Accompanied Tour Guid that covered every detail. An unanticipated benefit was the visitation certificate.",
 		},
 		{
 			id: 8,
@@ -81,7 +81,7 @@ export default function Testimonials({ lang = "en" }) {
 			country: "Pakistan",
 			rating: 5,
 			review:
-				"We knew this was unique tour at Masjid an-Nabawi. It was a journey we will never forget because the audio guide story, the interactive reflections, and the final certificate.",
+				"We knew this was unique tour at Masjid an-Nabawi. It was a journey we will never forget because of the tour guide’s stories, the interactive reflections, and the final certificate.",
 		},
 		{
 			id: 9,
@@ -101,7 +101,7 @@ export default function Testimonials({ lang = "en" }) {
 			country: "ألمانيا",
 			rating: 5,
 			review:
-				"تجربة روحانية لا تُنسى في المسجد النبوي!المرشد الصوتي بلغتي أضاف عمقًا خاصًا للزيارة، والصور التاريخية ، والأسئلة التفاعلية كانت ممتعة جدًا، أما شهادة الزيارة فكانت لمسة جميلة في النهاية",
+				"تجربة روحانية لا تُنسى في المسجد النبوي! المرشد المرافق أضاف عمقًا خاصًا للزيارة، والصور التاريخية ، والأسئلة التفاعلية كانت ممتعة جدًا، أما شهادة الزيارة فكانت لمسة جميلة في النهاية.",
 		},
 		{
 			id: 2,
@@ -117,7 +117,7 @@ export default function Testimonials({ lang = "en" }) {
 			country: "أستراليا",
 			rating: 5,
 			review:
-				"تجربة إثرائية حديثة بروح الماضي!استمتعنا بشرح واضح من المرشد الصوتي، والأسئلة التفاعلية خلت الرحلة تعليمية ومسلية في نفس الوقت ، لن تكون الرحلة الأخيرة مع مزار",
+				"تجربة إثرائية حديثة بروح الماضي!استمتعنا بشرح واضح من المرشد المرافق ، والأسئلة التفاعلية خلت الرحلة تعليمية ومسلية في نفس الوقت ، لن تكون الرحلة الأخيرة مع مزار",
 		},
 		{
 			id: 4,
@@ -125,7 +125,7 @@ export default function Testimonials({ lang = "en" }) {
 			country: "ايرلندا",
 			rating: 5,
 			review:
-				"رحلة مليئة بالمشاعر والمعرفة 🕌المرشد الصوتي روى لنا القصص بأسلوب مؤثر، والصور التاريخية عرّفتنا على تفاصيل ما كنا نعرفها، والأسئلة الصغيرة خلتنا نعيش التجربة بكل حواسنا.",
+				"رحلة مليئة بالمشاعر والمعرفة 🕌،المرشد المرافق  روى لنا القصص بأسلوب مؤثر، والصور التاريخية عرّفتنا على تفاصيل ما كنا نعرفها، والأسئلة الصغيرة خلتنا نعيش التجربة بكل حواسنا.",
 		},
 		{
 			id: 5,
@@ -133,7 +133,7 @@ export default function Testimonials({ lang = "en" }) {
 			country: "كندا",
 			rating: 4,
 			review:
-				"المرشد الصوتي غيّر تجربتي تمامًا.كنت زرت المسجد النبوي من قبل، لكن مع القصص الصوتية والصور التاريخية، أحسست وكأني أزوره لأول مرة، وشهادة الزيارة كانت مفاجأة جميلة.",
+				"المرشد المرافق غيّر تجربتي تمامًا.كنت زرت المسجد النبوي من قبل، لكن مع القصص الصوتية والصور التاريخية، أحسست وكأني أزوره لأول مرة، وشهادة الزيارة كانت مفاجأة جميلة.",
 		},
 		{
 			id: 6,
@@ -141,7 +141,7 @@ export default function Testimonials({ lang = "en" }) {
 			country: "نيجيريا",
 			rating: 5,
 			review:
-				"جولة تجمع بين التقنية والإثراء.الصوت يروي، الصور تعرض، والأسئلة تثير الفضول ، تجربة متكاملة تعيشك روح المكان، شكرًا مزار",
+				"جولة تجمع بين التقنية والإثراء. بين القصص التي تُروي،و الصور التاريخية التي تُعرض، والأسئلة التي تثير الفضول ، تجربة متكاملة تعيشك روح المكان، شكرًا مزار ",
 		},
 		{
 			id: 7,
@@ -149,7 +149,7 @@ export default function Testimonials({ lang = "en" }) {
 			country: "السويد",
 			rating: 4,
 			review:
-				"استمتعنا بكل لحظة في المسجد النبوي.المرشد الصوتي بلغتنا، الصور القديمة اللي تحكي تاريخ المكان، والأسئلة اللي تخليك تلاحظ التفاصيل أكثر ، كلها خلت التجربة لا تُنسى.",
+				"استمتعنا بكل لحظة في المسجد النبوي. القصص التي رواها المرشد المرافق، الصور القديمة اللي تحكي تاريخ المكان، والأسئلة اللي تخليك تلاحظ التفاصيل أكثر ، كلها خلت التجربة لا تُنسى.",
 		},
 		{
 			id: 8,
@@ -157,7 +157,7 @@ export default function Testimonials({ lang = "en" }) {
 			country: "بريطانيا",
 			rating: 5,
 			review:
-				"رحلة للمسجد النبوي مليئة بالإلهام والمعرفة.كل تفصيل في الجولة كان محسوب : اللغة، الصوت، الصور، الأسئلة، وحتى شهادة الزيارة في النهاية كانت تذكّرنا بعظمة التجربة.",
+				"رحلة للمسجد النبوي مليئة بالإلهام والمعرفة. كل تفصيل في الجولة كان محسوب : القصص، الصور، الأسئلة، وحتى شهادة الزيارة في النهاية كانت تذكّرنا بعظمة التجربة.",
 		},
 		{
 			id: 9,
@@ -165,7 +165,7 @@ export default function Testimonials({ lang = "en" }) {
 			country: "الإمارات العربية المتحدة",
 			rating: 5,
 			review:
-				"من أجمل التجارب اللي خضتها في المدينة المنورة.\nالتطبيق منظم جدًا، والمرشد الصوتي يرافقك خطوة بخطوة، والصور التاريخية تعيدك إلى البدايات، وشهادة الزيارة كانت تذكار رائع.",
+				"من أجمل التجارب اللي خضتها في المدينة المنورة. التطبيق منظم جدًا، والمرشد المرافق يرافقك خطوة بخطوة، والصور التاريخية تعيدك إلى البدايات، وشهادة الزيارة كانت تذكار رائع.",
 		},
 		
 	];
