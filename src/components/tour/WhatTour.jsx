@@ -13,8 +13,8 @@ import imageIcon from "/public/Home/image.svg";
 const features = [
 	{
 		icon: tour_guide,
-		ar: "ترجمة فورية بعدة لغات",
-		en: "Instant translation in multiple languages",
+		ar: "مرشد سياحي مرافق",
+		en: "Accompanied Tour Guide",
 	},
 	{
 		icon: AR,
@@ -23,8 +23,8 @@ const features = [
 	},
 	{
 		icon: map,
-		ar: "دقة الموقع",
-		en: "Accurate of the site",
+		ar: "مشاهدة مواقع المعالم التاريخية على الواقع",
+		en: "View historical landmarks locations in real life",
 	},
 	{
 		icon: imageIcon,
@@ -52,7 +52,7 @@ export default function WhatTour({ initialLang }) {
 		<section className="py-16 ">
 			<div className="container mx-auto px-4">
 				<h2 className="text-2xl md:text-3xl font-bold text-center mb-4 text-gray-900">
-					{isAr ? "ما هي الجولات الإثرائية؟" : "What are the Enriching Tours?"}
+					{isAr ? "ما هي جولات الحرمين الشريفين الإثرائية ؟" : "What are the Enriching Haramain Tours?"}
 				</h2>
 				<p className="text-center text-gray-500 mb-2">
 					{isAr

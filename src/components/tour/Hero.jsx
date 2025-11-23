@@ -44,18 +44,23 @@ export default function Hero({ initialLang }) {
 					{/* Heading */}
 					<h1 className="text-3xl md:text-6xl text-center font-bold !leading-tight mb-4">
 						{isAr
-							? "رحلةٌ تعيدك إلى زمن النبوة… لتعيش القصة حيث وقعت. "
+							? "جولات الحرمين الشريفين الإثرائية"
 							: "The enriching Haramain Tours"}
 					</h1>
 
 					{/* Subtext / description */}
-					<p className="text-base md:text-lg text-gray-300 text-center mb-6">
+					<p className="text-base md:text-lg text-gray-300 text-center">
 						{isAr
 							? "استكشف أقدس بقاع الأرض عبر تجربة إيمانية ومعرفية فريدة، تسمع فيها القصص بلغتك وتشاهد المعالم بعينك، في جولات ذكية تجمع بين الأصالة والتقنية. "
 							: "Explore the holiest places on earth through a tour , where you listen to stories in your own language and witness sacred landmarks  in smart tours that blend authenticity with technology "}
 					</p>
+					<p className="text-base md:text-lg text-gray-300 text-center mb-6">
+						{isAr
+							? "رحلةٌ تعيدك إلى زمن النبوة… لتعيش القصة حيث وقعت. "
+							: "A journey that takes you back to the time of Prophethood… to live the story where it happened."}
+					</p>
 
-					{/* Buttons (no links yet) */}
+					{/* Buttons */}
 					<div className="flex flex-col sm:flex-row items-center justify-center  gap-3">
 						<Link
 							href="/haram"

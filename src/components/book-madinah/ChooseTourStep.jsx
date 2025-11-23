@@ -210,7 +210,7 @@ export default function ChooseTourStep({
 													// Only allow Sunday (0), Tuesday (2), Wednesday (3)
 													const day = date.getDay();
 													return (
-														![0, 2, 3].includes(day) ||
+														![3].includes(day) ||
 														date < tomorrow ||
 														date > maxDate
 													);

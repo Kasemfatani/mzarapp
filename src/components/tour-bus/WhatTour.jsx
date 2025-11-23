@@ -16,8 +16,8 @@ const features = [
 	},
 	{
 		icon: seoIcon,
-		ar: "محتوى موثّق تاريخيًا وشرعيًا",
-		en: "Documented historical and religious content",
+		ar: "محتوى موثّق تاريخيًا",
+		en: "Documented historical content",
 	},
 	{
 		icon: AR_icon,
@@ -54,12 +54,12 @@ export default function WhatTour({ initialLang }) {
 				</h2>
 				<p className="text-center text-gray-500 mb-2">
 					{isAr
-						? "تجمع جولات مزار الإثرائية بين الاستكشاف الميداني والتاريخ الموثق والتقنية الحديثة."
+						? "تجمع الجولات الإثرائية بين الاستكشاف الميداني والتاريخ الموثق والتقنية الحديثة."
 						: 'Mzar’s enrichment tours blend on-site exploration with verified history and modern technology.'}
 				</p>
 				<p className="text-center text-gray-500 mb-10 ">
 					{isAr
-						? "انطلاقًا من قلب مكة، تأخذك حافلة الجولة إلى المعالم التاريخية الرئيسية بينما تستمع إلى قصص أصيلة بلغتك المختارة عبر دليلنا الصوتي الذكي."
+						? "انطلاقاً من قلب مكة، تأخذك حافلة الجولة إلى المعالم التاريخية الرئيسية بينما تستمع إلى قصص أصيلة بلغتك المختارة عبر دليلنا الصوتي الذكي."
 						: "Starting from the heart of Makkah, the tour bus takes you to key historical landmarks while you listen to authentic stories in your chosen language through our smart audio guide."}
 				</p>
 				<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 max-w-6xl mx-auto">

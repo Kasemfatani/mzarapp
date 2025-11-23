@@ -38,7 +38,7 @@ export default function PackagePrice({ initialLang = "en" }) {
 				>
 					{/* Card */}
 					<div className="w-full md:w-[40%] md:-me-16 z-10 order-2 md:order-1 shadow-2xl">
-						<div className="bg-white rounded-2xl shadow-xl p-8 flex flex-col gap-6">
+						<div className="bg-white rounded-2xl shadow-2xl p-8 flex flex-col gap-6">
 							{/* Price row */}
 							<div className="flex items-start justify-center gap-2">
 								<span className={`text-4xl font-bold text-gray-900 ${isAr ? '' : 'order-2'}  `}>

@@ -21,7 +21,7 @@ export default function ExclusiveSlide({ language = "en" }) {
 				<p className="text-base  text-[#333] font-semibold mb-2">
 					{language === "ar"
 						? "وصول إلى جبل الرحمة بدخول أولوية، حصريًا لمركبات مزار."
-						: "Reach Jabal Al-Rahmah with priority entry, exclusive to Mzar vehicles."}
+						: "Reach Jabal Al-Rahma with exclusive access available only to Mzar vehicles."}
 				</p>
 				
 			</div>

@@ -12,36 +12,36 @@ const station4 = "/madinah/station-4.webp";
 const stationsData = {
 	ar: [
 		{
-			title: "المحطة الأولى",
+			title: "المحطة الأولى : معرض عمارة المسجد النبوي الشريف ",
 			img: station1,
-			items: ["منطقة المصليات", "معرض عمارة المسجد النبوي"],
+			items: ["معرض عمارة المسجد النبوي", "مصليات النبي ﷺ"],
 		},
 		{
-			title: "المحطة الثانية",
+			title: "المحطة الثانية : ساحات المسجد النبوي",
 			img: station2,
 			items: ["المظلات" , "المنارات و القِبب"],
 		},
 		{
-			title: "المحطة الثالثة",
+			title: "المحطة الثالثة : العمارة الداخلية للمسجد النبوي",
 			img: station3,
 			items: [
 				"عمارة المسجد النبوي","الحصوات"
 			],
 		},
 		{
-			title: "المحطة الرابعة",
+			title: "المحطة الرابعة : باب السلام",
 			img: station4,
 			items: [" باب السلام ", "المحاريب", "الروضة الشريفة", "بقيع الغرقد", "خَوْخة أبي بكر الصديق"],
 		},
 	],
 	en: [
 		{
-			title: "1st Station",
+			title: "1st Station: The Architecture of Al-Masjid An-Nabawi Exhibition",
 			img: station1,
-			items: ["Prayer Area Zone" , "Exhibition of the Prophet’s Mosque Architecture"],
+			items: ["Al-Masjid An-Nabawi Architecture Exhibition" , "The prayer areas of the Prophet ﷺ"],
 		},
 		{
-			title: "2nd Station",
+			title: "2nd Station: The Courtyards of Al-Masjid An-Nabawi",
 			img: station2,
 			items: [
 				"Umbrellas",
@@ -49,7 +49,7 @@ const stationsData = {
 			],
 		},
 		{
-			title: "3rd Station",
+			title: "3rd Station: The Interior Architecture of Al-Masjid An-Nabawi",
 			img: station3,
 			items: [
 				"Architecture of the Prophet’s Mosque",
@@ -58,7 +58,7 @@ const stationsData = {
 			],
 		},
 		{
-			title: "4th Station",
+			title: "4th Station: Bab Al-Salam",
 			img: station4,
 			items: ["Bab Al-Salam (Gate of Peace)", " Abu Bakr Al-Siddiq’s Door", "the Mihrabs (Prayer Niches) ", "The Noble Rawdah", "Al-Baqi’ Al-Gharqad Cemetery "],
 		},
@@ -88,8 +88,8 @@ export default function Stations({ initialLang }) {
 					</h2>
 					<p className="text-gray-600 mb-1">
 						{isAr
-							? "نزور في هذه الجولة مواقع مباركة تحمل عبق السيرة النبوية،"
-							: " In this tour, we visit the blessed sites that preserve the fragrance of the Prophet’s life ﷺ."}
+							? "نزور في هذه الجولة مواقع تاريخية تحمل عبق السيرة النبوية،"
+							: " In this tour, we visit the historical sites that preserve the fragrance of the Prophet’s life ﷺ."}
 					</p>
 					<p className="text-gray-600">
 						{isAr

@@ -95,10 +95,10 @@ export default function BusStops({ initialLang = "en" }) {
 	const t = useMemo(
 		() => ({
 			headline: isAr
-				? "من بئر طوى إلى جبل الرحمة.. بين كل محطة حكاية"
+				? "من بئر طوى إلى جبل الرحمة.. في كل محطة حكاية"
 				: "From Bir Tuwa to Mount Arafat... a story at every stop",
 			durationTitle: isAr ? "مدة الجولة" : "Tour Duration",
-			durationText: isAr ? "المدة: 90 دقيقة." : "Duration: 90 minutes.",
+			durationText: isAr ? "المدة: 5 ساعات." : "Duration: 5 hours.",
 			dailyToursTitle: isAr ? "الجولات اليومية:" : "Daily Tours:",
 			morning: isAr
 				? "صباحية: 7:00 ص – 12:00 م"
@@ -112,8 +112,7 @@ export default function BusStops({ initialLang = "en" }) {
 		[isAr]
 	);
 
-	const contentOrder = isAr ? "md:order-1" : "md:order-2";
-	const mapOrder = isAr ? "md:order-2" : "md:order-1";
+	
 
 	return (
 		<section className="py-16 bg-[#F5F1E8]">
@@ -167,10 +166,10 @@ export default function BusStops({ initialLang = "en" }) {
 				</div>
 
 				{/* Below slider: details + map */}
-				<div className="mt-12 flex flex-col md:flex-row gap-8 md:gap-9 items-start  ">
+				<div className="mt-12 flex flex-col md:flex-row gap-8 md:gap-9 items-center  ">
 					{/* Text side */}
 					<div className={` md:w-[55%] `}>
-						<div className="flex flex-col gap-16 max-w-lg md:max-w-none">
+						<div className="flex flex-col  gap-16 max-w-lg md:max-w-none">
 							<div>
 								<h4 className="text-xl font-bold mb-3 text-gray-900">
 									{t.durationTitle}
@@ -221,7 +220,7 @@ export default function BusStops({ initialLang = "en" }) {
 											? "خريطة مواقع الانطلاق ونقاط التجمع"
 											: "Map of starting and gathering points"
 									}
-									className="object-cover select-none md:h-64 w-full cursor-zoom-in"
+									className="object-cover select-none  w-full cursor-zoom-in"
 								/>
 								<span className="sr-only">
 									{isAr ? "تكبير الخريطة" : "Enlarge map"}
@@ -235,7 +234,7 @@ export default function BusStops({ initialLang = "en" }) {
 							</div> */}
 							
 						</div>
-						<p className="text-center mt-1">{isAr ? "انقر على الصورة للتكبير" : "click on the image to enlarge"}</p>
+						{/* <p className="text-center mt-1">{isAr ? "انقر على الصورة للتكبير" : "click on the image to enlarge"}</p> */}
 					</div>
 				</div>
 

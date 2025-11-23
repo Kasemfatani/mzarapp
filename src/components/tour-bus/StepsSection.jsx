@@ -4,47 +4,22 @@ import React from "react";
 const steps = [
   {
     icon: (
-      <div className="bg-[var(--second-bg)] p-4 rounded-lg">
-        <img src="/tour-bus/zoom.png" alt="zoom" />
-      </div>
-    ),
-    ar: (
-      <>
-        التقط أجمل اللحظات
-        <br />
-        وشاركها مع وسم
-        <br />
-        #جولات_مزار
-      </>
-    ),
-    en: (
-      <>
-        Capture your best moments
-        <br />
-        and share with
-        <br />
-        #Mzar_Tours
-      </>
-    ),
-  },
-  {
-    icon: (
       <div className="bg-[var(--sec-color)] p-4 rounded-lg">
-        <img src="/tour-bus/hand.png" alt="hand" />
+        <img src="/tour-bus/building.png" alt="building" />
       </div>
     ),
     ar: (
       <>
-        استمتع للقصص بلغتك عند
+        احجز جولتك عبر تطبيق
         <br />
-        كل معلم.
+        "مزار" أو من الفندق.
       </>
     ),
     en: (
       <>
-        Listen to stories in your language
+        Book your tour via the
         <br />
-        at every landmark.
+        "Mzar" app or from the hotel.
       </>
     ),
   },
@@ -72,24 +47,50 @@ const steps = [
   {
     icon: (
       <div className="bg-[var(--sec-color)] p-4 rounded-lg">
-        <img src="/tour-bus/building.png" alt="building" />
+        <img src="/tour-bus/hand.png" alt="hand" />
       </div>
     ),
     ar: (
       <>
-        احجز جولتك عبر تطبيق
+        استمع للقصص بلغتك عند
         <br />
-        "مزار" أو من الفندق.
+        كل معلم.
       </>
     ),
     en: (
       <>
-        Book your tour via the
+        Listen to stories in your language
         <br />
-        "Mzar" app or from the hotel.
+        at every landmark.
       </>
     ),
   },
+  {
+    icon: (
+      <div className="bg-[var(--second-bg)] p-4 rounded-lg">
+        <img src="/tour-bus/zoom.png" alt="zoom" />
+      </div>
+    ),
+    ar: (
+      <>
+        التقط أجمل اللحظات
+        <br />
+        وشاركها مع وسم
+        <br />
+        #جولات_مزار
+      </>
+    ),
+    en: (
+      <>
+        Capture your best moments
+        <br />
+        and share with
+        <br />
+        #Mzar_Tours
+      </>
+    ),
+  },
+
 ];
 
 export default function StepsSection({ initialLang = "ar" }) {

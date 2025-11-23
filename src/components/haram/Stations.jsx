@@ -12,17 +12,18 @@ const station4 = "/haram/station-4-new.webp";
 const stationsData = {
 	ar: [
 		{
-			title: "المحطة الأولى",
+			title: "المحطة الأولى : معرض أول بيت",
 			img: station1,
+			desc: "معرض يحكي قصة بناء الكعبة المشرفة",
 			items: ["معرض المسجد الحرام"],
 		},
 		{
-			title: "المحطة الثانية",
+			title: "المحطة الثانية : عمارة المسجد الحرام ",
 			img: station2,
 			items: ["الساحات.", "المنارات.", "الأبواب.", "عمارة المسجد الحرام."],
 		},
 		{
-			title: "المحطة الثالثة",
+			title: "المحطة الثالثة : الكعبة المشرفة",
 			img: station3,
 			items: [
 				"الكعبة المشرفة.",
@@ -32,19 +33,20 @@ const stationsData = {
 			],
 		},
 		{
-			title: "المحطة الرابعة",
+			title: "المحطة الرابعة : الصفا والمروة",
 			img: station4,
 			items: ["الصفا.", "المروة.", "باب السلام."],
 		},
 	],
 	en: [
 		{
-			title: "1st Station",
+			title: "1st Station: The First House Exhibition",
 			img: station1,
+			desc: "An exhibition that tells the story of the construction of the Holy Kaaba",
 			items: ["Masjid al-Haram Exhibition"],
 		},
 		{
-			title: "2nd Station",
+			title: "2nd Station: The Architecture of Al-Masjid Al-Haram",
 			img: station2,
 			items: [
 				"Courtyards.",
@@ -54,7 +56,7 @@ const stationsData = {
 			],
 		},
 		{
-			title: "3rd Station",
+			title: "3rd Station: The Holy Kaaba",
 			img: station3,
 			items: [
 				"The Kaaba.",
@@ -64,7 +66,7 @@ const stationsData = {
 			],
 		},
 		{
-			title: "4th Station",
+			title: "4th Station: Al-Safa and Al-Marwa",
 			img: station4,
 			items: ["Safa.", "Marwa.", "Bab Al-Salam."],
 		},
@@ -125,6 +127,11 @@ export default function Stations({ initialLang }) {
 								<h3 className="text-lg font-bold text-center mb-2 text-gray-900">
 									{station.title}
 								</h3>
+								{station.desc && (
+									<p className="text-sm text-gray-600 mb-2">
+										{station.desc}
+									</p>
+								)}
 								<ul className="list-disc ps-5 text-gray-700 text-sm  space-y-1">
 									{station.items.map((item, i) => (
 										<li key={i} className="">

@@ -13,8 +13,8 @@ const features = [
 		icon: "fa-solid fa-user-group",
 		ar: "الفئة",
 		en: "Category",
-		valueAr: "متاحة للرجال فقط (حسب التنظيم)",
-		valueEn: "Available for men only (as per regulations)",
+		valueAr: "متاحة للرجال فقط",
+		valueEn: "Available for men only",
 	},
 	{
 		icon: "fa-solid fa-wheelchair",

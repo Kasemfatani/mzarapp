@@ -25,7 +25,7 @@ export default function Testimonials({ lang = "en" }) {
 			country: "France",
 			rating: 5,
 			review:
-				"Every stop was immersive thanks to the audio guide; selecting my language was easy, the historical images beautifully told the stories, and the interactive questions kept me interested the entire time",
+				"Every stop was immersive thanks to the tour guide ; Selecting my language was easy with the app’s instant translation feature, the historical images beautifully told the stories, and the interactive questions kept me interested the entire time.",
 		},
 		{
 			id: 2,
@@ -49,7 +49,7 @@ export default function Testimonials({ lang = "en" }) {
 			country: "Malaysia",
 			rating: 5,
 			review:
-				"I appreciated the multilingual audio guide,also The certificate is a sentimental memento, thanks Mzar for this amazing Masjid Haram tour ",
+				"I valued the app's multilingual translation,also The certificate is a sentimental memento, thanks Mzar for this amazing Masjid Haram tour ",
 		},
 		{
 			id: 5,
@@ -73,7 +73,7 @@ export default function Testimonials({ lang = "en" }) {
 			country: "Nigeria",
 			rating: 4,
 			review:
-				"It was great from beginning to end: choose your language, play the audio guide, look at the old pictures, respond to interactive questions, and get your certificate of visit. Truly modern and meaningful!",
+				"It was great from beginning to end: the Professional tour guide , look at the old pictures, respond to interactive questions, and get your certificate of visit. Truly modern and meaningful",
 		},
 		{
 			id: 8,
@@ -81,7 +81,7 @@ export default function Testimonials({ lang = "en" }) {
 			country: "Canada",
 			rating: 5,
 			review:
-				"This was more than just a tour , the multingual audio guide helped me feel connected, the gallery of historical images added depth, the interactive quizzes made it enjoyable, and the certificate was the cherry on top.",
+				"This was more than just a tour ; the multingual tranlsation feature helped me feel connected, the gallery of historical images added depth, the interactive quizzes made it enjoyable, and the certificate was the cherry on top.",
 		},
 		
 	];
@@ -93,7 +93,7 @@ export default function Testimonials({ lang = "en" }) {
 			country: "الامارات العربية المتحدة",
 			rating: 5,
 			review:
-				"جولة المسجد الحرام كانت تجربة إثرائية بكل تفاصيلها!المرشد الصوتي كان رائع، والصور التاريخية خلتنا نعيش الماضي لحظة بلحظة، وأجمل شيء كانت شهادة الزيارة في النهاية",
+				"جولة المسجد الحرام كانت تجربة إثرائية بكل تفاصيلها! المرشد المرافق كان رائع، والصور التاريخية خلتنا نعيش الماضي لحظة بلحظة، وأجمل شيء كانت شهادة الزيارة في النهاية.",
 		},
 		{
 			id: 2,
@@ -101,7 +101,7 @@ export default function Testimonials({ lang = "en" }) {
 			country: "كندا",
 			rating: 4,
 			review:
-				"جولة المسجد الحرام كانت مختلفة اخترت اللغة اللي تناسبني، واستمتعت بالمرشد الصوتي، الصور القديمة كانت تبهرنا في كل محطة، والأسئلة كانت تخلينا نشارك ونفكر",
+				"جولة المسجد الحرام كانت مختلفة ، واستمتعت بالمعلومات التي قدمها المرشد المرافق ، الصور القديمة كانت تبهرنا في كل محطة، والأسئلة كانت تخلينا نشارك ونفكر.",
 		},
 		{
 			id: 3,
@@ -109,7 +109,7 @@ export default function Testimonials({ lang = "en" }) {
 			country: "بريطانيا",
 			rating: 5,
 			review:
-				"جمعت بين المتعة والمعرفة المرشد الصوتي شرح القصص بأسلوب جميل، واللغة كانت واضحة ومفهومة، أما الصور التاريخية فقدمت لنا مشاهد ما كنا نعرفها من قبل، وختمنا بشهادة نفتخر فيها",
+				"جمعت بين المتعة والمعرفة، المرشد المرافق شرح القصص بأسلوب جميل، واللغة كانت واضحة ومفهومة، أما الصور التاريخية فقدمت لنا مشاهد ما كنا نعرفها من قبل، وختمنا بشهادة نفتخر فيها.",
 		},
 		{
 			id: 4,
@@ -117,7 +117,7 @@ export default function Testimonials({ lang = "en" }) {
 			country: "أستراليا",
 			rating: 5,
 			review:
-				"الجولة كانت ممتعة ، كل شيء منظم  ، تسمع القصة بلغتك ، تجربة فعلاً عصرية بتقنيات حديثة",
+				"الجولة كانت ممتعة ، كل شيء منظم  ، القصص  ممتعة ، تجربة فعلاً عصرية بتقنيات حديثة.",
 		},
 		{
 			id: 5,
@@ -141,7 +141,7 @@ export default function Testimonials({ lang = "en" }) {
 			country: "المملكة العربية السعودية",
 			rating: 4,
 			review:
-				"رحلة لا تُنسى مع لمسة تقنية حديثة. المرشد الصوتي بلغات متعددة، وصور توثّق التاريخ، وأسئلة تخليك تفكر، وشهادة زيارة تذكرك دومًا بروعة التجربة",
+				"رحلة لا تُنسى مع لمسة تقنية حديثة. المرشد المرافق المثقف، وصور توثّق التاريخ، وأسئلة تخليك تفكر، وشهادة زيارة تذكرك دومًا بروعة التجربة.",
 		},
 		
 		
@@ -199,14 +199,14 @@ export default function Testimonials({ lang = "en" }) {
 					>
 						{testimonials.map((r) => (
 							<SwiperSlide key={r.id}>
-								<article className="bg-[#2E5A46] text-white rounded-2xl p-6 md:p-8 h-[300px] md:h-[320px] shadow-[0_8px_24px_rgba(0,0,0,0.12)] flex flex-col justify-between relative overflow-hidden">
+								<article className="bg-[#2E5A46] text-white rounded-2xl p-6 md:p-8 h-[300px] md:h-[340px] shadow-[0_8px_24px_rgba(0,0,0,0.12)] flex flex-col justify-between relative overflow-hidden">
 									{/* Quote icon decor */}
 									<div className="absolute bottom-2 right-4 text-white pointer-events-none select-none">
 										<i className="fa-solid fa-quote-right text-7xl md:text-8xl" />
 									</div>
 
 									{/* Text */}
-									<p className="text-lg md:text-xl font-semibold leading-8 line-clamp-4" dir={language === "ar" ? "rtl" : "ltr"}>
+									<p className="text-lg md:text-xl font-semibold leading-8 line-clamp-6" dir={language === "ar" ? "rtl" : "ltr"}>
 										{r.review}
 									</p>
 
