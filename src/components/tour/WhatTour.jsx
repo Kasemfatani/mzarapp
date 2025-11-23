@@ -24,7 +24,7 @@ const features = [
 	{
 		icon: map,
 		ar: "مشاهدة مواقع المعالم التاريخية على الواقع",
-		en: "View historical landmarks locations in real life",
+		en: "Visit historical landmarks on site",
 	},
 	{
 		icon: imageIcon,
