@@ -27,7 +27,7 @@ const features = [
 		normal: "no",
 	},
 	{
-		ar: "بدعم من الهيئة الملكية لمدينة مكة المكرمة",
+		ar: "مرخص من الهيئة الملكية لمدينة مكة المكرمة",
 		en: "Supported by Royal Commission for Makkah City",
 		mzar: "yes",
 		normal: "no",
@@ -79,7 +79,7 @@ export default function ComparisonTable({ initialLang = "ar" }) {
 			<div className="container mx-auto px-4">
 				<h2 className="text-2xl md:text-3xl font-bold text-center mb-10 text-gray-900">
 					{isAr
-						? "الفرق بين جولة عادية وتجربة مزار الإثرائية"
+						? "الفرق بين تجربة الجولات الإثرائية من مزار والجولات التقليدية"
 						: "The difference between a regular tour and the Mzar Enriching Experience"}
 				</h2>
 				<div className="overflow-x-auto">
