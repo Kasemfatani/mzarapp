@@ -45,7 +45,7 @@ export default function Hero({ initialLang, step, setStep }) {
 						{/* Heading */}
 						<h1 className="text-3xl md:text-5xl text-center font-bold !leading-tight ">
 							{isAr
-								? "الجولات الإثرائية"
+								? "حافلة الجولات الإثرائية"
 								: "Enriching Tours – Mzar Tour Bus"}
 						</h1>
 
