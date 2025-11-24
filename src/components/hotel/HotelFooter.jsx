@@ -29,7 +29,7 @@ export default function HotelFooter({ lang = "ar" , hotelLogoSrc = "/hotel/hotel
 						<Image
 							src={hotelLogoSrc}
 							alt="Hotel Logo"
-							width={120}
+							width={100}
 							height={60}
 							className="object-contain"
 						/>
