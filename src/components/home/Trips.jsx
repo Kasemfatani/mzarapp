@@ -153,7 +153,7 @@ export default function Trips() {
 					"تجربة مثالية للعائلات والمجموعات.",
 				],
 			},
-			buttonType: "soonDetails",
+			buttonType: "TouristBus",
 		},
 		{
 			id: 5,
@@ -217,6 +217,18 @@ export default function Trips() {
 				</Link>
 			);
 		}
+
+		if (type === "TouristBus") {
+			return (
+				<Link
+					href="/tour-bus"
+					className="inline-flex w-full items-center justify-center rounded-xl bg-[var(--main-color)] text-white px-2 py-3 text-sm font-semibold hover:text-gray-300 transition-colors text-center"
+				>
+					{L.discover}
+				</Link>
+			);
+		}
+
 		if (type === "download") {
 			return (
 				<Link
