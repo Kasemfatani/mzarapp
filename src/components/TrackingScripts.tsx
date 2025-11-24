@@ -16,11 +16,24 @@ const SCRIPT_PATHS = [
 	"/tour-bus",
 	"/madinah",
 	"/haram",
+	"/book-haram",
+	"/book-haram-success",
+	"/book-madinah",
+	"/book-madinah-success",
+	"/book-tour",
+	"/book-tour-success",
 ];
+
+// Patterns for dynamic routes you also want scripts on.
+const DYNAMIC_PATTERNS = [/^\/hotel\/[^/]+$/]; // hotel/<slug> (one segment after /hotel)
+
 
 export default function TrackingScripts() {
 	const pathname = usePathname();
-	const shouldIncludeScripts = SCRIPT_PATHS.includes(pathname);
+
+	const shouldIncludeScripts =
+		SCRIPT_PATHS.includes(pathname) ||
+		DYNAMIC_PATTERNS.some((re) => re.test(pathname));
 
 	if (!shouldIncludeScripts) return null;
 
