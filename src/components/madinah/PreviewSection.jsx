@@ -53,8 +53,21 @@ export default function PreviewSection({ initialLang }) {
 				{/* Video + images grid */}
 				<div className="grid grid-cols-1 md:grid-cols-5 gap-4 items-stretch max-w-5xl mx-auto mb-8">
 					{/* Video */}
-					<div className="md:col-span-3 aspect-video rounded-2xl overflow-hidden bg-black flex items-center justify-center">
-						<iframe
+					<div className="md:col-span-3 aspect-video rounded-2xl overflow-hidden flex items-center justify-center">
+						<a
+								href="/madinah/vid-replace.webp"
+								data-fancybox="preview-gallery"
+								className="aspect-[4/3] rounded-2xl overflow-hidden  block "
+							>
+								<img
+									src="/madinah/vid-replace.webp"
+									alt={`Preview`}
+									className="w-full h-full object-cover transition-transform duration-200 hover:scale-105"
+									loading="lazy"
+									draggable={false}
+								/>
+							</a>
+						{/* <iframe
 							src="https://www.youtube.com/embed/u31qwQUeGuM"
 							title="Placeholder video"
 							frameborder="0"
@@ -62,10 +75,10 @@ export default function PreviewSection({ initialLang }) {
 							referrerpolicy="strict-origin-when-cross-origin"
 							allowfullscreen
 							className="w-full h-full"
-						></iframe>
+						></iframe> */}
 					</div>
 					{/* Images */}
-					<div className="md:col-span-2 grid grid-cols-2 grid-rows-2 gap-4">
+					<div className="md:col-span-2 grid grid-cols-2 grid-rows-2 gap-2">
 						{images.map((img, i) => (
 							<a
 								key={i}

@@ -18,7 +18,7 @@ const HotelFooter = dynamic(() => import("./HotelFooter"), {
 });
 
 
-export default function LazyBottomSections({ lang }) {
+export default function LazyBottomSections({ lang , hotelLogoSrc }) {
 	const { ref, inView } = useInView({ triggerOnce: true, rootMargin: "200px" });
 	const [shouldLoad, setShouldLoad] = useState(false);
 
@@ -30,7 +30,7 @@ export default function LazyBottomSections({ lang }) {
 				<>
 					<WhyMzarSection lang={lang} />
 					<HiraSection lang={lang} />
-					<HotelFooter lang={lang} />
+					<HotelFooter lang={lang} hotelLogoSrc={hotelLogoSrc} />
 				</>
 			) : null}
 		</div>

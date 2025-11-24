@@ -17,7 +17,7 @@ const KnowledgeBanner = dynamic(() => import("./KnowledgeBanner"), {
 	loading: () => <Loading />,
 });
 
-export default function LazyTopSections({ lang , audio, hotelName }) {
+export default function LazyTopSections({ lang , audio, hotelName , promo_code , hotelLogoSrc }) {
 	const { ref, inView } = useInView({ triggerOnce: true, rootMargin: "80px" });
 	const [shouldLoad, setShouldLoad] = useState(false);
 
@@ -28,7 +28,7 @@ export default function LazyTopSections({ lang , audio, hotelName }) {
 			{shouldLoad ? (
 				<>
 					<TopSection lang={lang} audio={audio} />
-					<PartnerSection lang={lang} hotelName={hotelName} />
+					<PartnerSection lang={lang} hotelName={hotelName} discountCode={promo_code} hotelLogoSrc={hotelLogoSrc} />
 					<KnowledgeBanner lang={lang} />
 				</>
 			) : null}
