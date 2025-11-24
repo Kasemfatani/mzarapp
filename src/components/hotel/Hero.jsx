@@ -37,14 +37,14 @@ export default function Hero({ initialLang , partner_id , hotelLogoSrc, promo_co
 	const t = {
 		nav: isAr
 			? [
-					{ label: "الرئيسية", href: "/" },
-					{ label: "خدمات", href: "/#services" },
-					{ label: "لماذا مزار؟", href: "/#why" },
+					{ label: "الرئيسية", href: "#" },
+					{ label: "خدمات", href: "#trips" },
+					{ label: "لماذا مزار؟", href: "#why" },
 			  ]
 			: [
-					{ label: "Home", href: "/" },
-					{ label: "Services", href: "/#services" },
-					{ label: "Why Mzar?", href: "/#why" },
+					{ label: "Home", href: "#" },
+					{ label: "Services", href: "#trips" },
+					{ label: "Why Mzar?", href: "#why" },
 			  ],
 		getApp: isAr ? "احصل على التطبيق" : "Get the App",
 		giftHead: isAr ? "احصل على هديتك الحصرية!" : "Get your exclusive gift!",
@@ -280,14 +280,15 @@ export default function Hero({ initialLang , partner_id , hotelLogoSrc, promo_co
 					{/* Center content */}
 					<div className="w-full text-white text-start ">
 						{/*  logos row */}
-						<div className="flex items-center justify-start gap-6 md:gap-10 mb-7 md:mb-12">
+						<div className="flex items-center justify-start gap-4  mb-7 md:mb-12">
 							<Image
 								src={hotelLogoSrc || hotelLogo}
 								alt="Hotel Logo"
 								width={120}
-								height={48}
-								className="h-10 w-auto brightness-110"
+								height={120}
+								className=" h-22 w-auto brightness-110"
 							/>
+{/* 
 							<Image
 								src={appLogo}
 								alt="MZAR Logo"
@@ -295,6 +296,7 @@ export default function Hero({ initialLang , partner_id , hotelLogoSrc, promo_co
 								height={48}
 								className="h-10 w-auto"
 							/>
+							 */}
 						</div>
 
 						{/* Gift heading */}
