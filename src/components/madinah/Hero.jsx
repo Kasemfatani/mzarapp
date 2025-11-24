@@ -61,8 +61,8 @@ export default function Hero({ initialLang }) {
 
 						<p className="text-base md:text-lg text-gray-300 text-center mb-6">
 							{isAr
-								? "جولة تأخذك إلى حيث خطت أقدام النبي ﷺ وصحابته الكرام، لتتعرف على المعالم المباركة في المسجد النبوي، وتشاهدها كما رآها التاريخ، في تجربة تجمع بين التأمل، والعلم، والتقنية الحديثة."
-								: "Walk where the Prophet ﷺ once stood and explore Al-Masjid An-Nabawi’s sacred landmarks , in an experience that blends reflection, learning, and modern technology. "}
+								? "جولة تأخذك إلى حيث خطت أقدام النبي ﷺ وصحابته الكرام، لتتعرف على المعالم التاريخية  في المسجد النبوي، وتشاهدها كما رآها التاريخ، في تجربة تجمع بين التأمل، والعلم، والتقنية الحديثة."
+								: "Walk where the Prophet ﷺ once stood and explore Al-Masjid An-Nabawi’s historic landmarks , in an experience that blends reflection, learning, and modern technology. "}
 						</p>
 
 						{/* Buttons (no links yet) */}
