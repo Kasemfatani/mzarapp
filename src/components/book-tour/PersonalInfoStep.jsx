@@ -68,11 +68,19 @@ const messages = {
 		requiredEmail: "Email is required",
 		invalidEmail: "Invalid email",
 		subtotal: "Subtotal",
+		discountLabel: "Discount",
+		subtotalAfterDiscount: "Subtotal after discount",
 		tax: "VAT",
 		taxValue: "15%",
 		totalDollar: "Total in Dollar",
 		total: "Total",
 		currency: "SAR",
+		promoCode: "Promo Code (optional)",
+		promoPlaceholder: "Enter promo code",
+		applyBtn: "Apply",
+		promoSuccess: "discount applied!",
+		promoInvalid: "Invalid promo code",
+		promoError: "Failed to check promo code",
 	},
 	ar: {
 		steps: { choose: "اختر جولتك", info: "أدخل المعلومات", pay: "الدفع" },
@@ -99,11 +107,19 @@ const messages = {
 		requiredEmail: "البريد الإلكتروني مطلوب",
 		invalidEmail: "بريد غير صالح",
 		subtotal: "المجموع الفرعي",
+		discountLabel: "الخصم",
+		subtotalAfterDiscount: "المجموع بعد الخصم",
 		tax: "ضريبة القيمة المضافة",
 		taxValue: "15٪",
 		totalDollar: "الإجمالي المقدر بالدولار",
 		total: "الإجمالي",
 		currency: CURRENCY_SVG,
+		promoCode: "رمز الخصم (اختياري)",
+		promoPlaceholder: "أدخل رمز الخصم",
+		applyBtn: "تطبيق",
+		promoSuccess: "تم تطبيق الخصم!",
+		promoInvalid: "رمز خصم غير صالح",
+		promoError: "فشل التحقق من رمز الخصم",
 	},
 };
 
@@ -132,11 +148,62 @@ export default function PersonalInfoStep({
 	const [isLoading, setIsLoading] = useState(false); // Add loading state
 	const isAr = lang === "ar";
 
+	// Promo code state (added)
+	const [promoCode, setPromoCode] = useState("");
+	const [promoApplied, setPromoApplied] = useState(false);
+	const [promoDiscountPercent, setPromoDiscountPercent] = useState(0);
+	const [promoMessage, setPromoMessage] = useState("");
+	const [promoLoading, setPromoLoading] = useState(false);
+
 	const form = useForm({
 		resolver: zodResolver(schemaFor(lang, max_people_count)),
 		defaultValues: { people: 1, name: "", email: "", phone: "", whatsapp: "" },
 		mode: "onSubmit",
 	});
+
+	// Pre-fill promo code from localStorage on mount
+	useEffect(() => {
+		const partnerPromo = localStorage.getItem("partnerPromoCode");
+		if (partnerPromo) {
+			setPromoCode(partnerPromo);
+		}
+	}, []);
+
+	// Apply promo code
+	const handleApplyPromo = async () => {
+		if (!promoCode.trim()) {
+			setPromoMessage(isAr ? "أدخل رمز الخصم" : "Enter promo code");
+			setPromoApplied(false);
+			return;
+		}
+		setPromoLoading(true);
+		setPromoMessage("");
+		try {
+			const res = await fetch(
+				`${API_BASE_URL_NEW}/landing/coupons/check?promo_code=${encodeURIComponent(
+					promoCode
+				)}&promo_type=trip`
+			);
+			const json = await res.json();
+			if (res.ok && json.status && json.data) {
+				const discount = json.data.discount_value || 0;
+				setPromoDiscountPercent(discount);
+				setPromoApplied(true);
+				setPromoMessage(`${discount}% ${t.promoSuccess}`);
+			} else {
+				setPromoApplied(false);
+				setPromoDiscountPercent(0);
+				setPromoMessage(t.promoInvalid);
+			}
+		} catch (err) {
+			console.error("Promo check error:", err);
+			setPromoApplied(false);
+			setPromoDiscountPercent(0);
+			setPromoMessage(t.promoError);
+		} finally {
+			setPromoLoading(false);
+		}
+	};
 
 	const onSubmit = async (values) => {
 		setIsLoading(true); // Start loading
@@ -170,7 +237,7 @@ export default function PersonalInfoStep({
 			if (raw) selection = JSON.parse(raw);
 		} catch {}
 
-		// Build payload for booking API
+		// Build payload for booking API (include promo_code)
 		const payload = {
 			name: info.name,
 			email: info.email,
@@ -184,6 +251,7 @@ export default function PersonalInfoStep({
 			meetingPoint_id: Number(selection.meetingPoint.id),
 			people: info.people,
 			payment_method: "online",
+			promo_code: promoApplied ? promoCode : null,
 		};
 		try {
 			const res = await fetch(
@@ -210,7 +278,7 @@ export default function PersonalInfoStep({
 			}
 
 			// Save trip_id, customer_id, process_id to localStorage
-			const { trip_id, customer_id, process_id , ticket} = json.data || {};
+			const { trip_id, customer_id, process_id, ticket } = json.data || {};
 			const updatedSelection = {
 				...selection,
 				trip_id,
@@ -220,11 +288,15 @@ export default function PersonalInfoStep({
 			};
 			localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedSelection));
 
-			// Proceed to URWAY payment
+			// Calculate final total for URWAY payment
 			const peopleCount = Number(info.people || 1);
 			const base = start_price * peopleCount;
-			const tax = base * tax_amount;
-			const totalSar = Number((base + tax).toFixed(2));
+			const discountAmount = promoApplied
+				? (base * promoDiscountPercent) / 100
+				: 0;
+			const baseAfterDiscount = base - discountAmount;
+			const tax = baseAfterDiscount * tax_amount;
+			const totalSar = Number((baseAfterDiscount + tax).toFixed(2));
 
 			const urwayRes = await fetch("/api/pay/urway/init", {
 				method: "POST",
@@ -257,11 +329,17 @@ export default function PersonalInfoStep({
 
 	const colBase = "p-4 md:p-6";
 
-	// Calculation logic
+	// Calculation logic (apply discount before tax)
 	const people = form.watch("people") || 1;
 	const base = (start_price * people).toFixed(2);
-	const tax = (start_price * people * tax_amount).toFixed(2);
-	const totalSar = (parseFloat(base) + parseFloat(tax)).toFixed(2);
+	const discountAmount = promoApplied
+		? ((parseFloat(base) * promoDiscountPercent) / 100).toFixed(2)
+		: "0.00";
+	const baseAfterDiscount = (
+		parseFloat(base) - parseFloat(discountAmount)
+	).toFixed(2);
+	const tax = (parseFloat(baseAfterDiscount) * tax_amount).toFixed(2);
+	const totalSar = (parseFloat(baseAfterDiscount) + parseFloat(tax)).toFixed(2);
 	const totalUsd = (totalSar / 3.75).toFixed(2);
 
 	const priceBox = (
@@ -270,8 +348,36 @@ export default function PersonalInfoStep({
 				<div className="flex flex-col gap-2">
 					<div className="flex justify-between items-center">
 						<span className="text-gray-700 font-medium">{t.subtotal}</span>
-						<span className="text-gray-900">{base}</span>
+						<span
+							className={cn(
+								"text-gray-900",
+								promoApplied && "line-through text-gray-500"
+							)}
+						>
+							{base}
+						</span>
 					</div>
+					{promoApplied && (
+						<>
+							<div className="flex justify-between items-center text-green-600">
+								<span className="font-medium">
+									{t.discountLabel}
+									<span className="inline-block ms-2 bg-green-100 text-[12px] px-2 py-0.5 rounded-full font-bold">
+										{promoDiscountPercent}%
+									</span>
+								</span>
+								<span>-{discountAmount}</span>
+							</div>
+							<div className="flex justify-between items-center">
+								<span className="text-gray-700 font-medium">
+									{t.subtotalAfterDiscount}
+								</span>
+								<span className="text-gray-900 font-semibold">
+									{baseAfterDiscount}
+								</span>
+							</div>
+						</>
+					)}
 					<div className="flex justify-between items-center">
 						<span className="text-gray-700 font-medium">
 							{t.tax}
@@ -401,7 +507,7 @@ export default function PersonalInfoStep({
 							</div>
 						</div>
 
-						{/* column: People count */}
+						{/* column: People count + Promo code */}
 						<div className={cn(colBase)}>
 							<FormField
 								control={form.control}
@@ -464,6 +570,41 @@ export default function PersonalInfoStep({
 									</FormItem>
 								)}
 							/>
+
+							{/* Promo Code */}
+							<div className="mt-4">
+								<label className="block text-sm font-medium mb-2">
+									{t.promoCode}
+								</label>
+								<div className="flex items-center gap-2">
+									<Input
+										type="text"
+										value={promoCode}
+										onChange={(e) => setPromoCode(e.target.value)}
+										placeholder={t.promoPlaceholder}
+										className="h-12 shadow-md flex-1"
+										disabled={promoLoading}
+									/>
+									<Button
+										type="button"
+										onClick={handleApplyPromo}
+										disabled={promoLoading || !promoCode.trim()}
+										className="h-12 bg-[var(--main-color,#14532d)] hover:bg-[var(--sec-color,#86efac)] hover:text-black"
+									>
+										{promoLoading ? "..." : t.applyBtn}
+									</Button>
+								</div>
+								{promoMessage && (
+									<p
+										className={cn(
+											"text-sm mt-2",
+											promoApplied ? "text-green-600" : "text-red-600"
+										)}
+									>
+										{promoMessage}
+									</p>
+								)}
+							</div>
 						</div>
 
 						{/* Price Calculation Result */}

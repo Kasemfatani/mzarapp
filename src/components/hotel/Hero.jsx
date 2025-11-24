@@ -4,6 +4,9 @@ import Image from "next/image";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { Globe } from "lucide-react"; // NEW
+import { parsePhoneNumberFromString } from "libphonenumber-js";
+import { PhoneInput } from "react-international-phone";
+import "react-international-phone/style.css";
 
 // Assets
 import heroBg from "/public/hotel/hero-bg.webp";
@@ -16,11 +19,15 @@ const SpinWheelDialog = dynamic(() => import("./SpinWheelDialog"), {
 	ssr: false,
 });
 
-export default function Hero({ initialLang }) {
+export default function Hero({ initialLang , partner_id , hotelLogoSrc, promo_code }) {
 	const [language] = useState(initialLang || "ar");
 	const [name, setName] = useState("");
 	const [whatsApp, setWhatsApp] = useState("");
+	const [countryCode, setCountryCode] = useState("");
 	const [showWheel, setShowWheel] = useState(false);
+
+	//  store the national number (digits only, no country code) separately
+	const [whatsappNational, setWhatsappNational] = useState("");
 
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 	const menuRef = useRef(null);
@@ -47,15 +54,50 @@ export default function Hero({ initialLang }) {
 		namePh: isAr ? "اسمك الكريم" : "Your Name",
 		waPh: isAr ? "966 رقم تواصل الواتساب" : "WhatsApp Number 966",
 		cta: isAr ? "اكتشف هديتك الآن !" : "Discover your gift now!",
+		waWarning: isAr
+			? "يرجى إدخال رقم واتساب  على الأقل 8 أرقام."
+			: "Please enter a valid WhatsApp number with at least 8 digits.",
 	};
 
 	const onSubmit = (e) => {
 		e.preventDefault();
-		// Show the spin wheel dialog
+
+		// Parse WhatsApp number
+		const phoneParsed = parsePhoneNumberFromString(whatsApp || "");
+		const stripLeadingZero = (num) =>
+			num && num.startsWith("0") ? num.replace(/^0+/, "") : num;
+		const normalizeDigits = (num) =>
+			num ? String(num).replace(/\D/g, "") : "";
+
+		// national number (digits only, no country code)
+		const whatsappNumber = phoneParsed
+			? stripLeadingZero(phoneParsed.nationalNumber)
+			: stripLeadingZero(normalizeDigits(whatsApp));
+
+		
+		// store the national number to send to the backend
+		setWhatsappNational(whatsappNumber);
+
+		if (!whatsappNumber || whatsappNumber.length < 8) {
+			alert(t.waWarning);
+			return;
+		}
+
+		const whatsappCountryCode = phoneParsed
+			? phoneParsed.countryCallingCode
+			: "";
+		setCountryCode(whatsappCountryCode);
+	
+
 		setShowWheel(true);
-		// You can send the data to your API here
-		// console.log({ name, whatsApp });
 	};
+
+	// save promo_code to localStorage
+	useEffect(() => {
+    if (promo_code) {
+        localStorage.setItem("partnerPromoCode", promo_code);
+    }
+}, [promo_code]);
 
 	// Close mobile menu when clicking outside
 	useEffect(() => {
@@ -115,7 +157,7 @@ export default function Hero({ initialLang }) {
 						{/* Right (in RTL): Logo */}
 						<div className="pt-2 ">
 							<Link
-								href="/"
+								href="#"
 								className="shrink-0 inline-flex items-center gap-2 "
 							>
 								<Image
@@ -240,7 +282,7 @@ export default function Hero({ initialLang }) {
 						{/*  logos row */}
 						<div className="flex items-center justify-start gap-6 md:gap-10 mb-7 md:mb-12">
 							<Image
-								src={hotelLogo}
+								src={hotelLogoSrc || hotelLogo}
 								alt="Hotel Logo"
 								width={120}
 								height={48}
@@ -286,19 +328,22 @@ export default function Hero({ initialLang }) {
 								value={name}
 								onChange={(e) => setName(e.target.value)}
 								placeholder={t.namePh}
-								className="flex-1 rounded-2xl bg-white/15 text-white text-center placeholder-white/70  border border-white/25 focus:border-white/50 outline-none px-4 py-3 md:py-4"
+								className="flex-1 rounded-sm !bg-white/15 !text-white text-center placeholder-white  border border-white/50 outline-none px-4 py-3 md:py-4"
 								dir={isAr ? "rtl" : "ltr"}
 								required
 							/>
-							<input
-								type="tel"
-								value={whatsApp}
-								onChange={(e) => setWhatsApp(e.target.value)}
-								placeholder={t.waPh}
-								className="flex-1 rounded-2xl bg-white/15 text-white text-center placeholder-white/70  border border-white/25 focus:border-white/50 outline-none px-4 py-3 md:py-4"
-								dir="ltr"
-								required
-							/>
+							<div id="hotel_landing" className="flex-1" dir="ltr">
+								<PhoneInput
+									defaultCountry="sa"
+									value={whatsApp}
+									onChange={setWhatsApp}
+									className="w-full"
+									forceDialCode={true}
+									inputClassName="rounded-2xl !bg-white/15 !text-white text-center placeholder-white/70 border border-white/25 focus:border-white/50 outline-none px-4 py-3 md:py-4 w-full"
+									placeholder={t.waPh}
+									required
+								/>
+							</div>
 							<button
 								type="submit"
 								className="flex-1 rounded-2xl px-6 py-3 md:py-4 font-semibold text-white bg-[var(--main-color)] hover:bg-[var(--sec-color)] hover:text-black transition-colors"
@@ -315,7 +360,11 @@ export default function Hero({ initialLang }) {
 				open={showWheel}
 				onOpenChange={setShowWheel}
 				lang={language}
-				name={name}
+				client_name={name}
+				country_code={countryCode}
+				// pass national number (digits only) — not the PhoneInput's display value
+				mobile={whatsappNational}
+				partner_id={partner_id}
 			/>
 		</>
 	);

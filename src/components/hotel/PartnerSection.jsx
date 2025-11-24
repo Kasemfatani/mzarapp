@@ -7,6 +7,7 @@ export default function PartnerSection({
 	lang = "en",
 	hotelName = "(الاسم)",
 	discountCode = "MZAR20",
+	hotelLogoSrc = "/hotel/hotel_2_logo.png",
 }) {
 	const isAr = lang === "ar";
 
@@ -75,7 +76,7 @@ export default function PartnerSection({
 						<div className="flex items-end justify-start ">
 							<div className="bg-white rounded-xl shadow-2xl p-4 inline-block">
 								<Image
-									src="/hotel/hotel_2_logo.png"
+									src={hotelLogoSrc}
 									alt="Partner hotel logo"
 									width={220}
 									height={72}

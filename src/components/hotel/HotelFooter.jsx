@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-export default function HotelFooter({ lang = "ar" }) {
+export default function HotelFooter({ lang = "ar" , hotelLogoSrc = "/hotel/hotel_logo.png" }) {
 	const [gclid, setGclid] = useState("");
 
 	useEffect(() => {
@@ -27,7 +27,7 @@ export default function HotelFooter({ lang = "ar" }) {
 					{/* Logos side */}
 					<div className="flex items-center gap-4 md:gap-6 flex-wrap justify-center">
 						<Image
-							src="/hotel/hotel_logo.png"
+							src={hotelLogoSrc}
 							alt="Hotel Logo"
 							width={120}
 							height={60}

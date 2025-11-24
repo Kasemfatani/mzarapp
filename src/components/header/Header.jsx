@@ -20,7 +20,7 @@ export default function Header() {
 		pathname === "/saad-alqurashi" ||
 		pathname === "/saad-new" ||
 		pathname === "/raslania" ||
-		pathname === "/hotel" 
+		pathname.startsWith("/hotel/") 
 	) {
 		return null;
 	}

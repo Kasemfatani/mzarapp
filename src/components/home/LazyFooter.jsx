@@ -25,7 +25,7 @@ export default function LazyFooter(props) {
     pathname === "/saad-alqurashi" ||
     pathname === "/saad-new" ||
     pathname === "/raslania" ||
-    pathname === "/hotel";
+    pathname.startsWith("/hotel/");
 
   if (skipFooter) {
     return null;
