@@ -59,7 +59,7 @@ export default function PartnerSection({
 
 					{/* Logos column */}
 					<div
-						className={`order-1 md:order-2 flex flex-col justify-between h-56 md:h-72 p-4 md:p-6 bg-white/0 gap-8 md:gap-0`}
+						className={`order-1 md:order-2 flex flex-col justify-between  p-4 md:p-6 bg-white/0 gap-8 md:gap-0`}
 					>
 						<div className="flex items-start justify-end">
 							<div className="bg-white rounded-xl shadow-2xl p-4 inline-block">
