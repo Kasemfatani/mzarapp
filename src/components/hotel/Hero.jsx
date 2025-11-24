@@ -286,7 +286,7 @@ export default function Hero({ initialLang , partner_id , hotelLogoSrc, promo_co
 								alt="Hotel Logo"
 								width={120}
 								height={120}
-								className=" max-h-32 w-auto brightness-110"
+								className=" max-h-40 w-auto brightness-110"
 							/>
 {/* 
 							<Image
