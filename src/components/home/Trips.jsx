@@ -99,7 +99,7 @@ export default function Trips() {
 					"هدايا رمزية.",
 				],
 			},
-			buttonType: "whatsApp",
+			buttonType: "TwoMosques",
 		},
 		{
 			id: 3,
@@ -228,6 +228,17 @@ export default function Trips() {
 				</Link>
 			);
 		}
+
+		if (type === "TwoMosques") {
+					return (
+						<Link
+							href="/tour"
+							className="inline-flex w-full items-center justify-center rounded-xl bg-[var(--main-color)] text-white px-2 py-3 text-sm font-semibold  hover:text-gray-300 transition-colors text-center"
+						>
+							{L.discover}
+						</Link>
+					);
+				}
 
 		if (type === "download") {
 			return (
