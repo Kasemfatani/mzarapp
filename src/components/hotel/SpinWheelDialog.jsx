@@ -63,7 +63,7 @@ export default function SpinWheelDialog({
 					// Alternate colors
 					const colors = [
 						// { backgroundColor: "#f5e6d3", textColor: "#2c1810" },
-						{ backgroundColor: "#fff", textColor: "#2c1810" },
+						{ backgroundColor: "#E7D3AF", textColor: "#3C6652" },
 					];
 					setPrizes(
 						json.data.map((item, idx) => ({
@@ -195,6 +195,7 @@ export default function SpinWheelDialog({
 									fontSize={13} // smaller font for long text
 									textDistance={45}
 									spinDuration={0.5}
+									perpendicularText={true}
 								/>
 							</div>
 

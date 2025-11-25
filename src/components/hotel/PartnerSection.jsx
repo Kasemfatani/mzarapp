@@ -59,28 +59,28 @@ export default function PartnerSection({
 
 					{/* Logos column */}
 					<div
-						className={`order-1 md:order-2 flex flex-col justify-between h-56 md:h-72 p-4 md:p-6 bg-white/0 gap-8 md:gap-0`}
+						className={`order-1 md:order-2 flex flex-col justify-between  p-4 md:p-6 bg-white/0 gap-8 md:gap-0`}
 					>
-						<div className="flex items-start justify-end">
-							<div className="bg-white rounded-xl shadow-2xl p-4 inline-block">
+						<div className="flex items-start justify-center md:justify-end">
+							<div className="bg-white rounded-xl shadow-2xl p-4 inline-block max-h-40">
 								<Image
-									src="/Home/header-logo.png"
+									src="/Home/logo-vertical.png"
 									alt="Mzar logo"
 									width={220}
 									height={72}
-									className="object-contain"
+									className="object-contain max-h-32"
 								/>
 							</div>
 						</div>
 
-						<div className="flex items-end justify-start ">
-							<div className="bg-white rounded-xl shadow-2xl p-4 inline-block">
+						<div className="flex items-end justify-center md:justify-start ">
+							<div className="bg-white rounded-xl shadow-2xl p-4 inline-block max-h-40">
 								<Image
 									src={hotelLogoSrc}
 									alt="Partner hotel logo"
 									width={220}
 									height={72}
-									className="object-contain"
+									className="object-contain max-h-32"
 								/>
 							</div>
 						</div>

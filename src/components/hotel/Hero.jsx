@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import { Globe } from "lucide-react"; // NEW
+import { Globe } from "lucide-react";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
 import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
@@ -12,23 +12,25 @@ import "react-international-phone/style.css";
 import heroBg from "/public/hotel/hero-bg.webp";
 import appLogo from "/public/Home/footer-logo.png";
 import hotelLogo from "/public/hotel/hotel_logo.png";
-// import royalCommission from "/public/conf/royal-commission.webp";
 import giftImg from "/public/hotel/gift.png";
 
 const SpinWheelDialog = dynamic(() => import("./SpinWheelDialog"), {
 	ssr: false,
 });
 
-export default function Hero({ initialLang , partner_id , hotelLogoSrc, promo_code }) {
+export default function Hero({
+	initialLang,
+	partner_id,
+	hotelLogoSrc,
+	promo_code,
+	onWhyClick, 
+}) {
 	const [language] = useState(initialLang || "ar");
 	const [name, setName] = useState("");
 	const [whatsApp, setWhatsApp] = useState("");
 	const [countryCode, setCountryCode] = useState("");
 	const [showWheel, setShowWheel] = useState(false);
-
-	//  store the national number (digits only, no country code) separately
 	const [whatsappNational, setWhatsappNational] = useState("");
-
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 	const menuRef = useRef(null);
 
@@ -37,14 +39,14 @@ export default function Hero({ initialLang , partner_id , hotelLogoSrc, promo_co
 	const t = {
 		nav: isAr
 			? [
-					{ label: "الرئيسية", href: "/" },
-					{ label: "خدمات", href: "/#services" },
-					{ label: "لماذا مزار؟", href: "/#why" },
+					{ label: "الرئيسية", href: "#hero-hotel" },
+					{ label: "خدمات", href: "#trips" },
+					{ label: "لماذا مزار؟", href: "#why" },
 			  ]
 			: [
-					{ label: "Home", href: "/" },
-					{ label: "Services", href: "/#services" },
-					{ label: "Why Mzar?", href: "/#why" },
+					{ label: "Home", href: "#hero-hotel" },
+					{ label: "Services", href: "#trips" },
+					{ label: "Why Mzar?", href: "#why" },
 			  ],
 		getApp: isAr ? "احصل على التطبيق" : "Get the App",
 		giftHead: isAr ? "احصل على هديتك الحصرية!" : "Get your exclusive gift!",
@@ -59,23 +61,40 @@ export default function Hero({ initialLang , partner_id , hotelLogoSrc, promo_co
 			: "Please enter a valid WhatsApp number with at least 8 digits.",
 	};
 
+	// Preload dynamic components on demand
+	const preloadBottomSections = () => {
+		import("./WhyMzarSection");
+		import("./HiraSection");
+		import("./HotelFooter");
+	};
+
+	const handleNavClick = (e, href) => {
+		if (href === "#why") {
+			// e.preventDefault();
+			preloadBottomSections();
+			onWhyClick?.();
+			// Wait for DOM update then scroll
+			setTimeout(() => {
+				const el = document.getElementById("why");
+				if (el) {
+					el.scrollIntoView({ behavior: "smooth", block: "start" });
+				}
+			}, 1500);
+		}
+	};
+
 	const onSubmit = (e) => {
 		e.preventDefault();
-
-		// Parse WhatsApp number
 		const phoneParsed = parsePhoneNumberFromString(whatsApp || "");
 		const stripLeadingZero = (num) =>
 			num && num.startsWith("0") ? num.replace(/^0+/, "") : num;
 		const normalizeDigits = (num) =>
 			num ? String(num).replace(/\D/g, "") : "";
 
-		// national number (digits only, no country code)
 		const whatsappNumber = phoneParsed
 			? stripLeadingZero(phoneParsed.nationalNumber)
 			: stripLeadingZero(normalizeDigits(whatsApp));
 
-		
-		// store the national number to send to the backend
 		setWhatsappNational(whatsappNumber);
 
 		if (!whatsappNumber || whatsappNumber.length < 8) {
@@ -87,19 +106,15 @@ export default function Hero({ initialLang , partner_id , hotelLogoSrc, promo_co
 			? phoneParsed.countryCallingCode
 			: "";
 		setCountryCode(whatsappCountryCode);
-	
-
 		setShowWheel(true);
 	};
 
-	// save promo_code to localStorage
 	useEffect(() => {
-    if (promo_code) {
-        localStorage.setItem("partnerPromoCode", promo_code);
-    }
-}, [promo_code]);
+		if (promo_code) {
+			localStorage.setItem("partnerPromoCode", promo_code);
+		}
+	}, [promo_code]);
 
-	// Close mobile menu when clicking outside
 	useEffect(() => {
 		if (!mobileMenuOpen) return;
 		const handleClick = (e) => {
@@ -107,25 +122,20 @@ export default function Hero({ initialLang , partner_id , hotelLogoSrc, promo_co
 				setMobileMenuOpen(false);
 			}
 		};
-		// switch to 'click' so the button's onClick stopPropagation wins
 		document.addEventListener("click", handleClick);
 		return () => document.removeEventListener("click", handleClick);
 	}, [mobileMenuOpen]);
 
-	// NEW: same behavior as Header.jsx
 	const toggleLang = () => {
 		if (typeof window === "undefined") return;
 		const current = localStorage.getItem("lang") === "ar" ? "ar" : "en";
 		const nextLang = current === "en" ? "ar" : "en";
-
 		localStorage.setItem("lang", nextLang);
-
 		const oneYear = 60 * 60 * 24 * 365;
 		const isHTTPS = window.location.protocol === "https:";
 		document.cookie = `lang=${nextLang}; path=/; max-age=${oneYear}; samesite=lax${
 			isHTTPS ? "; secure" : ""
 		}`;
-
 		window.location.reload();
 	};
 
@@ -135,7 +145,6 @@ export default function Hero({ initialLang , partner_id , hotelLogoSrc, promo_co
 				id="hero-hotel"
 				className="relative md:min-h-screen min-h-[70vh] w-full overflow-hidden flex flex-col "
 			>
-				{/* Background */}
 				<div className="absolute inset-0 -z-10">
 					<Image
 						src={heroBg}
@@ -148,16 +157,14 @@ export default function Hero({ initialLang , partner_id , hotelLogoSrc, promo_co
 				</div>
 
 				<div className="container mx-auto px-4 ">
-					{/* Top bar */}
 					<nav
 						className={`relative flex  justify-between ${
 							mobileMenuOpen ? "mb-0" : "mb-12"
 						} md:mb-0 `}
 					>
-						{/* Right (in RTL): Logo */}
 						<div className="pt-2 ">
 							<Link
-								href="#"
+								href="#hero-hotel"
 								className="shrink-0 inline-flex items-center gap-2 "
 							>
 								<Image
@@ -171,21 +178,21 @@ export default function Hero({ initialLang , partner_id , hotelLogoSrc, promo_co
 							</Link>
 						</div>
 
-						{/* Center: Nav (desktop only) */}
+						{/* Desktop nav - UPDATED */}
 						<ul className="center-nav pointer-events-auto hidden md:flex justify-center items-center gap-8 text-black  bg-gray-300 w-[50%]">
 							{t.nav.map((item) => (
 								<li key={item.label}>
-									<Link
+									<a
 										href={item.href}
-										className="hover:text-[var(--main-color)] transition-colors"
+										onClick={(e) => handleNavClick(e, item.href)}
+										className="hover:text-[var(--main-color)] transition-colors cursor-pointer"
 									>
 										{item.label}
-									</Link>
+									</a>
 								</li>
 							))}
 						</ul>
 
-						{/* Left (in RTL): Get the app  (desktop only)*/}
 						<div className="pt-2 hidden md:flex items-center gap-2">
 							<Link
 								href="https://onelink.to/yb2xky"
@@ -196,8 +203,6 @@ export default function Hero({ initialLang , partner_id , hotelLogoSrc, promo_co
 								<span className="text-lg leading-none">⤓</span>
 								{isAr ? "احصل على التطبيق" : "Get the App"}
 							</Link>
-
-							{/* Language toggle icon (desktop) */}
 							<button
 								type="button"
 								aria-label={isAr ? "تغيير اللغة" : "Toggle language"}
@@ -209,7 +214,6 @@ export default function Hero({ initialLang , partner_id , hotelLogoSrc, promo_co
 							</button>
 						</div>
 
-						{/* Mobile menu icon (only on small screens) */}
 						<button
 							type="button"
 							className="md:hidden flex items-center justify-center p-2 rounded-full border border-white/40 text-white bg-black/30 hover:bg-black/60 transition"
@@ -219,7 +223,6 @@ export default function Hero({ initialLang , partner_id , hotelLogoSrc, promo_co
 								setMobileMenuOpen((v) => !v);
 							}}
 						>
-							{/* Hamburger icon */}
 							<svg width="28" height="28" viewBox="0 0 24 24" fill="none">
 								<rect y="5" width="24" height="2" rx="1" fill="currentColor" />
 								<rect y="11" width="24" height="2" rx="1" fill="currentColor" />
@@ -228,30 +231,30 @@ export default function Hero({ initialLang , partner_id , hotelLogoSrc, promo_co
 						</button>
 					</nav>
 
-					{/* Mobile menu dropdown */}
+					{/* Mobile menu - UPDATED */}
 					{mobileMenuOpen && (
 						<div
 							ref={menuRef}
 							className="md:hidden absolute w-[80%] z-30 mx-4 rounded-2xl bg-white/95 shadow-2xl border border-gray-200 flex flex-col items-stretch gap-2 py-4 px-4 animate-fade-in text-center"
 						>
 							{t.nav.map((item) => (
-								<Link
+								<a
 									key={item.label}
 									href={item.href}
-									onClick={() => setMobileMenuOpen(false)}
-									className="py-2 px-3 rounded-lg text-[var(--main-color)] font-semibold text-base hover:bg-gray-100 transition"
+									onClick={(e) => {
+										setMobileMenuOpen(false);
+										handleNavClick(e, item.href);
+									}}
+									className="py-2 px-3 rounded-lg text-[var(--main-color)] font-semibold text-base hover:bg-gray-100 transition cursor-pointer"
 								>
 									{item.label}
-								</Link>
+								</a>
 							))}
 							<hr className="my-2" />
-							{/* Row: Get App + Language toggle (mobile) */}
 							<div className="flex flex-col items-center justify-center gap-3">
 								<Link
 									href="https://onelink.to/yb2xky"
-									onClick={(e) => {
-										setMobileMenuOpen(false);
-									}}
+									onClick={() => setMobileMenuOpen(false)}
 									target="_blank"
 									rel="noopener noreferrer"
 									className="flex items-center gap-2 text-[var(--main-color)] border border-[var(--main-color)] rounded-full px-4 py-2 text-sm font-semibold justify-center hover:bg-[var(--main-color)] hover:text-white transition"
@@ -277,30 +280,18 @@ export default function Hero({ initialLang , partner_id , hotelLogoSrc, promo_co
 				</div>
 
 				<div className="container mx-auto px-4 flex-1 flex items-center justify-start">
-					{/* Center content */}
 					<div className="w-full text-white text-start ">
-						{/*  logos row */}
-						<div className="flex items-center justify-start gap-6 md:gap-10 mb-7 md:mb-12">
+						<div className="flex items-center justify-start gap-4  mb-7 md:mb-12">
 							<Image
 								src={hotelLogoSrc || hotelLogo}
 								alt="Hotel Logo"
 								width={120}
-								height={48}
-								className="h-10 w-auto brightness-110"
-							/>
-							<Image
-								src={appLogo}
-								alt="MZAR Logo"
-								width={120}
-								height={48}
-								className="h-10 w-auto"
+								height={120}
+								className=" max-h-40 w-auto brightness-110"
 							/>
 						</div>
 
-						{/* Gift heading */}
-						<div
-							className={` max-w-3xl flex items-center justify-start gap-3  mb-6 md:mb-16 `}
-						>
+						<div className="max-w-3xl flex items-center justify-start gap-3  mb-6 md:mb-16 ">
 							<Image
 								src={giftImg}
 								alt="gift"
@@ -313,15 +304,13 @@ export default function Hero({ initialLang , partner_id , hotelLogoSrc, promo_co
 							</h1>
 						</div>
 
-						{/* Sub text */}
 						<p className="text-sm md:text-lg text-gray-200 mb-6 md:mb-8">
 							{t.giftSub}
 						</p>
 
-						{/* Inputs + CTA */}
 						<form
 							onSubmit={onSubmit}
-							className={`w-full  flex flex-col md:flex-row items-stretch justify-center gap-3 md:gap-4 backdrop-blur-sm bg-white/10 p-2  rounded-2xl`}
+							className="w-full  flex flex-col md:flex-row items-stretch justify-center gap-3 md:gap-4 backdrop-blur-sm bg-white/10 p-2  rounded-2xl"
 						>
 							<input
 								type="text"
@@ -355,14 +344,12 @@ export default function Hero({ initialLang , partner_id , hotelLogoSrc, promo_co
 				</div>
 			</section>
 
-			{/* Spin Wheel Dialog */}
 			<SpinWheelDialog
 				open={showWheel}
 				onOpenChange={setShowWheel}
 				lang={language}
 				client_name={name}
 				country_code={countryCode}
-				// pass national number (digits only) — not the PhoneInput's display value
 				mobile={whatsappNational}
 				partner_id={partner_id}
 			/>
