@@ -1,10 +1,9 @@
 import { cookies, headers } from "next/headers";
-import Hero from "@/components/hotel/Hero";
 import Trips from "@/components/hotel/Trips";
 import LazyTopSections from "@/components/hotel/LazyTopSections";
-import LazyBottomSections from "@/components/hotel/LazyBottomSections";
 import { notFound } from "next/navigation";
 import { API_BASE_URL_NEW } from "@/lib/apiConfig";
+import HotelClientShell from "@/components/hotel/HotelClientShell";
 
 export const revalidate = 300;
 
@@ -36,16 +35,16 @@ export default async function HotelPage({ params }) {
 
 	return (
 		<div className={lang === "en" ? "ltr" : "rtl"}>
-			<Hero initialLang={lang} partner_id={partner.id} hotelLogoSrc={partner.logo} promo_code={partner.promo_code}/>
-			<Trips />
-			<LazyTopSections
-				lang={lang}
-				audio={partner.audios}
-				hotelName={partner.name}
-				promo_code={partner.promo_code}
-				hotelLogoSrc={partner.logo}
-			/>
-			<LazyBottomSections lang={lang} hotelLogoSrc={partner.logo}/>
+			<HotelClientShell lang={lang} partner={partner}>
+				<Trips />
+				<LazyTopSections
+					lang={lang}
+					audio={partner.audios}
+					hotelName={partner.name}
+					promo_code={partner.promo_code}
+					hotelLogoSrc={partner.logo}
+				/>
+			</HotelClientShell>
 		</div>
 	);
 }

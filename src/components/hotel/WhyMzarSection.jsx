@@ -60,7 +60,7 @@ export default function WhyMzarSection({ lang = "ar" }) {
 		}, []);
 
 	return (
-		<section id="why" className="w-full bg-white py-10 px-2 flex justify-center">
+		<section  className="w-full bg-white py-10 px-2 flex justify-center">
 			<div
 				className={`flex flex-col md:flex-row  items-center gap-8 max-w-6xl w-full`}
 			>

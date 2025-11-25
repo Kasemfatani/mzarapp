@@ -195,6 +195,7 @@ export default function SpinWheelDialog({
 									fontSize={13} // smaller font for long text
 									textDistance={45}
 									spinDuration={0.5}
+									perpendicularText={true}
 								/>
 							</div>
 
