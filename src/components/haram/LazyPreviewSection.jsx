@@ -24,7 +24,7 @@ export default function LazyPreviewSection({ initialLang }) {
 		<div ref={ref}>
 			{shouldLoad ? (
 				<>
-					{/* <PreviewSection initialLang={initialLang} /> */}
+					<PreviewSection initialLang={initialLang} />
 					<DownloadAppSection initialLang={initialLang} />
 					
 				</>
