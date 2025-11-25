@@ -55,8 +55,8 @@ export default function PreviewSection({ initialLang }) {
 					{/* Video */}
 					<div className="md:col-span-3 aspect-video rounded-2xl overflow-hidden bg-black flex items-center justify-center">
 						<iframe
-							src="https://www.youtube.com/embed/u31qwQUeGuM"
-							title="Placeholder video"
+							src={isAr ? "https://www.youtube.com/embed/BB7Mu5pSGeg?si=qNyOYB7OuR8gCPTX" : "https://www.youtube.com/embed/0mF9Yb_ETIs?si=psDm_KebD_xz60x6"}
+							title={isAr ? "فيديو" : "video"}
 							frameborder="0"
 							allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
 							referrerpolicy="strict-origin-when-cross-origin"
