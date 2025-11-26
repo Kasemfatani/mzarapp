@@ -23,6 +23,7 @@ const steps = [
 				App Store or Google Play.
 			</>
 		),
+		dotColor: "var(--sec-color)", // opposite of icon bg
 	},
 	{
 		icon: (
@@ -34,7 +35,7 @@ const steps = [
 			<>
 				افتح التطبيق وفعّل خدمة
 				<br />
-				“معالم في الطريق”.
+				"معالم في الطريق".
 			</>
 		),
 		en: (
@@ -44,6 +45,7 @@ const steps = [
 				"Landmarks on the way" service.
 			</>
 		),
+		dotColor: "var(--second-bg)", // opposite of icon bg
 	},
 	{
 		icon: (
@@ -69,6 +71,7 @@ const steps = [
 				stories and landmarks near you.
 			</>
 		),
+		dotColor: "var(--sec-color)", // opposite of icon bg
 	},
 	{
 		icon: (
@@ -90,6 +93,7 @@ const steps = [
 				the informative journey.
 			</>
 		),
+		dotColor: "var(--second-bg)", // opposite of icon bg
 	},
 ];
 
@@ -102,11 +106,35 @@ export default function StepsSection({ lang = "ar" }) {
 					{isAr ? "كيف تبدأ تجربتك؟" : "How to start your experience?"}
 				</h2>
 				<div
-					className={`flex flex-col md:flex-row   items-center md:items-start  justify-between gap-10 md:gap-0 relative`}
+					className={`flex flex-col md:flex-row items-center md:items-start justify-between gap-10 md:gap-0 relative`}
 				>
 					{steps.map((step, idx) => (
-						<div key={idx} className="flex-1 flex flex-col items-center">
-							<div className="mb-4">{step.icon}</div>
+						<div
+							key={idx}
+							className="flex-1 flex flex-col items-center relative"
+						>
+							{/* Icon with decorative dots */}
+							<div className="relative mb-4 flex items-center gap-4 md:gap-6">
+								{/* Left dot (hidden on first item) */}
+								{idx !== 0 && (
+									<div
+										className="hidden md:block w-2 h-2 rounded-full"
+										style={{ backgroundColor: step.dotColor }}
+									></div>
+								)}
+
+								{/* Icon */}
+								{step.icon}
+
+								{/* Right dot (hidden on last item) */}
+								{idx !== steps.length - 1 && (
+									<div
+										className="hidden md:block w-2 h-2 rounded-full"
+										style={{ backgroundColor: step.dotColor }}
+									></div>
+								)}
+							</div>
+
 							<div
 								className={`text-center text-gray-900 font-medium text-base md:text-lg leading-snug ${
 									isAr ? "md:min-h-[72px]" : "md:min-h-[56px]"
@@ -119,10 +147,8 @@ export default function StepsSection({ lang = "ar" }) {
 				</div>
 				<div className="flex justify-center mt-12">
 					<Link href="#" className="inline-block">
-						<span className="inline-block bg-[var(--main-color)] text-white hover:bg-[var(--sec-color)] hover:text-black px-12 py-3  font-semibold rounded-lg">
-							{isAr
-								? "ابدأ الآن"
-								: "Start Now"}
+						<span className="inline-block bg-[var(--main-color)] text-white hover:bg-[var(--sec-color)] hover:text-black px-12 py-3 font-semibold rounded-lg">
+							{isAr ? "ابدأ الآن" : "Start Now"}
 						</span>
 					</Link>
 				</div>

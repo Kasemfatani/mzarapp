@@ -5,6 +5,13 @@ import Link from "next/link";
 import bigImg from "/public/haram/big-img.png";
 import smallImg from "/public/haram/small-img.png";
 
+const icons = [
+		"/Home/smart-phone.png",
+		"/Home/AR-icon.png",
+		"/Home/seo.png",
+		"/Home/bus-icon.png",
+	];
+
 export default function WhatLandmark({ lang }) {
 	const [language, setLanguage] = useState(lang || "en");
 
@@ -23,9 +30,10 @@ export default function WhatLandmark({ lang }) {
 	// 			"where you’ll hear the story of the Kaaba and witness how this blessed place evolved through the ages.",
 	// 			"An experience that enriches both heart and mind, offering a deeper understanding of Hajj and Umrah.",
 	// 	  ];
+	
 
 	return (
-		<section className="py-12 md:py-20 bg-white relative overflow-x-clip">
+		<section className="bg-[url(/landmark/whatLandMark-bg.webp)] py-12 md:py-20 bg-white relative overflow-x-clip">
 			<div className="container mx-auto px-4">
 				<div className="flex flex-col md:flex-row items-center  justify-between gap-6 md:gap-0">
 					{/* Texts side */}
@@ -51,7 +59,14 @@ export default function WhatLandmark({ lang }) {
 								))}
 							</ul>
 							 */}
-							<div className="mt-6">
+							<div className="flex gap-2 mt-4">
+								{icons.map((icon, idx) => (
+									<div
+										key={idx}><img src={icon} alt={`icon-${idx}`} width={32} height={32}/>
+									</div>
+								))}
+							</div>
+							<div className="mt-4">
 								<Link
 									href="#"
 									onClick={(e) => e.preventDefault()}
@@ -94,11 +109,22 @@ export default function WhatLandmark({ lang }) {
 						</div>
 					</div>
 				</div>
-					<p className="text-center bg-[var(--second-bg)] text-white mt-8 p-4 rounded-lg w-fit md:w-[70%] mx-auto">
+				<div className="text-center bg-[var(--second-bg)] text-white mt-8 p-4 rounded-lg w-fit  mx-auto">
+					<p className="">
+					🕊
+				</p>	
+					<p className="">
 					{isAr
-						? ' كل طريق تسلكه يروي لك قصة... وادٍ مرّ به النبي ﷺ، وجبل شهد لحظة من أعظم لحظات التاريخ. '
-						: 'Every road you take tells you a story... A valley the Prophet ﷺ passed through, and a mountain that witnessed one of the greatest moments in history.'}
-				</p>
+						? ' كل طريق تسلكه يروي لك قصة...'
+						: 'Every road you take tells you a story...'}
+				</p>	
+					<p className="">
+					{isAr
+						? 'وادٍ مرّ به النبي ﷺ، وجبل شهد لحظة من أعظم لحظات التاريخ. '
+						: 'A valley the Prophet ﷺ passed through, and a mountain that witnessed one of the greatest moments in history.'}
+				</p>						
+				</div>
+					
 			</div>
 		</section>
 	);
