@@ -57,7 +57,7 @@ export default function Hero({ lang }) {
 					</div>
 
 					<div className="flex flex-col  items-center justify-center	gap-3 mt-10">
-						<Link href="#" className="inline-block">
+						<Link href="https://onelink.to/yb2xky" className="inline-block" target="_blank" rel="noopener noreferrer">
 							<span className="inline-block bg-transparent border border-white text-white hover:bg-[var(--sec-color)] hover:text-black px-6 py-3  font-semibold rounded-lg">
 								{isAr ? "حمّل تطبيق مزار الآن" : "Download Mzar App Now"}
 							</span>

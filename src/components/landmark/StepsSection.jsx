@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import Link from "next/link";
 
 const steps = [
 	{
@@ -118,10 +119,10 @@ export default function StepsSection({ lang = "ar" }) {
 				</div>
 				<div className="flex justify-center mt-12">
 					<Link href="#" className="inline-block">
-						<span className="inline-block bg-[var(--main-color)] text-white hover:bg-[var(--sec-color)] hover:text-black px-6 py-3  font-semibold rounded-lg">
+						<span className="inline-block bg-[var(--main-color)] text-white hover:bg-[var(--sec-color)] hover:text-black px-12 py-3  font-semibold rounded-lg">
 							{isAr
-								? "استمع الآن لتجربة تفاعلية قصيرة"
-								: "Listen Now for a Short Interactive Experience"}
+								? "ابدأ الآن"
+								: "Start Now"}
 						</span>
 					</Link>
 				</div>

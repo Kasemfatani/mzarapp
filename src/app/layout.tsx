@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import React, { Suspense } from "react";
 import "./globals.css";
 //import "./video-react.css";
-import mzarImg from "/public/share.png";
+import mzarImg from "/public/Home/header-logo.png";
 import Header from "@/components/header/Header";
 import LazyFooter from "@/components/home/LazyFooter";
 //import "@fortawesome/fontawesome-free/css/all.min.css";
@@ -105,7 +105,7 @@ export default function RootLayout({
 									"@id": "https://www.mzarapp.com#organization",
 									name: "MzarApp",
 									url: "https://www.mzarapp.com",
-									logo: mzarImg.src,
+									logo: "/Home/header-logo.png",
 								},
 								{
 									"@type": "WebSite",

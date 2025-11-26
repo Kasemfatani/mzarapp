@@ -25,6 +25,17 @@ export default function Header() {
 		return null;
 	}
 
+	let bookPath = "/book"
+	if (pathname === "/haram") {
+		bookPath = "/book-haram"
+	}
+	if (pathname === "/madinah") {
+		bookPath = "/book-madinah"
+	}
+	if (pathname === "/tour-bus") {
+		bookPath = "/book-tour"
+	}
+
 	let [lang, setLang] = useState("en");
 	useEffect(() => {
 		if (typeof window !== "undefined") {
@@ -156,8 +167,8 @@ export default function Header() {
 							{lang === "en" ? "Blogs" : "المقالات"}
 						</Link>
 						{/* <Link href="/all-news" className={pathname === '/all-news' ? 'active' : 'normal-Link'}>{lang === 'en' ? 'News' : 'الاخبار'}</Link> */}
-						{pathname === "/" || pathname === "/tour" || pathname === "/haram" || pathname === "/madinah" ? (
-							<Link href="/book" className="book-link-header">
+						{pathname === "/" || pathname === "/tour-bus" || pathname === "/haram" || pathname === "/madinah" ? (
+							<Link href={bookPath} className="book-link-header">
 								{lang === "en" ? "Book now" : "احجز الآن"}
 							</Link>
 						) : null}
@@ -263,7 +274,7 @@ export default function Header() {
 							>
 								{lang === "en" ? "News" : "الاخبار"}
 							</Link>
-							<Link href="/book" className="book-link-header">
+							<Link href={bookPath} className="book-link-header">
 								{lang === "en" ? "Book now" : "احجز الآن"}
 							</Link>
 							<div
