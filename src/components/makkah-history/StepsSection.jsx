@@ -11,19 +11,15 @@ const steps = [
 		),
 		ar: (
 			<>
-				حمّل تطبيق مزار من
-				<br />
-				App Store أو Google Play.
+				اكتشف التجربة عبر <br /> موقع مزار أو التطبيق.
 			</>
 		),
 		en: (
 			<>
-				Download Mzar app from
-				<br />
-				App Store or Google Play.
+				Discover the experience through <br /> Mzar website or app.
 			</>
 		),
-		dotColor: "var(--sec-color)", // opposite of icon bg
+		dotColor: "var(--sec-color)",
 	},
 	{
 		icon: (
@@ -33,19 +29,19 @@ const steps = [
 		),
 		ar: (
 			<>
-				افتح التطبيق وفعّل خدمة
+				اختر نوع الجولة
 				<br />
-				"معالم في الطريق".
+				(رقمية / مع مرشد). 
 			</>
 		),
 		en: (
 			<>
-				Open the app and activate the
+				Choose the type of tour
 				<br />
-				"Landmarks on the way" service.
+				(Digital / with a guide).
 			</>
 		),
-		dotColor: "var(--second-bg)", // opposite of icon bg
+		dotColor: "var(--second-bg)",
 	},
 	{
 		icon: (
@@ -55,23 +51,19 @@ const steps = [
 		),
 		ar: (
 			<>
-				عند ركوبك الحافلة، يبدأ
+				احجز مقعدك وحدّد 
 				<br />
-				التطبيق تلقائيًا بعرض
-				<br />
-				القصص والمعالم القريبة منك.
+				وقتك المناسب. 
 			</>
 		),
 		en: (
 			<>
-				When you board the bus, the app
+				Book your seat and set your
 				<br />
-				automatically starts displaying
-				<br />
-				stories and landmarks near you.
+				suitable time.
 			</>
 		),
-		dotColor: "var(--sec-color)", // opposite of icon bg
+		dotColor: "var(--sec-color)",
 	},
 	{
 		icon: (
@@ -81,19 +73,19 @@ const steps = [
 		),
 		ar: (
 			<>
-				اختر لغتك واستمتع
+				استمتع بتجربتك من
 				<br />
-				بالرحلة المعرفية.
+				شرفة برج الساعة.
 			</>
 		),
 		en: (
 			<>
-				Choose your language and enjoy
+				Enjoy your experience from
 				<br />
-				the informative journey.
+				the Clock Tower balcony.
 			</>
 		),
-		dotColor: "var(--second-bg)", // opposite of icon bg
+		dotColor: "var(--second-bg)",
 	},
 ];
 
@@ -103,16 +95,13 @@ export default function StepsSection({ lang = "ar" }) {
 		<section className="py-16 ">
 			<div className="container mx-auto px-4">
 				<h2 className="text-2xl md:text-3xl font-bold text-center mb-12 text-gray-900">
-					{isAr ? "كيف تبدأ تجربتك؟" : "How to start your experience?"}
+					{isAr ? "رحلتك خطوة بخطوة" : "Your Journey Step by Step"}
 				</h2>
 				<div
 					className={`flex flex-col md:flex-row items-center md:items-start justify-between gap-10 md:gap-0 relative`}
 				>
 					{steps.map((step, idx) => (
-						<div
-							key={idx}
-							className="flex-1 flex flex-col items-center relative"
-						>
+						<div key={idx} className="flex-1 flex flex-col items-center">
 							{/* Icon with decorative dots */}
 							<div className="relative mb-4 flex items-center gap-4 md:gap-6">
 								{/* Left dot (hidden on first item) */}
@@ -122,10 +111,8 @@ export default function StepsSection({ lang = "ar" }) {
 										style={{ backgroundColor: step.dotColor }}
 									></div>
 								)}
-
 								{/* Icon */}
 								{step.icon}
-
 								{/* Right dot (hidden on last item) */}
 								{idx !== steps.length - 1 && (
 									<div
@@ -134,7 +121,6 @@ export default function StepsSection({ lang = "ar" }) {
 									></div>
 								)}
 							</div>
-
 							<div
 								className={`text-center text-gray-900 font-medium text-base md:text-lg leading-snug ${
 									isAr ? "md:min-h-[72px]" : "md:min-h-[56px]"
@@ -145,13 +131,13 @@ export default function StepsSection({ lang = "ar" }) {
 						</div>
 					))}
 				</div>
-				<div className="flex justify-center mt-12">
+				{/* <div className="flex justify-center mt-12">
 					<Link href="#" className="inline-block">
-						<span className="inline-block bg-[var(--main-color)] text-white hover:bg-[var(--sec-color)] hover:text-black px-12 py-3 font-semibold rounded-lg">
+						<span className="inline-block bg-[var(--main-color)] text-white hover:bg-[var(--sec-color)] hover:text-black px-12 py-3  font-semibold rounded-lg">
 							{isAr ? "ابدأ الآن" : "Start Now"}
 						</span>
 					</Link>
-				</div>
+				</div> */}
 			</div>
 		</section>
 	);

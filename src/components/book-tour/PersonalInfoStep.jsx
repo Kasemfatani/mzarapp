@@ -285,6 +285,9 @@ export default function PersonalInfoStep({
 				customer_id,
 				process_id,
 				ticket,
+				customer_email:info.email ,
+				customer_name : info.name ,
+				customer_whatsapp: info.whatsapp_country_code + info.whatsapp
 			};
 			localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedSelection));
 

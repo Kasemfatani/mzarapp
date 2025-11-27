@@ -33,16 +33,22 @@ export default function Hero({ lang }) {
 					{/* Heading */}
 					<h1 className="text-3xl md:text-5xl text-center font-bold !leading-tight ">
 						{isAr
-							? "استكشف مكة كما لم ترها من قبل"
-							: "Explore Makkah Like Never Before"}
+							? "حكاية مكة التاريخية عبر الواقع المعزز "
+							: "The Historical Tale of Makkah through Augmented Reality "}
 					</h1>
 
 					{/* Subtext / description */}
 
-					<p className="text-base md:text-lg text-gray-300 text-center mb-6 mt-6">
+						<p className="text-base md:text-lg text-gray-300 text-center mb-6 mt-1">
 						{isAr
-							? "حلة على متن حافلات مكة تتحول إلى نافذة على التاريخ والمعرفة."
-							: "Hop on the Makkah Tour Bus and transform your journey into a window of history and knowledge."}
+							? "(رحلة تجمع بين الإيمان والتقنية لتروي لك قصص مكة من أعالي برج الساعة.)"
+							: "(A journey that combines faith and technology to tell you the stories of Makkah from the heights of the Clock Tower.)"}
+					</p>
+
+					<p className="text-base md:text-lg text-gray-300 text-center mb-6 ">
+						{isAr
+							? "استكشف القصص النبوية والمعالم التاريخية من شرفة تطل على المسجد الحرام، من خلال تجربة رقمية فريدة أو جولة بإشراف مرشد سياحي."
+							: "Explore prophetic stories and historical landmarks from a balcony overlooking the Grand Mosque, through a unique digital experience or a tour supervised by a tour guide."}
 					</p>
 
 					{/* Buttons (no links yet) */}
@@ -50,8 +56,8 @@ export default function Hero({ lang }) {
 						<Link href="#" className="inline-block">
 							<span className="inline-block bg-[var(--main-color)] text-white hover:bg-[var(--sec-color)] hover:text-black px-6 py-3  font-semibold rounded-lg">
 								{isAr
-									? "استمع الآن لتجربة تفاعلية قصيرة"
-									: "Listen Now for a Short Interactive Experience"}
+									? "احجز الآن"
+									: "Book Now"}
 							</span>
 						</Link>
 					</div>
