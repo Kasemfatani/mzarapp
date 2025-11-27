@@ -59,13 +59,7 @@ export default function WhatLandmark({ lang }) {
 								))}
 							</ul>
 							 */}
-							<div className="flex gap-2 mt-4">
-								{icons.map((icon, idx) => (
-									<div
-										key={idx}><img src={icon} alt={`icon-${idx}`} width={32} height={32}/>
-									</div>
-								))}
-							</div>
+							
 							<div className="mt-4">
 								<Link
 									href="#"
