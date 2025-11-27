@@ -19,6 +19,7 @@ export default function BookTourPage() {
 	// API data + loading
 	const [busData, setBusData] = useState(null);
 	const [loading, setLoading] = useState(true);
+	const [notAvailable, setNotAvailable] = useState(false);
 
 	// Read language from localStorage (client)
 	useEffect(() => {
@@ -44,8 +45,14 @@ export default function BookTourPage() {
 					throw new Error(`Failed to load booking-data: ${res.status}`);
 				const json = await res.json();
 
+				if (json.status === false && json.message === "Package ID  Not Found") {
+					if (active) setNotAvailable(true);
+					return;
+				}
+
+
 				if (active) setBusData(json.data);
-				console.log("Fetched bus booking data:", json.data);
+				// console.log("Fetched bus booking data:", json.data);
 			} catch (err) {
 				console.error("Error fetching bus booking data:", err);
 				if (active) setBusData(null);
@@ -77,6 +84,23 @@ export default function BookTourPage() {
 	}, [lang]);
 
 	if (loading) return <Loading />;
+
+	
+	if (notAvailable) {
+		return (
+			<div className="flex flex-col items-center justify-center min-h-[60vh] bg-white">
+				<div className="text-5xl mb-6 text-gray-400">🚧</div>
+				<h2 className="text-2xl font-bold text-gray-800 mb-2 text-center">
+					{lang === "ar" ? "الخدمة غير متوفرة حالياً" : "Service Not Available"}
+				</h2>
+				<p className="text-gray-600 text-center mb-4">
+					{lang === "ar"
+						? "نعتذر، هذه الخدمة غير متوفرة حالياً. يرجى المحاولة لاحقاً أو التواصل معنا للمزيد من المعلومات."
+						: "Sorry, this service is currently not available. Please try again later or contact us for more information."}
+				</p>
+			</div>
+		);
+	}
 
 	return (
 		<div className={lang === "en" ? "ltr" : "rtl"}>
