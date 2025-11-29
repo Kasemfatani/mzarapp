@@ -2,8 +2,8 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import bigImg from "/public/haram/big-img.png";
-import smallImg from "/public/haram/small-img.png";
+import bigImg from "/public/landmark/landmark_hero.webp";
+import smallImg from "/public/landmark/small-img.webp";
 
 const icons = [
 		"/Home/smart-phone.png",
@@ -83,20 +83,20 @@ export default function WhatLandmark({ lang }) {
 							<Image
 								src={bigImg}
 								alt=""
-								width={420}
-								height={420}
+								width={520}
+								height={520}
 								className="rounded-2xl shadow-lg"
 								draggable={false}
 								priority
 							/>
 							{/* Small image centered and overlapping */}
-							<div className="absolute left-1/2 top-1/2  -translate-y-1/2 -translate-x-[-10%] md:-translate-x-[-30%]">
+							<div className="absolute left-1/2 top-1/2  -translate-y-1/2 -translate-x-[-10%] md:-translate-x-[-40%]">
 								<Image
 									src={smallImg}
 									alt=""
-									width={220}
-									height={160}
-									className="rounded-xl border-4 border-white shadow-md"
+									width={180}
+									height={180}
+									className="rounded-xl border-4 border-white shadow-md w-40 md:w-44 h-40 md:h-44"
 									draggable={false}
 								/>
 							</div>
