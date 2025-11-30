@@ -6,6 +6,7 @@ import LazyBottomSections from "./LazyBottomSections";
 export default function HotelClientShell({ lang, partner, children }) {
 	const [forceLoadBottom, setForceLoadBottom] = useState(false);
 
+	// console.log("HotelClientShell render", { lang, partner });
 	return (
 		<>
 			<Hero
@@ -18,7 +19,7 @@ export default function HotelClientShell({ lang, partner, children }) {
 			{children}
 			<LazyBottomSections
 				lang={lang}
-				hotelLogoSrc={partner.logo}
+				hotelLogoSrc={partner.logo3}
 				forceLoad={forceLoadBottom}
 			/>
 		</>
