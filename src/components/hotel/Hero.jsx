@@ -287,7 +287,7 @@ export default function Hero({
 								alt="Hotel Logo"
 								width={120}
 								height={120}
-								className=" max-h-40 w-auto brightness-110"
+								className=" h-40 w-auto brightness-110"
 							/>
 						</div>
 
