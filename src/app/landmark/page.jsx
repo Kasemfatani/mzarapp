@@ -1,12 +1,18 @@
 import { cookies, headers } from "next/headers";
 import Hero from "@/components/landmark/Hero";
 import WhatLandmark from "@/components/landmark/WhatLandmark";
-import StepsSection from "@/components/landmark/StepsSection";
-import WhatTour from "@/components/landmark/WhatTour";
-import BusStops from "@/components/landmark/BusStops";
-import Stations from "@/components/landmark/Stations";
-import FAQ from "@/components/landmark/FAQ";
-import BannerSection from "@/components/landmark/BannerSection";
+
+import LazyTopSections from "@/components/landmark/LazyTopSections";
+
+// import StepsSection from "@/components/landmark/StepsSection";
+// import WhatTour from "@/components/landmark/WhatTour";
+// import BusStops from "@/components/landmark/BusStops";
+
+import LazyBottomSections from "@/components/landmark/LazyBottomSections";
+
+// import Stations from "@/components/landmark/Stations";
+// import FAQ from "@/components/landmark/FAQ";
+// import BannerSection from "@/components/landmark/BannerSection";
 
 export const revalidate = 300;
 
@@ -20,12 +26,10 @@ export default function LandmarkPage() {
 		<div className={lang === "en" ? "ltr" : "rtl"}>
 			<Hero lang={lang} />
 			<WhatLandmark lang={lang} />
-			<StepsSection lang={lang} />
-			<WhatTour lang={lang} />
-			<BusStops lang={lang} />
-			<Stations lang={lang} />
-			<FAQ lang={lang} />
-			<BannerSection lang={lang} />
+			
+			<LazyTopSections lang={lang} />
+			<LazyBottomSections lang={lang} />
+
 		</div>
 	);
 }

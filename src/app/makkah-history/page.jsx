@@ -1,14 +1,18 @@
 import { cookies, headers } from "next/headers";
 import Hero from "@/components/makkah-history/Hero";
 import StepsSection from "@/components/makkah-history/StepsSection";
-import BusStops from "@/components/makkah-history/BusStops";
-import PricingSection from "@/components/makkah-history/PricingSection";
-import Gallery from "@/components/makkah-history/Gallery";
-import WhyMzarSection from "@/components/makkah-history/WhyMzarSection";
+
+import LazyTopSections from "@/components/makkah-history/LazyTopSections";
+import LazyBottomSections from "@/components/makkah-history/LazyBottomSections";
+
+// import BusStops from "@/components/makkah-history/BusStops";
+// import PricingSection from "@/components/makkah-history/PricingSection";
+// import Gallery from "@/components/makkah-history/Gallery";
+// import WhyMzarSection from "@/components/makkah-history/WhyMzarSection";
 
 
-import FAQ from "@/components/makkah-history/FAQ";
-import BannerSection from "@/components/makkah-history/BannerSection";
+// import FAQ from "@/components/makkah-history/FAQ";
+// import BannerSection from "@/components/makkah-history/BannerSection";
 
 export const revalidate = 300;
 
@@ -22,13 +26,9 @@ export default function Page() {
 		<div className={lang === "en" ? "ltr" : "rtl"}>
 			<Hero lang={lang} />
 			<StepsSection lang={lang} />
-			<BusStops lang={lang} />
-			<PricingSection lang={lang} />
-			<Gallery lang={lang} />
-			<WhyMzarSection lang={lang} />
+			<LazyTopSections lang={lang} />
+			<LazyBottomSections lang={lang} />
 			
-			<FAQ lang={lang} />
-			<BannerSection lang={lang} />
 		</div>
 	);
 }
