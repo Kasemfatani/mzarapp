@@ -32,6 +32,8 @@ const heroSlides = [
 			ar: "تبدأ جولتك في مكة من هنا",
 		},
 		iphones: iPhones,
+		iphonesAr: "/Home/Phone-makkah-ar.webp",
+		iphonesEn: "/Home/Phone-makkah-en.webp",
 	},
 	{
 		bg: "/madinah1.webp",
@@ -52,6 +54,8 @@ const heroSlides = [
 			ar: "رحلتك في المدينة المنورة تبدأ من هنا",
 		},
 		iphones: "/DownloadAppSection-phones.webp",
+		iphonesAr: "/Home/Phone-madinah-ar.webp",
+		iphonesEn: "/Home/Phone-madinah-en.webp",
 	},
 	{
 		bg: "/makkah2.webp",
@@ -72,6 +76,8 @@ const heroSlides = [
 			ar: "أبرز المعالم الدينية والتاريخية والثقافية",
 		},
 		iphones: iPhonesAr,
+		iphonesAr: "/Home/Phone-makkah-ar.webp",
+		iphonesEn: "/Home/Phone-makkah-en.webp",
 	},
 
 	{
@@ -93,6 +99,8 @@ const heroSlides = [
 			ar: "استكشف تاريخ المدينة المنورة",
 		},
 		iphones: "/DownloadAppSection-phones.webp",
+		iphonesAr: "/Home/Phone-madinah-ar.webp",
+		iphonesEn: "/Home/Phone-madinah-en.webp",
 	},
 ];
 
@@ -166,13 +174,13 @@ export default function Hero() {
 											</div>
 											<div className="iPhones">
 												<Image
-													src={slide.iphones}
+													src={language === "en" ? slide.iphonesEn : slide.iphonesAr}
 													alt="Mazar"
 													className={
-														"iphones-img h-[300px]" +
-														(slide.iphones === "/DownloadAppSection-phones.webp"
+														"iphones-img h-[330px]" +
+														(slide.iphones === "/DownloadAppSection-phone.webp"
 															? ""
-															: " w-[178px]")
+															: " w-[200px]")
 													}
 													width={300}
 													height={600}

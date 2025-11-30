@@ -13,28 +13,38 @@ import imageIcon from "/public/Home/image.svg";
 const features = [
 	{
 		icon: tour_guide,
-		ar: "رحلة معرفية أثناء التنقل – اجعل كل دقيقة على الطريق فرصة لاكتشاف جديد. ",
-		en: "An informative journey on the go – make every minute on the road an opportunity to discover something new. ",
+		title_en: "An informative journey on the go",
+		title_ar: "رحلة معرفية أثناء التنقل" ,
+		ar: "اجعل كل دقيقة على الطريق فرصة لاكتشاف جديد.",
+		en: "make every minute on the road an opportunity to discover something new.",
 	},
 	{
 		icon: AR,
-		ar: "إرشاد ذكي تلقائي – لا حاجة للبحث، التطبيق يتحدث إليك في الوقت والمكان المناسب. ",
-		en: "Smart automatic guidance – no need to search, the app talks to you at the right time and place. ",
+		title_en: "Smart automatic guidance",
+		title_ar: "إرشاد ذكي تلقائي",
+		ar: "لا حاجة للبحث، التطبيق يتحدث إليك في الوقت والمكان المناسب.",
+		en: "no need to search, the app talks to you at the right time and place.",
 	},
 	{
 		icon: map,
-		ar: "لغات متعددة – تخاطب الجميع بلغتهم وثقافتهم. ",
-		en: "Multiple languages – addressing everyone in their language and culture. ",
+		title_en: "Multilingual audio guide",
+		title_ar: "مرشد صوتي متعدد اللغات",
+		ar: "يخاطب الجميع بلغتهم وثقافتهم.",
+		en: "addressing everyone in their language and culture.",
 	},
 	{
 		icon: imageIcon,
-		ar: "محتوى حي وتفاعلي – صور، أصوات، وخرائط تعيدك إلى قلب الحدث. ",
-		en: "Live and interactive content – photos, sounds, and maps that take you back to the heart of the event. ",
+		title_en: "Live and interactive content",
+		title_ar: "محتوى حي وتفاعلي",
+		ar: "صور، أصوات، وخرائط تعيدك إلى قلب الحدث.",
+		en: "photos, sounds, and maps that take you back to the heart of the event.",
 	},
 	{
 		icon: photography,
-		ar: "تجربة حصرية داخل مزار – لا يمكن استخدامها إلا من خلال تطبيق مزار. ",
-		en: "Exclusive experience within Mzar – can only be used through the Mzar app.",
+		title_en: "Exclusive experience within Mzar",
+		title_ar: "تجربة حصرية داخل مزار",
+		ar: "لا يمكن استخدامها إلا من خلال تطبيق مزار.",
+		en: "can only be used through the Mzar app.",
 	},
 ];
 
@@ -70,7 +80,8 @@ export default function WhatTour({ lang = "en" }) {
 									draggable={false}
 								/>
 							</div>
-							<div className="text-center text-gray-800 font-semibold text-base leading-snug">
+							<h3 className="text-center text-gray-800 font-semibold text-lg leading-snug mb-2">{isAr ? f.title_ar : f.title_en}</h3>
+							<div className="text-center text-gray-500  text-base leading-snug">
 								{isAr ? f.ar : f.en}
 							</div>
 						</div>

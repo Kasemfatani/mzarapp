@@ -2,7 +2,7 @@
 
 import React, {  useState } from "react";
 
-import img1 from "/public/bg.webp";
+import img1 from "/public/landmark/banner_bg.webp";
 import Link from "next/link";
 
 
