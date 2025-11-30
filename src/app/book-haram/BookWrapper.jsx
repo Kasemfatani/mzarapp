@@ -89,7 +89,7 @@ export default function BookTourPage() {
 	if (notAvailable) {
 		return (
 			<div className="flex flex-col items-center justify-center min-h-[60vh] bg-white">
-				<div className="text-5xl mb-6 text-gray-400">🚧</div>
+				<div className="text-5xl mb-6 text-gray-400">❌</div>
 				<h2 className="text-2xl font-bold text-gray-800 mb-2 text-center">
 					{lang === "ar" ? "الخدمة غير متوفرة حالياً" : "Service Not Available"}
 				</h2>
