@@ -42,7 +42,7 @@ export default async function HotelPage({ params }) {
 					audio={partner.audios}
 					hotelName={partner.name}
 					promo_code={partner.promo_code}
-					hotelLogoSrc={partner.logo}
+					hotelLogoSrc={partner.logo2}
 				/>
 			</HotelClientShell>
 		</div>
