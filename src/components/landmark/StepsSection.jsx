@@ -6,7 +6,7 @@ const steps = [
 	{
 		icon: (
 			<div className="bg-[var(--second-bg)] p-4 rounded-lg">
-				<img src="/tour-bus/zoom.png" alt="zoom" />
+				<img src="/landmark/download_icon.svg" alt="download" width="32" height="32" />
 			</div>
 		),
 		ar: (
@@ -28,7 +28,7 @@ const steps = [
 	{
 		icon: (
 			<div className="bg-[var(--sec-color)] p-4 rounded-lg">
-				<img src="/tour-bus/hand.png" alt="hand" />
+				<img src="/landmark/switch_icon.svg" alt="switch" width="32" height="32"/>
 			</div>
 		),
 		ar: (
@@ -50,7 +50,7 @@ const steps = [
 	{
 		icon: (
 			<div className="bg-[var(--second-bg)] p-4 rounded-lg">
-				<img src="/tour-bus/building.png" alt="building" />
+				<img src="/landmark/gear_icon.svg" alt="gear" width="32" height="32" />
 			</div>
 		),
 		ar: (
@@ -76,7 +76,7 @@ const steps = [
 	{
 		icon: (
 			<div className="bg-[var(--sec-color)] p-4 rounded-lg">
-				<img src="/tour-bus/building.png" alt="building" />
+				<img src="/landmark/language_icon.svg" alt="language" width="32" height="32" />
 			</div>
 		),
 		ar: (

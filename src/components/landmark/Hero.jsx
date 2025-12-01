@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import DownloadButtons from "@/components/home/DownloadButtons";
+import AudioPreviewDialog from "@/components/landmark/AudioPreviewDialog";
 
 import heroBg from "/public/landmark/landmark_hero.webp";
 
@@ -41,19 +42,15 @@ export default function Hero({ lang }) {
 
 					<p className="text-base md:text-lg text-gray-300 text-center mb-6 mt-6">
 						{isAr
-							? "حلة على متن حافلات مكة تتحول إلى نافذة على التاريخ والمعرفة."
+							? "رحلة عبر حافلات مكة تجعل من كل طريق حكاية."
 							: "Hop on the Makkah Tour Bus and transform your journey into a window of history and knowledge."}
 					</p>
 
-					{/* Buttons (no links yet) */}
+					
 					<div className="flex flex-col  items-center justify-center">
-						<Link href="#" className="inline-block">
-							<span className="inline-block bg-[var(--main-color)] text-white hover:bg-[var(--sec-color)] hover:text-black px-6 py-3  font-semibold rounded-lg">
-								{isAr
-									? "استمع الآن لتجربة تفاعلية قصيرة"
-									: "Listen Now for a Short Interactive Experience"}
-							</span>
-						</Link>
+
+							<AudioPreviewDialog language={language}  />
+
 					</div>
 
 					<div className="flex flex-col  items-center justify-center	gap-3 mt-10">
