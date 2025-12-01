@@ -23,27 +23,6 @@ import { parsePhoneNumberFromString } from "libphonenumber-js";
 import { toast } from "sonner";
 import { API_BASE_URL_NEW } from "@/lib/apiConfig";
 
-import {
-	Popover,
-	PopoverTrigger,
-	PopoverContent,
-} from "@/components/ui/popover";
-import {
-	Command,
-	CommandInput,
-	CommandEmpty,
-	CommandGroup,
-	CommandItem,
-	CommandList,
-} from "@/components/ui/command";
-import { ChevronsUpDown, Check } from "lucide-react";
-import countries from "i18n-iso-countries";
-import enCountries from "i18n-iso-countries/langs/en.json";
-import arCountries from "i18n-iso-countries/langs/ar.json";
-
-countries.registerLocale(enCountries);
-countries.registerLocale(arCountries);
-
 const STORAGE_KEY = "bookTour.selection";
 
 const CURRENCY_SVG = (
@@ -150,22 +129,7 @@ const messages = {
 	},
 };
 
-// Build the country list with alpha-3 codes and localized names (we still keep code for internal mapping if needed)
-const COUNTRIES3 = (() => {
-	const namesEn = countries.getNames("en", { select: "official" }) || {};
-	const namesAr = countries.getNames("ar", { select: "official" }) || {};
-	return Object.entries(namesEn)
-		.map(([alpha2, enName]) => {
-			const code3 = countries.alpha2ToAlpha3(alpha2);
-			if (!code3) return null;
-			const arName = namesAr[alpha2] || enName;
-			return { code: code3, en: enName, ar: arName };
-		})
-		.filter(Boolean)
-		.sort((a, b) => a.en.localeCompare(b.en));
-})();
 
-// Update schema to include country_name (string, required)
 function schemaFor(lang, max_people_count) {
 	const t = messages[lang];
 	return z.object({
@@ -174,7 +138,7 @@ function schemaFor(lang, max_people_count) {
 		email: z.string().email(t.invalidEmail).min(1, t.invalidEmail), // required
 		phone: z.string().optional().or(z.literal("")), // optional
 		whatsapp: z.string().min(7, t.requiredPhone), // required
-		country_name: z.string().min(1, t.requiredNationality), // English country name
+		
 	});
 }
 
@@ -198,7 +162,7 @@ export default function PersonalInfoStep({
 	const [promoDiscountPercent, setPromoDiscountPercent] = useState(0);
 	const [promoMessage, setPromoMessage] = useState("");
 	const [promoLoading, setPromoLoading] = useState(false);
-	const [nationalityOpen, setNationalityOpen] = useState(false);
+	
 
 	const form = useForm({
 		resolver: zodResolver(schemaFor(lang, max_people_count)),
@@ -208,7 +172,6 @@ export default function PersonalInfoStep({
 			email: "",
 			phone: "",
 			whatsapp: "",
-			country_name: "",
 		},
 		mode: "onSubmit",
 	});
@@ -304,7 +267,6 @@ export default function PersonalInfoStep({
 			people: info.people,
 			payment_method: "online",
 			promo_code: promoApplied ? promoCode : null,
-			country_name: info.country_name, // NEW: send English name
 		};
 		try {
 			const res = await fetch(
@@ -460,12 +422,7 @@ export default function PersonalInfoStep({
 		</div>
 	);
 
-	// Helper to get localized label by code
-	const labelForCountryName = (enName) => {
-		if (!enName) return "";
-		const item = COUNTRIES3.find((c) => c.en === enName);
-		return item ? (isAr ? item.ar : item.en) : enName;
-	};
+
 
 	return (
 		<div>
@@ -634,74 +591,7 @@ export default function PersonalInfoStep({
 								)}
 							/>
 
-							{/* Nationality (searchable combobox, stores English name) */}
-							<FormField
-								control={form.control}
-								name="country_name"
-								render={({ field }) => (
-									<FormItem className="mt-4">
-										<FormLabel>{t.nationality}</FormLabel>
-										<Popover
-											open={nationalityOpen}
-											onOpenChange={setNationalityOpen}
-										>
-											<PopoverTrigger asChild>
-												<Button
-													type="button"
-													variant="outline"
-													role="combobox"
-													aria-expanded={nationalityOpen}
-													className="h-12 w-full justify-between"
-												>
-													{field.value
-														? labelForCountryName(field.value)
-														: t.nationalityPlaceholder}
-													<ChevronsUpDown className="ml-2 h-4 w-4 opacity-50" />
-												</Button>
-											</PopoverTrigger>
-											<PopoverContent className="p-0 w-[var(--radix-popover-trigger-width)]">
-												<Command>
-													<CommandInput
-														placeholder={t.nationalityPlaceholder}
-													/>
-													<CommandList>
-														<CommandEmpty>
-															{isAr ? "لا توجد نتائج" : "No results found."}
-														</CommandEmpty>
-														<CommandGroup>
-															{COUNTRIES3.map((country) => {
-																const label = isAr ? country.ar : country.en;
-																return (
-																	<CommandItem
-																		key={country.code}
-																		value={label}
-																		onSelect={() => {
-																			// Store English name in the form value
-																			field.onChange(country.en);
-																			setNationalityOpen(false);
-																		}}
-																	>
-																		<Check
-																			className={`mr-2 h-4 w-4 ${
-																				field.value === country.en
-																					? "opacity-100"
-																					: "opacity-0"
-																			}`}
-																		/>
-																		{label}
-																	</CommandItem>
-																);
-															})}
-														</CommandGroup>
-													</CommandList>
-												</Command>
-											</PopoverContent>
-										</Popover>
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
-
+							
 							{/* Promo Code */}
 							<div className="mt-4">
 								<label className="block text-sm font-medium mb-2">
