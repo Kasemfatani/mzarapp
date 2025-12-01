@@ -22,6 +22,26 @@ import "react-international-phone/style.css";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
 import { toast } from "sonner";
 import { API_BASE_URL_NEW } from "@/lib/apiConfig";
+import {
+	Popover,
+	PopoverTrigger,
+	PopoverContent,
+} from "@/components/ui/popover";
+import {
+	Command,
+	CommandInput,
+	CommandEmpty,
+	CommandGroup,
+	CommandItem,
+	CommandList,
+} from "@/components/ui/command";
+import { ChevronsUpDown, Check } from "lucide-react";
+import countries from "i18n-iso-countries";
+import enCountries from "i18n-iso-countries/langs/en.json";
+import arCountries from "i18n-iso-countries/langs/ar.json";
+
+countries.registerLocale(enCountries);
+countries.registerLocale(arCountries);
 
 const STORAGE_KEY = "haramTour.selection";
 
@@ -53,8 +73,10 @@ const messages = {
 		applyBtn: "Apply",
 		name: "Full name",
 		email: "Email address",
-		phone: "Mobile phone",
+		phone: "Mobile phone (optional)",
 		whatsapp: "Mobile phone (WhatsApp)",
+		nationality: "Nationality",
+		nationalityPlaceholder: "Select nationality",
 		placeholders: {
 			name: "Your Name",
 			email: "example@xyz.com",
@@ -67,9 +89,10 @@ const messages = {
 		missingSelection: "Selection missing. Redirecting…",
 		saved: "Saved your info.",
 		requiredName: "Name is required",
-		requiredPhone: "Phone is required",
+		requiredPhone: "WhatsApp is required",
 		requiredEmail: "Email is required",
 		invalidEmail: "Invalid email",
+		requiredNationality: "Nationality is required",
 		subtotal: "Subtotal",
 		discountLabel: "Discount",
 		subtotalAfterDiscount: "Subtotal after discount",
@@ -92,8 +115,10 @@ const messages = {
 		applyBtn: "تطبيق",
 		name: "الاسم",
 		email: "عنوان البريد الإلكتروني",
-		phone: "هاتف محمول",
+		phone: "هاتف محمول (اختياري)",
 		whatsapp: "هاتف محمول (واتساب)",
+		nationality: "الجنسية",
+		nationalityPlaceholder: "اختر الجنسية",
 		placeholders: {
 			name: "اسمك",
 			email: "example@xyz.com",
@@ -106,9 +131,10 @@ const messages = {
 		missingSelection: "لا توجد بيانات من الخطوة الأولى. سيتم إعادتك…",
 		saved: "تم حفظ معلوماتك.",
 		requiredName: "الاسم مطلوب",
-		requiredPhone: "رقم الجوال مطلوب",
+		requiredPhone: "رقم الواتساب مطلوب",
 		requiredEmail: "البريد الإلكتروني مطلوب",
 		invalidEmail: "بريد غير صالح",
+		requiredNationality: "الجنسية مطلوبة",
 		subtotal: "المجموع الفرعي",
 		discountLabel: "الخصم",
 		subtotalAfterDiscount: "المجموع بعد الخصم",
@@ -123,6 +149,22 @@ const messages = {
 	},
 };
 
+// Build the country list with alpha-3 codes and localized names (we still keep code for internal mapping if needed)
+const COUNTRIES3 = (() => {
+	const namesEn = countries.getNames("en", { select: "official" }) || {};
+	const namesAr = countries.getNames("ar", { select: "official" }) || {};
+	return Object.entries(namesEn)
+		.map(([alpha2, enName]) => {
+			const code3 = countries.alpha2ToAlpha3(alpha2);
+			if (!code3) return null;
+			const arName = namesAr[alpha2] || enName;
+			return { code: code3, en: enName, ar: arName };
+		})
+		.filter(Boolean)
+		.sort((a, b) => a.en.localeCompare(b.en));
+})();
+
+// Update schema to include country_name (string, required)
 function schemaFor(lang, max_people_count, minSeats) {
 	const t = messages[lang];
 	return z.object({
@@ -136,6 +178,7 @@ function schemaFor(lang, max_people_count, minSeats) {
 		email: z.string().email(t.invalidEmail).min(1, t.invalidEmail),
 		phone: z.string().optional().or(z.literal("")),
 		whatsapp: z.string().min(7, t.requiredPhone),
+		country_name: z.string().min(1, t.requiredNationality), // English country name
 	});
 }
 
@@ -159,6 +202,7 @@ export default function PersonalInfoStep({
 	const [promoDiscountPercent, setPromoDiscountPercent] = useState(0);
 	const [promoMessage, setPromoMessage] = useState("");
 	const [promoLoading, setPromoLoading] = useState(false);
+	const [nationalityOpen, setNationalityOpen] = useState(false);
 
 	const form = useForm({
 		resolver: zodResolver(schemaFor(lang, max_people_count, minSeats)),
@@ -168,6 +212,7 @@ export default function PersonalInfoStep({
 			email: "",
 			phone: "",
 			whatsapp: "",
+			country_name: "", // changed from country_code
 		},
 		mode: "onSubmit",
 	});
@@ -227,7 +272,7 @@ export default function PersonalInfoStep({
 			num && num.startsWith("0") ? num.replace(/^0+/, "") : num;
 
 		const info = {
-			...values,
+			...values, // includes country_name (English)
 			phone: phoneParsed
 				? stripLeadingZero(phoneParsed.nationalNumber)
 				: stripLeadingZero(values.phone),
@@ -261,6 +306,7 @@ export default function PersonalInfoStep({
 			people_count: info.people,
 			payment_type: "online",
 			promo_code: promoApplied ? promoCode : null,
+			country_name: info.country_name, // NEW: send English name
 		};
 
 		try {
@@ -294,9 +340,9 @@ export default function PersonalInfoStep({
 				trip_id,
 				customer_id,
 				process_id,
-				customer_email:info.email ,
-				customer_name : info.name ,
-				customer_whatsapp: info.whatsapp_country_code + info.whatsapp
+				customer_email: info.email,
+				customer_name: info.name,
+				customer_whatsapp: info.whatsapp_country_code + info.whatsapp,
 			};
 			localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedSelection));
 
@@ -416,6 +462,13 @@ export default function PersonalInfoStep({
 		</div>
 	);
 
+	// Helper to get localized label by code
+	const labelForCountryName = (enName) => {
+		if (!enName) return "";
+		const item = COUNTRIES3.find((c) => c.en === enName);
+		return item ? (isAr ? item.ar : item.en) : enName;
+	};
+
 	return (
 		<div>
 			<section
@@ -475,28 +528,6 @@ export default function PersonalInfoStep({
 
 								<FormField
 									control={form.control}
-									name="phone"
-									render={({ field }) => (
-										<FormItem>
-											<FormLabel>{t.phone}</FormLabel>
-											<FormControl className="w-full">
-												<div style={{ direction: "ltr" }}>
-													<PhoneInput
-														defaultCountry="sa"
-														value={field.value}
-														onChange={field.onChange}
-														className=""
-														forceDialCode={true}
-													/>
-												</div>
-											</FormControl>
-											<FormMessage />
-										</FormItem>
-									)}
-								/>
-
-								<FormField
-									control={form.control}
 									name="whatsapp"
 									render={({ field }) => (
 										<FormItem>
@@ -508,6 +539,28 @@ export default function PersonalInfoStep({
 														value={field.value}
 														onChange={field.onChange}
 														className="h-full"
+														forceDialCode={true}
+													/>
+												</div>
+											</FormControl>
+											<FormMessage />
+										</FormItem>
+									)}
+								/>
+
+								<FormField
+									control={form.control}
+									name="phone"
+									render={({ field }) => (
+										<FormItem>
+											<FormLabel>{t.phone}</FormLabel>
+											<FormControl className="w-full">
+												<div style={{ direction: "ltr" }}>
+													<PhoneInput
+														defaultCountry="sa"
+														value={field.value}
+														onChange={field.onChange}
+														className=""
 														forceDialCode={true}
 													/>
 												</div>
@@ -578,6 +631,74 @@ export default function PersonalInfoStep({
 												? `المقاعد المتبقية: ${max_people_count}`
 												: `Seats left: ${max_people_count}`}
 										</div>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+
+							{/* Nationality (searchable combobox, stores English name) */}
+							<FormField
+								control={form.control}
+								name="country_name"
+								render={({ field }) => (
+									<FormItem className="mt-4">
+										<FormLabel>{t.nationality}</FormLabel>
+										<Popover
+											open={nationalityOpen}
+											onOpenChange={setNationalityOpen}
+										>
+											<PopoverTrigger asChild>
+												<Button
+													type="button"
+													variant="outline"
+													role="combobox"
+													aria-expanded={nationalityOpen}
+													className="h-12 w-full justify-between"
+												>
+													{field.value
+														? labelForCountryName(field.value)
+														: t.nationalityPlaceholder}
+													<ChevronsUpDown className="ml-2 h-4 w-4 opacity-50" />
+												</Button>
+											</PopoverTrigger>
+											<PopoverContent className="p-0 w-[var(--radix-popover-trigger-width)]">
+												<Command>
+													<CommandInput
+														placeholder={t.nationalityPlaceholder}
+													/>
+													<CommandList>
+														<CommandEmpty>
+															{isAr ? "لا توجد نتائج" : "No results found."}
+														</CommandEmpty>
+														<CommandGroup>
+															{COUNTRIES3.map((country) => {
+																const label = isAr ? country.ar : country.en;
+																return (
+																	<CommandItem
+																		key={country.code}
+																		value={label}
+																		onSelect={() => {
+																			// Store English name in the form value
+																			field.onChange(country.en);
+																			setNationalityOpen(false);
+																		}}
+																	>
+																		<Check
+																			className={`mr-2 h-4 w-4 ${
+																				field.value === country.en
+																					? "opacity-100"
+																					: "opacity-0"
+																			}`}
+																		/>
+																		{label}
+																	</CommandItem>
+																);
+															})}
+														</CommandGroup>
+													</CommandList>
+												</Command>
+											</PopoverContent>
+										</Popover>
 										<FormMessage />
 									</FormItem>
 								)}
