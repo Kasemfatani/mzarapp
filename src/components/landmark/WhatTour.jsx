@@ -4,29 +4,29 @@ import Image from "next/image";
 // import seoIcon from "/public/Home/seo.png";
 // import routeIcon from "/public/Home/route.png";
 // import smartPhoneIcon from "/public/Home/smart-phone.png";
-import AR from "/public/Home/AR.png";
-import tour_guide from "/public/Home/tour-guide.png";
-import map from "/public/Home/map.svg";
-import photography from "/public/Home/photography.svg";
+import zoom_star from "/public/Home/zoom_star.png";
+import book_idea from "/public/Home/book_idea.png";
+import language_icon from "/public/Home/language_icon.png";
+import book_first from "/public/Home/book_first.png";
 import imageIcon from "/public/Home/image.svg";
 
 const features = [
 	{
-		icon: tour_guide,
+		icon: book_idea,
 		title_en: "An informative journey on the go",
 		title_ar: "رحلة معرفية أثناء التنقل" ,
 		ar: "اجعل كل دقيقة على الطريق فرصة لاكتشاف جديد.",
 		en: "make every minute on the road an opportunity to discover something new.",
 	},
 	{
-		icon: AR,
+		icon: zoom_star,
 		title_en: "Smart automatic guidance",
 		title_ar: "إرشاد ذكي تلقائي",
 		ar: "لا حاجة للبحث، التطبيق يتحدث إليك في الوقت والمكان المناسب.",
 		en: "no need to search, the app talks to you at the right time and place.",
 	},
 	{
-		icon: map,
+		icon: language_icon,
 		title_en: "Multilingual audio guide",
 		title_ar: "مرشد صوتي متعدد اللغات",
 		ar: "يخاطب الجميع بلغتهم وثقافتهم.",
@@ -40,11 +40,11 @@ const features = [
 		en: "photos, sounds, and maps that take you back to the heart of the event.",
 	},
 	{
-		icon: photography,
+		icon: book_first,
 		title_en: "Exclusive experience within Mzar",
 		title_ar: "تجربة حصرية داخل مزار",
 		ar: "لا يمكن استخدامها إلا من خلال تطبيق مزار.",
-		en: "can only be used through the Mzar app.",
+		en: "can only be used through Mzar app.",
 	},
 ];
 

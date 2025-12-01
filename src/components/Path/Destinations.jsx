@@ -239,7 +239,7 @@ export default function Destinations({ data, lang }) {
 					style={{ direction: language === "ar" ? "rtl" : "ltr" }}
 				>
 					{language === "ar"
-						? "كيفية تحسين تجربتك مع مزار"
+						? "كيف تثري تجربتك مع تطبيق مزار"
 						: "How to enhance your experience with Mzar"}
 				</h2>
 
@@ -248,7 +248,7 @@ export default function Destinations({ data, lang }) {
 						{/* responsive youtube iframe */}
 						<iframe
 							className="w-full h-full block"
-							src="https://www.youtube.com/embed/dMZO88og9Is"
+							src={language === "ar" ? "https://www.youtube.com/embed/TP0U0AWIZg4?si=euB0Hjt77Mh0xvJp" : "https://www.youtube.com/embed/Z3WxckCQ8Uc?si=XkyPrit3osPsXatp"}
 							title="Mzar - Emotional journey"
 							frameborder="0"
 							allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
