@@ -186,7 +186,7 @@ export default function SpinWheelDialog({
 									data={prizes}
 									onStopSpinning={handleStopSpinning}
 									outerBorderColor="#2c1810"
-									outerBorderWidth={8}
+									outerBorderWidth={3}
 									innerBorderColor="#2c1810"
 									innerBorderWidth={2}
 									radiusLineColor="#2c1810"
