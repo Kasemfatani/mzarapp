@@ -70,9 +70,8 @@ export default function SpinWheelDialog({
 							id: item.id,
 							option: item.name,
 							style: {
-								...colors[0],
-								
-								
+								backgroundColor: item.color, textColor: "#ffffffff"
+
 							},
 						}))
 					);
