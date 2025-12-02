@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import DownloadButtons from "@/components/home/DownloadButtons";
 
-import heroBg from "/public/landmark/landmark_hero_bg.webp";
+import heroBg from "/public/makkah-history/makkah_hero.webp";
 
 export default function Hero({ lang }) {
 	const [language, setLanguage] = useState(lang || "en");
@@ -25,7 +25,7 @@ export default function Hero({ lang }) {
 					className="object-cover"
 					priority
 				/>
-				<div className="absolute inset-0 bg-black/30" />
+				<div className="absolute inset-0 bg-black/50" />
 			</div>
 
 			<div className="container m-auto px-4 ">
