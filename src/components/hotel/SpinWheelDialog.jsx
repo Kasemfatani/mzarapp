@@ -131,7 +131,7 @@ export default function SpinWheelDialog({
 			try {
 				const res = await fetch(`${API_BASE_URL_NEW}/landing/wheels/register`, {
 					method: "POST",
-					headers: { "Content-Type": "application/json" },
+					headers: { "Content-Type": "application/json" , lang },
 					body: JSON.stringify({
 						mobile,
 						country_code,
