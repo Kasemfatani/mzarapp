@@ -30,8 +30,8 @@ export default function PackagePrice({ initialLang = "en" }) {
 			<div className="container mx-auto px-4">
 				<h2 className="text-2xl md:text-3xl font-bold text-center mb-10 text-gray-900">
 					{isAr
-						? "اختر الباقة المناسبة لتجربتك"
-						: "Choose the right package for your experience"}
+						? "ابدأ رحلتك الآن"
+						: "Start Your Journey Now"}
 				</h2>
 				<div
 					className={`flex flex-col md:flex-row items-center justify-center gap-6 md:gap-0 `}
@@ -80,11 +80,11 @@ export default function PackagePrice({ initialLang = "en" }) {
 								</ul>
 							</div>
 							{/* Button */}
-							<Link href="https://onelink.to/yb2xky" target="_blank" className="inline-block">
+							<Link href="/book-tour" className="inline-block">
 								<span className="inline-block bg-[var(--main-color)] text-white text-center hover:bg-[var(--sec-color)] hover:text-black w-full py-3 font-semibold rounded-lg">
 									{isAr
-										? "احجز جولتك الآن عبر تطبيق مزار"
-										: "Book your tour now via Mzar app"}
+										? "احجز جولتك الآن"
+										: "Book your tour now"}
 								</span>
 							</Link>
 						</div>

@@ -6,7 +6,7 @@ const steps = [
 	{
 		icon: (
 			<div className="bg-[var(--second-bg)] p-4 rounded-lg">
-				<img src="/tour-bus/zoom.png" alt="zoom" />
+				<img src="/makkah-history/star_award.svg" alt="star_award" width="32" height="32" />
 			</div>
 		),
 		ar: (
@@ -24,7 +24,7 @@ const steps = [
 	{
 		icon: (
 			<div className="bg-[var(--sec-color)] p-4 rounded-lg">
-				<img src="/tour-bus/hand.png" alt="hand" />
+				<img src="/makkah-history/finger_press.svg" alt="finger_press" width="32" height="32"/>
 			</div>
 		),
 		ar: (
@@ -46,7 +46,7 @@ const steps = [
 	{
 		icon: (
 			<div className="bg-[var(--second-bg)] p-4 rounded-lg">
-				<img src="/tour-bus/building.png" alt="building" />
+				<img src="/makkah-history/chair_clock.svg" alt="chair_clock" width="32" height="32" />
 			</div>
 		),
 		ar: (
@@ -68,7 +68,7 @@ const steps = [
 	{
 		icon: (
 			<div className="bg-[var(--sec-color)] p-4 rounded-lg">
-				<img src="/tour-bus/building.png" alt="building" />
+				<img src="/makkah-history/hands_heart.svg" alt="hands_heart" width="32" height="32" />
 			</div>
 		),
 		ar: (
