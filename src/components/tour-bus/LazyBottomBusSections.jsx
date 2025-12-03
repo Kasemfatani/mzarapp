@@ -34,7 +34,7 @@ export default function LazyBottomBusSections({ initialLang }) {
 				<>
 					<ComparisonTable initialLang={initialLang} />
 					<Testimonials lang={initialLang} />
-					{/* <FAQ initialLang={initialLang} /> */}
+					<FAQ initialLang={initialLang} />
 					<Confirmed />
 				</>
 			) : null}
