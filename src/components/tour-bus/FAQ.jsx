@@ -9,33 +9,41 @@ export default function FAQ({ initialLang = "en" }) {
 	const items = [
 		{
 			q: isAr
-				? "هل الجولة تشمل دخول الحرم من الداخل؟"
-				: "Does the tour include entry inside the Haram?",
+				? "كيف يمكنني الحجز؟ "
+				: "How can I make a booking?",
 			a: isAr
-				? "لا يشمل الدخول إلى داخل الحرم. الجولة هي خارجية حول المعالم المحيطة."
-				: "Entry inside the Haram is not included. The tour is around nearby landmarks.",
+				? "يمكنك الحجز مباشرة عبر تطبيق “مزار” أو من خلال نقاط البيع المعتمدة في الفنادق والمراكز السياحية بمكة."
+				: "You can book directly through the “Mzar” app or through authorized sales points in hotels and tourist centers in Makkah.",
 		},
 		{
-			q: isAr ? "هل يمكن الحجز للعائلات؟" : "Can families book the tour?",
+			q: isAr ? "هل الجولات مخصصة للعوائل فقط؟" : "Are the tours for families only?",
 			a: isAr
-				? "نعم، الجولة متاحة للعائلات والمجموعات الصغيرة."
-				: "Yes, the tour is available for families and small groups.",
-		},
-		{
-			q: isAr
-				? "هل الخدمة متوفرة بلغات أخرى؟"
-				: "Is the service available in other languages?",
-			a: isAr
-				? "نعم، نوفر دليلاً صوتياً بعدة لغات مدعومة داخل التطبيق."
-				: "Yes, the in‑app audio guide supports multiple languages.",
+				? "لا، الجولات متاحة للأفراد والعوائل والمجموعات."
+				: "No, the tours are available for individuals, families, and groups.",
 		},
 		{
 			q: isAr
-				? "كيف أستلم شهادة الزيارة؟"
-				: "How do I receive the visit certificate?",
+				? "بأي لغات يتوفر المرشد الصوتي؟"
+				: "In which languages is the audio guide available?",
 			a: isAr
-				? "ستصلك الشهادة رقميًا بعد انتهاء الجولة، ويمكنك تنزيلها من التطبيق."
-				: "You’ll receive a digital certificate after the tour and can download it in the app.",
+				? "يتوفر بـ 6 لغات: العربية، الإنجليزية، الفرنسية، التركية، الأردية، الملايوية. "
+				: "It is available in 6 languages: Arabic, English, French, Turkish, Urdu, and Malay.",
+		},
+		{
+			q: isAr
+				? "هل الجولة تشمل النقل من الفندق؟ "
+				: "Does the tour include transportation from the hotel?",
+			a: isAr
+				? "نعم، تتوفر نقاط تجمع قريبة من معظم فنادق المنطقة المركزية ويمكن تنسيق النقل عند الحجز. "
+				: "Yes, there are pickup points near most hotels in the central area, and transportation can be arranged when booking.",
+		},
+		{
+			q: isAr
+				? "هل التجربة مناسبة للأطفال وكبار السن؟ "
+				: "Is the experience suitable for children and the elderly?",
+			a: isAr
+				? "نعم، تم تصميم الباصات لتناسب جميع الفئات العمرية مع خدمات مريحة وآمنة. "
+				: "Yes, the buses are designed to accommodate all age groups with comfortable and safe services.",
 		},
 	];
 
