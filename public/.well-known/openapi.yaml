@@ -15,15 +15,18 @@ info:
       * requested people <= left_seats
     - Required booking fields: name, email, whatsapp_country_code, whatsapp (no country code), bus_id, date, time_id, meetingPoint_id, people, payment_method='cash'.
 
+# Single global server (app.mzarapp.com)
 servers:
-  - url: https://dash.mzarapp.com
-    description: Primary API (bus booking data)
   - url: https://app.mzarapp.com
-    description: Secondary API (availability & booking)
+    description: Availability & booking API
 
 paths:
   /api/landing/home/bus-booking-data:
     get:
+      # Path-level override for dash.mzarapp.com
+      servers:
+        - url: https://dash.mzarapp.com
+          description: Bus booking data API
       operationId: getBusBookingData
       summary: Get Makkah tour bus data (times, gathering points, pricing).
       description: Returns the bus_id, available times, gathering points, max_people_count, tax, start_price. Use 'lang' header ('ar' or 'en').
