@@ -16,13 +16,13 @@ info:
     - Required booking fields: name, email, whatsapp_country_code, whatsapp (no country code), bus_id, date, time_id, meetingPoint_id, people, payment_method='cash'.
 
 servers:
-  - url: https://dash.mzarapp.com/api
+  - url: https://dash.mzarapp.com
     description: Primary API (bus booking data)
-  - url: https://app.mzarapp.com/api
+  - url: https://app.mzarapp.com
     description: Secondary API (availability & booking)
 
 paths:
-  /landing/home/bus-booking-data:
+  /api/landing/home/bus-booking-data:
     get:
       operationId: getBusBookingData
       summary: Get Makkah tour bus data (times, gathering points, pricing).
@@ -43,7 +43,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/BusBookingData"
 
-  /customer/landing-bus-trip/check-availability:
+  /api/customer/landing-bus-trip/check-availability:
     get:
       operationId: checkBusAvailability
       summary: Check seat availability for a specific date and time.
@@ -80,7 +80,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/AvailabilityResponse"
 
-  /customer/landing-bus-trip/booking:
+  /api/customer/landing-bus-trip/booking:
     post:
       operationId: createBusBooking
       summary: Create a cash booking for the Makkah tour bus.
