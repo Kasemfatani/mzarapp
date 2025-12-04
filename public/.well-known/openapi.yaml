@@ -15,14 +15,18 @@ info:
       * requested people <= left_seats
     - Required booking fields: name, email, whatsapp_country_code, whatsapp (no country code), bus_id, date, time_id, meetingPoint_id, people, payment_method='cash'.
 
+servers:
+  - url: https://dash.mzarapp.com/api
+    description: Primary API (bus booking data)
+  - url: https://app.mzarapp.com/api
+    description: Secondary API (availability & booking)
+
 paths:
   /landing/home/bus-booking-data:
     get:
       operationId: getBusBookingData
       summary: Get Makkah tour bus data (times, gathering points, pricing).
       description: Returns the bus_id, available times, gathering points, max_people_count, tax, start_price. Use 'lang' header ('ar' or 'en').
-      servers:
-        - url: https://dash.mzarapp.com/api
       parameters:
         - name: lang
           in: header
@@ -44,8 +48,6 @@ paths:
       operationId: checkBusAvailability
       summary: Check seat availability for a specific date and time.
       description: Returns left_seats. Must be called before booking.
-      servers:
-        - url: https://app.mzarapp.com/api
       parameters:
         - name: bus_id
           in: query
@@ -88,8 +90,14 @@ paths:
         - Ensure date is at least tomorrow (no same-day booking).
         - Map user-chosen meeting point NAME to meetingPoint_id (ID) internally; never show IDs.
         - Set payment_method='cash'.
-      servers:
-        - url: https://app.mzarapp.com/api
+      parameters:
+        - name: lang
+          in: header
+          required: true
+          schema:
+            type: string
+            enum: [ar, en]
+          description: Language for localized fields (ar or en).
       requestBody:
         required: true
         content:
