@@ -1,0 +1,249 @@
+openapi: 3.0.1
+info:
+  title: MZAR Tour Bus Booking (ChatGPT)
+  version: "1.0.0"
+  description: |
+    ChatGPT Action for booking the MZAR Makkah tour bus.
+    Rules for the assistant:
+    - Always start by fetching bus booking data with the correct 'lang' header ('ar' or 'en').
+    - Do NOT allow booking for the current day; the date must be at least tomorrow, format YYYY-MM-DD.
+    - When describing times or gathering points to the user, show names only (never IDs).
+    - Where lat/lng exist for gathering points, include a Google Maps link:
+      https://www.google.com/maps/search/?api=1&query={lat},{lng}
+    - Before booking, call availability and ensure:
+      * left_seats > 0
+      * requested people <= left_seats
+    - Required booking fields: name, email, whatsapp_country_code, whatsapp (no country code), bus_id, date, time_id, meetingPoint_id, people, payment_method='cash'.
+
+paths:
+  /landing/home/bus-booking-data:
+    get:
+      operationId: getBusBookingData
+      summary: Get Makkah tour bus data (times, gathering points, pricing).
+      description: Returns the bus_id, available times, gathering points, max_people_count, tax, start_price. Use 'lang' header ('ar' or 'en').
+      servers:
+        - url: https://dash.mzarapp.com/api
+      parameters:
+        - name: lang
+          in: header
+          required: true
+          schema:
+            type: string
+            enum: [ar, en]
+          description: Language for localized fields (ar or en).
+      responses:
+        "200":
+          description: Bus booking data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BusBookingData"
+
+  /customer/landing-bus-trip/check-availability:
+    get:
+      operationId: checkBusAvailability
+      summary: Check seat availability for a specific date and time.
+      description: Returns left_seats. Must be called before booking.
+      servers:
+        - url: https://app.mzarapp.com/api
+      parameters:
+        - name: bus_id
+          in: query
+          required: true
+          schema:
+            type: integer
+        - name: date
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date
+          description: Date in YYYY-MM-DD; must be at least tomorrow (no same-day booking).
+        - name: time_id
+          in: query
+          required: true
+          schema:
+            type: integer
+        - name: lang
+          in: header
+          required: false
+          schema:
+            type: string
+            enum: [ar, en]
+      responses:
+        "200":
+          description: Availability response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AvailabilityResponse"
+
+  /customer/landing-bus-trip/booking:
+    post:
+      operationId: createBusBooking
+      summary: Create a cash booking for the Makkah tour bus.
+      description: |
+        Creates a booking. The assistant must:
+        - Confirm left_seats and ensure people <= left_seats.
+        - Ensure date is at least tomorrow (no same-day booking).
+        - Map user-chosen meeting point NAME to meetingPoint_id (ID) internally; never show IDs.
+        - Set payment_method='cash'.
+      servers:
+        - url: https://app.mzarapp.com/api
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BookingRequest"
+      responses:
+        "200":
+          description: Booking created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BookingCreateResponse"
+        "201":
+          description: Booking created (some backends may return 201)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BookingCreateResponse"
+
+components:
+  schemas:
+    TimeOption:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+    GatheringPoint:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        lat:
+          type: number
+        lng:
+          type: number
+        distance:
+          type: string
+      description: |
+        Show 'name' to the user; never display 'id'.
+        If lat/lng exist, provide a Google Maps link when presenting to the user.
+
+    BusBookingData:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Bus ID (use in subsequent calls; do not display to user).
+        name:
+          type: string
+        image:
+          type: string
+          format: uri
+        duration:
+          type: string
+        times:
+          type: array
+          items:
+            $ref: "#/components/schemas/TimeOption"
+        gathering_points:
+          type: array
+          items:
+            $ref: "#/components/schemas/GatheringPoint"
+        max_people_count:
+          type: integer
+        tax:
+          type: number
+          format: float
+        start_price:
+          type: number
+          format: float
+
+    AvailabilityData:
+      type: object
+      properties:
+        left_seats:
+          type: integer
+    AvailabilityResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+        data:
+          $ref: "#/components/schemas/AvailabilityData"
+
+    BookingRequest:
+      type: object
+      required:
+        - name
+        - email
+        - whatsapp_country_code
+        - whatsapp
+        - bus_id
+        - date
+        - time_id
+        - meetingPoint_id
+        - people
+        - payment_method
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        whatsapp_country_code:
+          type: string
+          description: Country calling code without plus, e.g., "966".
+        whatsapp:
+          type: string
+          description: WhatsApp number without country code, e.g., "506552589".
+        bus_id:
+          type: integer
+        date:
+          type: string
+          format: date
+          description: YYYY-MM-DD; must be at least tomorrow.
+        time_id:
+          type: integer
+          description: ID of the chosen time option.
+        meetingPoint_id:
+          type: integer
+          description: ID of the chosen gathering point (map from the chosen name).
+        people:
+          type: integer
+          minimum: 1
+          description: Must not exceed left_seats from availability.
+        payment_method:
+          type: string
+          enum: ["cash"]
+          example: "cash"
+
+    BookingCreateData:
+      type: object
+      properties:
+        trip_id:
+          type: integer
+        customer_id:
+          type: integer
+        process_id:
+          type: integer
+        ticket:
+          type: string
+    BookingCreateResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+        data:
+          $ref: "#/components/schemas/BookingCreateData"
