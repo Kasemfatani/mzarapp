@@ -3,11 +3,11 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-const stationImg = "/haram/station-img.png"; 
-const station1 = "/haram/station-1-new.webp"; 
-const station2 = "/haram/station-2-new.webp";
-const station3 = "/haram/station-3-new.webp";
-const station4 = "/haram/station-4-new.webp";
+
+const station1 = "/landmark/Pilgrims.webp"; 
+const station2 = "/landmark/students.webp";
+const station3 = "/landmark/companies.webp";
+const station4 = "/landmark/transport.webp";
 
 const stationsData = {
 	ar: [
