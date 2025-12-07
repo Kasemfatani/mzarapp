@@ -33,7 +33,7 @@ export default function PartnerSection({
 
 	return (
 		<>
-			<section className={`container mx-auto px-4 py-12 md:py-20 `}>
+			<section className={`bg-[url(/landmark/whatLandMark-bg.webp)] container mx-auto px-4 py-12 md:py-20 `}>
 				<div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
 					{/* Text + CTA column */}
 					<div className="order-2 md:order-1 flex flex-col gap-6 ">
@@ -91,8 +91,8 @@ export default function PartnerSection({
 					<h2 className="text-3xl md:text-4xl font-extrabold text-[var(--main-color,#14532d)] mb-3">
 						{headingCode}
 					</h2>
-					<h3 className="text-2xl md:text-3xl  text-[var(--second-bg)] mb-3">{discountCode}</h3>
-					{/* <p className="mb-2 text-[var(--second-bg)]">{useInApp}</p> */}
+					<h3 className="text-2xl md:text-3xl   text-[var(--second-bg)] font-extrabold mb-3">{discountCode}</h3>
+					<p className="mb-2 text-[var(--second-bg)] text-lg">{useInApp}</p>
 					<button
 						onClick={() => {
 							navigator.clipboard.writeText(discountCode);

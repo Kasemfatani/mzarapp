@@ -4,7 +4,7 @@ export default function KnowledgeBanner({ lang = "ar" }) {
 	return (
 		<section className="w-full bg-[#f6f1e7] py-8 px-2 flex justify-center">
 			<div
-				className="relative w-full max-w-5xl rounded-3xl overflow-hidden flex items-center justify-center min-h-[260px] sm:min-h-[320px] md:min-h-[360px] py-4"
+				className="relative container rounded-3xl overflow-hidden flex items-center justify-center  py-10"
 				style={{
 					backgroundImage: "url(/hotel/banner-bg.webp)",
 					backgroundSize: "cover",
