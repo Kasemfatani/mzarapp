@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import bigImg from "/public/haram/big-img.png";
+import bigImg from "/public/haram/big-img.webp";
 import smallImg from "/public/haram/small-img.png";
 import StarRating from "@/components/Path/StarRating";
 
