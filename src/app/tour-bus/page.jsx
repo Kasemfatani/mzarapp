@@ -10,7 +10,7 @@ import WhatTour from "@/components/tour-bus/WhatTour";
 // import Confirmed from "@/components/tour-bus/Confirmed";
 import LazyTopBusSections from "@/components/tour-bus/LazyTopBusSections";
 import LazyBottomBusSections from "@/components/tour-bus/LazyBottomBusSections";
-
+import SchemaTourBus from "@/components/tour-bus/SchemaTourBus"; // ADD
 
 export const revalidate = 300;
 
@@ -40,10 +40,11 @@ export default function TourPage() {
 	const lang =
 		cookieLang || (acceptLang && acceptLang.startsWith("ar") ? "ar" : "en");
 
-	
 	return (
 		<div className={lang === "en" ? "ltr" : "rtl"}>
-			
+			{/* JSON-LD for Google Rich Results */}
+			{/* Remove old single script and render our schema suite */}
+			<SchemaTourBus lang={lang} />
 			<Hero initialLang={lang} />
 			<WhatTour initialLang={lang} />
 			<LazyTopBusSections initialLang={lang} />
