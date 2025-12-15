@@ -81,9 +81,7 @@ async function handleServerCallback(req) {
  */
 function handleBrowserReturn(req) {
 	const { searchParams } = new URL(req.url);
-	const appBase = process.env.VERCEL_URL
-		? `https://${process.env.VERCEL_URL}`
-		: process.env.APP_URL || "http://localhost:3000";
+	const appBase = process.env.APP_URL || "http://localhost:3000";
 
 	const successPath = searchParams.get("successPath") || "/book-tour-success";
 	const failPath = searchParams.get("failPath") || "/book-tour";
