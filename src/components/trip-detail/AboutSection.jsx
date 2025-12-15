@@ -3,22 +3,10 @@
 import { Sparkles } from 'lucide-react';
 import { motion } from 'motion/react';
 
-export function AboutSection({ lang }) {
+export function AboutSection({ lang , data }) {
   const isAr = lang === "ar";
 
-  const highlights = isAr ? [
-    'زيارة معالم مميزة في المسجد الحرام مع شرح تفصيلي',
-    'شرح تاريخي وروحاني عن أهمية كل موقع',
-    'توقفات للتجربة والتأمل في الأماكن المقدسة',
-    'فرصة لأداء الطواف والسعي مع الإرشاد الكامل',
-    'التقاط صور تذكارية في أفضل المواقع'
-  ] : [
-    'Visit distinctive landmarks in the Grand Mosque with detailed explanations',
-    'Historical and spiritual explanation of the importance of each site',
-    'Stops for experience and contemplation in the holy places',
-    'Opportunity to perform Tawaf and Sa’i with full guidance',
-    'Take memorable photos at the best locations'
-  ];
+  
 
   return (
     <motion.div 
@@ -53,19 +41,13 @@ export function AboutSection({ lang }) {
         className="mb-8"
       >
         <p className="text-[16px] leading-[1.7] text-gray-700 ">
-          {isAr ? 
-          `انضم إلينا في رحلة روحانية لا تُنسى إلى قلب الإسلام، المسجد الحرام بمكة المكرمة. 
-          سنصحبك في تجربة مميزة تجمع بين الجانب الروحاني والتعليمي، حيث ستتعرف على تاريخ 
-          وأهمية هذا المكان المقدس مع مرشدين خبراء يتحدثون لغتك ويفهمون احتياجاتك.` :
-          `Join us on an unforgettable spiritual journey to the heart of Islam, the Grand Mosque in Mecca. 
-          We will take you on a unique experience that combines the spiritual and educational aspects, where you will learn about the history 
-          and significance of this sacred place with expert guides who speak your language and understand your needs.`}
+          {data.about.desc}
         </p>
       </motion.div>
 
       {/* Bullet List - Proper spacing */}
       <div className="space-y-4">
-        {highlights.map((item, index) => (
+        {data.about.list.map((item, index) => (
           <motion.div 
             key={index}
             initial={{ opacity: 0, x: -20 }}

@@ -15,7 +15,7 @@ const CURRENCY_SVG = (
 	</svg>
 );
 
-export function BottomBar( { lang } ) {
+export function BottomBar( { lang , data } ) {
   const isAr = lang === "ar";
 
   return (
@@ -38,7 +38,7 @@ export function BottomBar( { lang } ) {
               </div>
               <div className="">
                 <span className="text-[40px] leading-[1.2] text-white" >
-                  249
+                  {data.price}
                 </span>
               </div>
             </div>

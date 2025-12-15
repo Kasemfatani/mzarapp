@@ -3,7 +3,7 @@
 import { Calendar, MapPin, Clock } from 'lucide-react';
 import { motion } from "motion/react";
 
-export function SummaryCard({ lang }) {
+export function SummaryCard({ lang , data }) {
   const isAr = lang === "ar";
 
   return (
@@ -23,7 +23,7 @@ export function SummaryCard({ lang }) {
             className="text-[32px] leading-[1.3] text-white mb-3 "
             
           >
-            {isAr ? "جولة المسجد الحرام الشاملة" : "Comprehensive Masjid Al-Haram Tour"}
+            {data.title}
           </motion.h1>
 
           <motion.p 
@@ -32,7 +32,7 @@ export function SummaryCard({ lang }) {
             transition={{ duration: 0.5, delay: 0.5 }}
             className="text-[18px] leading-[1.6] text-[#c9a463] "
           >
-            {isAr ? "تجربة روحانية فريدة في أجواء مطمئنة ومرشدين معتمدين" : "A unique spiritual experience in a reassuring atmosphere with certified guides"}
+            {data.description}
           </motion.p>
         </div>
 
@@ -48,7 +48,7 @@ export function SummaryCard({ lang }) {
               <div className="">
                 <p className="text-xs text-white/70 mb-2 leading-[1.5]" >{isAr ? "التاريخ المتاح" : "Available Date"}</p>
                 <p className="text-[16px] leading-[1.5] text-white" >
-                   {isAr ? "يومياً عدا الثلاثاء" : "Daily except Tuesday"}
+                  {data.availability}
                 </p>
               </div>
               
@@ -65,7 +65,7 @@ export function SummaryCard({ lang }) {
               <div className="">
                 <p className="text-xs text-white/70 mb-2 leading-[1.5]">{isAr ? "نقطة التجمع" : "Meeting Point"}</p>
                 <p className="text-[16px] leading-[1.5] text-white" >
-                  {isAr ? "ساحة الحرم الشريف" : "Al-Haram Square"}
+                  {data.meetingPoint}
                 </p>
               </div>
               
@@ -82,7 +82,7 @@ export function SummaryCard({ lang }) {
               <div className="">
                 <p className="text-xs text-white/70 mb-2 leading-[1.5]" >{isAr ? "أوقات التحرك" : "Timing"}</p>
                 <p className="text-[16px] leading-[1.5] text-white" >
-                   {isAr ? "6:00 م - 12:00 ص" : "6:00 PM - 12:00 AM"}
+                  {data.times}
                 </p>
               </div>
               

@@ -4,12 +4,12 @@ import { MapPin, ExternalLink } from "lucide-react";
 import { motion } from "motion/react";
 import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
 
-const locations = [
-	{ lat: 21.4225, lng: 39.8262, label: "المسجد الحرام" }, // Masjid al-Haram
-	{ lat: 21.3891, lng: 39.8579, label: "برج الساعة" }, // Abraj Al Bait
-	{ lat: 21.4267, lng: 39.8256, label: "جبل النور" }, // Jabal al-Nour
-	{ lat: 21.4187, lng: 39.8937, label: "جبل ثور" }, // Jabal Thawr
-];
+// const locations = [
+// 	{ lat: 21.4225, lng: 39.8262, label: "المسجد الحرام" }, // Masjid al-Haram
+// 	{ lat: 21.3891, lng: 39.8579, label: "برج الساعة" }, // Abraj Al Bait
+// 	{ lat: 21.4267, lng: 39.8256, label: "جبل النور" }, // Jabal al-Nour
+// 	{ lat: 21.4187, lng: 39.8937, label: "جبل ثور" }, // Jabal Thawr
+// ];
 
 const containerStyle = {
 	width: "100%",
@@ -23,12 +23,12 @@ const center = {
 	lng: 39.8262,
 };
 
-export function MapSection({ lang }) {
+export function MapSection({ lang , data }) {
 
   const isAr = lang === "ar";
 
 	const { isLoaded } = useJsApiLoader({
-		googleMapsApiKey: "AIzaSyCuS6yzhdLKU-fiY7zfmGX1yDPrHDvfYIE", // Replace with your API key
+		googleMapsApiKey: "AIzaSyCuS6yzhdLKU-fiY7zfmGX1yDPrHDvfYIE", 
 	});
 
 	return (
@@ -65,7 +65,7 @@ export function MapSection({ lang }) {
 				{isLoaded ? (
 					<GoogleMap
 						mapContainerStyle={containerStyle}
-						center={center}
+						center={data.mapCenter || center}
 						zoom={13}
 						options={{
 							mapTypeControl: false,
@@ -73,7 +73,7 @@ export function MapSection({ lang }) {
 							fullscreenControl: false,
 						}}
 					>
-						{locations.map((loc, idx) => (
+						{data.mapLocations.map((loc, idx) => (
 							<Marker
 								key={idx}
 								position={{ lat: loc.lat, lng: loc.lng }}
@@ -96,7 +96,7 @@ export function MapSection({ lang }) {
 				className="w-fit mx-auto px-8 py-4 bg-gradient-to-r from-[#c9a463] to-[#b8914a] text-white rounded-[18px] hover:shadow-[0px_10px_30px_rgba(0,0,0,0.15)] transition-all flex items-center justify-center gap-3 text-[16px] group"
 				onClick={() =>
 					window.open(
-						"https://www.google.com/maps/d/edit?mid=1_p4kTmEUGtAIW6_npYnTUVExkAFbViE&usp=sharing",
+						data.mapLink || "https://www.google.com/maps",
 						"_blank"
 					)
 				}

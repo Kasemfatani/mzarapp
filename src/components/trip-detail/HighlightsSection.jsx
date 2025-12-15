@@ -3,47 +3,26 @@
 import { MapPin, Users, Compass, Globe, Calendar, Shield } from 'lucide-react';
 import { motion } from 'motion/react';
 
-export function HighlightsSection({ lang }) {
+const ICONS = {
+  "map-pin": MapPin,
+  "compass": Compass,
+  "globe": Globe,
+  "calendar": Calendar,
+  "shield": Shield,
+  "users": Users,
+};
+
+export function HighlightsSection({ lang , data }) {
 
   const isAr = lang === "ar";
 
-  const highlights = [
-    {
-      icon: MapPin,
-      title:  isAr ? 'نقطة اللقاء' : 'Meeting Point',
-      detail: isAr ? 'ساحة الحرم المكي - مدخل الملك عبدالعزيز' : 'Al-Haram Square - King Abdulaziz Entrance'
-    },
-    {
-      icon: Users,
-      title: isAr ? 'مجموعة صغيرة' : 'Small Group',
-      detail: isAr ? 'لا يزيد عن 12 ضيف لتجربة حميمة' : 'No more than 12 guests for an intimate experience'
-    },
-    {
-      icon: Compass,
-      title: isAr ? 'مرشد خبير' : 'Expert Guide',
-      detail: isAr ? 'مرشدون معتمدون متحدثون بعدة لغات' : 'Certified guides fluent in multiple languages'
-    },
-    {
-      icon: Globe,
-      title: isAr ? 'تجربة عالمية' : 'Global Experience',
-      detail: isAr ? 'استضفنا أكثر من 50 جنسية مختلفة' : 'Hosted guests from over 50 different nationalities'
-    },
-    {
-      icon: Calendar,
-      title: isAr ? 'حجز مرن' : 'Flexible Booking',
-      detail: isAr ? 'إلغاء مجاني حتى 24 ساعة قبل الموعد' : 'Free cancellation up to 24 hours before the appointment'
-    },
-    {
-      icon: Shield,
-      title: isAr ? 'موثوق ومضمون' : 'Trusted and Guaranteed',
-      detail: isAr ? 'تصريح رسمي من وزارة السياحة' : 'Official permit from the Ministry of Tourism'
-    }
-  ];
+  const items = data?.highlights || [];
+
 
   return (
     <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
-      {highlights.map((item, index) => {
-        const Icon = item.icon;
+      {items.map((item, index) => {
+        const Icon = ICONS[item.icon] || MapPin;
         
         return (
           <motion.div

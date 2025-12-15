@@ -3,7 +3,7 @@
 import { CheckCircle2, XCircle } from 'lucide-react';
 import { motion } from 'motion/react';
 
-export function InclusionsSection({ lang }) {
+export function InclusionsSection({ lang , data }) {
   
   const isAr = lang === "ar";
 
@@ -59,7 +59,7 @@ export function InclusionsSection({ lang }) {
 
         {/* List */}
         <div className="space-y-4">
-          {included.map((item, index) => (
+          {data.included.map((item, index) => (
             <motion.div 
               key={index}
               initial={{ opacity: 0, x: -20 }}
@@ -97,7 +97,7 @@ export function InclusionsSection({ lang }) {
 
         {/* List */}
         <div className="space-y-4">
-          {notIncluded.map((item, index) => (
+          {data.notIncluded.map((item, index) => (
             <motion.div 
               key={index}
               initial={{ opacity: 0, x: 20 }}

@@ -4,44 +4,13 @@ import { Clock, ChevronDown } from 'lucide-react';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 
-export function TimelineSection({ lang }) {
+export function TimelineSection({ lang , data }) {
 
   const isAr = lang === "ar";
 
   const [expandedStep, setExpandedStep] = useState(null);
 
-  const timeline = [
-    {
-      time: isAr ? '6:00 م' : '6:00 PM',
-      title: isAr ? 'التجمع والانطلاق' : 'Gathering and Departure',
-      shortDesc: isAr ? 'لقاء المجموعة في نقطة التجمع المحددة' : 'Meeting the group at the designated gathering point',
-      fullDesc: isAr ? 'سيتم استقبالكم من قبل المرشد السياحي في ساحة الحرم المكي. سيتم التعارف وتوزيع السماعات اللاسلكية وشرح برنامج الرحلة بالتفصيل.' : 'You will be welcomed by the tour guide at the Grand Mosque square. Introduction and distribution of wireless headsets and detailed explanation of the trip program.'
-    },
-    {
-      time: isAr ? '7:00 م' : '7:00 PM',
-      title: isAr ? 'الوصول والجولة التعريفية' : 'Arrival and Introductory Tour',
-      shortDesc: isAr ? 'الدخول إلى المسجد الحرام وبداية الجولة' : 'Entering the Grand Mosque and starting the tour',
-      fullDesc: isAr ? 'جولة شاملة حول المسجد الحرام مع شرح تاريخي مفصل عن البناء والتوسعات عبر العصور. ستتعرف على أهم المعالم والأماكن المقدسة.' : 'A comprehensive tour around the Grand Mosque with a detailed historical explanation of the construction and expansions over the ages. You will learn about the most important landmarks and holy places.'
-    },
-    {
-      time: isAr ? '8:30 م' : '8:30 PM',
-      title: isAr ? 'التجربة التفاعلية' : 'Interactive Experience',
-      shortDesc: isAr ? 'الطواف والسعي مع الإرشاد الكامل' : 'Tawaf and Sa’i with full guidance',
-      fullDesc: isAr ? 'فرصة لأداء الطواف حول الكعبة المشرفة والسعي بين الصفا والمروة مع إرشادات روحانية وتاريخية. سيكون هناك وقت كافٍ للتأمل والدعاء.' : 'Opportunity to perform Tawaf around the Kaaba and Sa’i between Safa and Marwah with spiritual and historical guidance. There will be ample time for reflection and prayer.'
-    },
-    {
-      time: isAr ? '9:30 م' : '9:30 PM',
-      title: isAr ? 'استراحة وضيافة' : 'Break and Hospitality',
-      shortDesc: isAr ? 'استراحة قصيرة مع وجبة خفيفة' : 'Short break with a light meal',
-      fullDesc: isAr ? 'وقت للراحة وتناول وجبة خفيفة في أحد المطاعم القريبة من الحرم. فرصة للتعارف أكثر وتبادل الانطباعات.' : 'Time to rest and have a light meal at one of the restaurants near the mosque. An opportunity to get to know each other better and exchange impressions.'
-    },
-    {
-      time: isAr ? '10:30 م' : '10:30 PM',
-      title: isAr ? 'العودة والختام' : 'Return and Conclusion',
-      shortDesc: isAr ? 'جولة ختامية والعودة إلى نقطة الانطلاق' : 'Final tour and return to the starting point',
-      fullDesc: isAr ? 'جولة أخيرة لزيارة أي مواقع متبقية والتقاط الصور التذكارية، ثم العودة بأمان إلى نقطة الانطلاق أو الفندق.' : 'A final tour to visit any remaining sites and take souvenir photos, then safely return to the starting point or hotel.'
-    }
-  ];
+  
 
   return (
     <motion.div 
@@ -74,7 +43,7 @@ export function TimelineSection({ lang }) {
 
         {/* Timeline Items */}
         <div className="space-y-6">
-          {timeline.map((step, index) => (
+          {data.timeline.map((step, index) => (
             <motion.div 
               key={index}
               initial={{ opacity: 0, x: -30 }}
@@ -89,7 +58,7 @@ export function TimelineSection({ lang }) {
                   whileHover={{ scale: 1.1, rotate: 5 }}
                   className="flex-shrink-0 relative z-10"
                 >
-                  <div className="w-16 h-16 rounded-[18px] bg-gradient-to-br from-[#c9a463] to-[#b8914a] flex items-center justify-center shadow-md">
+                  <div className="w-20 h-20 rounded-[18px] bg-gradient-to-br from-[#c9a463] to-[#b8914a] flex items-center justify-center shadow-md ps-1">
                     <span className="text-[14px] leading-[1.3] text-white">{step.time}</span>
                   </div>
                 </motion.div>

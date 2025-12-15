@@ -6,9 +6,9 @@ import { motion } from "motion/react";
 import { ArrowRight, ArrowLeft  } from "lucide-react";
 import { BottomBar } from "./BottomBar";
 
-export function HeroWithInfo({ lang }) {
+export function HeroWithInfo({ lang , data }) {
 	const isAr = lang === "ar";
-
+	// console.log("data:", data);
 	return (
 		<>
 			<div className="container mx-auto px-8 py-4 flex items-center gap-1">
@@ -24,8 +24,8 @@ export function HeroWithInfo({ lang }) {
 				{/* Hero Image */}
 				<div className="absolute inset-0">
 					<img
-						src="/trip-detail/water-bottles.webp"
-						alt={isAr ? "جولة المسجد الحرام" : "Masjid al-Haram Tour"}
+						src={data.image}
+						alt={data.title}
 						className="w-full h-full object-cover"
 					/>
 				</div>
@@ -38,7 +38,7 @@ export function HeroWithInfo({ lang }) {
 						transition={{ duration: 0.6, delay: 0.3 }}
 						className="w-full max-w-2xl bg-white rounded-3xl p-4 shadow-[0px_6px_20px_rgba(0,0,0,0.06)] mb-8 mx-4"
 					>
-						<div className="flex flex-col md:flex-row items-center md:gap-12 gap-6">
+						<div className="flex flex-col md:flex-row justify-center items-start md:items-center gap-6">
 							{/* Duration */}
 							<motion.div
 								initial={{ opacity: 0, x: -20 }}
@@ -57,7 +57,7 @@ export function HeroWithInfo({ lang }) {
 										className="text-[18px] leading-[1.4] text-[#0f3d2e]"
 										
 									>
-										{isAr ? "6 ساعات" : "6 hours"}
+										{data.duration}
 									</p>
 								</div>
 							</motion.div>
@@ -83,7 +83,7 @@ export function HeroWithInfo({ lang }) {
 										className="text-[18px] leading-[1.4] text-[#0f3d2e]"
 										
 									>
-										{isAr ? "12 ضيف" : "12 guests"}
+										{data.capacity} 
 									</p>
 								</div>
 							</motion.div>
@@ -98,24 +98,25 @@ export function HeroWithInfo({ lang }) {
 								transition={{ duration: 0.5, delay: 0.7 }}
 								className="flex items-center gap-3"
 							>
-								<p className="text-[14px] leading-[1.5] text-gray-600">
-									{isAr ? "(512 تقييم)" : "(512 reviews)"}
-								</p>
 								<div className="flex items-center gap-2">
 									<Star className="w-7 h-7 fill-[#c9a463] text-[#c9a463]" />
 									<span
 										className="text-[26px] leading-[1.2] text-[#0f3d2e]"
 										
 									>
-										4.9
+										{data.rating}
 									</span>
 								</div>
+								<p className="text-[14px] leading-[1.5] text-gray-600">
+									{isAr ? `(${data.reviewCount} تقييم)` : `(${data.reviewCount} reviews)`}
+								</p>
+								
 							</motion.div>
 						</div>
 					</motion.div>
 				</div>
 			</div>
-			<BottomBar lang={lang} />
+			<BottomBar lang={lang}  data={data} />
 		</>
 	);
 }
