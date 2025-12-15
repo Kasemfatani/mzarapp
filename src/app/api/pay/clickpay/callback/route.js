@@ -96,7 +96,10 @@ function handleBrowserReturn(req) {
 	url.searchParams.set("status", "pending");
 
 	console.log("Redirecting browser to:", url.toString());
-	return NextResponse.redirect(url.toString());
+
+	// FIX: Use status 303 (See Other) to force the browser to use GET for the next request.
+	// Default is 307, which preserves the POST method and triggers CSRF errors on the success page.
+	return NextResponse.redirect(url.toString(), { status: 303 });
 }
 
 // Handles server-to-server notifications
