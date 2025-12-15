@@ -37,7 +37,11 @@ export async function POST(req) {
 		const profileId = process.env.CLICKPAY_PROFILE_ID;
 		const serverKey = process.env.CLICKPAY_SERVER_KEY;
 		const baseUrl = process.env.CLICKPAY_BASE_URL;
-		const appUrl = process.env.APP_URL || "http://localhost:3000";
+
+		// Use VERCEL_URL if available, otherwise APP_URL
+		const appUrl = process.env.VERCEL_URL
+			? `https://${process.env.VERCEL_URL}`
+			: process.env.APP_URL || "http://localhost:3000";
 
 		console.log("ClickPay environment variables:", {
 			profileId,

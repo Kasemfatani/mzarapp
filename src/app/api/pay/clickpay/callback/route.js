@@ -6,7 +6,37 @@ import { NextResponse } from "next/server";
  * so the success page can retrieve it.
  */
 async function handleServerCallback(req) {
-	const params = await req.json().catch(() => ({}));
+	let params = {};
+
+	// Try to parse as JSON first
+	try {
+		const contentType = req.headers.get("content-type") || "";
+
+		if (contentType.includes("application/json")) {
+			params = await req.json().catch(() => ({}));
+		} else if (contentType.includes("application/x-www-form-urlencoded")) {
+			// Parse form data
+			const formData = await req.formData().catch(() => null);
+			if (formData) {
+				params = Object.fromEntries(formData.entries());
+			}
+		} else {
+			// Try reading as text and parse
+			const text = await req.text().catch(() => "");
+			console.log("Raw callback body:", text);
+
+			// Try parsing as JSON
+			try {
+				params = JSON.parse(text);
+			} catch {
+				// Try parsing as URL-encoded
+				const urlParams = new URLSearchParams(text);
+				params = Object.fromEntries(urlParams.entries());
+			}
+		}
+	} catch (error) {
+		console.error("Error parsing callback body:", error);
+	}
 
 	console.log(
 		"ClickPay SERVER POST callback received:",
@@ -43,7 +73,9 @@ async function handleServerCallback(req) {
  */
 async function handleBrowserReturn(req) {
 	const { searchParams } = new URL(req.url);
-	const appBase = process.env.APP_URL || "http://localhost:3000";
+	const appBase = process.env.VERCEL_URL
+		? `https://${process.env.VERCEL_URL}`
+		: process.env.APP_URL || "http://localhost:3000";
 
 	// Get the success/fail paths from the callback URL
 	const successPath = searchParams.get("successPath") || "/book-tour-success";
@@ -53,12 +85,13 @@ async function handleBrowserReturn(req) {
 		"ClickPay GET callback (browser return) received with params:",
 		JSON.stringify(Object.fromEntries(searchParams), null, 2)
 	);
+	console.log("App base URL:", appBase);
 
 	// Since ClickPay doesn't send transaction details in the GET request,
 	// we redirect to the success page which will verify the payment
 	// using the cart_id from localStorage
 	const url = new URL(successPath, appBase);
-	url.searchParams.set("status", "pending"); // Changed from "success"
+	url.searchParams.set("status", "pending");
 
 	console.log("Redirecting to:", url.toString());
 	return NextResponse.redirect(url.toString());
