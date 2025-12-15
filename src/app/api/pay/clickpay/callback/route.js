@@ -42,9 +42,12 @@ async function handleServerCallback(req) {
 		return handleBrowserReturn(req);
 	}
 
-	const tranRef = params.tran_ref;
-	const cartId = params.cart_id;
-	const isSuccess = params?.payment_result?.response_status === "A";
+	// FIX: ClickPay uses camelCase field names in callbacks
+	const tranRef = params.tranRef || params.tran_ref;
+	const cartId = params.cartId || params.cart_id;
+	const respStatus =
+		params.respStatus || params?.payment_result?.response_status;
+	const isSuccess = respStatus === "A";
 
 	if (isSuccess) {
 		console.log(
