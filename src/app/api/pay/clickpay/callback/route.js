@@ -42,6 +42,18 @@ async function handleServerCallback(req) {
 		return handleBrowserReturn(req);
 	}
 
+	// FIX: Detect if this is a browser POST redirect
+	// ClickPay sends a POST request to the return URL with camelCase params (respStatus)
+	// The server-to-server callback uses snake_case params (payment_result)
+	// If it has 'respStatus' (camelCase) and NO 'payment_result', it's the browser redirect.
+	const isBrowserRedirect =
+		params.respStatus !== undefined && params.payment_result === undefined;
+
+	if (isBrowserRedirect) {
+		console.log("Detected browser POST redirect - redirecting to success page");
+		return handleBrowserReturn(req);
+	}
+
 	// FIX: ClickPay uses camelCase field names in callbacks
 	const tranRef = params.tranRef || params.tran_ref;
 	const cartId = params.cartId || params.cart_id;
