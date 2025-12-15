@@ -4,26 +4,21 @@ import Image from "next/image";
 import Link from "next/link";
 
 const stationImg = "/haram/station-img.png"; 
-const station1 = "/haram/station-1-new.webp"; 
+const station1 = "/haram/station-1.webp"; 
 const station2 = "/haram/station-2-new.webp";
 const station3 = "/haram/station-3-new.webp";
 const station4 = "/haram/station-4-new.webp";
 
 const stationsData = {
 	ar: [
+		
 		{
-			title: "المحطة الأولى : معرض أول بيت",
-			img: station1,
-			desc: "معرض يحكي قصة بناء الكعبة المشرفة",
-			items: ["معرض المسجد الحرام"],
-		},
-		{
-			title: "المحطة الثانية : عمارة المسجد الحرام ",
+			title: "المحطة الأولى : عمارة المسجد الحرام ",
 			img: station2,
 			items: ["الساحات.", "المنارات.", "الأبواب.", "عمارة المسجد الحرام."],
 		},
 		{
-			title: "المحطة الثالثة : الكعبة المشرفة",
+			title: "المحطة الثانية : الكعبة المشرفة",
 			img: station3,
 			items: [
 				"الكعبة المشرفة.",
@@ -33,20 +28,21 @@ const stationsData = {
 			],
 		},
 		{
-			title: "المحطة الرابعة : الصفا والمروة",
+			title: "المحطة الثالثة : الصفا والمروة",
 			img: station4,
 			items: ["الصفا.", "المروة.", "باب السلام."],
 		},
+		{
+			title: "المحطة الرابعة : باب السلام",
+			img: station1,
+			desc: "أبواب النبي صلى الله عليه وسلم",
+			items: [],
+		},
 	],
 	en: [
+		
 		{
-			title: "1st Station: The First House Exhibition",
-			img: station1,
-			desc: "An exhibition that tells the story of the construction of the Holy Kaaba",
-			items: ["Masjid al-Haram Exhibition"],
-		},
-		{
-			title: "2nd Station: The Architecture of Al-Masjid Al-Haram",
+			title: "1st Station: The Architecture of Al-Masjid Al-Haram",
 			img: station2,
 			items: [
 				"Courtyards.",
@@ -56,7 +52,7 @@ const stationsData = {
 			],
 		},
 		{
-			title: "3rd Station: The Holy Kaaba",
+			title: "2nd Station: The Holy Kaaba",
 			img: station3,
 			items: [
 				"The Kaaba.",
@@ -66,9 +62,15 @@ const stationsData = {
 			],
 		},
 		{
-			title: "4th Station: Al-Safa and Al-Marwa",
+			title: "3rd Station: Al-Safa and Al-Marwa",
 			img: station4,
 			items: ["Safa.", "Marwa.", "Bab Al-Salam."],
+		},
+		{
+			title: "4th Station: Bab Al-Salam",
+			img: station1,
+			desc: "The Prophet's (PBUH) Gates",
+			items: [""],
 		},
 	],
 };

@@ -25,7 +25,7 @@ export default function DownloadAppSection({ initialLang }) {
 			{/* <div className="absolute inset-0 bg-white/60"></div> */}
 			<div className="relative z-10 container m-auto flex flex-col md:flex-row items-center justify-between py-10 gap-8">
 				{/* Left: Text & Buttons */}
-				<div className="flex-1 flex flex-col items-center md:items-start gap-6 max-w-2xl">
+				<div className=" flex flex-col items-center md:items-start gap-6 max-w-2xl">
 					<h2 className="text-4xl font-bold text-black leading-tight">
 						{isAr
 							? "احجز مكانك الآن وابدأ رحلتك."
@@ -38,11 +38,11 @@ export default function DownloadAppSection({ initialLang }) {
 							<img src="/haram/clock.png" alt="clock" className="w-5" />
 							{isAr ? "المدة: 90 دقيقة" : "Duration: 90 min"}
 						</div>
-						<div className="px-6 py-4 rounded-lg bg-[#8B7B5A] text-white font-semibold text-sm flex  gap-2">
+						<div className="px-6 py-4 rounded-lg bg-[#8B7B5A] text-white font-semibold text-sm flex  gap-2 ">
 							<img src="/haram/price-tag.png" alt="price-tag" className="w-5" />
 							{isAr
-								? "السعر: يبدأ من 499 ريال ل 5 أشخاص"
-								: "Starts from: 499 SAR for 5 people"}
+								? "السعر: يبدأ من 199 ريال للشخص (حد أدنى 4 أشخاص)"
+								: "Starts from: 199 SAR per person (minimum 4 people)"}
 						</div>
 						<div className="px-6 py-4 rounded-lg bg-[#8B7B5A] text-white font-semibold text-sm flex  gap-2">
 							<img src="/haram/calendar.png" alt="calendar" className="w-5" />
@@ -55,12 +55,11 @@ export default function DownloadAppSection({ initialLang }) {
 					{/* Download button + WhatsApp link */}
 					<div className="flex flex-col md:flex-row items-center gap-3 mt-2 w-full">
 						<Link
-							href="https://onelink.to/yb2xky"
+							href="/book-haram"
 							className="inline-block"
-							target="_blank"
 						>
 							<span className="inline-block bg-[var(--main-color)] text-white hover:bg-[var(--sec-color)] hover:text-black px-6 py-3  font-semibold rounded-lg">
-								{isAr ? "احجز الآن باستخدام التطبيق" : "Book Now Using The App"}
+								{isAr ? "احجز الآن" : "Book Now "}
 							</span>
 						</Link>
 
