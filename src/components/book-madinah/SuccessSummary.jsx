@@ -26,7 +26,7 @@ const messages = {
 		paymentOk: "Payment received",
 		finalizeFailedTitle: "We couldn’t finalize your booking",
 		finalizeFailedDesc:
-			"Your payment was successful, but there was a problem finalizing your booking. Please save the transaction ID below and contact our support team.",
+			"there was a problem . Please save the transaction ID below and contact our support team.",
 		transactionId: "Transaction ID",
 		takeScreenshot: "Tip: Take a screenshot of this page.",
 		contactSupport: "Contact support",
@@ -51,7 +51,7 @@ const messages = {
 		paymentOk: "تم استلام الدفع",
 		finalizeFailedTitle: "تعذر إكمال الحجز",
 		finalizeFailedDesc:
-			"تمت عملية الدفع بنجاح، لكن حدثت مشكلة عند إتمام الحجز. يرجى حفظ رقم العملية أدناه والتواصل مع فريق الدعم.",
+			"حدثت مشكلة . يرجى حفظ رقم العملية أدناه والتواصل مع فريق الدعم",
 		transactionId: "رقم العملية",
 		takeScreenshot: "معلومة: التقط لقطة شاشة لهذه الصفحة.",
 		contactSupport: "تواصل مع الدعم",
@@ -107,7 +107,7 @@ export default function SuccessSummary({ initialLang = "en" }) {
 
 			const cartId = sel?.process_id;
 
-			if (!cartId) {
+			if (!cartId && status !== "failed") {
 				toast.error(
 					lang === "ar"
 						? "لم يتم العثور على بيانات الحجز"
@@ -117,7 +117,7 @@ export default function SuccessSummary({ initialLang = "en" }) {
 				return;
 			}
 
-			// If status is pending, query ClickPay by cart_id to get tran_ref
+			// If status is pending, query ClickPay by cart_id to get tran_ref (or failed info)
 			if (status === "pending") {
 				// small delay for server callback to arrive
 				await new Promise((r) => setTimeout(r, 2000));
@@ -127,20 +127,29 @@ export default function SuccessSummary({ initialLang = "en" }) {
 						headers: { "Content-Type": "application/json" },
 						body: JSON.stringify({ cart_id: cartId }),
 					});
+
+					const verifyData = await verifyRes.json().catch(() => ({}));
+
 					if (!verifyRes.ok) {
-						const err = await verifyRes.json().catch(() => ({}));
-						throw new Error(err.message || "Payment verification failed");
+						throw new Error(
+							verifyData.message || "Payment verification failed"
+						);
 					}
-					const verifyData = await verifyRes.json();
+
 					const tranRef = verifyData?.data?.tran_ref;
 					if (!tranRef) throw new Error("Transaction reference not found");
+
 					setTranId(tranRef);
-					// update url to success state so UI shows success
+
+					// set URL status based on verification result so effect can handle it
 					const newUrl = new URL(window.location.href);
-					newUrl.searchParams.set("status", "success");
+					newUrl.searchParams.set(
+						"status",
+						verifyData?.status === "success" ? "success" : "failed"
+					);
 					newUrl.searchParams.set("tranRef", tranRef);
 					window.history.replaceState({}, "", newUrl.toString());
-					return; // will re-run effect because tranId changed
+					return; // will re-run effect because tranId / status changed
 				} catch (err) {
 					console.error("Payment verification error:", err);
 					toast.error(
@@ -168,7 +177,19 @@ export default function SuccessSummary({ initialLang = "en" }) {
 				}
 			}
 
-			// Only proceed when tranId is available
+			// If status indicates failure, show fallback UI with tran id (do NOT attempt finalization)
+			if (status === "failed") {
+				const finalTran = urlTran || tranId;
+				if (finalTran && finalTran !== tranId) {
+					setTranId(finalTran);
+				}
+				// Payment rejected — show fallback UI with tranId and don't finalize booking
+				setFinalizeError(true);
+				setSubmitting(false);
+				return;
+			}
+
+			// Only proceed when tranId is available (and status is success)
 			if (!tranId) {
 				// waiting for verification to complete
 				return;
@@ -282,13 +303,20 @@ export default function SuccessSummary({ initialLang = "en" }) {
 	return (
 		<section className="container mx-auto px-6 md:px-20 my-12">
 			<div className="flex flex-col items-center text-center">
-				<div className="size-28 md:size-32 rounded-full bg-emerald-100 flex items-center justify-center mb-6">
-					<CheckCircle2 className="text-emerald-600" size={56} />
-				</div>
-
 				{/* If booking finalized */}
 				{!finalizeError ? (
 					<>
+						<div
+							className={cn(
+								"size-28 md:size-32 rounded-full flex items-center justify-center mb-6",
+								!finalizeError ? "bg-emerald-100" : "bg-red-100"
+							)}
+						>
+							<CheckCircle2
+								className={!finalizeError ? "text-emerald-600" : "text-red-600"}
+								size={56}
+							/>
+						</div>
 						<h1 className="text-2xl md:text-3xl font-extrabold mb-3">
 							{t.title}
 						</h1>
@@ -332,9 +360,6 @@ export default function SuccessSummary({ initialLang = "en" }) {
 				) : (
 					// Fallback UI: payment ok, booking not finalized
 					<>
-						<h1 className="text-2xl md:text-3xl font-extrabold mb-2">
-							{t.paymentOk}
-						</h1>
 						<h2 className="text-xl md:text-2xl font-semibold text-red-600 mb-4">
 							{t.finalizeFailedTitle}
 						</h2>
@@ -361,14 +386,14 @@ export default function SuccessSummary({ initialLang = "en" }) {
 						{/* Show trip_id, customer_id, process_id */}
 
 						<div className="flex flex-col gap-2 mb-4">
-							{selection.trip_id ? (
+							{selection?.trip_id ? (
 								<div>
 									<strong>Trip ID:</strong>{" "}
 									<span className="font-mono">{selection?.trip_id || "—"}</span>
 								</div>
 							) : null}
 
-							{selection.customer_id ? (
+							{selection?.customer_id ? (
 								<div>
 									<strong>Customer ID:</strong>{" "}
 									<span className="font-mono">
@@ -377,7 +402,7 @@ export default function SuccessSummary({ initialLang = "en" }) {
 								</div>
 							) : null}
 
-							{selection.process_id ? (
+							{selection?.process_id ? (
 								<div>
 									<strong>Process ID:</strong>{" "}
 									<span className="font-mono">

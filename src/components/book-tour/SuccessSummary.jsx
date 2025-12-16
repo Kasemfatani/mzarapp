@@ -85,6 +85,15 @@ export default function SuccessSummary({ initialLang = "en" }) {
 
 			const params = new URLSearchParams(window.location.search);
 			const status = params.get("status");
+			const urlTran =
+				params.get("tranRef") ||
+				params.get("tranid") ||
+				params.get("TranId") ||
+				params.get("trackId") ||
+				params.get("trackid") ||
+				"";
+
+			setTranId((prev) => (prev || urlTran ? urlTran || prev : prev));
 
 			// Read selection from localStorage to get process_id (cart_id)
 			let sel;
@@ -97,7 +106,7 @@ export default function SuccessSummary({ initialLang = "en" }) {
 
 			const cartId = sel?.process_id;
 
-			if (!cartId) {
+			if (!cartId && status !== "failed") {
 				toast.error(
 					lang === "ar"
 						? "لم يتم العثور على بيانات الحجز"
@@ -122,30 +131,33 @@ export default function SuccessSummary({ initialLang = "en" }) {
 						body: JSON.stringify({ cart_id: cartId }),
 					});
 
+					const verifyData = await verifyRes.json().catch(() => ({}));
+
 					if (!verifyRes.ok) {
-						const errorJson = await verifyRes.json().catch(() => ({}));
 						throw new Error(
-							errorJson.message || "Payment verification failed."
+							verifyData.message || "Payment verification failed."
 						);
 					}
 
-					const verifyData = await verifyRes.json();
 					const tranRef = verifyData?.data?.tran_ref;
 
 					if (!tranRef) {
 						throw new Error("Transaction reference not found");
 					}
 
-					console.log("Payment verified successfully, tranRef:", tranRef);
+					console.log("Payment verified, tranRef:", tranRef);
 					setTranId(tranRef);
 
-					// Update URL to show success
+					// Update URL to show final status
 					const newUrl = new URL(window.location.href);
-					newUrl.searchParams.set("status", "success");
+					newUrl.searchParams.set(
+						"status",
+						verifyData?.status === "success" ? "success" : "failed"
+					);
 					newUrl.searchParams.set("tranRef", tranRef);
 					window.history.replaceState({}, "", newUrl.toString());
 
-					// The useEffect will re-run due to tranId change
+					// The useEffect will re-run due to tranId/status change
 					return;
 				} catch (verificationError) {
 					console.error("Payment verification error:", verificationError);
@@ -159,25 +171,28 @@ export default function SuccessSummary({ initialLang = "en" }) {
 					return;
 				}
 			} else if (status === "success") {
-				// Direct success (shouldn't happen with new flow, but keep for compatibility)
-				const tranRef = params.get("tranRef") || params.get("tranid") || "";
-				console.log("Payment success with tranRef from URL:", tranRef);
-
-				if (!tranRef) {
+				const finalTran = urlTran || tranId;
+				if (!finalTran) {
 					setFinalizeError(true);
 					setSubmitting(false);
 					return;
 				}
-
-				// Only set if different to avoid infinite loop
-				if (tranRef !== tranId) {
-					setTranId(tranRef);
+				if (finalTran !== tranId) {
+					setTranId(finalTran);
 					return; // Will re-run when tranId updates
 				}
+			} else if (status === "failed") {
+				const finalTran = urlTran || tranId;
+				if (finalTran && finalTran !== tranId) {
+					setTranId(finalTran);
+				}
+				setFinalizeError(true);
+				setSubmitting(false);
+				return;
 			} else {
-				// Failed or missing status
+				// Fallback for any other invalid status
 				toast.error(
-					lang === "ar" ? "فشلت عملية الدفع" : "Payment was not successful"
+					lang === "ar" ? "حالة دفع غير صالحة" : "Invalid payment status"
 				);
 				window.location.replace("/book-tour");
 				return;
@@ -299,13 +314,20 @@ export default function SuccessSummary({ initialLang = "en" }) {
 	return (
 		<section className="container mx-auto px-6 md:px-20 my-12">
 			<div className="flex flex-col items-center text-center">
-				<div className="size-28 md:size-32 rounded-full bg-emerald-100 flex items-center justify-center mb-6">
-					<CheckCircle2 className="text-emerald-600" size={56} />
-				</div>
-
 				{/* If booking finalized */}
 				{!finalizeError ? (
 					<>
+						<div
+							className={cn(
+								"size-28 md:size-32 rounded-full flex items-center justify-center mb-6",
+								!finalizeError ? "bg-emerald-100" : "bg-red-100"
+							)}
+						>
+							<CheckCircle2
+								className={!finalizeError ? "text-emerald-600" : "text-red-600"}
+								size={56}
+							/>
+						</div>
 						<h1 className="text-2xl md:text-3xl font-extrabold mb-3">
 							{t.title}
 						</h1>
@@ -349,9 +371,6 @@ export default function SuccessSummary({ initialLang = "en" }) {
 				) : (
 					// Fallback UI: payment ok, booking not finalized
 					<>
-						<h1 className="text-2xl md:text-3xl font-extrabold mb-2">
-							{t.paymentOk}
-						</h1>
 						<h2 className="text-xl md:text-2xl font-semibold text-red-600 mb-4">
 							{t.finalizeFailedTitle}
 						</h2>
@@ -374,7 +393,7 @@ export default function SuccessSummary({ initialLang = "en" }) {
 								</button>
 							) : null}
 						</div>
-						<div className="text-gray-500 mb-8">{t.takeScreenshot}</div>
+						<div className="text-red-500 mb-8">{t.takeScreenshot}</div>
 
 						{/* Support CTAs */}
 						<div className="w-full flex flex-col md:flex-row gap-3 justify-center mb-10">
@@ -393,11 +412,11 @@ export default function SuccessSummary({ initialLang = "en" }) {
 								{t.whatsappUs} (+966580121025)
 							</a>
 							{/* <a
-								href={emailHref}
-								className="inline-flex items-center justify-center h-11 px-5 rounded-lg border border-gray-300 hover:bg-gray-100 transition-colors"
-							>
-								{t.emailUs} (contact@mzarapp.com)
-							</a> */}
+                                href={emailHref}
+                                className="inline-flex items-center justify-center h-11 px-5 rounded-lg border border-gray-300 hover:bg-gray-100 transition-colors"
+                            >
+                                {t.emailUs} (contact@mzarapp.com)
+                            </a> */}
 						</div>
 
 						{/* Show date/time we know to help support */}
