@@ -451,6 +451,7 @@ export default function PersonalInfoStep({
 						<div className={cn(colBase, "md:border-x md:border-dotted")}>
 							<div className="grid gap-4">
 								<FormField
+								
 									control={form.control}
 									name="name"
 									render={({ field }) => (
