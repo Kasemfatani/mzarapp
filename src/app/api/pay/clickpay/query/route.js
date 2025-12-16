@@ -86,7 +86,7 @@ export async function POST(req) {
 						data?.payment_result?.response_message || "Payment not successful",
 					data,
 				},
-				{ status: 402 }
+				{ status: 200 }
 			);
 		}
 

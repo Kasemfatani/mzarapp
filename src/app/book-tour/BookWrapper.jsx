@@ -15,10 +15,14 @@ export default function BookTourPage() {
 	// how many seats left  from API
 	const [leftSeats, setLeftSeats] = useState(null);
 	
+	
 
 	// API data + loading
 	const [busData, setBusData] = useState(null);
 	const [loading, setLoading] = useState(true);
+
+	// NEW: access control via ?page=100
+    const [hasAccess, setHasAccess] = useState(null);
 
 	// Read language from localStorage (client)
 	useEffect(() => {
@@ -27,6 +31,17 @@ export default function BookTourPage() {
 			setLang(storedLang === "ar" ? "ar" : "en");
 		}
 	}, []);
+
+
+	 // NEW: check URL param access on mount
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+            const params = new URLSearchParams(window.location.search);
+            setHasAccess(params.get("page") === "100");
+        } else {
+            setHasAccess(false);
+        }
+    }, []);
 
 	// Fetch bus booking data when lang is known
 	useEffect(() => {
@@ -75,6 +90,23 @@ export default function BookTourPage() {
 		}
 		if (lang) getQueryParams();
 	}, [lang]);
+
+	// show access denied before any loading UI
+    if (hasAccess === false) {
+        return (
+            <div className="flex flex-col items-center justify-center min-h-[60vh] bg-white">
+                <div className="text-5xl mb-6 text-gray-400">❌</div>
+                <h2 className="text-2xl font-bold text-gray-800 mb-2 text-center">
+                    {lang === "ar" ? "الخدمة غير متوفرة حالياً" : "Service Not Available"}
+                </h2>
+                <p className="text-gray-600 text-center mb-4">
+                    {lang === "ar"
+                        ? "نعتذر، هذه الخدمة غير متوفرة حالياً. يرجى المحاولة لاحقاً أو التواصل معنا للمزيد من المعلومات."
+                        : "Sorry, this service is currently not available. Please try again later or contact us for more information."}
+                </p>
+            </div>
+        );
+    }
 
 	if (loading) return <Loading />;
 
