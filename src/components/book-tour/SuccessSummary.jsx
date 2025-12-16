@@ -85,26 +85,8 @@ export default function SuccessSummary({ initialLang = "en" }) {
 
 			const params = new URLSearchParams(window.location.search);
 			const status = params.get("status");
-			const tranid =
-				params.get("tranid") ||
-				params.get("TranId") ||
-				params.get("trackId") ||
-				params.get("trackid") ||
-				"";
 
-			// Persist tran id for UI
-			setTranId(tranid);
-
-			if (status !== "success" || !tranid) {
-				toast.error(
-					lang === "ar" ? "فشلت عملية الدفع" : "Payment was not successful"
-				);
-				// Keep behavior: go back to booking if payment didn't succeed
-				window.location.replace("/book-tour");
-				return;
-			}
-
-			// Read selection from localStorage
+			// Read selection from localStorage to get process_id (cart_id)
 			let sel;
 			try {
 				sel = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
@@ -113,8 +95,99 @@ export default function SuccessSummary({ initialLang = "en" }) {
 			}
 			setSelection(sel || null);
 
-			// Clear localStorage to prevent resubmission on refresh
-			// localStorage.removeItem(STORAGE_KEY);
+			const cartId = sel?.process_id;
+
+			if (!cartId) {
+				toast.error(
+					lang === "ar"
+						? "لم يتم العثور على بيانات الحجز"
+						: "Booking data not found"
+				);
+				window.location.replace("/book-tour");
+				return;
+			}
+
+			// If status is pending, we need to verify with ClickPay
+			if (status === "pending") {
+				console.log("Payment pending, querying ClickPay for cart_id:", cartId);
+
+				// Wait a moment for the server callback to arrive
+				await new Promise((resolve) => setTimeout(resolve, 2000));
+
+				try {
+					// Query ClickPay using the cart_id
+					const verifyRes = await fetch("/api/pay/clickpay/query", {
+						method: "POST",
+						headers: { "Content-Type": "application/json" },
+						body: JSON.stringify({ cart_id: cartId }),
+					});
+
+					if (!verifyRes.ok) {
+						const errorJson = await verifyRes.json().catch(() => ({}));
+						throw new Error(
+							errorJson.message || "Payment verification failed."
+						);
+					}
+
+					const verifyData = await verifyRes.json();
+					const tranRef = verifyData?.data?.tran_ref;
+
+					if (!tranRef) {
+						throw new Error("Transaction reference not found");
+					}
+
+					console.log("Payment verified successfully, tranRef:", tranRef);
+					setTranId(tranRef);
+
+					// Update URL to show success
+					const newUrl = new URL(window.location.href);
+					newUrl.searchParams.set("status", "success");
+					newUrl.searchParams.set("tranRef", tranRef);
+					window.history.replaceState({}, "", newUrl.toString());
+
+					// The useEffect will re-run due to tranId change
+					return;
+				} catch (verificationError) {
+					console.error("Payment verification error:", verificationError);
+					toast.error(
+						lang === "ar"
+							? "فشل التحقق من الدفع. يرجى الاتصال بالدعم."
+							: "Payment verification failed. Please contact support."
+					);
+					setFinalizeError(true);
+					setSubmitting(false);
+					return;
+				}
+			} else if (status === "success") {
+				// Direct success (shouldn't happen with new flow, but keep for compatibility)
+				const tranRef = params.get("tranRef") || params.get("tranid") || "";
+				console.log("Payment success with tranRef from URL:", tranRef);
+
+				if (!tranRef) {
+					setFinalizeError(true);
+					setSubmitting(false);
+					return;
+				}
+
+				// Only set if different to avoid infinite loop
+				if (tranRef !== tranId) {
+					setTranId(tranRef);
+					return; // Will re-run when tranId updates
+				}
+			} else {
+				// Failed or missing status
+				toast.error(
+					lang === "ar" ? "فشلت عملية الدفع" : "Payment was not successful"
+				);
+				window.location.replace("/book-tour");
+				return;
+			}
+
+			// Only proceed with booking finalization if we have a tranId
+			if (!tranId) {
+				console.log("Waiting for tranId to be set...");
+				return;
+			}
 
 			if (
 				!sel ||
@@ -124,7 +197,6 @@ export default function SuccessSummary({ initialLang = "en" }) {
 				!sel.process_id ||
 				!sel.trip_id
 			) {
-				// Payment is ok, but we lack data to create booking
 				setFinalizeError(true);
 				setSubmitting(false);
 				return;
@@ -139,8 +211,9 @@ export default function SuccessSummary({ initialLang = "en" }) {
 				trip_id: sel.trip_id,
 				customer_id: sel.customer_id,
 				process_id: sel.process_id,
-				transaction_id: tranid,
+				transaction_id: tranId,
 			};
+			console.log("Finalizing booking with payload:", payload);
 
 			try {
 				const res = await fetch(
@@ -156,6 +229,7 @@ export default function SuccessSummary({ initialLang = "en" }) {
 					}
 				);
 				const json = await res.json().catch(() => ({}));
+				console.log("bus-booking-create response:", json);
 				if (!res.ok || !json.status) {
 					toast.error(
 						(lang === "ar"
@@ -167,6 +241,7 @@ export default function SuccessSummary({ initialLang = "en" }) {
 					setSubmitting(false);
 					return;
 				}
+				console.log("Booking finalized successfully");
 				// If API returns a reference number, capture it
 				const refNo = json?.data?.ref_no || "";
 				if (refNo) setBookingNo(refNo);
@@ -174,21 +249,11 @@ export default function SuccessSummary({ initialLang = "en" }) {
 				setSubmitting(false);
 			} catch (e) {
 				console.error("bus-booking-create error", e);
-				// Don't redirect; show graceful fallback instead
 				setFinalizeError(true);
 				setSubmitting(false);
-				// Optional gentle toast confirming payment and guiding next step
-				// toast.success(
-				// 	lang === "ar" ? "تم الدفع بنجاح" : "Payment successful"
-				// );
-				// toast.warning(
-				// 	lang === "ar"
-				// 		? "حدثت مشكلة أثناء إتمام الحجز. يُرجى التواصل مع الدعم."
-				// 		: "We couldn’t finalize your booking. Please contact support."
-				// );
 			}
 		})();
-	}, [lang]);
+	}, [lang, tranId]); // Added tranId to dependency array
 
 	const handleCopy = async () => {
 		try {

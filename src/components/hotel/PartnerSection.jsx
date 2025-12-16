@@ -3,6 +3,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 
+
 export default function PartnerSection({
 	lang = "en",
 	hotelName = "(الاسم)",
@@ -13,7 +14,7 @@ export default function PartnerSection({
 
 	// Texts (adjust as needed)
 	const heading = isAr
-		? `عن الشراكة بين مزار وفندق ${hotelName}`
+		? `عن الشراكة بين مزار و ${hotelName}`
 		: `About the partnership between Mzar and ${hotelName}`;
 	const paragraph1 = isAr
 		? `الشراكة بين ${hotelName} ومزار لتقديم تجربة معرفية استثنائية لزوار ${hotelName}، تجمع بين الراحة الفندقية والرحلة الثقافية.`
@@ -30,7 +31,7 @@ export default function PartnerSection({
 	const useInApp = isAr ? "استخدمه داخل تطبيق مزار" : "Use it in Mazar app";
 
 	const copyCode = isAr ? "انسخ الكود" : "Copy the code";
-
+	
 	return (
 		<>
 			<section className={`bg-[url(/landmark/whatLandMark-bg.webp)] container mx-auto px-4 py-12 md:py-20 `}>

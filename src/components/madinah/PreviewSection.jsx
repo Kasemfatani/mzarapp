@@ -101,12 +101,12 @@ export default function PreviewSection({ initialLang }) {
 				{/* Button */}
 				<div className="flex justify-center">
 					<Link
-						href="https://onelink.to/yb2xky"
-						target="_blank"
+						href="/book-madinah"
+						
 						className="inline-block"
 					>
 						<span className="inline-block bg-[var(--main-color)] text-white hover:bg-[var(--sec-color)] hover:text-black px-16 md:px-24 py-3 font-semibold rounded-lg">
-							{isAr ? "جرّب تطبيق مزار الآن" : "Try Mzar App Now"}
+							{isAr ?  "احجز الآن" : "Book Now"}
 						</span>
 					</Link>
 				</div>

@@ -346,7 +346,7 @@ export default function PersonalInfoStep({
 			};
 			localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedSelection));
 
-			// Calculate final total for URWAY payment
+			// Calculate final total for ClickPay payment
 			const peopleCount = Number(info.people || 1);
 			const base = start_price * peopleCount;
 			const discountAmount = promoApplied
@@ -356,24 +356,33 @@ export default function PersonalInfoStep({
 			const tax = baseAfterDiscount * tax_amount;
 			const totalSar = Number((baseAfterDiscount + tax).toFixed(2));
 
-			const urwayRes = await fetch("/api/pay/urway/init", {
+			// Use the process_id as the unique cart_id for the transaction
+			const cartId = process_id;
+
+			// Initiate ClickPay hosted payment
+			const clickpayRes = await fetch("/api/pay/clickpay/init", {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify({
 					amount: totalSar,
 					lang,
-					flow: "bus",
+					cart_id: String(cartId),
+					customer_details: {
+						name: info.name,
+						email: info.email,
+						whatsapp: info.whatsapp_country_code + info.whatsapp,
+					},
 					successPath: "/book-haram-success",
 					failPath: "/book-haram",
 				}),
 			});
-			const urwayJson = await urwayRes.json();
-			if (!urwayRes.ok || !urwayJson?.paymentUrl) {
-				throw new Error(urwayJson?.error || "Failed to start payment");
+			const clickpayJson = await clickpayRes.json();
+			if (!clickpayRes.ok || !clickpayJson?.paymentUrl) {
+				throw new Error(clickpayJson?.error || "Failed to start payment");
 			}
-			window.location.href = urwayJson.paymentUrl;
+			window.location.href = clickpayJson.paymentUrl;
 		} catch (e) {
-			console.error("Booking or URWAY error", e);
+			console.error("Booking or ClickPay error", e);
 			toast.error(
 				lang === "ar"
 					? "فشل إرسال المعلومات أو بدء الدفع"
