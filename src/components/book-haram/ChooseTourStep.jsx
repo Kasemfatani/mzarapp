@@ -19,7 +19,7 @@ import { cn } from "@/lib/utils";
 import StepsTimeline from "./StepsTimeline";
 import { API_BASE_URL_NEW } from "@/lib/apiConfig";
 
-const STORAGE_KEY = "haramTour.selection";
+const STORAGE_KEY = "haramainTour.selection";
 
 const messages = {
 	en: {

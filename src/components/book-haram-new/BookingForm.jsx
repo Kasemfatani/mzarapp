@@ -41,12 +41,13 @@ export function BookingForm({
 	busId,
 	leftSeats,
 	setLeftSeats,
+	minSeats = 1,
 }) {
 	const isAr = lang === "ar";
 	const today = startOfToday();
 	const tomorrow = addDays(today, 1);
 	const maxDate = addDays(today, 14);
-
+	console.log("minSeats in BookingForm:", minSeats);
 	return (
 		<div className="bg-white rounded-[20px] shadow-[0px_20px_25px_-5px_rgba(0,0,0,0.1)] border-[0.8px] border-[rgba(243,244,246,0.6)] w-full">
 			<div className="p-8 flex flex-col gap-6">
@@ -140,7 +141,7 @@ export function BookingForm({
 						</div>
 
 						{/* Meeting Point Selection */}
-						<div className="flex flex-col gap-2">
+						{/* <div className="flex flex-col gap-2">
 							<div className="flex items-center gap-3">
 								<MapPin className="w-6 h-6 text-[#867957]" strokeWidth={1.33} />
 								<p className="text-[#364153]">اختيار نقطة التجمع الأقرب</p>
@@ -195,7 +196,7 @@ export function BookingForm({
 									</FormItem>
 								)}
 							/>
-						</div>
+						</div> */}
 
 						{/* People Counter + Available seats pill */}
 						<div className="flex flex-col gap-1 my-2">
@@ -220,17 +221,23 @@ export function BookingForm({
 												<button
 													type="button"
 													onClick={() =>
-														field.onChange(Math.max(1, (field.value || 1) - 1))
+														field.onChange(
+															Math.max(minSeats, (field.value || minSeats) - 1)
+														)
 													}
-													disabled={(field.value || 1) <= 1}
+													disabled={(field.value || minSeats) <= minSeats}
 													className={`w-16 h-16 rounded-[16px] flex items-center justify-center ${
-														(field.value || 1) <= 1 ? "opacity-30" : ""
+														(field.value || minSeats) <= minSeats
+															? "opacity-30"
+															: ""
 													}`}
 												>
 													<div className="w-6 h-0.5 bg-[#3C6652]" />
 												</button>
 												<div className="flex-1 h-[54.4px] bg-gradient-to-r from-[rgba(231,211,175,0.3)] to-[rgba(231,211,175,0.2)] border-[1.6px] border-[rgba(231,211,175,0.6)] rounded-[18px] flex flex-col items-center justify-center">
-													<p className="text-[#3c6652]">{field.value || 1}</p>
+													<p className="text-[#3c6652]">
+														{field.value || minSeats}
+													</p>
 													<p className="text-[#4a5565]">شخص</p>
 												</div>
 												<button
@@ -241,18 +248,18 @@ export function BookingForm({
 																typeof leftSeats === "number"
 																	? leftSeats
 																	: Infinity,
-																(field.value || 1) + 1
+																(field.value || minSeats) + 1
 															)
 														)
 													}
 													disabled={
 														typeof leftSeats === "number"
-															? (field.value || 1) >= leftSeats
+															? (field.value || minSeats) >= leftSeats
 															: false
 													}
 													className={`w-16 h-16 rounded-[16px] flex items-center justify-center ${
 														typeof leftSeats === "number" &&
-														(field.value || 1) >= leftSeats
+														(field.value || minSeats) >= leftSeats
 															? "opacity-30"
 															: ""
 													}`}
