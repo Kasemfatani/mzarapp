@@ -1,18 +1,17 @@
-
-export default function getMashair(isAr) {
+export default function getTuwa(isAr) {
 	return {
-		id: 45,
+		id: 47,
 		title: isAr
-			? "تجربة زيارة المشاعر المقدسة"
-			: "Experience Visiting the Holy Sites",
+			? "تجربة زيارة معالم وادي ذي طوى"
+			: "Experience the Visit to the Landmarks of Wadi Dhi Tuwa ",
 		description: isAr
-			? "مسار المشاعر رحلة إيمانية تاريخية عبر المشاعر المقدسة ابتداءً من عرفات مروراً بمزدلفة ومن ثم منى وانتهاءً بجبل النور وحي حراء الثقافي. "
-			: "The Holy Sites Path is a spiritual and historical journey through the holy sites starting from Arafat, passing through Muzdalifah, then Mina, and ending at Jabal al-Noor and the cultural district of Hira.",
+			? "مسار طوى رحلة إيمانية تاريخية، نتنقل فيها بين أبرز المعالم النبوية والتاريخية في مكة المكرمة. "
+			: "Tuwa Tour ــ a spiritual and historical journey that takes you through some of the most significant Prophetic and historical sites in Makkah Al-Mukarramah.",
 		image: "/trip-detail/water-bottles.webp",
 		capacity: 45,
 		duration: isAr ? "4 ساعات" : "4 hours",
 		rating: 4.7,
-		reviewCount: 512,
+		reviewCount: 412,
 		price: 89,
 		availability: isAr ? "متاحة يومياً" : "Available daily",
 		times: isAr ? " 6:00 ص - 5:00 م" : " 6:00 AM - 5:00 PM",
@@ -63,22 +62,26 @@ export default function getMashair(isAr) {
 		],
 		about: {
 			desc: isAr
-				? "نأخذكم في رحلة إيمانية تاريخية، نسير فيها معكم عبر المشاعر المقدسة ابتداءً من عرفات مروراً بمزدلفة ومن ثم منى وانتهاءً بجبل النور وحي حراء الثقافي."
-				: "We take you on a spiritual and historical journey, walking with you through the holy sites starting from Arafat, passing through Muzdalifah, then Mina, and ending at Jabal al-Noor and the cultural district of Hira.",
+				? "نأخذكم في رحلة إيمانية تاريخية، نتنقل فيها بين أبرز المعالم النبوية في مكة المكرمة: بئر طوى، مسجد الإجابة، مسجد الجن، مسجد الشجرة، وريع الحجون."
+				: "We take you on a spiritual and historical journey as we move between the most prominent Prophetic landmarks in Makkah: Tuwa Well, Al-Ijabah Mosque, Jinn Mosque, Ash Shajarah Mosque and Al-Hajun Valley. ",
 			list: isAr
 				? [
-						"عرفات ــ ثلاث وجهات رئيسية: جبل الرحمة ومسجد نمرة وخاصرة عين زبيدة.",
-						"مزدلفة ــ وفيها مسجد المشعر الحرام.",
-						"منى ــ حيث نطوف بكم بين: جسر الجمرات ومسجد الخيف.",
-						"وفي نهاية الرحلة يمكنكم زيارة جبل النور وحي حراء الثقافي، والاستمتاع بجولة معرفية وإثرائية بين جنبات متاحفه.",
-						"في هذه الرحلة نمزج بين السير في أراضي المشاعر والتحليق في سموّ المشاعر، وإثراء التجربة. ",
+						"بئر طوى ــ البئر التي كان يغتسل منها النبي ﷺ.",
+						"مسجد الإجابة ــ موضع نزل فيه الرسول ﷺ.",
+						"مسجد الجن ــ موضع لقاء النبي ﷺ بالجن ودعوتهم إلى الإسلام.",
+						"مسجد الشجرة ــ موضع شجرة كانت لها مع رسول الله ﷺ قصة.",
+						"ريع الحجون ــ موقع تاريخي وقعت فيه أحداث تاريخية هامة.",
+						"وفي نهاية الرحلة يمكنكم زيارة حي حراء الثقافي والاستمتاع بجولة معرفية وإثرائية بين جنبات متاحفه.",
+						"في هذه الرحلة نسير بكم بين آثار نبوية تبعد أمتاراً قليلة عن المسجد الحرام، لكل وجهة منها قصة، تصنع الذكرى وتثري التجربة.",
 				  ]
 				: [
-						"Arafat — Three main destinations: Jabal al-Rahma, Namira Mosque, and the Zubaida Spring Basin.",
-						"Muzdalifah — Home to the Sacred Mosque of Muzdalifah.",
-						"Mina — Where we tour between: the Jamarat Bridge and Al-Khaif Mosque.",
-						"At the end of the journey, you can visit Jabal al-Noor and the cultural district of Hira, and enjoy an informative and enriching tour among its museums.",
-						"In this journey, we blend walking through the lands of the holy sites with soaring in the heights of spirituality, enriching the experience.",
+						"Tuwa Well ــ The well from which the Prophet ﷺ used to bathe.",
+						"Al-Ijabah Mosque ــ A location where the Messenger ﷺ stayed.",
+						"Jinn Mosque ــ The site where the Prophet ﷺ met the jinn and invited them to Islam.",
+						"Ash Shajarah Mosque ــ The site of a tree that had a story with the Messenger of Allah ﷺ.",
+						"Al-Hajun ــ A historical area where important early Islamic events took place.",
+						"At the end of the journey, you may visit the Hira Cultural District and enjoy an informative, enriching tour of its museums.",
+						"On this journey, we guide you through Prophetic traces located just a short distance from Al-Masjid Al-Haram, each destination holding a story that enriches your experience.",
 				  ],
 		},
 		included: isAr
@@ -107,6 +110,6 @@ export default function getMashair(isAr) {
 					"Meals",
 					"Museum tickets (available for sale through the app)",
 			  ],
-		mapTitle : isAr ? "الوجهات" : "Destinations",
+		mapTitle: isAr ? "الوجهات" : "Destinations",
 	};
 }

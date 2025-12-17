@@ -23,7 +23,7 @@ const ALL_TRIPS = (isAr) => [
     price:  89,
   },
   {
-    id: 2,
+    id: 49,
     title:  isAr ? 'تجربة زيارة بداية الوحي' : 'Revelation Beginning Visit Experience',
     description: isAr ? 'جولة تاريخية وإثرائية نتقفى فيها أثر رسول الله ﷺ في مهبط الوحي الأول ' : 'A historical and enriching tour tracing the footsteps of the Prophet Muhammad (PBUH) at the site of the first revelation',
     image: 'https://images.unsplash.com/photo-1667454872134-c25973237138?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxNZWRpbmElMjBtb3NxdWV8ZW58MXx8fHwxNzY0NzU0MTgxfDA&ixlib=rb-4.1.0&q=80&w=1080',
@@ -48,7 +48,7 @@ const ALL_TRIPS = (isAr) => [
     price: 89,
   },
   {
-    id: 4,
+    id: 73,
     title: isAr ? 'تجربة زيارة دروب الهجرة الأولى' : 'First Migration Routes Visit Experience',
     description: isAr ? 'جولة تاريخية إلى دار الهجرة الأول حيث نزل رسول الله ﷺ في المدينة المنورة' : 'A historical tour to the first migration house where the Prophet Muhammad (PBUH) settled in Medina',
     image: 'https://images.unsplash.com/photo-1575379972263-2f15a5c78236?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxoaXN0b3JpYyUyMGNpdHklMjB0b3VyfGVufDF8fHx8MTc2NDc1NDE4MXww&ixlib=rb-4.1.0&q=80&w=1080',

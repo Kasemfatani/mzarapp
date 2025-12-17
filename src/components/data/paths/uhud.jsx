@@ -1,17 +1,16 @@
-
-export default function getMashair(isAr) {
+export default function getUhud(isAr) {
 	return {
-		id: 45,
+		id: 74,
 		title: isAr
-			? "تجربة زيارة المشاعر المقدسة"
-			: "Experience Visiting the Holy Sites",
+			? "تجربة زيارة آثار غزوة أحد"
+			: "Experience the Visit to the Sites of the Battle of Uhud",
 		description: isAr
-			? "مسار المشاعر رحلة إيمانية تاريخية عبر المشاعر المقدسة ابتداءً من عرفات مروراً بمزدلفة ومن ثم منى وانتهاءً بجبل النور وحي حراء الثقافي. "
-			: "The Holy Sites Path is a spiritual and historical journey through the holy sites starting from Arafat, passing through Muzdalifah, then Mina, and ending at Jabal al-Noor and the cultural district of Hira.",
+			? "مسار أحد جولة تاريخية إلى موقع غزوة أُحد، إحدى أهم غزوات النبي ﷺ وموقع استشهاد سيد الشهداء حمزة بن عبدالمطلب"
+			: "Uhud Tour ــ a historical trip to the site of the Battle of Uhud, one of the most significant battles of the Prophet ﷺ and the place where the Master of Martyrs Hamzah ibn ‘Abd al-Muttalib (رضي الله عنه) was martyred. ",
 		image: "/trip-detail/water-bottles.webp",
 		capacity: 45,
-		duration: isAr ? "4 ساعات" : "4 hours",
-		rating: 4.7,
+		duration: isAr ? "3 ساعات" : "3 hours",
+		rating: 4.8,
 		reviewCount: 512,
 		price: 89,
 		availability: isAr ? "متاحة يومياً" : "Available daily",
@@ -55,7 +54,9 @@ export default function getMashair(isAr) {
 			},
 			{
 				icon: "map-pin",
-				title: isAr ? "شهادة إتمام الزيارة وفلاتر تصوير" : "Certificate of Completion & Photo Filters",
+				title: isAr
+					? "شهادة إتمام الزيارة وفلاتر تصوير"
+					: "Certificate of Completion & Photo Filters",
 				detail: isAr
 					? "توثيق التجربة وتخليد الذكرى"
 					: "Document your experience & preserve the memory ",
@@ -63,22 +64,26 @@ export default function getMashair(isAr) {
 		],
 		about: {
 			desc: isAr
-				? "نأخذكم في رحلة إيمانية تاريخية، نسير فيها معكم عبر المشاعر المقدسة ابتداءً من عرفات مروراً بمزدلفة ومن ثم منى وانتهاءً بجبل النور وحي حراء الثقافي."
-				: "We take you on a spiritual and historical journey, walking with you through the holy sites starting from Arafat, passing through Muzdalifah, then Mina, and ending at Jabal al-Noor and the cultural district of Hira.",
+				? "نأخذكم في رحلة مهيبة إلى موقع غزوة أُحد، إحدى أهم غزوات النبي ﷺ وموقع استشهاد سيد الشهداء حمزة بن عبدالمطلب وشهداء أحد رضوان الله عليهم."
+				: "We take you on a profound journey to the site of the Battle of Uhud ــ one of the most important battles of the Prophet ﷺ and the place where the Master of Martyrs, Hamzah ibn ‘Abd al-Muttalib (رضي الله عنه), along with the martyrs of Uhud (رضي الله عنهم), fell.",
 			list: isAr
 				? [
-						"عرفات ــ ثلاث وجهات رئيسية: جبل الرحمة ومسجد نمرة وخاصرة عين زبيدة.",
-						"مزدلفة ــ وفيها مسجد المشعر الحرام.",
-						"منى ــ حيث نطوف بكم بين: جسر الجمرات ومسجد الخيف.",
-						"وفي نهاية الرحلة يمكنكم زيارة جبل النور وحي حراء الثقافي، والاستمتاع بجولة معرفية وإثرائية بين جنبات متاحفه.",
-						"في هذه الرحلة نمزج بين السير في أراضي المشاعر والتحليق في سموّ المشاعر، وإثراء التجربة. ",
+						"مسجد المستراح ــ موضع استراحة ودعاء النبي ﷺ.",
+						"مسجد الدرع ــ حيث ارتدى ﷺ درعه الشريف.",
+						"جبل الرماة ومقبرة الشهداء ــ ميدان البطولة ومثوى الصحابة رضي الله عنهم.",
+						"مسجد الفسح ــ موضع دعاء النبي ﷺ بالنصر والثبات.",
+						'جبل أُحد ــ حيث قال ﷺ: "أُحد جبلٌ يحبّنا ونحبّه".',
+						"نختم بمسجد القبلتين ــ حيث نزل أمر الله بتحويل القبلة.",
+						"رحلة تُجسّد دروس الصبر والإيمان على أرض أُحد المباركة.",
 				  ]
 				: [
-						"Arafat — Three main destinations: Jabal al-Rahma, Namira Mosque, and the Zubaida Spring Basin.",
-						"Muzdalifah — Home to the Sacred Mosque of Muzdalifah.",
-						"Mina — Where we tour between: the Jamarat Bridge and Al-Khaif Mosque.",
-						"At the end of the journey, you can visit Jabal al-Noor and the cultural district of Hira, and enjoy an informative and enriching tour among its museums.",
-						"In this journey, we blend walking through the lands of the holy sites with soaring in the heights of spirituality, enriching the experience.",
+						"Al-Mustarah Mosque ــ Where the Prophet ﷺ rested and supplicated.",
+						"Masjid Al-Dira’ (The Armor Mosque) ــ Where the Prophet ﷺ put on his blessed armor.",
+						"Jabal al-Rumah (The Archers’ Mount) & the Graveyard of the Martyrs ــ The field of courage and the resting place of the noble Companions.",
+						"Al-Fath Mosque ــ Where the Prophet ﷺ prayed for victory and steadfastness.",
+						"Mount Uhud ــ About which the Prophet ﷺ said: “Uhud is a mountain that loves us, and we love it.”",
+						"We conclude with Al-Qiblatain Mosque ــ The site where Allah commanded the change of the Qiblah.",
+						"A journey that embodies the lessons of patience and faith on the blessed grounds of Uhud.",
 				  ],
 		},
 		included: isAr
@@ -107,6 +112,6 @@ export default function getMashair(isAr) {
 					"Meals",
 					"Museum tickets (available for sale through the app)",
 			  ],
-		mapTitle : isAr ? "الوجهات" : "Destinations",
+		mapTitle: isAr ? "الوجهات" : "Destinations",
 	};
 }

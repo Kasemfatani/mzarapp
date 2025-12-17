@@ -5,10 +5,10 @@ export default function getHaram(isAr) {
 		id: 8,
 		title: isAr
 			? "تجربة إثرائية داخل المسجد الحرام"
-			: "Enriching Experience Inside the Holy Mosque",
+			: "An Enrichment Experience Inside Al-Masjid Al-Haram",
 		description: isAr
 			? "جولة نقف فيها أمام للكعبة المشرفة للتعرف على تاريخ بنائها ونزور فيها أهم معالم المسجد الحرام التاريخية. "
-			: "A tour where we stand before the Kaaba to learn about its construction history and visit the most important historical landmarks of the Holy Mosque.",
+			: "A guided tour where you stand before the holy Kaaba to explore the history of its construction and visit the most important historical landmarks of Al-Masjid Al-Haram. ",
 		image: "/trip-detail/water-bottles.webp",
 		capacity: 20,
 		duration: isAr ? "90 دقيقة" : "90 minutes",
@@ -24,7 +24,7 @@ export default function getHaram(isAr) {
 			{
 				icon: "shield",
 				title: isAr ? "مرشد سياحي" : "Tour Guide",
-				detail: isAr ? "مرشدون سياحيون معتمدون" : "Accredited tour guides",
+				detail: isAr ? "مرشدون سياحيون معتمدون" : "Licensed and certified tour guides",
 			},
 			{
 				icon: "users",
@@ -48,19 +48,19 @@ export default function getHaram(isAr) {
 			},
 			{
 				icon: "shield",
-				title: isAr ? "جولات معتمدة" : "Certified Tours",
+				title: isAr ? "جولات معتمدة" : "Authorized Tours",
 				detail: isAr
 					? "تصريح رسمي من الهيئة العامة للعناية بشؤون الحرمين الشريفين"
-					: "Official permit from the General Authority for the Care of the Two Holy Mosques",
+					: "Official permit issued by the General Authority for the Care of the Affairs of the Two Holy Mosques",
 			},
 			{
 				icon: "calendar",
 				title: isAr
 					? "شهادة إتمام الزيارة وفلاتر تصوير"
-					: "Completion certificate and photo filters",
+					: "Certificate of Completion & Photo Filters",
 				detail: isAr
 					? "توثيق التجربة وتخليد الذكرى"
-					: "Documenting the experience and commemorating the memory",
+					: "To document the experience and preserve the memory",
 			},
 		],
 		about: {
@@ -96,11 +96,11 @@ export default function getHaram(isAr) {
 					"Certified tour guide accompanying you throughout the tour",
 					"Wireless headphones for listening to the guide and simultaneous translation",
 					"Exclusive access to a number of sites inside the Masjid al-Haram",
-					"Saudi hospitality (coffee and dates)",
+					"Saudi hospitality (Arabic coffee and dates)",
 			  ],
 		notIncluded: isAr
 			? ["النقل بالمركبات", "المشتريات والهدايا الشخصية  ", "وجبات الطعام"]
-			: ["Transportation by vehicles", "Personal purchases and gifts", "Meals"],
+			: ["Transportation by vehicles", "Personal purchases or souvenirs", "Meals"],
 		timeline: [
 			{
 				time: isAr ? "8:50 م" : "8:50 PM",
@@ -157,12 +157,7 @@ export default function getHaram(isAr) {
 				fullDesc: isAr ? "" : "",
 			},
 		],
-		mapLocations: [
-			{ lat: 21.4225, lng: 39.8262, label: isAr ? "المسجد الحرام" : "Masjid al-Haram" }, // Masjid al-Haram
-			// { lat: 21.3891, lng: 39.8579, label: isAr ? "برج الساعة" : "Abraj Al Bait" }, // Abraj Al Bait
-			// { lat: 21.4267, lng: 39.8256, label: isAr ? "جبل النور" : "Jabal al-Nour" }, // Jabal al-Nour
-			// { lat: 21.4187, lng: 39.8937, label: isAr ? "جبل ثور" : "Jabal Thawr" }, // Jabal Thawr
-		],
+		mapLocation: { lat: 21.4225, lng: 39.8262, label: isAr ? "المسجد الحرام" : "Masjid al-Haram" }, 
     mapCenter: { lat: 21.4225, lng: 39.8262 },
     mapLink:"https://www.google.com/maps/search/?api=1&query=21.4225,39.8262",
 	};

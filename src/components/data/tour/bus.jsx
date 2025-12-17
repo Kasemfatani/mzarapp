@@ -97,67 +97,17 @@ export default function getBus(isAr) {
 			? ["النقل بالمركبات", "المشتريات والهدايا الشخصية  ", "وجبات الطعام"]
 			: ["Transportation by vehicles", "Personal purchases and gifts", "Meals"],
 		busStops: true,
-    timeline: [
-			{
-				time: isAr ? "7:00 ص أو 4:00 م" : "7:00 AM or 4:00 PM",
-				title: isAr ? "محطة باصات حي الغزة" : "Ghazzah District Bus Station",
-				shortDesc: isAr
-					? ""
-					: "",
-				fullDesc: isAr
-					? ""
-					: "",
-			},
-			{
-				time: isAr ? "9:00 ص أو 6:00 م" : "9:00 AM or 6:00 PM",
-				title: isAr
-					? "محطة باصات حي أجياد"
-					: "Ajyad District Bus Station",
-				shortDesc: isAr
-					? ""
-					: "",
-				fullDesc: isAr
-					? ""
-					: "",
-			},
-			{
-				time: isAr ? "10:00 ص أو 7:00 م" : "10:00 AM or 7:00 PM",
-				title: isAr ?  "حديقة المسفلة" : "Al-Masfalah Park",
-				shortDesc: isAr
-					? ""
-					: "",
-				fullDesc: isAr
-					? ""
-					: "",
-			},
-			{
-				time: isAr ? "11:00 ص أو 8:00 م" : "11:00 AM or 8:00 PM",
-				title: isAr ?  "خلف أبراج الساعة" : "Behind the Clock Towers",
-				shortDesc: isAr
-					? ""
-					: "",
-				fullDesc: isAr
-					? ""
-					: "",
-			},
-			{
-				time: isAr ? "12:00 م أو 9:00 م" : "12:00 PM or 9:00 PM",
-				title: isAr ?  "منطقة حافلات أبراج الكسوة" : "Al-Kiswa Towers Bus Area",
-				shortDesc: isAr
-					? ""
-					: "",
-				fullDesc: isAr
-					? ""
-					: "",
-			},
-		],
+    
+		timelineImg: isAr ? '/tour-bus/map-ar.webp' : '/tour-bus/map-en.webp',
     mapLocations: [
-			{ lat: 21.4225, lng: 39.8262, label: isAr ? "المسجد الحرام" : "Masjid al-Haram" }, // Masjid al-Haram
-			{ lat: 21.3891, lng: 39.8579, label: isAr ? "برج الساعة" : "Abraj Al Bait" }, // Abraj Al Bait
-			{ lat: 21.4267, lng: 39.8256, label: isAr ? "جبل النور" : "Jabal al-Nour" }, // Jabal al-Nour
-			{ lat: 21.4187, lng: 39.8937, label: isAr ? "جبل ثور" : "Jabal Thawr" }, // Jabal Thawr
+			{ lat: 21.4225, lng: 39.8262, name: isAr ? "المسجد الحرام" : "Masjid al-Haram" }, // Masjid al-Haram
+			{ lat: 21.3891, lng: 39.8579, name: isAr ? "برج الساعة" : "Abraj Al Bait" }, // Abraj Al Bait
+			{ lat: 21.4267, lng: 39.8256, name: isAr ? "جبل النور" : "Jabal al-Nour" }, // Jabal al-Nour
+			{ lat: 21.4187, lng: 39.8937, name: isAr ? "جبل ثور" : "Jabal Thawr" }, // Jabal Thawr
+			{ lat: 21.4225, lng: 39.8262, name: isAr ? "المسجد الحرام" : "Masjid al-Haram" }, // Masjid al-Haram
+			{ lat: 21.3891, lng: 39.8579, name: isAr ? "برج الساعة" : "Abraj Al Bait" }, // Abraj Al Bait
 		],
-    mapCenter: { lat: 21.4225, lng: 39.8262 },
-    mapLink:"https://www.google.com/maps/d/edit?mid=1_p4kTmEUGtAIW6_npYnTUVExkAFbViE&usp=sharing",
+		mapTitle : isAr ? "مواقع محطات الباصات" : "Bus Station Locations",
+   
 	};
 }

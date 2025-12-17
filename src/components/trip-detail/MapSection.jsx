@@ -50,7 +50,7 @@ export function MapSection({ lang , data }) {
 						<MapPin className="w-7 h-7 text-white" />
 					</motion.div>
 					<h2 className="text-[26px] leading-[1.3] text-[#0f3d2e]">
-						  {isAr ? "تفاصيل المكان" : "Location Details"}
+						  {isAr ? "الموقع الجغرافي" : "Location"}
 					</h2>
 				</div>
 				<div className="h-px bg-gradient-to-r from-[#c9a463] via-gray-200 to-transparent"></div>
@@ -73,14 +73,13 @@ export function MapSection({ lang , data }) {
 							fullscreenControl: false,
 						}}
 					>
-						{data.mapLocations.map((loc, idx) => (
-							<Marker
-								key={idx}
-								position={{ lat: loc.lat, lng: loc.lng }}
-								title={loc.label}
+					
+						<Marker
+								
+								position={{ lat: data.mapLocation.lat, lng: data.mapLocation.lng }}
+								title={data.mapLocation.label}
 								// icon: Use default Google Maps pin. To use a custom SVG, see below.
 							/>
-						))}
 					</GoogleMap>
 				) : (
 					<div className="flex items-center justify-center h-full text-gray-400">
@@ -96,7 +95,7 @@ export function MapSection({ lang , data }) {
 				className="w-fit mx-auto px-8 py-4 bg-gradient-to-r from-[#c9a463] to-[#b8914a] text-white rounded-[18px] hover:shadow-[0px_10px_30px_rgba(0,0,0,0.15)] transition-all flex items-center justify-center gap-3 text-[16px] group"
 				onClick={() =>
 					window.open(
-						data.mapLink || "https://www.google.com/maps",
+						`https://www.google.com/maps/search/?api=1&query=${data.mapLocation.lat},${data.mapLocation.lng}` || "https://www.google.com/maps",
 						"_blank"
 					)
 				}

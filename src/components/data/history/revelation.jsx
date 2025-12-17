@@ -1,7 +1,7 @@
 
 export default function getRevelation(isAr) {
 	return {
-		id: 2,
+		id: 49,
 		title: isAr
 			? "تجربة زيارة بداية الوحي "
 			: "Revelation Beginning Visit Experience",
@@ -20,24 +20,24 @@ export default function getRevelation(isAr) {
 		highlights: [
 			{
 				icon: "map-pin",
-				title: isAr ? "نقطة الانطلاق" : "Starting Point",
+				title: isAr ? "نقطة الانطلاق" : "Meeting  Point",
 				detail: isAr
 					? "السائق يصل إلى موقعك في أي مكان"
 					: "Driver arrives at your location anywhere",
 			},
 			{
 				icon: "compass",
-				title: isAr ? "تحقق ذكي " : "Smart Tracking",
+				title: isAr ? "تحقق ذكي " : "Smart Verification",
 				detail: isAr
 					? "تحقق من الوصول للوجهة تلقائياً"
-					: "Smart destination arrival verification",
+					: "Automatic verification upon arrival at each destination",
 			},
 			{
 				icon: "globe",
 				title: isAr ? "محتوى بعدة لغات" : "Multilingual Content",
 				detail: isAr
 					? "محتوى إثرائي متوفر ب6 لغات عالمية"
-					: "Enriching content available in 6 global languages",
+					: "Enriching content available in 6 international languages",
 			},
 			{
 				icon: "calendar",
@@ -48,10 +48,17 @@ export default function getRevelation(isAr) {
 			},
 			{
 				icon: "shield",
-				title: isAr ? "روايات موثوقة" : "Trusted Narrations",
+				title: isAr ? "روايات موثوقة" : "Verified Narratives",
 				detail: isAr
 					? "قصص إثرائية معتمدة تُحكى لأول مرة"
-					: "Accredited enriching stories told for the first time",
+					: "Authentic enrichment stories shared for the first time",
+			},
+			{
+				icon: "map-pin",
+				title: isAr ? "شهادة إتمام الزيارة وفلاتر تصوير" : "Certificate of Completion & Photo Filters",
+				detail: isAr
+					? "توثيق التجربة وتخليد الذكرى"
+					: "Document your experience & preserve the memory ",
 			},
 		],
 		about: {
@@ -85,11 +92,11 @@ export default function getRevelation(isAr) {
 					"مواقف مهيأة بجوار جبل الرحمة تسهل لك الوصول بدون مشي ومشقة. ",
 			  ]
 			: [
-					"Smart audio and text guide in multiple languages.",
-					"Comfortable and safe transportation via air-conditioned vehicles.",
-					"Entry to all holy sites and places",
-					"Comfort amenities: Wi-Fi, charging cables, mineral water.",
-					"Parking facilities near Jabal al-Rahma for easy access without walking or hardship.",
+					"A reliable smart audio and text guide in multiple languages",
+					"Safe, comfortable transportation in air-conditioned vehicles ",
+					"Access to all sacred sites and locations ",
+					"Amenities: Wi-Fi, charging cables, bottled water",
+					"Dedicated parking areas near Jabal Al-Rahmah for easy access without walking or effort ",
 			  ],
 		notIncluded: isAr
 			? [
@@ -98,15 +105,11 @@ export default function getRevelation(isAr) {
 					"تذاكر المتاحف (يمكنك شراؤها عبر التطبيق). ",
 			  ]
 			: [
-					"Personal purchases and gifts",
+					"Personal purchases and souvenirs",
 					"Meals",
-					"Museum tickets (can be purchased through the app).",
+					"Museum tickets (available for sale through the app)",
 			  ],
-    mapLocations: [
-			{ lat: 21.4225, lng: 39.8262, label: isAr ? "المسجد الحرام" : "Masjid al-Haram" }, 
-		],
-    mapCenter: { lat: 21.4225, lng: 39.8262 },
-    mapLink:"https://www.google.com/maps/search/?api=1&query=21.4225,39.8262",
+    mapTitle : isAr ? "الوجهات" : "Destinations",
 		
 	};
 }
