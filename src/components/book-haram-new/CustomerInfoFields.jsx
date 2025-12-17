@@ -1,3 +1,6 @@
+"use client";
+
+import React, { useState } from "react";
 import { User, Lock } from "lucide-react";
 import {
 	Form,
@@ -11,7 +14,54 @@ import { Input } from "@/components/ui/input";
 import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
 
+import countries from "i18n-iso-countries";
+import enCountries from "i18n-iso-countries/langs/en.json";
+import arCountries from "i18n-iso-countries/langs/ar.json";
+
+import { Button } from "@/components/ui/button";
+import {
+	Popover,
+	PopoverTrigger,
+	PopoverContent,
+} from "@/components/ui/popover";
+import {
+	Command,
+	CommandInput,
+	CommandEmpty,
+	CommandGroup,
+	CommandItem,
+	CommandList,
+} from "@/components/ui/command";
+import { ChevronsUpDown, Check } from "lucide-react";
+
+countries.registerLocale(enCountries);
+countries.registerLocale(arCountries);
+
+const COUNTRIES3 = (() => {
+	const namesEn = countries.getNames("en", { select: "official" }) || {};
+	const namesAr = countries.getNames("ar", { select: "official" }) || {};
+	return Object.entries(namesEn)
+		.map(([alpha2, enName]) => {
+			const code3 = countries.alpha2ToAlpha3
+				? countries.alpha2ToAlpha3(alpha2)
+				: alpha2;
+			const arName = namesAr[alpha2] || enName;
+			return { code: code3, en: enName, ar: arName };
+		})
+		.filter(Boolean)
+		.sort((a, b) => a.en.localeCompare(b.en));
+})();
+
 export function CustomerInfoFields({ lang = "ar", form }) {
+	const isAr = lang === "ar";
+	const [nationalityOpen, setNationalityOpen] = useState(false);
+
+	const labelForCountryName = (enName) => {
+		if (!enName) return "";
+		const item = COUNTRIES3.find((c) => c.en === enName);
+		return item ? (isAr ? item.ar : item.en) : enName;
+	};
+
 	return (
 		<div className="bg-white rounded-[20px] shadow-[0px_20px_25px_-5px_rgba(0,0,0,0.1),0px_8px_10px_-6px_rgba(0,0,0,0.1)] border-[0.8px] border-[rgba(243,244,246,0.6)] w-full">
 			<div className="p-6 flex flex-col gap-8">
@@ -79,17 +129,22 @@ export function CustomerInfoFields({ lang = "ar", form }) {
 							)}
 						/>
 
-						{/* WhatsApp only */}
-						<FormField
-							control={form.control}
-							name="whatsapp"
-							render={({ field }) => (
-								<FormItem>
-									<FormLabel className="text-[#364153]">
-										رقم الواتساب<span className="text-[#fb2c36]"> *</span>
-									</FormLabel>
-									<FormControl>
-										<div className="phone-input-book" style={{ direction: "ltr" }}>
+						{/* WhatsApp + Nationality row */}
+						<div className="flex flex-col md:flex-row gap-4">
+							{/* WhatsApp only */}
+							<FormField
+								control={form.control}
+								name="whatsapp"
+								render={({ field }) => (
+									<FormItem className="flex-1">
+										<FormLabel className="text-[#364153]">
+											رقم الواتساب<span className="text-[#fb2c36]"> *</span>
+										</FormLabel>
+										<FormControl>
+											<div
+												className="phone-input-book"
+												style={{ direction: "ltr" }}
+											>
 												<PhoneInput
 													defaultCountry="sa"
 													value={field.value}
@@ -98,11 +153,87 @@ export function CustomerInfoFields({ lang = "ar", form }) {
 													forceDialCode={true}
 												/>
 											</div>
-									</FormControl>
-									<FormMessage />
-								</FormItem>
-							)}
-						/>
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+
+							{/* Nationality combobox (stores English name) */}
+							<FormField
+								control={form.control}
+								name="country_name"
+								render={({ field }) => (
+									<FormItem className="flex-1">
+										<FormLabel className="text-[#364153]">
+											{isAr ? "الجنسية" : "Nationality"}
+											<span className="text-[#fb2c36]"> *</span>
+										</FormLabel>
+
+										<Popover
+											open={nationalityOpen}
+											onOpenChange={setNationalityOpen}
+										>
+											<PopoverTrigger asChild>
+												<Button
+													type="button"
+													variant="outline"
+													role="combobox"
+													aria-expanded={nationalityOpen}
+													className="h-12 w-full justify-between bg-gradient-to-b from-[#f8f4ed] to-[#f5f1eb] border-[0.8px] border-[rgba(229,231,235,0.6)] rounded-[12px] p-2 text-start"
+												>
+													{field.value
+														? labelForCountryName(field.value)
+														: isAr
+														? "اختر الجنسية"
+														: "Select nationality"}
+													<ChevronsUpDown className="ml-2 h-4 w-4 opacity-50" />
+												</Button>
+											</PopoverTrigger>
+											<PopoverContent className="p-0 w-[var(--radix-popover-trigger-width)]">
+												<Command>
+													<CommandInput
+														placeholder={isAr ? "ابحث..." : "Search..."}
+													/>
+													<CommandList>
+														<CommandEmpty>
+															{isAr ? "لا توجد نتائج" : "No results found."}
+														</CommandEmpty>
+														<CommandGroup>
+															{COUNTRIES3.map((country) => {
+																const label = isAr ? country.ar : country.en;
+																return (
+																	<CommandItem
+																		key={country.code}
+																		value={label}
+																		onSelect={() => {
+																			// Store English name in the form value
+																			field.onChange(country.en);
+																			setNationalityOpen(false);
+																		}}
+																	>
+																		<Check
+																			className={`mr-2 h-4 w-4 ${
+																				field.value === country.en
+																					? "opacity-100"
+																					: "opacity-0"
+																			}`}
+																		/>
+																		{label}
+																	</CommandItem>
+																);
+															})}
+														</CommandGroup>
+													</CommandList>
+												</Command>
+											</PopoverContent>
+										</Popover>
+
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+						</div>
 					</form>
 				</Form>
 

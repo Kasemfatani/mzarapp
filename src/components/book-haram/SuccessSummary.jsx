@@ -8,7 +8,7 @@ import { API_BASE_URL_NEW } from "@/lib/apiConfig";
 import { toast } from "sonner";
 // import DownloadButtons from "./DownloadButtons"
 
-const STORAGE_KEY = "haramTour.selection";
+const STORAGE_KEY = "bookHaramain.selection";
 
 const messages = {
 	en: {
@@ -130,7 +130,7 @@ export default function SuccessSummary({ initialLang = "en" }) {
 
 					// parse response body (route now returns 200 with status field even when payment failed)
 					const verifyData = await verifyRes.json().catch(() => ({}));
-
+					console.log("ClickPay verify data:", verifyData);
 					if (!verifyRes.ok) {
 						throw new Error(
 							verifyData.message || "Payment verification failed"

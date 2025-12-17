@@ -17,20 +17,22 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { format, addDays, startOfToday } from "date-fns";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
 
-const STORAGE_KEY = "bookTour.selection";
+const STORAGE_KEY = "bookHaramain.selection";
 
 const getSchema = (lang, max_people_count = 20, min_people_count = 1) => {
 	const requiredDate =
 		lang === "ar" ? "يرجى اختيار تاريخ" : "Please select a date";
 	const requiredTime =
 		lang === "ar" ? "يرجى اختيار الوقت" : "Please choose a time";
-	
+
 	const reqName = lang === "ar" ? "الاسم مطلوب" : "Name is required";
 	const reqPhone =
 		lang === "ar" ? "رقم الواتساب مطلوب" : "WhatsApp is required";
 	const reqEmail =
 		lang === "ar" ? "البريد الإلكتروني مطلوب" : "Email is required";
 	const invalidEmail = lang === "ar" ? "بريد غير صالح" : "Invalid email";
+	const reqNationality =
+		lang === "ar" ? "الجنسية مطلوبة" : "Nationality is required";
 
 	return z.object({
 		date: z
@@ -39,11 +41,12 @@ const getSchema = (lang, max_people_count = 20, min_people_count = 1) => {
 		time: z
 			.object({ id: z.any(), name: z.string() })
 			.refine((v) => v && v.id && v.name, { message: requiredTime }),
-		
+
 		people: z.coerce.number().int().min(1).max(max_people_count).default(1),
 		name: z.string().min(1, reqName).max(100),
 		email: z.string().email(invalidEmail).min(1, reqEmail),
 		whatsapp: z.string().min(7, reqPhone),
+		country_name: z.string().min(1, reqNationality),
 	});
 };
 
@@ -124,11 +127,12 @@ export default function BookTourPage({ tripData }) {
 		defaultValues: {
 			date: defaultDate,
 			time: undefined,
-			
+
 			people: busData?.min_people_count ?? 1,
 			name: "",
 			email: "",
 			whatsapp: "",
+			country_name: "",
 		},
 		mode: "onSubmit",
 	});
@@ -139,11 +143,12 @@ export default function BookTourPage({ tripData }) {
 			form.reset({
 				date: defaultDate,
 				time: undefined,
-				
+
 				people: busData.min_people_count,
 				name: "",
 				email: "",
 				whatsapp: "",
+				country_name: "",
 			});
 		}
 		// eslint-disable-next-line
@@ -218,11 +223,11 @@ export default function BookTourPage({ tripData }) {
 				tour_id: busData?.id,
 				date: selection.date,
 				time: selection.time?.id,
-				
+
 				people_count: selection.people,
 				payment_type: "online",
 				promo_code: null,
-				country_name: "", // NEW: send English name
+				country_name: values.country_name, // send selected country name (English)
 			};
 			console.log("Booking payload:", payload);
 
@@ -257,16 +262,22 @@ export default function BookTourPage({ tripData }) {
 					customer_email: values.email,
 					customer_name: values.name,
 					customer_whatsapp: whatsapp_country_code + whatsapp,
+					customer_country_name: values.country_name,
 				})
 			);
 
 			// Payment amount: price * people (UI ignores tax; for payment we can include tax if needed)
-			const base =
-				Number(busData?.price || 0) * Number(values.people || 1);
+			const base = Number(busData?.price || 0) * Number(values.people || 1);
 			// const tax = Number(busData?.tax || 0) * base;
 			const totalSar = Number(base.toFixed(2));
 
-			console.log("Starting ClickPay payment for amount:", totalSar , base , busData?.price, values.people);
+			console.log(
+				"Starting ClickPay payment for amount:",
+				totalSar,
+				base,
+				busData?.price,
+				values.people
+			);
 
 			const clickpayRes = await fetch("/api/pay/clickpay/init", {
 				method: "POST",

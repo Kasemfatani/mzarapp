@@ -55,7 +55,11 @@ export function BookingForm({
 				<div className="flex items-center justify-between w-full">
 					<div className="flex flex-col">
 						<h3 className="text-[#3c6652] text-[30px] tracking-[-0.45px]">
-							اختر موعد رحلتك
+							اختر موعد رحلتك <span className="ms-2 rounded-full bg-[#fdf0ec] text-[#aa0d07] text-base px-3 py-1">
+										{isAr
+											? `للرجال فقط`
+											: `Only For Men`}
+									</span>
 						</h3>
 						<p className="text-[#4a5565]">حدد التاريخ والوقت المناسب لك</p>
 					</div>
