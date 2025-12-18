@@ -1,10 +1,4 @@
-.pagination img {
-	width: 40px;
-	height: 10px;
-	margin: 0 4px;
-	opacity: 0.4;
-	transition: opacity 0.3s;
-}
-.pagination .swiper-pagination-bullet-active {
+
+#QuickCategories  {
 	opacity: 1;
 }

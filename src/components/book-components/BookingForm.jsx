@@ -2,7 +2,8 @@
 
 import { useEffect } from "react";
 import {
-	Calendar,
+	// Calendar icon from lucide-react (renamed to CalendarIcon)
+	Calendar as CalendarIcon,
 	Clock,
 	Users,
 	MapPin,
@@ -19,6 +20,21 @@ import {
 	FormMessage,
 	FormControl,
 } from "@/components/ui/form";
+
+// add react-day-picker imports (already present in project)
+import { Calendar } from "@/components/ui/calendar";
+import "react-day-picker/dist/style.css";
+
+// shadcn popover / button (calendar wrapper uses react-day-picker under the hood)
+import {
+	Popover,
+	PopoverTrigger,
+	PopoverContent,
+} from "@/components/ui/popover";
+import { Button } from "@/components/ui/button";
+// optional: if you have shadcn Calendar component wrapper:
+// import { Calendar } from "@/components/ui/calendar";
+// we'll use DayPicker directly inside PopoverContent
 
 const CURRENCY_SVG = (
 	<svg
@@ -65,7 +81,7 @@ export function BookingForm({
 
 				<Form {...form}>
 					<form className="flex flex-col gap-6">
-						{/* Date Picker (input type="date") */}
+						{/* Date Picker (shadcn-style popover + react-day-picker) */}
 						<div className="flex flex-col gap-2">
 							<label className="flex items-center text-[#364153]">
 								اختر التاريخ المناسب
@@ -76,21 +92,40 @@ export function BookingForm({
 								render={({ field }) => (
 									<FormItem>
 										<FormControl>
-											<input
-												type="date"
-												className=" w-full rounded-md border px-3 py-2"
-												value={
-													field.value ? format(field.value, "yyyy-MM-dd") : ""
-												}
-												onChange={(e) => {
-													const val = e.target.value
-														? new Date(e.target.value)
-														: null;
-													field.onChange(val);
-												}}
-												min={format(tomorrow, "yyyy-MM-dd")}
-												max={format(maxDate, "yyyy-MM-dd")}
-											/>
+											<Popover>
+												<PopoverTrigger asChild>
+													<Button
+														variant="outline"
+														className="w-full justify-start text-start bg-white rounded-md border p-3"
+														type="button"
+													>
+														<CalendarIcon className="mr-2 h-4 w-4" />
+														{field.value
+															? format(field.value, "PPP")
+															: isAr
+															? "اختر التاريخ"
+															: "Pick a date"}
+													</Button>
+												</PopoverTrigger>
+
+												<PopoverContent className="w-auto p-0">
+													<div className="p-3">
+														<Calendar
+															mode="single"
+															selected={field.value || undefined}
+															onSelect={(date) => field.onChange(date || null)}
+															fromDate={tomorrow}
+															toDate={maxDate}
+															disabled={[
+																{ before: tomorrow },
+																{ after: maxDate },
+																{ dayOfWeek: [0, 1] },
+															]}
+															numberOfMonths={1}
+														/>
+													</div>
+												</PopoverContent>
+											</Popover>
 										</FormControl>
 										<FormMessage />
 									</FormItem>

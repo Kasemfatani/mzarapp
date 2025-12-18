@@ -25,24 +25,24 @@ export default function HeroSection({ lang }) {
 					{/* Main Headline */}
 					<h1
 						className="text-white text-5xl md:text-6xl lg:text-7xl mb-6 leading-tight drop-shadow-lg font-bold"
-						style={{ fontFamily: '"Amiri", serif' }}
+						
 					>
 						{isAr
-							? "اكتشف أجمل الجولات الدينية والتاريخية مع مزار"
-							: "Discover the Most Beautiful Religious & Historical Tours with Mzar"}
+							? "اكتشف أجمل التجارب الدينية والتاريخية مع مزار"
+							: "Discover the Most Inspiring Religious and Historical Experiences with Mzar "}
 					</h1>
 
 					{/* Subheadline */}
 					<p
 						className="text-[#E7D3AF] text-xl md:text-2xl mb-8 leading-relaxed"
 						style={{
-							fontFamily: '"Readex Pro", sans-serif',
+							
 							lineHeight: "1.7",
 						}}
 					>
 						{isAr
-							? "نقدم لك أفضل الرحلات المعتمدة داخل مكة والمدينة مع تجربة حجز سهلة وسريعة."
-							: "We offer you the best certified trips in Makkah and Madinah with a fast and easy booking experience."}
+							? "استمتع بأفضل الرحلات الدينية والتاريخية في مكة والمدينة مع تجربة استثنائية"
+							: "Enjoy the finest religious and historical journeys in Makkah and Madinah through an exceptional and enriching experience"}
 					</p>
 
 					{/* Action Buttons */}
@@ -50,20 +50,20 @@ export default function HeroSection({ lang }) {
 						<button
 							className="bg-[#867957] text-white px-10 py-4 rounded-xl hover:bg-[#3C6652] transition-all shadow-xl hover:shadow-2xl hover:scale-105 transform"
 							style={{
-								fontFamily: '"Readex Pro", sans-serif',
+								
 								fontWeight: 500,
 							}}
 						>
-							{isAr ? "استكشف الجولات" : "Explore Tours"}
+							{isAr ? "استكشف التجارب " : "Explore Experiences"}
 						</button>
 						<button
 							className="bg-white/10 backdrop-blur-md border-2 border-white/30 text-white px-10 py-4 rounded-xl hover:bg-white/20 transition-all shadow-xl"
 							style={{
-								fontFamily: '"Readex Pro", sans-serif',
+								
 								fontWeight: 500,
 							}}
 						>
-							{isAr ? "احجز رحلتك الآن" : "Book Your Trip Now"}
+							{isAr ? "احجز تجربتك الآن" : "Book Your Experience Now"}
 						</button>
 					</div>
 
@@ -71,7 +71,7 @@ export default function HeroSection({ lang }) {
 					<div className="flex flex-wrap gap-6 mb-10 justify-center">
 						<div
 							className="flex items-center gap-2 text-white/90"
-							style={{ fontFamily: '"Readex Pro", sans-serif' }}
+							
 						>
 							<CheckCircle size={20} className="text-[#867957]" />
 							<span>
@@ -80,14 +80,14 @@ export default function HeroSection({ lang }) {
 						</div>
 						<div
 							className="flex items-center gap-2 text-white/90"
-							style={{ fontFamily: '"Readex Pro", sans-serif' }}
+							
 						>
 							<CheckCircle size={20} className="text-[#867957]" />
 							<span>{isAr ? "مرشدين متخصصين" : "Expert Guides"}</span>
 						</div>
 						<div
 							className="flex items-center gap-2 text-white/90"
-							style={{ fontFamily: '"Readex Pro", sans-serif' }}
+							
 						>
 							<CheckCircle size={20} className="text-[#867957]" />
 							<span>
@@ -100,9 +100,9 @@ export default function HeroSection({ lang }) {
 					<div className="bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl p-6 border border-[#E7D3AF]/30">
 						<h3
 							className="text-[#3C6652] mb-4 text-center font-semibold"
-							style={{ fontFamily: '"Amiri", serif', fontSize: "1.5rem" }}
+							style={{  fontSize: "1.5rem" }}
 						>
-							{isAr ? "ابحث عن رحلتك المثالية" : "Find Your Perfect Tour"}
+							{isAr ? "ابحث عن تجربتك المثالية" : "Find Your Ideal Experience"}
 						</h3>
 
 						<div className="grid grid-cols-1 md:grid-cols-4 gap-4">
@@ -111,25 +111,25 @@ export default function HeroSection({ lang }) {
 								<label
 									className="block text-sm text-[#3C6652] mb-2"
 									style={{
-										fontFamily: '"Readex Pro", sans-serif',
+										
 										fontWeight: 500,
 									}}
 								>
-									{isAr ? "نوع الجولة" : "Tour Type"}
+									{isAr ? "نوع التجربة " : " Experience Type"}
 								</label>
 								<select
 									className="w-full px-4 py-3 border-2 border-[#E7D3AF] rounded-xl appearance-none bg-white pr-10 cursor-pointer hover:border-[#867957] focus:border-[#867957] focus:outline-none text-[#3C6652] "
-									style={{ fontFamily: '"Readex Pro", sans-serif' }}
+									
 								>
 									<option>
-										{isAr ? "اختر نوع الجولة" : "Select Tour Type"}
+										{isAr ? "اختر نوع التجربة" : "Select Experience Type"}
 									</option>
-									<option>{isAr ? "جولات تاريخية" : "Historical Tours"}</option>
-									<option>{isAr ? "جولات دينية" : "Religious Tours"}</option>
+									<option>{isAr ? "تجارب تاريخية" : "Historical Experiences"}</option>
+									<option>{isAr ? "تجارب دينية" : "Religious Experiences"}</option>
 									<option>
 										{isAr ? "تجربة الواقع المعزز" : "AR Experience"}
 									</option>
-									<option>{isAr ? "جولات خاصة" : "Private Tours"}</option>
+									<option>{isAr ? "تجارب خاصة" : "Private Experiences"}</option>
 								</select>
 								<ChevronDown
 									className={`absolute top-[42px] text-[#867957] pointer-events-none ${
@@ -144,7 +144,7 @@ export default function HeroSection({ lang }) {
 								<label
 									className="block text-sm text-[#3C6652] mb-2"
 									style={{
-										fontFamily: '"Readex Pro", sans-serif',
+										
 										fontWeight: 500,
 									}}
 								>
@@ -152,7 +152,7 @@ export default function HeroSection({ lang }) {
 								</label>
 								<select
 									className="w-full px-4 py-3 border-2 border-[#E7D3AF] rounded-xl appearance-none bg-white pr-10 cursor-pointer hover:border-[#867957] focus:border-[#867957] focus:outline-none text-[#3C6652]"
-									style={{ fontFamily: '"Readex Pro", sans-serif' }}
+									
 								>
 									<option>{isAr ? "اختر المدينة" : "Select City"}</option>
 									<option>{isAr ? "مكة المكرمة" : "Makkah"}</option>
@@ -172,7 +172,7 @@ export default function HeroSection({ lang }) {
 								<label
 									className="block text-sm text-[#3C6652] mb-2"
 									style={{
-										fontFamily: '"Readex Pro", sans-serif',
+										
 										fontWeight: 500,
 									}}
 								>
@@ -182,7 +182,7 @@ export default function HeroSection({ lang }) {
 									<input
 										type="date"
 										className="w-full px-4 py-3 border-2 border-[#E7D3AF] rounded-xl bg-white hover:border-[#867957] focus:border-[#867957] focus:outline-none text-[#3C6652]"
-										style={{ fontFamily: '"Readex Pro", sans-serif' }}
+										
 									/>
 								</div>
 							</div>
@@ -192,7 +192,7 @@ export default function HeroSection({ lang }) {
 								<button
 									className="w-full bg-[#3C6652] text-white px-6 py-3 rounded-xl hover:bg-[#1E3A5F] transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
 									style={{
-										fontFamily: '"Readex Pro", sans-serif',
+										
 										fontWeight: 500,
 									}}
 								>

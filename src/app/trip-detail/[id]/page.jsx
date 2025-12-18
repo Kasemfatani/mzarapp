@@ -30,6 +30,8 @@ const PATH_IMPORTS = {
 	9: () => import("@/components/data/tour/madinah").then((m) => m.default),
 	10: () => import("@/components/data/tour/bus").then((m) => m.default),
 	11: () => import("@/components/data/tour/show").then((m) => m.default),
+	6: () => import("@/components/data/tour/fullMakkah").then((m) => m.default),
+	7: () => import("@/components/data/tour/fullMadinnah").then((m) => m.default),
 	// Add more: 12: () => import("@/components/data/paths/another").then(m => m.default),
 };
 

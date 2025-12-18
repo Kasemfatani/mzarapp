@@ -1,6 +1,7 @@
 import {
 	Mail,
 	Phone,
+	Whatsapp,
 	MapPin,
 	Shield,
 	Headphones,
@@ -34,15 +35,15 @@ export default function Footer() {
 
 	return (
 		<footer
-			className="bg-gradient-to-b from-[#F5F5F5] to-[#E7D3AF]/20"
+			className={`bg-gradient-to-b from-[#F5F5F5] to-[#E7D3AF]/20 ${language === "en" ? "ltr" : "rtl"}`}
 		>
 			{/* Main Footer Content */}
 			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-8 justify-center">
+				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 justify-center">
 					{/* Column 1 - Logo & Description */}
-					<div className="lg:col-span-1">
+					<div className="lg:col-span-1 mx-auto text-center md:text-start">
 						{/* Logo */}
-						<div className="flex items-center gap-3 mb-4">
+						<div className="flex justify-center md:justify-start items-center gap-3 mb-4">
 							<Link href="/">
 								<img
 									src="/Home/header-logo.png"
@@ -61,12 +62,12 @@ export default function Footer() {
 								lineHeight: "1.7",
 							}}
 						>
-              {isAr ? 'منصة مزار توفر لك أفضل الجولات والرحلات داخل المملكة مع حجز فوري وت تجربة موثوقة.' : 'Mzar platform offers you the best tours and trips within the Kingdom with instant booking and a reliable experience.'}
+              {isAr ? 'منصة مزار توفر لك أفضل التجارب والرحلات داخل مكة والمدينة مع حجز فوري وتجربة موثوقة.' : 'The Mzar platform offers you the finest experiences and journeys in Makkah and Madinah, with instant booking and a trusted experience.'}
 						</p>
 
 						{/* Trust Badges */}
 						<div className="space-y-3">
-							<div className="flex items-center gap-2 text-[#3C6652]">
+							<div className="flex justify-center md:justify-start items-center gap-2 text-[#3C6652]">
 								<Shield size={18} className="text-[#867957]" />
 								<span
 									className="text-xs"
@@ -78,7 +79,7 @@ export default function Footer() {
 									{isAr ? 'حجز آمن وموثوق' : 'Secure and Trusted Booking'}
 								</span>
 							</div>
-							<div className="flex items-center gap-2 text-[#3C6652]">
+							<div className="flex justify-center md:justify-start items-center gap-2 text-[#3C6652]">
 								<Headphones size={18} className="text-[#867957]" />
 								<span
 									className="text-xs"
@@ -94,16 +95,16 @@ export default function Footer() {
 					</div>
 
 					{/* Column 2 - Quick Links */}
-					<div>
+					<div className="mx-auto  text-center">
 						<h3
 							className="text-[#3C6652] mb-5 font-semibold"
-							style={{ fontFamily: '"Amiri", serif', fontSize: "1.125rem" }}
+							
 						>
 							{isAr ? 'روابط سريعة' : 'Quick Links'}
 						</h3>
 						<ul
 							className="space-y-3"
-							style={{ fontFamily: '"Readex Pro", sans-serif' }}
+							
 						>
 							<li>
 								<a
@@ -118,7 +119,7 @@ export default function Footer() {
 									href="#tours"
 									className="text-gray-600 hover:text-[#867957] transition-colors text-sm block"
 								>
-									{isAr ? 'الجولات' : 'Tours'}
+									{isAr ? 'التجارب' : 'Tours'}
 								</a>
 							</li>
 							<li>
@@ -139,26 +140,34 @@ export default function Footer() {
 							</li>
 							<li>
 								<a
-									href="#contact"
+									href="#gallery"
 									className="text-gray-600 hover:text-[#867957] transition-colors text-sm block"
 								>
-									{isAr ? 'تواصل معنا' : 'Contact Us'}
+									{isAr ? 'المعرض' : 'Gallery'}
+								</a>
+							</li>
+							<li>
+								<a
+									href="#articles"
+									className="text-gray-600 hover:text-[#867957] transition-colors text-sm block"
+								>
+									{isAr ? 'المقالات' : 'Articles'}
 								</a>
 							</li>
 						</ul>
 					</div>
 
 					{/* Column 3 - Categories */}
-					<div>
+					{/* <div>
 						<h3
 							className="text-[#3C6652] mb-5 font-semibold"
-							style={{ fontFamily: '"Amiri", serif', fontSize: "1.125rem" }}
+							
 						>
 							{isAr ? 'أنواع الجولات' : 'Tour Types'}
 						</h3>
 						<ul
 							className="space-y-3"
-							style={{ fontFamily: '"Readex Pro", sans-serif' }}
+							
 						>
 							<li>
 								<a
@@ -201,19 +210,19 @@ export default function Footer() {
 								</a>
 							</li>
 						</ul>
-					</div>
+					</div> */}
 
 					{/* Column 4 - Customer Support */}
-					<div>
+					<div className="mx-auto  text-center">
 						<h3
 							className="text-[#3C6652] mb-5 font-semibold"
-							style={{ fontFamily: '"Amiri", serif', fontSize: "1.125rem" }}
+							
 						>
 							{isAr ? 'خدمة العملاء' : 'Customer Support'}
 						</h3>
 						<ul
 							className="space-y-3"
-							style={{ fontFamily: '"Readex Pro", sans-serif' }}
+							
 						>
 							<li>
 								<a
@@ -247,57 +256,57 @@ export default function Footer() {
 								 	{isAr ? 'شروط الاستخدام' : 'Terms of Use'}
 								</a>
 							</li>
-							<li>
-								<a
-									href="#support"
-									className="text-gray-600 hover:text-[#867957] transition-colors text-sm block"
-								>
-								 	{isAr ? 'الدعم الفني' : 'Technical Support'}
-								</a>
-							</li>
+							
 						</ul>
 					</div>
 
 					{/* Column 5 - Contact Information */}
-					<div>
+					<div className="mx-auto  text-center">
 						<h3
 							className="text-[#3C6652] mb-5 font-semibold"
-							style={{ fontFamily: '"Amiri", serif', fontSize: "1.125rem" }}
+							
 						>
 						 	{isAr ? 'تواصل معنا' : 'Contact Us'}
 						</h3>
 						<div
 							className="space-y-4"
-							style={{ fontFamily: '"Readex Pro", sans-serif' }}
+							
 						>
 							{/* Email */}
-							<div className="flex items-start gap-3">
-								<Mail
-									size={18}
-									className="text-[#867957] flex-shrink-0 mt-0.5"
-								/>
+							<div className="flex items-center gap-2">
+								<i className="fa-solid fa-envelope text-[#867957]"></i>
 								<a
-									href="mailto:support@mazar.com"
-									className="text-gray-600 hover:text-[#867957] transition-colors text-sm"
+									href="mailto:contact@mzarapp.com"
+									className="ltr:ml-2 rtl:mr-2 text-gray-600 hover:text-[#867957]"
 								>
-									support@mazar.com
+									contact@mzarapp.com
 								</a>
 							</div>
 
 							{/* Phone */}
-							<div className="flex items-start gap-3">
-								<Phone
-									size={18}
-									className="text-[#867957] flex-shrink-0 mt-0.5"
-								/>
+							<div className="flex items-center gap-2">
+								<i className="fa-solid fa-phone text-[#867957]"></i>
 								<a
-									href="tel:+966500000000"
-									className="text-gray-600 hover:text-[#867957] transition-colors text-sm"
+									href="tel:920005785"
+									className="ltr:ml-2 rtl:mr-2 text-gray-600 hover:text-[#867957]"
 									dir="ltr"
 								>
-									+966 500 000 000
+									920005785
 								</a>
 							</div>
+							<div className="flex items-center gap-2">
+								<i className="fa-brands fa-whatsapp text-[#867957]"></i>
+								<a
+									href="https://wa.me/+966580121025"
+									target="_blank"
+									rel="noopener noreferrer"
+									className="ltr:ml-2 rtl:mr-2 text-gray-600 hover:text-[#867957] ltr"
+								>
+									+966580121025
+								</a>
+							</div>
+
+							
 
 							{/* Location */}
 							<div className="flex items-start gap-3">
@@ -306,7 +315,7 @@ export default function Footer() {
 									className="text-[#867957] flex-shrink-0 mt-0.5"
 								/>
 								<span className="text-gray-600 text-sm">
-									{isAr ? 'المملكة العربية السعودية' : 'Saudi Arabia'}
+									{isAr ? 'المملكة العربية السعودية ــ جدة ' : 'Saudi Arabia ــ Jeddah'}
 								</span>
 							</div>
 
@@ -314,13 +323,13 @@ export default function Footer() {
 							<div className="pt-4">
 								<p
 									className="text-xs text-gray-500 mb-3"
-									style={{ fontFamily: '"Readex Pro", sans-serif' }}
+									
 								>
 								 	{isAr ? 'تابعنا على' : 'Follow us on'}
 								</p>
 								<div className="flex items-center gap-3">
 									<a
-										href="#"
+										href="https://www.facebook.com/mzarapp" target="_blank" rel="noopener noreferrer"
 										className="w-9 h-9 rounded-full bg-white border border-gray-200 hover:bg-[#867957] hover:border-[#867957] transition-all flex items-center justify-center group shadow-md"
 										aria-label="Facebook"
 									>
@@ -330,7 +339,7 @@ export default function Footer() {
 										/>
 									</a>
 									<a
-										href="#"
+										href="https://www.instagram.com/mzarapp/" target="_blank" rel="noopener noreferrer"
 										className="w-9 h-9 rounded-full bg-white border border-gray-200 hover:bg-[#867957] hover:border-[#867957] transition-all flex items-center justify-center group shadow-md"
 										aria-label="Instagram"
 									>
@@ -340,7 +349,7 @@ export default function Footer() {
 										/>
 									</a>
 									<a
-										href="#"
+										href="https://x.com/mzarapp" target="_blank" rel="noopener noreferrer"
 										className="w-9 h-9 rounded-full bg-white border border-gray-200 hover:bg-[#867957] hover:border-[#867957] transition-all flex items-center justify-center group shadow-md"
 										aria-label="Twitter"
 									>
@@ -350,7 +359,7 @@ export default function Footer() {
 										/>
 									</a>
 									<a
-										href="#"
+										href="https://www.tiktok.com/@mzarapp" target="_blank" rel="noopener noreferrer"
 										className="w-9 h-9 rounded-full bg-white border border-gray-200 hover:bg-[#867957] hover:border-[#867957] transition-all flex items-center justify-center group shadow-md"
 										aria-label="TikTok"
 									>
@@ -370,16 +379,22 @@ export default function Footer() {
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
 					<div
 						className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm"
-						style={{ fontFamily: '"Readex Pro", sans-serif' }}
+						
 					>
 						{/* Copyright */}
 						<div className="text-gray-600 text-center md:text-right order-2 md:order-1">
-							© 2025 مزار. جميع الحقوق محفوظة.
+							© {language === "en"
+								? "Licensed by the Ministry of Tourism, license number 73104705 | Licensed Activity: Tour Organization"
+								: "مرخصة من وزارة السياحة رقم الترخيص 73104705 | تنظيم الرحلات السياحية"}
 						</div>
 
 						{/* Powered by */}
 						<div className="text-gray-500 text-xs text-center md:text-left order-1 md:order-2">
-							Powered by Mazar 
+							{language === "en" ? (
+							<>CR: 4031282010</>
+						) : (
+							<>السجل التجاري : 4031282010</>
+						)}
 						</div>
 					</div>
 				</div>

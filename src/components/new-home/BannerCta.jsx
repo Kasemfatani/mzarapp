@@ -24,23 +24,23 @@ export default function BannerCta({ lang }) {
 				<div className="w-full md:w-1/2 flex flex-col items-center md:items-start text-center md:text-start gap-6">
 					<h2
 						className="text-white font-bold text-2xl md:text-4xl leading-snug"
-						style={{ fontFamily: '"The Year of Handicrafts", sans-serif' }}
+						
 						
 					>
-            {isAr ? "ابدأ جولتك الآن — احجز جولتك في مكة والمدينة" : "Start Your Tour Now — Book Your Tour in Mecca and Medina"}
+            {isAr ? "جولة المسجد الحرام الإثرائية " : "Al-Masjid Al-Haram Enrichment Tour"}
 					</h2>
 					<p
 						className="text-blue-100 text-base md:text-lg"
-						style={{ fontFamily: '"Readex Pro", sans-serif' }}
+						
 						
 					>
-						{isAr ? "تجارب فريدة بانتظارك مع أفضل المرشدين المعتمدين" : "Unique experiences await you with the best certified guides"}
+						{isAr ? "تجربة تأخذك بين قدسية المكان وعبق التاريخ ــ ابدأ جولتك الآن! " : "An experience that takes you between the sanctity of the place and the fragrance of history ــ start your tour now! "}
 					</p>
 					<button
 						className="mt-2 bg-white text-[#3c6652] px-8 py-3 rounded-xl shadow-lg hover:bg-[#f5f5f5] font-semibold flex items-center gap-2 text-lg transition"
-						style={{ fontFamily: '"Readex Pro", sans-serif' }}
+						
 					>
-						{isAr ? "استكشف الجولات ← " : "Explore Tours →"}
+						{isAr ? " استكشف تاريخ الكعبة المشرفة   ← " : "Explore the History of the Holy Kaaba →"}
 						
 					</button>
 				</div>

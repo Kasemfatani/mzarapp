@@ -7,7 +7,7 @@ export default function getMashair(isAr) {
 			: "Experience Visiting the Holy Sites",
 		description: isAr
 			? "مسار المشاعر رحلة إيمانية تاريخية عبر المشاعر المقدسة ابتداءً من عرفات مروراً بمزدلفة ومن ثم منى وانتهاءً بجبل النور وحي حراء الثقافي. "
-			: "The Holy Sites Path is a spiritual and historical journey through the holy sites starting from Arafat, passing through Muzdalifah, then Mina, and ending at Jabal al-Noor and the cultural district of Hira.",
+			: "Masha’er Tour – A spiritual and historical journey across the Holy Sites, beginning from ‘Arafat, passing through Muzdalifah, then Mina, and ending at Jabal Al-Noor & the Hira Cultural District.",
 		image: "/trip-detail/water-bottles.webp",
 		capacity: 45,
 		duration: isAr ? "4 ساعات" : "4 hours",
@@ -64,7 +64,7 @@ export default function getMashair(isAr) {
 		about: {
 			desc: isAr
 				? "نأخذكم في رحلة إيمانية تاريخية، نسير فيها معكم عبر المشاعر المقدسة ابتداءً من عرفات مروراً بمزدلفة ومن ثم منى وانتهاءً بجبل النور وحي حراء الثقافي."
-				: "We take you on a spiritual and historical journey, walking with you through the holy sites starting from Arafat, passing through Muzdalifah, then Mina, and ending at Jabal al-Noor and the cultural district of Hira.",
+				: "We take you on a spiritual and historical journey, walking with you through the Holy Sites ــ beginning from ‘Arafat, passing through Muzdalifah, then Mina, and ending at Al-Noor Mountain and Hira Cultural District.",
 			list: isAr
 				? [
 						"عرفات ــ ثلاث وجهات رئيسية: جبل الرحمة ومسجد نمرة وخاصرة عين زبيدة.",
@@ -74,11 +74,11 @@ export default function getMashair(isAr) {
 						"في هذه الرحلة نمزج بين السير في أراضي المشاعر والتحليق في سموّ المشاعر، وإثراء التجربة. ",
 				  ]
 				: [
-						"Arafat — Three main destinations: Jabal al-Rahma, Namira Mosque, and the Zubaida Spring Basin.",
-						"Muzdalifah — Home to the Sacred Mosque of Muzdalifah.",
-						"Mina — Where we tour between: the Jamarat Bridge and Al-Khaif Mosque.",
-						"At the end of the journey, you can visit Jabal al-Noor and the cultural district of Hira, and enjoy an informative and enriching tour among its museums.",
-						"In this journey, we blend walking through the lands of the holy sites with soaring in the heights of spirituality, enriching the experience.",
+						"Arafat ــ Three main destinations: Jabal Al-Rahmah (Mount of Mercy), Namira Mosque, and the Zubaida Spring",
+						"Muzdalifah ــ which includes Al-Mash’ar Al-Haram Mosque.",
+						"Mina ــ where we take you between Jamarat Bridge and Al-Khaif Mosque.",
+						"At the end of the journey, you can visit Al-Noor Mountain and Hira Cultural District, and explore its knowledge-rich museums.",
+						"In this journey, we combine walking through the lands of the Holy Sites with soaring in the essence of the sacred experience, enriching your journey throughout.",
 				  ],
 		},
 		included: isAr

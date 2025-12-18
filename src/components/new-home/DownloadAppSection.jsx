@@ -9,7 +9,7 @@ export default function DownloadAppSection({ lang }) {
 
 	return (
 		<section className="relative w-full min-h-[420px] flex items-center bg-gradient-to-b from-[#F5F7F5] to-[#F5F4F3]/20 mb-10">
-			<div className="relative z-10 container mx-auto flex flex-col md:flex-row items-center justify-between py-10 gap-8">
+			<div className="relative z-10 container mx-auto flex flex-col md:flex-row items-center justify-around py-10 gap-8">
 				{/* Left: Text & Buttons */}
 				<div
 					className="flex-1 flex flex-col items-center md:items-start gap-6 max-w-2xl"
@@ -30,15 +30,15 @@ export default function DownloadAppSection({ lang }) {
 					<p className="text-gray-700 text-base md:text-lg leading-relaxed">
 						{isAr
 							? "تجربة أسرع وأسهل للحجز — في أي وقت وأي مكان."
-							: "A faster, easier booking experience — anytime, anywhere."}
+							: "A faster and easier way to book ــ anytime, anywhere."}
 					</p>
 
 					{/* Feature chips */}
 					<div className="flex flex-wrap gap-3">
 						{[
 							isAr ? "عروض حصرية" : "Exclusive offers",
-							isAr ? "تتبع حجوزاتك" : "Track your bookings",
 							isAr ? "احجز في ثوانٍ" : "Book in seconds",
+							isAr ? "تتبع حجوزاتك" : "Track your reservations",
 						].map((text, i) => (
 							<div
 								key={i}

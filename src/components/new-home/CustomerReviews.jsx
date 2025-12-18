@@ -109,7 +109,7 @@ export function CustomerReviews( { lang } ) {
             {isAr ? 'آراء العملاء' : 'Customer Reviews'}
           </h2>
           <p className="text-gray-600 text-lg max-w-2xl mx-auto leading-relaxed" style={{ fontFamily: '"Readex Pro", sans-serif', lineHeight: '1.7' }}>
-            {isAr ? 'تجارب حقيقية من زوّار حجزوا رحلاتهم مع مزار' : 'Real experiences from visitors who booked their trips with Mzar'}
+            {isAr ? 'انطباعات حقيقية من زوار خاضوا تجارب إثرائية مع مزار ' : 'Real impressions from visitors who enjoyed enriching experiences with Mzar'}
           </p>
         </div>
 

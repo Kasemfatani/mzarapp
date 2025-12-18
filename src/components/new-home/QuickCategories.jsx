@@ -21,44 +21,44 @@ export default function QuickCategories({ lang }) {
 	const categories = [
 		{
 			icon: <MapPin size={56} strokeWidth={1.5} />,
-			title: isAr ? "جولات الحرمين" : "Haram Tours",
-			description: isAr ? "رحلات منظمة داخل مكة والمدينة مع مرشدين معتمدين" : "Organized trips within Mecca and Medina with certified guides",
+			title: isAr ? "جولات الحرمين الشريفين " : "Two Holy Mosques Tours",
+			description: isAr ? "رحلات ميدانية مرخصة داخل الحرمين الشريفين مع مرشدين معتمدين" : "Licensed on-site tours inside Al-Masjid Al-Haram and Al-Masjid An-Nabawi, led by certified guides",
 		},
 		{
 			icon: <Landmark size={56} strokeWidth={1.5} />,
-			title: isAr ? "جولات ثقافية" : "Cultural Tours",
-			description: isAr ? "اكتشف التاريخ والمعالم الأثرية المحلية" : "Discover local history and archaeological sites",
+			title: isAr ? "الرحلات الإثرائية" : "Enrichment Journeys",
+			description: isAr ? "استكشاف المعالم الدينية والتاريخية في مكة والمدينة " : "Explore the most significant religious and historical landmarks in Makkah and Madinah",
 		},
 		{
 			icon: <Users size={56} strokeWidth={1.5} />,
-			title: isAr ? "جولات عائلية" : "Family Tours",
-			description: isAr ? "رحلات مناسبة للعائلات بكل الأعمار" : "Trips suitable for families of all ages",
+			title: isAr ? "حافلة الجولات الإثرائية " : "Enrichment Tours Bus",
+			description: isAr ? "رحلة تشاركية إلى أبرز معالم مكة التاريخية والثقافية " : "A shared tour experience to Makkah’s most prominent historical and cultural landmarks",
 		},
-		{
-			icon: <User size={56} strokeWidth={1.5} />,
-			title: isAr ? "جولات للرجال فقط" : "Men Only Tours",
-			description: isAr ? "جولات خاصة ومخصصة للرجال وفق الضوابط" : "Private and customized tours for men according to regulations",
-		},
-		{
-			icon: <UserCheck size={56} strokeWidth={1.5} />,
-			title: isAr ? "جولات للنساء فقط" : "Women Only Tours",
-			description: isAr ? "رحلات آمنة ومناسبة للنساء فقط" : "Safe and suitable trips for women only",
-		},
-		{
-			icon: <Clock size={56} strokeWidth={1.5} />,
-			title: isAr ? "رحلات اليوم الواحد" : "One Day Trips",
-			description: isAr ? "أنشطة وتجارب سريعة ليوم واحد فقط" : "Quick activities and experiences for one day only",
-		},
-		{
-			icon: <Globe2 size={56} strokeWidth={1.5} />,
-			title: isAr ? "جولات دولية" : "International Tours",
-			description: isAr ? "رحلات خارج المملكة لاكتشاف العالم" : "Trips outside the kingdom to explore the world",
-		},
-		{
-			icon: <BookOpen size={56} strokeWidth={1.5} />,
-			title: isAr ? "جولات تعليمية" : "Educational Tours",
-			description: isAr ? "رحلات مخصصة للتعلم واكتساب المعرفة" : "Trips dedicated to learning and gaining knowledge",
-		},
+		// {
+		// 	icon: <User size={56} strokeWidth={1.5} />,
+		// 	title: isAr ? "جولة المسجد الحرام الإثرائية " : "Masjid al-Haram Enrichment Tour",
+		// 	description: isAr ? "تجربة تأخذك بين قدسية المكان وعبق التاريخ ــ ابدأ جولتك الآن! " : "An experience that takes you between the sanctity of the place and the fragrance of history ــ start your tour now!",
+		// },
+		// {
+		// 	icon: <UserCheck size={56} strokeWidth={1.5} />,
+		// 	title: isAr ? "جولات للنساء فقط" : "Women Only Tours",
+		// 	description: isAr ? "رحلات آمنة ومناسبة للنساء فقط" : "Safe and suitable trips for women only",
+		// },
+		// {
+		// 	icon: <Clock size={56} strokeWidth={1.5} />,
+		// 	title: isAr ? "رحلات اليوم الواحد" : "One Day Trips",
+		// 	description: isAr ? "أنشطة وتجارب سريعة ليوم واحد فقط" : "Quick activities and experiences for one day only",
+		// },
+		// {
+		// 	icon: <Globe2 size={56} strokeWidth={1.5} />,
+		// 	title: isAr ? "جولات دولية" : "International Tours",
+		// 	description: isAr ? "رحلات خارج المملكة لاكتشاف العالم" : "Trips outside the kingdom to explore the world",
+		// },
+		// {
+		// 	icon: <BookOpen size={56} strokeWidth={1.5} />,
+		// 	title: isAr ? "جولات تعليمية" : "Educational Tours",
+		// 	description: isAr ? "رحلات مخصصة للتعلم واكتساب المعرفة" : "Trips dedicated to learning and gaining knowledge",
+		// },
 	];
 
 	const [activeIndex, setActiveIndex] = useState(0);
@@ -77,18 +77,18 @@ export default function QuickCategories({ lang }) {
 				<div className="text-center mb-16">
 					<h2
 						className="text-[#3C6652] mb-4 font-bold"
-						style={{ fontFamily: '"Amiri", serif', fontSize: "2.5rem" }}
+						style={{ fontSize: "2.5rem" }}
 					>
-						{isAr ? "استكشف تجارب مزار الفريدة" : "Explore Mzar's Unique Experiences"}
+						{isAr ? "استكشف تجارب مزار الحصرية" : "Explore Mzar's Exclusive Experiences"}
 					</h2>
 					<p
 						className="text-gray-600 text-lg max-w-3xl mx-auto leading-relaxed"
 						style={{
-							fontFamily: '"Readex Pro", sans-serif',
+							
 							lineHeight: "1.7",
 						}}
 					>
-						{isAr ? "نصمم تجاربنا لتناسب احتياجاتكم و تمنحكم دهشة  وإثراءًا" : "We design our experiences to suit your needs and provide you with amazement and enrichment"}
+						{isAr ? "نصمّم تجاربنا بعناية لتناسب احتياجاتكم وتمنحكم دهشة وإثراء" : "We thoughtfully design our experiences to meet your needs, offering moments of inspiration, enrichment, and discovery "}
 					</p>
 				</div>
 
@@ -105,10 +105,12 @@ export default function QuickCategories({ lang }) {
 					autoplay={{ delay: 3000, disableOnInteraction: false }}
 					loop={true}
 					modules={[Autoplay]}
+					className=""
+					id="QuickCategories"
 				>
 					{categories.map((category, index) => (
 						<SwiperSlide key={index}>
-							<div className="bg-white rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 cursor-pointer group hover:scale-[1.03] border border-gray-100 h-full flex flex-col">
+							<div className="bg-white rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 cursor-pointer group hover:scale-[1.03] border border-gray-100 flex flex-col">
 								<div className="p-8 flex flex-col items-center text-center flex-1">
 									{/* Icon */}
 									<div className="mb-6 text-[#867957] group-hover:text-[#3C6652] transition-colors group-hover:scale-110 transform duration-300">
@@ -117,7 +119,7 @@ export default function QuickCategories({ lang }) {
 									{/* Title */}
 									<h3
 										className="text-[#3C6652] mb-3 font-semibold"
-										style={{ fontFamily: '"Amiri", serif', fontSize: "1.5rem" }}
+										style={{  fontSize: "1.5rem" }}
 									>
 										{category.title}
 									</h3>
@@ -125,7 +127,7 @@ export default function QuickCategories({ lang }) {
 									<p
 										className="text-gray-600 mb-6 leading-relaxed min-h-[3rem]"
 										style={{
-											fontFamily: '"Readex Pro", sans-serif',
+										
 											lineHeight: "1.6",
 										}}
 									>
@@ -136,7 +138,7 @@ export default function QuickCategories({ lang }) {
 										<span
 											className="text-sm"
 											style={{
-												fontFamily: '"Readex Pro", sans-serif',
+												
 												fontWeight: 500,
 											}}
 										>

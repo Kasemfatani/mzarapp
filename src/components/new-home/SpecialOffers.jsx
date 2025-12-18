@@ -1,6 +1,7 @@
 "use client";
 
-import { Tag, Clock, ArrowLeft } from "lucide-react";
+import { is } from "date-fns/locale";
+import { Tag, Clock, ArrowLeft , ArrowRight } from "lucide-react";
 
 function OfferCard({
 	isAr = false,
@@ -30,10 +31,10 @@ function OfferCard({
 				<div className="absolute content-stretch flex items-center justify-between left-[10.2px] top-[16.2px] w-full px-4">
 					{/* Discount Badge */}
 					<div className="bg-gradient-to-r from-red-500 to-red-600 text-white px-5 py-2 rounded-full shadow-xl flex items-center gap-2 animate-pulse">
-						<Tag size={18} />
+						<Tag size={14} />
 						<span
 							className="font-bold"
-							style={{ fontFamily: '"Readex Pro", sans-serif' }}
+							
 						>
 							{discount}% {isAr ? "خصم" : "Off"}
 						</span>
@@ -42,7 +43,7 @@ function OfferCard({
 					{/* Badge Label */}
 					<div
 						className="bg-[#867957] text-white px-4 py-1.5 rounded-full shadow-lg text-sm"
-						style={{ fontFamily: '"Readex Pro", sans-serif', fontWeight: 500 }}
+						style={{  fontWeight: 500 }}
 					>
 						{badge}
 					</div>
@@ -54,7 +55,7 @@ function OfferCard({
 				{/* Title */}
 				<h3
 					className="text-[#3C6652] mb-3 text-xl  font-semibold"
-					style={{ fontFamily: '"Amiri", serif' }}
+					
 				>
 					{title}
 				</h3>
@@ -62,7 +63,7 @@ function OfferCard({
 				{/* Description */}
 				<p
 					className="text-gray-600 text-sm mb-5  leading-relaxed flex-grow"
-					style={{ fontFamily: '"Readex Pro", sans-serif', lineHeight: "1.6" }}
+					style={{  lineHeight: "1.6" }}
 				>
 					{description}
 				</p>
@@ -71,7 +72,7 @@ function OfferCard({
 				{urgency && (
 					<div
 						className="flex items-center gap-2 mb-4 text-orange-600 text-sm justify-center"
-						style={{ fontFamily: '"Readex Pro", sans-serif', fontWeight: 500 }}
+						style={{  fontWeight: 500 }}
 					>
 						<span>{urgency}</span>
 						<Clock size={16} />
@@ -86,7 +87,7 @@ function OfferCard({
 					<div className="flex items-center justify-between">
 						<p
 							className="text-sm text-gray-500 mt-1"
-							style={{ fontFamily: '"Readex Pro", sans-serif' }}
+							
 						>
               {isAr ? "وفّر" : "Save"} {parseInt(oldPrice) - parseInt(newPrice)} {isAr ? "ريال" : "SAR"}
 						</p>
@@ -94,13 +95,13 @@ function OfferCard({
 						<div className="flex items-baseline gap-4">
 							<div
 								className="text-3xl text-[#3C6652] font-bold"
-								style={{ fontFamily: '"Amiri", serif', fontWeight: 700 }}
+								style={{ fontWeight: 700 }}
 							>
 								{newPrice} <span className="text-lg">{isAr ? "ريال" : "SAR"}</span>
 							</div>
 							<div
 								className="text-lg text-gray-400 line-through"
-								style={{ fontFamily: '"Readex Pro", sans-serif' }}
+								
 							>
 								{oldPrice}
 							</div>
@@ -111,13 +112,13 @@ function OfferCard({
 				{/* CTA Button */}
 				<button
 					className="w-full bg-[#3C6652] text-white py-3.5 rounded-xl hover:bg-[#1E3A5F] transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 mt-auto"
-					style={{ fontFamily: '"Readex Pro", sans-serif', fontWeight: 500 }}
+					style={{  fontWeight: 500 }}
 				>
-					<span >{isAr ? "احجز الآن" : "Book Now"}</span>
-					<ArrowLeft
+					<span >{isAr ? "عرض المزيد " : "View More"}</span>
+					{/* <ArrowLeft
 						size={18}
 						className="group-hover:translate-x-1 transition-transform"
-					/>
+					/> */}
 				</button>
 			</div>
 		</div>
@@ -181,18 +182,18 @@ export function SpecialOffers({ lang }) {
 				<div className="text-center mb-16">
 					<h2
 						className="text-[#3C6652] mb-4 font-bold"
-						style={{ fontFamily: '"Amiri", serif', fontSize: "2.5rem" }}
+						style={{  fontSize: "2.5rem" }}
 					>
-            {isAr ? 'عروض خاصة لرحلتك القادمة' : 'Special Offers for Your Next Trip'}
+            {isAr ? 'عروض خاصة لرحلتك القادمة' : 'Special Offers for Your Next Journey'}
 					</h2>
 					<p
 						className="text-gray-600 text-lg max-w-3xl mx-auto leading-relaxed"
 						style={{
-							fontFamily: '"Readex Pro", sans-serif',
+							
 							lineHeight: "1.7",
 						}}
 					>
-						{isAr ? "خصومات حقيقية على أشهر الجولات — لفترة محدودة فقط!" : "Real discounts on the most popular tours — for a limited time only!"}
+						{isAr ? "خصومات مميزة على أشهر التجارب ــ لفترة محدودة!" : "Real discounts on the most popular tours — for a limited time only!"}
 					</p>
 				</div>
 
@@ -208,28 +209,28 @@ export function SpecialOffers({ lang }) {
 					<div className="max-w-3xl mx-auto">
 						<h3
 							className="text-white mb-4 text-2xl md:text-3xl font-bold"
-							style={{ fontFamily: '"Amiri", serif' }}
+							
 						>
-              {isAr ? "لا تفوّت عروض هذا الأسبوع — المقاعد محدودة!" : "Don't Miss This Week's Deals — Limited Seats!"}
+              {isAr ? "تجربة سياحية آمنة ومريحة " : "A Safe & Comfortable Tourism Experience"}
 						</h3>
 						<p
 							className="text-white/90 mb-6 text-lg"
 							style={{
-								fontFamily: '"Readex Pro", sans-serif',
+								
 								lineHeight: "1.7",
 							}}
 						>
-              {isAr ? "احجز اليوم واستمتع بخصومات استثنائية على جميع الجولات المميزة" : "Book today and enjoy exceptional discounts on all premium tours!"}
+              {isAr ? "مرشد ذكي صوتي بـ6 لغات، ومحطات غنية بالقصص تجوب بك أبرز معالم مكة المكرمة" : "A smart audio guide in 6 languages, with story-rich stops that take you through Makkah’s most prominent landmarks."}
 						</p>
 						<button
 							className="bg-white text-[#3C6652] px-12 py-4 rounded-xl hover:bg-[#E7D3AF] transition-all shadow-lg hover:shadow-xl hover:scale-105 inline-flex items-center gap-3"
 							style={{
-								fontFamily: '"Readex Pro", sans-serif',
+								
 								fontWeight: 500,
 							}}
 						>
-							<span className="text-lg">{isAr ? "استكشف جميع العروض" : "Explore All Offers"}</span>
-							<ArrowLeft size={20} />
+							<span className="text-lg">{isAr ? "استكشف الآن!" : "Explore Now!"}</span>
+							{isAr ? <ArrowLeft size={20} /> : <ArrowRight size={20} />}
 						</button>
 					</div>
 				</div>

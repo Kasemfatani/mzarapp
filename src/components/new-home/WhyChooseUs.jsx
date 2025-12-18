@@ -5,34 +5,34 @@ export function WhyChooseUs( { lang } ) {
   const advantages = [
     {
       icon: <Award size={52} strokeWidth={1.5} />,
-      title: isAr ? 'خبرة معتمدة' : 'Certified Experience',
-      description: isAr ? 'جولات بإشراف مرشدين معتمدين من وزارة السياحة.' : 'Tours supervised by guides certified by the Ministry of Tourism.'
+      title: isAr ? 'تجربة معرفية موثقة' : 'Verified Knowledge Experience',
+      description: isAr ? 'محتوى معرفي بعدة لغات عالمية معتمد من هيئة التراث.' : 'Multilingual educational content approved by the Heritage Commission. '
     },
     {
       icon: <Sparkles size={52} strokeWidth={1.5} />,
-      title: isAr ? 'تجارب حصرية لا يقدمها غيرنا' : 'Exclusive Experiences',
-      description: isAr ? 'مثل الصعود إلى جبل الرحمة، وزيارة معالم لا تتوفر إلا عبر مزار.' : 'Such as climbing Mount Arafat and visiting landmarks only available through Mzar.'
+      title: isAr ? 'تجارب حصرية' : 'Exclusive Experiences',
+      description: isAr ? 'وصول حصري لمواقع تاريخية مثل جبل الرحمة ومسجد البيعة.' : 'Special access to historical sites such as Jabal Al-Rahmah and Al-Bay’ah Mosque. '
     },
     {
       icon: <Ticket size={52} strokeWidth={1.5} />,
-      title: isAr ? 'تأكيد فوري للتذاكر' : 'Instant Ticket Confirmation',
-      description: isAr ? 'احجز الآن وتصل تذكرتك مباشرة داخل التطبيق.' : 'Book now and receive your ticket directly within the app.'
+      title: isAr ? 'تأكيد فوري عند الحجز' : 'Instant Booking Confirmation',
+      description: isAr ? 'احجز الآن واستمتع بتجربة رقمية فريدة عبر تطبيق مزار.' : 'Book now and enjoy a seamless digital experience through Mzar App.'
     },
-    {
-      icon: <CreditCard size={52} strokeWidth={1.5} />,
-      title: isAr ? 'طرق دفع آمنة ومتعددة' : 'Secure and Multiple Payment Methods',
-      description: isAr ? 'الدفع الإلكتروني، Apple Pay، STC Pay.' : 'Electronic payment, Apple Pay, STC Pay.'
-    },
+    // {
+    //   icon: <CreditCard size={52} strokeWidth={1.5} />,
+    //   title: isAr ? 'طرق دفع آمنة ومتعددة' : 'Secure and Multiple Payment Methods',
+    //   description: isAr ? 'الدفع الإلكتروني، Apple Pay، STC Pay.' : 'Electronic payment, Apple Pay, STC Pay.'
+    // },
     {
       icon: <Headphones size={52} strokeWidth={1.5} />,
       title: isAr ? 'دعم على مدار الساعة' : '24/7 Support',
-      description: isAr ? 'فريق خدمة عملاء جاهز لمساعدتك قبل وأثناء وبعد الرحلة.' : 'Customer service team ready to assist you before, during, and after the trip.'
+      description: isAr ? 'فريق خدمة عملاء جاهز لمساعدتك قبل وأثناء وبعد الرحلة.' : 'A dedicated customer support team ready to assist you before, during, and after your experience.'
     },
-    {
-      icon: <Star size={52} strokeWidth={1.5} />,
-      title: isAr ? 'تقييمات مستخدمين ممتازة' : 'Excellent User Reviews',
-      description: isAr ? 'آلاف التجارب الناجحة بمتوسط تقييم +4.8' : 'Thousands of successful experiences with an average rating of +4.8'
-    }
+    // {
+    //   icon: <Star size={52} strokeWidth={1.5} />,
+    //   title: isAr ? 'تقييمات مستخدمين ممتازة' : 'Excellent User Reviews',
+    //   description: isAr ? 'آلاف التجارب الناجحة بمتوسط تقييم +4.8' : 'Thousands of successful experiences with an average rating of +4.8'
+    // }
   ];
 
   return (
@@ -51,11 +51,11 @@ export function WhyChooseUs( { lang } ) {
           <div className="order-2 lg:order-1">
             {/* Section Header */}
             <div className="mb-12">
-              <h2 className="text-[#3C6652] mb-4 font-bold" style={{ fontFamily: '"Amiri", serif', fontSize: '2.5rem' }}>
+              <h2 className="text-[#3C6652] mb-4 font-bold" style={{  fontSize: '2.5rem' }}>
                 {isAr ? 'لماذا تختار مزار؟' : 'Why Choose Mzar?'}
               </h2>
-              <p className="text-gray-600 text-lg leading-relaxed" style={{ fontFamily: '"Readex Pro", sans-serif', lineHeight: '1.7' }}>
-                {isAr ? 'تجارب سياحية موثوقة، بخدمات حصرية لم تجدها في أي مكان آخر.' : 'Reliable tourist experiences with exclusive services you won\'t find anywhere else.'}
+              <p className="text-gray-600 text-lg leading-relaxed" style={{  lineHeight: '1.7' }}>
+                {isAr ? 'تجارب سياحية موثوقة مع خدمات حصرية لا مثيل لها' : 'Trusted tourism experiences with exclusive services like no other.'}
               </p>
             </div>
 
@@ -73,10 +73,10 @@ export function WhyChooseUs( { lang } ) {
 
                   {/* Text Content */}
                   <div className="flex-1">
-                    <h3 className="text-[#3C6652] mb-2 text-lg font-semibold" style={{ fontFamily: '"Amiri", serif' }}>
+                    <h3 className="text-[#3C6652] mb-2 text-lg font-semibold" >
                       {advantage.title}
                     </h3>
-                    <p className="text-gray-600 leading-relaxed text-sm" style={{ fontFamily: '"Readex Pro", sans-serif', lineHeight: '1.6' }}>
+                    <p className="text-gray-600 leading-relaxed text-sm" style={{  lineHeight: '1.6' }}>
                       {advantage.description}
                     </p>
                   </div>
@@ -86,7 +86,7 @@ export function WhyChooseUs( { lang } ) {
 
             {/* CTA Button */}
             <div className="mt-10">
-              <button className="bg-[#3C6652] text-white px-10 py-4 rounded-xl hover:bg-[#1E3A5F] transition-all shadow-lg hover:shadow-xl hover:scale-105" style={{ fontFamily: '"Readex Pro", sans-serif', fontWeight: 500 }}>
+              <button className="bg-[#3C6652] text-white px-10 py-4 rounded-xl hover:bg-[#1E3A5F] transition-all shadow-lg hover:shadow-xl hover:scale-105" style={{  fontWeight: 500 }}>
                 {isAr ? 'اكتشف الفرق بنفسك' : 'Discover the Difference Yourself'}
               </button>
             </div>
@@ -110,8 +110,8 @@ export function WhyChooseUs( { lang } ) {
                 <div className="bg-white/95 backdrop-blur-md rounded-2xl p-6 shadow-2xl border border-[#E7D3AF]/30">
                   <div className="flex items-center justify-between gap-4">
                     <div>
-                      <div className="text-3xl text-[#867957] mb-1" style={{ fontFamily: '"Amiri", serif', fontWeight: 700 }}>+50</div>
-                      <div className="text-[#3C6652]" style={{ fontFamily: '"Readex Pro", sans-serif' }}>{isAr ? 'تجربة سياحية موثوقة' : 'Reliable Tourist Experience'}</div>
+                      <div className="text-3xl text-[#867957] mb-1" style={{  fontWeight: 700 }}>+50</div>
+                      <div className="text-[#3C6652]" >{isAr ? 'تجربة سياحية موثوقة' : 'Reliable Tourist Experience'}</div>
                     </div>
                     <div className="w-16 h-16 bg-gradient-to-br from-[#867957] to-[#3C6652] rounded-full flex items-center justify-center">
                       <Sparkles size={32} className="text-white" />
@@ -124,7 +124,7 @@ export function WhyChooseUs( { lang } ) {
               <div className="absolute top-8 right-8">
                 <div className="bg-gradient-to-r from-[#867957] to-[#3C6652] text-white px-6 py-3 rounded-full shadow-xl flex items-center gap-2">
                   <Star size={20} className="fill-white" />
-                  <span style={{ fontFamily: '"Readex Pro", sans-serif', fontWeight: 500 }}>{isAr ? 'تقييم 4.8 من 5' : 'Rating 4.8 out of 5'}</span>
+                  <span style={{  fontWeight: 500 }}>{isAr ? 'تقييم 4.8 من 5' : 'Rating 4.8 out of 5'}</span>
                 </div>
               </div>
             </div>

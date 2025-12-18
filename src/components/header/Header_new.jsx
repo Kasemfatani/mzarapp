@@ -40,7 +40,7 @@ export default function Header() {
 			}`;
 		}
 	}, [lang]);
-  const isAr = lang === "ar";
+	const isAr = lang === "ar";
 
 	return (
 		<>
@@ -50,75 +50,112 @@ export default function Header() {
 					<div
 						className="flex flex-col md:flex-row items-center justify-between text-sm"
 						
-						style={{ fontFamily: '"Readex Pro", sans-serif' }}
 					>
-						<div className="flex items-center gap-6">
-							<div className="flex items-center gap-2">
-								<Phone size={14} />
-								<span style={{ fontFamily: '"Readex Pro", sans-serif' }}>
-									+966 12 345 6789
-								</span>
-							</div>
-							<div className="flex items-center gap-2">
-								<Mail size={14} />
-								<span style={{ fontFamily: '"Readex Pro", sans-serif' }}>
-									info@mzar.sa
-								</span>
-							</div>
+						<div className="flex items-center justify-center gap-2 flex-wrap mb-2 md:mb-0">
+							<a
+								href="mailto:contact@mzarapp.com"
+								className="flex items-center gap-1 hover:underline"
+							>
+								<i className="fa-solid fa-envelope"></i>
+								contact@mzarapp.com
+							</a>
+							<a
+								href="tel:920005785"
+								className="flex items-center gap-1 hover:underline"
+								dir="ltr"
+							>
+								<i className="fa-solid fa-phone"></i>
+								920005785
+							</a>
+							<a
+								href="https://wa.me/+966580121025"
+								target="_blank"
+								rel="noopener noreferrer"
+								className="flex items-center gap-1 hover:underline"
+							>
+								<i className="fa-brands fa-whatsapp"></i>
+								+966580121025
+							</a>
 						</div>
-						<div className="flex items-center gap-2">
-							<Globe size={14} />
-							<button
-								className="hover:text-[#E7D3AF] transition-colors"
-								style={{ fontFamily: '"Readex Pro", sans-serif' }}
-								onClick={() => {
-									const nextLang = "ar";
+						<div className="flex flex-col md:flex-row items-center gap-3 md:gap-6">							
+							<div className="flex items-center gap-4">
+								<a
+									href="https://www.youtube.com/@mzarapp"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									<i className="fa-brands fa-youtube text-white"></i>
+								</a>
+								<a
+									href="https://www.instagram.com/mzarapp/"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									<i className="fa-brands fa-instagram text-white"></i>
+								</a>
+								<a
+									href="https://www.facebook.com/mzarapp"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									<i className="fa-brands fa-facebook text-white"></i>
+								</a>
+							</div>
+							<div className="flex items-start gap-2">
+								
+								<button
+									className="hover:text-[#E7D3AF] transition-colors"
+									
+									onClick={() => {
+										const nextLang = "ar";
 
-									// Keep localStorage
-									localStorage.setItem("lang", nextLang);
+										// Keep localStorage
+										localStorage.setItem("lang", nextLang);
 
-									// Also set a cookie for server-side usage (1 year)
-									const oneYear = 60 * 60 * 24 * 365;
-									const isHTTPS =
-										typeof window !== "undefined" &&
-										window.location.protocol === "https:";
-									document.cookie = `lang=${nextLang}; path=/; max-age=${oneYear}; samesite=lax${
-										isHTTPS ? "; secure" : ""
-									}`;
+										// Also set a cookie for server-side usage (1 year)
+										const oneYear = 60 * 60 * 24 * 365;
+										const isHTTPS =
+											typeof window !== "undefined" &&
+											window.location.protocol === "https:";
+										document.cookie = `lang=${nextLang}; path=/; max-age=${oneYear}; samesite=lax${
+											isHTTPS ? "; secure" : ""
+										}`;
 
-									setLang(nextLang);
+										setLang(nextLang);
 
-									window.location.reload();
-								}}
-							>
-								العربية
-							</button>
-							<span>|</span>
-							<button
-								className="hover:text-[#E7D3AF] transition-colors"
-								style={{ fontFamily: '"Readex Pro", sans-serif' }}
-                onClick={() => {
-									const nextLang = "en";
+										window.location.reload();
+									}}
+								>
+									العربية
+								</button>
+								<span>|</span>
+								<button
+									className="hover:text-[#E7D3AF] transition-colors"
+									
+									onClick={() => {
+										const nextLang = "en";
 
-									// Keep localStorage
-									localStorage.setItem("lang", nextLang);
+										// Keep localStorage
+										localStorage.setItem("lang", nextLang);
 
-									// Also set a cookie for server-side usage (1 year)
-									const oneYear = 60 * 60 * 24 * 365;
-									const isHTTPS =
-										typeof window !== "undefined" &&
-										window.location.protocol === "https:";
-									document.cookie = `lang=${nextLang}; path=/; max-age=${oneYear}; samesite=lax${
-										isHTTPS ? "; secure" : ""
-									}`;
+										// Also set a cookie for server-side usage (1 year)
+										const oneYear = 60 * 60 * 24 * 365;
+										const isHTTPS =
+											typeof window !== "undefined" &&
+											window.location.protocol === "https:";
+										document.cookie = `lang=${nextLang}; path=/; max-age=${oneYear}; samesite=lax${
+											isHTTPS ? "; secure" : ""
+										}`;
 
-									setLang(nextLang);
+										setLang(nextLang);
 
-									window.location.reload();
-								}}
-							>
-								EN
-							</button>
+										window.location.reload();
+									}}
+								>
+									EN
+								</button>
+								<Globe size={18} />
+							</div>
 						</div>
 					</div>
 				</div>
@@ -127,7 +164,7 @@ export default function Header() {
 			{/* Main Header */}
 			<div className="bg-white shadow-md sticky top-0 z-50">
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-					<div className="flex items-center justify-between h-20" >
+					<div className="flex items-center justify-between h-20">
 						{/* Logo - positioned right in  */}
 						<div className="flex-shrink-0">
 							<Link href="/">
@@ -144,7 +181,7 @@ export default function Header() {
 						<nav
 							className="hidden lg:flex items-center gap-8"
 							style={{
-								fontFamily: '"Readex Pro", sans-serif',
+								
 								fontWeight: 500,
 							}}
 						>
@@ -152,31 +189,31 @@ export default function Header() {
 								href="#home"
 								className="text-[#3C6652] hover:text-[#867957] transition-colors"
 							>
-								{isAr ? 'الرئيسية' : 'Home'}
+								{isAr ? "الرئيسية" : "Home"}
 							</a>
 							<a
 								href="#trips"
 								className="text-[#3C6652] hover:text-[#867957] transition-colors"
 							>
-								{isAr ? 'الجولات' : 'Trips'}
+								{isAr ? "الجولات" : "Trips"}
 							</a>
 							<a
 								href="#routes"
 								className="text-[#3C6652] hover:text-[#867957] transition-colors"
 							>
-								{isAr ? 'المسارات' : 'Routes'}
+								{isAr ? "المسارات" : "Routes"}
 							</a>
 							<a
 								href="#bookings"
 								className="text-[#3C6652] hover:text-[#867957] transition-colors"
 							>
-								{isAr ? 'الحجوزات' : 'Bookings'}
+								{isAr ? "الحجوزات" : "Bookings"}
 							</a>
 							<a
 								href="#contact"
 								className="text-[#3C6652] hover:text-[#867957] transition-colors"
 							>
-								{isAr ? 'تواصل معنا' : 'Contact Us'}
+								{isAr ? "تواصل معنا" : "Contact Us"}
 							</a>
 						</nav>
 
@@ -185,11 +222,11 @@ export default function Header() {
 							<button
 								className="bg-[#3C6652] text-white px-8 py-3 rounded-lg hover:bg-[#1E3A5F] transition-all shadow-md hover:shadow-lg"
 								style={{
-									fontFamily: '"Readex Pro", sans-serif',
+									
 									fontWeight: 500,
 								}}
 							>
-								{isAr ? 'احجز الآن' : 'Book Now'}
+								{isAr ? "احجز الآن" : "Book Now"}
 							</button>
 						</div>
 
@@ -204,11 +241,11 @@ export default function Header() {
 
 					{/* Mobile Navigation */}
 					{mobileMenuOpen && (
-						<div className="lg:hidden py-4 border-t text-center" >
+						<div className="lg:hidden py-4 border-t text-center">
 							<nav
 								className="flex flex-col gap-4"
 								style={{
-									fontFamily: '"Readex Pro", sans-serif',
+									
 									fontWeight: 500,
 								}}
 							>
@@ -216,40 +253,40 @@ export default function Header() {
 									href="#home"
 									className="text-[#3C6652] hover:text-[#857856] transition-colors"
 								>
-									{isAr ? 'الرئيسية' : 'Home'}
+									{isAr ? "الرئيسية" : "Home"}
 								</a>
 								<a
 									href="#trips"
 									className="text-[#3C6652] hover:text-[#857856] transition-colors"
 								>
-									{isAr ? 'الجولات' : 'Trips'}
+									{isAr ? "الجولات" : "Trips"}
 								</a>
 								<a
 									href="#routes"
 									className="text-[#3C6652] hover:text-[#857856] transition-colors"
 								>
-									{isAr ? 'المسارات' : 'Routes'}
+									{isAr ? "المسارات" : "Routes"}
 								</a>
 								<a
 									href="#bookings"
 									className="text-[#3C6652] hover:text-[#857856] transition-colors"
 								>
-									{isAr ? 'الحجوزات' : 'Bookings'}
+									{isAr ? "الحجوزات" : "Bookings"}
 								</a>
 								<a
 									href="#contact"
 									className="text-[#3C6652] hover:text-[#857856] transition-colors"
 								>
-									{isAr ? 'تواصل معنا' : 'Contact Us'}
+									{isAr ? "تواصل معنا" : "Contact Us"}
 								</a>
 								<button
 									className="bg-[#3C6652] text-white px-6 py-3 rounded-lg hover:bg-[#1E3A5F] transition-colors"
 									style={{
-										fontFamily: '"Readex Pro", sans-serif',
+										
 										fontWeight: 500,
 									}}
 								>
-									{isAr ? 'احجز الآن' : 'Book Now'}
+									{isAr ? "احجز الآن" : "Book Now"}
 								</button>
 							</nav>
 						</div>
