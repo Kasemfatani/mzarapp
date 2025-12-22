@@ -61,7 +61,7 @@ export function SeoContent({ lang }) {
             <h2
               className="text-3xl sm:text-4xl text-[#3C6652] mb-6 leading-relaxed"
               style={{
-                fontFamily: 'Tajawal, sans-serif',
+                
                 fontWeight: 700,
                 letterSpacing: '0.01em',
               }}
@@ -73,7 +73,7 @@ export function SeoContent({ lang }) {
             <p
               className="text-base sm:text-lg text-[#867957] leading-[170%] text-center max-w-4xl mx-auto sm:mx-0"
               style={{
-                fontFamily: 'Tajawal, sans-serif',
+                
                 fontWeight: 400,
               }}
             >
@@ -91,7 +91,7 @@ export function SeoContent({ lang }) {
                 <div className="w-8 h-8 rounded-full bg-[#3C6652]/10 flex items-center justify-center">
                   <Star className="w-4 h-4 text-[#3C6652]" />
                 </div>
-                <span style={{ fontFamily: 'Tajawal, sans-serif', fontWeight: 500 }}>
+                <span style={{  fontWeight: 500 }}>
                   {isAr ? 'مرشدين معتمدين' : 'Certified Guides'}
                 </span>
               </div>
@@ -100,7 +100,7 @@ export function SeoContent({ lang }) {
                 <div className="w-8 h-8 rounded-full bg-[#3C6652]/10 flex items-center justify-center">
                   <MapPin className="w-4 h-4 text-[#3C6652]" />
                 </div>
-                <span style={{ fontFamily: 'Tajawal, sans-serif', fontWeight: 500 }}>
+                <span style={{ fontWeight: 500 }}>
                   {isAr ? 'جولات متنوعة' : 'Diverse Tours'}
                 </span>
               </div>
@@ -109,7 +109,7 @@ export function SeoContent({ lang }) {
                 <div className="w-8 h-8 rounded-full bg-[#3C6652]/10 flex items-center justify-center">
                   <Users className="w-4 h-4 text-[#3C6652]" />
                 </div>
-                <span style={{ fontFamily: 'Tajawal, sans-serif', fontWeight: 500 }}>
+                <span style={{ fontWeight: 500 }}>
                   {isAr ? 'حجز سهل وآمن' : 'Easy and Secure Booking'}
                 </span>
               </div>

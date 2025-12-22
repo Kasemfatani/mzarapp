@@ -43,7 +43,7 @@ export default function AllTripPageWrapper({ lang, data }) {
 
 	return (
 		<div className={lang === "en" ? "ltr" : "rtl"}>
-			<HeroSection lang={lang} />
+			<HeroSection lang={lang} totalResults={Array.isArray(data) ? data.length : 0} />
 			<FiltersBar
 				totalResults={Array.isArray(data) ? data.length : 0}
 				lang={lang}

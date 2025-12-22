@@ -131,12 +131,14 @@ function TripCard({ trip, isAr }) {
 					{/* Buttons */}
 					<div className="flex flex-col sm:flex-row gap-2">
 						{/* Primary Button */}
-						<button
-							className="flex-1 px-4 py-2.5 bg-[#3C6652] text-white rounded-xl hover:bg-[#2d4d3d] transition-all duration-300 shadow-sm hover:shadow-md"
+						<a
+							href={`/trip-detail/${trip.id}`}
+
+							className="flex-1 px-4 py-2.5 bg-[#3C6652] text-white rounded-xl hover:bg-[#2d4d3d] transition-all duration-300 "
 							style={{ fontWeight: 500 }}
 						>
 							{isAr ? "شاهد التفاصيل" : "View Details"}
-						</button>
+						</a>
 
 						{/* Secondary Button */}
 						<button

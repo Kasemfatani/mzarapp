@@ -38,12 +38,12 @@ export function generateMetadata() {
 
 	if (lang === "ar") {
 		return {
-			title: "حجز حافلة الجولات الإثرائية",
+			title: "حجز",
 			
 		};
 	}
 	return {
-		title: "Booking Enriching Bus Tours",
+		title: "Booking",
 		
 	};
 }

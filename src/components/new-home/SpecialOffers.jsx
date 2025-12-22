@@ -30,10 +30,10 @@ function OfferCard({
 
 				<div className="absolute content-stretch flex items-center justify-between left-[10.2px] top-[16.2px] w-full px-4">
 					{/* Discount Badge */}
-					<div className="bg-gradient-to-r from-red-500 to-red-600 text-white px-5 py-2 rounded-full shadow-xl flex items-center gap-2 animate-pulse">
+					<div className="bg-gradient-to-r from-red-500 to-red-600 text-white px-5 py-2 rounded-full shadow-xl flex items-center gap-2 animate-pulse text-sm">
 						<Tag size={14} />
 						<span
-							className="font-bold"
+							className=""
 							
 						>
 							{discount}% {isAr ? "خصم" : "Off"}
@@ -43,7 +43,7 @@ function OfferCard({
 					{/* Badge Label */}
 					<div
 						className="bg-[#867957] text-white px-4 py-1.5 rounded-full shadow-lg text-sm"
-						style={{  fontWeight: 500 }}
+						
 					>
 						{badge}
 					</div>
@@ -198,7 +198,7 @@ export function SpecialOffers({ lang }) {
 				</div>
 
 				{/* Offers Grid */}
-				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 mb-16">
 					{offers.map((offer, index) => (
 						<OfferCard key={index} {...offer} isAr={isAr} />
 					))}

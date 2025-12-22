@@ -110,7 +110,7 @@ export default function QuickCategories({ lang }) {
 				>
 					{categories.map((category, index) => (
 						<SwiperSlide key={index}>
-							<div className="bg-white rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 cursor-pointer group hover:scale-[1.03] border border-gray-100 flex flex-col">
+							<div className="bg-white rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300  group hover:scale-[1.03] border border-gray-100 flex flex-col">
 								<div className="p-8 flex flex-col items-center text-center flex-1">
 									{/* Icon */}
 									<div className="mb-6 text-[#867957] group-hover:text-[#3C6652] transition-colors group-hover:scale-110 transform duration-300">
@@ -153,7 +153,7 @@ export default function QuickCategories({ lang }) {
 				</Swiper>
 
 				{/* Custom Pagination */}
-				<div className="flex items-center justify-center mt-8 gap-3">
+				{/* <div className="flex items-center justify-center mt-8 gap-3">
 					{categories.map((_, i) => (
 						<button
 							key={i}
@@ -172,7 +172,7 @@ export default function QuickCategories({ lang }) {
 							}}
 						></button>
 					))}
-				</div>
+				</div> */}
 			</div>
 		</section>
 	);

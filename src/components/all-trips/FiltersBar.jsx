@@ -253,7 +253,6 @@ function FilterDropdown({ label, icon, options, value, onChange, onClear }) {
 						: "bg-white text-[#0F172A] border-[#E2E8F0] hover:border-[#0097A7]"
 				}`}
 			>
-				<span className="text-sm">{selectedLabel}</span>
 				<div className={isActive ? "text-white" : "text-[#006064]"}>
 					{isActive ? (
 						<X
@@ -267,6 +266,8 @@ function FilterDropdown({ label, icon, options, value, onChange, onClear }) {
 						icon
 					)}
 				</div>
+				<span className="text-sm">{selectedLabel}</span>
+				
 				{!isActive && <ChevronDown className="w-4 h-4 text-[#475569]" />}
 			</button>
 
@@ -409,6 +410,7 @@ function DurationFilter({ value, onChange, onClear, isAr }) {
 						: "bg-white text-[#0F172A] border-[#E2E8F0] hover:border-[#0097A7]"
 				}`}
 			>
+				<Clock className="w-4 h-4 text-[#006064]" />
 				<span className="text-sm">{currentLabel}</span>
 				{isActive ? (
 					<X
@@ -420,7 +422,7 @@ function DurationFilter({ value, onChange, onClear, isAr }) {
 					/>
 				) : (
 					<>
-						<Clock className="w-4 h-4 text-[#006064]" />
+						
 						<ChevronDown className="w-4 h-4 text-[#475569]" />
 					</>
 				)}
@@ -468,6 +470,7 @@ function RatingFilter({ value, onChange, onClear, isAr }) {
 						: "bg-white text-[#0F172A] border-[#E2E8F0] hover:border-[#0097A7]"
 				}`}
 			>
+				{isActive ? null : (<Star className="w-4 h-4 text-[#FFC107] fill-[#FFC107]" />) }
 				<span className="text-sm">
 					{isActive ? `${value}+ ⭐` : isAr ? "التقييم" : "Rating"}
 				</span>
@@ -481,7 +484,7 @@ function RatingFilter({ value, onChange, onClear, isAr }) {
 					/>
 				) : (
 					<>
-						<Star className="w-4 h-4 text-[#FFC107] fill-[#FFC107]" />
+						
 						<ChevronDown className="w-4 h-4 text-[#475569]" />
 					</>
 				)}

@@ -105,7 +105,7 @@ export default function HeroSection({ lang }) {
 							{isAr ? "ابحث عن تجربتك المثالية" : "Find Your Ideal Experience"}
 						</h3>
 
-						<div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+						<div className="grid grid-cols-1 md:grid-cols-3 gap-4">
 							{/* Tour Type */}
 							<div className="relative">
 								<label
@@ -157,7 +157,7 @@ export default function HeroSection({ lang }) {
 									<option>{isAr ? "اختر المدينة" : "Select City"}</option>
 									<option>{isAr ? "مكة المكرمة" : "Makkah"}</option>
 									<option>{isAr ? "المدينة المنورة" : "Madinah"}</option>
-									<option>{isAr ? "كلا المدينتين" : "Both Cities"}</option>
+									{/* <option>{isAr ? "كلا المدينتين" : "Both Cities"}</option> */}
 								</select>
 								<ChevronDown
 									className={`absolute top-[42px] text-[#867957] pointer-events-none ${
@@ -168,7 +168,7 @@ export default function HeroSection({ lang }) {
 							</div>
 
 							{/* Date */}
-							<div className="relative">
+							{/* <div className="relative">
 								<label
 									className="block text-sm text-[#3C6652] mb-2"
 									style={{
@@ -185,7 +185,7 @@ export default function HeroSection({ lang }) {
 										
 									/>
 								</div>
-							</div>
+							</div> */}
 
 							{/* Search Button */}
 							<div className="flex items-end">
