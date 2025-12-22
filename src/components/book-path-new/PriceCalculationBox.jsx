@@ -16,13 +16,44 @@ const CURRENCY_SVG = (
 );
 
 export function PriceCalculationBox({
-	startPrice = 99,
-	minPeople = 1,
+	vehicle = null,
+	addons = [],
+	selectedAddons = [],
 	people = 1,
+	isExpress = false,
 	lang = "en",
+	tax = 0,
+	promoDiscountPercent = 0, // <-- new
 }) {
 	const isAr = lang === "ar";
-	const totalPrice = Number(startPrice) * Number(people);
+	const rawBase = Number(
+		isExpress
+			? vehicle?.express_price ?? vehicle?.web_price ?? 0
+			: vehicle?.web_price ?? 0
+	);
+	const discountAmount = Number(
+		((promoDiscountPercent / 100) * rawBase).toFixed(2)
+	);
+	const baseUnit = Number((rawBase - discountAmount).toFixed(2)); // discounted base
+
+	const addonsTotal = selectedAddons.reduce((sum, id) => {
+		const a = addons.find((x) => x.id === id);
+		if (!a) return sum;
+		const multiplier = a.allow_multiple ? Number(people || 1) : 1;
+		return sum + Number(a.price || 0) * multiplier;
+	}, 0);
+
+	const totalBeforeTax = baseUnit + addonsTotal;
+	const taxAmount = Number((Number(tax || 0) * totalBeforeTax).toFixed(2));
+	const finalTotal = Number((totalBeforeTax + taxAmount).toFixed(2));
+
+	const rawBaseDisplay = rawBase.toFixed(2);
+	const discountDisplay = discountAmount.toFixed(2);
+	const baseUnitDisplay = baseUnit.toFixed(2);
+	const addonsTotalDisplay = addonsTotal.toFixed(2);
+	const totalBeforeTaxDisplay = totalBeforeTax.toFixed(2);
+	const taxAmountDisplay = taxAmount.toFixed(2);
+	const finalTotalDisplay = finalTotal.toFixed(2);
 
 	return (
 		<div
@@ -40,7 +71,9 @@ export function PriceCalculationBox({
 							<h3 className="text-[#3c6652] text-2xl tracking-[-0.24px]">
 								{isAr ? "ملخص الأسعار" : "Price Summary"}
 							</h3>
-							<p className="text-[#4a5565]">{isAr ? "يتم التحديث تلقائياً" : "Automatically updated"}</p>
+							<p className="text-[#4a5565]">
+								{isAr ? "يتم التحديث تلقائياً" : "Automatically updated"}
+							</p>
 						</div>
 						<div className="bg-gradient-to-b from-[#3c6652] to-[#2d4d3d] rounded-full w-14 h-14 flex items-center justify-center">
 							<svg
@@ -80,59 +113,94 @@ export function PriceCalculationBox({
 
 				<div className="h-px bg-[#E6D2AF]" />
 
-				{/* Price Items */}
 				<div className="px-6 flex flex-col gap-2">
-					{/* Price per person */}
+					{/* Trip price (show strike-through if discounted) */}
 					<div className="flex items-center justify-between border-b border-[#e6d2af] pb-4 pt-4">
-						<p className="text-[#364153]">{isAr ? "سعر الفرد" : "Price per person"}</p>
+						<p className="text-[#364153]">
+							{isAr ? "السعر الرحلة" : "Trip Price"}
+						</p>
 						<div className="flex items-center gap-2">
+							{promoDiscountPercent > 0 && (
+								<p className="text-[#9aa3b2] line-through rtl">
+									{rawBaseDisplay} {CURRENCY_SVG}
+								</p>
+							)}
 							<p className="text-[#1e2939] rtl">
-								{startPrice} {CURRENCY_SVG}
+								{baseUnitDisplay} {CURRENCY_SVG}
 							</p>
 						</div>
 					</div>
 
-					{/* Minimum booking */}
+					{/* Discount line (optional) */}
+					{promoDiscountPercent > 0 && (
+						<div className="flex items-center justify-between border-b border-[#e6d2af] pb-4 pt-4">
+							<p className="text-[#364153]">
+								{isAr ? "خصم" : "discount"} (
+								{promoDiscountPercent}%)
+							</p>
+							<p className="text-[#3c6652] rtl">
+								-{discountDisplay} {CURRENCY_SVG}
+							</p>
+						</div>
+					)}
+
+					{/* Add-ons */}
 					<div className="flex items-center justify-between border-b border-[#e6d2af] pb-4 pt-4">
-						<p className="text-[#364153]">{isAr ? "الحد الأدنى للحجز" : "Minimum booking"}</p>
+						<p className="text-[#364153]">
+							{isAr ? "الخدمات الإضافية" : "Add-ons"}
+						</p>
 						<div className="flex items-center gap-3">
 							<TrendingUp
 								className="w-5 h-5 text-[#867957]"
 								strokeWidth={1.67}
 							/>
-							<p className="text-[#867957]">× {minPeople}</p>
+							<p className="text-[#867957]">{addonsTotalDisplay}</p>
 						</div>
 					</div>
 
-					{/* Total price */}
+					{/* Total before tax */}
 					<div className="flex items-center justify-between border-b border-[#e6d2af] pb-4 pt-4">
-						<p className="text-[#364153]">{isAr ? "إجمالي السعر" : "Total price"}</p>
-						<div className="flex items-center gap-2">
-							<p className="text-[#1e2939] rtl">
-								{totalPrice} {CURRENCY_SVG}
-							</p>
-						</div>
+						<p className="text-[#364153]">
+							{isAr ? "إجمالي السعر" : "Total price"}
+						</p>
+						<p className="text-[#1e2939] rtl">
+							{totalBeforeTaxDisplay} {CURRENCY_SVG}
+						</p>
+					</div>
+
+					{/* Tax */}
+					<div className="flex items-center justify-between border-b border-[#e6d2af] pb-4 pt-4">
+						<p className="text-[#364153]">
+							{isAr ? "الضريبة" : "Tax"}
+							{typeof tax === "number" ? ` (${(tax * 100).toFixed(0)}%)` : ""}
+						</p>
+						<p className="text-[#1e2939] rtl">
+							{taxAmountDisplay} {CURRENCY_SVG}
+						</p>
 					</div>
 
 					{/* Final total */}
 					<div className="bg-gradient-to-b from-[#3c6652] to-[#2d4d3d] rounded-[18px] px-6 py-4 flex items-center justify-between">
 						<div className="flex flex-col items-start">
-							<p className="text-[rgba(255,255,255,0.8)]">{isAr ? "المجموع النهائي" : "Final total"}</p>
+							<p className="text-[rgba(255,255,255,0.8)]">
+								{isAr ? "المجموع النهائي" : "Final total"}
+							</p>
 							<p className="text-[rgba(255,255,255,0.6)] text-sm">
-								{isAr ? "شامل جميع الرسوم والضرائب" : "Including all fees and taxes"}
+								{isAr
+									? "شامل جميع الرسوم والضرائب"
+									: "Including all fees and taxes"}
 							</p>
 						</div>
-						<div className="flex items-center gap-2">
-							<p className="text-white rtl">
-								{totalPrice} {CURRENCY_SVG}
-							</p>
-						</div>
+						<p className="text-white rtl">
+							{finalTotalDisplay} {CURRENCY_SVG}
+						</p>
 					</div>
 
-					{/* Final note */}
 					<div className="bg-[#f0fdf4] border-[0.8px] border-[#b9f8cf] rounded-[16.4px] px-6 py-2 flex items-center gap-2">
 						<p className="text-[#4a5565]">
-							{isAr ? "السعر نهائي بدون أي رسوم إضافية مخفية" : "The final price  with no hidden additional fees"}
+							{isAr
+								? "السعر نهائي بدون أي رسوم إضافية مخفية"
+								: "The final price with no hidden additional fees"}
 						</p>
 						<p className="text-[#00a63e]">✓</p>
 					</div>

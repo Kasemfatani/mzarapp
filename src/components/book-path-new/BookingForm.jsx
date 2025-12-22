@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
 	Calendar,
 	Clock,
@@ -20,6 +20,11 @@ import {
 	FormControl,
 } from "@/components/ui/form";
 import { DatePickerFormField } from "@/components/book-components/DatePickerFormField";
+import { BookingTimeField } from "@/components/book-components/BookingTimeField";
+import { BookingVehicleField } from "@/components/book-components/BookingVehicleField";
+
+import { BookingAddonsField } from "./BookingAddonsField";
+import { da, is } from "date-fns/locale";
 
 const CURRENCY_SVG = (
 	<svg
@@ -40,15 +45,28 @@ export function BookingForm({
 	times = [],
 	gatheringPoints = [],
 	busId,
-	leftSeats,
-	setLeftSeats,
 	minSeats = 1,
 	disabledDays = [],
+	data,
+	addons = [],
+	selectedAddons = [],
+	setSelectedAddons = () => {},
+	vehicleMaxSeats,
+	availability = { status: true, message: "" }, // <-- new prop
 }) {
 	const isAr = lang === "ar";
+
 	const today = startOfToday();
 	const tomorrow = addDays(today, 1);
 	const maxDate = addDays(today, 14);
+
+	const tripTypes = [
+		{ id: 1, name: isAr ? "رحلة كاملة" : "Full Trip" },
+		{ id: 2, name: isAr ? "رحله سريعه" : "Quick Trip" },
+	];
+
+	// read is_express from form
+	const isExpress = form.watch("is_express");
 
 	return (
 		<div className="bg-white rounded-[20px] shadow-[0px_20px_25px_-5px_rgba(0,0,0,0.1)] border-[0.8px] border-[rgba(243,244,246,0.6)] w-full">
@@ -58,15 +76,17 @@ export function BookingForm({
 					<div className="flex flex-col">
 						<h3 className="text-[#3c6652] text-[30px] tracking-[-0.45px]">
 							{isAr ? "اختر موعد رحلتك" : "Choose Your Trip Date"}{" "}
-							 
-							<span className="ms-2 rounded-full bg-[#fdf0ec] text-[#aa0d07] text-base px-3 py-1">
-								{isAr ? `للرجال فقط` : `Only For Men`}
-							</span>
 						</h3>
-						<p className="text-[#4a5565]" >{isAr ? "حدد التاريخ والوقت المناسب لك" : "Select the date and time that suits you"}</p>
+						<p className="text-[#4a5565]">
+							{isAr
+								? "حدد التاريخ والوقت المناسب لك"
+								: "Select the date and time that suits you"}
+						</p>
 					</div>
 					<div className="bg-[rgba(231,211,175,0.2)] border-[0.8px] border-[#e7d3af] rounded-full px-2 py-2">
-						<p className="text-[#867957]">{isAr ? "خطوة 1 من  2" : "Step 1 of 2"}</p>
+						<p className="text-[#867957]">
+							{isAr ? "خطوة 1 من  2" : "Step 1 of 2"}
+						</p>
 					</div>
 				</div>
 
@@ -75,50 +95,52 @@ export function BookingForm({
 						<DatePickerFormField
 							form={form}
 							lang={lang}
-							minDate={tomorrow}
-							maxDate={maxDate}
+							minDate={data.min_date}
+							maxDate={data.max_date}
 							label={isAr ? "اختر التاريخ المناسب" : "Pick a date"}
 							disabledDays={disabledDays}
 						/>
 
-						{/* Time Slot Selector (no label/icon, buttons only) */}
+						{/* Time Selector */}
 						<div className="flex flex-col gap-2">
 							<div className="flex items-center gap-3">
 								<Clock className="w-5 h-5 text-[#867957]" strokeWidth={1.67} />
-								<p className="text-[#364153]">{isAr ? "اختر الوقت المناسب" : "Choose the appropriate time"}</p>
+								<p className="text-[#364153]">
+									{isAr ? "اختر الوقت المناسب" : "Choose the appropriate time"}
+								</p>
 							</div>
-							<FormField
-								control={form.control}
+							<BookingTimeField
+								form={form}
 								name="time"
-								render={({ field }) => (
-									<FormItem>
-										<div className="flex flex-col sm:flex-row md:items-stretch justify-between gap-4">
-											{times.map((time) => {
-												const active = field.value?.id === time.id;
-												return (
-													<button
-														key={time.id}
-														type="button"
-														onClick={() =>
-															field.onChange({ id: time.id, name: time.name })
-														}
-														className={cn(
-															"flex-1 p-3 rounded-[10px] border transition-all",
-															active
-																? "bg-[#fffff5] border-[#3c6652] border-2"
-																: "border-[#d0d0d0] hover:border-[#867957] cursor-pointer"
-														)}
-													>
-														<div className="flex flex-col items-center w-full">
-															<p className="text-[#1e2939]">{time.name}</p>
-														</div>
-													</button>
-												);
-											})}
-										</div>
-										<FormMessage />
-									</FormItem>
-								)}
+								bookingHours={data.times}
+								language={lang}
+								className="border "
+							/>
+							{/* availability message shown under time field */}
+							{availability?.status === false && (
+								<p className="text-sm mt-2 text-[#fb2c36]">
+									{availability?.message ||
+										(isAr
+											? "الوقت / التاريخ غير متاح، يرجى اختيار وقت أو تاريخ آخر."
+											: "Selected date/time is not available — please choose a different date or time.")}
+								</p>
+							)}
+						</div>
+
+						{/* Vehicle Selector */}
+						<div className="flex flex-col gap-2">
+							<div className="flex items-center gap-3">
+								<img src="/book-path/car.png" className="w-5 h-5 " />
+								<p className="text-[#364153]">
+									{isAr ? "نوع المركبة" : "Vehicle Type"}
+								</p>
+							</div>
+							<BookingVehicleField
+								form={form}
+								name="vehicle"
+								vehicles={data.cars || []}
+								language={lang}
+								className="border "
 							/>
 						</div>
 
@@ -126,14 +148,9 @@ export function BookingForm({
 						<div className="flex flex-col gap-1 my-2">
 							<div className="flex items-center gap-3">
 								<Users className="w-5 h-5 text-[#867957]" strokeWidth={1.67} />
-								<p className="text-[#364153]">{isAr ? "عدد الأشخاص" : "Number of People"}</p>
-								{typeof leftSeats === "number" && (
-									<span className="ms-2 rounded-full bg-[#ecfdf5] text-[#065f46] text-xs px-3 py-1">
-										{isAr
-											? `المقاعد المتاحة: ${leftSeats}`
-											: `Available seats: ${leftSeats}`}
-									</span>
-								)}
+								<p className="text-[#364153]">
+									{isAr ? "عدد الأشخاص" : "Number of People"}
+								</p>
 							</div>
 							<FormField
 								control={form.control}
@@ -162,7 +179,9 @@ export function BookingForm({
 													<p className="text-[#3c6652]">
 														{field.value || minSeats}
 													</p>
-													<p className="text-[#4a5565]">{isAr ? "شخص" : "Person"}</p>
+													<p className="text-[#4a5565]">
+														{isAr ? "شخص" : "Person"}
+													</p>
 												</div>
 												<button
 													type="button"
@@ -171,7 +190,7 @@ export function BookingForm({
 															Math.min(
 																typeof leftSeats === "number"
 																	? leftSeats
-																	: Infinity,
+																	: vehicleMaxSeats ?? Infinity,
 																(field.value || minSeats) + 1
 															)
 														)
@@ -179,11 +198,15 @@ export function BookingForm({
 													disabled={
 														typeof leftSeats === "number"
 															? (field.value || minSeats) >= leftSeats
+															: vehicleMaxSeats
+															? (field.value || minSeats) >= vehicleMaxSeats
 															: false
 													}
 													className={`w-16 h-16 rounded-[16px] flex items-center justify-center ${
-														typeof leftSeats === "number" &&
-														(field.value || minSeats) >= leftSeats
+														(typeof leftSeats === "number" &&
+															(field.value || minSeats) >= leftSeats) ||
+														(vehicleMaxSeats &&
+															(field.value || minSeats) >= vehicleMaxSeats)
 															? "opacity-30"
 															: ""
 													}`}
@@ -200,6 +223,65 @@ export function BookingForm({
 								)}
 							/>
 						</div>
+
+						{/* trip type */}
+						{data?.has_express === 1 && (
+							<div className="flex flex-col gap-2">
+								<div className="flex items-center gap-3">
+									{/* optional header */}
+									<p className="text-[#364153]">
+										{isAr ? "نوع الرحلة" : "Trip Type"}
+									</p>
+								</div>
+
+								<div className="flex flex-col sm:flex-row md:items-stretch justify-between gap-4">
+									{tripTypes.map((type, index) => {
+										const active =
+											(isExpress === true && type.id === 2) ||
+											(isExpress === false && type.id === 1);
+										return (
+											<button
+												key={type.id}
+												type="button"
+												onClick={() =>
+													form.setValue("is_express", type.id === 2)
+												}
+												className={cn(
+													"flex-1 p-3 rounded-[10px] border transition-all",
+													active
+														? "bg-[#fffff5] border-[#3c6652] border-2"
+														: "border-[#d0d0d0] hover:border-[#867957] cursor-pointer"
+												)}
+											>
+												<div className="flex  items-center w-full gap-2">
+													{index === 0 ? (
+														<img
+															src="/book-path/road.png"
+															className="w-8 h-8 "
+														/>
+													) : (
+														<img
+															src="/book-path/flash.png"
+															className="w-8 h-8 "
+														/>
+													)}
+													<p className="text-[#1e2939]">{type.name}</p>
+												</div>
+											</button>
+										);
+									})}
+								</div>
+							</div>
+						)}
+						{/* if has_express !== 1 we don't render trip type and is_express remains false */}
+
+						{/* Addons component */}
+						<BookingAddonsField
+							addons={addons}
+							selected={selectedAddons}
+							onChange={setSelectedAddons}
+							lang={lang}
+						/>
 					</form>
 				</Form>
 			</div>

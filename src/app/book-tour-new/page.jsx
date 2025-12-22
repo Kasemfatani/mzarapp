@@ -1,6 +1,7 @@
 import { cookies, headers } from "next/headers";
 import BookWrapper from "./BookWrapper";
 
+
 export function generateMetadata() {
 	const cookieLang = cookies().get("lang")?.value;
 	const acceptLang = headers().get("accept-language");

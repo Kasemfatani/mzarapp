@@ -2,6 +2,9 @@
 
 import { MapPin, Users, Clock, Star } from "lucide-react";
 import { Pagination } from "./Pagination";
+import { tr } from "date-fns/locale";
+
+
 
 export function TripsGrid({ lang, trips }) {
 	const isAr = lang === "ar";
@@ -26,20 +29,29 @@ export function TripsGrid({ lang, trips }) {
 }
 
 function TripCard({ trip, isAr }) {
+	
+	let cityName = "";
+	if (trip.city_id === 1) {
+		cityName = isAr ? "مكة المكرمة" : "Makkah";
+	}
+	else if (trip.city_id === 2) {
+		cityName = isAr ? "المدينة المنورة" : "Madinah";
+	}
+
 	return (
 		<div className="group bg-white rounded-[20px] shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden hover:-translate-y-1 flex flex-col h-full">
 			{/* Image Section */}
 			<div className="relative h-56 overflow-hidden">
 				<img
 					src={trip.image}
-					alt={trip.title}
+					alt={trip.name}
 					className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
 				/>
 
 				{/* City Badge - Top Left */}
 				<div className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-full flex items-center gap-2 shadow-md">
 					<span className="text-sm text-[#3C6652]" style={{ fontWeight: 500 }}>
-						{trip.city}
+						{cityName}
 					</span>
 					<MapPin className="w-3.5 h-3.5 text-[#867957]" />
 				</div>
@@ -61,37 +73,37 @@ function TripCard({ trip, isAr }) {
 					className="text-lg text-[#0F172A] mb-2  line-clamp-2 min-h-[3.5rem] leading-relaxed"
 					style={{ fontWeight: 700 }}
 				>
-					{trip.title}
+					{trip.name}
 				</h3>
 
 				{/* Description */}
-				<p className="text-sm text-[#475569] mb-4  line-clamp-2 leading-relaxed">
-					{trip.description}
+				<p className="text-sm text-[#475569] mb-4  line-clamp-6 leading-relaxed">
+					{trip.short_description}
 				</p>
 
 				{/* Icons Row */}
 				<div className="flex items-center  gap-4 mb-4 text-sm text-[#475569]">
 					{/* People */}
-					<div className="flex items-center gap-1.5">
+					<div className="flex items-start gap-1.5">
 						<Users className="w-4 h-4 text-[#867957]" />
 						<span>
-							{trip.capacity} {isAr ? "شخص" : "people"}
+							{trip.min_people_count} {isAr ? "شخص" : "people"}
 						</span>
 					</div>
 
 					{/* Duration */}
-					<div className="flex items-center gap-1.5">
+					<div className="flex items-start gap-1.5">
 						<Clock className="w-4 h-4 text-[#867957]" />
 						<span>{trip.duration} </span>
 					</div>
 
 					{/* Rating */}
-					<div className="flex items-center gap-1.5">
+					<div className="flex items-start gap-1.5">
 						<Star className="w-4 h-4 fill-[#FFC107] text-[#FFC107]" />
 						<span className="text-[#0F172A]" style={{ fontWeight: 500 }}>
 							{trip.rating}
 						</span>
-						<span className="text-[#475569]">({trip.reviewCount})</span>
+						<span className="text-[#475569]">({trip.rating_count ? trip.rating_count : ""})</span>
 					</div>
 				</div>
 
@@ -112,7 +124,7 @@ function TripCard({ trip, isAr }) {
 							className="text-2xl text-[#3C6652]"
 							style={{ fontWeight: 700 }}
 						>
-							{trip.price} {isAr ? "ريال" : "SAR"}
+							{trip.start_price} {isAr ? "ريال" : "SAR"}
 						</div>
 					</div>
 

@@ -11,25 +11,23 @@ import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
 // 	{ lat: 21.4187, lng: 39.8937, label: "جبل ثور" }, // Jabal Thawr
 // ];
 
-const containerStyle = {
-	width: "100%",
-	height: "384px", // h-96
-	borderRadius: "20px",
-	overflow: "hidden",
-};
+// const containerStyle = {
+// 	width: "100%",
+// 	height: "384px", // h-96
+// 	borderRadius: "20px",
+// 	overflow: "hidden",
+// };
 
-const center = {
-	lat: 21.4225,
-	lng: 39.8262,
-};
+// const center = {
+// 	lat: 21.4225,
+// 	lng: 39.8262,
+// };
 
 export function MapSection({ lang , data }) {
 
   const isAr = lang === "ar";
 
-	const { isLoaded } = useJsApiLoader({
-		googleMapsApiKey: "AIzaSyCuS6yzhdLKU-fiY7zfmGX1yDPrHDvfYIE", 
-	});
+	
 
 	return (
 		<motion.div
@@ -40,7 +38,7 @@ export function MapSection({ lang , data }) {
 			className="container mx-auto bg-white rounded-[20px] p-10 shadow-[0px_6px_20px_rgba(0,0,0,0.06)] mb-10"
 		>
 			{/* Section Header - Grouped */}
-			<div className="mb-8">
+			<div className="mb-3">
 				<div className="flex items-center gap-4 mb-6">
 					<motion.div
 						whileHover={{ scale: 1.1, rotate: 360 }}
@@ -58,11 +56,12 @@ export function MapSection({ lang , data }) {
 
 			{/* Google Map with Multiple Pins */}
 			<motion.div
-				whileHover={{ scale: 1.02 }}
-				className="relative w-full h-96 rounded-[20px] overflow-hidden shadow-[0px_4px_12px_rgba(0,0,0,0.04)] cursor-pointer mb-8"
+				// whileHover={{ scale: 1.02 }}
+				className="relative  py-4  overflow-hidden "
 				style={{ minHeight: 384 }}
 			>
-				{isLoaded ? (
+				<img src={data.map_image} alt={isAr ? "خريطة الموقع" : "Location Map"} className="mx-auto"/>
+				{/* {isLoaded ? (
 					<GoogleMap
 						mapContainerStyle={containerStyle}
 						center={data.mapCenter || center}
@@ -85,11 +84,11 @@ export function MapSection({ lang , data }) {
 					<div className="flex items-center justify-center h-full text-gray-400">
 					 	{isAr ? "جارٍ تحميل الخريطة..." : "Loading map..."}
 					</div>
-				)}
+				)} */}
 			</motion.div>
 
 			{/* Open in Maps Button */}
-			<motion.button
+			{/* <motion.button
 				whileHover={{ scale: 1.05 }}
 				whileTap={{ scale: 0.95 }}
 				className="w-fit mx-auto px-8 py-4 bg-gradient-to-r from-[#c9a463] to-[#b8914a] text-white rounded-[18px] hover:shadow-[0px_10px_30px_rgba(0,0,0,0.15)] transition-all flex items-center justify-center gap-3 text-[16px] group"
@@ -104,7 +103,7 @@ export function MapSection({ lang , data }) {
 					<ExternalLink className="w-5 h-5" />
 				</motion.div>
 				<span>{isAr ? "عرض الموقع على الخريطة" : "View Location on Map"}</span>
-			</motion.button>
+			</motion.button> */}
 		</motion.div>
 	);
 }

@@ -38,7 +38,7 @@ export function BottomBar( { lang , data } ) {
               </div>
               <div className="">
                 <span className="text-[40px] leading-[1.2] text-white" >
-                  {data.price}
+                  {data.start_price}
                 </span>
               </div>
             </div>

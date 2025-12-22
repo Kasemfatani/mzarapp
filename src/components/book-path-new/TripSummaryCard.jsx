@@ -64,11 +64,11 @@ export function TripSummaryCard({
 
         {/* Tags */}
         <div className="flex gap-4 justify-center">
-          <div className="bg-gradient-to-r from-[rgba(231,211,175,0.3)] to-[rgba(231,211,175,0.2)] border-[0.8px] border-[rgba(231,211,175,0.6)] rounded-full px-[16.8px] py-[4.8px] flex items-center gap-1">
+          {/* <div className="bg-gradient-to-r from-[rgba(231,211,175,0.3)] to-[rgba(231,211,175,0.2)] border-[0.8px] border-[rgba(231,211,175,0.6)] rounded-full px-[16.8px] py-[4.8px] flex items-center gap-1">
             <Users className="w-4 h-4 text-[#867957]" strokeWidth={1.33} />
             <p className="text-[#1e2939]">{maxPeople}</p>
             
-          </div>
+          </div> */}
           <div className="bg-gradient-to-r from-[rgba(231,211,175,0.3)] to-[rgba(231,211,175,0.2)] border-[0.8px] border-[rgba(231,211,175,0.6)] rounded-full px-[16.8px] py-[4.8px] flex items-center gap-1">
             <Clock className="w-4 h-4 text-[#867957]" strokeWidth={1.33} />
             <p className="text-[#1e2939]">{duration}</p>
@@ -77,15 +77,15 @@ export function TripSummaryCard({
         </div>
 
         {/* Divider with Label */}
-        <div className="relative h-[25.6px] w-full">
+        {/* <div className="relative h-[25.6px] w-full">
           <div className="absolute inset-x-0 top-[12.3px] h-px bg-gradient-to-r from-transparent via-[#d1d5dc] to-transparent" />
           <div className="absolute left-1/2 -translate-x-1/2 top-0 bg-white px-2">
             <p className="text-[#6a7282] uppercase tracking-[0.8px]">{isAr ? "التسعير" : "Pricing"}</p>
           </div>
-        </div>
+        </div> */}
 
         {/* Pricing Box */}
-        <div className="relative rounded-[18px] border-[1.6px] border-[rgba(231,211,175,0.6)] overflow-hidden"
+        {/* <div className="relative rounded-[18px] border-[1.6px] border-[rgba(231,211,175,0.6)] overflow-hidden"
           style={{
             backgroundImage: "linear-gradient(173.577deg, rgba(231, 211, 175, 0.4) 0%, rgba(231, 211, 175, 0.25) 50%, rgba(0, 0, 0, 0) 100%)"
           }}
@@ -98,7 +98,7 @@ export function TripSummaryCard({
               (<span className="text-[#867957]">{isAr ? "حد أدنى" : "Minimum"} {minPeople} {isAr ? "أشخاص" : "people"}</span>)
             </p>
           </div>
-        </div>
+        </div> */}
 
         {/* Features */}
         <div className="flex gap-5 justify-center items-center border-t border-[#f3f4f6] pt-2">

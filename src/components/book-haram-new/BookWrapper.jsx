@@ -24,13 +24,9 @@ const getSchema = (lang, max_people_count = 20, min_people_count = 1) => {
 		lang === "ar" ? "يرجى اختيار تاريخ" : "Please select a date";
 	const requiredTime =
 		lang === "ar" ? "يرجى اختيار الوقت" : "Please choose a time";
-
 	const reqName = lang === "ar" ? "الاسم مطلوب" : "Name is required";
 	const reqPhone =
 		lang === "ar" ? "رقم الواتساب مطلوب" : "WhatsApp is required";
-	const reqEmail =
-		lang === "ar" ? "البريد الإلكتروني مطلوب" : "Email is required";
-	const invalidEmail = lang === "ar" ? "بريد غير صالح" : "Invalid email";
 	const reqNationality =
 		lang === "ar" ? "الجنسية مطلوبة" : "Nationality is required";
 
@@ -41,81 +37,18 @@ const getSchema = (lang, max_people_count = 20, min_people_count = 1) => {
 		time: z
 			.object({ id: z.any(), name: z.string() })
 			.refine((v) => v && v.id && v.name, { message: requiredTime }),
-
 		people: z.coerce.number().int().min(1).max(max_people_count).default(1),
 		name: z.string().min(1, reqName).max(100),
-		email: z.string().email(invalidEmail).min(1, reqEmail),
 		whatsapp: z.string().min(7, reqPhone),
-		country_name: z.string().min(1, reqNationality),
+		country_id: z.coerce.number().min(1, reqNationality),
 	});
 };
 
-export default function BookTourPage({ tripData }) {
-	const [lang, setLang] = useState(null);
+export default function BookTourPage({  lang, busData , disabledDays = []}) {
 	const [leftSeats, setLeftSeats] = useState(null);
-	const [busData, setBusData] = useState(null);
-	const [loading, setLoading] = useState(true);
+	const [loading, setLoading] = useState(false);
 
-	// Read language
-	useEffect(() => {
-		if (typeof window !== "undefined") {
-			const storedLang = localStorage.getItem("lang");
-			setLang(storedLang === "ar" ? "ar" : "en");
-		}
-	}, []);
-
-	// Fetch bus booking data when lang is known
-	useEffect(() => {
-		let active = true;
-		async function fetchData() {
-			try {
-				setLoading(true);
-				const res = await fetch(
-					`${API_BASE_URL_NEW}/landing/landing-guided-tour/makkah-booking-data`,
-					{
-						headers: { lang },
-					}
-				);
-				if (!res.ok)
-					throw new Error(`Failed to load booking-data: ${res.status}`);
-				const json = await res.json();
-
-				if (json.status === false && json.message === "Package ID  Not Found") {
-					if (active) setNotAvailable(true);
-					return;
-				}
-
-				if (active) setBusData(json.data);
-				// console.log("Fetched bus booking data:", json.data);
-			} catch (err) {
-				console.error("Error fetching bus booking data:", err);
-				if (active) setBusData(null);
-			} finally {
-				if (active) setLoading(false);
-			}
-		}
-		if (lang) fetchData();
-		return () => {
-			active = false;
-		};
-	}, [lang]);
-
-	// Show toast if payment failed
-	useEffect(() => {
-		function getQueryParams() {
-			if (typeof window !== "undefined") {
-				const params = new URLSearchParams(window.location.search);
-				if (params.get("status") === "failed") {
-					toast.error(
-						lang === "ar"
-							? "فشلت عملية الدفع. يرجى المحاولة مرة أخرى."
-							: "Payment failed. Please try again."
-					);
-				}
-			}
-		}
-		if (lang) getQueryParams();
-	}, [lang]);
+	console.log("BookWrapper busData:", busData);
 
 	const today = startOfToday();
 	const defaultDate = addDays(today, 1);
@@ -125,30 +58,25 @@ export default function BookTourPage({ tripData }) {
 			getSchema(lang || "en", leftSeats ?? 20, busData?.min_people_count ?? 1)
 		),
 		defaultValues: {
-			date: defaultDate,
+			date: undefined,
 			time: undefined,
-
 			people: busData?.min_people_count ?? 1,
 			name: "",
-			email: "",
 			whatsapp: "",
-			country_name: "",
+			country_id: undefined,
 		},
 		mode: "onSubmit",
 	});
 
-	// Reset form defaults when busData changes (for minSeats)
 	useEffect(() => {
 		if (busData?.min_people_count) {
 			form.reset({
-				date: defaultDate,
+				date: undefined,
 				time: undefined,
-
 				people: busData.min_people_count,
 				name: "",
-				email: "",
 				whatsapp: "",
-				country_name: "",
+				country_id: undefined,
 			});
 		}
 		// eslint-disable-next-line
@@ -191,7 +119,6 @@ export default function BookTourPage({ tripData }) {
 
 	const onConfirm = form.handleSubmit(async (values) => {
 		try {
-			// Persist selection (same keys as ChooseTourStep)
 			const selection = {
 				date: format(values.date, "yyyy-MM-dd"),
 				time: values.time,
@@ -200,8 +127,6 @@ export default function BookTourPage({ tripData }) {
 			};
 			localStorage.setItem(STORAGE_KEY, JSON.stringify(selection));
 
-			// Parse whatsapp using PhoneInput value (already full international)
-			// --- Add whatsapp_country_code and strip leading zero ---
 			const whatsappParsed = parsePhoneNumberFromString(values.whatsapp || "");
 			const stripLeadingZero = (num) =>
 				num && num.startsWith("0") ? num.replace(/^0+/, "") : num;
@@ -212,10 +137,8 @@ export default function BookTourPage({ tripData }) {
 				? whatsappParsed.countryCallingCode
 				: "";
 
-			// Build booking payload (same as PersonalInfoStep)
 			const payload = {
 				name: values.name,
-				email: values.email,
 				phone: null,
 				whatsapp,
 				phone_country_code: null,
@@ -223,11 +146,10 @@ export default function BookTourPage({ tripData }) {
 				tour_id: busData?.id,
 				date: selection.date,
 				time: selection.time?.id,
-
 				people_count: selection.people,
 				payment_type: "online",
 				promo_code: null,
-				country_name: values.country_name, // send selected country name (English)
+				country_id: values.country_id, // send selected country id
 			};
 			console.log("Booking payload:", payload);
 
@@ -259,10 +181,9 @@ export default function BookTourPage({ tripData }) {
 					trip_id,
 					customer_id,
 					process_id,
-					customer_email: values.email,
+
 					customer_name: values.name,
 					customer_whatsapp: whatsapp_country_code + whatsapp,
-					customer_country_name: values.country_name,
 				})
 			);
 
@@ -288,7 +209,7 @@ export default function BookTourPage({ tripData }) {
 					cart_id: process_id,
 					customer_details: {
 						name: values.name,
-						email: values.email,
+						email: "customer@gmail.com",
 						whatsapp: whatsapp_country_code + whatsapp,
 					},
 					successPath: "/book-haram-success",
@@ -318,7 +239,7 @@ export default function BookTourPage({ tripData }) {
 		if (typeof window !== "undefined") window.history.back();
 	};
 
-	if (loading || !busData) return <Loading />;
+	if (loading) return <Loading />;
 
 	const people = form.watch("people") || 1;
 
@@ -333,27 +254,41 @@ export default function BookTourPage({ tripData }) {
 								lang={lang}
 								form={form}
 								times={busData.times}
-								gatheringPoints={busData.gathering_points}
+								// gatheringPoints={busData.gathering_points}
 								busId={busData.id}
 								leftSeats={leftSeats}
 								setLeftSeats={setLeftSeats}
 								minSeats={busData.min_people_count}
+								disabledDays={disabledDays}
 							/>
 
 							<PriceCalculationBox
 								startPrice={busData.price}
 								minPeople={busData.min_people_count}
 								people={people}
+								lang={lang}
 							/>
 
 							<CustomerInfoFields lang={lang} form={form} />
 
-							<ActionButtons onConfirm={onConfirm} onCancel={onCancel} />
+							<ActionButtons onConfirm={onConfirm} onCancel={onCancel} lang={lang} />
 						</div>
 
 						{/* Trip Summary */}
 						<div className="md:w-[40%] flex flex-col gap-6">
-							<TripSummaryCard {...tripData} />
+							<TripSummaryCard
+								imageUrl={busData.image}
+								location={busData.city}
+								rating={busData.rating}
+								reviewCount={busData.rating_count}
+								title={busData.name}
+								subtitle={busData.subtitle ? busData.subtitle : ''} // added fallback to empty string
+								duration={busData.duration}
+								maxPeople={busData.max_people_count}
+								price={busData.price}
+								minPeople={busData.min_people_count}
+								lang={lang}
+							/>
 						</div>
 					</div>
 				</div>

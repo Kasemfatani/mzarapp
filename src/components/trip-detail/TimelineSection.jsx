@@ -43,7 +43,7 @@ export function TimelineSection({ lang , data }) {
 
         {/* Timeline Items */}
         <div className="space-y-6">
-          {data.timeline.map((step, index) => (
+          {data.tentatives.map((step, index) => (
             <motion.div 
               key={index}
               initial={{ opacity: 0, x: -30 }}
@@ -59,7 +59,7 @@ export function TimelineSection({ lang , data }) {
                   className="flex-shrink-0 relative z-10"
                 >
                   <div className="w-20 h-20 rounded-[18px] bg-gradient-to-br from-[#c9a463] to-[#b8914a] flex items-center justify-center shadow-md ps-1">
-                    <span className="text-[14px] leading-[1.3] text-white">{step.time}</span>
+                    <span className="text-[14px] leading-[1.3] text-white">{index + 1}</span>
                   </div>
                 </motion.div>
 
@@ -88,7 +88,7 @@ export function TimelineSection({ lang , data }) {
 
                     {/* Short Description */}
                     <p className="text-[16px] leading-[1.7] text-gray-600 ">
-                      {step.shortDesc}
+                      {step.short_description}
                     </p>
 
                     {/* Expanded Content */}
@@ -103,7 +103,7 @@ export function TimelineSection({ lang , data }) {
                         >
                           <div className="mt-4 pt-4 border-t border-[#c9a463]/20">
                             <p className="text-[15px] leading-[1.7] text-gray-700 ">
-                              {step.fullDesc}
+                              {step.description}
                             </p>
                           </div>
                         </motion.div>

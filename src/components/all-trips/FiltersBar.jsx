@@ -18,11 +18,11 @@ import {
 export function FiltersBar({ totalResults, lang, filters, onFiltersChange }) {
 	const isAr = lang === "ar";
 	const [isScrolled, setIsScrolled] = useState(false);
-	const [searchQuery, setSearchQuery] = useState(filters.searchQuery || "");
+	const [searchQuery, setSearchQuery] = useState(filters.search_text || "");
 
 	useEffect(
-		() => setSearchQuery(filters.searchQuery || ""),
-		[filters.searchQuery]
+		() => setSearchQuery(filters.search_text || ""),
+		[filters.search_text]
 	);
 
 	useEffect(() => {
@@ -34,28 +34,25 @@ export function FiltersBar({ totalResults, lang, filters, onFiltersChange }) {
 	const hasActiveFilters = () => {
 		const f = filters;
 		return (
-			f.city ||
-			f.tourType ||
-			f.priceRange[0] !== 50 ||
-			f.priceRange[1] !== 500 ||
-			f.duration ||
+			(f.search_text && f.search_text.trim() !== "") ||
+			!!f.city_id ||
+			!!f.type ||
+			!!f.duration ||
 			f.rating != null ||
-			f.date ||
-			f.guests !== 1 ||
-			(searchQuery && searchQuery.trim() !== "")
+			f.start_price != null ||
+			(f.seats && f.seats !== 1)
 		);
 	};
 
 	const resetFilters = () => {
 		onFiltersChange({
-			searchQuery: "",
-			city: "",
-			tourType: "",
-			priceRange: [50, 500],
+			search_text: "",
+			city_id: null,
+			type: null,
 			duration: "",
 			rating: null,
-			date: "",
-			guests: 1,
+			start_price: null,
+			seats: 1,
 		});
 		setSearchQuery("");
 	};
@@ -64,11 +61,13 @@ export function FiltersBar({ totalResults, lang, filters, onFiltersChange }) {
 		const next = {
 			...filters,
 			[filterName]:
-				filterName === "priceRange"
-					? [50, 500]
-					: filterName === "guests"
+				filterName === "seats"
 					? 1
 					: filterName === "rating"
+					? null
+					: filterName === "start_price"
+					? null
+					: filterName === "city_id" || filterName === "type"
 					? null
 					: "",
 		};
@@ -84,7 +83,9 @@ export function FiltersBar({ totalResults, lang, filters, onFiltersChange }) {
 						type="text"
 						value={searchQuery}
 						onChange={(e) => setSearchQuery(e.target.value)}
-						onBlur={() => onFiltersChange({ ...filters, searchQuery })}
+						onBlur={() =>
+							onFiltersChange({ ...filters, search_text: searchQuery })
+						}
 						placeholder={isAr ? "ابحث عن رحلة..." : "Search for a trip..."}
 						className="w-full h-[50px] bg-white border border-[#E2E8F0] rounded-[28px] px-6 pl-14 text-[15px] text-[#0F172A] placeholder:text-[#94A3B8] focus:outline-none focus:ring-2 focus:ring-[#0097A7] focus:border-transparent transition-all shadow-md"
 					/>
@@ -100,74 +101,64 @@ export function FiltersBar({ totalResults, lang, filters, onFiltersChange }) {
 			>
 				<div className="max-w-7xl mx-auto px-6 py-4">
 					<div className="flex items-center gap-3 flex-wrap">
-						{/* City */}
+						{/* City (id-based) */}
 						<FilterDropdown
 							label={isAr ? "المدينة" : "City"}
 							icon={<MapPin className="w-4 h-4" />}
 							options={
 								isAr
-									? ["مكة المكرمة", "المدينة المنورة", "الطائف", "جدة", "أخرى"]
-									: ["Mecca", "Medina", "Taif", "Jeddah", "Other"]
+									? [
+											{ id: 1, label: "مكة المكرمة" },
+											{ id: 2, label: "المدينة المنورة" },
+									  ]
+									: [
+											{ id: 1, label: "Mecca" },
+											{ id: 2, label: "Medina" },
+									  ]
 							}
-							value={filters.city}
-							onChange={(value) => onFiltersChange({ ...filters, city: value })}
-							onClear={() => clearFilter("city")}
+							value={filters.city_id}
+							onChange={(id) => onFiltersChange({ ...filters, city_id: id })}
+							onClear={() => clearFilter("city_id")}
 						/>
 
-						{/* Tour Type */}
+						{/* Tour Type (id-based) */}
 						<FilterDropdown
 							label={isAr ? "نوع الجولة" : "Tour Type"}
 							icon={<Ticket className="w-4 h-4" />}
 							options={
 								isAr
 									? [
-											"جولات الحرمين",
-											"جولات تاريخية",
-											"الباص السياحي",
-											"تجارب الواقع المعزز AR",
-											"جولات عائلية",
-											"جولات خاصة VIP",
+											{ id: 1, label: "الجولات العامة" },
+											{ id: 2, label: "جولات الحرمين" },
+											{ id: 3, label: "الباص السياحي" },
 									  ]
 									: [
-											"Haram Tours",
-											"Historical Tours",
-											"Tourist Bus",
-											"Augmented Reality (AR) Experiences",
-											"Family Tours",
-											"VIP Private Tours",
+											{ id: 1, label: "General Tours" },
+											{ id: 2, label: "Haram Tours" },
+											{ id: 3, label: "Bus Tours" },
 									  ]
 							}
-							value={filters.tourType}
-							onChange={(value) =>
-								onFiltersChange({ ...filters, tourType: value })
-							}
-							onClear={() => clearFilter("tourType")}
+							value={filters.type}
+							onChange={(id) => onFiltersChange({ ...filters, type: id })}
+							onClear={() => clearFilter("type")}
 						/>
 
-						{/* Price */}
-						<PriceFilter
-							value={filters.priceRange}
-							onChange={(value) =>
-								onFiltersChange({ ...filters, priceRange: value })
+						{/* Start Price (min price) */}
+						<StartPriceFilter
+							value={filters.start_price}
+							onChange={(val) =>
+								onFiltersChange({ ...filters, start_price: val })
 							}
-							onClear={() => clearFilter("priceRange")}
+							onClear={() => clearFilter("start_price")}
 							isAr={isAr}
 						/>
 
-						{/* Duration */}
-						<FilterDropdown
-							label={isAr ? "المدة" : "Duration"}
-							icon={<Clock className="w-4 h-4" />}
-							options={
-								isAr
-									? ["3 ساعات", "6 ساعات", "يوم كامل"]
-									: ["3 hours", "6 hours", "Full day"]
-							}
+						{/* Duration (send ranges like "1-2", "2-3") */}
+						<DurationFilter
 							value={filters.duration}
-							onChange={(value) =>
-								onFiltersChange({ ...filters, duration: value })
-							}
+							onChange={(val) => onFiltersChange({ ...filters, duration: val })}
 							onClear={() => clearFilter("duration")}
+							isAr={isAr}
 						/>
 
 						{/* Rating */}
@@ -180,21 +171,21 @@ export function FiltersBar({ totalResults, lang, filters, onFiltersChange }) {
 							isAr={isAr}
 						/>
 
-						{/* Date */}
-						<DateFilter
-							value={filters.date}
+						{/* Date (optional; not sent to API per provided query, keep local or remove) */}
+						{/* <DateFilter
+							value={filters.date || ""}
 							onChange={(value) => onFiltersChange({ ...filters, date: value })}
 							onClear={() => clearFilter("date")}
 							isAr={isAr}
-						/>
+						/> */}
 
-						{/* Guests */}
+						{/* Guests -> seats */}
 						<GuestsFilter
-							value={filters.guests}
+							value={filters.seats}
 							onChange={(value) =>
-								onFiltersChange({ ...filters, guests: value })
+								onFiltersChange({ ...filters, seats: value })
 							}
-							onClear={() => clearFilter("guests")}
+							onClear={() => clearFilter("seats")}
 							isAr={isAr}
 						/>
 
@@ -243,10 +234,14 @@ export function FiltersBar({ totalResults, lang, filters, onFiltersChange }) {
 	);
 }
 
-// Filter Dropdown Component
+// Generic Dropdown now supports options with {id, label}
 function FilterDropdown({ label, icon, options, value, onChange, onClear }) {
 	const [isOpen, setIsOpen] = useState(false);
-	const isActive = !!value;
+	const isActive = value != null;
+
+	const selectedLabel = isActive
+		? options.find((o) => o.id === value)?.label || label
+		: label;
 
 	return (
 		<div className="relative">
@@ -258,7 +253,7 @@ function FilterDropdown({ label, icon, options, value, onChange, onClear }) {
 						: "bg-white text-[#0F172A] border-[#E2E8F0] hover:border-[#0097A7]"
 				}`}
 			>
-				<span className="text-sm">{value || label}</span>
+				<span className="text-sm">{selectedLabel}</span>
 				<div className={isActive ? "text-white" : "text-[#006064]"}>
 					{isActive ? (
 						<X
@@ -284,14 +279,14 @@ function FilterDropdown({ label, icon, options, value, onChange, onClear }) {
 					<div className="absolute left-0 mt-2 w-56 bg-white rounded-xl shadow-lg border border-[#E2E8F0] py-2 z-20">
 						{options.map((option) => (
 							<button
-								key={option}
+								key={option.id}
 								onClick={() => {
-									onChange(option);
+									onChange(option.id);
 									setIsOpen(false);
 								}}
-								className="w-full px-4 py-2  hover:bg-[#F1F5F9] transition-colors text-sm text-[#0F172A]"
+								className="w-full px-4 py-2 hover:bg-[#F1F5F9] transition-colors text-sm text-[#0F172A]"
 							>
-								{option}
+								{option.label}
 							</button>
 						))}
 					</div>
@@ -301,11 +296,15 @@ function FilterDropdown({ label, icon, options, value, onChange, onClear }) {
 	);
 }
 
-// Price Filter Component
-function PriceFilter({ value, onChange, onClear, isAr }) {
+// Start Price (min price) Filter
+function StartPriceFilter({ value, onChange, onClear, isAr }) {
 	const [isOpen, setIsOpen] = useState(false);
-	const [tempRange, setTempRange] = useState(value);
-	const isActive = value[0] !== 50 || value[1] !== 500;
+	const [tempValue, setTempValue] = useState(value ?? 50);
+	const isActive = value != null;
+
+	useEffect(() => {
+		if (value != null) setTempValue(value);
+	}, [value]);
 
 	return (
 		<div className="relative">
@@ -319,10 +318,10 @@ function PriceFilter({ value, onChange, onClear, isAr }) {
 			>
 				<span className="text-sm">
 					{isActive
-						? `${value[0]} - ${value[1]}  ${isAr ? "ريال" : "SAR"}`
+						? `${value} ${isAr ? "ريال+" : "SAR+"}`
 						: isAr
-						? "السعر"
-						: "Price"}
+						? "الحد الأدنى للسعر"
+						: "Start Price"}
 				</span>
 				{isActive ? (
 					<X
@@ -333,9 +332,7 @@ function PriceFilter({ value, onChange, onClear, isAr }) {
 						}}
 					/>
 				) : (
-					<>
-						<ChevronDown className="w-4 h-4 text-[#475569]" />
-					</>
+					<ChevronDown className="w-4 h-4 text-[#475569]" />
 				)}
 			</button>
 
@@ -350,27 +347,25 @@ function PriceFilter({ value, onChange, onClear, isAr }) {
 							className="text-center mb-4 text-sm text-[#006064]"
 							style={{ fontFamily: "Tajawal, sans-serif", fontWeight: 500 }}
 						>
-							{isAr ? "من" : "from"} {tempRange[0]} {isAr ? "إلى" : "to"}{" "}
-							{tempRange[1]} {isAr ? "ريال" : "SAR"}
+							{isAr ? "أقل سعر" : "Minimum price"}: {tempValue}{" "}
+							{isAr ? "ريال" : "SAR"}
 						</div>
 						<input
 							type="range"
 							min="50"
 							max="500"
 							step="10"
-							value={tempRange[1]}
-							onChange={(e) =>
-								setTempRange([tempRange[0], parseInt(e.target.value)])
-							}
+							value={tempValue}
+							onChange={(e) => setTempValue(parseInt(e.target.value))}
 							className="w-full accent-[#0097A7]"
 						/>
 						<div className="flex justify-between text-xs text-[#475569] mt-2">
-							<span>500</span>
 							<span>50</span>
+							<span>500</span>
 						</div>
 						<button
 							onClick={() => {
-								onChange(tempRange);
+								onChange(tempValue);
 								setIsOpen(false);
 							}}
 							className="w-full mt-4 px-4 py-2 bg-[#006064] text-white rounded-lg hover:bg-[#004d50] transition-colors"
@@ -384,7 +379,80 @@ function PriceFilter({ value, onChange, onClear, isAr }) {
 	);
 }
 
-// Rating Filter Component
+// Duration Filter with ranges like "1-2", "2-3"
+function DurationFilter({ value, onChange, onClear, isAr }) {
+	const [isOpen, setIsOpen] = useState(false);
+	const isActive = !!value;
+
+	const options = [
+		{ val: "1-2", labelEn: "1–2 hours", labelAr: "1–2 ساعات" },
+		{ val: "2-3", labelEn: "2–3 hours", labelAr: "2–3 ساعات" },
+		{ val: "3-4", labelEn: "3–4 hours", labelAr: "3–4 ساعات" },
+		{ val: "4-6", labelEn: "4–6 hours", labelAr: "4–6 ساعات" },
+	];
+
+	const currentLabel = value
+		? (isAr
+				? options.find((o) => o.val === value)?.labelAr
+				: options.find((o) => o.val === value)?.labelEn) || value
+		: isAr
+		? "المدة"
+		: "Duration";
+
+	return (
+		<div className="relative">
+			<button
+				onClick={() => setIsOpen(!isOpen)}
+				className={`flex items-center gap-2 px-4 py-2.5 rounded-[16px] border transition-all whitespace-nowrap ${
+					isActive
+						? "bg-[#006064] text-white border-[#006064]"
+						: "bg-white text-[#0F172A] border-[#E2E8F0] hover:border-[#0097A7]"
+				}`}
+			>
+				<span className="text-sm">{currentLabel}</span>
+				{isActive ? (
+					<X
+						className="w-4 h-4"
+						onClick={(e) => {
+							e.stopPropagation();
+							onClear();
+						}}
+					/>
+				) : (
+					<>
+						<Clock className="w-4 h-4 text-[#006064]" />
+						<ChevronDown className="w-4 h-4 text-[#475569]" />
+					</>
+				)}
+			</button>
+
+			{isOpen && !isActive && (
+				<>
+					<div
+						className="fixed inset-0 z-10"
+						onClick={() => setIsOpen(false)}
+					/>
+					<div className="absolute left-0 mt-2 w-56 bg-white rounded-xl shadow-lg border border-[#E2E8F0] py-2 z-20">
+						{options.map((opt) => (
+							<button
+								key={opt.val}
+								onClick={() => {
+									onChange(opt.val);
+									setIsOpen(false);
+								}}
+								className="w-full px-4 py-2 hover:bg-[#F1F5F9] transition-colors text-sm text-[#0F172A]"
+							>
+								{isAr ? opt.labelAr : opt.labelEn}
+							</button>
+						))}
+					</div>
+				</>
+			)}
+		</div>
+	);
+}
+
+// Rating Filter (unchanged behavior, maps to 'rating' param)
 function RatingFilter({ value, onChange, onClear, isAr }) {
 	const [isOpen, setIsOpen] = useState(false);
 	const isActive = value !== null;
@@ -433,7 +501,7 @@ function RatingFilter({ value, onChange, onClear, isAr }) {
 									onChange(rating);
 									setIsOpen(false);
 								}}
-								className="w-full px-4 py-2  hover:bg-[#F1F5F9] transition-colors flex items-center justify-center gap-2"
+								className="w-full px-4 py-2 hover:bg-[#F1F5F9] transition-colors flex items-center justify-center gap-2"
 							>
 								<span className="text-sm text-[#0F172A]">{rating}+</span>
 								<Star className="w-4 h-4 text-[#FFC107] fill-[#FFC107]" />
@@ -446,65 +514,69 @@ function RatingFilter({ value, onChange, onClear, isAr }) {
 	);
 }
 
-// Date Filter Component
-function DateFilter({ value, onChange, onClear, isAr }) {
-	const [isOpen, setIsOpen] = useState(false);
-	const isActive = !!value;
+// Date Filter (optional UI-only)
+// function DateFilter({ value, onChange, onClear, isAr }) {
+// 	const [isOpen, setIsOpen] = useState(false);
+// 	const isActive = !!value;
 
-	return (
-		<div className="relative">
-			<button
-				onClick={() => setIsOpen(!isOpen)}
-				className={`flex items-center gap-2 px-4 py-2.5 rounded-[16px] border transition-all whitespace-nowrap ${
-					isActive
-						? "bg-[#006064] text-white border-[#006064]"
-						: "bg-white text-[#0F172A] border-[#E2E8F0] hover:border-[#0097A7]"
-				}`}
-			>
-				<span className="text-sm">{value || (isAr ? "التاريخ" : "Date")}</span>
-				<div className={isActive ? "text-white" : "text-[#0097A7]"}>
-					{isActive ? (
-						<X
-							className="w-4 h-4"
-							onClick={(e) => {
-								e.stopPropagation();
-								onClear();
-							}}
-						/>
-					) : (
-						<Calendar className="w-4 h-4" />
-					)}
-				</div>
-				{!isActive && <ChevronDown className="w-4 h-4 text-[#475569]" />}
-			</button>
+// 	return (
+// 		<div className="relative">
+// 			<button
+// 				onClick={() => setIsOpen(!isOpen)}
+// 				className={`flex items-center gap-2 px-4 py-2.5 rounded-[16px] border transition-all whitespace-nowrap ${
+// 					isActive
+// 						? "bg-[#006064] text-white border-[#006064]"
+// 						: "bg-white text-[#0F172A] border-[#E2E8F0] hover:border-[#0097A7]"
+// 				}`}
+// 			>
+// 				<span className="text-sm">{value || (isAr ? "التاريخ" : "Date")}</span>
+// 				<div className={isActive ? "text-white" : "text-[#0097A7]"}>
+// 					{isActive ? (
+// 						<X
+// 							className="w-4 h-4"
+// 							onClick={(e) => {
+// 								e.stopPropagation();
+// 								onClear();
+// 							}}
+// 						/>
+// 					) : (
+// 						<Calendar className="w-4 h-4" />
+// 					)}
+// 				</div>
+// 				{!isActive && <ChevronDown className="w-4 h-4 text-[#475569]" />}
+// 			</button>
 
-			{isOpen && !isActive && (
-				<>
-					<div
-						className="fixed inset-0 z-10"
-						onClick={() => setIsOpen(false)}
-					/>
-					<div className="absolute left-0 mt-2 w-64 bg-white rounded-xl shadow-lg border border-[#E2E8F0] p-4 z-20">
-						<input
-							type="date"
-							onChange={(e) => {
-								onChange(e.target.value);
-								setIsOpen(false);
-							}}
-							className="w-full px-3 py-2 border border-[#E2E8F0] rounded-lg focus:ring-2 focus:ring-[#0097A7] focus:border-transparent"
-						/>
-					</div>
-				</>
-			)}
-		</div>
-	);
-}
+// 			{isOpen && !isActive && (
+// 				<>
+// 					<div
+// 						className="fixed inset-0 z-10"
+// 						onClick={() => setIsOpen(false)}
+// 					/>
+// 					<div className="absolute left-0 mt-2 w-64 bg-white rounded-xl shadow-lg border border-[#E2E8F0] p-4 z-20">
+// 						<input
+// 							type="date"
+// 							onChange={(e) => {
+// 								onChange(e.target.value);
+// 								setIsOpen(false);
+// 							}}
+// 							className="w-full px-3 py-2 border border-[#E2E8F0] rounded-lg focus:ring-2 focus:ring-[#0097A7] focus:border-transparent"
+// 						/>
+// 					</div>
+// 				</>
+// 			)}
+// 		</div>
+// 	);
+// }
 
-// Guests Filter Component
+// Guests -> seats
 function GuestsFilter({ value, onChange, onClear, isAr }) {
 	const [isOpen, setIsOpen] = useState(false);
-	const [tempValue, setTempValue] = useState(value);
-	const isActive = value !== 1;
+	const [tempValue, setTempValue] = useState(value || 1);
+	const isActive = (value || 1) !== 1;
+
+	useEffect(() => {
+		setTempValue(value || 1);
+	}, [value]);
 
 	return (
 		<div className="relative">

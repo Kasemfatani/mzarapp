@@ -5,10 +5,11 @@ import { CheckCircle2, Calendar, Clock } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Loading from "@/app/loading";
 import { API_BASE_URL_NEW } from "@/lib/apiConfig";
+import { API_BETA_URL } from "@/lib/apiConfig";
 import { toast } from "sonner";
 // import DownloadButtons from "./DownloadButtons"
 
-const STORAGE_KEY = "bookHaramain.selection";
+const STORAGE_KEY = "path.selection";
 
 const messages = {
 	en: {
@@ -105,7 +106,7 @@ export default function SuccessSummary({ initialLang = "en" }) {
 			}
 			setSelection(sel || null);
 
-			const cartId = sel?.process_id;
+			const cartId = sel?.ref_no;
 
 			if (!cartId && status !== "failed") {
 				toast.error(
@@ -113,7 +114,7 @@ export default function SuccessSummary({ initialLang = "en" }) {
 						? "لم يتم العثور على بيانات الحجز"
 						: "Booking data not found"
 				);
-				window.location.replace("/book-haram");
+				window.location.replace("/book-path-new"); ///// /// change redirect path
 				return;
 			}
 
@@ -202,7 +203,7 @@ export default function SuccessSummary({ initialLang = "en" }) {
 				!sel.date ||
 				!sel.time?.id ||
 				!sel.customer_id ||
-				!sel.process_id ||
+				!sel.ref_no ||
 				!sel.trip_id
 			) {
 				setFinalizeError(true);
@@ -217,7 +218,7 @@ export default function SuccessSummary({ initialLang = "en" }) {
 			const payload = {
 				trip_id: sel.trip_id,
 				customer_id: sel.customer_id,
-				process_id: sel.process_id,
+				ref_no: sel.ref_no,
 				transaction_id: tranId,
 			};
 
@@ -225,7 +226,7 @@ export default function SuccessSummary({ initialLang = "en" }) {
 
 			try {
 				const res = await fetch(
-					`${API_BASE_URL_NEW}/landing/landing-guided-tour/booking-payment`,
+					`${API_BETA_URL}/landing/trip/booking-payment`,
 					{
 						method: "POST",
 						headers: {
@@ -374,7 +375,7 @@ export default function SuccessSummary({ initialLang = "en" }) {
 							) : null}
 						</div>
 
-						{/* Show trip_id, customer_id, process_id */}
+						{/* Show trip_id, customer_id, ref_no */}
 						<div className="flex flex-col gap-2 mb-4">
 							{selection.trip_id ? (
 								<div>
@@ -392,11 +393,11 @@ export default function SuccessSummary({ initialLang = "en" }) {
 								</div>
 							) : null}
 
-							{selection.process_id ? (
+							{selection.ref_no ? (
 								<div>
-									<strong>Process ID:</strong>{" "}
+									<strong>Ref No:</strong>{" "}
 									<span className="font-mono">
-										{selection?.process_id || "—"}
+										{selection?.ref_no || "—"}
 									</span>
 								</div>
 							) : null}

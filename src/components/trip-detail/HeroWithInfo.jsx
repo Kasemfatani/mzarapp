@@ -25,7 +25,7 @@ export function HeroWithInfo({ lang , data }) {
 				<div className="absolute inset-0">
 					<img
 						src={data.image}
-						alt={data.title}
+						alt={data.name}
 						className="w-full h-full object-cover"
 					/>
 				</div>
@@ -49,7 +49,7 @@ export function HeroWithInfo({ lang , data }) {
 								<div className="w-14 h-14 rounded-[16px] bg-gradient-to-b from-[#0f3d2e] to-[#1a5a42] flex items-center justify-center">
 									<Clock className="w-7 h-7 text-white" />
 								</div>
-								<div className={isAr ? "text-right" : "text-left"}>
+								<div >
 									<p className="text-xs text-gray-500 mb-1.5 leading-[1.5]">
 										{isAr ? "المدة" : "Duration"}
 									</p>
@@ -83,7 +83,7 @@ export function HeroWithInfo({ lang , data }) {
 										className="text-[18px] leading-[1.4] text-[#0f3d2e]"
 										
 									>
-										{data.capacity} 
+										{data.max_people_count} 
 									</p>
 								</div>
 							</motion.div>
@@ -108,7 +108,7 @@ export function HeroWithInfo({ lang , data }) {
 									</span>
 								</div>
 								<p className="text-[14px] leading-[1.5] text-gray-600">
-									{isAr ? `(${data.reviewCount} تقييم)` : `(${data.reviewCount} reviews)`}
+									{isAr ? `(${data.rating_count} تقييم)` : `(${data.rating_count} reviews)`}
 								</p>
 								
 							</motion.div>

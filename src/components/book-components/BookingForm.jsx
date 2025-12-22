@@ -32,6 +32,7 @@ import {
 	PopoverContent,
 } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
+import { DatePickerFormField } from "./DatePickerFormField";
 // optional: if you have shadcn Calendar component wrapper:
 // import { Calendar } from "@/components/ui/calendar";
 // we'll use DayPicker directly inside PopoverContent
@@ -81,57 +82,12 @@ export function BookingForm({
 
 				<Form {...form}>
 					<form className="flex flex-col gap-6">
-						{/* Date Picker (shadcn-style popover + react-day-picker) */}
-						<div className="flex flex-col gap-2">
-							<label className="flex items-center text-[#364153]">
-								اختر التاريخ المناسب
-							</label>
-							<FormField
-								control={form.control}
-								name="date"
-								render={({ field }) => (
-									<FormItem>
-										<FormControl>
-											<Popover>
-												<PopoverTrigger asChild>
-													<Button
-														variant="outline"
-														className="w-full justify-start text-start bg-white rounded-md border p-3"
-														type="button"
-													>
-														<CalendarIcon className="mr-2 h-4 w-4" />
-														{field.value
-															? format(field.value, "PPP")
-															: isAr
-															? "اختر التاريخ"
-															: "Pick a date"}
-													</Button>
-												</PopoverTrigger>
-
-												<PopoverContent className="w-auto p-0">
-													<div className="p-3">
-														<Calendar
-															mode="single"
-															selected={field.value || undefined}
-															onSelect={(date) => field.onChange(date || null)}
-															fromDate={tomorrow}
-															toDate={maxDate}
-															disabled={[
-																{ before: tomorrow },
-																{ after: maxDate },
-																{ dayOfWeek: [0, 1] },
-															]}
-															numberOfMonths={1}
-														/>
-													</div>
-												</PopoverContent>
-											</Popover>
-										</FormControl>
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
-						</div>
+						<DatePickerFormField
+							form={form}
+							lang={lang}
+							minDate={tomorrow}
+							maxDate={maxDate}
+						/>
 
 						{/* Time Slot Selector (no label/icon, buttons only) */}
 						<div className="flex flex-col gap-2">

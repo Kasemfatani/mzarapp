@@ -118,7 +118,7 @@ export default function BookTourPage({ tripData }) {
 	const form = useForm({
 		resolver: zodResolver(getSchema(lang || "en", leftSeats ?? 20)),
 		defaultValues: {
-			date: defaultDate,
+			date: undefined,
 			time: undefined,
 			meetingPoint: undefined,
 			people: 1,

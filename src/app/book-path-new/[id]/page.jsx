@@ -1,18 +1,19 @@
 import { cookies, headers } from "next/headers";
 
 import { API_BASE_URL_NEW } from "@/lib/apiConfig";
+import { API_BETA_URL } from "@/lib/apiConfig";
 import { notFound } from "next/navigation";
 import { cache } from "react";
 
-import BookWrapper from "@/components/book-haram-new/BookWrapper";
+import BookWrapper from "@/components/book-path-new/BookWrapper";
 
 // 2. Wrap the fetch function with cache()
-const getData = cache(async (lang) => {
+const getData = cache(async (lang , id) => {
 	// Remove the redundant 'cache: "no-store"' unless you explicitly
 	// need to revalidate on every request (which would prevent caching/deduplication).
 	// If you need revalidation, use 'next: { revalidate: N }' instead of 'no-store'
 	const res = await fetch(
-		`${API_BASE_URL_NEW}/landing/landing-guided-tour/booking-data?package_id=88`,
+		`${API_BETA_URL}/landing/trip/booking-data?package_id=${id}`,
 		{
 			headers: { lang },
 		}
@@ -38,23 +39,26 @@ export function generateMetadata() {
 
 	if (lang === "ar") {
 		return {
-			title: "حجز حافلة الجولات الإثرائية",
+			title: "حجز ",
 			
 		};
 	}
 	return {
-		title: "Booking Enriching Bus Tours",
+		title: "Booking ",
 		
 	};
 }
 
-export default async function Page() {
+export default async function Page({ params }) {
 	
+	const { id } = params;
+	if (!id) return notFound();
+
 	const lang = determineLang();
 	
 	
 		// Call the cached function again—it will reuse the result from generateMetadata
-		const data = await getData(lang);
+		const data = await getData(lang, id);
 		// console.log("Trip Detail Data:", data);
 		if (!data) notFound();
 
@@ -63,6 +67,6 @@ export default async function Page() {
 	// console.log("BookTourNew Page busData:", data);
 
 	return (
-		<BookWrapper lang={lang} busData={data} disabledDays={[0,1,2]}/>
+		<BookWrapper lang={lang} busData={data} disabledDays={[]}/>
 	);
 }

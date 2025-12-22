@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Clock, ChevronDown } from "lucide-react";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination, Autoplay } from "swiper/modules"; 
+import { Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 
 import ExclusiveSlide from "@/components/Path/ExclusiveSlide";
@@ -21,11 +21,10 @@ export default function Destinations({ data, lang }) {
 			? { title: "الوجهات", prev: "السابق", next: "التالي" }
 			: { title: "Destinations", prev: "Prev", next: "Next" };
 
-	console.log("data is", data);
+	// console.log("data is", data);
 
 	return (
 		<div className="destinations container mx-auto bg-white rounded-[20px] p-5 shadow-[0px_6px_20px_rgba(0,0,0,0.06)] overflow-hidden">
-			
 			{/* Section Header - Grouped */}
 			<div className="mb-2">
 				<div className="flex items-center gap-4 mb-6">
@@ -46,8 +45,8 @@ export default function Destinations({ data, lang }) {
 
 			{/* Slider */}
 			<Swiper
-				modules={[Pagination, Autoplay]} 
-				autoplay={{ delay: 2500, disableOnInteraction: false }} 
+				modules={[Pagination, Autoplay]}
+				autoplay={{ delay: 2500, disableOnInteraction: false }}
 				slidesPerView={4}
 				spaceBetween={18}
 				loop={false}
@@ -62,7 +61,7 @@ export default function Destinations({ data, lang }) {
 			>
 				{destinations.map((item, idx) => (
 					<React.Fragment key={item.id}>
-						<SwiperSlide>
+						<SwiperSlide key={item.id}>
 							<article
 								className={`rounded-[20px] overflow-hidden h-[410px] flex flex-col shadow-2xl ${
 									data.id === 45 && item.id === 1000
@@ -80,8 +79,8 @@ export default function Destinations({ data, lang }) {
 										</div>
 									)}
 									<Image
-										src={item.cover}
-										alt={`${data.name} image`}
+										src={item.image}
+										alt={`${data.name}`}
 										fill
 										className="object-cover"
 										sizes="(max-width: 1280px) 50vw, 25vw"
@@ -94,7 +93,7 @@ export default function Destinations({ data, lang }) {
 										{item.name}
 									</h3>
 									<p className="text-sm text-gray-600 leading-6 line-clamp-5">
-										{item.short_description}
+										{item.description}
 									</p>
 									<div className="mt-auto" />
 								</div>
@@ -102,7 +101,7 @@ export default function Destinations({ data, lang }) {
 						</SwiperSlide>
 						{/* Insert ExclusiveSlide after item.id === 15, only if data.id === 45 */}
 						{data.id === 45 && item.id === 15 && (
-							<SwiperSlide key="exclusive-slide">
+							<SwiperSlide key={`exclusive-${item.id}`}>
 								<ExclusiveSlide language={language} />
 							</SwiperSlide>
 						)}

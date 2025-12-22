@@ -59,7 +59,7 @@ export function InclusionsSection({ lang , data }) {
 
         {/* List */}
         <div className="space-y-4">
-          {data.included.map((item, index) => (
+          {data.consists.map((item, index) => (
             <motion.div 
               key={index}
               initial={{ opacity: 0, x: -20 }}
@@ -69,7 +69,7 @@ export function InclusionsSection({ lang , data }) {
               className="flex items-start gap-4"
             >
               <CheckCircle2 className="w-6 h-6 text-green-600 flex-shrink-0 mt-0.5" />
-              <span className="text-[16px] leading-[1.7] text-gray-700  flex-1">{item}</span>
+              <span className="text-[16px] leading-[1.7] text-gray-700  flex-1">{item.title}</span>
             </motion.div>
           ))}
         </div>
@@ -97,7 +97,7 @@ export function InclusionsSection({ lang , data }) {
 
         {/* List */}
         <div className="space-y-4">
-          {data.notIncluded.map((item, index) => (
+          {data.unconsists.map((item, index) => (
             <motion.div 
               key={index}
               initial={{ opacity: 0, x: 20 }}
@@ -107,7 +107,7 @@ export function InclusionsSection({ lang , data }) {
               className="flex items-start gap-4"
             >
               <XCircle className="w-6 h-6 text-gray-500 flex-shrink-0 mt-0.5" />
-              <span className="text-[16px] leading-[1.7] text-gray-600  flex-1">{item}</span>
+              <span className="text-[16px] leading-[1.7] text-gray-600  flex-1">{item.title}</span>
             </motion.div>
           ))}
         </div>

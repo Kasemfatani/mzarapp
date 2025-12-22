@@ -12,7 +12,7 @@ const getData = cache(async (lang) => {
 	// need to revalidate on every request (which would prevent caching/deduplication).
 	// If you need revalidation, use 'next: { revalidate: N }' instead of 'no-store'
 	const res = await fetch(
-		`${API_BASE_URL_NEW}/landing/landing-guided-tour/booking-data?package_id=88`,
+		`${API_BASE_URL_NEW}/landing/landing-guided-tour/booking-data?package_id=87`,
 		{
 			headers: { lang },
 		}
@@ -38,12 +38,12 @@ export function generateMetadata() {
 
 	if (lang === "ar") {
 		return {
-			title: "حجز حافلة الجولات الإثرائية",
+			title: "حجز  ",
 			
 		};
 	}
 	return {
-		title: "Booking Enriching Bus Tours",
+		title: "Booking  ",
 		
 	};
 }
@@ -63,6 +63,6 @@ export default async function Page() {
 	// console.log("BookTourNew Page busData:", data);
 
 	return (
-		<BookWrapper lang={lang} busData={data} disabledDays={[0,1,2]}/>
+		<BookWrapper lang={lang} busData={data} disabledDays={[1,2,3]}/>
 	);
 }

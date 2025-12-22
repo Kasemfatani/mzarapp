@@ -2,6 +2,7 @@
 
 import { Sparkles } from 'lucide-react';
 import { motion } from 'motion/react';
+import parse from "html-react-parser";
 
 export function AboutSection({ lang , data }) {
   const isAr = lang === "ar";
@@ -40,13 +41,13 @@ export function AboutSection({ lang , data }) {
         transition={{ duration: 0.6, delay: 0.2 }}
         className="mb-8"
       >
-        <p className="text-[16px] leading-[1.7] text-gray-700 ">
-          {data.about.desc}
-        </p>
+        <div className="text-[16px] leading-[1.7] text-gray-700 ">
+          {parse(data?.description)}
+        </div>
       </motion.div>
 
       {/* Bullet List - Proper spacing */}
-      <div className="space-y-4">
+      {/* <div className="space-y-4">
         {data.about.list.map((item, index) => (
           <motion.div 
             key={index}
@@ -65,7 +66,7 @@ export function AboutSection({ lang , data }) {
             <p className="text-[16px] leading-[1.7] text-gray-700 flex-1  pt-1">{item}</p>
           </motion.div>
         ))}
-      </div>
+      </div> */}
     </motion.div>
   );
 }

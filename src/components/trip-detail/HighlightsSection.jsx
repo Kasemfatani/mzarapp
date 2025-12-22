@@ -22,7 +22,7 @@ export function HighlightsSection({ lang , data }) {
   return (
     <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
       {items.map((item, index) => {
-        const Icon = ICONS[item.icon] || MapPin;
+        // const Icon = ICONS[item.icon] || MapPin;
         
         return (
           <motion.div
@@ -41,13 +41,13 @@ export function HighlightsSection({ lang , data }) {
                 transition={{ type: "spring", stiffness: 300 }}
                 className="w-16 h-16 rounded-[18px] bg-gradient-to-br from-[#c9a463] to-[#b8914a] flex items-center justify-center shadow-md"
               >
-                <Icon className="w-8 h-8 text-white" strokeWidth={1.5} />
+                <img src={item.image} className="w-8 h-8 text-white" strokeWidth={1.5} />
               </motion.div>
               
               {/* Text Group */}
               <div className="space-y-2">
                 <h3 className="text-[20px] leading-[1.4] text-[#0f3d2e]">{item.title}</h3>
-                <p className="text-[15px] leading-[1.6] text-gray-600">{item.detail}</p>
+                <p className="text-[15px] leading-[1.6] text-gray-600">{item.description}</p>
               </div>
             </div>
           </motion.div>

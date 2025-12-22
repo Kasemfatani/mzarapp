@@ -65,7 +65,7 @@ return (
 						<MapPin className="w-7 h-7 text-white" />
 					</motion.div>
 					<h2 className="text-[26px] leading-[1.3] text-[#0f3d2e]">
-						{data.mapTitle}
+						{isAr ? "مواقع التجمع" : "Gathering Locations"}
 					</h2>
 				</div>
 				<div className="h-px bg-gradient-to-r from-[#c9a463] via-gray-200 to-transparent"></div>
@@ -73,7 +73,7 @@ return (
 
 			{/* Grid of Map Cards */}
 			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-				{data.mapLocations.map((location, index) => (
+				{data.assimply_points.map((location, index) => (
 					<motion.div
 						key={index}
 						initial={{ opacity: 0, y: 20 }}
