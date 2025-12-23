@@ -129,7 +129,7 @@ export default function FeaturedToursSection({ lang , topData }) {
 				{/* Tours Grid */}
 				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 					{topData.map((tour, index) => (
-						<FeaturedToursCard key={index} {...tour} isAr={isAr} />
+						<FeaturedToursCard key={index} {...tour} isAr={isAr}  />
 					))}
 				</div>
 

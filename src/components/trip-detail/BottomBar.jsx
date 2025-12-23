@@ -5,8 +5,8 @@ import { motion } from 'motion/react';
 const CURRENCY_SVG = (
 	<svg
 		viewBox="0 0 1124.14 1256.39"
-		width="2em"
-		height="2em"
+		width="1.5em"
+		height="1.5em"
 		fill="white"
 		style={{ display: "inline", verticalAlign: "top" }}
 	>
@@ -25,19 +25,19 @@ export function BottomBar( { lang , data } ) {
       transition={{ duration: 0.5, delay: 0.8 }}
       className="fixed  bottom-0 w-full  bg-gradient-to-b from-[#0f3d2e] to-[#1a5a42] border-t-4 border-[#c9a463] shadow-[0px_-6px_20px_rgba(0,0,0,0.08)] z-50"
     >
-      <div className="container mx-auto  px-10 py-3">
+      <div className="container mx-auto  px-10 py-1">
         {/* Main Content - Primary CTA Section */}
-        <div className="flex items-center justify-between mb-5">
+        <div className="flex items-center justify-between mb-1">
           {/* Price Section */}
-          <div className="flex flex-col md:flex-row items-center gap-4">
-            <p className="text-[14px] leading-[1.5] text-white/80">{isAr ? "السعر يبدأ من" : "Price starts from"}</p>
+          <div className="flex flex-row items-center gap-1">
+            <p className="text-[13px] md:text-[20px] leading-[1.5] text-white/80">{isAr ? "السعر يبدأ من" : "Price starts from"}</p>
             <div className="flex items-center gap-3 ltr">
               {/* SAR Icon */}
-              <div className="w-9 h-10 relative">
+              <div className=" relative">
                 {CURRENCY_SVG}
               </div>
               <div className="">
-                <span className="text-[40px] leading-[1.2] text-white" >
+                <span className="text-[13px] md:text-[20px] leading-[1.2] text-white" >
                   {data.start_price}
                 </span>
               </div>
@@ -48,23 +48,23 @@ export function BottomBar( { lang , data } ) {
           <motion.button 
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="bg-[#857856] hover:bg-[#756849] text-white px-10 py-4 rounded-[18px] flex items-center gap-3 transition-all shadow-md hover:shadow-lg"
+            className="bg-[#857856] hover:bg-[#756849] text-white px-6 py-3 rounded-[18px] flex items-center gap-3 transition-all shadow-md hover:shadow-lg"
           >
-            <ArrowLeft className="w-6 h-6" />
-            <span className="text-sm md:text-xl leading-[1.3]">{isAr ? "احجز الآن" : "Book Now"}</span>
+            <ArrowLeft className="w-4 h-4" />
+            <span className="text-[11px] md:text-[18px]  leading-[1.3]">{isAr ? "احجز الآن" : "Book Now"}</span>
           </motion.button>
         </div>
 
         {/* Trust Badges - Secondary Info */}
         <div className="flex items-center justify-center gap-10 pt-1 border-t border-white/10">
-          <div className="flex items-center gap-2.5 py-3">
+          <div className="flex items-center gap-2.5 py-1">
             <Shield className="w-4 h-4 text-[#c9a463]" />
-            <span className="text-[13px] leading-[1.5] text-white/70">{isAr ? "إلغاء مجاني قبل 24 ساعة" : "Free cancellation before 24 hours"}</span>
+            <span className="text-[11px] leading-[1.5] text-white/70">{isAr ? "إلغاء مجاني قبل 24 ساعة" : "Free cancellation before 24 hours"}</span>
           </div>
           <div className="w-px h-4 bg-white/30"></div>
-          <div className="flex items-center gap-2.5 py-3">
+          <div className="flex items-center gap-2.5 py-1">
             <Clock className="w-4 h-4 text-[#c9a463]" />
-            <span className="text-[13px] leading-[1.5] text-white/70">{isAr ? "تأكيد فوري" : "Instant confirmation"}</span>
+            <span className="text-[11px] leading-[1.5] text-white/70">{isAr ? "تأكيد فوري" : "Instant confirmation"}</span>
           </div>
         </div>
       </div>

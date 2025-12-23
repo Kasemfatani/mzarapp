@@ -277,7 +277,7 @@ function FilterDropdown({ label, icon, options, value, onChange, onClear }) {
 						className="fixed inset-0 z-10"
 						onClick={() => setIsOpen(false)}
 					/>
-					<div className="absolute left-0 mt-2 w-56 bg-white rounded-xl shadow-lg border border-[#E2E8F0] py-2 z-20">
+					<div className="absolute left-0 mt-2 md:w-44 bg-white rounded-xl shadow-lg border border-[#E2E8F0] py-2 z-20">
 						{options.map((option) => (
 							<button
 								key={option.id}
@@ -343,7 +343,7 @@ function StartPriceFilter({ value, onChange, onClear, isAr }) {
 						className="fixed inset-0 z-10"
 						onClick={() => setIsOpen(false)}
 					/>
-					<div className="absolute left-0 mt-2 w-72 bg-white rounded-xl shadow-lg border border-[#E2E8F0] p-6 z-20">
+					<div className="absolute left-0 mt-2 md:w-72 bg-white rounded-xl shadow-lg border border-[#E2E8F0] p-6 z-20">
 						<div
 							className="text-center mb-4 text-sm text-[#006064]"
 							style={{ fontFamily: "Tajawal, sans-serif", fontWeight: 500 }}
@@ -434,7 +434,7 @@ function DurationFilter({ value, onChange, onClear, isAr }) {
 						className="fixed inset-0 z-10"
 						onClick={() => setIsOpen(false)}
 					/>
-					<div className="absolute left-0 mt-2 w-56 bg-white rounded-xl shadow-lg border border-[#E2E8F0] py-2 z-20">
+					<div className="absolute left-0 mt-2 md:w-44 bg-white rounded-xl shadow-lg border border-[#E2E8F0] py-2 z-20">
 						{options.map((opt) => (
 							<button
 								key={opt.val}
@@ -496,7 +496,7 @@ function RatingFilter({ value, onChange, onClear, isAr }) {
 						className="fixed inset-0 z-10"
 						onClick={() => setIsOpen(false)}
 					/>
-					<div className="absolute left-0 mt-2 w-40 bg-white rounded-xl shadow-lg border border-[#E2E8F0] py-2 z-20">
+					<div className="absolute left-0 mt-2 md:w-40 bg-white rounded-xl shadow-lg border border-[#E2E8F0] py-2 z-20">
 						{options.map((rating) => (
 							<button
 								key={rating}

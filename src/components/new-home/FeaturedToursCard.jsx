@@ -3,6 +3,7 @@
 import { Star, Clock, TrendingUp, MapPin, Users } from "lucide-react";
 
 export function FeaturedToursCard({
+	id,
 	image,
 	name,
 	city,
@@ -133,7 +134,7 @@ export function FeaturedToursCard({
 
 				{/* CTA Buttons */}
 				<div className="flex flex-col gap-3">
-					<a href=""
+					<a href={`/trip-detail/${id}`}
 						className="w-full text-center bg-[#3C6652] text-white py-3 rounded-xl hover:bg-[#1E3A5F] transition-all shadow-md hover:shadow-lg"
 						style={{ fontFamily: '"Readex Pro", sans-serif', fontWeight: 500 }}
 					>

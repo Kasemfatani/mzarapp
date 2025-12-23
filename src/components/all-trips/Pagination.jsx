@@ -235,7 +235,7 @@ export function Pagination({
         </div>
 
         {/* Desktop Load More Alternative */}
-        {currentPage < totalPages && onLoadMore && (
+        {/* {currentPage < totalPages && onLoadMore && (
           <div className="hidden md:block mt-8 text-center">
             <button
               onClick={onLoadMore}
@@ -253,7 +253,7 @@ export function Pagination({
               )}
             </button>
           </div>
-        )}
+        )} */}
       </div>
 
       {/* Animations */}

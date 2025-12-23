@@ -3,28 +3,39 @@
 import { Star, Clock, Users } from "lucide-react";
 import { motion } from "motion/react";
 
-import { ArrowRight, ArrowLeft  } from "lucide-react";
+import { ArrowRight, ArrowLeft } from "lucide-react";
 import { BottomBar } from "./BottomBar";
 
-export function HeroWithInfo({ lang , data }) {
+export function HeroWithInfo({ lang, data }) {
 	const isAr = lang === "ar";
 	// console.log("data:", data);
 	return (
 		<>
-			<div className="container mx-auto px-8 py-4 flex items-center gap-1">
+			<div className="container mx-auto px-8 py-2 flex items-center gap-1">
 				<button className="w-10 h-10 flex items-center justify-center rounded-[12px] hover:bg-gray-100 transition-colors">
-					{isAr ? <span><ArrowRight className="w-5 h-5 text-[#867957]" strokeWidth={2.5} /></span>  : <span><ArrowLeft className="w-5 h-5 text-[#867957]" strokeWidth={2.5} /></span>}
-					
+					{isAr ? (
+						<span>
+							<ArrowRight
+								className="w-5 h-5 text-[#867957]"
+								strokeWidth={2.5}
+							/>
+						</span>
+					) : (
+						<span>
+							<ArrowLeft className="w-5 h-5 text-[#867957]" strokeWidth={2.5} />
+						</span>
+					)}
 				</button>
 				<h1 className="container text-[28px] leading-[1.3] text-[#867957]">
-				  {isAr ? " تفاصيل الرحلة" : "Trip Details"}
+					{isAr ? " تفاصيل الرحلة" : "Trip Details"}
 				</h1>
 			</div>
-			<div className=" relative w-full h-screen overflow-hidden flex flex-col">
+			<div className=" relative w-full h-[50vh] md:h-[70vh] overflow-hidden flex flex-col">
 				{/* Hero Image */}
 				<div className="absolute inset-0">
 					<img
 						src={data.image}
+						// src="/trip-detail/water-bottles.webp"
 						alt={data.name}
 						className="w-full h-full object-cover"
 					/>
@@ -36,7 +47,7 @@ export function HeroWithInfo({ lang , data }) {
 						initial={{ opacity: 0, y: 50 }}
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ duration: 0.6, delay: 0.3 }}
-						className="w-full max-w-2xl bg-white rounded-3xl p-4 shadow-[0px_6px_20px_rgba(0,0,0,0.06)] mb-8 mx-4"
+						className="w-full max-w-xs md:max-w-2xl bg-white rounded-2xl md:rounded-3xl p-3 md:p-4 shadow-[0px_6px_20px_rgba(0,0,0,0.06)] mb-6 md:mb-8 mx-2 md:mx-4"
 					>
 						<div className="flex flex-col md:flex-row justify-center items-start md:items-center gap-6">
 							{/* Duration */}
@@ -44,19 +55,16 @@ export function HeroWithInfo({ lang , data }) {
 								initial={{ opacity: 0, x: -20 }}
 								animate={{ opacity: 1, x: 0 }}
 								transition={{ duration: 0.5, delay: 0.5 }}
-								className="flex items-center gap-4"
+								className="flex items-center gap-3 md:gap-4"
 							>
-								<div className="w-14 h-14 rounded-[16px] bg-gradient-to-b from-[#0f3d2e] to-[#1a5a42] flex items-center justify-center">
-									<Clock className="w-7 h-7 text-white" />
+								<div className="w-12 h-12 md:w-14 md:h-14 rounded-[16px] bg-gradient-to-b from-[#0f3d2e] to-[#1a5a42] flex items-center justify-center">
+									<Clock className="w-6 h-6 md:w-7 md:h-7 text-white" />
 								</div>
-								<div >
+								<div>
 									<p className="text-xs text-gray-500 mb-1.5 leading-[1.5]">
 										{isAr ? "المدة" : "Duration"}
 									</p>
-									<p
-										className="text-[18px] leading-[1.4] text-[#0f3d2e]"
-										
-									>
+									<p className="text-[16px] md:text-[18px] leading-[1.4] text-[#0f3d2e]">
 										{data.duration}
 									</p>
 								</div>
@@ -70,20 +78,17 @@ export function HeroWithInfo({ lang , data }) {
 								initial={{ opacity: 0, x: -20 }}
 								animate={{ opacity: 1, x: 0 }}
 								transition={{ duration: 0.5, delay: 0.6 }}
-								className="flex items-center gap-4"
+								className="flex items-center gap-3 md:gap-4"
 							>
-								<div className="w-14 h-14 rounded-[16px] bg-gradient-to-b from-[#c9a463] to-[#b8914a] flex items-center justify-center">
-									<Users className="w-7 h-7 text-white" />
+								<div className="w-12 h-12 md:w-14 md:h-14 rounded-[16px] bg-gradient-to-b from-[#c9a463] to-[#b8914a] flex items-center justify-center">
+									<Users className="w-6 h-6 md:w-7 md:h-7 text-white" />
 								</div>
 								<div className={isAr ? "text-right" : "text-left"}>
 									<p className="text-xs text-gray-500 mb-1.5 leading-[1.5]">
 										{isAr ? "أقصى عدد" : "Max Guests"}
 									</p>
-									<p
-										className="text-[18px] leading-[1.4] text-[#0f3d2e]"
-										
-									>
-										{data.max_people_count} 
+									<p className="text-[16px] md:text-[18px] leading-[1.4] text-[#0f3d2e]">
+										{data.max_people_count}
 									</p>
 								</div>
 							</motion.div>
@@ -99,24 +104,22 @@ export function HeroWithInfo({ lang , data }) {
 								className="flex items-center gap-3"
 							>
 								<div className="flex items-center gap-2">
-									<Star className="w-7 h-7 fill-[#c9a463] text-[#c9a463]" />
-									<span
-										className="text-[26px] leading-[1.2] text-[#0f3d2e]"
-										
-									>
+									<Star className="w-6 h-6 md:w-7 md:h-7 fill-[#c9a463] text-[#c9a463]" />
+									<span className="text-[20px] md:text-[26px] leading-[1.2] text-[#0f3d2e]">
 										{data.rating}
 									</span>
 								</div>
 								<p className="text-[14px] leading-[1.5] text-gray-600">
-									{isAr ? `(${data.rating_count} تقييم)` : `(${data.rating_count} reviews)`}
+									{isAr
+										? `(${data.rating_count} تقييم)`
+										: `(${data.rating_count} reviews)`}
 								</p>
-								
 							</motion.div>
 						</div>
 					</motion.div>
 				</div>
 			</div>
-			<BottomBar lang={lang}  data={data} />
+			<BottomBar lang={lang} data={data} />
 		</>
 	);
 }

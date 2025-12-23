@@ -24,7 +24,7 @@ export default async function TourPage() {
 		cookieLang || (acceptLang && acceptLang.startsWith("ar") ? "ar" : "en");
 
 		const res = await fetch(
-		`${API_BETA_URL}/landing/home/top-packages`,
+		`${API_BASE_URL_NEW}/landing/home/top-packages`,
 		{
 			headers: { lang },
 		}

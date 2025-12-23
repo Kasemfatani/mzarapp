@@ -36,7 +36,7 @@ export function WhyChooseUs( { lang } ) {
   ];
 
   return (
-    <section className="py-24 bg-gradient-to-b from-white to-[#E7D3AF]/10 relative overflow-hidden">
+    <section className="py-24 bg-gradient-to-b from-white to-[#E7D3AF]/20 relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute inset-0 opacity-20">
         <div className="absolute top-20 right-0 w-96 h-96 bg-[#A8C3BC]/50 rounded-full blur-3xl"></div>

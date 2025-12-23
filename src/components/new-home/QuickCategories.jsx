@@ -16,23 +16,35 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
 
+import styles from "./QuickCategories.module.css";
+import { type } from "os";
+
 export default function QuickCategories({ lang }) {
 	const isAr = lang === "ar";
 	const categories = [
 		{
 			icon: <MapPin size={56} strokeWidth={1.5} />,
 			title: isAr ? "جولات الحرمين الشريفين " : "Two Holy Mosques Tours",
-			description: isAr ? "رحلات ميدانية مرخصة داخل الحرمين الشريفين مع مرشدين معتمدين" : "Licensed on-site tours inside Al-Masjid Al-Haram and Al-Masjid An-Nabawi, led by certified guides",
+			description: isAr
+				? "رحلات ميدانية مرخصة داخل الحرمين الشريفين مع مرشدين معتمدين"
+				: "Licensed on-site tours inside Al-Masjid Al-Haram and Al-Masjid An-Nabawi, led by certified guides",
+			type: 2,
 		},
 		{
 			icon: <Landmark size={56} strokeWidth={1.5} />,
 			title: isAr ? "الرحلات الإثرائية" : "Enrichment Journeys",
-			description: isAr ? "استكشاف المعالم الدينية والتاريخية في مكة والمدينة " : "Explore the most significant religious and historical landmarks in Makkah and Madinah",
+			description: isAr
+				? "استكشاف المعالم الدينية والتاريخية في مكة والمدينة "
+				: "Explore the most significant religious and historical landmarks in Makkah and Madinah",
+			type: 1,
 		},
 		{
 			icon: <Users size={56} strokeWidth={1.5} />,
 			title: isAr ? "حافلة الجولات الإثرائية " : "Enrichment Tours Bus",
-			description: isAr ? "رحلة تشاركية إلى أبرز معالم مكة التاريخية والثقافية " : "A shared tour experience to Makkah’s most prominent historical and cultural landmarks",
+			description: isAr
+				? "رحلة تشاركية إلى أبرز معالم مكة التاريخية والثقافية "
+				: "A shared tour experience to Makkah’s most prominent historical and cultural landmarks",
+			type: 3,
 		},
 		// {
 		// 	icon: <User size={56} strokeWidth={1.5} />,
@@ -79,16 +91,19 @@ export default function QuickCategories({ lang }) {
 						className="text-[#3C6652] mb-4 font-bold"
 						style={{ fontSize: "2.5rem" }}
 					>
-						{isAr ? "استكشف تجارب مزار الحصرية" : "Explore Mzar's Exclusive Experiences"}
+						{isAr
+							? "استكشف تجارب مزار الحصرية"
+							: "Explore Mzar's Exclusive Experiences"}
 					</h2>
 					<p
 						className="text-gray-600 text-lg max-w-3xl mx-auto leading-relaxed"
 						style={{
-							
 							lineHeight: "1.7",
 						}}
 					>
-						{isAr ? "نصمّم تجاربنا بعناية لتناسب احتياجاتكم وتمنحكم دهشة وإثراء" : "We thoughtfully design our experiences to meet your needs, offering moments of inspiration, enrichment, and discovery "}
+						{isAr
+							? "نصمّم تجاربنا بعناية لتناسب احتياجاتكم وتمنحكم دهشة وإثراء"
+							: "We thoughtfully design our experiences to meet your needs, offering moments of inspiration, enrichment, and discovery "}
 					</p>
 				</div>
 
@@ -105,8 +120,7 @@ export default function QuickCategories({ lang }) {
 					autoplay={{ delay: 3000, disableOnInteraction: false }}
 					loop={true}
 					modules={[Autoplay]}
-					className=""
-					id="QuickCategories"
+					className={styles.quickCategories}
 				>
 					{categories.map((category, index) => (
 						<SwiperSlide key={index}>
@@ -119,7 +133,7 @@ export default function QuickCategories({ lang }) {
 									{/* Title */}
 									<h3
 										className="text-[#3C6652] mb-3 font-semibold"
-										style={{  fontSize: "1.5rem" }}
+										style={{ fontSize: "1.5rem" }}
 									>
 										{category.title}
 									</h3>
@@ -127,7 +141,6 @@ export default function QuickCategories({ lang }) {
 									<p
 										className="text-gray-600 mb-6 leading-relaxed min-h-[3rem]"
 										style={{
-										
 											lineHeight: "1.6",
 										}}
 									>
@@ -135,16 +148,15 @@ export default function QuickCategories({ lang }) {
 									</p>
 									{/* Arrow Icon */}
 									<div className="mt-auto flex items-center gap-2 text-[#867957] group-hover:gap-4 transition-all">
-										<span
+										<a
+										href={`/all-trips?type=${category.type}`}
 											className="text-sm"
 											style={{
-												
 												fontWeight: 500,
 											}}
 										>
 											{isAr ? "استكشف ←" : "Explore →"}
-										</span>
-										
+										</a>
 									</div>
 								</div>
 							</div>
@@ -153,7 +165,7 @@ export default function QuickCategories({ lang }) {
 				</Swiper>
 
 				{/* Custom Pagination */}
-				{/* <div className="flex items-center justify-center mt-8 gap-3">
+				<div className="flex md:hidden items-center justify-center mt-8 gap-3">
 					{categories.map((_, i) => (
 						<button
 							key={i}
@@ -172,7 +184,7 @@ export default function QuickCategories({ lang }) {
 							}}
 						></button>
 					))}
-				</div> */}
+				</div>
 			</div>
 		</section>
 	);

@@ -3,24 +3,83 @@
 import { MapPin, Users, Clock, Star } from "lucide-react";
 import { Pagination } from "./Pagination";
 import { tr } from "date-fns/locale";
+import { useState, useEffect } from "react";
 
-
+const CURRENCY_SVG = (
+	<svg
+		viewBox="0 0 1124.14 1256.39"
+		width="1em"
+		height="1em"
+		fill="currentColor"
+		style={{ display: "inline", verticalAlign: "top" }}
+	>
+		<path d="M699.62,1113.02h0c-20.06,44.48-33.32,92.75-38.4,143.37l424.51-90.24c20.06-44.47,33.31-92.75,38.4-143.37l-424.51,90.24Z" />
+		<path d="M1085.73,895.8c20.06-44.47,33.32-92.75,38.4-143.37l-330.68,70.33v-135.2l292.27-62.11c20.06-44.47,33.32-92.75,38.4-143.37l-330.68,70.27V66.13c-50.67,28.45-95.67,66.32-132.25,110.99v403.35l-132.25,28.11V0c-50.67,28.44-95.67,66.32-132.25,110.99v525.69l-295.91,62.88c-20.06,44.47-33.33,92.75-38.42,143.37l334.33-71.05v170.26l-358.3,76.14c-20.06,44.47-33.32,92.75-38.4,143.37l375.04-79.7c30.53-6.35,56.77-24.4,73.83-49.24l68.78-101.97v-.02c7.14-10.55,11.3-23.27,11.3-36.97v-149.98l132.25-28.11v270.4l424.53-90.28Z" />
+	</svg>
+);
 
 export function TripsGrid({ lang, trips }) {
 	const isAr = lang === "ar";
 
+	// Pagination state
+	const [currentPage, setCurrentPage] = useState(1);
+	const [itemsPerPage, setItemsPerPage] = useState(6);
+
+	// Determine itemsPerPage based on viewport width
+	useEffect(() => {
+		function update() {
+			const w = window.innerWidth;
+			if (w >= 1024) setItemsPerPage(6); // desktop: 6 (3 cols x 2 rows)
+			else if (w >= 768) setItemsPerPage(4); // tablet: 4 (2 cols x 2 rows)
+			else setItemsPerPage(3); // mobile: 3 (single column stacked)
+		}
+		update();
+		window.addEventListener("resize", update);
+		return () => window.removeEventListener("resize", update);
+	}, []);
+
+	// Reset page if itemsPerPage changes or trips length shrinks
+	useEffect(() => {
+		const totalPages = Math.max(1, Math.ceil(trips.length / itemsPerPage));
+		if (currentPage > totalPages) setCurrentPage(1);
+	}, [itemsPerPage, trips.length, currentPage]);
+
+	const totalPages = Math.max(1, Math.ceil(trips.length / itemsPerPage));
+	const start = (currentPage - 1) * itemsPerPage;
+	const end = start + itemsPerPage;
+	const visibleTrips = trips.slice(start, end);
+
+	// helper: scroll to #trips-sec if present
+	const scrollToTrips = () => {
+		const el = document.getElementById("trips-sec");
+		if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+		else window.scrollTo({ top: 0, behavior: "smooth" });
+	};
+
 	return (
-		<section className="py-12 px-4 sm:px-6 lg:px-8 bg-white">
+		<section id="trips-sec" className="py-12 px-4 sm:px-6 lg:px-8 bg-white">
 			<div className="max-w-7xl mx-auto">
 				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-					{trips.map((trip) => (
+					{visibleTrips.map((trip) => (
 						<TripCard key={trip.id} trip={trip} isAr={isAr} />
 					))}
 				</div>
+
 				<Pagination
-					currentPage={1}
-					totalPages={1}
-					onPageChange={() => {}}
+					currentPage={currentPage}
+					totalPages={totalPages}
+					onPageChange={(p) => {
+						setCurrentPage(p);
+						scrollToTrips();
+					}}
+					// onLoadMore will load next page (useful for mobile "Load more" button)
+					onLoadMore={() => {
+						if (currentPage < totalPages) {
+							setCurrentPage((c) => c + 1);
+							scrollToTrips();
+						}
+					}}
+					isLoading={false}
 					isAr={isAr}
 				/>
 			</div>
@@ -29,12 +88,10 @@ export function TripsGrid({ lang, trips }) {
 }
 
 function TripCard({ trip, isAr }) {
-	
 	let cityName = "";
 	if (trip.city_id === 1) {
 		cityName = isAr ? "مكة المكرمة" : "Makkah";
-	}
-	else if (trip.city_id === 2) {
+	} else if (trip.city_id === 2) {
 		cityName = isAr ? "المدينة المنورة" : "Madinah";
 	}
 
@@ -103,7 +160,9 @@ function TripCard({ trip, isAr }) {
 						<span className="text-[#0F172A]" style={{ fontWeight: 500 }}>
 							{trip.rating}
 						</span>
-						<span className="text-[#475569]">({trip.rating_count ? trip.rating_count : ""})</span>
+						<span className="text-[#475569]">
+							({trip.rating_count ? trip.rating_count : ""})
+						</span>
 					</div>
 				</div>
 
@@ -124,7 +183,9 @@ function TripCard({ trip, isAr }) {
 							className="text-2xl text-[#3C6652]"
 							style={{ fontWeight: 700 }}
 						>
-							{trip.start_price} {isAr ? "ريال" : "SAR"}
+							<span dir="rtl">
+								{trip.start_price.toFixed(2)} {CURRENCY_SVG}
+							</span>
 						</div>
 					</div>
 
@@ -133,7 +194,6 @@ function TripCard({ trip, isAr }) {
 						{/* Primary Button */}
 						<a
 							href={`/trip-detail/${trip.id}`}
-
 							className="flex-1 px-4 py-2.5 bg-[#3C6652] text-white rounded-xl hover:bg-[#2d4d3d] transition-all duration-300  text-center"
 							style={{ fontWeight: 500 }}
 						>

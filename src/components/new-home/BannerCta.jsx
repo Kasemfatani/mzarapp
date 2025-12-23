@@ -36,13 +36,13 @@ export default function BannerCta({ lang }) {
 					>
 						{isAr ? "تجربة تأخذك بين قدسية المكان وعبق التاريخ ــ ابدأ جولتك الآن! " : "An experience that takes you between the sanctity of the place and the fragrance of history ــ start your tour now! "}
 					</p>
-					<button
+					<a href="/trip-detail/88"
 						className="mt-2 bg-white text-[#3c6652] px-8 py-3 rounded-xl shadow-lg hover:bg-[#f5f5f5] font-semibold flex items-center gap-2 text-lg transition"
 						
 					>
 						{isAr ? " استكشف تاريخ الكعبة المشرفة   ← " : "Explore the History of the Holy Kaaba →"}
 						
-					</button>
+					</a>
 				</div>
 			</div>
 		</section>
