@@ -45,7 +45,7 @@ export default function Header() {
 	return (
 		<>
 			{/* Top Bar */}
-			<div className="bg-[#3C6652] text-white py-2">
+			<div className="bg-[#3C6652] text-white py-2" dir={isAr ? "rtl" : "ltr"}>
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 					<div
 						className="flex flex-col md:flex-row items-center justify-between text-sm"
@@ -62,7 +62,7 @@ export default function Header() {
 							<a
 								href="tel:920005785"
 								className="flex items-center gap-1 hover:underline"
-								dir="ltr"
+								
 							>
 								<i className="fa-solid fa-phone"></i>
 								920005785
@@ -162,7 +162,7 @@ export default function Header() {
 			</div>
 
 			{/* Main Header */}
-			<div className="bg-white shadow-md sticky top-0 z-50">
+			<div className="bg-white shadow-md sticky top-0 z-50" dir={isAr ? "rtl" : "ltr"}>
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 					<div className="flex items-center justify-between h-20">
 						{/* Logo - positioned right in  */}

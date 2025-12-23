@@ -4,14 +4,14 @@ import { Star, Clock, TrendingUp, MapPin, Users } from "lucide-react";
 
 export function FeaturedToursCard({
 	image,
-	title,
-	location,
-	description,
-	price,
+	name,
+	city,
+	short_description,
+	start_price,
 	rating,
-	reviews,
+	rating_count,
 	duration,
-	groupSize,
+	min_people_count,
 	isPopular = false,
   isAr = false,
 }) {
@@ -24,7 +24,7 @@ export function FeaturedToursCard({
 			<div className="relative h-64 overflow-hidden">
 				<img
 					src={image}
-					alt={title}
+					alt={name}
 					className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
 				/>
 				{/* Gradient Overlay */}
@@ -41,36 +41,36 @@ export function FeaturedToursCard({
 					</div>
 				)}
 
-				{/* Location Tag */}
+				{/* city Tag */}
 				<div
 					className="absolute bottom-4 right-4 bg-white/20 backdrop-blur-md text-white px-3 py-1 rounded-lg flex items-center gap-2 text-sm"
 					style={{ fontFamily: '"Readex Pro", sans-serif' }}
 				>
 					<MapPin size={14} />
-					<span>{location}</span>
+					<span>{city}</span>
 				</div>
 			</div>
 
 			{/* Content */}
 			<div className="p-6">
-				{/* Title */}
+				{/* name */}
 				<h3
 					className="text-[#3C6652] mb-2 text-right font-semibold"
 					style={{ fontFamily: '"Amiri", serif', fontSize: "1.375rem" }}
 				>
-					{title}
+					{name}
 				</h3>
 
-				{/* Description */}
+				{/* short_description */}
 				<p
 					className="text-gray-600 text-sm mb-4 line-clamp-2 text-right"
 					style={{ fontFamily: '"Readex Pro", sans-serif', lineHeight: "1.6" }}
 				>
-					{description}
+					{short_description}
 				</p>
 
 				<div className="flex justify-between">
-          {/* Price */}
+          {/* start_price */}
 					<div className="mb-4 text-right">
 						<span
 							className="text-sm text-gray-600"
@@ -82,7 +82,7 @@ export function FeaturedToursCard({
 							className="text-2xl text-[#867957] mt-1"
 							style={{ fontFamily: '"Amiri", serif', fontWeight: 700 }}
 						>
-							{price} <span className="text-lg">{isAr ? "ريال" : "SAR"}</span>
+							{start_price.toFixed(2)} <span className="text-lg">{isAr ? "ريال" : "SAR"}</span>
 						</div>
 					</div>
 
@@ -100,7 +100,7 @@ export function FeaturedToursCard({
 								className="flex items-center gap-2 text-gray-600 text-sm"
 								style={{ fontFamily: '"Readex Pro", sans-serif' }}
 							>
-								<span>{groupSize} {isAr ? "شخص" : "people"}</span>
+								<span>{min_people_count} {isAr ? "شخص" : "people"}</span>
 								<Users size={16} className="text-[#867957]" />
 							</div>
 						</div>
@@ -111,7 +111,7 @@ export function FeaturedToursCard({
 								className="text-gray-600 text-sm"
 								style={{ fontFamily: '"Readex Pro", sans-serif' }}
 							>
-								({reviews} تقييم)
+								({rating_count} {isAr ? "تقييم" : "reviews"} )
 							</span>
 							<div className="flex items-center gap-1">
 								{[...Array(5)].map((_, i) => (
@@ -133,12 +133,12 @@ export function FeaturedToursCard({
 
 				{/* CTA Buttons */}
 				<div className="flex flex-col gap-3">
-					<button
-						className="w-full bg-[#3C6652] text-white py-3 rounded-xl hover:bg-[#1E3A5F] transition-all shadow-md hover:shadow-lg"
+					<a href=""
+						className="w-full text-center bg-[#3C6652] text-white py-3 rounded-xl hover:bg-[#1E3A5F] transition-all shadow-md hover:shadow-lg"
 						style={{ fontFamily: '"Readex Pro", sans-serif', fontWeight: 500 }}
 					>
 						{isAr ? "شاهد التفاصيل" : "View Details"}
-					</button>
+					</a>
 					<button
 						className="w-full text-[#867957] hover:text-[#3C6652] transition-colors"
 						style={{ fontFamily: '"Readex Pro", sans-serif', fontWeight: 500 }}

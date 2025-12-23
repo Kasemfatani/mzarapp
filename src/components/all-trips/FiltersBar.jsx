@@ -128,14 +128,14 @@ export function FiltersBar({ totalResults, lang, filters, onFiltersChange }) {
 							options={
 								isAr
 									? [
-											{ id: 1, label: "الجولات العامة" },
+											{ id: 1, label: "الرحلات الإثرائية" },
 											{ id: 2, label: "جولات الحرمين" },
-											{ id: 3, label: "الباص السياحي" },
+											{ id: 3, label: "حافلة الجولات الإثرائية" },
 									  ]
 									: [
-											{ id: 1, label: "General Tours" },
+											{ id: 1, label: "Enriching Trips" },
 											{ id: 2, label: "Haram Tours" },
-											{ id: 3, label: "Bus Tours" },
+											{ id: 3, label: "Enriching Trips Bus" },
 									  ]
 							}
 							value={filters.type}

@@ -134,7 +134,7 @@ function TripCard({ trip, isAr }) {
 						<a
 							href={`/trip-detail/${trip.id}`}
 
-							className="flex-1 px-4 py-2.5 bg-[#3C6652] text-white rounded-xl hover:bg-[#2d4d3d] transition-all duration-300 "
+							className="flex-1 px-4 py-2.5 bg-[#3C6652] text-white rounded-xl hover:bg-[#2d4d3d] transition-all duration-300  text-center"
 							style={{ fontWeight: 500 }}
 						>
 							{isAr ? "شاهد التفاصيل" : "View Details"}

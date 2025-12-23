@@ -5,7 +5,7 @@ import { FeaturedToursCard } from "./FeaturedToursCard";
 import { useState } from "react";
 import Link from "next/link";
 
-export default function FeaturedToursSection({ lang }) {
+export default function FeaturedToursSection({ lang , topData }) {
 	const [showAll, setShowAll] = useState(false);
 
 	const isAr = lang === "ar";
@@ -128,7 +128,7 @@ export default function FeaturedToursSection({ lang }) {
 
 				{/* Tours Grid */}
 				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-					{displayedTours.map((tour, index) => (
+					{topData.map((tour, index) => (
 						<FeaturedToursCard key={index} {...tour} isAr={isAr} />
 					))}
 				</div>
