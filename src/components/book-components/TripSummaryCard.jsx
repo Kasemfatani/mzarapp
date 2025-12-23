@@ -26,7 +26,10 @@ export function TripSummaryCard({
   maxPeople,
   price,
   minPeople,
+  lang = "ar",
 }) {
+  const isAr = lang === "ar";
+
   return (
     <div className="bg-white rounded-[20px] shadow-[0px_25px_50px_-12px_rgba(0,0,0,0.25)] border-[0.8px] border-[rgba(243,244,246,0.6)] overflow-hidden ">
       {/* Image Section */}
@@ -48,7 +51,7 @@ export function TripSummaryCard({
         <div className="absolute top-6 left-4 bg-[rgba(255,255,255,0.95)] rounded-full shadow-[0px_20px_25px_-5px_rgba(0,0,0,0.1),0px_8px_10px_-6px_rgba(0,0,0,0.1)] px-2 py-0 flex items-center gap-2.5">
           <Star className="w-5 h-5 fill-[#FDC700] text-[#FDC700]" strokeWidth={1.67} />
           <p className="text-[#101828]">{rating}</p>
-          <p className="text-[#4a5565] text-sm">({reviewCount} تقييم)</p>
+          <p className="text-[#4a5565] text-sm">({reviewCount} {isAr ? "تقييم" : "reviews"})</p>
         </div>
       </div>
 
@@ -75,7 +78,7 @@ export function TripSummaryCard({
         <div className="relative h-[25.6px] w-full">
           <div className="absolute inset-x-0 top-[12.3px] h-px bg-gradient-to-r from-transparent via-[#d1d5dc] to-transparent" />
           <div className="absolute left-1/2 -translate-x-1/2 top-0 bg-white px-2">
-            <p className="text-[#6a7282] uppercase tracking-[0.8px]">التسعير</p>
+            <p className="text-[#6a7282] uppercase tracking-[0.8px]">{isAr ? "التسعير" : "Pricing"}</p>
           </div>
         </div>
 
@@ -86,26 +89,24 @@ export function TripSummaryCard({
           }}
         >
           <div className="flex items-center  px-4 py-3 gap-2">
-            <p className="text-[#4a5565]">ابتداءً من</p>
-            <p className="text-[#3c6652] rtl">{price} {CURRENCY_SVG}</p>
-            <p className="text-[#6a7282]">للفرد</p>
-
-            <p className="text-[#867957]">( حد أدنى {minPeople} أشخاص)</p>
-            
-            
-            
+            <p className="text-[#3c6652] text-center">
+              {isAr ? "ابتداءً من" : "Starting from"}{" "}
+              <span className="rtl">{price} {CURRENCY_SVG}</span>{" "}
+              {isAr ? "للفرد" : "per person"}{" "}
+              (<span className="text-[#867957]">{isAr ? "حد أدنى" : "Minimum"} {minPeople} {isAr ? "أشخاص" : "people"}</span>)
+            </p>
           </div>
         </div>
 
         {/* Features */}
         <div className="flex gap-5 justify-center items-center border-t border-[#f3f4f6] pt-2">
           <div className="flex items-center gap-2">
-            <p className="text-[#4a5565]">تأكيد فوري</p>
+            <p className="text-[#4a5565]">{isAr ? "تأكيد فوري" : "Instant Confirmation"}</p>
             <p className="text-[#00a63e]">✓</p>
           </div>
           <div className="w-px h-10 bg-[#d1d5dc]" />
           <div className="flex items-center gap-2">
-            <p className="text-[#4a5565]">إلغاء مجاني</p>
+            <p className="text-[#4a5565]">{isAr ? "إلغاء مجاني" : "Free Cancellation"}</p>
             <p className="text-[#00a63e]">✓</p>
           </div>
         </div>

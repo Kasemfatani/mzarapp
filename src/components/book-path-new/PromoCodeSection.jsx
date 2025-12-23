@@ -9,6 +9,7 @@ export default function PromoCodeSection({
 	value = "",
 	onApplied = () => {},
 	onCleared = () => {},
+  promo_type = "trip",
 }) {
 	const isAr = lang === "ar";
 	const [code, setCode] = useState(value || "");
@@ -34,7 +35,7 @@ export default function PromoCodeSection({
 		try {
 			const url = `${API_BASE_URL_NEW}/landing/coupons/check?promo_code=${encodeURIComponent(
 				code.trim()
-			)}&promo_type=trip`;
+			)}&promo_type=${encodeURIComponent(promo_type)}`;
 			const res = await fetch(url, { method: "GET" , headers: { lang } });
 			const json = await res.json();
 			if (res.ok && json?.status && json?.data) {
@@ -116,7 +117,7 @@ export default function PromoCodeSection({
 			)}
 
 			{/* benefits row */}
-			<div className="mt-4 grid grid-cols-3 gap-2 text-[#364153] text-sm">
+			<div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-2 text-[#364153] text-sm">
 				<div className="flex items-center justify-center gap-2 bg-[#f7f6f2] rounded-xl py-2">
 					<CheckCircle2 className="w-4 h-4 text-[#3c6652]" />
 					<span>{isAr ? "خصم معتمد من مزار" : "Mzarr verified discount"}</span>

@@ -33,6 +33,7 @@ import {
 } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 import { DatePickerFormField } from "./DatePickerFormField";
+import { is } from "date-fns/locale";
 // optional: if you have shadcn Calendar component wrapper:
 // import { Calendar } from "@/components/ui/calendar";
 // we'll use DayPicker directly inside PopoverContent
@@ -56,85 +57,51 @@ export function BookingForm({
 	times = [],
 	gatheringPoints = [],
 	busId,
-	leftSeats,
-	setLeftSeats,
+	disabledDays = [0, 1, 2, 3, 4, 5, 6],
+	groupAgePrices = [], // <-- new prop
 }) {
 	const isAr = lang === "ar";
 	const today = startOfToday();
 	const tomorrow = addDays(today, 1);
 	const maxDate = addDays(today, 14);
 
+	// read current counts to render numbers
+	const counts = form.watch("group_age_counts") || [];
+	const getQty = (id) => counts.find((c) => c.id === id)?.quantity || 0;
+	const setQty = (id, next) => {
+		const nextVal = Math.max(0, Number(next || 0));
+		const nextArr = (() => {
+			if (!counts.length) return [{ id, quantity: nextVal }];
+			const exists = counts.some((c) => c.id === id);
+			if (!exists) return [...counts, { id, quantity: nextVal }];
+			return counts.map((c) => (c.id === id ? { ...c, quantity: nextVal } : c));
+		})();
+		form.setValue("group_age_counts", nextArr, { shouldValidate: true });
+	};
+
 	return (
 		<div className="bg-white rounded-[20px] shadow-[0px_20px_25px_-5px_rgba(0,0,0,0.1)] border-[0.8px] border-[rgba(243,244,246,0.6)] w-full">
 			<div className="p-8 flex flex-col gap-6">
 				{/* Header */}
-				<div className="flex items-center justify-between w-full">
+				<div className="flex flex-col md:flex-row items-center justify-between w-full gap-2">
 					<div className="flex flex-col">
 						<h3 className="text-[#3c6652] text-[30px] tracking-[-0.45px]">
-							اختر موعد رحلتك
+							{isAr ? "اختر موعد رحلتك" : "Choose Your Trip Date"}{" "}
 						</h3>
-						<p className="text-[#4a5565]">حدد التاريخ والوقت المناسب لك</p>
+						<p className="text-[#4a5565]">{isAr ? "حدد التاريخ والوقت المناسب لك" : "Select the date and time that suits you"} </p>
 					</div>
 					<div className="bg-[rgba(231,211,175,0.2)] border-[0.8px] border-[#e7d3af] rounded-full px-2 py-2">
-						<p className="text-[#867957]">خطوة 1 من 2</p>
+						<p className="text-[#867957]">{isAr ? "خطوة 1 من  2" : "Step 1 of 2"}</p>
 					</div>
 				</div>
 
 				<Form {...form}>
 					<form className="flex flex-col gap-6">
-						<DatePickerFormField
-							form={form}
-							lang={lang}
-							minDate={tomorrow}
-							maxDate={maxDate}
-						/>
-
-						{/* Time Slot Selector (no label/icon, buttons only) */}
-						<div className="flex flex-col gap-2">
-							<div className="flex items-center gap-3">
-								<Clock className="w-5 h-5 text-[#867957]" strokeWidth={1.67} />
-								<p className="text-[#364153]">اختر الوقت المناسب</p>
-							</div>
-							<FormField
-								control={form.control}
-								name="time"
-								render={({ field }) => (
-									<FormItem>
-										<div className="flex flex-col sm:flex-row md:items-stretch justify-between gap-4">
-											{times.map((time) => {
-												const active = field.value?.id === time.id;
-												return (
-													<button
-														key={time.id}
-														type="button"
-														onClick={() =>
-															field.onChange({ id: time.id, name: time.name })
-														}
-														className={cn(
-															"flex-1 p-3 rounded-[10px] border transition-all",
-															active
-																? "bg-[#fffff5] border-[#3c6652] border-2"
-																: "border-[#d0d0d0] hover:border-[#867957] cursor-pointer"
-														)}
-													>
-														<div className="flex flex-col items-center w-full">
-															<p className="text-[#1e2939]">{time.name}</p>
-														</div>
-													</button>
-												);
-											})}
-										</div>
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
-						</div>
-
 						{/* Meeting Point Selection */}
 						<div className="flex flex-col gap-2">
 							<div className="flex items-center gap-3">
 								<MapPin className="w-6 h-6 text-[#867957]" strokeWidth={1.33} />
-								<p className="text-[#364153]">اختيار نقطة التجمع الأقرب</p>
+								<p className="text-[#364153]">{isAr ? "اختيار نقطة التجمع الأقرب" : "Choose the nearest gathering point"}</p>
 							</div>
 							<FormField
 								control={form.control}
@@ -147,9 +114,19 @@ export function BookingForm({
 												return (
 													<div
 														key={point.id}
-														onClick={() =>
-															field.onChange({ id: point.id, name: point.name })
-														}
+														onClick={() => {
+															field.onChange({
+																id: point.id,
+																name: point.name,
+															});
+															// clear date/time on meeting point change for accuracy
+															form.setValue("date", undefined, {
+																shouldValidate: true,
+															});
+															form.setValue("time", undefined, {
+																shouldValidate: true,
+															});
+														}}
 														className={cn(
 															"bg-white rounded-[10px] px-6 py-4 flex items-center justify-between cursor-pointer transition-all",
 															active
@@ -188,77 +165,115 @@ export function BookingForm({
 							/>
 						</div>
 
-						{/* People Counter + Available seats pill */}
-						<div className="flex flex-col gap-1 my-2">
+						{/* Date (disabledDays comes from selected meeting point) */}
+						<DatePickerFormField
+							form={form}
+							lang={lang}
+							minDate={tomorrow}
+							maxDate={maxDate}
+							disabledDays={disabledDays}
+						/>
+
+						{/* Time Slot Selector based on chosen date's weekday for selected meeting point */}
+						<div className="flex flex-col gap-2">
 							<div className="flex items-center gap-3">
-								<Users className="w-5 h-5 text-[#867957]" strokeWidth={1.67} />
-								<p className="text-[#364153]">عدد الأشخاص</p>
-								{typeof leftSeats === "number" && (
-									<span className="ms-2 rounded-full bg-[#ecfdf5] text-[#065f46] text-xs px-3 py-1">
-										{isAr
-											? `المقاعد المتاحة: ${leftSeats}`
-											: `Available seats: ${leftSeats}`}
-									</span>
-								)}
+								<Clock className="w-5 h-5 text-[#867957]" strokeWidth={1.67} />
+								<p className="text-[#364153]">{isAr ? "اختر الوقت المناسب" : "Choose the suitable time"}</p>
 							</div>
 							<FormField
 								control={form.control}
-								name="people"
+								name="time"
 								render={({ field }) => (
 									<FormItem>
-										<FormControl>
-											<div className="flex items-center gap-5 h-16">
-												<button
-													type="button"
-													onClick={() =>
-														field.onChange(Math.max(1, (field.value || 1) - 1))
-													}
-													disabled={(field.value || 1) <= 1}
-													className={`w-16 h-16 rounded-[16px] flex items-center justify-center ${
-														(field.value || 1) <= 1 ? "opacity-30" : ""
-													}`}
-												>
-													<div className="w-6 h-0.5 bg-[#3C6652]" />
-												</button>
-												<div className="flex-1 h-[54.4px] bg-gradient-to-r from-[rgba(231,211,175,0.3)] to-[rgba(231,211,175,0.2)] border-[1.6px] border-[rgba(231,211,175,0.6)] rounded-[18px] flex flex-col items-center justify-center">
-													<p className="text-[#3c6652]">{field.value || 1}</p>
-													<p className="text-[#4a5565]">شخص</p>
-												</div>
-												<button
-													type="button"
-													onClick={() =>
-														field.onChange(
-															Math.min(
-																typeof leftSeats === "number"
-																	? leftSeats
-																	: Infinity,
-																(field.value || 1) + 1
-															)
-														)
-													}
-													disabled={
-														typeof leftSeats === "number"
-															? (field.value || 1) >= leftSeats
-															: false
-													}
-													className={`w-16 h-16 rounded-[16px] flex items-center justify-center ${
-														typeof leftSeats === "number" &&
-														(field.value || 1) >= leftSeats
-															? "opacity-30"
-															: ""
-													}`}
-												>
-													<div className="relative w-6 h-6">
-														<div className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-0.5 bg-[#3C6652]" />
-														<div className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-0.5 bg-[#3C6652]" />
-													</div>
-												</button>
-											</div>
-										</FormControl>
+										<div className="flex flex-col sm:flex-row md:items-stretch justify-between gap-4">
+											{(times || []).length === 0 && (
+												<p className="text-sm text-[#6a7282]">
+													{isAr
+														? "اختر نقطة التجمع ثم التاريخ لإظهار الأوقات المتاحة"
+														: "Select a meeting point and then a date to show available times"}
+												</p>
+											)}
+											{(times || []).map((time) => {
+												const active = field.value?.id === time.id;
+												return (
+													<button
+														key={time.id}
+														type="button"
+														onClick={() =>
+															field.onChange({ id: time.id, name: time.name })
+														}
+														className={cn(
+															"flex-1 p-3 rounded-[10px] border transition-all",
+															active
+																? "bg-[#fffff5] border-[#3c6652] border-2"
+																: "border-[#d0d0d0] hover:border-[#867957] cursor-pointer"
+														)}
+													>
+														<div className="flex flex-col items-center w-full">
+															<p className="text-[#1e2939]">{time.name}</p>
+														</div>
+													</button>
+												);
+											})}
+										</div>
 										<FormMessage />
 									</FormItem>
 								)}
 							/>
+						</div>
+
+						{/* People Counter (new grouped design) */}
+						<div className="flex flex-col gap-3">
+							<div className="flex items-center gap-3">
+								<Users className="w-5 h-5 text-[#867957]" strokeWidth={1.67} />
+								<p className="text-[#364153]">
+									{isAr ? "عدد الأشخاص حسب الفئات" : "People by age group"}
+								</p>
+							</div>
+
+							<div className="divide-y rounded-xl border bg-[#fffefb]">
+								{groupAgePrices.map((g) => {
+									const q = getQty(g.id);
+									return (
+										<div
+											key={g.id}
+											className="flex flex-col md:flex-row items-center justify-between gap-2 py-3 px-4"
+										>
+											<div className="flex flex-col">
+												<p className="text-[#111827] font-medium">{g.name}</p>
+												<p className="text-[#6b7280] text-sm">
+													{Number(g.price || 0)} {' '}
+													{isAr ? "ريال للشخص" : "SAR per person"}
+													
+												</p>
+											</div>
+											<div className="flex items-center gap-4">
+												<button
+													type="button"
+													onClick={() => setQty(g.id, q + 1)}
+													className="w-10 h-10 rounded-full bg-[#3c6652] text-white text-xl leading-none flex items-center justify-center"
+												>
+													+
+												</button>
+												<span className="min-w-[20px] text-lg font-semibold text-[#111827] text-center">
+													{q}
+												</span>
+												<button
+													type="button"
+													onClick={() => setQty(g.id, q - 1)}
+													className="w-10 h-10 rounded-full bg-[#f5f0ea] text-[#111827]/80 text-xl leading-none flex items-center justify-center"
+													disabled={q <= 0}
+												>
+													−
+												</button>
+											</div>
+										</div>
+									);
+								})}
+							</div>
+
+							{/* Keep total people hidden; BookWrapper syncs it */}
+							<input type="hidden" value={form.watch("people") || 0} readOnly />
 						</div>
 					</form>
 				</Form>

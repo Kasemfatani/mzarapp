@@ -20,9 +20,31 @@ export function PriceCalculationBox({
 	minPeople = 1,
 	people = 1,
 	lang = "en",
+	// new props
+	tax = 0,
+	promoDiscountPercent = 0,
 }) {
 	const isAr = lang === "ar";
-	const totalPrice = Number(startPrice) * Number(people);
+
+	// base total
+	const base = Number(startPrice) * Number(people);
+
+	// apply promo discount on base
+	const discountAmount = Number(
+		((Number(promoDiscountPercent || 0) / 100) * base).toFixed(2)
+	);
+	const totalBeforeTax = Number((base - discountAmount).toFixed(2));
+
+	// add tax after discount
+	const taxAmount = Number((Number(tax || 0) * totalBeforeTax).toFixed(2));
+	const finalTotal = Number((totalBeforeTax + taxAmount).toFixed(2));
+
+	// displays
+	const baseDisplay = base.toFixed(2);
+	const discountDisplay = discountAmount.toFixed(2);
+	const totalBeforeTaxDisplay = totalBeforeTax.toFixed(2);
+	const taxAmountDisplay = taxAmount.toFixed(2);
+	const finalTotalDisplay = finalTotal.toFixed(2);
 
 	return (
 		<div
@@ -40,7 +62,9 @@ export function PriceCalculationBox({
 							<h3 className="text-[#3c6652] text-2xl tracking-[-0.24px]">
 								{isAr ? "ملخص الأسعار" : "Price Summary"}
 							</h3>
-							<p className="text-[#4a5565]">{isAr ? "يتم التحديث تلقائياً" : "Automatically updated"}</p>
+							<p className="text-[#4a5565]">
+								{isAr ? "يتم التحديث تلقائياً" : "Automatically updated"}
+							</p>
 						</div>
 						<div className="bg-gradient-to-b from-[#3c6652] to-[#2d4d3d] rounded-full w-14 h-14 flex items-center justify-center">
 							<svg
@@ -84,7 +108,9 @@ export function PriceCalculationBox({
 				<div className="px-6 flex flex-col gap-2">
 					{/* Price per person */}
 					<div className="flex items-center justify-between border-b border-[#e6d2af] pb-4 pt-4">
-						<p className="text-[#364153]">{isAr ? "سعر الفرد" : "Price per person"}</p>
+						<p className="text-[#364153]">
+							{isAr ? "سعر الفرد" : "Price per person"}
+						</p>
 						<div className="flex items-center gap-2">
 							<p className="text-[#1e2939] rtl">
 								{startPrice} {CURRENCY_SVG}
@@ -94,7 +120,9 @@ export function PriceCalculationBox({
 
 					{/* Minimum booking */}
 					<div className="flex items-center justify-between border-b border-[#e6d2af] pb-4 pt-4">
-						<p className="text-[#364153]">{isAr ? "الحد الأدنى للحجز" : "Minimum booking"}</p>
+						<p className="text-[#364153]">
+							{isAr ? "الحد الأدنى للحجز" : "Minimum booking"}
+						</p>
 						<div className="flex items-center gap-3">
 							<TrendingUp
 								className="w-5 h-5 text-[#867957]"
@@ -104,27 +132,59 @@ export function PriceCalculationBox({
 						</div>
 					</div>
 
-					{/* Total price */}
-					<div className="flex items-center justify-between border-b border-[#e6d2af] pb-4 pt-4">
-						<p className="text-[#364153]">{isAr ? "إجمالي السعر" : "Total price"}</p>
-						<div className="flex items-center gap-2">
-							<p className="text-[#1e2939] rtl">
-								{totalPrice} {CURRENCY_SVG}
+					{/* Promo discount (optional) */}
+					{promoDiscountPercent > 0 && (
+						<div className="flex items-center justify-between border-b border-[#e6d2af] pb-4 pt-4">
+							<p className="text-[#364153]">
+								{isAr ? "خصم " : "Promo"} (
+								{promoDiscountPercent}%)
+							</p>
+							<p className="text-[#3c6652] rtl">
+								-{discountDisplay} {CURRENCY_SVG}
 							</p>
 						</div>
+					)}
+
+					{/* Total price (after discount, before tax) */}
+					<div className="flex items-center justify-between border-b border-[#e6d2af] pb-4 pt-4">
+						<p className="text-[#364153]">
+							{isAr ? "إجمالي السعر" : "Total price"}
+						</p>
+						<div className="flex items-center gap-2">
+							<p className="text-[#1e2939] rtl">
+								{totalBeforeTaxDisplay} {CURRENCY_SVG}
+							</p>
+						</div>
+					</div>
+
+					{/* Tax */}
+					<div className="flex items-center justify-between border-b border-[#e6d2af] pb-4 pt-4">
+						<p className="text-[#364153]">
+							{isAr ? "الضريبة" : "Tax"}
+							{typeof tax === "number"
+								? ` (${(Number(tax) * 100).toFixed(0)}%)`
+								: ""}
+						</p>
+						<p className="text-[#1e2939] rtl">
+							{taxAmountDisplay} {CURRENCY_SVG}
+						</p>
 					</div>
 
 					{/* Final total */}
 					<div className="bg-gradient-to-b from-[#3c6652] to-[#2d4d3d] rounded-[18px] px-6 py-4 flex items-center justify-between">
 						<div className="flex flex-col items-start">
-							<p className="text-[rgba(255,255,255,0.8)]">{isAr ? "المجموع النهائي" : "Final total"}</p>
+							<p className="text-[rgba(255,255,255,0.8)]">
+								{isAr ? "المجموع النهائي" : "Final total"}
+							</p>
 							<p className="text-[rgba(255,255,255,0.6)] text-sm">
-								{isAr ? "شامل جميع الرسوم والضرائب" : "Including all fees and taxes"}
+								{isAr
+									? "شامل جميع الرسوم والضرائب"
+									: "Including all fees and taxes"}
 							</p>
 						</div>
 						<div className="flex items-center gap-2">
 							<p className="text-white rtl">
-								{totalPrice} {CURRENCY_SVG}
+								{finalTotalDisplay} {CURRENCY_SVG}
 							</p>
 						</div>
 					</div>
@@ -132,7 +192,9 @@ export function PriceCalculationBox({
 					{/* Final note */}
 					<div className="bg-[#f0fdf4] border-[0.8px] border-[#b9f8cf] rounded-[16.4px] px-6 py-2 flex items-center gap-2">
 						<p className="text-[#4a5565]">
-							{isAr ? "السعر نهائي بدون أي رسوم إضافية مخفية" : "The final price  with no hidden additional fees"}
+							{isAr
+								? "السعر نهائي بدون أي رسوم إضافية مخفية"
+								: "The final price  with no hidden additional fees"}
 						</p>
 						<p className="text-[#00a63e]">✓</p>
 					</div>

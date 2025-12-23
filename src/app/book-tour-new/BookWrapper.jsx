@@ -10,12 +10,14 @@ import { ActionButtons } from "@/components/book-components/ActionButtons";
 import Loading from "@/app/loading";
 import { API_BASE_URL } from "@/lib/apiConfig";
 import { API_BASE_URL_NEW } from "@/lib/apiConfig";
+import { API_BETA_URL } from "@/lib/apiConfig";
 import { toast } from "sonner";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { format, addDays, startOfToday } from "date-fns";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
+import PromoCodeSection from "@/components/book-path-new/PromoCodeSection";
 
 const STORAGE_KEY = "bookTour.selection";
 
@@ -29,71 +31,70 @@ const getSchema = (lang, max_people_count = 20) => {
 	const reqName = lang === "ar" ? "الاسم مطلوب" : "Name is required";
 	const reqPhone =
 		lang === "ar" ? "رقم الواتساب مطلوب" : "WhatsApp is required";
-	const reqEmail =
-		lang === "ar" ? "البريد الإلكتروني مطلوب" : "Email is required";
-	const invalidEmail = lang === "ar" ? "بريد غير صالح" : "Invalid email";
 
-	return z.object({
-		date: z
-			.date({ invalid_type_error: requiredDate })
-			.refine(Boolean, { message: requiredDate }),
-		time: z
-			.object({ id: z.any(), name: z.string() })
-			.refine((v) => v && v.id && v.name, { message: requiredTime }),
-		meetingPoint: z
-			.object({ id: z.any(), name: z.string() })
-			.refine((v) => v && v.id && v.name, { message: requiredMeet }),
-		people: z.coerce.number().int().min(1).max(max_people_count).default(1),
-		name: z.string().min(1, reqName).max(100),
-		email: z.string().email(invalidEmail).min(1, reqEmail),
-		whatsapp: z.string().min(7, reqPhone),
-	});
+	return z
+		.object({
+			date: z
+				.date({ invalid_type_error: requiredDate })
+				.refine(Boolean, { message: requiredDate }),
+			time: z
+				.object({ id: z.any(), name: z.string() })
+				.refine((v) => v && v.id && v.name, { message: requiredTime }),
+			meetingPoint: z
+				.object({ id: z.any(), name: z.string() })
+				.refine((v) => v && v.id && v.name, { message: requiredMeet }),
+			people: z.coerce.number().int().min(1).max(max_people_count).default(1),
+			// new: per-age-group quantities
+			group_age_counts: z
+				.array(
+					z.object({
+						id: z.coerce.number(),
+						quantity: z.coerce.number().int().min(0),
+					})
+				)
+				.default([]),
+
+			name: z.string().min(1, reqName).max(100),
+			whatsapp: z.string().min(7, reqPhone),
+		})
+		.refine(
+			(vals) =>
+				(vals.group_age_counts || []).reduce(
+					(s, r) => s + Number(r.quantity || 0),
+					0
+				) > 0,
+			{
+				path: ["group_age_counts"],
+				message:
+					lang === "ar"
+						? "يرجى إضافة شخص واحد على الأقل"
+						: "Please add at least one person",
+			}
+		);
 };
 
-export default function BookTourPage({ tripData }) {
-	const [lang, setLang] = useState(null);
+export default function BookTourPage({ busData, lang }) {
 	const [leftSeats, setLeftSeats] = useState(null);
-	const [busData, setBusData] = useState(null);
-	const [loading, setLoading] = useState(true);
+	const [loading, setLoading] = useState(false);
+	const [disabledDays, setDisabledDays] = useState([0, 1, 2, 3, 4, 5, 6]);
+	const [dayTimes, setDayTimes] = useState([]);
 
-	// Read language
-	useEffect(() => {
-		if (typeof window !== "undefined") {
-			const storedLang = localStorage.getItem("lang");
-			setLang(storedLang === "ar" ? "ar" : "en");
-		}
-	}, []);
+	// promo state (used by PromoCodeSection and PriceCalculationBox)
+	const [promoCode, setPromoCode] = useState("");
+	const [promoApplied, setPromoApplied] = useState(false);
+	const [promoDiscountPercent, setPromoDiscountPercent] = useState(0);
 
-	// Fetch bus booking data when lang is known
-	useEffect(() => {
-		let active = true;
-		async function fetchData() {
-			try {
-				setLoading(true);
-				const res = await fetch(
-					`${API_BASE_URL}/landing/home/bus-booking-data`,
-					{
-						headers: { lang },
-					}
-				);
-				if (!res.ok)
-					throw new Error(`Failed to load bus-booking-data: ${res.status}`);
-				const json = await res.json();
-
-				if (active) setBusData(json);
-				// console.log("Fetched bus booking data:", json);
-			} catch (err) {
-				console.error("Error fetching bus booking data:", err);
-				if (active) setBusData(null);
-			} finally {
-				if (active) setLoading(false);
-			}
-		}
-		if (lang) fetchData();
-		return () => {
-			active = false;
-		};
-	}, [lang]);
+	// helpers to convert between Day indexes and slugs coming from API
+	const slugToIndex = {
+		Sun: 0,
+		Mon: 1,
+		Tue: 2,
+		Wed: 3,
+		Thu: 4,
+		Fri: 5,
+		Sat: 6,
+	};
+	const indexToSlug = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 	// Show toast if payment failed
 	useEffect(() => {
@@ -115,19 +116,43 @@ export default function BookTourPage({ tripData }) {
 	const today = startOfToday();
 	const defaultDate = addDays(today, 1);
 
+	// seed group counts: default 1 adult, others 0
+	const seedCounts =
+		(busData?.group_age_prices || []).map((g, idx) => ({
+			id: g.id,
+			quantity: idx === 0 ? 1 : 0,
+		})) || [];
+
 	const form = useForm({
 		resolver: zodResolver(getSchema(lang || "en", leftSeats ?? 20)),
 		defaultValues: {
 			date: undefined,
 			time: undefined,
 			meetingPoint: undefined,
-			people: 1,
+			people: seedCounts.reduce((s, r) => s + r.quantity, 0) || 1,
+			// new
+			group_age_counts: seedCounts,
+
 			name: "",
-			email: "",
 			whatsapp: "",
 		},
 		mode: "onSubmit",
 	});
+
+	// keep people = sum(group_age_counts)
+	useEffect(() => {
+		const sub = form.watch((values, { name }) => {
+			if (name === "group_age_counts") {
+				const total =
+					(values.group_age_counts || []).reduce(
+						(s, r) => s + Number(r.quantity || 0),
+						0
+					) || 0;
+				form.setValue("people", Math.max(1, total), { shouldValidate: true });
+			}
+		});
+		return () => sub.unsubscribe?.();
+	}, [form]);
 
 	// Availability check when date + time change
 	useEffect(() => {
@@ -141,7 +166,7 @@ export default function BookTourPage({ tripData }) {
 						time_id: v.time.id,
 					});
 					fetch(
-						`${API_BASE_URL_NEW}/customer/landing-bus-trip/check-availability?${params.toString()}`,
+						`${API_BETA_URL}/customer/landing-bus-trip/check-availability?${params.toString()}`,
 						{
 							method: "GET",
 							headers: { lang: lang || "en" },
@@ -164,9 +189,61 @@ export default function BookTourPage({ tripData }) {
 		return () => sub.unsubscribe?.();
 	}, [form, busData, lang]);
 
+	// Recompute disabledDays and times when meetingPoint or date changes
+	useEffect(() => {
+		const subscription = form.watch((values, { name }) => {
+			const selectedPoint = (busData?.gathering_points || []).find(
+				(p) => p.id === values.meetingPoint?.id
+			);
+
+			// If meeting point changed: compute allowed days and reset time
+			if (name === "meetingPoint" && selectedPoint) {
+				// allowed day indexes from this meeting point
+				const allowed = (selectedPoint.days || [])
+					.map((d) => slugToIndex[d.slug])
+					.filter((n) => typeof n === "number");
+				const all = [0, 1, 2, 3, 4, 5, 6];
+				setDisabledDays(all.filter((i) => !allowed.includes(i)));
+
+				// clear previously selected time
+				form.setValue("time", undefined, { shouldValidate: true });
+
+				// if a date is already chosen, recompute that day's times
+				if (values.date) {
+					const dayIdx = values.date.getDay();
+					const slug = indexToSlug[dayIdx];
+					const day = (selectedPoint.days || []).find((d) => d.slug === slug);
+					setDayTimes(day?.times || []);
+				} else {
+					setDayTimes([]);
+				}
+			}
+
+			// If date changed: compute times for that weekday from the selected meeting point
+			if (name === "date") {
+				if (selectedPoint && values.date) {
+					const dayIdx = values.date.getDay();
+					const slug = indexToSlug[dayIdx];
+					const day = (selectedPoint.days || []).find((d) => d.slug === slug);
+					setDayTimes(day?.times || []);
+					// clear time if current selected time is not in the new list
+					const hasSelected =
+						values.time &&
+						(day?.times || []).some((t) => t.id === values.time.id);
+					if (!hasSelected) {
+						form.setValue("time", undefined, { shouldValidate: true });
+					}
+				} else {
+					setDayTimes([]);
+				}
+			}
+		});
+		return () => subscription.unsubscribe?.();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [form, busData]);
+
 	const onConfirm = form.handleSubmit(async (values) => {
 		try {
-			// Persist selection (same keys as ChooseTourStep)
 			const selection = {
 				date: format(values.date, "yyyy-MM-dd"),
 				time: values.time,
@@ -174,6 +251,8 @@ export default function BookTourPage({ tripData }) {
 				lang,
 				bus_id: busData?.id,
 				people: values.people,
+				// store age counts
+				group_age_counts: values.group_age_counts,
 			};
 			localStorage.setItem(STORAGE_KEY, JSON.stringify(selection));
 
@@ -189,10 +268,9 @@ export default function BookTourPage({ tripData }) {
 				? whatsappParsed.countryCallingCode
 				: "";
 
-			// Build booking payload (same as PersonalInfoStep)
+			// Build booking payload (+ group_age_counts)
 			const payload = {
 				name: values.name,
-				email: values.email,
 				phone: null,
 				whatsapp,
 				phone_country_code: null,
@@ -200,15 +278,19 @@ export default function BookTourPage({ tripData }) {
 				bus_id: busData?.id,
 				date: selection.date,
 				time_id: selection.time?.id,
-				meetingPoint_id: Number(selection.meetingPoint?.id),
-				people: selection.people,
+				gathering_point_id: Number(selection.meetingPoint?.id),
+				people_count: selection.people,
 				payment_method: "online",
-				promo_code: null,
+				promo_code: promoCode ? promoCode : null,
+				group_age_counts: (values.group_age_counts || []).map((r) => ({
+					id: Number(r.id),
+					quantity: Number(r.quantity || 0),
+				})),
 			};
-				console.log("Booking payload:", payload);
-				
+			console.log("Booking payload:", payload);
+
 			const res = await fetch(
-				`${API_BASE_URL_NEW}/customer/landing-bus-trip/booking`,
+				`${API_BETA_URL}/landing/landing-bus-trip/booking`,
 				{
 					method: "POST",
 					headers: { "Content-Type": "application/json" },
@@ -236,28 +318,50 @@ export default function BookTourPage({ tripData }) {
 					customer_id,
 					process_id,
 					ticket,
-					customer_email: values.email,
+					// customer_email: values.email,
 					customer_name: values.name,
 					customer_whatsapp: whatsapp_country_code + whatsapp,
 				})
 			);
 
-			// Payment amount: start_price * people (UI ignores tax; for payment we can include tax if needed)
-			const base =
-				Number(busData?.start_price || 0) * Number(values.people || 1);
-			// const tax = Number(busData?.tax || 0) * base;
-			const totalSar = Number(base.toFixed(2));
+			// Payment amount: sum(group price * qty)
+			const prices = busData?.group_age_prices || [];
+			const counts = values.group_age_counts || [];
+			const base = counts.reduce((sum, r) => {
+				const gp = prices.find((p) => p.id === r.id);
+				return sum + Number(gp?.price || 0) * Number(r.quantity || 0);
+			}, 0);
+
+			// apply promo discount on the base (matches PriceCalculationBox)
+			const discountAmount = Number(
+				((Number(promoDiscountPercent || 0) / 100) * base).toFixed(2)
+			);
+			const totalBeforeTax = Number((base - discountAmount).toFixed(2));
+
+			// tax applied after discount
+			const taxRate = Number(busData?.tax ?? 0);
+			const taxAmount = Number((taxRate * totalBeforeTax).toFixed(2));
+			const finalTotal = Number((totalBeforeTax + taxAmount).toFixed(2));
+
+			console.log("Payment calc:", {
+				base,
+				discountAmount,
+				totalBeforeTax,
+				taxRate,
+				taxAmount,
+				finalTotal,
+			});
 
 			const clickpayRes = await fetch("/api/pay/clickpay/init", {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify({
-					amount: totalSar,
+					amount: finalTotal,
 					lang,
 					cart_id: process_id,
 					customer_details: {
 						name: values.name,
-						email: values.email,
+						email: "customer@gmail.com",
 						whatsapp: whatsapp_country_code + whatsapp,
 					},
 					successPath: "/book-tour-success",
@@ -290,6 +394,7 @@ export default function BookTourPage({ tripData }) {
 	if (loading || !busData) return <Loading />;
 
 	const people = form.watch("people") || 1;
+	const groupCounts = form.watch("group_age_counts") || [];
 
 	return (
 		<div className={lang === "en" ? "ltr" : "rtl"}>
@@ -301,27 +406,62 @@ export default function BookTourPage({ tripData }) {
 							<BookingForm
 								lang={lang}
 								form={form}
-								times={busData.times}
+								times={dayTimes}
 								gatheringPoints={busData.gathering_points}
 								busId={busData.id}
-								leftSeats={leftSeats}
-								setLeftSeats={setLeftSeats}
+								disabledDays={disabledDays}
+								groupAgePrices={busData.group_age_prices || []}
+							/>
+
+							{/* Promo section (after form) */}
+							<PromoCodeSection
+								lang={lang}
+								value={promoCode}
+								onApplied={({ code, discountPercent }) => {
+									setPromoCode(code);
+									setPromoApplied(true);
+									setPromoDiscountPercent(Number(discountPercent || 0));
+								}}
+								onCleared={() => {
+									setPromoCode("");
+									setPromoApplied(false);
+									setPromoDiscountPercent(0);
+								}}
 							/>
 
 							<PriceCalculationBox
 								startPrice={busData.start_price}
 								minPeople={1}
 								people={people}
+								groupAgePrices={busData.group_age_prices || []}
+								groupAgeCounts={groupCounts}
+								// tax from API
+								tax={typeof busData?.tax === "number" ? busData.tax : 0}
+								// apply promo discount
+								promoDiscountPercent={promoDiscountPercent}
+								lang={lang}
 							/>
 
 							<CustomerInfoFields lang={lang} form={form} />
 
-							<ActionButtons onConfirm={onConfirm} onCancel={onCancel} />
+							<ActionButtons onConfirm={onConfirm} onCancel={onCancel} lang={lang} />
 						</div>
 
 						{/* Trip Summary */}
 						<div className="md:w-[40%] flex flex-col gap-6">
-							<TripSummaryCard {...tripData} />
+							<TripSummaryCard
+								imageUrl={busData.image}
+								location={busData.city}
+								rating={busData.rating}
+								reviewCount={busData.rating_count}
+								title={busData.name}
+								subtitle={busData.subtitle ? busData.subtitle : ""}
+								duration={busData.duration}
+								maxPeople={busData.max_people_count}
+								price={busData.start_price}
+								minPeople={busData.min_people_count || 1}
+								lang={lang}
+							/>
 						</div>
 					</div>
 				</div>

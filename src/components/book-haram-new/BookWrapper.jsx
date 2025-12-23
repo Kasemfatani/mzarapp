@@ -6,6 +6,7 @@ import { BookingForm } from "@/components/book-haram-new/BookingForm";
 import { PriceCalculationBox } from "@/components/book-haram-new/PriceCalculationBox";
 import { CustomerInfoFields } from "@/components/book-haram-new/CustomerInfoFields";
 import { ActionButtons } from "@/components/book-haram-new/ActionButtons";
+import PromoCodeSection from "@/components/book-path-new/PromoCodeSection";
 
 import Loading from "@/app/loading";
 import { API_BASE_URL } from "@/lib/apiConfig";
@@ -44,9 +45,14 @@ const getSchema = (lang, max_people_count = 20, min_people_count = 1) => {
 	});
 };
 
-export default function BookTourPage({  lang, busData , disabledDays = []}) {
+export default function BookTourPage({ lang, busData, disabledDays = [] }) {
 	const [leftSeats, setLeftSeats] = useState(null);
 	const [loading, setLoading] = useState(false);
+
+	// promo state
+	const [promoCode, setPromoCode] = useState("");
+	const [promoApplied, setPromoApplied] = useState(false);
+	const [promoDiscountPercent, setPromoDiscountPercent] = useState(0);
 
 	console.log("BookWrapper busData:", busData);
 
@@ -148,7 +154,7 @@ export default function BookTourPage({  lang, busData , disabledDays = []}) {
 				time: selection.time?.id,
 				people_count: selection.people,
 				payment_type: "online",
-				promo_code: null,
+				promo_code: promoCode ? promoCode : null, // add promo code
 				country_id: values.country_id, // send selected country id
 			};
 			console.log("Booking payload:", payload);
@@ -187,24 +193,31 @@ export default function BookTourPage({  lang, busData , disabledDays = []}) {
 				})
 			);
 
-			// Payment amount: price * people (UI ignores tax; for payment we can include tax if needed)
+			// Payment amount: base -> apply promo -> add tax
 			const base = Number(busData?.price || 0) * Number(values.people || 1);
-			// const tax = Number(busData?.tax || 0) * base;
-			const totalSar = Number(base.toFixed(2));
-
-			console.log(
-				"Starting ClickPay payment for amount:",
-				totalSar,
-				base,
-				busData?.price,
-				values.people
+			const discountAmount = Number(
+				((Number(promoDiscountPercent || 0) / 100) * base).toFixed(2)
 			);
+			const totalBeforeTax = Number((base - discountAmount).toFixed(2));
+			const taxRate = Number(busData?.tax || 0);
+			const taxAmount = Number((taxRate * totalBeforeTax).toFixed(2));
+			const finalTotal = Number((totalBeforeTax + taxAmount).toFixed(2));
+
+			console.log("Starting ClickPay payment:", {
+				base,
+				discountPercent: promoDiscountPercent,
+				discountAmount,
+				totalBeforeTax,
+				taxRate,
+				taxAmount,
+				finalTotal,
+			});
 
 			const clickpayRes = await fetch("/api/pay/clickpay/init", {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify({
-					amount: totalSar,
+					amount: finalTotal, // use final total (after promo + tax)
 					lang,
 					cart_id: process_id,
 					customer_details: {
@@ -254,7 +267,6 @@ export default function BookTourPage({  lang, busData , disabledDays = []}) {
 								lang={lang}
 								form={form}
 								times={busData.times}
-								// gatheringPoints={busData.gathering_points}
 								busId={busData.id}
 								leftSeats={leftSeats}
 								setLeftSeats={setLeftSeats}
@@ -262,16 +274,39 @@ export default function BookTourPage({  lang, busData , disabledDays = []}) {
 								disabledDays={disabledDays}
 							/>
 
+							{/* Promo section (after form) */}
+							<PromoCodeSection
+								lang={lang}
+								value={promoCode}
+								onApplied={({ code, discountPercent }) => {
+									setPromoCode(code);
+									setPromoApplied(true);
+									setPromoDiscountPercent(Number(discountPercent || 0));
+								}}
+								onCleared={() => {
+									setPromoCode("");
+									setPromoApplied(false);
+									setPromoDiscountPercent(0);
+								}}
+								promo_type="tour"
+							/>
+
 							<PriceCalculationBox
 								startPrice={busData.price}
 								minPeople={busData.min_people_count}
 								people={people}
 								lang={lang}
+								tax={typeof busData?.tax === "number" ? busData.tax : 0}
+								promoDiscountPercent={promoDiscountPercent}
 							/>
 
 							<CustomerInfoFields lang={lang} form={form} />
 
-							<ActionButtons onConfirm={onConfirm} onCancel={onCancel} lang={lang} />
+							<ActionButtons
+								onConfirm={onConfirm}
+								onCancel={onCancel}
+								lang={lang}
+							/>
 						</div>
 
 						{/* Trip Summary */}
@@ -282,7 +317,7 @@ export default function BookTourPage({  lang, busData , disabledDays = []}) {
 								rating={busData.rating}
 								reviewCount={busData.rating_count}
 								title={busData.name}
-								subtitle={busData.subtitle ? busData.subtitle : ''} // added fallback to empty string
+								subtitle={busData.subtitle ? busData.subtitle : ""} // added fallback to empty string
 								duration={busData.duration}
 								maxPeople={busData.max_people_count}
 								price={busData.price}
