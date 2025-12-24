@@ -143,6 +143,17 @@ export default function BookTourPage({ lang, busData, disabledDays = [] }) {
 		return () => subscription.unsubscribe?.();
 	}, [form]);
 
+
+	// store promo_code from URL params (overwrites existing partnerPromoCode)
+	useEffect(() => {
+		if (typeof window === "undefined") return;
+		const params = new URLSearchParams(window.location.search);
+		const promoFromUrl = params.get("promo_code");
+		if (promoFromUrl) {
+			localStorage.setItem("partnerPromoCode", promoFromUrl);
+		}
+	}, []);
+
 	// Availability check when date + time change (GET)
 	useEffect(() => {
 		const sub = form.watch((values, { name }) => {

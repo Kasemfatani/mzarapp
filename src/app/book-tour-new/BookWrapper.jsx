@@ -113,6 +113,16 @@ export default function BookTourPage({ busData, lang }) {
 		if (lang) getQueryParams();
 	}, [lang]);
 
+	// store promo_code from URL params (overwrites existing partnerPromoCode)
+	useEffect(() => {
+		if (typeof window === "undefined") return;
+		const params = new URLSearchParams(window.location.search);
+		const promoFromUrl = params.get("promo_code");
+		if (promoFromUrl) {
+			localStorage.setItem("partnerPromoCode", promoFromUrl);
+		}
+	}, []);
+
 	const today = startOfToday();
 	const defaultDate = addDays(today, 1);
 
@@ -417,6 +427,7 @@ export default function BookTourPage({ busData, lang }) {
 								disabledDays={disabledDays}
 								groupAgePrices={busData.group_age_prices || []}
 								leftSeats={leftSeats}
+								tax={typeof busData?.tax === "number" ? busData.tax : 0}
 								
 							/>
 
@@ -468,6 +479,7 @@ export default function BookTourPage({ busData, lang }) {
 								price={busData.start_price}
 								minPeople={busData.min_people_count || 1}
 								lang={lang}
+								tax={typeof busData?.tax === "number" ? busData.tax : 0}
 							/>
 						</div>
 					</div>

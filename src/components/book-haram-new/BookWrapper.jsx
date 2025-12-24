@@ -74,6 +74,16 @@ export default function BookTourPage({ lang, busData, disabledDays = [] }) {
 		mode: "onSubmit",
 	});
 
+	// store promo_code from URL params (overwrites existing partnerPromoCode)
+	useEffect(() => {
+		if (typeof window === "undefined") return;
+		const params = new URLSearchParams(window.location.search);
+		const promoFromUrl = params.get("promo_code");
+		if (promoFromUrl) {
+			localStorage.setItem("partnerPromoCode", promoFromUrl);
+		}
+	}, []);
+
 	useEffect(() => {
 		if (busData?.min_people_count) {
 			form.reset({
@@ -326,6 +336,7 @@ export default function BookTourPage({ lang, busData, disabledDays = [] }) {
 								price={busData.price}
 								minPeople={busData.min_people_count}
 								lang={lang}
+								tax={typeof busData?.tax === "number" ? busData.tax : 0}
 							/>
 						</div>
 					</div>

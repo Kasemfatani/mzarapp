@@ -60,6 +60,7 @@ export function BookingForm({
 	disabledDays = [0, 1, 2, 3, 4, 5, 6],
 	groupAgePrices = [], // <-- new prop
 	leftSeats,
+	tax = 0,
 }) {
 	// auto-select nearest gathering point (if user hasn't picked one)
 	// useEffect(() => {
@@ -139,6 +140,8 @@ export function BookingForm({
 		})();
 		form.setValue("group_age_counts", nextArr, { shouldValidate: true });
 	};
+
+	const numericTax = Number(tax) || 0;
 
 	return (
 		<div className="bg-white rounded-[20px] shadow-[0px_20px_25px_-5px_rgba(0,0,0,0.1)] border-[0.8px] border-[rgba(243,244,246,0.6)] w-full">
@@ -314,6 +317,10 @@ export function BookingForm({
 							<div className="divide-y rounded-xl border bg-[#fffefb]">
 								{groupAgePrices.map((g) => {
 									const q = getQty(g.id);
+									const priceWithTax = (
+										Number(g.price || 0) *
+										(1 + numericTax)
+									).toFixed(2);
 									return (
 										<div
 											key={g.id}
@@ -322,7 +329,7 @@ export function BookingForm({
 											<div className="flex flex-col">
 												<p className="text-[#111827] font-medium">{g.name}</p>
 												<p className="text-[#6b7280] text-sm">
-													{Number(g.price || 0)}{" "}
+													{priceWithTax}{" "}
 													{isAr ? "ريال للشخص" : "SAR per person"}
 												</p>
 											</div>

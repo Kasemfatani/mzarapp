@@ -81,14 +81,14 @@ export default function HeroSection({ lang }) {
 						>
 							{isAr ? "استكشف التجارب " : "Explore Experiences"}
 						</a>
-						<button
+						{/* <button
 							className="bg-white/10 backdrop-blur-md border-2 border-white/30 text-white px-10 py-4 rounded-xl hover:bg-white/20 transition-all shadow-xl"
 							style={{
 								fontWeight: 500,
 							}}
 						>
 							{isAr ? "احجز تجربتك الآن" : "Book Your Experience Now"}
-						</button>
+						</button> */}
 					</div>
 
 					{/* Trust Badges */}
