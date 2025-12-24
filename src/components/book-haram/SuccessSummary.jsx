@@ -8,14 +8,14 @@ import { API_BASE_URL_NEW } from "@/lib/apiConfig";
 import { toast } from "sonner";
 // import DownloadButtons from "./DownloadButtons"
 
-const STORAGE_KEY = "haramTour.selection";
+const STORAGE_KEY = "bookHaramain.selection";
 
 const messages = {
 	en: {
 		title: "Your booking is confirmed",
 		bookingNo: "Booking No:",
 		thanks: "Thank you!",
-		done: "Your booking is complete. You should receive an email with your booking details.",
+		done: "Your booking is complete.",
 		downloadTicket: "Download your ticket",
 		sendWhatsapp: "Send your ticket to WhatsApp",
 		getApp: "Get the app",
@@ -26,7 +26,7 @@ const messages = {
 		paymentOk: "Payment received",
 		finalizeFailedTitle: "We couldn’t finalize your booking",
 		finalizeFailedDesc:
-			" there was a problem . Please save the transaction ID below and contact our support team.",
+			" There was a problem . Please save the transaction ID below and contact our support team.",
 		transactionId: "Transaction ID",
 		takeScreenshot: "Tip: Take a screenshot of this page.",
 		contactSupport: "Contact support",
@@ -40,7 +40,7 @@ const messages = {
 		title: "تم تأكيد حجزك بنجاح",
 		bookingNo: "رقم الحجز:",
 		thanks: "شكرًا لك!",
-		done: "تم إكمال حجزك. ستصلك رسالة بريد إلكتروني بتفاصيل الحجز.",
+		done: "تم إكمال حجزك. ستصلك رسالة بتفاصيل الحجز.",
 		downloadTicket: "تحميل تذكرتك",
 		sendWhatsapp: "إرسال تذكرتك إلى واتساب",
 		getApp: "تنزيل التطبيق",
@@ -105,7 +105,7 @@ export default function SuccessSummary({ initialLang = "en" }) {
 			}
 			setSelection(sel || null);
 
-			const cartId = sel?.process_id;
+			const cartId = sel?.cart_id;
 
 			if (!cartId && status !== "failed") {
 				toast.error(
@@ -130,7 +130,7 @@ export default function SuccessSummary({ initialLang = "en" }) {
 
 					// parse response body (route now returns 200 with status field even when payment failed)
 					const verifyData = await verifyRes.json().catch(() => ({}));
-
+					console.log("ClickPay verify data:", verifyData);
 					if (!verifyRes.ok) {
 						throw new Error(
 							verifyData.message || "Payment verification failed"
@@ -285,9 +285,7 @@ export default function SuccessSummary({ initialLang = "en" }) {
 		(date ? `التاريخ: ${date}\n` : "") +
 		(timeName ? `الوقت: ${timeName}\n` : "");
 
-	const whatsappHref = `https://wa.me/+966580121025?text=${encodeURIComponent(
-		lang === "ar" ? baseLineAr : baseLineEn
-	)}`;
+	const whatsappHref = `https://wa.me/+966580121025`;
 	const emailSubject =
 		lang === "ar"
 			? `مزار - تم الدفع وتعذر إتمام الحجز - ${tranId}`

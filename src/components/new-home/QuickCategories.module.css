@@ -1,0 +1,9 @@
+/* target Swiper's DOM class from a local module class */
+.quickCategories :global(.swiper-wrapper) {
+	
+	padding-bottom: 10px;
+}
+
+/* #QuickCategories {
+	opacity: 1;
+} */

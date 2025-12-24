@@ -45,7 +45,7 @@ export default function TourSuccess() {
 
 	return (
 		<div className={lang === "en" ? "ltr" : "rtl"}>
-			<HeroTop initialLang={lang} />
+			{/* <HeroTop initialLang={lang} /> */}
 			<SuccessSummary initialLang={lang} />
 		</div>
 	);
