@@ -18,14 +18,14 @@ const CURRENCY_SVG = (
 export function BottomBar( { lang , data } ) {
   const isAr = lang === "ar";
 
-  let link = `/book-path-new/${data.id}`;
+  let link = `/book-path/${data.id}`;
 
 	if (data.id === 88) {
-		link = `/book-haram-new`;
+		link = `/book-haram`;
 	} else if (data.id === 96) {
-		link = `/book-tour-new`;
+		link = `/book-tour`;
 	} else if (data.id === 87) {
-		link = `/book-madinah-new`;
+		link = `/book-madinah`;
 	}
 
   return (

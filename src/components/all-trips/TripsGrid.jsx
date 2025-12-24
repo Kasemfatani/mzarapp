@@ -95,14 +95,14 @@ function TripCard({ trip, isAr }) {
 		cityName = isAr ? "المدينة المنورة" : "Madinah";
 	}
 
-	let link = `/book-path-new/${trip.id}`;
+	let link = `/book-path/${trip.id}`;
 
 	if (trip.id === 88) {
-		link = `/book-haram-new`;
+		link = `/book-haram`;
 	} else if (trip.id === 96) {
-		link = `/book-tour-new`;
+		link = `/book-tour`;
 	} else if (trip.id === 87) {
-		link = `/book-madinah-new`;
+		link = `/book-madinah`;
 	}
 
 	return (

@@ -114,7 +114,7 @@ export default function SuccessSummary({ initialLang = "en" }) {
 						? "لم يتم العثور على بيانات الحجز"
 						: "Booking data not found"
 				);
-				window.location.replace("/book-path-new"); ///// /// change redirect path
+				window.location.replace("/book-path"); ///// /// change redirect path
 				return;
 			}
 

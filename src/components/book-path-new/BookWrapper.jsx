@@ -343,7 +343,7 @@ export default function BookTourPage({ lang, busData, disabledDays = [] }) {
 						whatsapp: whatsapp_country_code + whatsapp,
 					},
 					successPath: "/book-path-success",
-					failPath: `/book-path-new/${busData?.id}`,
+					failPath: `/book-path/${busData?.id}`,
 				}),
 			});
 			const clickpayJson = await clickpayRes.json();

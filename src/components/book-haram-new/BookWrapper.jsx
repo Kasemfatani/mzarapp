@@ -239,7 +239,7 @@ export default function BookTourPage({ lang, busData, disabledDays = [] }) {
 						whatsapp: whatsapp_country_code + whatsapp,
 					},
 					successPath: "/book-haram-success",
-					failPath: "/book-haram-new",
+					failPath: "/book-haram",
 				}),
 			});
 			const clickpayJson = await clickpayRes.json();
