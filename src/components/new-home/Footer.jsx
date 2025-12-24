@@ -315,7 +315,7 @@ export default function Footer() {
 									className="text-[#867957] flex-shrink-0 mt-0.5"
 								/>
 								<span className="text-gray-600 text-sm">
-									{isAr ? 'المملكة العربية السعودية ــ جدة ' : 'Saudi Arabia ــ Jeddah'}
+									{isAr ? 'المملكة العربية السعودية ــ مكة المكرمة ' : 'Saudi Arabia ــ Makkah'}
 								</span>
 							</div>
 
