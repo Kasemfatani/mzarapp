@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
 	// Calendar icon from lucide-react (renamed to CalendarIcon)
 	Calendar as CalendarIcon,
@@ -60,6 +60,66 @@ export function BookingForm({
 	disabledDays = [0, 1, 2, 3, 4, 5, 6],
 	groupAgePrices = [], // <-- new prop
 }) {
+	// auto-select nearest gathering point (if user hasn't picked one)
+	useEffect(() => {
+		if (!gatheringPoints || gatheringPoints.length === 0) return;
+		if (typeof window === "undefined") return;
+		// if user already selected a meetingPoint, don't override
+		if (form.getValues().meetingPoint) return;
+		if (!navigator.geolocation) return;
+
+		let mounted = true;
+		const toRad = (v) => (v * Math.PI) / 180;
+		const haversine = (lat1, lon1, lat2, lon2) => {
+			const R = 6371; // km
+			const dLat = toRad(lat2 - lat1);
+			const dLon = toRad(lon2 - lon1);
+			const a =
+				Math.sin(dLat / 2) ** 2 +
+				Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon / 2) ** 2;
+			return 2 * R * Math.asin(Math.sqrt(a));
+		};
+
+		navigator.geolocation.getCurrentPosition(
+			(pos) => {
+				if (!mounted) return;
+				const { latitude, longitude } = pos.coords;
+				let closest = null;
+				let minDist = Infinity;
+				for (const p of gatheringPoints) {
+					if (p.lat == null || p.lng == null) continue;
+					const d = haversine(
+						latitude,
+						longitude,
+						Number(p.lat),
+						Number(p.lng)
+					);
+					if (d < minDist) {
+						minDist = d;
+						closest = p;
+					}
+				}
+				// console.log("distance to closest gathering point:", minDist);
+				// console.log("Closest gathering point:", closest);
+				if (closest) {
+					form.setValue(
+						"meetingPoint",
+						{ id: closest.id, name: closest.name },
+						{ shouldValidate: true }
+					);
+				}
+			},
+			() => {
+				/* ignore geolocation errors */
+			},
+			{ enableHighAccuracy: true, timeout: 5000, maximumAge: 60_000 }
+		);
+
+		return () => {
+			mounted = false;
+		};
+	}, [gatheringPoints, form]);
+
 	const isAr = lang === "ar";
 	const today = startOfToday();
 	const tomorrow = addDays(today, 1);
@@ -88,10 +148,16 @@ export function BookingForm({
 						<h3 className="text-[#3c6652] text-[30px] tracking-[-0.45px]">
 							{isAr ? "اختر موعد رحلتك" : "Choose Your Trip Date"}{" "}
 						</h3>
-						<p className="text-[#4a5565]">{isAr ? "حدد التاريخ والوقت المناسب لك" : "Select the date and time that suits you"} </p>
+						<p className="text-[#4a5565]">
+							{isAr
+								? "حدد التاريخ والوقت المناسب لك"
+								: "Select the date and time that suits you"}{" "}
+						</p>
 					</div>
 					<div className="bg-[rgba(231,211,175,0.2)] border-[0.8px] border-[#e7d3af] rounded-full px-2 py-2">
-						<p className="text-[#867957]">{isAr ? "خطوة 1 من  2" : "Step 1 of 2"}</p>
+						<p className="text-[#867957]">
+							{isAr ? "خطوة 1 من  2" : "Step 1 of 2"}
+						</p>
 					</div>
 				</div>
 
@@ -101,7 +167,11 @@ export function BookingForm({
 						<div className="flex flex-col gap-2">
 							<div className="flex items-center gap-3">
 								<MapPin className="w-6 h-6 text-[#867957]" strokeWidth={1.33} />
-								<p className="text-[#364153]">{isAr ? "اختيار نقطة التجمع الأقرب" : "Choose the nearest gathering point"}</p>
+								<p className="text-[#364153]">
+									{isAr
+										? "اختيار نقطة التجمع الأقرب"
+										: "Choose the nearest gathering point"}
+								</p>
 							</div>
 							<FormField
 								control={form.control}
@@ -178,7 +248,9 @@ export function BookingForm({
 						<div className="flex flex-col gap-2">
 							<div className="flex items-center gap-3">
 								<Clock className="w-5 h-5 text-[#867957]" strokeWidth={1.67} />
-								<p className="text-[#364153]">{isAr ? "اختر الوقت المناسب" : "Choose the suitable time"}</p>
+								<p className="text-[#364153]">
+									{isAr ? "اختر الوقت المناسب" : "Choose the suitable time"}
+								</p>
 							</div>
 							<FormField
 								control={form.control}
@@ -242,9 +314,8 @@ export function BookingForm({
 											<div className="flex flex-col">
 												<p className="text-[#111827] font-medium">{g.name}</p>
 												<p className="text-[#6b7280] text-sm">
-													{Number(g.price || 0)} {' '}
+													{Number(g.price || 0)}{" "}
 													{isAr ? "ريال للشخص" : "SAR per person"}
-													
 												</p>
 											</div>
 											<div className="flex items-center gap-4">
