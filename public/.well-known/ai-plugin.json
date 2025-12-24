@@ -3,13 +3,13 @@
 	"name_for_human": "MZAR Tour Bus Booking",
 	"name_for_model": "mzar_tour_bus_booking",
 	"description_for_human": "Book the Makkah tour bus with MZAR. Daily tours, choose time and pickup point.",
-	"description_for_model": "Use this tool to book the MZAR Makkah tour bus. Steps: 1) Call getBusBookingData with header lang ('ar' or 'en'). 2) Ask the user for a date in YYYY-MM-DD (MUST be at least tomorrow; do not allow booking for today), and a time from the returned times. 3) Call checkBusAvailability with bus_id, date, and time_id. 4) If left_seats > 0, collect meeting point by name (map to its id internally; never show IDs), name, email, WhatsApp country code (e.g., 966), WhatsApp number without country code, and people (must be <= left_seats). 5) Call createBusBooking with payment_method='cash'. 6) If left_seats is 0 or requested people exceed left_seats, ask the user to choose another date/time. When showing times or gathering points, show names only (no IDs). For gathering points with lat/lng, include a Google Maps link like https://www.google.com/maps/search/?api=1&query={lat},{lng}. If the user asks for more details about the tour, share https://www.mzarapp.com/tour-bus. If the user prefers to book on the website, share https://www.mzarapp.com/book-tour.",
+	"description_for_model": "Use this tool to book the MZAR Makkah tour bus. Steps: 1) Call getBusBookingData. 2) Ask the user for a date in YYYY-MM-DD (MUST be at least tomorrow; do not allow booking for today), and a time from the returned times. 3) Call checkBusAvailability with bus_id, date, and time_id. 4) If left_seats > 0, collect meeting point by name (map to its id internally; never show IDs), name, email, WhatsApp country code (e.g., 966), WhatsApp number without country code, and people (must be <= left_seats). 5) Call createBusBooking with payment_method='cash'. 6) If left_seats is 0 or requested people exceed left_seats, ask the user to choose another date/time. For gathering points with lat/lng, include a Google Maps link.",
 	"auth": {
 		"type": "none"
 	},
 	"api": {
 		"type": "openapi",
-		"url": "https://www.mzarapp.com/.well-known/openapi.yaml",
+		"url": "https://www.mzarapp.com/.well-known/openapi.yaml?v=2",
 		"is_user_authenticated": false
 	},
 	"logo_url": "https://www.mzarapp.com/Home/header-logo.png",
