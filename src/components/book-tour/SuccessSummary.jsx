@@ -104,7 +104,7 @@ export default function SuccessSummary({ initialLang = "en" }) {
 			}
 			setSelection(sel || null);
 
-			const cartId = sel?.process_id;
+			const cartId = sel?.cart_id;
 
 			if (!cartId && status !== "failed") {
 				toast.error(

@@ -337,11 +337,15 @@ export default function PersonalInfoStep({
 
 			// Save trip_id, customer_id, process_id to localStorage
 			const { trip_id, customer_id, process_id } = json.data || {};
+
+			const cartId = `${process_id}_${Date.now()}`;
+
 			const updatedSelection = {
 				...selection,
 				trip_id,
 				customer_id,
 				process_id,
+				cart_id: cartId,
 				customer_email: info.email,
 				customer_name: info.name,
 				customer_whatsapp: info.whatsapp_country_code + info.whatsapp,
@@ -359,7 +363,7 @@ export default function PersonalInfoStep({
 			const totalSar = Number((baseAfterDiscount + tax).toFixed(2));
 
 			// Use the process_id as the unique cart_id for the transaction
-			const cartId = process_id;
+			// const cartId = process_id;
 
 			// Initiate ClickPay hosted payment
 			const clickpayRes = await fetch("/api/pay/clickpay/init", {
@@ -370,7 +374,7 @@ export default function PersonalInfoStep({
 					lang,
 					cart_id: String(cartId),
 					customer_details: {
-						name: info.name,
+						name: '',
 						email: info.email,
 						whatsapp: info.whatsapp_country_code + info.whatsapp,
 					},
