@@ -31,14 +31,14 @@ export function FeaturedToursCard({
   isAr = false,
 }) {
 
-	let link = `/book-path-new/${id}`;
+	let link = `/book-path/${id}`;
 
 	if (id === 88) {
-		link = `/book-haram-new`;
+		link = `/book-haram`;
 	} else if (id === 96) {
-		link = `/book-tour-new`;
+		link = `/book-tour`;
 	} else if (id === 87) {
-		link = `/book-madinah-new`;
+		link = `/book-madinah`;
 	}
 
 	return (
