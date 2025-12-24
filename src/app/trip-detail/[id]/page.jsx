@@ -106,7 +106,10 @@ export default async function TourPage({ params }) {
 			<SummaryCard lang={lang} data={data} />
 			<HighlightsSection lang={lang} data={data} />
 			<AboutSection lang={lang} data={data} />
-			<InclusionsSection lang={lang} data={data} />
+			{data.consists > 0 && data.unconsists > 0 &&  (
+					<InclusionsSection lang={lang} data={data} />
+				)}
+			{/* <InclusionsSection lang={lang} data={data} /> */}
 			{/* {data.busStops && <BusStops lang={lang} />} */}
 			{data.locations && <Destinations lang={lang} data={data} />}
 			{data.tentatives && data.tentatives.length > 0 && <TimelineSection lang={lang} data={data} />}
