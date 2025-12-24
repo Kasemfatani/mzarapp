@@ -309,6 +309,9 @@ export default function BookTourPage({ busData, lang }) {
 			}
 
 			const { trip_id, customer_id, process_id, ticket } = json.data || {};
+
+			const cartId = `${process_id}_${Date.now()}`;
+
 			const stored = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
 			localStorage.setItem(
 				STORAGE_KEY,
@@ -317,6 +320,7 @@ export default function BookTourPage({ busData, lang }) {
 					trip_id,
 					customer_id,
 					process_id,
+					cart_id: cartId,
 					ticket,
 					// customer_email: values.email,
 					customer_name: values.name,
@@ -358,9 +362,9 @@ export default function BookTourPage({ busData, lang }) {
 				body: JSON.stringify({
 					amount: finalTotal,
 					lang,
-					cart_id: process_id,
+					cart_id: cartId,
 					customer_details: {
-						name: values.name,
+						name: '',
 						email: "customer@gmail.com",
 						whatsapp: whatsapp_country_code + whatsapp,
 					},

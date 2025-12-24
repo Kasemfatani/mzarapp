@@ -15,7 +15,7 @@ const messages = {
 		title: "Your booking is confirmed",
 		bookingNo: "Booking No:",
 		thanks: "Thank you!",
-		done: "Your booking is complete. You should receive an email with your booking details.",
+		done: "Your booking is complete.",
 		downloadTicket: "Download your ticket",
 		sendWhatsapp: "Send your ticket to WhatsApp",
 		getApp: "Get the app",
@@ -26,7 +26,7 @@ const messages = {
 		paymentOk: "Payment received",
 		finalizeFailedTitle: "We couldn’t finalize your booking",
 		finalizeFailedDesc:
-			" there was a problem . Please save the transaction ID below and contact our support team.",
+			" There was a problem . Please save the transaction ID below and contact our support team.",
 		transactionId: "Transaction ID",
 		takeScreenshot: "Tip: Take a screenshot of this page.",
 		contactSupport: "Contact support",
@@ -40,7 +40,7 @@ const messages = {
 		title: "تم تأكيد حجزك بنجاح",
 		bookingNo: "رقم الحجز:",
 		thanks: "شكرًا لك!",
-		done: "تم إكمال حجزك. ستصلك رسالة بريد إلكتروني بتفاصيل الحجز.",
+		done: "تم إكمال حجزك. ستصلك رسالة بتفاصيل الحجز.",
 		downloadTicket: "تحميل تذكرتك",
 		sendWhatsapp: "إرسال تذكرتك إلى واتساب",
 		getApp: "تنزيل التطبيق",
@@ -105,7 +105,7 @@ export default function SuccessSummary({ initialLang = "en" }) {
 			}
 			setSelection(sel || null);
 
-			const cartId = sel?.process_id;
+			const cartId = sel?.cart_id;
 
 			if (!cartId && status !== "failed") {
 				toast.error(
