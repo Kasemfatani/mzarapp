@@ -41,8 +41,8 @@ export default function DownloadAppSection({ initialLang }) {
 						<div className="px-6 py-4 rounded-lg bg-[#8B7B5A] text-white font-semibold text-sm flex  gap-2 ">
 							<img src="/haram/price-tag.png" alt="price-tag" className="w-5" />
 							{isAr
-								? "السعر: يبدأ من 199 ريال للشخص (حد أدنى 4 أشخاص)"
-								: "Starts from: 199 SAR per person (minimum 4 people)"}
+								? "السعر: يبدأ من 199 ريال للشخص"
+								: "Starts from: 199 SAR per person"}
 						</div>
 						<div className="px-6 py-4 rounded-lg bg-[#8B7B5A] text-white font-semibold text-sm flex  gap-2">
 							<img src="/haram/calendar.png" alt="calendar" className="w-5" />
