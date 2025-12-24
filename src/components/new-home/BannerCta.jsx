@@ -27,7 +27,7 @@ export default function BannerCta({ lang }) {
 						
 						
 					>
-            {isAr ? "جولة المسجد الحرام الإثرائية " : "Al-Masjid Al-Haram Enrichment Tour"}
+            {isAr ? "تجربة المسجد الحرام الإثرائية " : "Al-Masjid Al-Haram Enrichment Experience"}
 					</h2>
 					<p
 						className="text-blue-100 text-base md:text-lg"

@@ -18,6 +18,16 @@ const CURRENCY_SVG = (
 export function BottomBar( { lang , data } ) {
   const isAr = lang === "ar";
 
+  let link = `/book-path-new/${data.id}`;
+
+	if (data.id === 88) {
+		link = `/book-haram-new`;
+	} else if (data.id === 96) {
+		link = `/book-tour-new`;
+	} else if (data.id === 87) {
+		link = `/book-madinah-new`;
+	}
+
   return (
     <motion.div 
       initial={{ y: 100 }}
@@ -38,21 +48,20 @@ export function BottomBar( { lang , data } ) {
               </div>
               <div className="">
                 <span className="text-[13px] md:text-[20px] leading-[1.2] text-white" >
-                  {data.start_price}
+                  {data.start_price.toFixed(2)}
                 </span>
               </div>
             </div>
           </div>
 
           {/* CTA Button - Premium spacing */}
-          <motion.button 
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+          <a 
+            href={link}
             className="bg-[#857856] hover:bg-[#756849] text-white px-6 py-3 rounded-[18px] flex items-center gap-3 transition-all shadow-md hover:shadow-lg"
           >
             <ArrowLeft className="w-4 h-4" />
             <span className="text-[11px] md:text-[18px]  leading-[1.3]">{isAr ? "احجز الآن" : "Book Now"}</span>
-          </motion.button>
+          </a>
         </div>
 
         {/* Trust Badges - Secondary Info */}

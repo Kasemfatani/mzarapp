@@ -59,66 +59,67 @@ export function BookingForm({
 	busId,
 	disabledDays = [0, 1, 2, 3, 4, 5, 6],
 	groupAgePrices = [], // <-- new prop
+	leftSeats,
 }) {
 	// auto-select nearest gathering point (if user hasn't picked one)
-	useEffect(() => {
-		if (!gatheringPoints || gatheringPoints.length === 0) return;
-		if (typeof window === "undefined") return;
-		// if user already selected a meetingPoint, don't override
-		if (form.getValues().meetingPoint) return;
-		if (!navigator.geolocation) return;
+	// useEffect(() => {
+	// 	if (!gatheringPoints || gatheringPoints.length === 0) return;
+	// 	if (typeof window === "undefined") return;
+	// 	// if user already selected a meetingPoint, don't override
+	// 	if (form.getValues().meetingPoint) return;
+	// 	if (!navigator.geolocation) return;
 
-		let mounted = true;
-		const toRad = (v) => (v * Math.PI) / 180;
-		const haversine = (lat1, lon1, lat2, lon2) => {
-			const R = 6371; // km
-			const dLat = toRad(lat2 - lat1);
-			const dLon = toRad(lon2 - lon1);
-			const a =
-				Math.sin(dLat / 2) ** 2 +
-				Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon / 2) ** 2;
-			return 2 * R * Math.asin(Math.sqrt(a));
-		};
+	// 	let mounted = true;
+	// 	const toRad = (v) => (v * Math.PI) / 180;
+	// 	const haversine = (lat1, lon1, lat2, lon2) => {
+	// 		const R = 6371; // km
+	// 		const dLat = toRad(lat2 - lat1);
+	// 		const dLon = toRad(lon2 - lon1);
+	// 		const a =
+	// 			Math.sin(dLat / 2) ** 2 +
+	// 			Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon / 2) ** 2;
+	// 		return 2 * R * Math.asin(Math.sqrt(a));
+	// 	};
 
-		navigator.geolocation.getCurrentPosition(
-			(pos) => {
-				if (!mounted) return;
-				const { latitude, longitude } = pos.coords;
-				let closest = null;
-				let minDist = Infinity;
-				for (const p of gatheringPoints) {
-					if (p.lat == null || p.lng == null) continue;
-					const d = haversine(
-						latitude,
-						longitude,
-						Number(p.lat),
-						Number(p.lng)
-					);
-					if (d < minDist) {
-						minDist = d;
-						closest = p;
-					}
-				}
-				// console.log("distance to closest gathering point:", minDist);
-				// console.log("Closest gathering point:", closest);
-				if (closest) {
-					form.setValue(
-						"meetingPoint",
-						{ id: closest.id, name: closest.name },
-						{ shouldValidate: true }
-					);
-				}
-			},
-			() => {
-				/* ignore geolocation errors */
-			},
-			{ enableHighAccuracy: true, timeout: 5000, maximumAge: 60_000 }
-		);
+	// 	navigator.geolocation.getCurrentPosition(
+	// 		(pos) => {
+	// 			if (!mounted) return;
+	// 			const { latitude, longitude } = pos.coords;
+	// 			let closest = null;
+	// 			let minDist = Infinity;
+	// 			for (const p of gatheringPoints) {
+	// 				if (p.lat == null || p.lng == null) continue;
+	// 				const d = haversine(
+	// 					latitude,
+	// 					longitude,
+	// 					Number(p.lat),
+	// 					Number(p.lng)
+	// 				);
+	// 				if (d < minDist) {
+	// 					minDist = d;
+	// 					closest = p;
+	// 				}
+	// 			}
+	// 			// console.log("distance to closest gathering point:", minDist);
+	// 			console.log("Closest gathering point:", closest);
+	// 			if (closest) {
+	// 				form.setValue(
+	// 					"meetingPoint",
+	// 					{ id: closest.id, name: closest.name },
+	// 					{ shouldValidate: true }
+	// 				);
+	// 			}
+	// 		},
+	// 		() => {
+	// 			/* ignore geolocation errors */
+	// 		},
+	// 		{ enableHighAccuracy: true, timeout: 5000, maximumAge: 60_000 }
+	// 	);
 
-		return () => {
-			mounted = false;
-		};
-	}, [gatheringPoints, form]);
+	// 	return () => {
+	// 		mounted = false;
+	// 	};
+	// }, [gatheringPoints, form]);
 
 	const isAr = lang === "ar";
 	const today = startOfToday();
@@ -301,6 +302,13 @@ export function BookingForm({
 								<p className="text-[#364153]">
 									{isAr ? "عدد الأشخاص حسب الفئات" : "People by age group"}
 								</p>
+								{typeof leftSeats === "number" && (
+									<span className="ms-2 rounded-full bg-[#ecfdf5] text-[#065f46] text-xs px-3 py-1">
+										{isAr
+											? `المقاعد المتاحة: ${leftSeats}`
+											: `Available seats: ${leftSeats}`}
+									</span>
+								)}
 							</div>
 
 							<div className="divide-y rounded-xl border bg-[#fffefb]">

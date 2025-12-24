@@ -12,7 +12,7 @@ const getData = cache(async (lang) => {
 	// need to revalidate on every request (which would prevent caching/deduplication).
 	// If you need revalidation, use 'next: { revalidate: N }' instead of 'no-store'
 	const res = await fetch(
-		`${API_BETA_URL}/landing/landing-bus-trip/booking-data?package_id=67`,
+		`${API_BASE_URL_NEW}/landing/landing-bus-trip/booking-data?package_id=96`,
 		{
 			headers: { lang },
 		}

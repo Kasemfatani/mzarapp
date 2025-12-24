@@ -86,9 +86,9 @@ export function WhyChooseUs( { lang } ) {
 
             {/* CTA Button */}
             <div className="mt-10">
-              <button className="bg-[#3C6652] text-white px-10 py-4 rounded-xl hover:bg-[#1E3A5F] transition-all shadow-lg hover:shadow-xl hover:scale-105" style={{  fontWeight: 500 }}>
+              <a href="/all-trips" className="bg-[#3C6652] text-white px-10 py-4 rounded-xl hover:bg-[#1E3A5F] transition-all shadow-lg hover:shadow-xl hover:scale-105" style={{  fontWeight: 500 }}>
                 {isAr ? 'اكتشف الفرق بنفسك' : 'Discover the Difference Yourself'}
-              </button>
+              </a>
             </div>
           </div>
 

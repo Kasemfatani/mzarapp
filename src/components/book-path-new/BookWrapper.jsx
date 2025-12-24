@@ -155,7 +155,7 @@ export default function BookTourPage({ lang, busData, disabledDays = [] }) {
 						time_id: v.time.id,
 					});
 					fetch(
-						`${API_BETA_URL}/landing/trip/check-availability?${params.toString()}`,
+						`${API_BASE_URL_NEW}/landing/trip/check-availability?${params.toString()}`,
 						{
 							method: "GET",
 							headers: { lang: lang || "en" },
@@ -241,7 +241,7 @@ export default function BookTourPage({ lang, busData, disabledDays = [] }) {
 			};
 			console.log("Booking payload:", payload);
 
-			const res = await fetch(`${API_BETA_URL}/landing/trip/booking`, {
+			const res = await fetch(`${API_BASE_URL_NEW}/landing/trip/booking`, {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify(payload),

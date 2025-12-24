@@ -157,16 +157,17 @@ export default function BookTourPage({ busData, lang }) {
 	// Availability check when date + time change
 	useEffect(() => {
 		const sub = form.watch((values, { name }) => {
-			if (name === "date" || name === "time") {
+			if (name === "date" || name === "time" || name === "meetingPoint") {
 				const v = form.getValues();
-				if (v.date && v.time?.id && busData?.id) {
+				if (v.date && v.time?.id && busData?.id && v.meetingPoint?.id) {
 					const params = new URLSearchParams({
 						bus_id: busData.id,
 						date: format(v.date, "yyyy-MM-dd"),
 						time_id: v.time.id,
+						gathering_point_id: v.meetingPoint.id,
 					});
 					fetch(
-						`${API_BETA_URL}/customer/landing-bus-trip/check-availability?${params.toString()}`,
+						`${API_BASE_URL_NEW}/landing/landing-bus-trip/check-availability?${params.toString()}`,
 						{
 							method: "GET",
 							headers: { lang: lang || "en" },
@@ -177,10 +178,10 @@ export default function BookTourPage({ busData, lang }) {
 							if (data.status && data.data) {
 								setLeftSeats(data.data.left_seats);
 							} else {
-								setLeftSeats(0);
+								setLeftSeats(null);
 							}
 						})
-						.catch(() => setLeftSeats(0));
+						.catch(() => setLeftSeats(null));
 				} else {
 					setLeftSeats(null);
 				}
@@ -207,7 +208,7 @@ export default function BookTourPage({ busData, lang }) {
 
 				// clear previously selected time
 				form.setValue("time", undefined, { shouldValidate: true });
-
+				
 				// if a date is already chosen, recompute that day's times
 				if (values.date) {
 					const dayIdx = values.date.getDay();
@@ -290,7 +291,7 @@ export default function BookTourPage({ busData, lang }) {
 			console.log("Booking payload:", payload);
 
 			const res = await fetch(
-				`${API_BETA_URL}/landing/landing-bus-trip/booking`,
+				`${API_BASE_URL_NEW}/landing/landing-bus-trip/booking`,
 				{
 					method: "POST",
 					headers: { "Content-Type": "application/json" },
@@ -415,6 +416,8 @@ export default function BookTourPage({ busData, lang }) {
 								busId={busData.id}
 								disabledDays={disabledDays}
 								groupAgePrices={busData.group_age_prices || []}
+								leftSeats={leftSeats}
+								
 							/>
 
 							{/* Promo section (after form) */}

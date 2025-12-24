@@ -179,7 +179,7 @@ export function SpecialOffers({ lang }) {
 		>
 			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 				{/* Section Header */}
-				<div className="text-center mb-16">
+				{/* <div className="text-center mb-16">
 					<h2
 						className="text-[#3C6652] mb-4 font-bold"
 						style={{  fontSize: "2.5rem" }}
@@ -195,14 +195,14 @@ export function SpecialOffers({ lang }) {
 					>
 						{isAr ? "خصومات مميزة على أشهر التجارب ــ لفترة محدودة!" : "Real discounts on the most popular tours — for a limited time only!"}
 					</p>
-				</div>
+				</div> */}
 
 				{/* Offers Grid */}
-				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 mb-16">
+				{/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 mb-16">
 					{offers.map((offer, index) => (
 						<OfferCard key={index} {...offer} isAr={isAr} />
 					))}
-				</div>
+				</div> */}
 
 				{/* Bottom CTA Banner */}
 				<div className="bg-gradient-to-r from-[#3C6652] to-[#1E3A5F] rounded-3xl p-8 md:p-10 text-center shadow-2xl border border-[#867957]/20">
@@ -222,7 +222,8 @@ export function SpecialOffers({ lang }) {
 						>
               {isAr ? "مرشد ذكي صوتي بـ6 لغات، ومحطات غنية بالقصص تجوب بك أبرز معالم مكة المكرمة" : "A smart audio guide in 6 languages, with story-rich stops that take you through Makkah’s most prominent landmarks."}
 						</p>
-						<button
+						<a 
+							href="/all-trips"
 							className="bg-white text-[#3C6652] px-12 py-4 rounded-xl hover:bg-[#E7D3AF] transition-all shadow-lg hover:shadow-xl hover:scale-105 inline-flex items-center gap-3"
 							style={{
 								
@@ -231,7 +232,7 @@ export function SpecialOffers({ lang }) {
 						>
 							<span className="text-lg">{isAr ? "استكشف الآن!" : "Explore Now!"}</span>
 							{isAr ? <ArrowLeft size={20} /> : <ArrowRight size={20} />}
-						</button>
+						</a>
 					</div>
 				</div>
 			</div>

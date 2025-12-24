@@ -23,13 +23,13 @@ export function TripsGrid({ lang, trips }) {
 
 	// Pagination state
 	const [currentPage, setCurrentPage] = useState(1);
-	const [itemsPerPage, setItemsPerPage] = useState(6);
+	const [itemsPerPage, setItemsPerPage] = useState(9);
 
 	// Determine itemsPerPage based on viewport width
 	useEffect(() => {
 		function update() {
 			const w = window.innerWidth;
-			if (w >= 1024) setItemsPerPage(6); // desktop: 6 (3 cols x 2 rows)
+			if (w >= 1024) setItemsPerPage(9); // desktop: 9 (3 cols x 3 rows)
 			else if (w >= 768) setItemsPerPage(4); // tablet: 4 (2 cols x 2 rows)
 			else setItemsPerPage(3); // mobile: 3 (single column stacked)
 		}
@@ -93,6 +93,16 @@ function TripCard({ trip, isAr }) {
 		cityName = isAr ? "مكة المكرمة" : "Makkah";
 	} else if (trip.city_id === 2) {
 		cityName = isAr ? "المدينة المنورة" : "Madinah";
+	}
+
+	let link = `/book-path-new/${trip.id}`;
+
+	if (trip.id === 88) {
+		link = `/book-haram-new`;
+	} else if (trip.id === 96) {
+		link = `/book-tour-new`;
+	} else if (trip.id === 87) {
+		link = `/book-madinah-new`;
 	}
 
 	return (
@@ -201,12 +211,13 @@ function TripCard({ trip, isAr }) {
 						</a>
 
 						{/* Secondary Button */}
-						<button
-							className="flex-1 px-4 py-2.5 border-2 border-[#E7D3AF] text-[#3C6652] rounded-xl hover:bg-[#E7D3AF] hover:border-[#E7D3AF] transition-all duration-300"
+						<a 
+							href={link}
+							className="flex-1 px-4 py-2.5 border-2 border-[#E7D3AF] text-[#3C6652] rounded-xl hover:bg-[#E7D3AF] hover:border-[#E7D3AF] transition-all duration-300 text-center"
 							style={{ fontWeight: 500 }}
 						>
 							{isAr ? "احجز الآن" : "Book Now"}
-						</button>
+						</a>
 					</div>
 				</div>
 			</div>

@@ -1,6 +1,20 @@
 "use client";
 
+import { el } from "date-fns/locale";
 import { Star, Clock, TrendingUp, MapPin, Users } from "lucide-react";
+
+const CURRENCY_SVG = (
+	<svg
+		viewBox="0 0 1124.14 1256.39"
+		width="1em"
+		height="1em"
+		fill="currentColor"
+		style={{ display: "inline", verticalAlign: "top" }}
+	>
+		<path d="M699.62,1113.02h0c-20.06,44.48-33.32,92.75-38.4,143.37l424.51-90.24c20.06-44.47,33.31-92.75,38.4-143.37l-424.51,90.24Z" />
+		<path d="M1085.73,895.8c20.06-44.47,33.32-92.75,38.4-143.37l-330.68,70.33v-135.2l292.27-62.11c20.06-44.47,33.32-92.75,38.4-143.37l-330.68,70.27V66.13c-50.67,28.45-95.67,66.32-132.25,110.99v403.35l-132.25,28.11V0c-50.67,28.44-95.67,66.32-132.25,110.99v525.69l-295.91,62.88c-20.06,44.47-33.33,92.75-38.42,143.37l334.33-71.05v170.26l-358.3,76.14c-20.06,44.47-33.32,92.75-38.4,143.37l375.04-79.7c30.53-6.35,56.77-24.4,73.83-49.24l68.78-101.97v-.02c7.14-10.55,11.3-23.27,11.3-36.97v-149.98l132.25-28.11v270.4l424.53-90.28Z" />
+	</svg>
+);
 
 export function FeaturedToursCard({
 	id,
@@ -16,6 +30,17 @@ export function FeaturedToursCard({
 	isPopular = false,
   isAr = false,
 }) {
+
+	let link = `/book-path-new/${id}`;
+
+	if (id === 88) {
+		link = `/book-haram-new`;
+	} else if (id === 96) {
+		link = `/book-tour-new`;
+	} else if (id === 87) {
+		link = `/book-madinah-new`;
+	}
+
 	return (
 		<div
 			className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group hover:scale-[1.02]"
@@ -75,15 +100,15 @@ export function FeaturedToursCard({
 					<div className="mb-4 text-right">
 						<span
 							className="text-sm text-gray-600"
-							style={{ fontFamily: '"Readex Pro", sans-serif' }}
+							
 						>
 							{isAr ? "ابتداءً من" : "Starting from"}
 						</span>
 						<div
-							className="text-2xl text-[#867957] mt-1"
-							style={{ fontFamily: '"Amiri", serif', fontWeight: 700 }}
+							className="text-2xl text-[#867957] mt-1 "
+							style={{  fontWeight: 700 }}
 						>
-							{start_price.toFixed(2)} <span className="text-lg">{isAr ? "ريال" : "SAR"}</span>
+							<span className="text-lg rtl flex items-center gap-1">{start_price.toFixed(2)} {CURRENCY_SVG}</span>
 						</div>
 					</div>
 
@@ -94,7 +119,7 @@ export function FeaturedToursCard({
 								className="flex items-center gap-2 text-gray-600 text-sm"
 								style={{ fontFamily: '"Readex Pro", sans-serif' }}
 							>
-								<span>{duration} {isAr ? "ساعات" : "hours"}</span>
+								<span>{duration}</span>
 								<Clock size={16} className="text-[#867957]" />
 							</div>
 							<div
@@ -140,12 +165,13 @@ export function FeaturedToursCard({
 					>
 						{isAr ? "شاهد التفاصيل" : "View Details"}
 					</a>
-					<button
-						className="w-full text-[#867957] hover:text-[#3C6652] transition-colors"
+					<a
+						href={link}
+						className="w-full text-[#867957] hover:text-[#3C6652] transition-colors text-center"
 						style={{ fontFamily: '"Readex Pro", sans-serif', fontWeight: 500 }}
 					>
 						{isAr ? "احجز الآن ←" : "Book Now →"}
-					</button>
+					</a>
 				</div>
 			</div>
 		</div>

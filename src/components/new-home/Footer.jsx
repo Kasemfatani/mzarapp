@@ -39,7 +39,7 @@ export default function Footer() {
 		>
 			{/* Main Footer Content */}
 			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 justify-center">
+				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 lg:gap-8 justify-center">
 					{/* Column 1 - Logo & Description */}
 					<div className="lg:col-span-1 mx-auto text-center md:text-start">
 						{/* Logo */}
@@ -108,7 +108,7 @@ export default function Footer() {
 						>
 							<li>
 								<a
-									href="#home"
+									href="/"
 									className="text-gray-600 hover:text-[#867957] transition-colors text-sm block"
 								>
 									{isAr ? 'الرئيسية' : 'Home'}
@@ -116,13 +116,13 @@ export default function Footer() {
 							</li>
 							<li>
 								<a
-									href="#tours"
+									href="/all-trips"
 									className="text-gray-600 hover:text-[#867957] transition-colors text-sm block"
 								>
-									{isAr ? 'التجارب' : 'Tours'}
+									{isAr ? 'التجارب' : 'Experiences'}
 								</a>
 							</li>
-							<li>
+							{/* <li>
 								<a
 									href="#offers"
 									className="text-gray-600 hover:text-[#867957] transition-colors text-sm block"
@@ -153,7 +153,7 @@ export default function Footer() {
 								>
 									{isAr ? 'المقالات' : 'Articles'}
 								</a>
-							</li>
+							</li> */}
 						</ul>
 					</div>
 
@@ -213,7 +213,7 @@ export default function Footer() {
 					</div> */}
 
 					{/* Column 4 - Customer Support */}
-					<div className="mx-auto  text-center">
+					{/* <div className="mx-auto  text-center">
 						<h3
 							className="text-[#3C6652] mb-5 font-semibold"
 							
@@ -258,7 +258,7 @@ export default function Footer() {
 							</li>
 							
 						</ul>
-					</div>
+					</div> */}
 
 					{/* Column 5 - Contact Information */}
 					<div className="mx-auto  text-center">

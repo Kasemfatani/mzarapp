@@ -186,18 +186,18 @@ export default function Header() {
 							}}
 						>
 							<a
-								href="#home"
+								href="/"
 								className="text-[#3C6652] hover:text-[#867957] transition-colors"
 							>
 								{isAr ? "الرئيسية" : "Home"}
 							</a>
 							<a
-								href="#trips"
+								href="/all-trips"
 								className="text-[#3C6652] hover:text-[#867957] transition-colors"
 							>
-								{isAr ? "الجولات" : "Trips"}
+								{isAr ? 'التجارب' : 'Experiences'}
 							</a>
-							<a
+							{/* <a
 								href="#routes"
 								className="text-[#3C6652] hover:text-[#867957] transition-colors"
 							>
@@ -214,12 +214,12 @@ export default function Header() {
 								className="text-[#3C6652] hover:text-[#867957] transition-colors"
 							>
 								{isAr ? "تواصل معنا" : "Contact Us"}
-							</a>
+							</a> */}
 						</nav>
 
 						{/* Desktop CTA */}
 						<div className="hidden lg:flex items-center gap-4">
-							<button
+							{/* <button
 								className="bg-[#3C6652] text-white px-8 py-3 rounded-lg hover:bg-[#1E3A5F] transition-all shadow-md hover:shadow-lg"
 								style={{
 									
@@ -227,7 +227,7 @@ export default function Header() {
 								}}
 							>
 								{isAr ? "احجز الآن" : "Book Now"}
-							</button>
+							</button> */}
 						</div>
 
 						{/* Mobile menu button */}
@@ -250,18 +250,18 @@ export default function Header() {
 								}}
 							>
 								<a
-									href="#home"
+									href="/"
 									className="text-[#3C6652] hover:text-[#857856] transition-colors"
 								>
 									{isAr ? "الرئيسية" : "Home"}
 								</a>
 								<a
-									href="#trips"
+									href="/all-trips"
 									className="text-[#3C6652] hover:text-[#857856] transition-colors"
 								>
-									{isAr ? "الجولات" : "Trips"}
+									{isAr ? 'التجارب' : 'Experiences'}
 								</a>
-								<a
+								{/* <a
 									href="#routes"
 									className="text-[#3C6652] hover:text-[#857856] transition-colors"
 								>
@@ -278,8 +278,8 @@ export default function Header() {
 									className="text-[#3C6652] hover:text-[#857856] transition-colors"
 								>
 									{isAr ? "تواصل معنا" : "Contact Us"}
-								</a>
-								<button
+								</a> */}
+								{/* <button
 									className="bg-[#3C6652] text-white px-6 py-3 rounded-lg hover:bg-[#1E3A5F] transition-colors"
 									style={{
 										
@@ -287,7 +287,7 @@ export default function Header() {
 									}}
 								>
 									{isAr ? "احجز الآن" : "Book Now"}
-								</button>
+								</button> */}
 							</nav>
 						</div>
 					)}
