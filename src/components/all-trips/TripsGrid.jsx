@@ -105,6 +105,11 @@ function TripCard({ trip, isAr }) {
 		link = `/book-madinah`;
 	}
 
+	let perPerson = false;
+	if (trip.id === 88 || trip.id === 87) {
+		perPerson = true;
+	}
+
 	return (
 		<div className="group bg-white rounded-[20px] shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden hover:-translate-y-1 flex flex-col h-full">
 			{/* Image Section */}
@@ -196,6 +201,11 @@ function TripCard({ trip, isAr }) {
 							<span dir="rtl">
 								{trip.start_price.toFixed(2)} {CURRENCY_SVG}
 							</span>
+							{perPerson && (
+								<span className="text-sm " >
+									 {" "}{isAr ? "للفرد الواحد " : " per person"}
+								</span>
+							)}
 						</div>
 					</div>
 
