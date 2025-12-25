@@ -7,11 +7,10 @@ import {
 	Headphones,
 	Facebook,
 	Instagram,
-	Twitter,
+	// Twitter,   <-- removed
 } from "lucide-react";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-
 
 // TikTok Icon
 const TikTokIcon = () => (
@@ -20,22 +19,41 @@ const TikTokIcon = () => (
 	</svg>
 );
 
+// YouTube Icon
+const YouTubeIcon = () => (
+	<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+		<path d="M23.5 6.2s-.2-1.7-.8-2.5c-.8-1-1.7-1-2.1-1.1C16.6 2 12 2 12 2s-4.6 0-8.6.6c-.4.1-1.3.1-2.1 1.1-.6.8-.8 2.5-.8 2.5S.5 8 0 9v6c.5 1 .5 2.8.5 2.8s.2 1.7.8 2.5c.8 1 1.8 1 2.3 1.1C7.4 22 12 22 12 22s4.6 0 8.6-.6c.4-.1 1.3-.1 2.1-1.1.6-.8.8-2.5.8-2.5S23.5 16 24 15V9c-.5-1-.5-2.8-.5-2.8zM9.8 15.5V8.5l6 3.5-6 3.5z" />
+	</svg>
+);
+
+// LinkedIn Icon
+const LinkedInIcon = () => (
+	<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+		<path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM.5 8h4V23h-4V8zm7 0h3.8v2.1h.1c.5-.9 1.8-1.9 3.6-1.9 3.8 0 4.5 2.5 4.5 5.7V23h-4v-7.2c0-1.7 0-3.9-2.4-3.9-2.4 0-2.8 1.9-2.8 3.8V23h-4V8z" />
+	</svg>
+);
+
+// X (formerly Twitter) Icon
+const XIcon = () => (
+	<i className="fa-brands fa-x-twitter "></i>
+);
+
 export default function Footer() {
+	const [language, setLanguage] = useState("en"); // Default language is 'en'
 
-  const [language, setLanguage] = useState("en"); // Default language is 'en'
-
-  useEffect(() => {
+	useEffect(() => {
 		if (typeof window !== "undefined") {
-			
 			setLanguage(localStorage.getItem("lang"));
 		}
 	}, [language]);
 
-  const isAr = language === "ar";
+	const isAr = language === "ar";
 
 	return (
 		<footer
-			className={`bg-gradient-to-b from-[#F5F5F5] to-[#E7D3AF]/20 ${language === "en" ? "ltr" : "rtl"}`}
+			className={`bg-gradient-to-b from-[#F5F5F5] to-[#E7D3AF]/20 ${
+				language === "en" ? "ltr" : "rtl"
+			}`}
 		>
 			{/* Main Footer Content */}
 			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -62,7 +80,9 @@ export default function Footer() {
 								lineHeight: "1.7",
 							}}
 						>
-              {isAr ? 'منصة مزار توفر لك أفضل التجارب والرحلات داخل مكة والمدينة مع حجز فوري وتجربة موثوقة.' : 'The Mzar platform offers you the finest experiences and journeys in Makkah and Madinah, with instant booking and a trusted experience.'}
+							{isAr
+								? "منصة مزار توفر لك أفضل التجارب والرحلات داخل مكة والمدينة مع حجز فوري وتجربة موثوقة."
+								: "The Mzar platform offers you the finest experiences and journeys in Makkah and Madinah, with instant booking and a trusted experience."}
 						</p>
 
 						{/* Trust Badges */}
@@ -76,7 +96,7 @@ export default function Footer() {
 										fontWeight: 500,
 									}}
 								>
-									{isAr ? 'حجز آمن وموثوق' : 'Secure and Trusted Booking'}
+									{isAr ? "حجز آمن وموثوق" : "Secure and Trusted Booking"}
 								</span>
 							</div>
 							<div className="flex justify-center md:justify-start items-center gap-2 text-[#3C6652]">
@@ -88,7 +108,7 @@ export default function Footer() {
 										fontWeight: 500,
 									}}
 								>
-									{isAr ? 'دعم على مدار الساعة' : '24/7 Support'}
+									{isAr ? "دعم على مدار الساعة" : "24/7 Support"}
 								</span>
 							</div>
 						</div>
@@ -96,22 +116,16 @@ export default function Footer() {
 
 					{/* Column 2 - Quick Links */}
 					<div className="mx-auto  text-center">
-						<h3
-							className="text-[#3C6652] mb-5 font-semibold"
-							
-						>
-							{isAr ? 'روابط سريعة' : 'Quick Links'}
+						<h3 className="text-[#3C6652] mb-5 font-semibold">
+							{isAr ? "روابط سريعة" : "Quick Links"}
 						</h3>
-						<ul
-							className="space-y-3"
-							
-						>
+						<ul className="space-y-3">
 							<li>
 								<a
 									href="/"
 									className="text-gray-600 hover:text-[#867957] transition-colors text-sm block"
 								>
-									{isAr ? 'الرئيسية' : 'Home'}
+									{isAr ? "الرئيسية" : "Home"}
 								</a>
 							</li>
 							<li>
@@ -119,7 +133,7 @@ export default function Footer() {
 									href="/all-trips"
 									className="text-gray-600 hover:text-[#867957] transition-colors text-sm block"
 								>
-									{isAr ? 'التجارب' : 'Experiences'}
+									{isAr ? "التجارب" : "Experiences"}
 								</a>
 							</li>
 							{/* <li>
@@ -262,16 +276,10 @@ export default function Footer() {
 
 					{/* Column 5 - Contact Information */}
 					<div className="mx-auto  text-center">
-						<h3
-							className="text-[#3C6652] mb-5 font-semibold"
-							
-						>
-						 	{isAr ? 'تواصل معنا' : 'Contact Us'}
+						<h3 className="text-[#3C6652] mb-5 font-semibold">
+							{isAr ? "تواصل معنا" : "Contact Us"}
 						</h3>
-						<div
-							className="space-y-4"
-							
-						>
+						<div className="space-y-4">
 							{/* Email */}
 							<div className="flex items-center gap-2">
 								<i className="fa-solid fa-envelope text-[#867957]"></i>
@@ -306,8 +314,6 @@ export default function Footer() {
 								</a>
 							</div>
 
-							
-
 							{/* Location */}
 							<div className="flex items-start gap-3">
 								<MapPin
@@ -315,21 +321,56 @@ export default function Footer() {
 									className="text-[#867957] flex-shrink-0 mt-0.5"
 								/>
 								<span className="text-gray-600 text-sm">
-									{isAr ? 'المملكة العربية السعودية ــ مكة المكرمة ' : 'Saudi Arabia ــ Makkah'}
+									{isAr
+										? "المملكة العربية السعودية ــ مكة المكرمة "
+										: "Saudi Arabia ــ Makkah"}
 								</span>
 							</div>
 
 							{/* Social Media */}
 							<div className="pt-4">
-								<p
-									className="text-xs text-gray-500 mb-3"
-									
-								>
-								 	{isAr ? 'تابعنا على' : 'Follow us on'}
+								<p className="text-xs text-gray-500 mb-3">
+									{isAr ? "تابعنا على" : "Follow us on"}
 								</p>
 								<div className="flex items-center gap-3">
 									<a
-										href="https://www.facebook.com/mzarapp" target="_blank" rel="noopener noreferrer"
+										href="https://www.youtube.com/@mzarapp"
+										target="_blank"
+										rel="noopener noreferrer"
+										className="w-9 h-9 rounded-full bg-white border border-gray-200 hover:bg-[#867957] hover:border-[#867957] transition-all flex items-center justify-center group shadow-md"
+										aria-label="YouTube"
+									>
+										<YouTubeIcon />
+									</a>
+
+									<a
+										href="https://www.linkedin.com/company/mzarapp"
+										target="_blank"
+										rel="noopener noreferrer"
+										className="w-9 h-9 rounded-full bg-white border border-gray-200 hover:bg-[#867957] hover:border-[#867957] transition-all flex items-center justify-center group shadow-md"
+										aria-label="LinkedIn"
+									>
+										<div className="text-gray-600 group-hover:text-white transition-colors">
+											<LinkedInIcon />
+										</div>
+									</a>
+
+									<a
+										href="https://x.com/mzarapp"
+										target="_blank"
+										rel="noopener noreferrer"
+										className="w-9 h-9 rounded-full bg-white border border-gray-200 hover:bg-[#867957] hover:border-[#867957] transition-all flex items-end justify-center group shadow-md"
+										aria-label="X"
+									>
+										<div className="text-gray-600 group-hover:text-white transition-colors">
+											<XIcon />
+										</div>
+									</a>
+
+									<a
+										href="https://www.facebook.com/mzarapp"
+										target="_blank"
+										rel="noopener noreferrer"
 										className="w-9 h-9 rounded-full bg-white border border-gray-200 hover:bg-[#867957] hover:border-[#867957] transition-all flex items-center justify-center group shadow-md"
 										aria-label="Facebook"
 									>
@@ -339,7 +380,9 @@ export default function Footer() {
 										/>
 									</a>
 									<a
-										href="https://www.instagram.com/mzarapp/" target="_blank" rel="noopener noreferrer"
+										href="https://www.instagram.com/mzarapp/"
+										target="_blank"
+										rel="noopener noreferrer"
 										className="w-9 h-9 rounded-full bg-white border border-gray-200 hover:bg-[#867957] hover:border-[#867957] transition-all flex items-center justify-center group shadow-md"
 										aria-label="Instagram"
 									>
@@ -349,17 +392,9 @@ export default function Footer() {
 										/>
 									</a>
 									<a
-										href="https://x.com/mzarapp" target="_blank" rel="noopener noreferrer"
-										className="w-9 h-9 rounded-full bg-white border border-gray-200 hover:bg-[#867957] hover:border-[#867957] transition-all flex items-center justify-center group shadow-md"
-										aria-label="Twitter"
-									>
-										<Twitter
-											size={16}
-											className="text-gray-600 group-hover:text-white transition-colors"
-										/>
-									</a>
-									<a
-										href="https://www.tiktok.com/@mzarapp" target="_blank" rel="noopener noreferrer"
+										href="https://www.tiktok.com/@mzarapp"
+										target="_blank"
+										rel="noopener noreferrer"
 										className="w-9 h-9 rounded-full bg-white border border-gray-200 hover:bg-[#867957] hover:border-[#867957] transition-all flex items-center justify-center group shadow-md"
 										aria-label="TikTok"
 									>
@@ -377,13 +412,11 @@ export default function Footer() {
 			{/* Bottom Bar */}
 			<div className="border-t border-gray-200">
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-					<div
-						className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm"
-						
-					>
+					<div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm">
 						{/* Copyright */}
 						<div className="text-gray-600 text-center md:text-right order-2 md:order-1">
-							© {language === "en"
+							©{" "}
+							{language === "en"
 								? "Licensed by the Ministry of Tourism, license number 73104705 | Licensed Activity: Tour Organization"
 								: "مرخصة من وزارة السياحة رقم الترخيص 73104705 | تنظيم الرحلات السياحية"}
 						</div>
@@ -391,10 +424,10 @@ export default function Footer() {
 						{/* Powered by */}
 						<div className="text-gray-500 text-xs text-center md:text-left order-1 md:order-2">
 							{language === "en" ? (
-							<>CR: 4031282010</>
-						) : (
-							<>السجل التجاري : 4031282010</>
-						)}
+								<>CR: 4031282010</>
+							) : (
+								<>السجل التجاري : 4031282010</>
+							)}
 						</div>
 					</div>
 				</div>

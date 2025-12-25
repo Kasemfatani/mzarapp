@@ -75,8 +75,8 @@ export default function HeroSection({ lang }) {
 						}}
 					>
 						{isAr
-							? "استمتع بأفضل الرحلات الدينية والتاريخية في مكة والمدينة مع تجربة استثنائية"
-							: "Enjoy the finest religious and historical journeys in Makkah and Madinah through an exceptional and enriching experience"}
+							? "استمتع بأفضل التجارب الدينية والتاريخية في مكة والمدينة مع تجربة استثنائية"
+							: "Enjoy the finest religious and historical experiences in Makkah and Madinah through an exceptional and enriching experience"}
 					</p>
 
 					{/* Action Buttons */}
