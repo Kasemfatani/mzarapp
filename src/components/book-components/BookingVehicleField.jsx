@@ -48,7 +48,7 @@ export function BookingVehicleField({
 							</SelectTrigger>
 							<SelectContent>
 								{vehicles.map((item) => (
-									<SelectItem key={item.id} value={String(item.id)}>
+									<SelectItem key={item.id} value={String(item.id)} disabled={!item.is_enabled}>
 										{item.image && (
 											<Image
 												src={item.image}
