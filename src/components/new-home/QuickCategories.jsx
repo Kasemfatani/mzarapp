@@ -32,7 +32,7 @@ export default function QuickCategories({ lang }) {
 		},
 		{
 			icon: <Landmark size={56} strokeWidth={1.5} />,
-			title: isAr ? "الرحلات الإثرائية" : "Enrichment Journeys",
+			title: isAr ? "التجارب الإثرائية" : "Enrichment Experiences",
 			description: isAr
 				? "استكشاف المعالم الدينية والتاريخية في مكة والمدينة "
 				: "Explore the most significant religious and historical landmarks in Makkah and Madinah",
@@ -40,9 +40,9 @@ export default function QuickCategories({ lang }) {
 		},
 		{
 			icon: <Users size={56} strokeWidth={1.5} />,
-			title: isAr ? "حافلة الجولات الإثرائية " : "Enrichment Tours Bus",
+			title: isAr ? "حافلة التجارب الإثرائية " : "Enrichment Experiences Bus",
 			description: isAr
-				? "رحلة تشاركية إلى أبرز معالم مكة التاريخية والثقافية "
+				? "تجربة تشاركية إلى أبرز معالم مكة التاريخية والثقافية "
 				: "A shared tour experience to Makkah’s most prominent historical and cultural landmarks",
 			type: 3,
 		},

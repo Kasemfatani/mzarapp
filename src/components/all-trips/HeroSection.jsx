@@ -43,8 +43,8 @@ export default function HeroSection({ lang , totalResults }) {
 					style={{ fontFamily: "Tajawal, sans-serif" }}
 				>
 					{isAr
-						? "استكشف جميع الجولات والتجارب المتوفّرة في مكة والمدينة — رحلات معتمدة، مرشدين متخصصين، وحجوزات فورية بسهولة تامة."
-						: "Explore all available tours and experiences in Mecca and Medina — certified trips, specialized guides, and instant bookings with ease."}
+						? "استكشف جميع الجولات والتجارب المتوفّرة في مكة والمدينة من خلال رحلات معتمدة، مرشدين متخصصين، وحجوزات فورية بسهولة تامة."
+						: "Explore all available tours and experiences in Mecca and Medina through certified trips, specialized guides, and instant bookings with ease."}
 				</p>
 
 				{/* Dynamic Counter Badge */}

@@ -47,10 +47,7 @@ export default function Header() {
 			{/* Top Bar */}
 			<div className="bg-[#3C6652] text-white py-2" dir={isAr ? "rtl" : "ltr"}>
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-					<div
-						className="flex flex-col md:flex-row items-center justify-between text-sm"
-						
-					>
+					<div className="flex flex-col md:flex-row items-center justify-between text-sm">
 						<div className="flex items-center justify-center gap-2 flex-wrap mb-2 md:mb-0">
 							<a
 								href="mailto:contact@mzarapp.com"
@@ -62,7 +59,6 @@ export default function Header() {
 							<a
 								href="tel:920005785"
 								className="flex items-center gap-1 hover:underline"
-								
 							>
 								<i className="fa-solid fa-phone"></i>
 								920005785
@@ -77,7 +73,7 @@ export default function Header() {
 								+966580121025
 							</a>
 						</div>
-						<div className="flex flex-col md:flex-row items-center gap-3 md:gap-6">							
+						<div className="flex flex-col md:flex-row items-center gap-3 md:gap-6">
 							<div className="flex items-center gap-4">
 								<a
 									href="https://www.youtube.com/@mzarapp"
@@ -100,12 +96,32 @@ export default function Header() {
 								>
 									<i className="fa-brands fa-facebook text-white"></i>
 								</a>
+								{/* LinkedIn, TikTok, and X */}
+								<a
+									href="https://www.linkedin.com/company/mzarapp"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									<i className="fa-brands fa-linkedin text-white"></i>
+								</a>
+								<a
+									href="https://www.tiktok.com/@mzarapp"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									<i className="fa-brands fa-tiktok text-white"></i>
+								</a>
+								<a
+									href="https://x.com/mzarapp"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									<i className="fa-brands fa-x-twitter text-white"></i>
+								</a>
 							</div>
 							<div className="flex items-start gap-2">
-								
 								<button
 									className="hover:text-[#E7D3AF] transition-colors"
-									
 									onClick={() => {
 										const nextLang = "ar";
 
@@ -131,7 +147,6 @@ export default function Header() {
 								<span>|</span>
 								<button
 									className="hover:text-[#E7D3AF] transition-colors"
-									
 									onClick={() => {
 										const nextLang = "en";
 
@@ -162,7 +177,10 @@ export default function Header() {
 			</div>
 
 			{/* Main Header */}
-			<div className="bg-white shadow-md sticky top-0 z-50" dir={isAr ? "rtl" : "ltr"}>
+			<div
+				className="bg-white shadow-md sticky top-0 z-50"
+				dir={isAr ? "rtl" : "ltr"}
+			>
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 					<div className="flex items-center justify-between h-20">
 						{/* Logo - positioned right in  */}
@@ -181,7 +199,6 @@ export default function Header() {
 						<nav
 							className="hidden lg:flex items-center gap-8"
 							style={{
-								
 								fontWeight: 500,
 							}}
 						>
@@ -195,7 +212,7 @@ export default function Header() {
 								href="/all-trips"
 								className="text-[#3C6652] hover:text-[#867957] transition-colors"
 							>
-								{isAr ? 'التجارب' : 'Experiences'}
+								{isAr ? "التجارب" : "Experiences"}
 							</a>
 							{/* <a
 								href="#routes"
@@ -245,7 +262,6 @@ export default function Header() {
 							<nav
 								className="flex flex-col gap-4"
 								style={{
-									
 									fontWeight: 500,
 								}}
 							>
@@ -259,7 +275,7 @@ export default function Header() {
 									href="/all-trips"
 									className="text-[#3C6652] hover:text-[#857856] transition-colors"
 								>
-									{isAr ? 'التجارب' : 'Experiences'}
+									{isAr ? "التجارب" : "Experiences"}
 								</a>
 								{/* <a
 									href="#routes"

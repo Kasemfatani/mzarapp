@@ -1,6 +1,6 @@
 "use client";
 
-import { is } from 'date-fns/locale';
+
 import { ChevronRight, ChevronLeft, Loader2 } from 'lucide-react';
 import { useState } from 'react';
 

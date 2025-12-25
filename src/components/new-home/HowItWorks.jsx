@@ -10,7 +10,7 @@ export default function HowItWorks( { lang } ) {
       number: '01',
       icon: <Search size={64} strokeWidth={1.5} />,
       title: isAr ? 'اختر تجربتك' : 'Choose Your Experience',
-      description: isAr ? 'تصفّح الجولات المتاحة حسب المدينة أو نوع النشاط' : ' Browse experiences by city or activity type'
+      description: isAr ? 'تصفّح التجارب المتاحة حسب المدينة أو نوع النشاط' : ' Browse experiences by city or activity type'
     },
     {
       number: '02',

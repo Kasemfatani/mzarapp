@@ -38,11 +38,20 @@ export default function HeroSection({ lang }) {
 		<section className="relative min-h-[700px] flex items-center justify-center pt-4">
 			{/* Background Image with Parallax Effect */}
 			<div className="absolute inset-0 z-0">
-				<img
+				{/* <img
 					src="https://images.unsplash.com/photo-1720549973451-018d3623b55a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxrYWFiYSUyMG1ha2thaCUyMG1hc2ppZHxlbnwxfHx8fDE3NjQ0OTUzNzR8MA&ixlib=rb-4.1.0&q=80&w=1080"
 					alt="Holy Kaaba"
 					className="w-full h-full object-cover"
-				/>
+				/> */}
+				<video
+					autoPlay
+					loop
+					muted
+					playsInline
+					className="w-full h-full object-cover"
+				>
+					<source src="/new-home/home-page.webm" type="video/webm" />
+				</video>
 				<div className="absolute inset-0 bg-gradient-to-l from-black/70 via-black/50 to-black/70"></div>
 				{/* Decorative overlay */}
 				<div className="absolute inset-0 bg-gradient-to-t from-[#3C6652]/40 via-transparent to-transparent"></div>
@@ -66,13 +75,13 @@ export default function HeroSection({ lang }) {
 						}}
 					>
 						{isAr
-							? "استمتع بأفضل الرحلات الدينية والتاريخية في مكة والمدينة مع تجربة استثنائية"
-							: "Enjoy the finest religious and historical journeys in Makkah and Madinah through an exceptional and enriching experience"}
+							? "استمتع بأفضل التجارب الدينية والتاريخية في مكة والمدينة مع تجربة استثنائية"
+							: "Enjoy the finest religious and historical experiences in Makkah and Madinah through an exceptional and enriching experience"}
 					</p>
 
 					{/* Action Buttons */}
 					<div className="flex flex-col sm:flex-row gap-4 mb-8 justify-center">
-						<a 
+						<a
 							href="/all-trips"
 							className="bg-[#867957] text-white px-10 py-4 rounded-xl hover:bg-[#3C6652] transition-all shadow-xl hover:shadow-2xl hover:scale-105 transform"
 							style={{
