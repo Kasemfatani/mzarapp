@@ -41,6 +41,11 @@ export function FeaturedToursCard({
 		link = `/book-madinah`;
 	}
 
+	let disableBooking = false;
+	if (id === 87) {
+		disableBooking = true;
+	}
+
 	return (
 		<div
 			className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group hover:scale-[1.02]"
@@ -165,13 +170,23 @@ export function FeaturedToursCard({
 					>
 						{isAr ? "شاهد التفاصيل" : "View Details"}
 					</a>
-					<a
+
+					{disableBooking ? (
+						<a
+						href='#'
+						className="w-full text-[#867957] hover:text-[#3C6652] transition-colors text-center"
+						style={{ fontFamily: '"Readex Pro", sans-serif', fontWeight: 500 }}
+					>
+						{isAr ? " قريباً ..." : "Soon ..."}
+					</a>) : (
+						<a
 						href={link}
 						className="w-full text-[#867957] hover:text-[#3C6652] transition-colors text-center"
 						style={{ fontFamily: '"Readex Pro", sans-serif', fontWeight: 500 }}
 					>
 						{isAr ? "احجز الآن ←" : "Book Now →"}
-					</a>
+					</a> )}
+
 				</div>
 			</div>
 		</div>

@@ -110,6 +110,11 @@ function TripCard({ trip, isAr }) {
 		perPerson = true;
 	}
 
+	let disableBooking = false;
+	if (trip.id === 87) {
+		disableBooking = true;
+	}
+
 	return (
 		<div className="group bg-white rounded-[20px] shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden hover:-translate-y-1 flex flex-col h-full">
 			{/* Image Section */}
@@ -221,13 +226,21 @@ function TripCard({ trip, isAr }) {
 						</a>
 
 						{/* Secondary Button */}
+						{disableBooking ? (
+						<a 
+							href='#'
+							className="flex-1 px-4 py-2.5 border-2 border-[#E7D3AF] text-[#3C6652] rounded-xl hover:bg-[#E7D3AF] hover:border-[#E7D3AF] transition-all duration-300 text-center"
+							style={{ fontWeight: 500 }} disabled
+						>
+							{isAr ? " قريباً ..." : "Soon ..."}
+						</a> ) : (
 						<a 
 							href={link}
 							className="flex-1 px-4 py-2.5 border-2 border-[#E7D3AF] text-[#3C6652] rounded-xl hover:bg-[#E7D3AF] hover:border-[#E7D3AF] transition-all duration-300 text-center"
 							style={{ fontWeight: 500 }}
 						>
 							{isAr ? "احجز الآن" : "Book Now"}
-						</a>
+						</a> )}
 					</div>
 				</div>
 			</div>
