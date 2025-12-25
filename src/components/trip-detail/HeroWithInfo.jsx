@@ -9,10 +9,15 @@ import { BottomBar } from "./BottomBar";
 export function HeroWithInfo({ lang, data }) {
 	const isAr = lang === "ar";
 	// console.log("data:", data);
+
+	const onCancel = () => {
+		if (typeof window !== "undefined") window.history.back();
+	};
+
 	return (
 		<>
 			<div className="container mx-auto px-8 py-2 flex items-center gap-1">
-				<button className="w-10 h-10 flex items-center justify-center rounded-[12px] hover:bg-gray-100 transition-colors">
+				<button onClick={onCancel} className="w-10 h-10 flex items-center justify-center rounded-[12px] hover:bg-gray-100 transition-colors">
 					{isAr ? (
 						<span>
 							<ArrowRight
