@@ -1,5 +1,6 @@
 "use client";
 
+import { is } from 'date-fns/locale';
 import { ChevronRight, ChevronLeft, Loader2 } from 'lucide-react';
 import { useState } from 'react';
 
@@ -222,12 +223,12 @@ export function Pagination({
               {isLoading ? (
                 <>
                   <Loader2 className="w-5 h-5 animate-spin" />
-                  <span>جاري التحميل...</span>
+                  <span >{isAr ? "جاري التحميل" : "Loading"} </span>
                 </>
               ) : (
                 <>
-                  <span>عرض المزيد من الرحلات</span>
-                  <span className="text-xs opacity-75">({totalPages - currentPage} صفحات متبقية)</span>
+                  <span>{isAr ? "عرض المزيد من الرحلات" : "Load more trips"}</span>
+                  <span className="text-xs opacity-75">({totalPages - currentPage}  {isAr ? "صفحات متبقية" : "pages remaining"})</span>
                 </>
               )}
             </button>
