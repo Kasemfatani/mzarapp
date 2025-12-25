@@ -28,6 +28,11 @@ export function BottomBar( { lang , data } ) {
 		link = `/book-madinah`;
 	}
 
+  let disableBooking = false;
+	if (data.id === 87) {
+		disableBooking = true;
+	}
+
   return (
     <motion.div 
       initial={{ y: 100 }}
@@ -55,13 +60,22 @@ export function BottomBar( { lang , data } ) {
           </div>
 
           {/* CTA Button - Premium spacing */}
-          <a 
+          {disableBooking ? (
+						<a 
+            href='#'
+            className="bg-[#857856] hover:bg-[#756849] text-white px-6 py-3 rounded-[18px] flex items-center gap-3 transition-all shadow-md hover:shadow-lg"
+          >
+            
+            <span className="text-[11px] md:text-[18px]  leading-[1.3]">{isAr ? " قريباً ..." : "Soon ..."}</span>
+          </a>) : (
+						<a 
             href={link}
             className="bg-[#857856] hover:bg-[#756849] text-white px-6 py-3 rounded-[18px] flex items-center gap-3 transition-all shadow-md hover:shadow-lg"
           >
             <ArrowLeft className="w-4 h-4" />
             <span className="text-[11px] md:text-[18px]  leading-[1.3]">{isAr ? "احجز الآن" : "Book Now"}</span>
-          </a>
+          </a> )}
+          
         </div>
 
         {/* Trust Badges - Secondary Info */}
