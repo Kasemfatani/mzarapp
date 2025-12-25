@@ -224,9 +224,9 @@ export function BookingForm({
 																target="_blank"
 																rel="noopener noreferrer"
 																onClick={(e) => e.stopPropagation()}
-																className="bg-[#3c6652] text-white rounded-[15px] px-4 py-2 hover:bg-[#2d4d3d] transition-colors"
+																className="bg-[#3c6652] text-white rounded-[15px] px-4 py-2 hover:bg-[#2d4d3d] transition-colors text-sm"
 															>
-																عرض
+																{isAr ? "عرض الموقع" : "View location"}
 															</a>
 														)}
 													</div>
