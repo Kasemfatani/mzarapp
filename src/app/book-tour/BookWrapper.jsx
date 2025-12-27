@@ -35,13 +35,19 @@ const getSchema = (lang, max_people_count = 20) => {
 	return z
 		.object({
 			date: z
-				.date({ invalid_type_error: requiredDate })
+				.date({ invalid_type_error: requiredDate , required_error: requiredDate  })
 				.refine(Boolean, { message: requiredDate }),
 			time: z
-				.object({ id: z.any(), name: z.string() })
+				.object(
+					{ id: z.any(), name: z.string() },
+					{ invalid_type_error: requiredTime, required_error: requiredTime }
+				)
 				.refine((v) => v && v.id && v.name, { message: requiredTime }),
 			meetingPoint: z
-				.object({ id: z.any(), name: z.string() })
+				.object(
+					{ id: z.any(), name: z.string() },
+					{ invalid_type_error: requiredMeet, required_error: requiredMeet }
+				)
 				.refine((v) => v && v.id && v.name, { message: requiredMeet }),
 			people: z.coerce.number().int().min(1).max(max_people_count).default(1),
 			// new: per-age-group quantities
@@ -217,8 +223,8 @@ export default function BookTourPage({ busData, lang }) {
 				setDisabledDays(all.filter((i) => !allowed.includes(i)));
 
 				// clear previously selected time
-				form.setValue("time", undefined, { shouldValidate: true });
-				
+				form.setValue("time", undefined, { shouldValidate: false });
+
 				// if a date is already chosen, recompute that day's times
 				if (values.date) {
 					const dayIdx = values.date.getDay();
@@ -242,7 +248,7 @@ export default function BookTourPage({ busData, lang }) {
 						values.time &&
 						(day?.times || []).some((t) => t.id === values.time.id);
 					if (!hasSelected) {
-						form.setValue("time", undefined, { shouldValidate: true });
+						form.setValue("time", undefined, { shouldValidate: false });
 					}
 				} else {
 					setDayTimes([]);
@@ -375,7 +381,7 @@ export default function BookTourPage({ busData, lang }) {
 					lang,
 					cart_id: cartId,
 					customer_details: {
-						name: '',
+						name: "",
 						email: "customer@gmail.com",
 						whatsapp: whatsapp_country_code + whatsapp,
 					},
@@ -428,7 +434,6 @@ export default function BookTourPage({ busData, lang }) {
 								groupAgePrices={busData.group_age_prices || []}
 								leftSeats={leftSeats}
 								tax={typeof busData?.tax === "number" ? busData.tax : 0}
-								
 							/>
 
 							{/* Promo section (after form) */}
@@ -462,7 +467,11 @@ export default function BookTourPage({ busData, lang }) {
 
 							<CustomerInfoFields lang={lang} form={form} />
 
-							<ActionButtons onConfirm={onConfirm} onCancel={onCancel} lang={lang} />
+							<ActionButtons
+								onConfirm={onConfirm}
+								onCancel={onCancel}
+								lang={lang}
+							/>
 						</div>
 
 						{/* Trip Summary */}

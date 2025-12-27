@@ -195,10 +195,10 @@ export function BookingForm({
 															});
 															// clear date/time on meeting point change for accuracy
 															form.setValue("date", undefined, {
-																shouldValidate: true,
+																shouldValidate: false,
 															});
 															form.setValue("time", undefined, {
-																shouldValidate: true,
+																shouldValidate: false,
 															});
 														}}
 														className={cn(
