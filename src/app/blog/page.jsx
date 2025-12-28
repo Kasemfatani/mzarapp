@@ -1,7 +1,7 @@
 import { cookies, headers } from "next/headers";
 // import { notFound } from "next/navigation";
 // import { API_BASE_URL } from "@/lib/apiConfig";
-import BlogWrapper from "@/components/blogs/BlogWrapper";
+import SingleBlogWrapper from "@/components/blog-new/SingleBlogWrapper";
 
 // import { API_BASE_URL_NEW } from "@/lib/apiConfig";
 
@@ -24,12 +24,12 @@ export function generateMetadata() {
 
 	if (lang === "ar") {
 		return {
-			title: "مقالات",
+			title: "مقال",
 			
 		};
 	}
 	return {
-		title: "Blogs",
+		title: "Blog",
 		
 	};
 }
@@ -41,6 +41,6 @@ export default async function Page() {
 
 
 	return (
-		<BlogWrapper lang={lang} />
+		<SingleBlogWrapper lang={lang} />
 	);
 }
