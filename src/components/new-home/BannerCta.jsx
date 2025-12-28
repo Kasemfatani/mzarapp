@@ -14,7 +14,7 @@ export default function BannerCta({ lang }) {
 				{/* People image */}
 				<div className="w-full md:w-1/2 flex justify-center">
 					<img
-						src="/Home/people-eating.webp"
+						src="/new-home/kaaba.webp"
 						alt=""
 						className="rounded-2xl shadow-xl w-full max-w-md object-cover"
 						style={{ maxHeight: 320 }}
