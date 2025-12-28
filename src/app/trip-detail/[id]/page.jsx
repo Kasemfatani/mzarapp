@@ -44,23 +44,36 @@ function determineLang() {
 	);
 }
 
+// Add: use API data for page metadata
+export async function generateMetadata({ params }) {
+	const { id } = params || {};
+	if (!id) return {};
+	const lang = determineLang();
+	const data = await getData(id, lang);
+	if (!data) return {};
+	return {
+		title: data.meta_title || "",
+		description: data.meta_description || "",
+	};
+}
+
 export const revalidate = 300;
 
-const PATH_IMPORTS = {
-	45: () => import("@/components/data/paths/mashair").then((m) => m.default),
-	49: () =>
-		import("@/components/data/history/revelation").then((m) => m.default),
-	47: () => import("@/components/data/paths/tuwa").then((m) => m.default),
-	73: () => import("@/components/data/paths/quba").then((m) => m.default),
-	74: () => import("@/components/data/paths/uhud").then((m) => m.default),
-	8: () => import("@/components/data/tour/haram").then((m) => m.default),
-	9: () => import("@/components/data/tour/madinah").then((m) => m.default),
-	10: () => import("@/components/data/tour/bus").then((m) => m.default),
-	11: () => import("@/components/data/tour/show").then((m) => m.default),
-	6: () => import("@/components/data/tour/fullMakkah").then((m) => m.default),
-	7: () => import("@/components/data/tour/fullMadinnah").then((m) => m.default),
-	// Add more: 12: () => import("@/components/data/paths/another").then(m => m.default),
-};
+// const PATH_IMPORTS = {
+// 	45: () => import("@/components/data/paths/mashair").then((m) => m.default),
+// 	49: () =>
+// 		import("@/components/data/history/revelation").then((m) => m.default),
+// 	47: () => import("@/components/data/paths/tuwa").then((m) => m.default),
+// 	73: () => import("@/components/data/paths/quba").then((m) => m.default),
+// 	74: () => import("@/components/data/paths/uhud").then((m) => m.default),
+// 	8: () => import("@/components/data/tour/haram").then((m) => m.default),
+// 	9: () => import("@/components/data/tour/madinah").then((m) => m.default),
+// 	10: () => import("@/components/data/tour/bus").then((m) => m.default),
+// 	11: () => import("@/components/data/tour/show").then((m) => m.default),
+// 	6: () => import("@/components/data/tour/fullMakkah").then((m) => m.default),
+// 	7: () => import("@/components/data/tour/fullMadinnah").then((m) => m.default),
+// 	// Add more: 12: () => import("@/components/data/paths/another").then(m => m.default),
+// };
 
 export default async function TourPage({ params }) {
 	const { id } = params;
@@ -106,13 +119,15 @@ export default async function TourPage({ params }) {
 			<SummaryCard lang={lang} data={data} />
 			<HighlightsSection lang={lang} data={data} />
 			<AboutSection lang={lang} data={data} />
-			{data.consists > 0 && data.unconsists > 0 &&  (
-					<InclusionsSection lang={lang} data={data} />
-				)}
+			{data.consists > 0 && data.unconsists > 0 && (
+				<InclusionsSection lang={lang} data={data} />
+			)}
 			{/* <InclusionsSection lang={lang} data={data} /> */}
 			{/* {data.busStops && <BusStops lang={lang} />} */}
 			{data.locations && <Destinations lang={lang} data={data} />}
-			{data.tentatives && data.tentatives.length > 0 && <TimelineSection lang={lang} data={data} />}
+			{data.tentatives && data.tentatives.length > 0 && (
+				<TimelineSection lang={lang} data={data} />
+			)}
 			{/* {data.timelineImg && <TimelineImg lang={lang} data={data} />} */}
 			{data.map_image && <MapSection lang={lang} data={data} />}
 			{Array.isArray(data.assimply_points) &&
