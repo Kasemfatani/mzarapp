@@ -8,17 +8,17 @@ export function TrustReinforcement({isAr}) {
   {
     icon: ShieldCheck,
     title:  isAr ? 'حجز آمن 100%' : '100% Secure Booking',
-    description: isAr ? 'جميع معاملاتك محمية بأعلى معايير الأمان' : 'All your transactions are protected with the highest security standards',
+    description: isAr ? 'جميع البيانات محمية وفق أعلى معايير الأمان والخصوصية.' : 'All data is protected according to the highest security and privacy standards.',
   },
   {
     icon: Award,
     title: isAr ? 'مرشدون معتمدون' : 'Certified Guides',
-    description: isAr ? 'فريق من المرشدين ذوي الخبرة والاعتماد الرسمي' : 'A team of experienced and officially certified guides',
+    description: isAr ? 'نخبة من المرشدين المتخصصين وذوي الاعتماد الرسمي.' : 'A team of specialized and officially certified guides.',
   },
   {
     icon: Headphones,
     title: isAr ? 'دعم متواصل' : 'Continuous Support',
-    description: isAr ? 'فريق الدعم متاح لمساعدتك على مدار الساعة' : 'Support team available to assist you around the clock',
+    description: isAr ? 'فريق الدعم متاح على مدار الساعة لمساعدتك في كل ما تحتاجه. ' : 'Support team available 24/7 to assist you with everything you need.',
   },
 ];
 
@@ -27,7 +27,7 @@ export function TrustReinforcement({isAr}) {
       <div className="container mx-auto max-w-6xl px-6 lg:px-8">
         <div className="mb-12 text-center">
           <p className="text-2xl leading-relaxed text-[#4a5568]">
-           {isAr ? 'نحرص على تقديم تجربة موثوقة من بداية الحجز حتى نهاية الرحلة.' : 'We are committed to providing a reliable experience from booking to the end of the trip.'}
+           {isAr ? 'نحرص على أن تكون تجربتك مريحة وآمنة منذ لحظة الحجز وحتى نهاية الرحلة.' : 'We ensure that your experience is comfortable and secure from the moment of booking until the end of the trip.'}
           </p>
         </div>
 

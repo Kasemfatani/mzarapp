@@ -10,7 +10,7 @@ export function SupportCTA({isAr}) {
         </h2>
 
         <p className="mb-12 text-2xl leading-relaxed text-[#4a5568]">
-          {isAr ? "فريق الدعم جاهز لمساعدتك في أي وقت." : "Our support team is ready to assist you anytime."}
+          {isAr ? "فريقنا جاهز لمساعدتك في أي وقت." : "Our team is ready to assist you at any time."}
         </p>
 
         <div className="flex flex-col justify-center gap-5 sm:flex-row">
