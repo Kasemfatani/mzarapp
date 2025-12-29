@@ -41,7 +41,7 @@ export function AboutSection({ lang , data }) {
         transition={{ duration: 0.6, delay: 0.2 }}
         className="mb-8"
       >
-        <div className="text-[16px] leading-[1.7] text-gray-700 ">
+        <div className="text-[16px] leading-[1.7] text-gray-700 " style={{ whiteSpace: "pre-line" }}>
           {parse(data?.description)}
         </div>
       </motion.div>
