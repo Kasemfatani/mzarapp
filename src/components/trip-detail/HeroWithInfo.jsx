@@ -52,68 +52,69 @@ export function HeroWithInfo({ lang, data }) {
 						initial={{ opacity: 0, y: 50 }}
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ duration: 0.6, delay: 0.3 }}
-						className="w-full max-w-xs md:max-w-2xl bg-white rounded-2xl md:rounded-3xl p-3 md:p-4 shadow-[0px_6px_20px_rgba(0,0,0,0.06)] mb-6 md:mb-8 mx-2 md:mx-4"
+						className="w-full  md:max-w-2xl bg-white rounded-2xl md:rounded-3xl p-2 md:p-4 shadow-[0px_6px_20px_rgba(0,0,0,0.06)] mb-6 md:mb-8 mx-2 md:mx-4"
 					>
-						<div className="flex flex-col md:flex-row justify-center items-start md:items-center gap-6">
+						<div className="flex flex-row justify-center items-center gap-2 md:gap-6">
 							{/* Duration */}
 							<motion.div
 								initial={{ opacity: 0, x: -20 }}
 								animate={{ opacity: 1, x: 0 }}
 								transition={{ duration: 0.5, delay: 0.5 }}
-								className="flex items-center gap-3 md:gap-4"
+								className="flex items-center gap-1 md:gap-4"
 							>
-								<div className="w-12 h-12 md:w-14 md:h-14 rounded-[16px] bg-gradient-to-b from-[#0f3d2e] to-[#1a5a42] flex items-center justify-center">
-									<Clock className="w-6 h-6 md:w-7 md:h-7 text-white" />
+								<div className="w-10 h-10 md:w-14 md:h-14 rounded-[16px] bg-gradient-to-b from-[#0f3d2e] to-[#1a5a42] flex items-center justify-center px-2 md:px-0">
+									<Clock className="w-5 h-5 md:w-7 md:h-7 text-white" />
 								</div>
 								<div>
-									<p className="text-xs text-gray-500 mb-1.5 leading-[1.5]">
+									<p className="text-[10px] text-gray-500 mb-1.5 leading-[1.5]">
 										{isAr ? "المدة" : "Duration"}
 									</p>
-									<p className="text-[16px] md:text-[18px] leading-[1.4] text-[#0f3d2e]">
+									<p className="text-[10px] md:text-[18px] leading-[1.4] text-[#0f3d2e]">
 										{data.duration}
 									</p>
 								</div>
 							</motion.div>
 
 							{/* Divider */}
-							<div className="hidden md:block h-12 w-px bg-gradient-to-b from-[#c9a463] to-transparent"></div>
+							<div className="block h-12 w-px bg-gradient-to-b from-[#c9a463] to-transparent"></div>
 
 							{/* Max Guests */}
 							<motion.div
 								initial={{ opacity: 0, x: -20 }}
 								animate={{ opacity: 1, x: 0 }}
 								transition={{ duration: 0.5, delay: 0.6 }}
-								className="flex items-center gap-3 md:gap-4"
+								className="flex items-center gap-1 md:gap-4"
 							>
-								<div className="w-12 h-12 md:w-14 md:h-14 rounded-[16px] bg-gradient-to-b from-[#c9a463] to-[#b8914a] flex items-center justify-center">
-									<Users className="w-6 h-6 md:w-7 md:h-7 text-white" />
+								<div className="w-10 h-10 md:w-14 md:h-14 rounded-[16px] bg-gradient-to-b from-[#c9a463] to-[#b8914a] flex items-center justify-center px-2 md:px-0">
+									<Users className="w-5 h-5 md:w-7 md:h-7 text-white" />
 								</div>
 								<div className={isAr ? "text-right" : "text-left"}>
-									<p className="text-xs text-gray-500 mb-1.5 leading-[1.5]">
+									<p className="text-[10px] text-gray-500 mb-1.5 leading-[1.5]">
 										{isAr ? "أقصى عدد" : "Max Guests"}
 									</p>
-									<p className="text-[16px] md:text-[18px] leading-[1.4] text-[#0f3d2e]">
+									<p className="text-[10px] md:text-[18px] leading-[1.4] text-[#0f3d2e]">
 										{data.max_people_count}
 									</p>
 								</div>
 							</motion.div>
 
 							{/* Divider */}
-							<div className="hidden md:block h-12 w-px bg-gradient-to-b from-[#c9a463] to-transparent"></div>
+							<div className="block h-12 w-px bg-gradient-to-b from-[#c9a463] to-transparent"></div>
 
 							{/* Rating */}
 							<motion.div
 								initial={{ opacity: 0, x: -20 }}
 								animate={{ opacity: 1, x: 0 }}
 								transition={{ duration: 0.5, delay: 0.7 }}
-								className="flex items-center gap-3"
+								className="flex flex-col md:flex-row items-center gap-3"
 							>
 								<div className="flex items-center gap-2">
-									<Star className="w-6 h-6 md:w-7 md:h-7 fill-[#c9a463] text-[#c9a463]" />
-									<span className="text-[20px] md:text-[26px] leading-[1.2] text-[#0f3d2e]">
+									<Star className="w-5 h-5 md:w-7 md:h-7 fill-[#c9a463] text-[#c9a463]" />
+									<span className="text-sm md:text-[26px] leading-[1.2] text-[#0f3d2e]">
 										{data.rating}
 									</span>
 								</div>
+								
 								<p className="text-[14px] leading-[1.5] text-gray-600">
 									{isAr
 										? `(${data.rating_count} تقييم)`
