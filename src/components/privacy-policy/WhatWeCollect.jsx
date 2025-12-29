@@ -1,29 +1,46 @@
-import { Mail, Smartphone, CreditCard, MapPin } from "lucide-react";
+"use client";
+
+import { Mail, Smartphone, CreditCard, MapPin , User , Settings ,BarChart3 } from "lucide-react";
 
 export function WhatWeCollect({ isAr }) {
 
 	const dataItems = [
-		{
-			icon: Mail,
-			title: isAr ? "الاسم والبريد الإلكتروني" : "Name and Email",
-			description: isAr ? "لإنشاء حسابك وإرسال تأكيدات الحجز" : "To create your account and send booking confirmations",
-		},
-		{
-			icon: Smartphone,
-			title: isAr ? "رقم الهاتف" : "Phone Number",
-			description: isAr ? "للتواصل معك بخصوص الرحلات والتحديثات" : "To contact you regarding trips and updates",
-		},
-		{
-			icon: CreditCard,
-			title: isAr ? "بيانات الدفع (مشفّرة)" : "Payment Data (Encrypted)",
-			description: isAr ? "لمعالجة الحجوزات بشكل آمن ومشفّر" : "To process bookings securely and encrypted",
-		},
-		{
-			icon: MapPin,
-			title: isAr ? "بيانات الموقع" : "Location Data",
-			description: isAr ? "لتحسين التجربة وتقديم خدمات مخصصة" : "To improve experience and provide personalized services",
-		},
-	];
+  {
+    icon: User,
+    title: isAr ? "الاسم ومعلومات التواصل" : "Name and Contact Information",
+    description: isAr 
+      ? "لإنشاء حسابك، تأكيد الحجوزات، وإرسال التحديثات والعروض الهامة." 
+      : "To create your account, confirm bookings, and send important updates and offers.",
+  },
+  {
+    icon: CreditCard,
+    title: isAr ? "معلومات الدفع" : "Payment Information",
+    description: isAr 
+      ? "تُعالج بياناتك عبر مزودين موثوقين لضمان إتمام الحجوزات بأعلى معايير الأمان." 
+      : "Your data is processed via trusted providers to ensure bookings meet the highest security standards.",
+  },
+  {
+    icon: MapPin,
+    title: isAr ? "بيانات الموقع الجغرافي" : "Geographic Location Data",
+    description: isAr 
+      ? "لاقتراح وجهات قريبة، تحسين الملاحة، وتفعيل الدليل الصوتي تلقائياً عند المعالم." 
+      : "To suggest nearby destinations, improve navigation, and trigger audio guides at landmarks.",
+  },
+  {
+    icon: Settings,
+    title: isAr ? "البيانات التقنية" : "Technical Data",
+    description: isAr 
+      ? "نجمع معلومات مثل عنوان IP ونوع النظام لتحسين أداء الخدمات وحماية الحسابات." 
+      : "We collect info like IP address and OS type to improve service performance and protect accounts.",
+  },
+  {
+    icon: BarChart3,
+    title: isAr ? "بيانات الاستخدام والتحليل" : "Usage and Analytics Data",
+    description: isAr 
+      ? "لفهم تفضيلاتك وتطوير واجهة التطبيق بناءً على أنواع الجولات المفضلة وأوقات الحجز." 
+      : "To understand your preferences and develop the app interface based on favorite tours and booking times.",
+  },
+];
 
 	return (
 		<section className="bg-white py-20 md:py-32">
@@ -33,7 +50,7 @@ export function WhatWeCollect({ isAr }) {
 						{isAr ? "ما هي البيانات التي نجمعها؟" : "What Data Do We Collect?"}
 					</h2>
 					<p className="mx-auto max-w-2xl text-xl text-[#718096]">
-						{isAr ? "نجمع فقط البيانات الضرورية لتقديم خدماتنا بأفضل صورة" : "We only collect the necessary data to provide our services in the best way"}
+						{isAr ? "نحن نجمع فقط البيانات الضرورية لتقديم خدماتنا بأفضل شكل ممكن " : "We only collect the necessary data to provide our services in the best possible way"}
 					</p>
 				</div>
 
@@ -63,7 +80,7 @@ export function WhatWeCollect({ isAr }) {
 				{/* Trust Note */}
 				<div className="mt-12 rounded-3xl bg-[#e8f4f0] p-8 text-center">
 					<p className="text-xl text-[#0d5940]">
-						🔒 <strong>{isAr ? "ملاحظة مهمة:" : "Important Note:"}</strong> {isAr ? "لا نشارك بياناتك مع أي طرف غير مصرح به" : "We do not share your data with any unauthorized party"}
+						🔒 <strong>{isAr ? "ملحوظة:" : "Note:"}</strong> {isAr ? "نحن لا نجمع أي بيانات غير ضرورية أو حساسة دون موافقتك الصريحة، وجميع المعلومات محفوظة وفق أعلى معايير الأمان والخصوصية. " : "We do not collect any unnecessary or sensitive data without your explicit consent, and all information is stored according to the highest security and privacy standards."}
 					</p>
 				</div>
 			</div>

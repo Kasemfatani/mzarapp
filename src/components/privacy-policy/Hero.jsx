@@ -31,9 +31,9 @@ export function Hero({ isAr }) {
         </p>
 
         {/* Last Updated */}
-        <p className="mt-8 text-lg text-white/70">
+        {/* <p className="mt-8 text-lg text-white/70">
           {isAr ? "آخر تحديث: ديسمبر 2025" : "Last Updated: December 2025"}
-        </p>
+        </p> */}
       </div>
     </section>
   );

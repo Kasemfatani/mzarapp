@@ -52,7 +52,7 @@ export default async function PrivacyPolicyPage() {
 		<div className={lang === "en" ? "ltr" : "rtl"}>
 			<Hero isAr={isAr} />
 			<WhatWeCollect isAr={isAr} />
-			<HowWeUseData isAr={isAr} />
+			{/* <HowWeUseData isAr={isAr} /> */}
 			<DataSecurity isAr={isAr} />
 			<UserRights isAr={isAr} />
 			<ContactCTA isAr={isAr} />
