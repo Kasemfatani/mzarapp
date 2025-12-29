@@ -1,4 +1,4 @@
-import { Shield, Lock, Heart, Award, Smile } from 'lucide-react';
+import { Shield, Lock, Heart, Award, Smile , Sparkles , History , Lightbulb , Coffee , Target } from 'lucide-react';
 
 
 export function Values({ lang }) {
@@ -7,24 +7,39 @@ export function Values({ lang }) {
 
   const values = [
   {
-    icon: Shield,
-    label:  isAr ? 'المصداقية' : 'Integrity',
+    icon: Sparkles,
+    label: isAr ? 'الإثراء' : 'Enrichment',
+    description: isAr 
+      ? 'نُضيف معنى ومعرفة لكل زيارة لنجعلها تجربة لا تُنسى.' 
+      : 'We add meaning and knowledge to every visit to make it an unforgettable experience.',
   },
   {
-    icon: Lock,
-    label: isAr ? 'الخصوصية' : 'Privacy',
+    icon : History,
+    label: isAr ? 'الأصالة' : 'Authenticity',
+    description: isAr 
+      ? 'نُبرز تاريخ المكان وهويته الحقيقية ونعتز بالتراث الوطني.' 
+      : 'We highlight the history and true identity of the place, taking pride in national heritage.',
   },
   {
-    icon: Heart,
-    label: isAr ? 'الاحترام' : 'Respect',
+    icon: Lightbulb,
+    label: isAr ? 'الابتكار' : 'Innovation',
+    description: isAr 
+      ? 'ندمج التقنية لتجربة تفاعلية حديثة تجعل الوصول للمعلومة أسهل.' 
+      : 'We integrate technology for a modern interactive experience that makes accessing information easier.',
   },
   {
-    icon: Award,
-    label: isAr ? 'الاحترافية' : 'Professionalism',
+    icon: Coffee,
+    label: isAr ? 'الضيافة' : 'Hospitality',
+    description: isAr 
+      ? 'نُقدم تجربة تعكس كرم المجتمع السعودي وحفاوة الاستقبال.' 
+      : 'We provide an experience that reflects the generosity and warm welcome of Saudi society.',
   },
   {
-    icon: Smile,
-    label: isAr ? 'تجربة المستخدم أولاً' : 'User Experience First',
+    icon: Target,
+    label: isAr ? 'التميز' : 'Excellence',
+    description: isAr 
+      ? 'نلتزم بالجودة في كل تفاصيل التجربة لضمان رضا زوارنا.' 
+      : 'We are committed to quality in every detail of the experience to ensure our visitors\' satisfaction.',
   },
 ];
 
@@ -51,6 +66,9 @@ export function Values({ lang }) {
                 </div>
                 <p className="text-center text-xl text-[#0d5940]">
                   {value.label}
+                </p>
+                <p className="mt-2 text-center text-lg leading-relaxed text-[#718096]">
+                  {value.description}
                 </p>
               </div>
             );

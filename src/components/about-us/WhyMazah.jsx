@@ -7,36 +7,38 @@ export function WhyMazah( { lang } ) {
   const isAr = lang === 'ar';
 
   const benefits = [
-  {
-    icon: UserCheck,
-    title:  isAr ? 'مرشدون متخصصون' : 'Expert Guides',
-    description: isAr ? 'فريق من الخبراء المعتمدين يملكون معرفة عميقة بالمواقع الدينية' : 'A team of certified experts with deep knowledge of religious sites',
-  },
-  {
-    icon: DollarSign,
-    title: isAr ? 'أسعار شفافة' : 'Transparent Pricing',
-    description: isAr ? 'لا رسوم مخفية، أسعار واضحة ومحددة مسبقًا' : 'No hidden fees, clear and pre-determined prices',
-  },
-  {
+    {
     icon: Zap,
     title: isAr ? 'حجز فوري' : 'Instant Booking',
     description: isAr ? 'احجز رحلتك في ثوانٍ واستلم التأكيد فورًا' : 'Book your trip in seconds and receive instant confirmation',
   },
   {
-    icon: MapPin,
-    title: isAr ? 'مواقع تجمع مرنة' : 'Flexible Meeting Points',
-    description: isAr ? 'نقاط انطلاق متعددة تناسب موقعك وتوفر راحتك' : 'Multiple starting points to suit your location and provide your comfort',
+    icon: DollarSign,
+    title: isAr ? 'أسعار شفافة و واضحة' : 'Transparent and Clear Pricing',
+    description: isAr ? 'لا رسوم خفية ــ فقط أسعار محددة مسبقاً تمنحك وضوحاً في كل خطوة. ' : 'No hidden fees — just upfront pricing that gives you clarity at every step.',
   },
   {
-    icon: Headphones,
-    title: isAr ? 'دعم حقيقي' : 'Real Support',
-    description: isAr ? 'فريق دعم متاح 24/7 للإجابة على استفساراتك' : 'A support team available 24/7 to answer your inquiries',
+    icon: UserCheck,
+    title:  isAr ? 'مرشدون متخصصون ومعتمدون' : ' Specialized and Certified Guides',
+    description: isAr ? 'فريق من الخبراء المؤهلين يملكون معرفة دقيقة بالمواقع الدينية والتاريخية. ' : 'A team of qualified experts with precise knowledge of religious and historical sites.',
   },
   {
     icon: Sparkles,
-    title: isAr ? 'تجارب مخصصة' : 'Customized Experiences',
-    description: isAr ? 'خيارات متنوعة تناسب الأفراد، العائلات، والمجموعات' : 'Various options suitable for individuals, families, and groups',
+    title: isAr ? 'تجارب مصممة خصيصاً لك ' : ' Custom-Tailored Experiences',
+    description: isAr ? 'خيارات تناسب الأفراد والعائلات والمجموعات، لتعيش تجربة تناسب اهتماماتك. ' : 'Options that suit individuals, families, and groups, to live an experience that matches your interests.',
   },
+  {
+    icon: Headphones,
+    title: isAr ? 'دعم متواصل على مدار الساعة' : ' 24/7 Continuous Support',
+    description: isAr ? 'فريق دعم جاهز دائماً للرد على استفساراتك ومساعدتك في كل مرحلة من رحلتك. ' : 'A support team always ready to answer your inquiries and assist you at every stage of your journey.',
+  },
+  {
+    icon: MapPin,
+    title: isAr ? 'نقاط انطلاق مرنة' : ' Flexible Starting Points',
+    description: isAr ? 'اختر من بين عدة مواقع تجمع قريبة منك لتبدأ رحلتك بسهولة وراحة. ' : 'Choose from several nearby gathering points to start your journey with ease and comfort.',
+  },
+  
+  
 ];
 
   return (
@@ -44,7 +46,7 @@ export function WhyMazah( { lang } ) {
       <div className="container mx-auto max-w-7xl px-6 lg:px-8">
         {/* Title */}
         <h2 className="mb-16 text-center text-4xl text-[#0d5940] md:text-5xl">
-          {isAr ? 'لماذا يختارنا آلاف الزوّار؟' : 'Why do thousands of visitors choose us?'}
+          {isAr ? 'لماذا يختار الآلاف "مزار"؟ ' : 'Why Do Thousands Choose "Mzar"?'}
         </h2>
 
         {/* Benefits Grid */}
