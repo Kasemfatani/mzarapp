@@ -6,10 +6,10 @@ export function PlatformRole( { isAr }) {
       <div className="container mx-auto max-w-5xl px-6 lg:px-8">
         <div className="mb-12 text-center">
           <h2 className="mb-4 text-4xl text-[#0d5940] md:text-5xl">
-           {isAr ? "دور المنصة" : "Platform Role"}
+           {isAr ? "دورنا في مزار" : "Our Role in Mzar"}
           </h2>
           <p className="mx-auto max-w-2xl text-xl text-[#718096]">
-            {isAr ? "فهم واضح لطبيعة خدماتنا" : "A clear understanding of our services"}
+            {isAr ? "عن مزار " : "About Mzar "}
           </p>
         </div>
 

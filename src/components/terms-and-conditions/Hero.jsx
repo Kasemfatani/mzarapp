@@ -22,7 +22,7 @@ export function Hero({ isAr }) {
 
         {/* Title */}
         <h1 className="mb-6 text-5xl text-white md:text-6xl lg:text-7xl">
-         {isAr ? "الشروط والأحكام" : "Terms and Conditions"}
+         {isAr ? "شروط الاستخدام " : "Terms and Conditions"}
         </h1>
 
         {/* Subtitle */}
