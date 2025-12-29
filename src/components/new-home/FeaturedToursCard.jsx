@@ -86,23 +86,23 @@ export function FeaturedToursCard({
 			<div className="p-6">
 				{/* name */}
 				<h3
-					className="text-[#3C6652] mb-2 text-right font-semibold"
-					style={{ fontFamily: '"Amiri", serif', fontSize: "1.375rem" }}
+					className="text-[#3C6652] mb-2  font-semibold"
+					style={{ fontSize: "1.375rem" }}
 				>
 					{name}
 				</h3>
 
 				{/* short_description */}
 				<p
-					className="text-gray-600 text-sm mb-4 line-clamp-2 text-right"
-					style={{ fontFamily: '"Readex Pro", sans-serif', lineHeight: "1.6" }}
+					className="text-gray-600 text-sm mb-4 line-clamp-2 "
+					
 				>
 					{short_description}
 				</p>
 
-				<div className="flex justify-between">
+				<div className="flex flex-col md:flex-row justify-center   md:justify-between items-center">
           {/* start_price */}
-					<div className="mb-4 text-right">
+					<div className="mb-4 ">
 						<span
 							className="text-sm text-gray-600"
 							
@@ -119,7 +119,7 @@ export function FeaturedToursCard({
 
 					<div>
 						{/* Icons Row */}
-						<div className="flex items-center gap-4 mb-4 justify-end flex-wrap">
+						<div className="flex items-center gap-4 mb-4 justify-center md:justify-end flex-wrap">
 							<div
 								className="flex items-center gap-2 text-gray-600 text-sm"
 								style={{ fontFamily: '"Readex Pro", sans-serif' }}

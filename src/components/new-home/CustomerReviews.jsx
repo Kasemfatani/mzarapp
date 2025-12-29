@@ -1,4 +1,10 @@
+"use client";
+
 import { Star, Quote, CheckCircle } from "lucide-react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay } from "swiper/modules";
+import "swiper/css";
+import styles from "./CustomerReviews.module.css";
 
 function ReviewCard({ name, rating, tour, review, avatar, verified = true }) {
 	return (
@@ -26,7 +32,6 @@ function ReviewCard({ name, rating, tour, review, avatar, verified = true }) {
 							<h4
 								className="text-[#3C6652]"
 								style={{
-									fontFamily: '"Amiri", serif',
 									fontSize: "1.125rem",
 									fontWeight: 600,
 								}}
@@ -59,10 +64,7 @@ function ReviewCard({ name, rating, tour, review, avatar, verified = true }) {
 				</div>
 
 				{/* Review Text */}
-				<p
-					className="text-gray-700 leading-relaxed mb-4 text-sm relative z-10 "
-					style={{ fontFamily: '"Readex Pro", sans-serif', lineHeight: "1.6" }}
-				>
+				<p className="text-gray-700 leading-relaxed mb-4 text-sm relative z-10 ">
 					"{review}"
 				</p>
 			</div>
@@ -193,12 +195,34 @@ export function CustomerReviews({ lang }) {
 					</p>
 				</div>
 
-				{/* Reviews Grid */}
-				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+				{/* Reviews Slider */}
+				<Swiper
+					modules={[Autoplay]}
+					autoplay={{
+						delay: 3000,
+						disableOnInteraction: false,
+						pauseOnMouseEnter: true,
+					}}
+					loop={true}
+					spaceBetween={24}
+					slidesPerView={1.1}
+					breakpoints={{
+						640: { slidesPerView: 1.1 },
+						768: { slidesPerView: 2 },
+						1024: { slidesPerView: 3 },
+						1280: { slidesPerView: 4 }, // show 4 on larger screens
+					}}
+					className={styles.quickCategories}
+				>
 					{reviews.map((review, index) => (
-						<ReviewCard key={index} {...review} />
+						<SwiperSlide key={index}>
+							{/* ensure slide stretches and card fills height */}
+							<div className="h-full flex">
+								<ReviewCard {...review} />
+							</div>
+						</SwiperSlide>
 					))}
-				</div>
+				</Swiper>
 
 				{/* CTA Section */}
 				<div className="text-center">
