@@ -1,0 +1,23 @@
+/* target Swiper's DOM class from a local module class */
+.quickCategories :global(.swiper-wrapper) {
+	
+	padding-bottom: 10px;
+}
+
+/* #QuickCategories {
+	opacity: 1;
+} */
+
+/* Make all slides equal height: stretch slides to tallest card */
+.quickCategories :global(.swiper-wrapper) {
+  align-items: stretch; /* stretch slides to wrapper height (max of children) */
+}
+
+.quickCategories :global(.swiper-slide) {
+  height: auto;
+  display: flex;       /* allow child to expand to full slide height */
+}
+
+.quickCategories :global(.swiper-slide > *) {
+  flex: 1 1 auto;      /* make the wrapper div fill slide */
+}

@@ -51,12 +51,12 @@ export default function Footer() {
 
 	return (
 		<footer
-			className={`bg-gradient-to-b from-[#F5F5F5] to-[#E7D3AF]/20 ${
+			className={`bg-gradient-to-b from-[#F5F5F5] to-[#F5F5F5] flex flex-col-reverse md:flex-col ${
 				language === "en" ? "ltr" : "rtl"
 			}`}
 		>
 			{/* Main Footer Content */}
-			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 md:py-16">
 				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 lg:gap-8 justify-center">
 					{/* Column 1 - Logo & Description */}
 					<div className="lg:col-span-1 mx-auto text-center md:text-start">
@@ -275,13 +275,13 @@ export default function Footer() {
 					</div> */}
 
 					{/* Column 5 - Contact Information */}
-					<div className="mx-auto  text-center">
+					<div className="mx-auto text-center md:text-start">
 						<h3 className="text-[#3C6652] mb-5 font-semibold">
 							{isAr ? "تواصل معنا" : "Contact Us"}
 						</h3>
 						<div className="space-y-4">
 							{/* Email */}
-							<div className="flex items-center gap-2">
+							<div className="flex justify-center md:justify-start items-center gap-2">
 								<i className="fa-solid fa-envelope text-[#867957]"></i>
 								<a
 									href="mailto:contact@mzarapp.com"
@@ -292,7 +292,7 @@ export default function Footer() {
 							</div>
 
 							{/* Phone */}
-							<div className="flex items-center gap-2">
+							<div className="flex justify-center md:justify-start items-center gap-2">
 								<i className="fa-solid fa-phone text-[#867957]"></i>
 								<a
 									href="tel:920005785"
@@ -302,7 +302,7 @@ export default function Footer() {
 									920005785
 								</a>
 							</div>
-							<div className="flex items-center gap-2">
+							<div className="flex justify-center md:justify-start items-center gap-2">
 								<i className="fa-brands fa-whatsapp text-[#867957]"></i>
 								<a
 									href="https://wa.me/+966580121025"
@@ -315,7 +315,7 @@ export default function Footer() {
 							</div>
 
 							{/* Location */}
-							<div className="flex items-start gap-3">
+							<div className="flex justify-center md:justify-start items-start gap-3">
 								<MapPin
 									size={18}
 									className="text-[#867957] flex-shrink-0 mt-0.5"
@@ -412,9 +412,9 @@ export default function Footer() {
 			{/* Bottom Bar */}
 			<div className="border-t border-gray-200">
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-					<div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm">
+					<div className="flex flex-col-reverse md:flex-row items-center justify-between gap-4 text-sm">
 						{/* Copyright */}
-						<div className="text-gray-600 text-center md:text-right order-2 md:order-1">
+						<div className="text-gray-600 text-center md:text-start ">
 							©{" "}
 							{language === "en"
 								? "Licensed by the Ministry of Tourism, license number 73104705 | Licensed Activity: Tour Organization"
@@ -422,11 +422,11 @@ export default function Footer() {
 						</div>
 
 						{/* Powered by */}
-						<div className="text-gray-500 text-xs text-center md:text-left order-1 md:order-2">
+						<div className="text-gray-500 text-xs text-center md:text-start ">
 							{language === "en" ? (
-								<>CR: 4031282010</>
+								<>CR: 4031282010 | Licensed Activity: "Tourism Services"</>
 							) : (
-								<>السجل التجاري : 4031282010</>
+								<>السجل التجاري: 4031282010  | النشاط المرخص: "الخدمات السياحية"</>
 							)}
 						</div>
 					</div>
