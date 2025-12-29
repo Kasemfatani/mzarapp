@@ -19,7 +19,7 @@ export function QuickSummary({ isAr }) {
 		{
 			icon: Calendar,
 			title: isAr ? "وقت الاسترجاع" : "Refund Time",
-			description: isAr ? "خلال 5–7 أيام عمل." : "Within 5–7 business days.",
+			description: isAr ? "خلال 1-3 أيام عمل" : "Within 1–3 business days.",
 			bgColor: "bg-[#e8f4f0]",
 			iconColor: "text-[#0d5940]",
 		},
@@ -40,7 +40,7 @@ export function QuickSummary({ isAr }) {
 						{isAr ? "ملخص سريع" : "Quick Summary"}
 					</h2>
 					<p className="mx-auto max-w-2xl text-xl text-[#718096]">
-						{isAr ? "أهم المعلومات التي تحتاجها عن سياسة الإلغاء والاسترجاع" : "Key information you need about the cancellation and refund policy"}
+						{isAr ? "أهم المعلومات التي تحتاجها عن سياسة الحجز والإلغاء " : "Key information you need about the booking and cancellation policy"}
 					</p>
 				</div>
 

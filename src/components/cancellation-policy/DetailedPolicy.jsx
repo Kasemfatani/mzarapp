@@ -20,42 +20,52 @@ const policyItems = [
   {
     id: '1',
     question: isAr ? 'متى يمكنني الإلغاء؟' : 'When can I cancel?',
-    answer: isAr ? 'يمكنك إلغاء حجزك قبل موعد الرحلة بـ 24 ساعة على الأقل دون أي رسوم إضافية. سيتم استرجاع المبلغ كاملاً إلى نفس وسيلة الدفع التي استخدمتها.' : 'You can cancel your booking at least 24 hours before the trip without any additional fees. The full amount will be refunded to the same payment method you used.',
+    answer: isAr ? 'يمكنك إلغاء الحجز قبل موعد الرحلة بـ 24 ساعة على الأقل دون أي رسوم إضافية، وسيتم استرجاع المبلغ كاملاً عبر نفس وسيلة الدفع المستخدمة.' : 'You can cancel the booking at least 24 hours before the trip without any additional fees, and the full amount will be refunded via the same payment method used.',
   },
   {
     id: '2',
-    question: isAr ? 'ماذا يحدث إذا ألغيت متأخرًا؟' : 'What happens if I cancel late?',
-    answer: isAr ? 'في حال الإلغاء خلال أقل من 24 ساعة من موعد الرحلة، قد لا يكون الاسترجاع متاحًا أو قد يتم خصم رسوم إدارية تصل إلى 50% من قيمة الحجز. الإلغاء في يوم الرحلة نفسه لا يشمل استرجاع المبلغ.' : 'If you cancel less than 24 hours before the trip, a refund may not be available or an administrative fee of up to 50% of the booking value may be deducted. Cancellation on the day of the trip itself does not include a refund.',
+    question: isAr ? 'ماذا يحدث إذا ألغيت متأخراً؟' : 'What happens if I cancel late?',
+    answer: isAr ? 'إذا تم الإلغاء قبل موعد الرحلة بأقل من ساعتين، يتم خصم 50% من قيمة الرحلة. أما في حال تم الإلغاء بعد انطلاق السائق أو بدء الجولة، فيُخصم 100% من قيمة الرحلة ولا يتم استرجاع المبلغ.' : 'If cancelled less than 2 hours before the trip, 50% of the trip value is deducted. If the cancellation occurs after the driver has departed or the tour has started, 100% of the trip value is deducted and no refund is issued.',
   },
   {
     id: '3',
     question: isAr ? 'هل توجد رحلات غير قابلة للإلغاء؟' : 'Are there non-refundable trips?',
-    answer: isAr ? 'بعض التجارب الخاصة أو الجولات الجماعية المحدودة قد تخضع لشروط إلغاء مختلفة. يتم توضيح سياسة الإلغاء الخاصة بكل رحلة بوضوح في صفحة الحجز قبل إتمام عملية الدفع.' : 'Some private experiences or limited group tours may be subject to different cancellation terms. The cancellation policy for each trip is clearly stated on the booking page before completing the payment.',
+    answer: isAr ? 'نعم، بعض الجولات أو العروض الخاصة (مثل العروض الموسمية أو الخصومات المسبقة) قد تكون غير قابلة للإلغاء أو الاسترداد، ويتم توضيح ذلك بوضوح عند الحجز.' : 'Yes, some tours or special offers (such as seasonal offers or advance discounts) may be non-cancelable or non-refundable, and this is clearly stated at the time of booking.',
   },
   {
     id: '4',
-    question: isAr ? 'كم من الوقت يستغرق استرجاع المبلغ؟' : 'How long does it take to refund?',
-    answer: isAr ? 'بعد تأكيد الإلغاء، يتم استرجاع المبلغ خلال 5–7 أيام عمل إلى نفس وسيلة الدفع. قد يستغرق ظهور المبلغ في حسابك البنكي وقتًا إضافيًا حسب سياسة البنك الخاص بك.' : 'After cancellation is confirmed, the amount is refunded within 5–7 business days to the same payment method. It may take additional time for the amount to appear in your bank account depending on your bank\'s policy.',
+    question: isAr ? 'كم يستغرق استرجاع المبلغ بعد الإلغاء؟' : 'How long does the refund take after cancellation?',
+    answer: isAr ? 'تتم عملية الاسترجاع خلال 3 إلى 7 أيام عمل حسب البنك أو مزود خدمة الدفع المستخدم عند الحجز.' : 'The refund process takes between 3 to 7 business days, depending on the bank or payment service provider used during booking.',
   },
   {
     id: '5',
-    question: isAr ? 'هل يمكنني تعديل الحجز بدلاً من الإلغاء؟' : 'Can I modify my booking instead of canceling?',
-    answer: isAr ? 'نعم، يمكنك تعديل تاريخ الحجز أو عدد الأشخاص قبل موعد الرحلة بـ 48 ساعة على الأقل من خلال التواصل مع فريق الدعم. التعديلات متاحة حسب توفر الأماكن.' : 'Yes, you can modify the booking date or the number of people at least 48 hours before the trip by contacting the support team. Modifications are subject to availability.',
+    question: isAr ? 'هل يمكنني تعديل الحجز بدلاً من الإلغاء؟' : 'Can I modify the booking instead of cancelling?',
+    answer: isAr ? 'نعم، يمكنك تعديل موعد الرحلة أو عدد الأشخاص قبل 24 ساعة من الموعد دون رسوم إضافية، وذلك بحسب توفر الجولات في التوقيت الجديد.' : 'Yes, you can modify the trip date or the number of people 24 hours before the appointment without additional fees, depending on the availability of tours at the new time.',
   },
   {
     id: '6',
-    question: isAr ? 'ماذا يحدث إذا ألغت مزاه الرحلة؟' : 'What happens if Mzar cancels the trip?',
-    answer: isAr ? 'في حال اضطرت مزاه لإلغاء الرحلة لأي سبب (ظروف جوية، أعطال تقنية)، سيتم استرجاع المبلغ كاملاً بدون أي خصومات، أو يمكنك إعادة الجدولة لموعد آخر بدون رسوم إضافية.' : 'If Mzar has to cancel the trip for any reason (weather conditions, technical issues), the full amount will be refunded without any deductions, or you can reschedule for another date without additional fees.',
+    question: isAr ? 'ماذا يحدث إذا ألغت مزار الرحلة؟' : 'What happens if Mazar cancels the trip?',
+    answer: isAr ? 'في حال تم الإلغاء من قِبل مزار لأي سبب (مثل الظروف الجوية أو الأسباب التشغيلية)، سيتم استرجاع المبلغ كاملاً أو يُمنح العميل خيار إعادة الجدولة في وقت لاحق.' : 'If the cancellation is made by Mazar for any reason (such as weather conditions or operational reasons), the full amount will be refunded or the customer will be given the option to reschedule for a later time.',
   },
   {
     id: '7',
     question: isAr ? 'هل يمكنني إلغاء جزء من الحجز فقط؟' : 'Can I cancel only part of the booking?',
-    answer: isAr ? 'نعم، إذا قمت بالحجز لعدة أشخاص، يمكنك إلغاء بعض المقاعد قبل موعد الرحلة بـ 24 ساعة. سيتم احتساب الاسترجاع بناءً على عدد المقاعد الملغاة.' : 'Yes, if you have booked for multiple people, you can cancel some seats at least 24 hours before the trip. The refund will be calculated based on the number of seats canceled.',
+    answer: isAr ? 'نعم، يمكنك طلب إلغاء جزئي (مثل إلغاء أحد الأفراد في الحجز الجماعي)، وسيتم احتساب المبلغ المستحق بناءً على الجزء المُلغى وفق سياسة الإلغاء المعتمدة.' : 'Yes, you can request a partial cancellation (such as removing one person from a group booking), and the refund amount will be calculated based on the cancelled part according to the approved cancellation policy.',
   },
   {
     id: '8',
+    question: isAr ? 'ماذا لو لم أستطع حضور الرحلة بسبب ظرف طارئ؟' : 'What if I cannot attend the trip due to an emergency?',
+    answer: isAr ? 'يمكنك التواصل مع فريق الدعم عبر مركز المساعدة لبحث إمكانية إعادة الجدولة أو استرداد جزئي وفق نوع الرحلة وحالتها.' : 'You can contact the support team through the help center to discuss the possibility of rescheduling or a partial refund depending on the trip type and status.',
+  },
+  {
+    id: '9',
+    question: isAr ? 'هل توجد استثناءات في حالات الطوارئ؟' : 'Are there exceptions for emergency cases?',
+    answer: isAr ? 'نعم، في الظروف الطارئة أو الحالات الخاصة، يمكن تقديم استثناءات من سياسة الإلغاء بناءً على تقدير إدارة مزار، مع مراعاة مصلحة العميل.' : 'Yes, in emergency circumstances or special cases, exceptions to the cancellation policy may be made at the discretion of Mazar management, taking the customer’s interest into account.',
+  },
+  {
+    id: '10',
     question: isAr ? 'هل تُسترد الرسوم الإدارية؟' : 'Are administrative fees refundable?',
-    answer: isAr ? 'في حال الإلغاء المجاني (قبل 24 ساعة)، يتم استرجاع المبلغ كاملاً بدون أي خصومات. لا توجد رسوم إدارية مخفية في حال التزامك بشروط الإلغاء.' : 'In the case of free cancellation (before 24 hours), the full amount is refunded without any deductions. There are no hidden administrative fees if you comply with the cancellation terms.',
+    answer: isAr ? 'الرسوم الإدارية (إن وُجدت) تُسترد فقط إذا تم الإلغاء من طرف مزار أو في حال لم تبدأ إجراءات تنفيذ الرحلة.' : 'Administrative fees (if any) are only refunded if the cancellation is made by Mazar or if the trip implementation procedures have not yet started.',
   },
 ];
 
@@ -67,7 +77,7 @@ const policyItems = [
             {isAr ? 'التفاصيل الكاملة' : 'Detailed Information'}
           </h2>
           <p className="mx-auto max-w-2xl text-xl text-[#718096]">
-            {isAr ? 'كل ما تحتاج معرفته عن سياسة الإلغاء والاسترجاع' : 'Everything you need to know about the cancellation and refund policy'}
+            {isAr ? 'كل ما تحتاج معرفته عن سياسة الحجز والإلغاء' : 'Everything you need to know about the booking and cancellation policy'}
           </p>
         </div>
 

@@ -12,7 +12,7 @@ export function SupportCTA({ isAr }) {
         </div>
 
         <h2 className="mb-6 text-4xl text-white md:text-5xl">
-          {isAr ? "هل تحتاج مساعدة في الإلغاء أو الاسترجاع؟" : "Need help with cancellation or refund?"}
+          {isAr ? "هل تحتاج مساعدة في الحجز أو الإلغاء؟ " : "Need help with booking or cancellation?"}
         </h2>
 
         <p className="mb-12 text-2xl leading-relaxed text-white/90">
@@ -35,11 +35,11 @@ export function SupportCTA({ isAr }) {
         <div className="mt-16 grid gap-8 border-t border-white/20 pt-12 md:grid-cols-2">
           <div className="rounded-2xl bg-white/10 p-6 backdrop-blur-sm">
             <p className="mb-2 text-lg text-white/70">{isAr ? "البريد الإلكتروني" : "Email"}</p>
-            <p className="text-xl text-white">support@mazah.sa</p>
+            <p className="text-xl text-white">info@mzarapp.com</p>
           </div>
           <div className="rounded-2xl bg-white/10 p-6 backdrop-blur-sm">
             <p className="mb-2 text-lg text-white/70">{isAr ? "رقم الهاتف" : "Phone Number"}</p>
-            <p className="text-xl text-white">+966 50 123 4567</p>
+            <p className="text-xl text-white">920005785</p>
           </div>
         </div>
       </div>

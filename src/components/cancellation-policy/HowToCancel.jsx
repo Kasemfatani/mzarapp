@@ -5,26 +5,26 @@ export function HowToCancel({ isAr }) {
 		{
 			number: "1",
 			icon: Smartphone,
-			title:  isAr ? 'ادخل إلى "رحلاتي"' : 'Go to "My Trips"',
-			description: isAr ? "افتح التطبيق أو الموقع وانتقل إلى قسم حجوزاتك" : "Open the app or website and navigate to your bookings section",
+			title:  isAr ? 'ادخل إلى "تجاربي"' : 'Go to "My Experiences"',
+			description: isAr ? "افتح التطبيق وانتقل إلى قسم تجاربي." : "Open the app and navigate to the My Experiences section.",
 		},
 		{
 			number: "2",
 			icon: MousePointer,
 			title: isAr ? "اختر الرحلة" : "Select the trip",
-			description: isAr ? "حدد الرحلة التي تريد إلغاءها من قائمة الحجوزات" : "Select the trip you want to cancel from your bookings list",
+			description: isAr ? "حدد الجولة التي تريد إلغاءها من القائمة." : "Select the tour you want to cancel from the list.",
 		},
 		{
 			number: "3",
 			icon: XCircle,
-			title: isAr ? 'اضغط "إلغاء الحجز"' : 'Click "Cancel Booking"',
-			description: isAr ? "اضغط على زر الإلغاء واتبع التعليمات البسيطة" : "Click the cancel button and follow the simple instructions",
+			title: isAr ? 'ألغي الحجز' : 'Cancel the booking',
+			description: isAr ? "انقر على زر إلغاء الحجز واتبع التعليمات البسيطة. " : "Click the cancel booking button and follow the simple instructions.",
 		},
 		{
 			number: "4",
 			icon: CheckCircle,
-			title: isAr ? "يتم تأكيد الإلغاء فورًا" : "Cancellation is confirmed immediately",
-			description: isAr ? "ستصلك رسالة تأكيد فورية على جوالك وبريدك الإلكتروني" : "You will receive an immediate confirmation message on your phone and email",
+			title: isAr ? "تأكيد الإلغاء فوراً" : "Confirm cancellation immediately",
+			description: isAr ? "ستصلك رسالة تأكيد الإلغاء فورية على الواتساب والبريد الإلكتروني. " : "You will receive an immediate cancellation confirmation message on WhatsApp and email.",
 		},
 	];
 
@@ -81,7 +81,7 @@ export function HowToCancel({ isAr }) {
 				{/* Additional Help */}
 				<div className="mt-16 rounded-3xl bg-[#e8f4f0] p-10 text-center">
 					<p className="text-xl text-[#0d5940]">
-						💡 <strong>{isAr ? "نصيحة:" : "Tip:"}</strong> {isAr ? "يمكنك أيضًا التواصل مع فريق الدعم مباشرة لمساعدتك في عملية الإلغاء" : "You can also contact the support team directly to assist you with the cancellation process"}
+						💡 {isAr ? "تسعى “مزار” لتقديم تجربة مرنة تحترم وقت زوارها واحتياجاتهم، لذلك نحرص على تطبيق سياسة إلغاء واضحة وعادلة توازن بين التنظيم وراحة العميل. " : "Mzar strives to provide a flexible experience that respects the time and needs of its visitors, so we are keen to implement a clear and fair cancellation policy that balances organization and customer comfort."}
 					</p>
 				</div>
 			</div>
