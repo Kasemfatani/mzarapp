@@ -71,7 +71,7 @@ export function SeoContent({ lang }) {
 
             {/* SEO Paragraph */}
             <p
-              className="text-base sm:text-lg text-[#867957] leading-[170%] text-center max-w-4xl mx-auto sm:mx-0"
+              className="text-base sm:text-lg text-[#867957] leading-[170%]  max-w-4xl mx-auto sm:mx-0"
               style={{
                 
                 fontWeight: 400,
@@ -86,12 +86,12 @@ export function SeoContent({ lang }) {
             </p>
 
             {/* Optional: Trust Indicators */}
-            <div className="mt-8 flex flex-wrap items-center justify-center sm:justify-start gap-6 text-sm">
+            <div className="mt-8 flex flex-wrap justify-start gap-6 text-sm">
               <div className="flex items-center gap-2 text-[#3C6652]">
                 <div className="w-8 h-8 rounded-full bg-[#3C6652]/10 flex items-center justify-center">
                   <Star className="w-4 h-4 text-[#3C6652]" />
                 </div>
-                <span style={{  fontWeight: 500 }}>
+                <span >
                   {isAr ? 'مرشدين معتمدين' : 'Certified Guides'}
                 </span>
               </div>
@@ -100,7 +100,7 @@ export function SeoContent({ lang }) {
                 <div className="w-8 h-8 rounded-full bg-[#3C6652]/10 flex items-center justify-center">
                   <MapPin className="w-4 h-4 text-[#3C6652]" />
                 </div>
-                <span style={{ fontWeight: 500 }}>
+                <span >
                   {isAr ? 'جولات متنوعة' : 'Diverse Tours'}
                 </span>
               </div>
@@ -109,7 +109,7 @@ export function SeoContent({ lang }) {
                 <div className="w-8 h-8 rounded-full bg-[#3C6652]/10 flex items-center justify-center">
                   <Users className="w-4 h-4 text-[#3C6652]" />
                 </div>
-                <span style={{ fontWeight: 500 }}>
+                <span >
                   {isAr ? 'حجز سهل وآمن' : 'Easy and Secure Booking'}
                 </span>
               </div>
