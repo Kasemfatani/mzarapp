@@ -31,7 +31,7 @@ export function TripsGrid({ lang, trips }) {
 			const w = window.innerWidth;
 			if (w >= 1024) setItemsPerPage(9); // desktop: 9 (3 cols x 3 rows)
 			else if (w >= 768) setItemsPerPage(4); // tablet: 4 (2 cols x 2 rows)
-			else setItemsPerPage(3); // mobile: 3 (single column stacked)
+			else setItemsPerPage(6); // mobile: 6 (single column stacked)
 		}
 		update();
 		window.addEventListener("resize", update);
