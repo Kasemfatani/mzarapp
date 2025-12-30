@@ -33,17 +33,17 @@ export function ContactForm( { isAr }) {
           {/* Right: Form */}
           <div className="order-2 lg:order-1">
             <h2 className="mb-4 text-4xl text-[#0d5940] md:text-5xl">
-              أرسل لنا رسالة
+              {isAr ? 'أرسل لنا رسالة' : 'Send Us a Message'}
             </h2>
             <p className="mb-10 text-xl text-[#718096]">
-              املأ النموذج وسنقوم بالرد عليك في أسرع وقت.
+              {isAr ? 'املأ النموذج وسنقوم بالرد عليك في أسرع وقت.' : 'Fill out the form and we will get back to you as soon as possible.'}
             </p>
 
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Name */}
               <div>
                 <label htmlFor="name" className="mb-2 block text-xl text-[#4a5568]">
-                  الاسم الكامل
+                  {isAr ? 'الاسم الكامل' : 'Full Name'}
                 </label>
                 <input
                   type="text"
@@ -53,14 +53,14 @@ export function ContactForm( { isAr }) {
                   onChange={handleChange}
                   required
                   className="w-full rounded-2xl border-2 border-[#e2e8f0] bg-white px-6 py-4 text-xl text-[#1a1a1a] transition-colors focus:border-[#c9a961] focus:outline-none"
-                  placeholder="أدخل اسمك الكامل"
+                  placeholder={isAr ? "أدخل اسمك الكامل" : "Enter your full name"}
                 />
               </div>
 
               {/* Email */}
               <div>
                 <label htmlFor="email" className="mb-2 block text-xl text-[#4a5568]">
-                  البريد الإلكتروني
+                  {isAr ? 'البريد الإلكتروني' : 'Email Address'}
                 </label>
                 <input
                   type="email"
@@ -77,7 +77,7 @@ export function ContactForm( { isAr }) {
               {/* Phone */}
               <div>
                 <label htmlFor="phone" className="mb-2 block text-xl text-[#4a5568]">
-                  رقم الجوال
+                  {isAr ? 'رقم الجوال' : 'Phone Number'}
                 </label>
                 <input
                   type="tel"
@@ -94,7 +94,7 @@ export function ContactForm( { isAr }) {
               {/* Inquiry Type */}
               <div>
                 <label htmlFor="inquiryType" className="mb-2 block text-xl text-[#4a5568]">
-                  نوع الاستفسار
+                  {isAr ? 'نوع الاستفسار' : 'Inquiry Type'}
                 </label>
                 <select
                   id="inquiryType"
@@ -104,18 +104,18 @@ export function ContactForm( { isAr }) {
                   required
                   className="w-full rounded-2xl border-2 border-[#e2e8f0] bg-white px-6 py-4 text-xl text-[#1a1a1a] transition-colors focus:border-[#c9a961] focus:outline-none"
                 >
-                  <option value="">اختر نوع الاستفسار</option>
-                  <option value="tour">استفسار عن رحلة</option>
-                  <option value="booking">مشكلة في الحجز</option>
-                  <option value="suggestion">اقتراح</option>
-                  <option value="other">أخرى</option>
+                  <option value="">{isAr ? 'اختر نوع الاستفسار' : 'Select Inquiry Type'}</option>
+                  <option value="tour">{isAr ? 'استفسار عن رحلة' : 'Tour Inquiry'}</option>
+                  <option value="booking">{isAr ? 'مشكلة في الحجز' : 'Booking Issue'}</option>
+                  <option value="suggestion">{isAr ? 'اقتراح' : 'Suggestion'}</option>
+                  <option value="other">{isAr ? 'أخرى' : 'Other'}</option>
                 </select>
               </div>
 
               {/* Message */}
               <div>
                 <label htmlFor="message" className="mb-2 block text-xl text-[#4a5568]">
-                  الرسالة
+                  {isAr ? 'الرسالة' : 'Message'}
                 </label>
                 <textarea
                   id="message"
@@ -125,7 +125,7 @@ export function ContactForm( { isAr }) {
                   required
                   rows={6}
                   className="w-full resize-none rounded-2xl border-2 border-[#e2e8f0] bg-white px-6 py-4 text-xl text-[#1a1a1a] transition-colors focus:border-[#c9a961] focus:outline-none"
-                  placeholder="اكتب رسالتك هنا..."
+                  placeholder= {isAr ? "اكتب رسالتك هنا..." : "Write your message here..."}
                 />
               </div>
 
@@ -134,7 +134,7 @@ export function ContactForm( { isAr }) {
                 type="submit"
                 className="group flex w-full items-center justify-center gap-3 rounded-full bg-[#0d5940] px-8 py-5 text-xl text-white transition-all duration-300 hover:bg-[#116149] hover:shadow-xl"
               >
-                <span>إرسال الرسالة</span>
+                <span>{isAr ? 'إرسال الرسالة' : 'Send Message'}</span>
                 <Send className="h-6 w-6 transition-transform group-hover:translate-x-1" />
               </button>
 
@@ -142,7 +142,7 @@ export function ContactForm( { isAr }) {
               <div className="flex items-center justify-center gap-2 text-center">
                 <Shield className="h-5 w-5 text-[#c9a961]" />
                 <p className="text-lg text-[#718096]">
-                  جميع بياناتك محفوظة بسرية تامة
+                  {isAr ? 'جميع بياناتك محفوظة بسرية تامة' : 'All your data is kept completely confidential'}
                 </p>
               </div>
             </form>
@@ -153,7 +153,7 @@ export function ContactForm( { isAr }) {
             <div className="overflow-hidden rounded-3xl shadow-lg">
               <img
                 src="https://images.unsplash.com/photo-1709715357479-591f9971fb05?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjdXN0b21lciUyMHN1cHBvcnQlMjBoZWxwfGVufDF8fHx8MTc2NTg3OTM1MHww&ixlib=rb-4.1.0&q=80&w=1080"
-                alt="دعم العملاء"
+                alt={isAr ? "دعم العملاء" : "Customer Support"}
                 className="h-full w-full object-cover"
               />
             </div>

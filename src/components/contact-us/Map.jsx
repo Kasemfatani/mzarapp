@@ -7,7 +7,7 @@ export function Map( { isAr }) {
     <section className="bg-white py-20 md:py-28">
       <div className="container mx-auto max-w-7xl px-6 lg:px-8">
         <h2 className="mb-12 text-center text-4xl text-[#0d5940] md:text-5xl">
-          موقعنا
+          {isAr ? 'موقعنا' : 'Our Location'}
         </h2>
 
         <div className="overflow-hidden rounded-3xl shadow-xl">
@@ -26,14 +26,14 @@ export function Map( { isAr }) {
             />
 
             {/* Office Pin Overlay */}
-            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-full">
+            {/* <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-full">
               <div className="flex flex-col items-center">
                 <div className="mb-2 rounded-2xl bg-white px-6 py-3 shadow-lg">
                   <p className="text-xl text-[#0d5940]">مكتب مزار</p>
                 </div>
                 <MapPin className="h-12 w-12 text-[#c9a961]" fill="#c9a961" />
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
