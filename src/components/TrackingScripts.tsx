@@ -31,11 +31,11 @@ const DYNAMIC_PATTERNS = [/^\/hotel\/[^/]+$/]; // hotel/<slug> (one segment afte
 export default function TrackingScripts() {
 	const pathname = usePathname();
 
-	const shouldIncludeScripts =
-		SCRIPT_PATHS.includes(pathname) ||
-		DYNAMIC_PATTERNS.some((re) => re.test(pathname));
+	// const shouldIncludeScripts =
+	// 	SCRIPT_PATHS.includes(pathname) ||
+	// 	DYNAMIC_PATTERNS.some((re) => re.test(pathname));
 
-	if (!shouldIncludeScripts) return null;
+	// if (!shouldIncludeScripts) return null;
 
 	return (
 		<>
