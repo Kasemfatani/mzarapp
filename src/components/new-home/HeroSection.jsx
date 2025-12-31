@@ -21,14 +21,14 @@ export default function HeroSection({ lang }) {
 
 	const typeOptions = isAr
 		? [
-				{ id: 1, label: "الرحلات الإثرائية" },
+				{ id: 1, label: "التجارب الإثرائية" },
 				{ id: 2, label: "جولات الحرمين" },
-				{ id: 3, label: "حافلة الجولات الإثرائية" },
+				{ id: 3, label: "حافلة التجارب الإثرائية" },
 		  ]
 		: [
-				{ id: 1, label: "Enriching Trips" },
-				{ id: 2, label: "Haram Tours" },
-				{ id: 3, label: "Enriching Trips Bus" },
+				{ id: 1, label: "Enriching Experiences" },
+				{ id: 2, label: "Two Holy Mosques Tours" },
+				{ id: 3, label: "Enriching Experiences Bus" },
 		  ];
 
 	const [selectedCity, setSelectedCity] = useState("");

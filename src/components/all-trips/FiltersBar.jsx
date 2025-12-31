@@ -123,19 +123,19 @@ export function FiltersBar({ totalResults, lang, filters, onFiltersChange }) {
 
 						{/* Tour Type (id-based) */}
 						<FilterDropdown
-							label={isAr ? "نوع الجولة" : "Tour Type"}
+							label={isAr ? "نوع التجربة" : " Experience Type"}
 							icon={<Ticket className="w-4 h-4" />}
 							options={
 								isAr
 									? [
-											{ id: 1, label: "الرحلات الإثرائية" },
+											{ id: 1, label: "التجارب الإثرائية" },
 											{ id: 2, label: "جولات الحرمين" },
-											{ id: 3, label: "حافلة الجولات الإثرائية" },
+											{ id: 3, label: "حافلة التجارب الإثرائية" },
 									  ]
 									: [
-											{ id: 1, label: "Enriching Trips" },
-											{ id: 2, label: "Haram Tours" },
-											{ id: 3, label: "Enriching Trips Bus" },
+											{ id: 1, label: "Enriching Experiences" },
+											{ id: 2, label: "Two Holy Mosques Tours" },
+											{ id: 3, label: "Enriching Experiences Bus" },
 									  ]
 							}
 							value={filters.type}
