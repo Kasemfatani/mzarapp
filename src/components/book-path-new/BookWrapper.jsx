@@ -412,6 +412,7 @@ export default function BookTourPage({ lang, busData, disabledDays = [] }) {
 									setPromoApplied(false);
 									setPromoDiscountPercent(0);
 								}}
+								promo_type="trip"
 							/>
 
 							<PriceCalculationBox

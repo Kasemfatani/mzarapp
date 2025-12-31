@@ -450,6 +450,8 @@ export default function BookTourPage({ busData, lang }) {
 									setPromoApplied(false);
 									setPromoDiscountPercent(0);
 								}}
+
+								promo_type="bus"
 							/>
 
 							<PriceCalculationBox
