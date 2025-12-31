@@ -54,7 +54,7 @@ export function TrustCompliance({ lang }) {
           {/* License Number */}
           <div className="rounded-2xl bg-white/10 p-6 text-center backdrop-blur-sm">
             <p className="text-lg text-white/90">
-               {isAr ? 'رقم الترخيص:' : 'License Number:'} <span className="text-[#c9a961]">SA-TOURISM-2024-XXXX</span>
+               {isAr ? 'رقم الترخيص:' : 'License Number:'} <span className="text-[#c9a961]">73104705</span>
             </p>
           </div>
         </div>
