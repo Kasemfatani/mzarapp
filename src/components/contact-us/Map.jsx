@@ -15,10 +15,10 @@ export function Map( { isAr }) {
           <div className="relative h-[500px] w-full bg-[#f5f2ed]">
             {/* Placeholder for Google Maps */}
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3714.0839551641856!2d39.826168!3d21.422487!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x15c204b74c5def43%3A0x5c96c8f3d6b6c8ed!2sMakkah%20Saudi%20Arabia!5e0!3m2!1sen!2s!4v1234567890123"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3715.8805583216767!2d39.788466899999996!3d21.355206!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x15c20540e9e6d303%3A0x40a85646640cd21d!2si-ESNAAD!5e0!3m2!1sen!2sth!4v1767178816948!5m2!1sen!2sth"
               width="100%"
               height="100%"
-              style={{ border: 0, filter: 'grayscale(100%)' }}
+              style={{ border: 0 }}
               allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
