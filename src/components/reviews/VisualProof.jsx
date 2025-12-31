@@ -12,32 +12,32 @@ export function VisualProof({ isAr }) {
 		{
 			id: "1",
 			url: "https://images.unsplash.com/photo-1711336290921-1fd1eeadd569?w=600",
-			caption: "جولة المعالم التاريخية - مكة المكرمة",
+			caption:  isAr ? "جولة المعالم التاريخية - مكة المكرمة" : "Historical Landmarks Tour - Makkah",
 		},
 		{
 			id: "2",
 			url: "https://images.unsplash.com/photo-1723512414375-45ff0ed80afd?w=600",
-			caption: "تجربة روحانية في المسجد الحرام",
+			caption: isAr ? "تجربة روحانية في المسجد الحرام" : "Spiritual Experience at Al-Masjid Al-Haram",
 		},
 		{
 			id: "3",
 			url: "https://images.unsplash.com/photo-1722990040470-53c0ec51ff7c?w=600",
-			caption: "جولة التراث الإسلامي",
+			caption: isAr ? "جولة التراث الإسلامي" : "Islamic Heritage Tour",
 		},
 		{
 			id: "4",
 			url: "https://images.unsplash.com/photo-1617182195886-21a605900f11?w=600",
-			caption: "المسجد الحرام من الأعلى",
+			caption: isAr ? "المسجد الحرام من الأعلى" : "Al-Masjid Al-Haram from Above",
 		},
 		{
 			id: "5",
 			url: "https://images.unsplash.com/photo-1674313505558-206662f3de03?w=600",
-			caption: "غار حراء وجبل النور",
+			caption: isAr ? "غار حراء وجبل النور" : "Hira Cave and Mount Noor",
 		},
 		{
 			id: "6",
 			url: "https://images.unsplash.com/photo-1759994976016-cd0799b2f480?w=600",
-			caption: "جبل عرفة - رحلة روحانية",
+			caption: isAr ? "جبل عرفة - رحلة روحانية" : "Mount Arafat - Spiritual Journey",
 		},
 	];
 
@@ -49,10 +49,10 @@ export function VisualProof({ isAr }) {
 			<div className="container mx-auto max-w-7xl px-6 lg:px-8">
 				<div className="mb-12 text-center">
 					<h2 className="mb-3 text-3xl text-[#3C6652] md:text-4xl">
-						صور من تجارب العملاء
+					  {isAr ? "صور من تجارب العملاء" : "Customer Experience Photos"}
 					</h2>
 					<p className="text-xl text-[#718096]">
-						تجارب حقيقية مشاركة من زوّار مزار
+						{isAr ? "تجارب حقيقية مشاركة من زوّار مزار" : "Real experiences shared by Mzar visitors"}
 					</p>
 				</div>
 
@@ -83,7 +83,7 @@ export function VisualProof({ isAr }) {
 										<div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
 										<div className="absolute bottom-0 right-0 w-full p-6">
 											<div className="mb-2 inline-block rounded-full bg-[#3C6652] px-3 py-1 text-sm text-white">
-												تجربة فعلية – مزار
+												{isAr ? "تجربة فعلية – مزار" : "Actual Experience – Mzar"}
 											</div>
 											<p className="text-lg text-white">{photo.caption}</p>
 										</div>

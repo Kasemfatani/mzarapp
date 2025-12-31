@@ -29,6 +29,9 @@ export function ReviewCard({ review , isAr }) {
   else if (review.city=="madinah") 
     cityName = isAr ? 'المدينة المنورة' : 'Madinah';
 
+  let showLess = isAr ? 'عرض أقل' : 'Show Less';
+  let readMore = isAr ? 'قراءة المزيد' : 'Read More';
+
   return (
     <article className="rounded-2xl border-2 border-[#e2e8f0] bg-white p-6 shadow-md transition-all hover:shadow-lg md:p-8" >
       {/* Header */}
@@ -86,7 +89,7 @@ export function ReviewCard({ review , isAr }) {
           onClick={() => setIsExpanded(!isExpanded)}
           className="mb-4 text-lg text-[#3C6652] transition-colors hover:text-[#867957]"
         >
-          {isExpanded ? 'عرض أقل' : 'قراءة المزيد'}
+          {isExpanded ? showLess : readMore}
         </button>
       )}
 

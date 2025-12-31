@@ -2,6 +2,7 @@
 
 import { Star, CheckCircle2 } from 'lucide-react';
 import { ratingBreakdown } from './reviews';
+import { is } from 'date-fns/locale';
 
 export function ReviewsSummary({ isAr }) {
   const renderStars = (count) => {
@@ -25,9 +26,9 @@ export function ReviewsSummary({ isAr }) {
     <section className="bg-white py-12 md:py-16" >
       <div className="container mx-auto max-w-7xl px-6 lg:px-8">
         <div className="rounded-3xl border-2 border-[#e2e8f0] bg-gradient-to-br from-[#f5f2ed] to-white p-8 shadow-lg md:p-12">
-          <div className="grid gap-12 lg:grid-cols-2">
+          <div className="grid grid-cols-1 lg:grid-cols-2  gap-12">
             {/* Left: Overall Rating */}
-            <div className="text-center lg:text-right">
+            <div className="text-center lg:text-start">
               <div className="mb-4 text-7xl text-[#3C6652] md:text-8xl">
                 4.9
                 <span className="text-4xl text-[#718096]"> / 5</span>
@@ -41,22 +42,22 @@ export function ReviewsSummary({ isAr }) {
                 ))}
               </div>
               <p className="mb-8 text-xl leading-relaxed text-[#4a5568]">
-                بناءً على أكثر من <span className="text-[#3C6652]">1,200 تقييم موثّق</span> من عملاء مزار
+                {isAr ? "بناءً على أكثر من 1,200 تقييم موثّق من عملاء مزار" : "Based on more than 1,200 verified reviews from Mzar customers"}
               </p>
 
               {/* Trust Indicators */}
               <div className="space-y-3">
                 <div className="flex items-center justify-center gap-3 lg:justify-start">
                   <CheckCircle2 className="h-6 w-6 text-[#3C6652]" strokeWidth={2.5} />
-                  <span className="text-lg text-[#3C6652]">تقييمات حقيقية</span>
+                  <span className="text-lg text-[#3C6652]" >{isAr ? 'تقييمات حقيقية' : 'Real Reviews'}</span>
                 </div>
                 <div className="flex items-center justify-center gap-3 lg:justify-start">
                   <CheckCircle2 className="h-6 w-6 text-[#3C6652]" strokeWidth={2.5} />
-                  <span className="text-lg text-[#3C6652]">حجوزات مؤكدة</span>
+                  <span className="text-lg text-[#3C6652]">{isAr ? 'حجوزات مؤكدة' : 'Confirmed Bookings'}</span>
                 </div>
                 <div className="flex items-center justify-center gap-3 lg:justify-start">
                   <CheckCircle2 className="h-6 w-6 text-[#3C6652]" strokeWidth={2.5} />
-                  <span className="text-lg text-[#3C6652]">مراجعة تلقائية بدون تعديل</span>
+                  <span className="text-lg text-[#3C6652]">{isAr ? 'مراجعة تلقائية بدون تعديل' : 'Automatic Review Without Modification'}</span>
                 </div>
               </div>
             </div>
