@@ -26,7 +26,7 @@ export function WhyChooseUs( { lang } ) {
     {
       icon: <Headphones size={52} strokeWidth={1.5} />,
       title: isAr ? 'دعم على مدار الساعة' : '24/7 Support',
-      description: isAr ? 'فريق خدمة عملاء جاهز لمساعدتك قبل وأثناء وبعد الرحلة.' : 'A dedicated customer support team ready to assist you before, during, and after your experience.'
+      description: isAr ? 'فريق خدمة عملاء جاهز لمساعدتك قبل وأثناء وبعد التجربة.' : 'A dedicated customer support team ready to assist you before, during, and after your experience.'
     },
     // {
     //   icon: <Star size={52} strokeWidth={1.5} />,

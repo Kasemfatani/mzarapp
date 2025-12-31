@@ -23,7 +23,7 @@ export default function DownloadAppSection({ lang }) {
 
 					{/* Heading */}
 					<h2 className="text-3xl md:text-4xl font-bold text-black leading-tight">
-						{isAr ? "تحميل تطبيق مزار" : "Download Mzar App"}
+						{isAr ? "حمّل تطبيق مزار " : "Download Mzar App"}
 					</h2>
 
 					{/* Description */}

@@ -34,7 +34,7 @@ export default function HeroSection({ lang , totalResults }) {
 						lineHeight: "1.3",
 					}}
 				>
-				{isAr ? "جميع الرحلات" : "All Trips"}
+				{isAr ? "جميع التجارب" : "All Experiences"}
 				</h1>
 
 				{/* Description */}
@@ -57,9 +57,9 @@ export default function HeroSection({ lang , totalResults }) {
 							className="text-[15px] text-[#006064]"
 							style={{ fontFamily: "Tajawal, sans-serif", fontWeight: 500 }}
 						>
-							{isAr ? "عدد الرحلات المتاحة: " : "Available Trips: "}
+							{isAr ? "عدد التجارب المتاحة: " : "Available Experiences: "}
 						
-							<span className="font-semibold">{totalTrips}  {isAr ? "رحلة" : "Trips"}</span>
+							<span className="font-semibold">{totalTrips}  {isAr ? "تجربة" : "Experiences"}</span>
 						</span>
 						
 					</div>
