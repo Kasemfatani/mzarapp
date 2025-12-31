@@ -23,6 +23,12 @@ export function ReviewCard({ review , isAr }) {
     }
   };
 
+  let cityName = 'Makkah';
+  if (review.city=="makkah") 
+    cityName = isAr ? 'مكة المكرمة' : 'Makkah';
+  else if (review.city=="madinah") 
+    cityName = isAr ? 'المدينة المنورة' : 'Madinah';
+
   return (
     <article className="rounded-2xl border-2 border-[#e2e8f0] bg-white p-6 shadow-md transition-all hover:shadow-lg md:p-8" >
       {/* Header */}
@@ -59,15 +65,15 @@ export function ReviewCard({ review , isAr }) {
         {/* City Badge */}
         <div className="flex items-center gap-2 rounded-full bg-[#f5f2ed] px-4 py-2">
           <MapPin className="h-4 w-4 text-[#867957]" />
-          <span className="text-base text-[#3C6652]">{review.city}</span>
+          <span className="text-base text-[#3C6652]">{cityName}</span>
         </div>
       </div>
 
       {/* Tour Name */}
       <div className="mb-4">
-        <button className="text-lg text-[#867957] transition-colors hover:text-[#3C6652] hover:underline">
+        <a href={`/trip-detail/${review.tourId}`} className="text-lg text-[#867957] transition-colors hover:text-[#3C6652] hover:underline">
           {review.tourName}
-        </button>
+        </a>
       </div>
 
       {/* Review Text */}
@@ -97,7 +103,7 @@ export function ReviewCard({ review , isAr }) {
       )}
 
       {/* Footer */}
-      <div className="flex items-center justify-between border-t border-[#e2e8f0] pt-4">
+      {/* <div className="flex items-center justify-between border-t border-[#e2e8f0] pt-4">
         <div className="flex items-center gap-2">
           <button
             onClick={handleHelpful}
@@ -112,7 +118,7 @@ export function ReviewCard({ review , isAr }) {
           </button>
           <span className="text-base text-[#718096]">({helpfulCount})</span>
         </div>
-      </div>
+      </div> */}
     </article>
   );
 }
