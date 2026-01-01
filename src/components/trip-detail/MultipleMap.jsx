@@ -17,7 +17,7 @@ const center = {
 	lng: 39.8262,
 };
 
-export function MultipleMap({ lang, data }) {
+export default function MultipleMap({ lang, data }) {
 	const isAr = lang === "ar";
 
 	const mapLocations = [

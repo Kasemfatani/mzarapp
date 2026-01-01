@@ -5,6 +5,7 @@ import { motion } from "motion/react";
 
 import { ArrowRight, ArrowLeft } from "lucide-react";
 import { BottomBar } from "./BottomBar";
+import Image from 'next/image'
 
 export function HeroWithInfo({ lang, data }) {
 	const isAr = lang === "ar";
@@ -38,11 +39,13 @@ export function HeroWithInfo({ lang, data }) {
 			<div className=" relative w-full h-[50vh] md:h-[70vh] overflow-hidden flex flex-col">
 				{/* Hero Image */}
 				<div className="absolute inset-0">
-					<img
+					<Image
 						src={data.image}
 						// src="/trip-detail/water-bottles.webp"
 						alt={data.name}
 						className="w-full h-full object-cover"
+						fill
+						priority
 					/>
 				</div>
 

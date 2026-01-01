@@ -23,7 +23,7 @@ import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
 // 	lng: 39.8262,
 // };
 
-export function MapSection({ lang , data }) {
+export default function MapSection({ lang , data }) {
 
   const isAr = lang === "ar";
 
