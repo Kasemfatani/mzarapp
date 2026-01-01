@@ -602,21 +602,7 @@ a {
 .ltr{
   direction:ltr;
 }
-/* story animation for swiper in promo code in PromoCode in saad-new page */
-/* @keyframes story {
-	from {
-		width: 0%;
-	}
-	to {
-		width: 100%;
-	}
-}
 
-.animate-story {
-	animation: story linear forwards;
-} */
-
-/* end of story animation for swiper in promo code */
 
 
 /* Global overrides (beat legacy Cairo rules) */
