@@ -125,7 +125,7 @@ function OfferCard({
 	);
 }
 
-export function SpecialOffers({ lang }) {
+export default function SpecialOffers({ lang }) {
   const isAr = lang === "ar";
 	const offers = [
 		{

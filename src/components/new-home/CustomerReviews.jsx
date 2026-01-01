@@ -85,7 +85,7 @@ function ReviewCard({ name, rating, tour, review, avatar, verified = true }) {
 	);
 }
 
-export function CustomerReviews({ lang }) {
+export default function CustomerReviews({ lang }) {
 	const isAr = lang === "ar";
 	const reviews = isAr
 		? [
