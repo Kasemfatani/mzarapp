@@ -1,6 +1,6 @@
 "use client";
 
-
+import Image from 'next/image'
 import { MapPin} from 'lucide-react';
 
 export default function HeroSection({ lang , totalResults }) {
@@ -11,10 +11,12 @@ export default function HeroSection({ lang , totalResults }) {
 		<section className="relative h-[400px] bg-gradient-to-b from-[#F1F5F9] to-white overflow-hidden">
 			{/* Background Image */}
 			<div className="absolute inset-0">
-				<img
+				<Image
 					src="https://images.unsplash.com/photo-1720549973451-018d3623b55a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtZWNjYSUyMGthYWJhJTIwbW9zcXVlfGVufDF8fHx8MTc2NTI4NDUyM3ww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
 					alt="Mecca Background"
 					className="w-full h-full object-cover"
+					fill
+					priority
 				/>
 				<div className="absolute inset-0 bg-black/50" />
 			</div>

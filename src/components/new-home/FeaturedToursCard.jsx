@@ -58,8 +58,7 @@ export function FeaturedToursCard({
 					src={image}
 					alt={name}
 					className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-					width={390}
-					height={256}
+					fill
 				/>
 				{/* Gradient Overlay */}
 				<div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
