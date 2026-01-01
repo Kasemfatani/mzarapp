@@ -4,6 +4,7 @@ import { Menu, X, Globe, Phone, Mail } from "lucide-react";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import Image from 'next/image'
 
 export default function Header() {
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -186,11 +187,12 @@ export default function Header() {
 						{/* Logo - positioned right in  */}
 						<div className="flex-shrink-0">
 							<Link href="/">
-								<img
+								<Image
 									src="/Home/header-logo.png"
 									alt="logo"
 									width={138}
 									height={46}
+									priority
 								/>
 							</Link>
 						</div>

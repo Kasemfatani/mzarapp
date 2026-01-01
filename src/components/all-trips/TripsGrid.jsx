@@ -18,7 +18,7 @@ const CURRENCY_SVG = (
 	</svg>
 );
 
-export function TripsGrid({ lang, trips }) {
+export default function TripsGrid({ lang, trips }) {
 	const isAr = lang === "ar";
 
 	// Pagination state
