@@ -12,7 +12,7 @@ const ICONS = {
   "users": Users,
 };
 
-export function HighlightsSection({ lang , data }) {
+export default function HighlightsSection({ lang , data }) {
 
   const isAr = lang === "ar";
 

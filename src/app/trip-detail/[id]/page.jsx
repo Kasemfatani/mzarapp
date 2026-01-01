@@ -4,15 +4,10 @@ import { API_BASE_URL } from "@/lib/apiConfig";
 
 import { HeroWithInfo } from "@/components/trip-detail/HeroWithInfo";
 import { SummaryCard } from "@/components/trip-detail/SummaryCard";
-import { HighlightsSection } from "@/components/trip-detail/HighlightsSection";
-import { AboutSection } from "@/components/trip-detail/AboutSection";
-import { InclusionsSection } from "@/components/trip-detail/InclusionsSection";
-import { TimelineSection } from "@/components/trip-detail/TimelineSection";
-import { TimelineImg } from "@/components/trip-detail/TimelineImg";
-import { MapSection } from "@/components/trip-detail/MapSection";
-import { MultipleMap } from "@/components/trip-detail/MultipleMap";
-import Destinations from "@/components/trip-detail/Destinations";
-import BusStops from "@/components/trip-detail/BusStops";
+
+import LazyTopSections from "@/components/trip-detail/LazyTopSections";
+
+import LazyBottomSections from "@/components/trip-detail/LazyBottomSections";
 
 import { API_BASE_URL_NEW } from "@/lib/apiConfig";
 
@@ -117,23 +112,25 @@ export default async function TourPage({ params }) {
 		<div className={lang === "en" ? "ltr" : "rtl"}>
 			<HeroWithInfo lang={lang} data={data} />
 			<SummaryCard lang={lang} data={data} />
-			<HighlightsSection lang={lang} data={data} />
+			{/* <HighlightsSection lang={lang} data={data} />
 			<AboutSection lang={lang} data={data} />
 			{data.consists > 0 && data.unconsists > 0 && (
 				<InclusionsSection lang={lang} data={data} />
-			)}
-			{/* <InclusionsSection lang={lang} data={data} /> */}
-			{/* {data.busStops && <BusStops lang={lang} />} */}
-			{data.locations && <Destinations lang={lang} data={data} />}
+			)} */}
+			<LazyTopSections lang={lang} data={data} />
+
+			<LazyBottomSections lang={lang} data={data} />
+
+			{/* {data.locations && <Destinations lang={lang} data={data} />}
 			{data.tentatives && data.tentatives.length > 0 && (
 				<TimelineSection lang={lang} data={data} />
-			)}
-			{/* {data.timelineImg && <TimelineImg lang={lang} data={data} />} */}
+			)} */}
+			{/* 			
 			{data.map_image && <MapSection lang={lang} data={data} />}
 			{Array.isArray(data.assimply_points) &&
 				data.assimply_points.length > 0 && (
 					<MultipleMap lang={lang} data={data} />
-				)}
+				)} */}
 		</div>
 	);
 }

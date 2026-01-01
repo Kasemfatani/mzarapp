@@ -4,7 +4,8 @@ import { Clock, ChevronDown } from 'lucide-react';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 
-export function TimelineSection({ lang , data }) {
+
+export default function TimelineSection({ lang , data }) {
 
   const isAr = lang === "ar";
 

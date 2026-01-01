@@ -4,7 +4,7 @@ import { Sparkles } from 'lucide-react';
 import { motion } from 'motion/react';
 import parse from "html-react-parser";
 
-export function AboutSection({ lang , data }) {
+export default function AboutSection({ lang , data }) {
   const isAr = lang === "ar";
 
   

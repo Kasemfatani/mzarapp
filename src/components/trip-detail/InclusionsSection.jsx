@@ -3,7 +3,7 @@
 import { CheckCircle2, XCircle } from 'lucide-react';
 import { motion } from 'motion/react';
 
-export function InclusionsSection({ lang , data }) {
+export default function InclusionsSection({ lang , data }) {
   
   const isAr = lang === "ar";
 
