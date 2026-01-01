@@ -4,7 +4,7 @@
 @tailwind utilities;
 
 /* Register local fonts from /public/fonts */
-@font-face {
+/* @font-face {
   font-family: "TheYearOfTheCamel";
   src: url("/fonts/the-year-of-the-camel-extrabold.otf") format("opentype");
   font-weight: 800 900;
@@ -12,7 +12,7 @@
   font-display: swap;
 }
 @font-face {
-  font-family: "TheYearOfHandicrafts";
+  font-family: var(--font-handicrafts);
   src: url("/fonts/TheYearofHandicrafts-SemiBold.otf") format("opentype");
   font-weight: 600;
   font-style: normal;
@@ -24,12 +24,12 @@
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
-}
+} */
 
 :root {
   /* default: English */
-  --font-body: "TheYearOfTheCamel", system-ui, sans-serif;
-  --font-heading: "TheYearOfTheCamel", system-ui, sans-serif;
+  --font-body: var(--font-camel), system-ui, sans-serif;
+  --font-heading: var(--font-camel), system-ui, sans-serif;
   overflow-y: scroll;
 }
 html body[data-scroll-locked] {
@@ -39,8 +39,8 @@ html body[data-scroll-locked] {
 
 /* When the document language is Arabic */
 html[lang="ar"] {
-  --font-body: "ReadexPro", system-ui, sans-serif;
-  --font-heading: "TheYearOfHandicrafts", system-ui, sans-serif;
+  --font-body: var(--font-readex), system-ui, sans-serif;
+  --font-heading: var(--font-handicrafts), system-ui, sans-serif;
 }
 
 /* @media (prefers-color-scheme: dark) {
