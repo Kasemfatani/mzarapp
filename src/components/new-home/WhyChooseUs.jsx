@@ -1,6 +1,6 @@
 import { Award, Sparkles, Ticket, CreditCard, Headphones, Star } from 'lucide-react';
 
-export function WhyChooseUs( { lang } ) {
+export default function WhyChooseUs( { lang } ) {
   const isAr = lang === "ar";
   const advantages = [
     {
