@@ -2,8 +2,9 @@
 
 import HeroSection from "@/components/all-trips/HeroSection";
 import { FiltersBar } from "@/components/all-trips/FiltersBar";
-import { TripsGrid } from "@/components/all-trips/TripsGrid";
+// import { TripsGrid } from "@/components/all-trips/TripsGrid";
 import { SeoContent } from "@/components/all-trips/SeoContent";
+import LazyBottomSections from "@/components/all-trips/LazyBottomSections";
 import { useMemo } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
@@ -50,11 +51,12 @@ export default function AllTripPageWrapper({ lang, data }) {
 				filters={filters}
 				onFiltersChange={onFiltersChange}
 			/>
-			<TripsGrid
+			<LazyBottomSections lang={lang} trips={Array.isArray(data) ? data : []} />
+			{/* <TripsGrid
 				lang={lang}
 				trips={Array.isArray(data) ? data : []}
 				
-			/>
+			/> */}
 			<SeoContent lang={lang} />
 		</div>
 	);
