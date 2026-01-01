@@ -1,7 +1,8 @@
 "use client";
 
-import { el } from "date-fns/locale";
+
 import { Star, Clock, TrendingUp, MapPin, Users } from "lucide-react";
+import Image from 'next/image'
 
 const CURRENCY_SVG = (
 	<svg
@@ -53,10 +54,12 @@ export function FeaturedToursCard({
 		>
 			{/* Image Container */}
 			<div className="relative h-64 overflow-hidden">
-				<img
+				<Image
 					src={image}
 					alt={name}
 					className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+					width={390}
+					height={256}
 				/>
 				{/* Gradient Overlay */}
 				<div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
