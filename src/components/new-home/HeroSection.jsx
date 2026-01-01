@@ -43,7 +43,7 @@ export default function HeroSection({ lang }) {
 					alt="Holy Kaaba"
 					className="w-full h-full object-cover"
 				/> */}
-				<video
+				{/* <video
 					autoPlay
 					loop
 					muted
@@ -51,7 +51,7 @@ export default function HeroSection({ lang }) {
 					className="w-full h-full object-cover"
 				>
 					<source src="/new-home/home-page.webm" type="video/webm" />
-				</video>
+				</video> */}
 				<div className="absolute inset-0 bg-gradient-to-l from-black/70 via-black/50 to-black/70"></div>
 				{/* Decorative overlay */}
 				<div className="absolute inset-0 bg-gradient-to-t from-[#3C6652]/40 via-transparent to-transparent"></div>
