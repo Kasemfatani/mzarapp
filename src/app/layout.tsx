@@ -15,6 +15,28 @@ import { headers, cookies } from "next/headers";
 import TrackingScripts from "@/components/TrackingScripts";
 import DeferredCssLinks from "@/components/DeferredCssLinks"; // ADD
 import ScrollToTopOnPageChange from "@/components/ScrollToTopOnPageChange";
+import localFont from "next/font/local";
+
+const readex = localFont({
+	src: "../../public/fonts/ReadexPro-Regular.woff2",
+	variable: "--font-readex",
+	display: "swap",
+	preload: true,
+});
+const handicrafts = localFont({
+	src: "../../public/fonts/TheYearofHandicrafts-SemiBold.woff2",
+	variable: "--font-handicrafts",
+	weight: "600",
+	display: "swap",
+	preload: true,
+});
+const camel = localFont({
+	src: "../../public/fonts/TheYearofTheCamel-ExtraBold.woff2",
+	variable: "--font-camel",
+	weight: "800",
+	display: "swap",
+	preload: true,
+});
 
 export async function generateMetadata(): Promise<Metadata> {
 	const acceptLang = headers().get("accept-language");
@@ -83,7 +105,12 @@ export default function RootLayout({
 	const lang = langCookie === "ar" ? "ar" : "en";
 
 	return (
-		<html lang={lang} id="root" suppressHydrationWarning={true}>
+		<html
+			lang={lang}
+			id="root"
+			className={`${readex.variable} ${handicrafts.variable} ${camel.variable}`}
+			suppressHydrationWarning={true}
+		>
 			<head>
 				{/* Google Fonts */}
 				{/* Remove Google Fonts preconnects (no longer needed) */}
@@ -93,7 +120,8 @@ export default function RootLayout({
 					href="https://fonts.gstatic.com"
 					crossOrigin="anonymous"
 				/> */}
-				<link rel="preload" as="image" href="/hero.webp" />
+
+				
 				<script
 					type="application/ld+json"
 					dangerouslySetInnerHTML={{
