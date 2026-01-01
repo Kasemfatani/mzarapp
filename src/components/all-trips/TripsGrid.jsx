@@ -2,7 +2,7 @@
 
 import { MapPin, Users, Clock, Star } from "lucide-react";
 import { Pagination } from "./Pagination";
-import { tr } from "date-fns/locale";
+import Image from 'next/image'
 import { useState, useEffect } from "react";
 
 const CURRENCY_SVG = (
@@ -119,10 +119,11 @@ function TripCard({ trip, isAr }) {
 		<div className="group bg-white rounded-[20px] shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden hover:-translate-y-1 flex flex-col h-full">
 			{/* Image Section */}
 			<div className="relative h-56 overflow-hidden">
-				<img
+				<Image
 					src={trip.image}
 					alt={trip.name}
 					className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+					fill
 				/>
 
 				{/* City Badge - Top Left */}
