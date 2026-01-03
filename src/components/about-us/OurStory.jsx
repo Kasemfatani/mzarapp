@@ -12,10 +12,10 @@ export function OurStory( { lang } ) {
                {isAr ? 'قصتنا' : 'Our Story'}
             </h2>
             <p className="text-xl leading-relaxed text-[#4a5568] md:text-2xl">
-               {isAr ? 'من قلب مكة المكرمة، انطلقت فكرة مزار لتقدم تجربة زيارة متكاملة تجمع بين الثقافة والإثراء والتقنية الحديثة. ' : 'From the heart of Mecca, the idea of Mzar was born to offer a comprehensive visit experience that combines culture, enrichment, and modern technology.'}
+               {isAr ? 'من قلب مكة المكرمة، انطلقت فكرة مزار لتقدم تجربة زيارة متكاملة تجمع بين الثقافة والإثراء والتقنية الحديثة. ' : 'From the heart of Makkah Al-Mukarramah, the idea of Mzar was born to offer a comprehensive visitation experience that brings together culture, enrichment, and modern technology.'}
             </p>
             <p className="mt-4 text-xl leading-relaxed text-[#4a5568] md:text-2xl">
-              {isAr ? 'نهدف إلى إعادة إحياء قصص الأماكن التاريخية بأسلوب الحاضر، نربط الزائر بالمكان من خلال تجربة تفاعلية تثري زيارته وتضيف لها معنى. ' : 'We aim to revive the stories of historical places in a contemporary style, connecting the visitor to the place through an interactive experience that enriches their visit and adds meaning.'}
+              {isAr ? 'نهدف إلى إعادة إحياء قصص الأماكن التاريخية بأسلوب الحاضر، نربط الزائر بالمكان من خلال تجربة تفاعلية تثري زيارته وتضيف لها معنى. ' : 'We aim to revive the stories of historical sites through a contemporary approach, connecting visitors to each place through interactive experiences that enrich their journey and add deeper meaning to it.'}
             </p>
           </div>
 
