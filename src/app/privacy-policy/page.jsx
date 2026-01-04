@@ -4,10 +4,10 @@ import { cookies, headers } from "next/headers";
 
 import { Hero } from "@/components/privacy-policy/Hero";
 import { WhatWeCollect } from "@/components/privacy-policy/WhatWeCollect";
-import { HowWeUseData } from "@/components/privacy-policy/HowWeUseData";
+// import { HowWeUseData } from "@/components/privacy-policy/HowWeUseData";
 import { DataSecurity } from "@/components/privacy-policy/DataSecurity";
 import { UserRights } from "@/components/privacy-policy/UserRights";
-import { ContactCTA } from "@/components/privacy-policy/ContactCTA";
+// import { ContactCTA } from "@/components/privacy-policy/ContactCTA";
 
 // import { API_BASE_URL_NEW } from "@/lib/apiConfig";
 
@@ -55,7 +55,7 @@ export default async function PrivacyPolicyPage() {
 			{/* <HowWeUseData isAr={isAr} /> */}
 			<DataSecurity isAr={isAr} />
 			<UserRights isAr={isAr} />
-			<ContactCTA isAr={isAr} />
+			{/* <ContactCTA isAr={isAr} /> */}
 		</div>
 	);
 }
