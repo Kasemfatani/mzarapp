@@ -7,7 +7,7 @@ export function Hero({ isAr }) {
   const trustBadges = [
   { icon: Eye, text: isAr ? 'سياسة شفافة' : 'Transparent Policy' },
   { icon: Shield, text: isAr ? 'بدون رسوم مخفية' : 'No Hidden Fees' },
-  { icon: CheckCircle2, text: isAr ? 'استرجاع منظم وفق الشروط' : 'Organized Refunds as per Terms' },
+  { icon: CheckCircle2, text: isAr ? 'استرجاع منظم وفق الشروط' : 'Organized Refund Process' },
 ];
 
   return (
@@ -30,7 +30,7 @@ export function Hero({ isAr }) {
             {isAr ? "سياسة الحجز والإلغاء " : "Booking & Cancellation Policy"}
           </h1>
           <p className="mx-auto max-w-3xl text-2xl leading-relaxed text-white/95 md:text-3xl">
-            {isAr ? "حجزك معنا آمن ــ إجراءات واضحة لضمان تجربة مريحة " : "Your booking is secure – clear procedures to ensure a comfortable experience."}
+            {isAr ? "حجزك معنا آمن ــ إجراءات واضحة لضمان تجربة مريحة " : "Your booking is secure – clear procedures to ensure a smooth experience."}
           </p>
         </div>
 
