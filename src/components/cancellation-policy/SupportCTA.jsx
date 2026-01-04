@@ -20,7 +20,7 @@ export function SupportCTA({ isAr }) {
         </p>
 
         <div className="flex flex-col justify-center gap-5 sm:flex-row">
-          <a  href="https://wa.me/+966580121025" target="_blank" rel="noopener noreferrer"  className="group flex items-center justify-center gap-3 rounded-full bg-white px-10 py-5 text-xl text-[#0d5940] transition-all duration-300 hover:bg-[#c9a961] hover:text-white hover:shadow-2xl">
+          <a  href="/contact-us#contact-us-form" className="group flex items-center justify-center gap-3 rounded-full bg-white px-10 py-5 text-xl text-[#0d5940] transition-all duration-300 hover:bg-[#c9a961] hover:text-white hover:shadow-2xl">
             <span>{isAr ? "تواصل مع الدعم" : "Contact Support"}</span>
             <MessageCircle className="h-6 w-6 transition-transform group-hover:scale-110" />
           </a>
