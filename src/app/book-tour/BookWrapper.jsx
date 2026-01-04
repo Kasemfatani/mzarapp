@@ -261,6 +261,7 @@ export default function BookTourPage({ busData, lang }) {
 
 	const onConfirm = form.handleSubmit(async (values) => {
 		try {
+			setLoading(true); // set loading true on submit
 			const selection = {
 				date: format(values.date, "yyyy-MM-dd"),
 				time: values.time,
@@ -405,7 +406,9 @@ export default function BookTourPage({ busData, lang }) {
 					? "فشل إرسال المعلومات أو بدء الدفع"
 					: "Failed to send info or start payment"
 			);
-		}
+		} finally {
+			setLoading(false); // reset loading if error occurs
+		} 
 	});
 
 	const onCancel = () => {
