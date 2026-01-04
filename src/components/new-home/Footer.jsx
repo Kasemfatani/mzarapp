@@ -57,7 +57,7 @@ export default function Footer() {
 		>
 			{/* Main Footer Content */}
 			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 md:py-16">
-				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 lg:gap-8 justify-center">
+				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 justify-center">
 					{/* Column 1 - Logo & Description */}
 					<div className="lg:col-span-1 mx-auto text-center md:text-start">
 						{/* Logo */}
@@ -136,23 +136,24 @@ export default function Footer() {
 									{isAr ? "التجارب" : "Experiences"}
 								</a>
 							</li>
-							{/* <li>
-								<a
-									href="#offers"
-									className="text-gray-600 hover:text-[#867957] transition-colors text-sm block"
-								>
-									{isAr ? 'العروض' : 'Offers'}
-								</a>
-							</li>
 							<li>
 								<a
-									href="#about"
+									href="/about-us"
 									className="text-gray-600 hover:text-[#867957] transition-colors text-sm block"
 								>
 									{isAr ? 'من نحن' : 'About Us'}
 								</a>
 							</li>
 							<li>
+								<a
+									href="/contact-us"
+									className="text-gray-600 hover:text-[#867957] transition-colors text-sm block"
+								>
+									{isAr ? 'تواصل معنا' : 'Contact Us'}
+								</a>
+							</li>
+							
+							{/* <li>
 								<a
 									href="#gallery"
 									className="text-gray-600 hover:text-[#867957] transition-colors text-sm block"
@@ -227,7 +228,7 @@ export default function Footer() {
 					</div> */}
 
 					{/* Column 4 - Customer Support */}
-					{/* <div className="mx-auto  text-center">
+					<div className="mx-auto  text-center">
 						<h3
 							className="text-[#3C6652] mb-5 font-semibold"
 							
@@ -240,7 +241,7 @@ export default function Footer() {
 						>
 							<li>
 								<a
-									href="#faq"
+									href="/faq"
 									className="text-gray-600 hover:text-[#867957] transition-colors text-sm block"
 								>
 								 	{isAr ? 'الأسئلة الشائعة' : 'FAQ'}
@@ -248,7 +249,7 @@ export default function Footer() {
 							</li>
 							<li>
 								<a
-									href="#cancellation"
+									href="/cancellation-policy"
 									className="text-gray-600 hover:text-[#867957] transition-colors text-sm block"
 								>
 									{isAr ? 'سياسة الإلغاء' : 'Cancellation Policy'}
@@ -256,7 +257,7 @@ export default function Footer() {
 							</li>
 							<li>
 								<a
-									href="#privacy"
+									href="/privacy-policy"
 									className="text-gray-600 hover:text-[#867957] transition-colors text-sm block"
 								>
 									{isAr ? 'سياسة الخصوصية' : 'Privacy Policy'}
@@ -264,7 +265,7 @@ export default function Footer() {
 							</li>
 							<li>
 								<a
-									href="#terms"
+									href="/terms-and-conditions"
 									className="text-gray-600 hover:text-[#867957] transition-colors text-sm block"
 								>
 								 	{isAr ? 'شروط الاستخدام' : 'Terms of Use'}
@@ -272,7 +273,7 @@ export default function Footer() {
 							</li>
 							
 						</ul>
-					</div> */}
+					</div>
 
 					{/* Column 5 - Contact Information */}
 					<div className="mx-auto text-center md:text-start">
