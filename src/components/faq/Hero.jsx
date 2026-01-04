@@ -22,7 +22,7 @@ export function Hero({ searchQuery, onSearchChange , isAr }) {
 
         {/* Subtitle */}
         <p className="mb-12 text-xl leading-relaxed text-white/95 md:text-2xl">
-         {isAr ? "جمعنا لك أهم الأسئلة التي تساعدك على الحجز بثقة واطمئنان." : "We have gathered the most important questions to help you book with confidence and peace of mind."}
+         {isAr ? "جمعنا لك أهم الأسئلة التي تساعدك على الحجز بثقة واطمئنان." : "We have compiled the most important questions to help you book with confidence and peace of mind."}
         </p>
 
         {/* Search Bar */}

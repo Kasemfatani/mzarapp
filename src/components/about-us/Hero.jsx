@@ -29,12 +29,12 @@ export function Hero( { lang } ) {
 
           {/* Subheadline */}
           <h2 className="mb-6 text-3xl text-[#c9a961] md:text-4xl lg:text-5xl">
-            {isAr ? 'مزاه — منصة سعودية معتمدة لحجز الجولات الدينية والثقافية' : 'Mzar — A Saudi platform accredited for booking religious and cultural tours'}
+            {isAr ? 'مزار ــ منصة سعودية معتمدة لحجز التجارب التاريخية والثقافية والإثرائية ' : 'Mzar is a licensed Saudi platform for booking historical, cultural, and enrichment experiences'}
           </h2>
 
           {/* Supporting Text */}
           <p className="mb-10 max-w-2xl text-xl text-white/95 md:text-2xl">
-            {isAr ? 'نربطك بأفضل المرشدين المعتمدين لنقدّم لك تجربة منظمة، آمنة، وروحانية في مكة المكرمة والمدينة المنورة.' : 'We connect you with the best certified guides to offer you an organized, safe, and spiritual experience in Mecca and Medina.'}
+            {isAr ? 'نقدّم لك تجربة منظمة، آمنة، وتاريخية في مكة المكرمة والمدينة المنورة. ' : 'We offer a well-organized, safe, and authentic historical experience in Makkah Al-Mukarramah & Al-Madinah Al-Munawwarah.'}
           </p>
 
           {/* Trust Chips */}

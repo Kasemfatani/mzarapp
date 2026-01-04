@@ -15,7 +15,7 @@ export function MissionVision( { lang } ) {
              {isAr ? 'رسالتنا' : 'Our Mission'}
             </h3>
             <p className="text-xl leading-relaxed text-[#4a5568]">
-              {isAr ? 'تقديم تجربة سياحية دينية منظمة، واضحة، وآمنة، مع أعلى معايير الخدمة.' : 'Providing an organized, clear, and safe religious tourism experience with the highest service standards.'}
+              {isAr ? 'نقدّم تجارب زيارة تثري معرفة الزائر بالمواقع التاريخية والثقافية في مكة والمدينة، من خلال حلول تقنية مبتكرة تضمن له تجربة مريحة وموثوقة وسهلة الوصول. ' : "We provide visitation experiences that deepen visitors’ knowledge of historical and cultural landmarks in Makkah and Madinah through innovative technological solutions that ensure a comfortable, reliable, and easily accessible experience. "}
             </p>
           </div>
 
@@ -28,7 +28,7 @@ export function MissionVision( { lang } ) {
               {isAr ? 'رؤيتنا' : 'Our Vision'}
             </h3>
             <p className="text-xl leading-relaxed text-[#4a5568]">
-              {isAr ? 'أن نكون الوجهة الأولى لحجز الجولات الدينية والثقافية في المملكة.' : 'To be the premier destination for booking religious and cultural tours in the Kingdom.'}
+              {isAr ? 'أن تكون مزار المنصة الرائدة للتجارب الإثرائية في مكة المكرمة والمدينة المنورة، تجمع بين الأصالة والتقنية لتقديم تجربة استكشاف ذكية ومتكاملة. ' : 'To become the leading enrichment-experience platform in Makkah and Madinah, combining authenticity and technology to deliver a smart and fully integrated exploration experience. '}
             </p>
           </div>
         </div>

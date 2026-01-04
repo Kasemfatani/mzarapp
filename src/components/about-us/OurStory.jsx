@@ -12,10 +12,10 @@ export function OurStory( { lang } ) {
                {isAr ? 'قصتنا' : 'Our Story'}
             </h2>
             <p className="text-xl leading-relaxed text-[#4a5568] md:text-2xl">
-               {isAr ? 'انطلقت مزاه من إيماننا بأن الرحلة الروحانية تستحق تنظيمًا يليق بها.' : 'Mzar was launched from our belief that the spiritual journey deserves proper organization.'}
+               {isAr ? 'من قلب مكة المكرمة، انطلقت فكرة مزار لتقدم تجربة زيارة متكاملة تجمع بين الثقافة والإثراء والتقنية الحديثة. ' : 'From the heart of Makkah Al-Mukarramah, the idea of Mzar was born to offer a comprehensive visitation experience that brings together culture, enrichment, and modern technology.'}
             </p>
             <p className="mt-4 text-xl leading-relaxed text-[#4a5568] md:text-2xl">
-              {isAr ? 'عملنا على بناء منصة تجمع بين التقنية، الخبرة الميدانية، والالتزام الكامل براحة الزائر.' : 'We worked on building a platform that combines technology, field experience, and full commitment to visitor comfort.'}
+              {isAr ? 'نهدف إلى إعادة إحياء قصص الأماكن التاريخية بأسلوب الحاضر، نربط الزائر بالمكان من خلال تجربة تفاعلية تثري زيارته وتضيف لها معنى. ' : 'We aim to revive the stories of historical sites through a contemporary approach, connecting visitors to each place through interactive experiences that enrich their journey and add deeper meaning to it.'}
             </p>
           </div>
 
@@ -23,7 +23,7 @@ export function OurStory( { lang } ) {
           <div className="order-1 lg:order-2">
             <div className="overflow-hidden rounded-3xl shadow-lg">
               <img
-                src="https://images.unsplash.com/photo-1574246719289-a931e511c33d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtdXNsaW0lMjBwaWxncmltcyUyMGd1aWRlZCUyMHRvdXJ8ZW58MXx8fHwxNzY1OTY1MDM3fDA&ixlib=rb-4.1.0&q=80&w=1080"
+                src="/about-us/our-story.webp"
                 alt="رحلة روحانية مع مزاه"
                 className="h-full w-full object-cover"
               />

@@ -1,194 +1,324 @@
 "use client";
 
-import { useState } from 'react';
-import { Hero } from '@/components/faq/Hero';
-import { CategoryTabs } from '@/components/faq/CategoryTabs';
-import { FAQAccordion } from '@/components/faq/FAQAccordion';
-import { TrustReinforcement } from '@/components/faq/TrustReinforcement';
-import { SupportCTA } from '@/components/faq/SupportCTA';
-import { FinalCTA } from '@/components/faq/FinalCTA';
-
+import { useState } from "react";
+import { Hero } from "@/components/faq/Hero";
+import { CategoryTabs } from "@/components/faq/CategoryTabs";
+import { FAQAccordion } from "@/components/faq/FAQAccordion";
+import { TrustReinforcement } from "@/components/faq/TrustReinforcement";
+import { SupportCTA } from "@/components/faq/SupportCTA";
+import { FinalCTA } from "@/components/faq/FinalCTA";
 
 export default function FaqWrapper({ lang }) {
 	const isAr = lang === "ar";
 
 	const categories = [
 		{ id: "all", label: isAr ? "الكل" : "All" },
-		{ id: "booking-payment", label: isAr ? "الحجز والدفع" : "Booking & Payment" },
+		{ id: "mzar", label: isAr ? "عن مزار والتطبيق" : "About Mzar & the App" },
+		{
+			id: "booking-payment",
+			label: isAr ? "الحجز والدفع" : "Booking & Payment",
+		},
 		{ id: "tours", label: isAr ? "الرحلات والجولات" : "Tours & Trips" },
-		{ id: "cancellation", label: isAr ? "الإلغاء والاسترجاع" : "Cancellation & Refund" },
-		{ id: "meetup-transport", label: isAr ? "نقاط التجمع والتنقل" : "Meetup & Transport" },
-		{ id: "guides-services", label: isAr ? "المرشدين والخدمات" : "Guides & Services" },
-		{ id: "support", label: isAr ? "المشاكل والدعم الفني" : "Support & Technical Issues" },
+		{
+			id: "guides-services",
+			label: isAr ? "المرشدون والخدمة الميدانية" : "Guides & Field Service",
+		},
+		{
+			id: "support",
+			label: isAr ? "الدعم والطوارئ" : "Support & Emergencies",
+		},
+		// {
+		// 	id: "cancellation",
+		// 	label: isAr ? "الإلغاء والاسترجاع" : "Cancellation & Refund",
+		// },
+		// {
+		// 	id: "meetup-transport",
+		// 	label: isAr ? "نقاط التجمع والتنقل" : "Meetup & Transport",
+		// },
 	];
 
 	const faqs = [
-		// BOOKING & PAYMENT
+		// About Mzar
 		{
 			id: "1",
-			category: "booking-payment",
-			question:  isAr ? "كيف يمكنني حجز رحلة عبر مزار ؟" : "How can I book a trip through Mzar?",
-			answer:
-				isAr ? "اختر الرحلة المناسبة من صفحة الرحلات، حدّد التاريخ وعدد الأشخاص، ثم أكمل عملية الدفع بسهولة عبر البوابة الإلكترونية الآمنة. ستصلك رسالة تأكيد فورية على بريدك الإلكتروني ورقم جوالك." : "Choose the suitable trip from the tours page, select the date and number of people, then complete the payment easily through the secure online gateway. You will receive an instant confirmation message on your email and phone number.",
+			category: "mzar",
+			question: isAr ? "ما هو تطبيق مزار؟" : "What is Mzar app?",
+			answer: isAr
+				? "تطبيق مزار هو منصة رقمية متخصصة في التجارب الإثرائية التاريخية والثقافية، تتيح للمستخدم استكشاف المعالم الدينية والتاريخية في مكة المكرمة والمدينة المنورة من خلال جولات ميدانية ذكية وتفاعلية."
+				: "Mzar is a digital platform specializing in historical, cultural, and enrichment experiences. It enables users to explore religious and historical landmarks in Makkah and Madinah through smart, interactive guided tours.",
 		},
 		{
 			id: "2",
-			category: "booking-payment",
-			question: isAr ? "هل الحجز فوري؟" : "Is the booking instant?",
-			answer:
-				isAr ? "نعم، جميع الرحلات المتاحة على منصة مزار تتيح تأكيدًا فوريًا بعد إتمام عملية الدفع. ستحصل على تفاصيل الحجز كاملة في الحال." : "Yes, all available trips on the Mzar platform offer instant confirmation after completing the payment. You will receive full booking details immediately.",
+			category: "mzar",
+			question: isAr
+				? "كيف يمكنني تحميل تطبيق مزار؟"
+				: "How can I download Mzar app?",
+			answer: isAr
+				? "يمكنك تحميل التطبيق مباشرة من متجر App Store أو Google Play عبر البحث عن كلمة Mzar وتثبيته على جهازك أو من خلال الرابط التالي: https://onelink.to/yb2xky"
+				: "You can download the app directly from the App Store or Google Play by searching for Mzar, or via the following link: https://onelink.to/yb2xky",
 		},
 		{
 			id: "3",
-			category: "booking-payment",
-			question: isAr ? "ما طرق الدفع المتوفرة؟" : "What payment methods are available?",
-			answer:
-				isAr ? "نوفر طرق دفع متعددة تشمل: بطاقات مدى، فيزا، ماستر كارد، Apple Pay، والدفع الإلكتروني الآمن عبر بوابات معتمدة." : "We offer multiple payment methods including Mada cards, Visa, MasterCard, Apple Pay, and secure electronic payment through approved gateways.",
+			category: "mzar",
+			question: isAr
+				? "كيف أستفيد من التطبيق في تخطيط رحلتي؟"
+				: "How can I use the app to plan my trip?",
+			answer: isAr
+				? "بعد تثبيت التطبيق، يمكنك تصفح التجارب المتاحة واختيار التجربة التي تناسب وقتك واهتماماتك، ثم حجزها والدفع إلكترونياً بسهولة."
+				: "After installing the app, you can browse available experiences, choose the one that fits your schedule and interests, then book and pay easily online.",
 		},
 		{
 			id: "4",
-			category: "booking-payment",
-			question: isAr ? "هل يمكنني الحجز لأكثر من شخص؟" : "Can I book for more than one person?",
-			answer:
-				isAr ? "نعم، يمكنك تحديد عدد الأشخاص أثناء عملية الحجز، سواء كنت تحجز لعائلتك أو لمجموعة. نوفر خصومات خاصة للمجموعات الكبيرة." : "Yes, you can specify the number of people during the booking process, whether you are booking for your family or a group. We offer special discounts for large groups.",
+			category: "mzar",
+			question: isAr
+				? "هل يقدم التطبيق معلومات عن المعالم التي تتم زيارتها؟"
+				: "Does the app provide information about the sites being visited?",
+			answer: isAr
+				? "نعم، يقدم مزار محتوى معرفي شامل عن كل وجهة يتم زيارتها، يشمل التاريخ، الأهمية، والموقع الجغرافي، والعديد من القصص الموثوقة."
+				: "Yes. Mzar offers comprehensive, reliable enrichment content for every destination, including history, significance, geographic location, and authenticated stories.",
 		},
-
-		// CANCELLATION & REFUND
 		{
 			id: "5",
-			category: "cancellation",
-			question: isAr ? "هل يمكنني إلغاء الحجز؟" : "Can I cancel my booking?",
-			answer:
-				isAr ? "نعم، يمكنك إلغاء الحجز مجانًا قبل موعد الرحلة بـ 24 ساعة على الأقل حسب سياسة الإلغاء المحددة لكل رحلة. يُرجى مراجعة تفاصيل سياسة الإلغاء في صفحة الحجز." : "Yes, you can cancel your booking for free at least 24 hours before the trip according to the cancellation policy specified for each trip. Please review the cancellation policy details on the booking page.",
+			category: "mzar",
+			question: isAr
+				? "هل يوفر التطبيق وسائل نقل؟"
+				: "Does the app provide transportation?",
+			answer: isAr
+				? "نعم، يمكنك اختيار وسيلة النقل المناسبة ضمن التجارب المتاحة، سواء كانت حافلات سياحية أو سيارات مريحة خاصة."
+				: "Yes. You can select the suitable transportation option within the available experiences, whether tourist buses or comfortable private vehicles.",
 		},
 		{
 			id: "6",
-			category: "cancellation",
-			question: isAr ? "متى يتم استرجاع المبلغ؟" : "When is the refund processed?",
-			answer:
-				isAr ? "يتم استرجاع المبلغ خلال 5–7 أيام عمل عبر نفس وسيلة الدفع التي استخدمتها. ستصلك رسالة تأكيد فور معالجة طلب الاسترجاع." : "The refund is processed within 5–7 business days through the same payment method you used. You will receive a confirmation message once the refund request is processed.",
+			category: "mzar",
+			question: isAr
+				? "هل يقدم التطبيق إرشاداً صوتياً ونصياً؟"
+				: "Does the app offer audio and text guidance?",
+			answer: isAr
+				? "بكل تأكيد، يوفر مزار تجارب بإرشاد صوتي ونصي بـ 6 لغات عالمية لسهولة فهم التجربة لجميع الزوار."
+				: "Absolutely. Mzar provides audio and text guidance in 6 international languages, making the experience accessible to all visitors.",
 		},
+		// Booking & Payment
 		{
 			id: "7",
-			category: "cancellation",
-			question: isAr ? "ما هي سياسة الاسترجاع في حالة الإلغاء المتأخر؟" : "What is the refund policy for late cancellations?",
-			answer:
-				isAr ? "في حالة الإلغاء قبل موعد الرحلة بأقل من 24 ساعة، قد يتم خصم رسوم إدارية تصل إلى 50% من قيمة الحجز. الإلغاء في يوم الرحلة لا يشمل استرجاع المبلغ." : "In case of cancellation less than 24 hours before the trip, an administrative fee of up to 50% of the booking value may be deducted. Cancellation on the day of the trip does not include a refund.",
+			category: "booking-payment",
+			question: isAr
+				? "كيف يمكنني حجز تجربة عبر مزار؟"
+				: "How can I book an experience through Mzar?",
+			answer: isAr
+				? "اختر التجربة المناسبة من صفحة التجارب، حدّد التاريخ وعدد الأشخاص، ثم أكمل عملية الدفع بأمان عبر البوابة الإلكترونية. ستصلك رسالة تأكيد فورية على بريدك الإلكتروني ورقم جوالك."
+				: "Select your desired experience from the Experiences page, choose the date and number of participants, then complete the payment securely through the online gateway. You will receive instant confirmation via email and SMS.",
 		},
-
-		// TOURS & TRIPS
 		{
 			id: "8",
-			category: "tours",
-			question: isAr ? "هل الجولات مناسبة للعائلات؟" : "Are the tours suitable for families?",
-			answer:
-				isAr ? "نعم، معظم الجولات على منصة مزار مصممة لتناسب العائلات والأفراد من جميع الأعمار. يُوضّح ذلك في تفاصيل كل رحلة مع الإشارة لأي متطلبات خاصة." : "Yes, most tours on the Mzar platform are designed to suit families and individuals of all ages. This is clarified in the details of each trip with any special requirements noted.",
+			category: "booking-payment",
+			question: isAr ? "هل الحجز فوري؟" : "Is booking instant?",
+			answer: isAr
+				? "نعم، يتم تأكيد الحجز تلقائياً بمجرد إتمام عملية الدفع بنجاح."
+				: "Yes. Your booking is confirmed automatically once payment is successfully completed.",
 		},
 		{
 			id: "9",
-			category: "tours",
-			question: isAr ? "هل يوجد مرشدون معتمدون؟" : "Are there certified guides?",
-			answer:
-				isAr ? "جميع المرشدين في مزار معتمدون من الجهات الرسمية وذوو خبرة واسعة في المجال السياحي والروحاني. نحرص على تقديم تجربة احترافية وممتعة." : "All guides at Mzar are certified by official authorities and have extensive experience in the tourism and spiritual fields. We strive to provide a professional and enjoyable experience.",
+			category: "booking-payment",
+			question: isAr
+				? "ماهي طرق الدفع المتوفرة؟"
+				: "What payment methods are available?",
+			answer: isAr
+				? "يدعم مزار جميع وسائل الدفع الإلكتروني المعتمدة، بما في ذلك بطاقات الائتمان، Apple Pay وغيرها."
+				: "Mzar supports all approved electronic payment methods, including credit cards, Apple Pay, and others.",
 		},
 		{
 			id: "10",
-			category: "tours",
-			question: isAr ? "ما مدة الجولات المتوفرة؟" : "What is the duration of the available tours?",
-			answer:
-				isAr ? "تتراوح مدة الجولات بين نصف يوم إلى عدة أيام حسب نوع البرنامج. جميع التفاصيل متوفرة في صفحة كل جولة مع مسار الرحلة والأنشطة المتضمنة." : "The duration of the tours ranges from half a day to several days depending on the program type. All details are available on each tour page with the itinerary and included activities.",
+			category: "booking-payment",
+			question: isAr
+				? "هل يمكنني الحجز لأكثر من شخص؟"
+				: "Can I book for more than one person?",
+			answer: isAr
+				? "نعم، يمكنك حجز التجربة لك ولعائلتك أو أصدقائك من خلال نفس العملية، مع تحديد عدد الأشخاص قبل الدفع."
+				: "Yes. You can book for yourself, family, or friends in one reservation by selecting the number of participants before payment.",
 		},
-
-		// MEETUP & TRANSPORT
 		{
 			id: "11",
-			category: "meetup-transport",
-			question: isAr ? "من أين تنطلق الرحلات؟" : "Where do the trips depart from?",
-			answer:
-				isAr ? "تنطلق معظم الرحلات من نقاط تجمع محددة في مكة المكرمة والمدينة المنورة. ستحصل على موقع نقطة الانطلاق الدقيق عبر خرائط GPS في رسالة التأكيد." : "Most trips depart from designated gathering points in Mecca and Medina. You will receive the exact departure location via GPS maps in the confirmation message.",
+			category: "booking-payment",
+			question: isAr
+				? "هل يمكنني تعديل تفاصيل الحجز؟"
+				: "Can I modify my booking details?",
+			answer: isAr
+				? "يمكنك تعديل الموعد أو عدد المشاركين قبل موعد التجربة بمدة لا تقل عن ساعتين، عبر التواصل مع فريق الدعم."
+				: "Yes. You can modify the date or number of participants at least 2 hours before the experience by contacting the support team.",
 		},
 		{
 			id: "12",
-			category: "meetup-transport",
-			question: isAr ? "هل يشمل الحجز خدمة النقل؟" : "Does the booking include transportation service?",
-			answer:
-				isAr ? "نعم، معظم رحلاتنا تشمل خدمة النقل المريح من نقطة التجمع وإليها. يتم توضيح ذلك في تفاصيل كل رحلة." : "Yes, most of our trips include comfortable transportation service from and to the gathering point. This is clarified in the details of each trip.",
+			category: "booking-payment",
+			question: isAr ? "هل يمكنني إلغاء الحجز؟" : "Can I cancel my booking?",
+			answer: isAr
+				? "نعم، يمكنك الإلغاء بسهولة عبر التطبيق قبل ساعتين من موعد التجربة دون رسوم."
+				: "Yes. You can cancel easily through the app up to 2 hours before the experience with no fees.",
 		},
 		{
 			id: "13",
-			category: "meetup-transport",
-			question: isAr ? "ماذا أفعل إذا تأخرت عن موعد الانطلاق؟" : "What should I do if I am late for the departure time?",
-			answer:
-				isAr ? "يُرجى التواصل مع المرشد مباشرة عبر الرقم المتوفر في رسالة التأكيد. نحاول قدر الإمكان الانتظار، لكن يُفضل الوصول قبل 15 دقيقة من موعد الانطلاق." : "Please contact the guide directly via the number provided in the confirmation message. We try to wait as much as possible, but it is preferable to arrive 15 minutes before the departure time.",
+			category: "booking-payment",
+			question: isAr
+				? "متى يتم استرجاع المبلغ؟"
+				: "When will the refund be processed?",
+			answer: isAr
+				? "يتم استرجاع المبلغ خلال 3 إلى 14 يوم عمل حسب البنك أو وسيلة الدفع المستخدمة."
+				: "Refunds are processed within 3 to 14 business days, depending on your bank or payment provider.",
 		},
-
-		// GUIDES & SERVICES
 		{
 			id: "14",
-			category: "guides-services",
-			question: isAr ? "هل يتحدث المرشدون اللغة الإنجليزية؟" : "Do the guides speak English?",
-			answer:
-				isAr ? "نعم، نوفر مرشدين يتحدثون العربية والإنجليزية. يمكنك تحديد اللغة المفضلة عند الحجز." : "Yes, we provide guides who speak Arabic and English. You can specify your preferred language when booking.",
+			category: "booking-payment",
+			question: isAr
+				? "ما هي سياسة الإلغاء المتأخر؟"
+				: "What is the late cancellation policy?",
+			answer: isAr
+				? "إذا تم الإلغاء قبل أقل من ساعتين من موعد التجربة، يتم خصم 25% من قيمة الحجز، وبعد انطلاق التجربة لا يُسترد المبلغ."
+				: "If cancellation occurs less than 2 hours before the experience, 25% of the booking amount will be deducted. After the experience has started, the amount is non-refundable.",
 		},
+		// Experiences
 		{
 			id: "15",
-			category: "guides-services",
-			question: isAr ? "هل يمكنني التواصل مع المرشد قبل الرحلة؟" : "Can I contact the guide before the trip?",
-			answer:
-				isAr ? "نعم، ستتلقى معلومات التواصل مع المرشد قبل موعد الرحلة بـ 24 ساعة على الأقل لأي استفسارات أو ترتيبات خاصة." : "Yes, you will receive the guide's contact information at least 24 hours before the trip for any inquiries or special arrangements.",
+			category: "tours",
+			question: isAr
+				? "هل التجارب مناسبة للعائلات؟"
+				: "Are the experiences suitable for families?",
+			answer: isAr
+				? "نعم، جميع التجارب مُصمّمة لتناسب العائلات والفئات المختلفة من الزوار، وتشمل محطات آمنة ومريحة."
+				: "Yes. All experiences are designed to suit families and different visitor groups, with safe and comfortable stops.",
 		},
 		{
 			id: "16",
-			category: "guides-services",
-			question: isAr ? "ماذا يتضمن برنامج الرحلة؟" : "What does the trip itinerary include?",
-			answer:
-				isAr ? "كل رحلة تتضمن برنامج مفصل يشمل: الأماكن المزارة، مدة كل موقع، وجبات الطعام (إن وُجدت)، النقل، والأنشطة الإضافية. جميع التفاصيل متوفرة في صفحة الحجز." : "Each trip includes a detailed itinerary covering: places visited, duration at each site, meals (if any), transportation, and additional activities. All details are available on the booking page.",
+			category: "tours",
+			question: isAr
+				? "ما مدة التجارب المتوفرة؟"
+				: "What is the duration of the experiences?",
+			answer: isAr
+				? "تتراوح المدة بين ساعة ونصف إلى أربع ساعات حسب نوع المسار وعدد الوجهات المشمولة في التجربة."
+				: "Durations range from 1.5 to 4 hours, depending on the tour and number of destinations.",
 		},
-
-		// SUPPORT & TECHNICAL
 		{
 			id: "17",
-			category: "support",
-			question: isAr ? "ماذا أفعل إذا تأخر المرشد؟" : "What should I do if the guide is late?",
-			answer:
-				isAr ? "يمكنك التواصل مباشرة مع المرشد عبر الرقم المتوفر، أو مع فريق الدعم من خلال الدردشة المباشرة أو الاتصال على خدمة العملاء." : "You can contact the guide directly via the provided number, or reach out to the support team through live chat or by calling customer service.",
+			category: "tours",
+			question: isAr
+				? "من أين تنطلق التجارب؟"
+				: "Where do the experiences start?",
+			answer: isAr
+				? "تختلف نقطة الانطلاق بحسب نوع التجربة: في معظم الجولات، يصل السائق إليك مباشرة في موقعك أو فندقك المحدد عند الحجز لتبدأ رحلتك براحة تامة. أما بعض الجولات الخاصة مثل باص الجولات الإثرائية، فلها محطات تجمع محددة موضحة في تفاصيل الجولة."
+				: "Departure points vary by experience: In most tours, the driver will pick you up directly from your location or hotel. Some special tours, such as Enrichment Tours Bus, have designated gathering points listed in the experience details.",
 		},
 		{
 			id: "18",
-			category: "support",
-			question: isAr ? "كيف يمكنني التواصل مع فريق الدعم؟" : "How can I contact the support team?",
-			answer:
-				isAr ? "يمكنك التواصل معنا عبر الدردشة المباشرة في التطبيق، أو عبر البريد الإلكتروني support@Mzar.sa، أو الاتصال على +966 50 123 4567." : "You can contact us via live chat in the app, by email at support@Mzar.sa, or by calling +966 50 123 4567.",
+			category: "tours",
+			question: isAr
+				? "هل يشمل الحجز خدمة النقل؟"
+				: "Does the booking include transportation?",
+			answer: isAr
+				? "نعم، في معظم التجارب، تشمل الخدمة وسائل نقل مريحة وآمنة من وإلى نقطة التجمع."
+				: "Yes. Most experiences include comfortable and safe transportation to and from the meeting point.",
 		},
 		{
 			id: "19",
-			category: "support",
-			question: isAr ? "هل يمكنني تعديل تفاصيل الحجز؟" : "Can I modify my booking details?",
-			answer:
-				isAr ? "نعم، يمكنك تعديل التاريخ أو عدد الأشخاص قبل موعد الرحلة بـ 48 ساعة على الأقل من خلال التواصل مع فريق الدعم." : "Yes, you can modify the date or number of people at least 48 hours before the trip by contacting the support team.",
+			category: "tours",
+			question: isAr
+				? "ماذا أفعل إذا تأخرت عن موعد الانطلاق؟"
+				: "What if I arrive late?",
+			answer: isAr
+				? "نوصي بالوصول قبل الموعد بـ15 دقيقة. في حال التأخير، يرجى التواصل فوراً مع فريق الدعم لمعرفة إمكانية الانضمام أو إعادة الجدولة."
+				: "We recommend arriving 15 minutes early. If you are late, please contact support immediately to check availability for joining or rescheduling.",
 		},
 		{
 			id: "20",
+			category: "tours",
+			question: isAr
+				? "هل يتضمن الحجز برنامج التجربة؟"
+				: "Does the booking include an experience itinerary?",
+			answer: isAr
+				? "نعم، يحتوي كل حجز على برنامج تفصيلي للمحطات والمعالم المدرجة ضمن التجربة."
+				: "Yes. Each booking includes a detailed itinerary outlining all stops and landmarks included in the experience.",
+		},
+		// Drivers & Guides
+		{
+			id: "21",
+			category: "guides-services",
+			question: isAr ? "هل يوجد مرشدون معتمدون؟" : "Are the guides certified?",
+			answer: isAr
+				? "نعم، جميع المرشدين في مزار مرخصون ومعتمدون من الجهات الرسمية، ويتلقون تدريباً متخصصاً لتقديم تجربة معرفية آمنة وثرية."
+				: "Yes. All Mzar guides are officially licensed and certified, and receive specialized training to deliver a safe and enriching experience.",
+		},
+		{
+			id: "22",
+			category: "guides-services",
+			question: isAr
+				? "هل يتحدث المرشدون اللغة الإنجليزية؟"
+				: "Do the guides speak English?",
+			answer: isAr
+				? "نعم، يتحدث المرشدون أكثر من لغة، والتطبيق نفسه يدعم 6 لغات لتسهيل التواصل مع جميع الزوار."
+				: "Yes. Guides speak multiple languages, and the app itself supports 6 languages.",
+		},
+		{
+			id: "23",
+			category: "guides-services",
+			question: isAr
+				? "ماذا أفعل إذا تأخر المرشد؟"
+				: "What if the guide is late?",
+			answer: isAr
+				? "في حال تأخر المرشد عن الموعد المحدد، سيتم إشعارك فوراً عبر التطبيق أو الرسائل النصية، مع متابعة الدعم الفني للحالة حتى بدء الجولة."
+				: "If the guide is delayed, you will be notified immediately via the app or SMS, and support will follow up until the tour begins.",
+		},
+		{
+			id: "24",
+			category: "guides-services",
+			question: isAr
+				? "كيف يمكنني التواصل مع السائق من خلال التطبيق؟"
+				: "How can I communicate with the driver?",
+			answer: isAr
+				? "التطبيق يوفر واجهة تواصل (Live Chat) سلسة مع السائق، حيث يمكنك التحدث معه بلغتك المفضلة."
+				: "The app provides a seamless Live Chat feature, allowing you to communicate with the driver in your preferred language.",
+		},
+		// Support & Emergencies
+		{
+			id: "25",
 			category: "support",
-			question: isAr ? "ماذا أفعل في حالة الطوارئ أثناء الرحلة؟" : "What should I do in case of an emergency during the trip?",
-			answer:
-				isAr ? "في حالة الطوارئ، تواصل مباشرة مع المرشد المرافق أو اتصل بخط الطوارئ على الرقم المتوفر في رسالة التأكيد." : "In case of an emergency, contact the accompanying guide directly or call the emergency line at the number provided in the confirmation message.",
+			question: isAr
+				? "كيف يمكنني التواصل مع فريق الدعم؟"
+				: "How can I contact the support team?",
+			answer: isAr
+				? "يمكنك التواصل معنا على مدار الساعة عبر:\nالبريد الإلكتروني: info@mzarapp.com\nأو عبر الواتساب: +966580121025"
+				: "Support is available 24/7 via:\nEmail: info@mzarapp.com\nWhatsApp: +966580121025",
+		},
+		{
+			id: "26",
+			category: "support",
+			question: isAr
+				? "ماذا أفعل في حالة الطوارئ أثناء الرحلة؟"
+				: "What should I do in case of an emergency during the trip?",
+			answer: isAr
+				? "في حال حدوث أي طارئ، تواصل مباشرة مع السائق أو المنظم في الموقع، أو استخدم خيار “الطوارئ” في التطبيق ليتم توجيه الدعم المناسب فوراً."
+				: "Contact the driver or on-site organizer immediately, or use the Emergency option in the app to receive instant assistance.",
 		},
 	];
 
-	const [searchQuery, setSearchQuery] = useState('');
-  const [activeCategory, setActiveCategory] = useState('all');
+	const [searchQuery, setSearchQuery] = useState("");
+	const [activeCategory, setActiveCategory] = useState("all");
 
 	return (
 		<div className={lang === "en" ? "ltr" : "rtl"}>
-			<Hero searchQuery={searchQuery} onSearchChange={setSearchQuery} isAr={isAr} />
-			<CategoryTabs
-        categories={categories}
-        activeCategory={activeCategory}
-        onCategoryChange={setActiveCategory}
+			<Hero
+				searchQuery={searchQuery}
+				onSearchChange={setSearchQuery}
 				isAr={isAr}
-      />
-			<FAQAccordion faqs={faqs} activeCategory={activeCategory} searchQuery={searchQuery} isAr={isAr} />
+			/>
+			<CategoryTabs
+				categories={categories}
+				activeCategory={activeCategory}
+				onCategoryChange={setActiveCategory}
+				isAr={isAr}
+			/>
+			<FAQAccordion
+				faqs={faqs}
+				activeCategory={activeCategory}
+				searchQuery={searchQuery}
+				isAr={isAr}
+			/>
 			<TrustReinforcement isAr={isAr} />
 			<SupportCTA isAr={isAr} />
 			<FinalCTA isAr={isAr} />

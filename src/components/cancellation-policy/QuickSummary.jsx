@@ -5,42 +5,50 @@ export function QuickSummary({ isAr }) {
 		{
 			icon: Clock,
 			title: isAr ? "إلغاء مجاني" : "Free Cancellation",
-			description: isAr ? "يمكنك الإلغاء مجانًا حتى 24 ساعة قبل موعد الرحلة." : "You can cancel for free up to 24 hours before the trip.",
+			description: isAr
+				? "يمكنك الإلغاء مجاناً حتى ساعتين قبل موعد التجربة."
+				: "Up to 2 hours before the experience.",
 			bgColor: "bg-[#e8f4f0]",
 			iconColor: "text-[#0d5940]",
 		},
 		{
 			icon: CreditCard,
-			title: isAr ? "استرجاع المبلغ" : "Refund",
-			description: isAr ? "يتم استرجاع المبلغ بنفس وسيلة الدفع." : "Refunds are processed to the original payment method.",
+			title: isAr ? "استرجاع المبلغ" : "Refund method",
+			description: isAr
+				? "يتم استرجاع المبلغ بنفس وسيلة الدفع."
+				: "Original payment method.",
 			bgColor: "bg-[#e5d4a8]/30",
 			iconColor: "text-[#c9a961]",
 		},
 		{
 			icon: Calendar,
-			title: isAr ? "وقت الاسترجاع" : "Refund Time",
-			description: isAr ? "خلال 5–7 أيام عمل." : "Within 5–7 business days.",
+			title: isAr ? "وقت الاسترجاع" : "Refund time",
+			description: isAr ? "خلال 3 - 14 يوم عمل." : "3 - 14 business days.",
 			bgColor: "bg-[#e8f4f0]",
 			iconColor: "text-[#0d5940]",
 		},
 		{
 			icon: Ticket,
-			title: isAr ? "حسب نوع الرحلة" : "Depends on Trip Type",
-			description: isAr ? "تختلف السياسة حسب نوع الجولة (موضح في صفحة الرحلة)." : "Policy varies by trip type (as shown on the trip page).",
+			title: isAr ? "حسب نوع التجربة" : "Policy variation",
+			description: isAr
+				? "تختلف السياسة حسب نوع الجولة (موضح في صفحة التجربة)"
+				: "Depends on the experience type.",
 			bgColor: "bg-[#e5d4a8]/30",
 			iconColor: "text-[#c9a961]",
 		},
 	];
 
 	return (
-		<section className="bg-white py-20 md:py-32" >
+		<section className="bg-white py-20 md:py-32">
 			<div className="container mx-auto max-w-7xl px-6 lg:px-8">
 				<div className="mb-16 text-center">
 					<h2 className="mb-4 text-4xl text-[#0d5940] md:text-5xl">
 						{isAr ? "ملخص سريع" : "Quick Summary"}
 					</h2>
 					<p className="mx-auto max-w-2xl text-xl text-[#718096]">
-						{isAr ? "أهم المعلومات التي تحتاجها عن سياسة الإلغاء والاسترجاع" : "Key information you need about the cancellation and refund policy"}
+						{isAr
+							? "أهم المعلومات التي تحتاجها عن سياسة الحجز والإلغاء "
+							: "Key information you need about the booking and cancellation policy"}
 					</p>
 				</div>
 

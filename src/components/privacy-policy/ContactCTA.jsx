@@ -12,11 +12,11 @@ export function ContactCTA({ isAr }) {
         </div>
 
         <h2 className="mb-6 text-4xl text-white md:text-5xl">
-          {isAr ? 'هل لديك استفسار بخصوص الخصوصية؟' : 'Do you have a privacy-related inquiry?'}
+          {isAr ? 'هل لديك استفسار حول الخصوصية؟' : 'Have a Privacy-Related Inquiry?'}
         </h2>
 
         <p className="mb-12 text-2xl leading-relaxed text-white/90">
-         {isAr ? 'فريقنا جاهز للإجابة على جميع أسئلتك بشفافية كاملة' : 'Our team is ready to answer all your questions with full transparency'}
+         {isAr ? 'يسعد فريق مزار بالإجابة عن جميع أسئلتك بشفافية تامة واهتمام. ' : 'The Mzar team is happy to answer all your questions with complete transparency and care.'}
         </p>
 
         <div className="mb-12 flex flex-col justify-center gap-5 sm:flex-row">
@@ -35,7 +35,7 @@ export function ContactCTA({ isAr }) {
         <div className="grid gap-6 border-t border-white/20 pt-12 md:grid-cols-2">
           <div className="rounded-2xl bg-white/10 p-6 backdrop-blur-sm">
             <p className="mb-2 text-lg text-white/70">{isAr ? 'البريد الإلكتروني' : 'Email'}</p>
-            <p className="text-xl text-white">privacy@mazah.sa</p>
+            <p className="text-xl text-white">info@mzarapp.com</p>
           </div>
           <div className="rounded-2xl bg-white/10 p-6 backdrop-blur-sm">
             <p className="mb-2 text-lg text-white/70">{isAr ? 'وقت الاستجابة' : 'Response Time'}</p>
