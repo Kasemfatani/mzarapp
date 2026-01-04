@@ -135,6 +135,7 @@ export default function BookTourPage({ lang, busData, disabledDays = [] }) {
 
 	const onConfirm = form.handleSubmit(async (values) => {
 		try {
+			setLoading(true); // set loading true on submit
 			const selection = {
 				date: format(values.date, "yyyy-MM-dd"),
 				time: values.time,
@@ -234,7 +235,7 @@ export default function BookTourPage({ lang, busData, disabledDays = [] }) {
 					lang,
 					cart_id: cartId,
 					customer_details: {
-						name: '',
+						name: "",
 						email: "customer@gmail.com",
 						whatsapp: whatsapp_country_code + whatsapp,
 					},
@@ -258,6 +259,8 @@ export default function BookTourPage({ lang, busData, disabledDays = [] }) {
 					? "فشل إرسال المعلومات أو بدء الدفع"
 					: "Failed to send info or start payment"
 			);
+		} finally {
+			setLoading(false); // reset loading if error occurs
 		}
 	});
 
