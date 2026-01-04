@@ -54,7 +54,7 @@ export default async function TourPage() {
 			<OurStory lang={lang} />
 			<MissionVision lang={lang} />
 			<WhyMazah lang={lang} />
-			<Stats lang={lang} />
+			{/* <Stats lang={lang} /> */}
 			<Values lang={lang} />
 			<TrustCompliance lang={lang} />
 			<CTA lang={lang} />
