@@ -23,7 +23,7 @@ export function OurStory( { lang } ) {
           <div className="order-1 lg:order-2">
             <div className="overflow-hidden rounded-3xl shadow-lg">
               <img
-                src="https://images.unsplash.com/photo-1574246719289-a931e511c33d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtdXNsaW0lMjBwaWxncmltcyUyMGd1aWRlZCUyMHRvdXJ8ZW58MXx8fHwxNzY1OTY1MDM3fDA&ixlib=rb-4.1.0&q=80&w=1080"
+                src="/about-us/our-story.webp"
                 alt="رحلة روحانية مع مزاه"
                 className="h-full w-full object-cover"
               />

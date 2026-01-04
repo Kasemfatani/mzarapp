@@ -23,10 +23,10 @@ export function CTA({ lang }) {
               {isAr ? <ArrowLeft className="h-6 w-6 text-[#0d5940] transition-transform group-hover:-translate-x-1" /> : <ArrowRight className="h-6 w-6 text-[#0d5940] transition-transform group-hover:translate-x-1" />}
             </a>
 
-            <button className="flex items-center justify-center gap-3 rounded-full border-2 border-white bg-white/10 px-10 py-5 backdrop-blur-sm transition-all duration-300 hover:bg-white/20">
+            <a href="/contact-us#contact-us-form" className="flex items-center justify-center gap-3 rounded-full border-2 border-white bg-white/10 px-10 py-5 backdrop-blur-sm transition-all duration-300 hover:bg-white/20">
               <span className="text-xl text-white">{isAr ? 'تواصل معنا' : 'Contact Us'}</span>
               <MessageCircle className="h-6 w-6 text-white" />
-            </button>
+            </a>
           </div>
         </div>
       </div>
