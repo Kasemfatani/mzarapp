@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Send, Shield } from "lucide-react";
 import { API_BASE_URL_NEW } from "@/lib/apiConfig";
-import { is } from "date-fns/locale";
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 
 export function ContactForm({ isAr, InquiryType }) {
 	const [formData, setFormData] = useState({
@@ -17,6 +17,7 @@ export function ContactForm({ isAr, InquiryType }) {
 
 	// new: status message shown in the form (type: 'success' | 'error' | '')
 	const [status, setStatus] = useState({ text: "", type: "" });
+	const { executeRecaptcha } = useGoogleReCaptcha();
 
 	const validate = () => {
 		if (!formData.name.trim()) {
@@ -78,42 +79,53 @@ export function ContactForm({ isAr, InquiryType }) {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-
 		if (!validate()) return;
+
+		if (!executeRecaptcha) {
+			setStatus({
+				text: isAr ? "خدمة الكابتشا غير متاحة حالياً" : "Captcha not available",
+				type: "error",
+			});
+			return;
+		}
 
 		setLoading(true);
 		try {
-			// Build payload with numeric inquiry_type_id
-			const payload = {
-				name: formData.name,
-				email: formData.email,
-				mobile: formData.phone,
-				message: formData.message,
-				inquiry_type_id: Number(formData.inquiryType),
-			};
+			const token = await executeRecaptcha("contact_form");
+			if (!token) {
+				setStatus({
+					text: isAr ? "يرجى التحقق من الكابتشا" : "Please complete captcha",
+					type: "error",
+				});
+				setLoading(false);
+				return;
+			}
 
-			const res = await fetch(`${API_BASE_URL_NEW}/landing/form/store`, {
+			const res = await fetch("/api/contact-submit", {
 				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({
+					name: formData.name,
+					email: formData.email,
+					phone: formData.phone,
+					inquiryType: formData.inquiryType,
+					message: formData.message,
 					lang: isAr ? "ar" : "en",
-				},
-				body: JSON.stringify(payload),
+					captcha_token: token,
+				}),
 			});
 
 			const json = await res.json();
-
 			if (!res.ok || !json?.status) {
 				setStatus({
 					text: isAr
-						? "حدث خطأ أثناء إرسال المعلومات"
-						: "Something went wrong sending the info",
+						? "فشل التحقق من الكابتشا أو الإرسال"
+						: "Captcha verification or send failed",
 					type: "error",
 				});
 				return;
 			}
 
-			// success: clear form and show confirmation (uses API message when available)
 			setFormData({
 				name: "",
 				email: "",
@@ -121,16 +133,14 @@ export function ContactForm({ isAr, InquiryType }) {
 				inquiryType: "",
 				message: "",
 			});
-
 			const successMsg =
 				json?.message || (isAr ? "تم الإرسال بنجاح" : "Sent successfully");
-			// optionally include ref_no
 			const ref = json?.data?.ref_no ? ` (${json.data.ref_no})` : "";
-      let refText = isAr ? "المرجع" : "reference";
-			setStatus({ text: `${successMsg} ${ref ? `, ${refText} ${ref}` : ""}`, type: "success" });
-
-			// auto-clear success after a short delay
-			// setTimeout(() => setStatus({ text: "", type: "" }), 8000);
+			let refText = isAr ? "المرجع" : "reference";
+			setStatus({
+				text: `${successMsg} ${ref ? `, ${refText} ${ref}` : ""}`,
+				type: "success",
+			});
 		} catch (err) {
 			setStatus({
 				text: isAr ? "حدث خطأ في الاتصال" : "Network error",
@@ -167,8 +177,6 @@ export function ContactForm({ isAr, InquiryType }) {
 								: "Fill out the form, and we will respond as soon as possible"}
 						</p>
 
-						
-
 						<form onSubmit={handleSubmit} className="space-y-6">
 							{/* Name */}
 							<div>
@@ -184,7 +192,6 @@ export function ContactForm({ isAr, InquiryType }) {
 									name="name"
 									value={formData.name}
 									onChange={handleChange}
-									
 									className="w-full rounded-2xl border-2 border-[#e2e8f0] bg-white px-6 py-4 text-xl text-[#1a1a1a] transition-colors focus:border-[#c9a961] focus:outline-none"
 									placeholder={
 										isAr ? "أدخل اسمك الكامل" : "Enter your full name"
@@ -206,7 +213,6 @@ export function ContactForm({ isAr, InquiryType }) {
 									name="email"
 									value={formData.email}
 									onChange={handleChange}
-									
 									className="w-full rounded-2xl border-2 border-[#e2e8f0] bg-white px-6 py-4 text-xl text-[#1a1a1a] transition-colors focus:border-[#c9a961] focus:outline-none"
 									placeholder="example@email.com"
 								/>
@@ -226,7 +232,6 @@ export function ContactForm({ isAr, InquiryType }) {
 									name="phone"
 									value={formData.phone}
 									onChange={handleChange}
-									
 									className="w-full rounded-2xl border-2 border-[#e2e8f0] bg-white px-6 py-4 text-xl text-[#1a1a1a] transition-colors focus:border-[#c9a961] focus:outline-none"
 									placeholder="+966 5XX XXX XXX"
 								/>
@@ -245,7 +250,6 @@ export function ContactForm({ isAr, InquiryType }) {
 									name="inquiryType"
 									value={formData.inquiryType}
 									onChange={handleChange}
-									
 									className="w-full rounded-2xl border-2 border-[#e2e8f0] bg-white px-6 py-4 text-xl text-[#1a1a1a] transition-colors focus:border-[#c9a961] focus:outline-none"
 								>
 									<option value="">
@@ -273,7 +277,6 @@ export function ContactForm({ isAr, InquiryType }) {
 									name="message"
 									value={formData.message}
 									onChange={handleChange}
-									
 									rows={6}
 									className="w-full resize-none rounded-2xl border-2 border-[#e2e8f0] bg-white px-6 py-4 text-xl text-[#1a1a1a] transition-colors focus:border-[#c9a961] focus:outline-none"
 									placeholder={
@@ -282,20 +285,20 @@ export function ContactForm({ isAr, InquiryType }) {
 								/>
 							</div>
 
-              {/* Status message (replaces toast) */}
-						{status.text && (
-							<div
-								className={`mb-6 rounded-lg px-4 py-3 text-sm ${
-									status.type === "success"
-										? "bg-green-50 text-green-800"
-										: "bg-red-50 text-red-800"
-								}`}
-								role="status"
-								aria-live="polite"
-							>
-								{status.text}
-							</div>
-						)}
+							{/* Status message (replaces toast) */}
+							{status.text && (
+								<div
+									className={`mb-6 rounded-lg px-4 py-3 text-sm ${
+										status.type === "success"
+											? "bg-green-50 text-green-800"
+											: "bg-red-50 text-red-800"
+									}`}
+									role="status"
+									aria-live="polite"
+								>
+									{status.text}
+								</div>
+							)}
 
 							{/* Submit Button */}
 							<button
@@ -323,7 +326,6 @@ export function ContactForm({ isAr, InquiryType }) {
 								</p>
 							</div>
 						</form>
-            
 					</div>
 
 					{/* Left: Illustration */}
