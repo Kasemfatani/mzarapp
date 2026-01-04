@@ -50,7 +50,7 @@ export function FAQAccordion({ faqs, activeCategory, searchQuery , isAr }) {
                   onClick={() => toggleFAQ(faq.id)}
                   className="flex w-full items-start justify-between gap-6 px-8 py-6 transition-colors"
                 >
-                  <h3 className=" text-2xl text-[#0d5940]">
+                  <h3 className=" text-2xl text-[#0d5940] text-start">
                     {faq.question}
                   </h3>
                   <motion.div

@@ -153,7 +153,7 @@ export function ContactForm({ isAr, InquiryType }) {
 	// console.log("InquiryType Data:", InquiryType);
 
 	return (
-		<section className="bg-[#f5f2ed] py-20 md:py-28">
+		<section id="contact-us-form" className="bg-[#f5f2ed] py-20 md:py-28">
 			<div className="container mx-auto max-w-7xl px-6 lg:px-8">
 				<div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
 					{/* Right: Form */}
@@ -164,7 +164,7 @@ export function ContactForm({ isAr, InquiryType }) {
 						<p className="mb-6 text-xl text-[#718096]">
 							{isAr
 								? "املأ النموذج وسنقوم بالرد عليك في أسرع وقت."
-								: "Fill out the form and we will get back to you as soon as possible."}
+								: "Fill out the form, and we will respond as soon as possible"}
 						</p>
 
 						
@@ -319,7 +319,7 @@ export function ContactForm({ isAr, InquiryType }) {
 								<p className="text-lg text-[#718096]">
 									{isAr
 										? "جميع بياناتك محفوظة بسرية تامة"
-										: "All your data is kept completely confidential"}
+										: "All your information is kept strictly confidential "}
 								</p>
 							</div>
 						</form>

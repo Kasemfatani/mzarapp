@@ -7,37 +7,37 @@ import { Headphones, MessageCircle, Phone } from 'lucide-react';
 export function ContactOptions( { isAr }) {
 
   const contactOptions = [
-  {
-    icon: Headphones,
-    title: isAr ? 'الدعم الفوري' : 'Instant Support',
-    description: isAr ? 'تواصل مباشرة مع فريق الدعم عبر القنوات الرسمية.' : 'Direct contact with the support team through official channels.',
-    buttonText: isAr ? 'الدردشة الآن' : 'Chat Now',
-    color: 'green',
-    action: () => console.log('Open live chat'),
-  },
+  // {
+  //   icon: Headphones,
+  //   title: isAr ? 'الدعم الفوري' : 'Instant Support',
+  //   description: isAr ? 'تواصل مباشرة مع فريق الدعم عبر القنوات الرسمية.' : 'Direct contact with the support team through official channels.',
+  //   buttonText: isAr ? 'الدردشة الآن' : 'Chat Now',
+  //   color: 'green',
+  //   action: () => console.log('Open live chat'),
+  // },
   {
     icon: MessageCircle,
     title: isAr ? 'واتساب' : 'WhatsApp',
-    description: isAr ? 'احصل على رد سريع وفوري على استفسارك عبر واتساب. ' : 'Get a quick and instant response to your inquiry via WhatsApp.',
+    description: isAr ? 'احصل على رد سريع على استفسارك عبر واتساب.' : 'Get quick responses to your inquiries via WhatsApp.',
     buttonText: isAr ? 'راسلنا على واتساب' : 'Message Us on WhatsApp',
     color: 'gold',
-    action: () => window.open('https://wa.me/966500000000', '_blank'),
+    action: () => window.open('https://wa.me/+966580121025', '_blank'),
   },
   {
     icon: Phone,
     title: isAr ? 'اتصال هاتفي' : 'Phone Call',
     description: '+966580121025 ',
-    caption: isAr ? 'خدمة العملاء متاحة يومياً من 9:00 صباحاً حتى 11:00 مساءً.' : 'Customer service is available daily from 9:00 AM to 11:00 PM.',
+    caption: isAr ? 'يومياً من 9:00 صباحاً حتى 11:00 مساءً. ' : 'Daily from 9:00 AM to 11:00 PM ',
     buttonText: isAr ? 'اتصل الآن' : 'Call Now',
     color: 'green',
-    action: () => window.location.href = 'tel:+966501234567',
+    action: () => window.location.href = 'tel:+966580121025',
   },
 ];
 
   return (
     <section className="bg-white py-20 md:py-28" >
       <div className="container mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="grid gap-8 md:grid-cols-3">
+        <div className="grid gap-8 md:grid-cols-2 ">
           {contactOptions.map((option, index) => {
             const Icon = option.icon;
             const bgColor = option.color === 'green' ? 'bg-[#0d5940]' : 'bg-[#c9a961]';

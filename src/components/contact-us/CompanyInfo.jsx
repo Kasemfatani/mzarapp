@@ -10,7 +10,7 @@ const infoBlocks = [
   {
     icon: MapPin,
     title:  isAr ? 'العنوان' : 'Address',
-    content: isAr ? 'مكة المكرمة، المملكة العربية السعودية' : 'Mecca, Saudi Arabia',
+    content: isAr ? 'المملكة العربية السعودية - مكة المكرمة' : 'Kingdom of Saudi Arabia – Makkah Al-Mukarramah ',
   },
   {
     icon: Mail,
@@ -32,7 +32,7 @@ const infoBlocks = [
 ];
 
   return (
-    <section className="bg-[#f8f5f0] py-20 md:py-28" dir="rtl">
+    <section className="bg-[#f8f5f0] py-20 md:py-28" >
       <div className="container mx-auto max-w-6xl px-6 lg:px-8">
         <h2 className="mb-12 text-center text-4xl text-[#0d5940] md:text-5xl">
           {isAr ? 'معلومات التواصل' : 'Contact Information'}

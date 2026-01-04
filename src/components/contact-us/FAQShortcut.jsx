@@ -15,11 +15,11 @@ export function FAQShortcut( { isAr }) {
         </h2>
 
         <p className="mb-10 text-xl leading-relaxed text-[#4a5568] md:text-2xl">
-          {isAr ? 'اطّلع على الأسئلة الشائعة قبل التواصل معنا ــ فقد تجد إجابتك فوراً.' : 'Check out the frequently asked questions before contacting us — you might find your answer immediately.'}
+          {isAr ? 'اطّلع على الأسئلة الشائعة قبل التواصل معنا ــ فقد تجد إجابتك فوراً.' : 'Check out the frequently asked questions before contacting us — you might find your answer instantly.'}
         </p>
 
         <a href="/faq" className="group inline-flex items-center gap-3 rounded-full bg-[#c9a961] px-10 py-5 text-xl text-white transition-all duration-300 hover:bg-[#e5d4a8] hover:shadow-lg">
-          <span>{isAr ? 'الأسئلة الشائعة' : 'FAQ'}</span>
+          <span>{isAr ? 'تصفح الأسئلة الشائعة' : 'Browse FAQs'}</span>
           {isAr ? <ArrowLeft className="h-6 w-6 transition-transform group-hover:-translate-x-1" />  : 
           <ArrowRight className="h-6 w-6 transition-transform group-hover:translate-x-1" />}
         </a>
