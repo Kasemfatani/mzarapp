@@ -22,12 +22,12 @@ export function Hero({ isAr }) {
 
         {/* Title */}
         <h1 className="mb-6 text-5xl text-white md:text-6xl lg:text-7xl">
-         {isAr ? "شروط الاستخدام " : "Terms and Conditions"}
+         {isAr ? "شروط الاستخدام " : "Terms of Use"}
         </h1>
 
         {/* Subtitle */}
         <p className="mx-auto max-w-3xl text-2xl leading-relaxed text-white/95 md:text-3xl">
-        {isAr ? "باستخدامك منصة مزار، فإنك تقرّ بقراءتك لهذه الشروط وتوافق على الالتزام بها لضمان تجربة آمنة وسلسة لجميع المستخدمين." : "By using the Mzar platform, you acknowledge that you have read these terms and agree to abide by them to ensure a safe and smooth experience for all users."}
+        {isAr ? "باستخدامك منصة مزار، فإنك تقرّ بقراءتك لهذه الشروط وتوافق على الالتزام بها. " : "By using the Mzar platform, you acknowledge that you have read and agree to comply with these Terms of Use. "}
         </p>
 
         {/* Last Updated */}

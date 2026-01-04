@@ -20,10 +20,10 @@ export function FinalCTA( { isAr }) {
             <Home className="h-6 w-6 transition-transform group-hover:scale-110" />
           </a>
 
-          <button className="flex items-center justify-center gap-3 rounded-full border-2 border-white bg-transparent px-10 py-5 text-xl text-white transition-all duration-300 hover:bg-white hover:text-[#0d5940] hover:shadow-2xl">
-            <span>{isAr ? "تواصل مع الدعم" : "Contact Support"}</span>
+          <a href="/contact-us#contact-us-form" className="flex items-center justify-center gap-3 rounded-full border-2 border-white bg-transparent px-10 py-5 text-xl text-white transition-all duration-300 hover:bg-white hover:text-[#0d5940] hover:shadow-2xl">
+            <span>{isAr ? "تواصل معنا " : "Contact US"}</span>
             <MessageCircle className="h-6 w-6" />
-          </button>
+          </a>
         </div>
 
         {/* Additional Links */}

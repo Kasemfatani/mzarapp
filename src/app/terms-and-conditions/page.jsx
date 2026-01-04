@@ -7,7 +7,7 @@ import { PlatformRole } from "@/components/terms-and-conditions/PlatformRole";
 import { UserResponsibilities } from "@/components/terms-and-conditions/UserResponsibilities";
 import { BookingsPayments } from "@/components/terms-and-conditions/BookingsPayments";
 import { LimitationLiability } from "@/components/terms-and-conditions/LimitationLiability";
-import { Updates } from "@/components/terms-and-conditions/Updates";
+// import { Updates } from "@/components/terms-and-conditions/Updates";
 import { FinalCTA } from "@/components/terms-and-conditions/FinalCTA";
 // import { API_BASE_URL_NEW } from "@/lib/apiConfig";
 
@@ -55,7 +55,7 @@ export default async function TermsAndConditionsPage() {
 			<UserResponsibilities isAr={isAr} />
 			<BookingsPayments isAr={isAr} />
 			<LimitationLiability isAr={isAr} />
-			<Updates isAr={isAr} />
+			{/* <Updates isAr={isAr} /> */}
 			<FinalCTA isAr={isAr} />
 			
 			
