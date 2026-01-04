@@ -97,7 +97,7 @@ export default function WhyChooseUs( { lang } ) {
             <div className="relative rounded-3xl overflow-hidden shadow-2xl">
               {/* Main Image */}
               <img
-                src="https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtdXNsaW0lMjB0b3VyJTIwZ3JvdXAlMjBoYXBweXxlbnwxfHx8fDE3NjQ0OTUzNzV8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                src="/new-home/why.webp"
                 alt="Mzar Tours Experience"
                 className="w-full h-[600px] object-cover"
               />
