@@ -96,11 +96,11 @@ export default function BookTourPage({ busData, lang }) {
 		Mon: 1,
 		Tue: 2,
 		Wed: 3,
-		Thu: 4,
+		Thur: 4,
 		Fri: 5,
 		Sat: 6,
 	};
-	const indexToSlug = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+	const indexToSlug = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
 
 	// Show toast if payment failed
 	useEffect(() => {

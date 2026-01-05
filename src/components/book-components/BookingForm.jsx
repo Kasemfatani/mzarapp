@@ -143,6 +143,73 @@ export function BookingForm({
 
 	const numericTax = Number(tax) || 0;
 
+	// --- NEW: same-day filtering using Makkah (Riyadh) time (UTC+3) ---
+	const selectedDate = form.watch("date");
+
+	const getRiyadhDateParts = (d) => {
+        if (!d) return null;
+        const parts = Object.fromEntries(
+            new Intl.DateTimeFormat("en-GB", {
+                timeZone: "Asia/Riyadh",
+                year: "numeric",
+                month: "2-digit",
+                day: "2-digit",
+            })
+                .formatToParts(d)
+                .map((p) => [p.type, p.value])
+        );
+        return { y: Number(parts.year), m: Number(parts.month), d: Number(parts.day) };
+    };
+
+    const isSameDayInRiyadh = (d1, d2) => {
+        const a = getRiyadhDateParts(d1);
+        const b = getRiyadhDateParts(d2);
+        return !!a && !!b && a.y === b.y && a.m === b.m && a.d === b.d;
+    };
+
+    const getRiyadhNow = () => {
+        const parts = Object.fromEntries(
+            new Intl.DateTimeFormat("en-GB", {
+                timeZone: "Asia/Riyadh",
+                hour12: false,
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit",
+            })
+                .formatToParts(new Date())
+                .map((p) => [p.type, p.value])
+        );
+        return { h: Number(parts.hour), m: Number(parts.minute), s: Number(parts.second) };
+    };
+    const nowRiyadh = getRiyadhNow();
+
+    const parseTimeStr = (s = "") => {
+        const parts = s.split(":").map((n) => Number(n || 0));
+        return { h: parts[0] || 0, m: parts[1] || 0, s: parts[2] || 0 };
+    };
+
+	const isAfterNowRiyadh = (timeStr) => {
+		const t = parseTimeStr(timeStr);
+		if (t.h > nowRiyadh.h) return true;
+		if (t.h < nowRiyadh.h) return false;
+		if (t.m > nowRiyadh.m) return true;
+		if (t.m < nowRiyadh.m) return false;
+		return (t.s || 0) > (nowRiyadh.s || 0);
+	};
+
+	// compute eligible times to show (filter out past times only when selected date is today in Makkah)
+	const eligibleTimes = (() => {
+        if (!selectedDate) return times || [];
+        const isTodayInMakkah = isSameDayInRiyadh(selectedDate, new Date());
+        if (!isTodayInMakkah) return times || [];
+        return (times || []).filter((t) => {
+            const tm = t?.time || t?.time_string || "";
+            if (!tm) return true;
+            return isAfterNowRiyadh(tm);
+        });
+    })();
+	// --- END NEW ---
+
 	return (
 		<div className="bg-white rounded-[20px] shadow-[0px_20px_25px_-5px_rgba(0,0,0,0.1)] border-[0.8px] border-[rgba(243,244,246,0.6)] w-full">
 			<div className="p-8 flex flex-col gap-6">
@@ -243,7 +310,8 @@ export function BookingForm({
 						<DatePickerFormField
 							form={form}
 							lang={lang}
-							minDate={tomorrow}
+							/* allow same-day bookings */
+							minDate={today}
 							maxDate={maxDate}
 							disabledDays={disabledDays}
 						/>
@@ -262,6 +330,7 @@ export function BookingForm({
 								render={({ field }) => (
 									<FormItem>
 										<div className="flex flex-col sm:flex-row md:items-stretch justify-between gap-4">
+											{/* if there are no times for that day at all */}
 											{(times || []).length === 0 && (
 												<p className="text-sm text-[#6a7282]">
 													{isAr
@@ -269,7 +338,20 @@ export function BookingForm({
 														: "Select a meeting point and then a date to show available times"}
 												</p>
 											)}
-											{(times || []).map((time) => {
+
+											{/* if user picked today but all times passed in Makkah */}
+											{selectedDate &&
+												isSameDayInRiyadh(selectedDate, new Date()) &&
+												eligibleTimes.length === 0 &&
+												(times || []).length > 0 && (
+													<p className="text-sm text-[#b91c1c]">
+														{isAr
+															? "عذرًا، جميع الأوقات لليوم مضت. الرجاء اختيار تاريخ آخر."
+															: "Sorry, all times for today have passed. Please choose a different date."}
+													</p>
+												)}
+
+											{(eligibleTimes || []).map((time) => {
 												const active = field.value?.id === time.id;
 												return (
 													<button
