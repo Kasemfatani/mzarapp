@@ -14,6 +14,8 @@ export default function FeaturedToursSection({ lang, topData }) {
 
 	const isAr = lang === "ar";
 
+	if (!topData || topData.length === 0) return null;
+
 	return (
 		<section className="py-20 bg-gradient-to-b from-white to-[#E7D3AF]/10">
 			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

@@ -1,11 +1,28 @@
 import { cookies, headers } from "next/headers";
-import Trips from "@/components/hotel/Trips";
+// import Trips from "@/components/hotel/Trips";
 import LazyTopSections from "@/components/hotel/LazyTopSections";
 import { notFound } from "next/navigation";
 import { API_BASE_URL_NEW } from "@/lib/apiConfig";
 import HotelClientShell from "@/components/hotel/HotelClientShell";
+import FeaturedToursSection from "@/components/new-home/FeaturedToursSection";
+import { cache } from "react";
+
 
 export const revalidate = 300;
+
+const getData = cache(async (lang) => {
+	
+	const res = await fetch(
+		`${API_BASE_URL_NEW}/landing/home/top-packages`,
+		{
+			headers: { lang },
+		}
+	);
+
+	if (!res.ok) return null;
+	const json = await res.json();
+	return json?.data || null;
+});
 
 export default async function HotelPage({ params }) {
 	const { slug } = params;
@@ -33,10 +50,17 @@ export default async function HotelPage({ params }) {
 
 	const partner = json.data;
 
+	// Fetch top packages data
+	const topPackagesData = await getData(lang);
+	
+
+
+
 	return (
 		<div className={lang === "en" ? "ltr" : "rtl"}>
 			<HotelClientShell lang={lang} partner={partner}>
-				<Trips />
+				<FeaturedToursSection lang={lang} topData={topPackagesData} />
+				{/* <Trips /> */}
 				<LazyTopSections
 					lang={lang}
 					audio={partner.audios}
