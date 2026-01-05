@@ -37,20 +37,20 @@ export function Stats({lang}) {
   const stats = [
   {
     icon: Users,
-    value: 5000,
-    label:  isAr ? 'زائر' : 'Visitors',
+    value: 15000,
+    label:  isAr ? 'عميل ' : 'Customers',
     prefix: '+',
   },
   {
     icon: MapIcon,
-    value: 120,
+    value: 1300,
     label: isAr ? 'جولة' : 'Tours',
     prefix: '+',
   },
   {
     icon: Award,
     value: 50,
-    label: isAr ? 'مرشد' : 'Guides',
+    label: isAr ? 'جنسية' : 'Nationalities',
     prefix: '+',
   },
   {
