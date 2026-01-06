@@ -51,7 +51,9 @@ html[lang="ar"] {
   transition: all 0.3s ease;
 } */
 
-
+p {
+  white-space: pre-line;
+}
 
 
 .side-menu {

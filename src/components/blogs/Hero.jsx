@@ -13,12 +13,12 @@ export function Hero({ isAr } ) {
 
         {/* Title (H1) */}
         <h1 className="mb-6 text-5xl text-white md:text-6xl lg:text-7xl">
-        {isAr ? "مقالات مزار" : "Mzar Articles"}
+        {isAr ? "المقالات" : "Articles"}
         </h1>
 
         {/* Subtitle */}
         <p className="mx-auto max-w-4xl text-2xl leading-relaxed text-white/95 md:text-3xl">
-          {isAr ? "اكتشف تاريخ مكة والمدينة، أسرار المعالم، ودليل الزائر لتجربة أعمق وأكثر وعيًا." : "Discover the history of Mecca and Medina, landmark secrets, and a visitor's guide for a deeper, more informed experience."}
+          {isAr ? "اكتشف تاريخ مكة والمدينة، أسرار المعالم، ودليل الزائر لتجربة أعمق وأكثر وعيًا." : "Discover the history of Makkah and Madinah, the secrets of landmarks, and visitor guides for a deeper and more mindful experience. "}
         </p>
 
         {/* Trust Micro Text */}
@@ -29,11 +29,11 @@ export function Hero({ isAr } ) {
           </div>
           <div className="flex items-center gap-2">
             <span className="h-1.5 w-1.5 rounded-full bg-[#867957]" />
-            <span>{isAr ? "كتاب وباحثون متخصصون" : "Specialized Writers and Researchers"}</span>
+            <span>{isAr ? "معرفة تثري رحلتك " : "Knowledge that Enriches Your Journey"}</span>
           </div>
           <div className="flex items-center gap-2">
             <span className="h-1.5 w-1.5 rounded-full bg-[#867957]" />
-            <span>{isAr ? "مرتبط بتجارب حقيقية" : "Connected to Real Experiences"}</span>
+            <span>{isAr ? "قصص تُروى بروح المكان" : "Stories Told Through the Spirit of Place"}</span>
           </div>
         </div>
       </div>

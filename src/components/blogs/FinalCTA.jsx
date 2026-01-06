@@ -15,25 +15,25 @@ export function FinalCTA({ isAr }) {
         </h2>
 
         {/* Text */}
-        <p className="mb-12 text-2xl leading-relaxed text-white/95">
-          {isAr ? "اقرأ، تعرّف، ثم عش التجربة بنفسك مع مزار. كل مقال هو خطوة نحو فهم أعمق وتجربة أكثر ثراءً." : "Read, learn, and then experience it yourself with Mzar. Each article is a step towards deeper understanding and richer experience."}
+        <p className="mb-12 text-2xl leading-relaxed text-white/95" >
+          {isAr ? "اقرأ، تعرّف، ثم عِش التجربة بنفسك مع مزار. \n كل مقال هو خطوة نحو فهمٍ أعمق وتجربةٍ أكثر ثراءً.  " : "Read, learn, then live the experience yourself with Mzar. \n Every article is a step toward deeper understanding and a richer journey. "}
         </p>
 
         {/* CTA Buttons */}
         <div className="mb-12 flex flex-col justify-center gap-5 sm:flex-row">
-          <button className="group flex items-center justify-center gap-3 rounded-full bg-[#867957] px-10 py-5 text-xl text-white transition-all duration-300 hover:bg-[#E7D3AF] hover:text-[#3C6652] hover:shadow-2xl">
-            <span>{isAr ? "ابدأ رحلتك الآن" : "Start Your Journey Now"}</span>
+          <a href='/all-trips' className="group flex items-center justify-center gap-3 rounded-full bg-[#867957] px-10 py-5 text-xl text-white transition-all duration-300 hover:bg-[#E7D3AF] hover:text-[#3C6652] hover:shadow-2xl">
+            <span>{isAr ? "ابدأ تجربتك الآن" : "Start Your Experience Now"}</span>
             <Compass className="h-6 w-6 transition-transform group-hover:rotate-45" />
-          </button>
+          </a>
 
-          <button className="flex items-center justify-center gap-3 rounded-full border-2 border-white bg-transparent px-10 py-5 text-xl text-white transition-all duration-300 hover:bg-white hover:text-[#3C6652] hover:shadow-2xl">
+          {/* <button className="flex items-center justify-center gap-3 rounded-full border-2 border-white bg-transparent px-10 py-5 text-xl text-white transition-all duration-300 hover:bg-white hover:text-[#3C6652] hover:shadow-2xl">
             <BookOpen className="h-6 w-6" />
             <span>{isAr ? "تصفح المزيد من المقالات" : "Browse More Articles"}</span>
-          </button>
+          </button> */}
         </div>
 
         {/* Trust Indicators */}
-        <div className="grid gap-6 border-t border-white/20 pt-12 md:grid-cols-3">
+        {/* <div className="grid gap-6 border-t border-white/20 pt-12 md:grid-cols-3">
           <div className="rounded-2xl bg-white/10 p-6 backdrop-blur-sm">
             <p className="mb-2 text-3xl text-[#867957]">50+</p>
             <p className="text-lg text-white/80">{isAr ? "مقال متخصص" : "Specialized Articles"}</p>
@@ -46,7 +46,7 @@ export function FinalCTA({ isAr }) {
             <p className="mb-2 text-3xl text-[#867957]">⭐ 4.9</p>
             <p className="text-lg text-white/80">{isAr ? "تقييم المحتوى" : "Content Rating"}</p>
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   );

@@ -16,29 +16,25 @@ export function ConversionBanner( { isAr } ) {
 
               {/* Title */}
               <h2 className="mb-4 text-3xl text-white md:text-4xl">
-                هل تريد مشاهدة هذه المعالم على أرض الواقع؟
+                {isAr ? "هل تريد مشاهدة هذه المعالم على أرض الواقع؟" : "Want to See These Landmarks in Real Life?"}
               </h2>
 
               {/* Description */}
               <p className="mb-8 text-xl leading-relaxed text-white/95">
-                من القراءة إلى التجربة الحية — اختر جولة مصممة بعناية وعش اللحظة
+                {isAr ? "من القراءة إلى التجربة الحيّة ــ اختر تجربة مصمّمة بعناية، وعِش اللحظة بكل تفاصيلها " : "From reading to live experience ــ choose a carefully designed journey and live every moment in full detail "}
               </p>
 
               {/* Buttons */}
               <div className="flex flex-col justify-center gap-4 sm:flex-row">
-                <button className="group flex items-center justify-center gap-3 rounded-full bg-[#3C6652] px-8 py-4 text-xl text-white shadow-lg transition-all duration-300 hover:bg-[#2d4d3d] hover:shadow-2xl">
-                  <MapPin className="h-6 w-6 transition-transform group-hover:scale-110" />
-                  <span>استكشف الجولات المرتبطة</span>
-                </button>
 
-                <button className="flex items-center justify-center gap-3 rounded-full border-2 border-white bg-white/10 px-8 py-4 text-xl text-white backdrop-blur-sm transition-all duration-300 hover:bg-white hover:text-[#3C6652] hover:shadow-2xl">
-                  <span>تصفح جميع الرحلات</span>
-                </button>
+                <a href="/all-trips" className="flex items-center justify-center gap-3 rounded-full border-2 border-white bg-white/10 px-8 py-4 text-xl text-white backdrop-blur-sm transition-all duration-300 hover:bg-white hover:text-[#3C6652] hover:shadow-2xl">
+                  <span>{isAr ? "تصفح جميع التجارب" : "Browse All Experiences"}</span>
+                </a>
               </div>
 
               {/* Trust Indicator */}
               <p className="mt-6 text-base text-white/80">
-                ✓ أكثر من 10,000 زائر استمتعوا بجولاتنا المميزة
+                {isAr ? "✓ أكثر من 1,000 زائر استمتعوا بتجارب مزار الفريدة" : "✓ More than 1,000 visitors have enjoyed Mzar’s unique experiences "}
               </p>
             </div>
           </div>
