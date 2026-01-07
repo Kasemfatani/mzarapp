@@ -37,8 +37,8 @@ export function CustomerInfoFields({ lang = "ar", form }) {
 	const [countries, setCountries] = useState([]);
 
 	// local map coords
-	const [lat, setLat] = useState(21.425893460537548);
-	const [lng, setLng] = useState(39.82470840448206);
+	// const [lat, setLat] = useState(21.425893460537548);
+	// const [lng, setLng] = useState(39.82470840448206);
 
 	useEffect(() => {
 		fetch(`${API_BASE_URL_NEW}/landing/countries`, { headers: { lang } })
@@ -50,19 +50,19 @@ export function CustomerInfoFields({ lang = "ar", form }) {
 	}, []);
 
 	// register address fields once
-	useEffect(() => {
-		form.register("address_name");
-		form.register("address_lat");
-		form.register("address_lng");
-	}, [form]);
+	// useEffect(() => {
+	// 	form.register("address_name");
+	// 	form.register("address_lat");
+	// 	form.register("address_lng");
+	// }, [form]);
 
 	// push coords to form as strings
-	useEffect(() => {
-		form.setValue("address_lat", String(lat), { shouldValidate: true });
-	}, [lat, form]);
-	useEffect(() => {
-		form.setValue("address_lng", String(lng), { shouldValidate: true });
-	}, [lng, form]);
+	// useEffect(() => {
+	// 	form.setValue("address_lat", String(lat), { shouldValidate: true });
+	// }, [lat, form]);
+	// useEffect(() => {
+	// 	form.setValue("address_lng", String(lng), { shouldValidate: true });
+	// }, [lng, form]);
 
 	const getCountryName = (id) => {
 		const country = countries.find((c) => c.id === id);
@@ -157,7 +157,7 @@ export function CustomerInfoFields({ lang = "ar", form }) {
 						</div>
 
 						{/* Address + Map (stores name, lat, lng as strings) */}
-						<div className="flex flex-col gap-2">
+						{/* <div className="flex flex-col gap-2">
 							<label className="text-[#364153]">
 								{isAr ? "العنوان" : "Address*"}
 							</label>
@@ -177,7 +177,7 @@ export function CustomerInfoFields({ lang = "ar", form }) {
 									{String(form.formState.errors.address_name.message)}
 								</p>
 							)}
-							{/* Show coord errors (optional) */}
+							
 							{(form.formState.errors.address_lat ||
 								form.formState.errors.address_lng) && (
 								<p className="text-xs text-destructive mt-1">
@@ -185,7 +185,7 @@ export function CustomerInfoFields({ lang = "ar", form }) {
 										form.formState.errors.address_lng?.message}
 								</p>
 							)}
-						</div>
+						</div> */}
 					</form>
 				</Form>
 

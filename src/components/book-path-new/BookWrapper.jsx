@@ -61,9 +61,9 @@ const getSchema = (lang, max_people_count = 20, min_people_count = 1) => {
 		is_express: z.boolean().default(false),
 		add_ons: z.array(z.number()).default([]),
 		// new address fields (strings)
-		address_name: z.string().min(1, reqAddress),
-		address_lat: z.string().min(1, reqLat),
-		address_lng: z.string().min(1, reqLng),
+		// address_name: z.string().min(1, reqAddress),
+		// address_lat: z.string().min(1, reqLat),
+		// address_lng: z.string().min(1, reqLng),
 
 		name: z.string().min(1, reqName).max(100),
 		whatsapp: z.string().min(7, reqPhone),
@@ -104,9 +104,9 @@ export default function BookTourPage({ lang, busData, disabledDays = [] }) {
 			is_express: false,
 			add_ons: [],
 			// new address defaults
-			address_name: "",
-			address_lat: "",
-			address_lng: "",
+			// address_name: "",
+			// address_lat: "",
+			// address_lng: "",
 
 			name: "",
 			whatsapp: "",
@@ -215,9 +215,9 @@ export default function BookTourPage({ lang, busData, disabledDays = [] }) {
 				is_express: values.is_express,
 				add_ons: values.add_ons || selectedAddons,
 				// optional store address
-				address_name: values.address_name,
-				address_lat: values.address_lat,
-				address_lng: values.address_lng,
+				// address_name: values.address_name,
+				// address_lat: values.address_lat,
+				// address_lng: values.address_lng,
 			};
 			localStorage.setItem(STORAGE_KEY, JSON.stringify(selection));
 
@@ -247,9 +247,9 @@ export default function BookTourPage({ lang, busData, disabledDays = [] }) {
 				add_ons: values.add_ons || selectedAddons,
 				is_express: !!values.is_express,
 				// new address fields in payload
-				address_name: values.address_name,
-				address_lat: String(values.address_lat),
-				address_lng: String(values.address_lng),
+				// address_name: values.address_name,
+				// address_lat: String(values.address_lat),
+				// address_lng: String(values.address_lng),
 			};
 			console.log("Booking payload:", payload);
 
@@ -317,6 +317,13 @@ export default function BookTourPage({ lang, busData, disabledDays = [] }) {
 			const taxRate = Number(busData?.tax ?? 0);
 			const taxAmount = Number((taxRate * totalBeforeTax).toFixed(2));
 			const finalTotal = Number((totalBeforeTax + taxAmount).toFixed(2));
+
+			if (finalTotal == 0 ){
+                // free booking -> redirect to success page with free tranRef
+                setLoading(false);
+                window.location.href = `/book-path-success?status=success&tranRef=free`;
+                return;
+            }
 
 			console.log(
 				"Starting ClickPay payment for amount (finalTotal):",

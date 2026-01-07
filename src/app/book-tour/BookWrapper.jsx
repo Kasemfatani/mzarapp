@@ -365,6 +365,13 @@ export default function BookTourPage({ busData, lang }) {
 			const taxAmount = Number((taxRate * totalBeforeTax).toFixed(2));
 			const finalTotal = Number((totalBeforeTax + taxAmount).toFixed(2));
 
+			if (finalTotal == 0 ){
+                // free booking -> redirect to success page with free tranRef
+                setLoading(false);
+                window.location.href = `/book-tour-success?status=success&tranRef=free`;
+                return;
+            }
+
 			console.log("Payment calc:", {
 				base,
 				discountAmount,
