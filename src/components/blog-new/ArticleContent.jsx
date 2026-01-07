@@ -3,10 +3,10 @@ import { Lightbulb } from 'lucide-react';
 
 
 
-export function ArticleContent({ content, isAr }) {
+export function ArticleContent({ content, isAr , BLOG_URL }) {
   return (
     <section className="bg-white py-8 md:py-12">
-      <div className="container mx-auto max-w-3xl px-6 lg:px-8">
+      <div className="container mx-auto max-w-4xl px-6 lg:px-8">
         <article className="prose prose-lg max-w-none">
           {content.map((block, index) => {
             switch (block.type) {
@@ -50,7 +50,7 @@ export function ArticleContent({ content, isAr }) {
                       <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#867957]">
                         <Lightbulb className="h-5 w-5 text-white" strokeWidth={2.5} />
                       </div>
-                      <span className="text-xl text-[#867957]">معلومة سريعة</span>
+                      <span className="text-xl text-[#867957]">{isAr ? "معلومة سريعة" : "Quick Tip"}</span>
                     </div>
                     <p className="text-xl leading-relaxed text-[#4a5568]">
                       {block.content}
@@ -60,11 +60,11 @@ export function ArticleContent({ content, isAr }) {
 
               case 'list':
                 return (
-                  <ul key={index} className="my-8 space-y-3 pr-6">
+                  <ul key={index} className="my-8 space-y-3 px-6">
                     {block.content.map((item, itemIndex) => (
                       <li
                         key={itemIndex}
-                        className="relative text-xl leading-relaxed text-[#4a5568] before:absolute before:-right-6 before:text-[#867957] before:content-['•']"
+                        className={`relative text-xl leading-relaxed text-[#4a5568] before:absolute  ${isAr ? "before:-right-6" : "before:-left-6"} before:text-[#867957] before:content-['•']`}
                       >
                         {item}
                       </li>
@@ -77,7 +77,7 @@ export function ArticleContent({ content, isAr }) {
                   <div key={index} className="my-10">
                     <div className="overflow-hidden rounded-2xl">
                       <img
-                        src={block.content}
+                        src={`${BLOG_URL}${block.content}`}
                         alt="Article content"
                         className="h-auto w-full object-cover"
                       />

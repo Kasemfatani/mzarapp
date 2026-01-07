@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from 'react';
-import { Users, MapIcon, Award, Star } from 'lucide-react';
+import { Users, MapIcon, Award, Star , Globe } from 'lucide-react';
 
 
 
@@ -48,7 +48,7 @@ export function Stats({lang}) {
     prefix: '+',
   },
   {
-    icon: Award,
+    icon: Globe,
     value: 50,
     label: isAr ? 'جنسية' : 'Nationalities',
     prefix: '+',

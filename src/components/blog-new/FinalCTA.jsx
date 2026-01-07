@@ -20,20 +20,20 @@ export function FinalCTA({ isAr }) {
         </p>
 
         {/* CTA Button */}
-        <button className="group inline-flex items-center gap-4 rounded-full bg-[#867957] px-12 py-6 text-2xl text-white shadow-2xl transition-all duration-300 hover:bg-[#E7D3AF] hover:text-[#3C6652] hover:shadow-[0_20px_60px_rgba(134,121,87,0.4)]">
+        <a href='/all-trips' className="group inline-flex items-center gap-4 rounded-full bg-[#867957] px-12 py-6 text-2xl text-white shadow-2xl transition-all duration-300 hover:bg-[#E7D3AF] hover:text-[#3C6652] hover:shadow-[0_20px_60px_rgba(134,121,87,0.4)]">
           <span>{isAr ? "ابدأ رحلتك مع مزار" : "Start your journey with Mzar"}</span>
           <Compass className="h-7 w-7 transition-transform duration-300 group-hover:rotate-45" />
-        </button>
+        </a>
 
         {/* Trust Indicators */}
         <div className="mt-16 grid gap-6 border-t border-white/20 pt-12 md:grid-cols-3">
           <div className="rounded-2xl bg-white/10 p-6 backdrop-blur-sm">
-            <p className="mb-2 text-3xl text-[#867957]">500+</p>
-            <p className="text-lg text-white/80">{isAr ? "جولة متاحة" : "Tours Available"}</p>
+            <p className="mb-2 text-3xl text-[#867957]">1300</p>
+            <p className="text-lg text-white/80">{isAr ? "جولة" : "Tours"}</p>
           </div>
           <div className="rounded-2xl bg-white/10 p-6 backdrop-blur-sm">
-            <p className="mb-2 text-3xl text-[#867957]">10,000+</p>
-            <p className="text-lg text-white/80">{isAr ? "زائر راضٍ" : "Satisfied Visitors"}</p>
+            <p className="mb-2 text-3xl text-[#867957]">15000</p>
+            <p className="text-lg text-white/80">{isAr ? "عميل" : " Customers"}</p>
           </div>
           <div className="rounded-2xl bg-white/10 p-6 backdrop-blur-sm">
             <p className="mb-2 text-3xl text-[#867957]">⭐ 4.9</p>
