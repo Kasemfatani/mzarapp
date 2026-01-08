@@ -21,7 +21,7 @@ export async function getIsSaudiFromHeaders(headersObj) {
     const MOCK_IP_FOR_SAR = "37.106.0.1";
 		// const requestIp =
 		// 	process.env.NODE_ENV === "development" ? MOCK_IP_FOR_USD : ip;
-    console.log("Determining currency for IP:", ip);
+    // console.log("Determining currency for IP:", ip);
     const requestIp =  ip;
 
 		if (IPINFO_TOKEN) {
@@ -39,6 +39,7 @@ export async function getIsSaudiFromHeaders(headersObj) {
 						?.toString?.()
 						.toUpperCase?.() ?? null;
 				isSaudi = countryCode === "SA";
+				isSaudi = true;
 			}
 		}
 	} catch (e) {
