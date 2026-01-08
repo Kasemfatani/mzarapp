@@ -71,7 +71,7 @@ export async function getIsSaudiFromHeaders(headersObj) {
 			const res = await fetch(
 				`https://ipinfo.io/${ipUsed}?token=${IPINFO_TOKEN}`,
 				{
-					next: { revalidate: 3600 },
+					next: { revalidate: 3 },
 				}
 			);
 			 console.log("Determining currency for IP:", ipUsed);
@@ -82,12 +82,11 @@ export async function getIsSaudiFromHeaders(headersObj) {
 						? String(geo.country).toUpperCase()
 						: null;
 				isSaudi = countryCode === "SA";
-				isSaudi = true ;
 
 				console.log("IP Geolocation:", geo);
 				console.log("CountryCode:", countryCode);
 				console.log("IsSaudi:", isSaudi);
-
+				
 				return { isSaudi, countryCode, ipUsed };
 			}
 		}
