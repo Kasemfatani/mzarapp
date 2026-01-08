@@ -9,6 +9,7 @@ import { notFound } from "next/navigation";
 
 import { API_BASE_URL_NEW } from "@/lib/apiConfig";
 import { API_BETA_URL } from "@/lib/apiConfig";
+import { getIsSaudiFromHeaders } from "@/lib/apiConfig";
 
 export const revalidate = 300;
 
@@ -17,6 +18,12 @@ export default async function TourPage() {
 	const acceptLang = headers().get("accept-language");
 	const lang =
 		cookieLang || (acceptLang && acceptLang.startsWith("ar") ? "ar" : "en");
+
+	// --- IP Geolocation Logic ---
+	// reuseable geo helper
+  const { isSaudi } = await getIsSaudiFromHeaders(headers());
+	// --- End IP Geolocation Logic ---
+
 
 	const res = await fetch(`${API_BASE_URL_NEW}/landing/home/top-packages`, {
 		headers: { lang },
@@ -31,7 +38,7 @@ export default async function TourPage() {
 	return (
 		<div className={lang === "en" ? "ltr" : "rtl"}>
 			<HeroSection lang={lang} />
-			<FeaturedToursSection lang={lang} topData={topData} />
+			<FeaturedToursSection lang={lang} topData={topData} isSaudi={isSaudi} />
 			{/* <QuickCategories lang={lang} />
 				<BannerCta lang={lang} />
 				<HowItWorks lang={lang} /> */}

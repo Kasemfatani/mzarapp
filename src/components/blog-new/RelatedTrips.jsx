@@ -9,9 +9,25 @@ const formatPrice = (val) => {
 	return n.toFixed(2);
 };
 
-export function RelatedTrips({ isAr, blog = {}, API_BASE_URL_NEW }) {
+const SAR_RATE = 3.75;
+
+function toDollar(amount) {
+	return (amount / SAR_RATE).toFixed(2);
+}
+
+export function RelatedTrips({ isAr, blog = {}, API_BASE_URL_NEW , isSaudi = true }) {
 	const [trips, setTrips] = useState([]);
 	const [loading, setLoading] = useState(true);
+
+	// --- Currency Logic ---
+	let currencySymbol;
+
+	if (isSaudi) {
+		currencySymbol = isAr ? "ريال" : "SAR";
+	} else {
+		currencySymbol = isAr ? "دولار" : "USD";
+	}
+	// --- End Currency Logic ---
 
 	useEffect(() => {
 		if (!API_BASE_URL_NEW) {
@@ -103,8 +119,8 @@ export function RelatedTrips({ isAr, blog = {}, API_BASE_URL_NEW }) {
 															{isAr ? "ابدأ من" : "Starting from"}
 														</p>
 														<p className="text-xl text-[#3C6652]">
-															{formatPrice(trip.start_price ?? trip.startPrice)}{" "}
-															{isAr ? "ريال" : "SAR"}
+															{ isSaudi ? formatPrice(trip.start_price ?? trip.startPrice) : toDollar(formatPrice(trip.start_price ?? trip.startPrice))}
+															{currencySymbol}
 														</p>
 													</div>
 												</div>

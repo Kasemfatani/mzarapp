@@ -9,7 +9,7 @@ import { Autoplay } from "swiper/modules";
 import "swiper/css";
 import styles from "./QuickCategories.module.css";
 
-export default function FeaturedToursSection({ lang, topData }) {
+export default function FeaturedToursSection({ lang, topData , isSaudi=true }) {
 	const [showAll, setShowAll] = useState(false);
 
 	const isAr = lang === "ar";
@@ -51,7 +51,7 @@ export default function FeaturedToursSection({ lang, topData }) {
 				>
 					{topData.map((tour, index) => (
 						<SwiperSlide key={tour.id ?? index}>
-							<FeaturedToursCard {...tour} isAr={isAr} />
+							<FeaturedToursCard {...tour} isAr={isAr} isSaudi={isSaudi} />
 						</SwiperSlide>
 					))}
 				</Swiper>

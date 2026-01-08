@@ -53,6 +53,7 @@ export function BookingForm({
 	setSelectedAddons = () => {},
 	vehicleMaxSeats,
 	availability = { status: true, message: "" }, // <-- new prop
+	isSaudi = true,
 }) {
 	const isAr = lang === "ar";
 
@@ -281,6 +282,7 @@ export function BookingForm({
 							selected={selectedAddons}
 							onChange={setSelectedAddons}
 							lang={lang}
+							isSaudi={isSaudi}
 						/>
 					</form>
 				</Form>

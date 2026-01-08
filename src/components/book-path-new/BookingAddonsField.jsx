@@ -1,10 +1,21 @@
+"use client";
+
 import { Checkbox } from "@/components/ui/checkbox";
+
+
+const SAR_RATE = 3.75;
+
+function toDollar(amount) {
+	return (amount / SAR_RATE).toFixed(2);
+}
+
 
 export function BookingAddonsField({
 	addons = [],
 	selected = [],
 	onChange,
 	lang = "ar",
+	isSaudi = true,
 }) {
 	const isAr = lang === "ar";
 
@@ -38,7 +49,7 @@ export function BookingAddonsField({
 					
           <div className="flex flex-col items-center min-w-[40px]">
 						<span className="text-[#3c6652] font-bold text-base ltr">
-							+{addon.price}
+							+{ isSaudi ? addon.price : toDollar(addon.price)}
 						</span>
 					</div>
 				</label>

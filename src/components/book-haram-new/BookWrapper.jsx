@@ -45,7 +45,7 @@ const getSchema = (lang, max_people_count = 20, min_people_count = 1) => {
 	});
 };
 
-export default function BookTourPage({ lang, busData, disabledDays = [] }) {
+export default function BookTourPage({ lang, busData, disabledDays = [] , isSaudi = true }) {
 	const [leftSeats, setLeftSeats] = useState(null);
 	const [loading, setLoading] = useState(false);
 
@@ -322,6 +322,7 @@ export default function BookTourPage({ lang, busData, disabledDays = [] }) {
 								lang={lang}
 								tax={typeof busData?.tax === "number" ? busData.tax : 0}
 								promoDiscountPercent={promoDiscountPercent}
+								isSaudi={isSaudi}
 							/>
 
 							<CustomerInfoFields lang={lang} form={form} />
@@ -348,6 +349,7 @@ export default function BookTourPage({ lang, busData, disabledDays = [] }) {
 								minPeople={busData.min_people_count}
 								lang={lang}
 								tax={typeof busData?.tax === "number" ? busData.tax : 0}
+								isSaudi={isSaudi}
 							/>
 						</div>
 					</div>

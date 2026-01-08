@@ -7,6 +7,8 @@ import { BLOG_URL } from "@/lib/apiConfig";
 
 import { cache } from "react";
 
+import { getIsSaudiFromHeaders } from "@/lib/apiConfig";
+
 const getData = cache(async (lang, slug) => {
 	const res = await fetch(`${BLOG_URL}/api/blogs/${slug}`, {
 		headers: { lang },
@@ -50,12 +52,16 @@ export default async function Page({ params }) {
 		notFound();
 	}
 
+	// reuseable geo helper
+   const { isSaudi } = await getIsSaudiFromHeaders(headers());
+
 	return (
 		<SingleBlogWrapper
 			lang={lang}
 			blog={blogsData}
 			BLOG_URL={BLOG_URL}
 			slug={slug}
+			isSaudi={isSaudi}
 		/>
 	);
 }

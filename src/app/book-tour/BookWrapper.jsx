@@ -35,7 +35,10 @@ const getSchema = (lang, max_people_count = 20) => {
 	return z
 		.object({
 			date: z
-				.date({ invalid_type_error: requiredDate , required_error: requiredDate  })
+				.date({
+					invalid_type_error: requiredDate,
+					required_error: requiredDate,
+				})
 				.refine(Boolean, { message: requiredDate }),
 			time: z
 				.object(
@@ -79,7 +82,7 @@ const getSchema = (lang, max_people_count = 20) => {
 		);
 };
 
-export default function BookTourPage({ busData, lang }) {
+export default function BookTourPage({ busData, lang, isSaudi = true }) {
 	const [leftSeats, setLeftSeats] = useState(null);
 	const [loading, setLoading] = useState(false);
 	const [disabledDays, setDisabledDays] = useState([0, 1, 2, 3, 4, 5, 6]);
@@ -96,11 +99,11 @@ export default function BookTourPage({ busData, lang }) {
 		Mon: 1,
 		Tue: 2,
 		Wed: 3,
-		Thur: 4,
+		Thu: 4,
 		Fri: 5,
 		Sat: 6,
 	};
-	const indexToSlug = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
+	const indexToSlug = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 	// Show toast if payment failed
 	useEffect(() => {
@@ -260,6 +263,19 @@ export default function BookTourPage({ busData, lang }) {
 	}, [form, busData]);
 
 	const onConfirm = form.handleSubmit(async (values) => {
+		// prevent booking when requested people > available seats
+		if (
+			typeof leftSeats === "number" &&
+			Number(values.people || 0) > Number(leftSeats)
+		) {
+			toast.error(
+				lang === "ar"
+					? `الحد الأقصى للمقاعد المتاحة هو ${leftSeats}`
+					: `Available seats limit is ${leftSeats}`
+			);
+			return;
+		}
+
 		try {
 			setLoading(true); // set loading true on submit
 			const selection = {
@@ -365,12 +381,12 @@ export default function BookTourPage({ busData, lang }) {
 			const taxAmount = Number((taxRate * totalBeforeTax).toFixed(2));
 			const finalTotal = Number((totalBeforeTax + taxAmount).toFixed(2));
 
-			if (finalTotal == 0 ){
-                // free booking -> redirect to success page with free tranRef
-                setLoading(false);
-                window.location.href = `/book-tour-success?status=success&tranRef=free`;
-                return;
-            }
+			if (finalTotal == 0) {
+				// free booking -> redirect to success page with free tranRef
+				setLoading(false);
+				window.location.href = `/book-tour-success?status=success&tranRef=free`;
+				return;
+			}
 
 			console.log("Payment calc:", {
 				base,
@@ -415,7 +431,7 @@ export default function BookTourPage({ busData, lang }) {
 			);
 		} finally {
 			setLoading(false); // reset loading if error occurs
-		} 
+		}
 	});
 
 	const onCancel = () => {
@@ -444,6 +460,7 @@ export default function BookTourPage({ busData, lang }) {
 								groupAgePrices={busData.group_age_prices || []}
 								leftSeats={leftSeats}
 								tax={typeof busData?.tax === "number" ? busData.tax : 0}
+								isSaudi={isSaudi}
 							/>
 
 							{/* Promo section (after form) */}
@@ -460,7 +477,6 @@ export default function BookTourPage({ busData, lang }) {
 									setPromoApplied(false);
 									setPromoDiscountPercent(0);
 								}}
-
 								promo_type="bus"
 							/>
 
@@ -475,6 +491,7 @@ export default function BookTourPage({ busData, lang }) {
 								// apply promo discount
 								promoDiscountPercent={promoDiscountPercent}
 								lang={lang}
+								isSaudi={isSaudi}
 							/>
 
 							<CustomerInfoFields lang={lang} form={form} />
@@ -501,6 +518,7 @@ export default function BookTourPage({ busData, lang }) {
 								minPeople={busData.min_people_count || 1}
 								lang={lang}
 								tax={typeof busData?.tax === "number" ? busData.tax : 0}
+								isSaudi={isSaudi}
 							/>
 						</div>
 					</div>

@@ -8,7 +8,7 @@ import LazyBottomSections from "@/components/all-trips/LazyBottomSections";
 import { useMemo } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
-export default function AllTripPageWrapper({ lang, data }) {
+export default function AllTripPageWrapper({ lang, data , isSaudi = true }) {
 	const isAr = lang === "ar";
 	const router = useRouter();
 	const searchParams = useSearchParams();
@@ -51,7 +51,7 @@ export default function AllTripPageWrapper({ lang, data }) {
 				filters={filters}
 				onFiltersChange={onFiltersChange}
 			/>
-			<LazyBottomSections lang={lang} trips={Array.isArray(data) ? data : []} />
+			<LazyBottomSections lang={lang} trips={Array.isArray(data) ? data : []} isSaudi={isSaudi} />
 			{/* <TripsGrid
 				lang={lang}
 				trips={Array.isArray(data) ? data : []}
