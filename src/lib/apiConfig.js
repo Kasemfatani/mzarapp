@@ -104,7 +104,7 @@ export async function getIsSaudiFromHeaders(headersObj) {
 		// swallow errors, keep defaults
 		console.error("IP Geolocation failed:", e);
 	}
-
+		isSaudi = true;
 	// default: assume Saudi to keep prices in SAR unless we know otherwise
 	return { isSaudi, countryCode, ipUsed };
 }
