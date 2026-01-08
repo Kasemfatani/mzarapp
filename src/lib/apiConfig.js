@@ -21,8 +21,10 @@ export async function getIsSaudiFromHeaders(headersObj) {
     const MOCK_IP_FOR_SAR = "37.106.0.1";
 		// const requestIp =
 		// 	process.env.NODE_ENV === "development" ? MOCK_IP_FOR_USD : ip;
-    // console.log("Determining currency for IP:", ip);
+    console.log("Determining currency for IP:", ip);
     const requestIp =  ip;
+
+		console.log("IPINFO_TOKEN for IP:", IPINFO_TOKEN);
 
 		if (IPINFO_TOKEN) {
 			const res = await fetch(
@@ -33,13 +35,16 @@ export async function getIsSaudiFromHeaders(headersObj) {
 			);
 			if (res.ok) {
 				const geo = await res.json();
+				console.log("IP Geolocation:", geo);
 				// ipinfo returns country code in `country` (e.g. "SA"); accept other fields if present
 				countryCode =
 					(geo.country || geo.country_code || geo.countryCode || null)
 						?.toString?.()
 						.toUpperCase?.() ?? null;
+				console.log("CountryCode:", countryCode);
 				isSaudi = countryCode === "SA";
-				isSaudi = true;
+				console.log("isSaudi is:", isSaudi);
+				// isSaudi = true;
 			}
 		}
 	} catch (e) {
