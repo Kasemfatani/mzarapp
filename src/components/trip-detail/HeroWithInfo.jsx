@@ -1,5 +1,8 @@
 "use client";
 
+import { useEffect } from "react";
+import { trackViewItem } from "@/lib/analytics";
+
 import { Star, Clock, Users } from "lucide-react";
 import { motion } from "motion/react";
 
@@ -10,6 +13,19 @@ import Image from 'next/image'
 export function HeroWithInfo({ lang, data , isSaudi=true }) {
 	const isAr = lang === "ar";
 	// console.log("data:", data);
+
+	useEffect(() => {
+    // push view_item when card is rendered on client
+    trackViewItem({
+      id: data.id,
+      type: data.type,
+      city: data.city,
+      name: data.name,
+      rating: data.rating,
+      start_price: data.start_price,
+      currency: "SAR" ,
+    });
+  }, []);
 
 	const onCancel = () => {
 		if (typeof window !== "undefined") window.history.back();

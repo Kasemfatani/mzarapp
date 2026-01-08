@@ -6,7 +6,7 @@ import SuccessSummary from "@/components/book-haram/SuccessSummary";
 import Loading from "@/app/loading";
 // export const revalidate = 300;
 
-const STORAGE_KEY = "haramTour.selection";
+const STORAGE_KEY = "bookHaramain.selection";
 
 export default function TourSuccess() {
 	const [lang, setLang] = useState(null);
