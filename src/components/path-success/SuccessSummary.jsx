@@ -8,6 +8,8 @@ import { API_BASE_URL_NEW } from "@/lib/apiConfig";
 import { API_BETA_URL } from "@/lib/apiConfig";
 import { toast } from "sonner";
 // import DownloadButtons from "./DownloadButtons"
+// add purchase analytics import
+import { trackPurchase } from "@/lib/analytics";
 
 const STORAGE_KEY = "path.selection";
 
@@ -253,6 +255,32 @@ export default function SuccessSummary({ initialLang = "en" }) {
 				if (refNo) setBookingNo(refNo);
 				setData(json?.data || "");
 				setSubmitting(false);
+
+				// push GA4 purchase event (use saved localStorage selection)
+				try {
+					const stored = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+					const purchaseValue = Number(stored.finalTotal || 0);
+					const purchaseTax = Number(stored.tax || 0);
+					const coupon = stored.promoCode || undefined;
+					const itemObj = {
+						item_id: String(stored.bus_id || stored.trip_id || ""),
+						item_name: stored.bus_name || "",
+						price: purchaseValue,
+						quantity: Number(stored.people || 1),
+						coupon: coupon || undefined,
+					};
+
+					trackPurchase({
+						transaction_id: tranId,
+						value: purchaseValue,
+						tax: purchaseTax,
+						currency: "SAR",
+						coupon,
+						items: [itemObj],
+					});
+				} catch (e) {
+					console.warn("trackPurchase failed", e);
+				}
 			} catch (e) {
 				console.error("haram-booking-create error", e);
 				setFinalizeError(true);
@@ -396,9 +424,7 @@ export default function SuccessSummary({ initialLang = "en" }) {
 							{selection.ref_no ? (
 								<div>
 									<strong>Ref No:</strong>{" "}
-									<span className="font-mono">
-										{selection?.ref_no || "—"}
-									</span>
+									<span className="font-mono">{selection?.ref_no || "—"}</span>
 								</div>
 							) : null}
 						</div>

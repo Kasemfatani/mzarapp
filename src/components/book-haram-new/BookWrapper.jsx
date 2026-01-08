@@ -15,6 +15,8 @@ import { toast } from "sonner";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+// add analytics import
+import { trackAddToCart } from "@/lib/analytics";
 import { format, addDays, startOfToday } from "date-fns";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
 
@@ -216,6 +218,42 @@ export default function BookTourPage({ lang, busData, disabledDays = [] , isSaud
 			const taxRate = Number(busData?.tax || 0);
 			const taxAmount = Number((taxRate * totalBeforeTax).toFixed(2));
 			const finalTotal = Number((totalBeforeTax + taxAmount).toFixed(2));
+
+			// persist useful info for success page analytics / debugging
+			try {
+				const storedPrev = JSON.parse(
+					localStorage.getItem(STORAGE_KEY) || "{}"
+				);
+				localStorage.setItem(
+					STORAGE_KEY,
+					JSON.stringify({
+						...storedPrev,
+						bus_id: busData?.id ?? storedPrev.bus_id,
+						bus_name: busData?.name ?? storedPrev.bus_name,
+						finalTotal,
+						promoCode: promoCode || storedPrev.promoCode || "",
+						tax: taxAmount,
+						people: selection.people || storedPrev.people || 1,
+					})
+				);
+			} catch (e) {
+				// ignore localStorage errors
+			}
+
+
+			// fire add_to_cart before starting payment (for GA4)
+						try {
+							trackAddToCart({
+								busData,
+								finalTotal,
+								promoCode,
+								quantity: selection.people || 1,
+								currency: "SAR",
+							});
+						} catch (e) {
+							// non-blocking if analytics fails
+							console.warn("trackAddToCart failed", e);
+						}
 
 			if (finalTotal == 0 ){
                 // free booking -> redirect to success page with free tranRef
