@@ -3,6 +3,7 @@ import PageWrapper from "./PageWrapper";
 import { API_BASE_URL_NEW } from "@/lib/apiConfig";
 import { notFound } from "next/navigation";
 import { cache } from "react";
+import { getIsSaudiFromHeaders } from "@/lib/apiConfig";
 
 export const revalidate = 300;
 
@@ -44,9 +45,12 @@ export default async function AllTrip({ searchParams }) {
 	const data = await getData(lang, qs.toString());
 	if (!data) notFound();
 
+	// reuseable geo helper
+  const { isSaudi } = await getIsSaudiFromHeaders(headers());
+
 	return (
 		<div className={lang === "en" ? "ltr" : "rtl"}>
-			<PageWrapper lang={lang} data={data} />
+			<PageWrapper lang={lang} data={data} isSaudi={isSaudi} />
 		</div>
 	);
 }

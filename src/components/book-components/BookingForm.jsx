@@ -61,6 +61,7 @@ export function BookingForm({
 	groupAgePrices = [], // <-- new prop
 	leftSeats,
 	tax = 0,
+	isSaudi = true,
 }) {
 	// auto-select nearest gathering point (if user hasn't picked one)
 	// useEffect(() => {
@@ -147,46 +148,54 @@ export function BookingForm({
 	const selectedDate = form.watch("date");
 
 	const getRiyadhDateParts = (d) => {
-        if (!d) return null;
-        const parts = Object.fromEntries(
-            new Intl.DateTimeFormat("en-GB", {
-                timeZone: "Asia/Riyadh",
-                year: "numeric",
-                month: "2-digit",
-                day: "2-digit",
-            })
-                .formatToParts(d)
-                .map((p) => [p.type, p.value])
-        );
-        return { y: Number(parts.year), m: Number(parts.month), d: Number(parts.day) };
-    };
+		if (!d) return null;
+		const parts = Object.fromEntries(
+			new Intl.DateTimeFormat("en-GB", {
+				timeZone: "Asia/Riyadh",
+				year: "numeric",
+				month: "2-digit",
+				day: "2-digit",
+			})
+				.formatToParts(d)
+				.map((p) => [p.type, p.value])
+		);
+		return {
+			y: Number(parts.year),
+			m: Number(parts.month),
+			d: Number(parts.day),
+		};
+	};
 
-    const isSameDayInRiyadh = (d1, d2) => {
-        const a = getRiyadhDateParts(d1);
-        const b = getRiyadhDateParts(d2);
-        return !!a && !!b && a.y === b.y && a.m === b.m && a.d === b.d;
-    };
+	const isSameDayInRiyadh = (d1, d2) => {
+		const a = getRiyadhDateParts(d1);
+		const b = getRiyadhDateParts(d2);
+		return !!a && !!b && a.y === b.y && a.m === b.m && a.d === b.d;
+	};
 
-    const getRiyadhNow = () => {
-        const parts = Object.fromEntries(
-            new Intl.DateTimeFormat("en-GB", {
-                timeZone: "Asia/Riyadh",
-                hour12: false,
-                hour: "2-digit",
-                minute: "2-digit",
-                second: "2-digit",
-            })
-                .formatToParts(new Date())
-                .map((p) => [p.type, p.value])
-        );
-        return { h: Number(parts.hour), m: Number(parts.minute), s: Number(parts.second) };
-    };
-    const nowRiyadh = getRiyadhNow();
+	const getRiyadhNow = () => {
+		const parts = Object.fromEntries(
+			new Intl.DateTimeFormat("en-GB", {
+				timeZone: "Asia/Riyadh",
+				hour12: false,
+				hour: "2-digit",
+				minute: "2-digit",
+				second: "2-digit",
+			})
+				.formatToParts(new Date())
+				.map((p) => [p.type, p.value])
+		);
+		return {
+			h: Number(parts.hour),
+			m: Number(parts.minute),
+			s: Number(parts.second),
+		};
+	};
+	const nowRiyadh = getRiyadhNow();
 
-    const parseTimeStr = (s = "") => {
-        const parts = s.split(":").map((n) => Number(n || 0));
-        return { h: parts[0] || 0, m: parts[1] || 0, s: parts[2] || 0 };
-    };
+	const parseTimeStr = (s = "") => {
+		const parts = s.split(":").map((n) => Number(n || 0));
+		return { h: parts[0] || 0, m: parts[1] || 0, s: parts[2] || 0 };
+	};
 
 	const isAfterNowRiyadh = (timeStr) => {
 		const t = parseTimeStr(timeStr);
@@ -199,15 +208,15 @@ export function BookingForm({
 
 	// compute eligible times to show (filter out past times only when selected date is today in Makkah)
 	const eligibleTimes = (() => {
-        if (!selectedDate) return times || [];
-        const isTodayInMakkah = isSameDayInRiyadh(selectedDate, new Date());
-        if (!isTodayInMakkah) return times || [];
-        return (times || []).filter((t) => {
-            const tm = t?.time || t?.time_string || "";
-            if (!tm) return true;
-            return isAfterNowRiyadh(tm);
-        });
-    })();
+		if (!selectedDate) return times || [];
+		const isTodayInMakkah = isSameDayInRiyadh(selectedDate, new Date());
+		if (!isTodayInMakkah) return times || [];
+		return (times || []).filter((t) => {
+			const tm = t?.time || t?.time_string || "";
+			if (!tm) return true;
+			return isAfterNowRiyadh(tm);
+		});
+	})();
 	// --- END NEW ---
 
 	return (
@@ -411,8 +420,16 @@ export function BookingForm({
 											<div className="flex flex-col">
 												<p className="text-[#111827] font-medium">{g.name}</p>
 												<p className="text-[#6b7280] text-sm">
-													{priceWithTax}{" "}
-													{isAr ? "ريال للشخص" : "SAR per person"}
+													{isSaudi
+														? priceWithTax
+														: (priceWithTax / 3.75).toFixed(2)}{" "}
+													{isAr
+														? isSaudi
+															? "ريال للشخص"
+															: "دولار للشخص"
+														: isSaudi
+														? "SAR per person"
+														: "USD per person"}
 												</p>
 											</div>
 											<div className="flex items-center gap-4">
@@ -442,6 +459,16 @@ export function BookingForm({
 
 							{/* Keep total people hidden; BookWrapper syncs it */}
 							<input type="hidden" value={form.watch("people") || 0} readOnly />
+
+							{/* Warning when selected people exceed available seats */}
+							{typeof leftSeats === "number" &&
+								(form.watch("people") || 0) > leftSeats && (
+									<p className="text-sm text-[#b91c1c] mt-2">
+										{isAr
+											? `عذراً، عدد الأشخاص المحدد أكبر من المقاعد المتاحة (${leftSeats}).`
+											: `Sorry, selected people exceed available seats (${leftSeats}).`}
+									</p>
+								)}
 						</div>
 					</form>
 				</Form>

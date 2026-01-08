@@ -6,6 +6,8 @@ import { cache } from "react";
 
 import BookWrapper from "@/components/book-haram-new/BookWrapper";
 
+import { getIsSaudiFromHeaders } from "@/lib/apiConfig";
+
 // 2. Wrap the fetch function with cache()
 const getData = cache(async (lang) => {
 	// Remove the redundant 'cache: "no-store"' unless you explicitly
@@ -38,12 +40,12 @@ export function generateMetadata() {
 
 	if (lang === "ar") {
 		return {
-			title: "حجز",
+			title: "حجز جولة المسجد الحرام",
 			
 		};
 	}
 	return {
-		title: "Booking",
+		title: "Booking Masjid Haram Tour",
 		
 	};
 }
@@ -58,11 +60,12 @@ export default async function Page() {
 		// console.log("Trip Detail Data:", data);
 		if (!data) notFound();
 
-
+	// reuseable geo helper
+  const { isSaudi } = await getIsSaudiFromHeaders(headers());
 
 	// console.log("BookTourNew Page busData:", data);
 
 	return (
-		<BookWrapper lang={lang} busData={data} disabledDays={[1,4,5,6]}/>
+		<BookWrapper lang={lang} busData={data} disabledDays={[1,4,5,6]} isSaudi={isSaudi} />
 	);
 }

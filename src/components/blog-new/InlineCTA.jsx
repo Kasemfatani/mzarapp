@@ -3,8 +3,8 @@ import { MapPin, Compass } from 'lucide-react';
 export function InlineCTA({ isAr }) {
   return (
     <section className="bg-white py-8 md:py-12">
-      <div className="container mx-auto max-w-4xl px-6 lg:px-8">
-        <div className="overflow-hidden rounded-3xl bg-gradient-to-br from-[#E7D3AF] to-[#e8dcc4] shadow-lg">
+      <div className="container mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="overflow-hidden rounded-3xl bg-gradient-to-br from-[#E7D3AF] to-[#e8dcc4] shadow-lg md:w-[70%]">
           <div className="px-8 py-10 text-center md:px-12">
             {/* Icon */}
             <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-white/40 backdrop-blur-sm">

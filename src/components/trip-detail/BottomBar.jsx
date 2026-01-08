@@ -15,8 +15,22 @@ const CURRENCY_SVG = (
 	</svg>
 );
 
-export function BottomBar( { lang , data } ) {
+export function BottomBar( { lang , data , isSaudi=true } ) {
   const isAr = lang === "ar";
+
+  // --- Currency Logic ---
+	const SAR_RATE = 3.75;
+	let displayPrice;
+	let currencySymbol;
+
+	if (isSaudi) {
+		displayPrice = data.start_price;
+		currencySymbol = isAr ? CURRENCY_SVG : "SAR";
+	} else {
+		displayPrice = data.start_price / SAR_RATE;
+		currencySymbol = isAr ? "دولار" : "USD";
+	}
+	// --- End Currency Logic ---
 
   let link = `/book-path/${data.id}`;
 
@@ -46,15 +60,16 @@ export function BottomBar( { lang , data } ) {
           {/* Price Section */}
           <div className="flex flex-row items-center gap-1">
             <p className="text-[13px] md:text-[20px] leading-[1.5] text-white/80">{isAr ? "السعر يبدأ من" : "Price starts from"}</p>
-            <div className="flex items-center gap-3 ltr">
-              {/* SAR Icon */}
-              <div className=" relative">
-                {CURRENCY_SVG}
-              </div>
+            <div className="flex items-center gap-3">
+             
               <div className="">
                 <span className="text-[13px] md:text-[20px] leading-[1.2] text-white" >
-                  {data.start_price.toFixed(2)}
+                  {displayPrice.toFixed(2)}
                 </span>
+              </div>
+               {/* currency symbol */}
+              <div className=" relative text-white/80">
+                {currencySymbol}
               </div>
             </div>
           </div>

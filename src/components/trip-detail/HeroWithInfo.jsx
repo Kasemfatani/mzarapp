@@ -7,7 +7,7 @@ import { ArrowRight, ArrowLeft } from "lucide-react";
 import { BottomBar } from "./BottomBar";
 import Image from 'next/image'
 
-export function HeroWithInfo({ lang, data }) {
+export function HeroWithInfo({ lang, data , isSaudi=true }) {
 	const isAr = lang === "ar";
 	// console.log("data:", data);
 
@@ -128,7 +128,7 @@ export function HeroWithInfo({ lang, data }) {
 					</motion.div>
 				</div>
 			</div>
-			<BottomBar lang={lang} data={data} />
+			<BottomBar lang={lang} data={data} isSaudi={isSaudi} />
 		</>
 	);
 }

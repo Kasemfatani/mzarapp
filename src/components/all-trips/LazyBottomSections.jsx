@@ -10,7 +10,7 @@ const TripsGrid = dynamic(() => import("./TripsGrid"), {
 });
 
 
-export default function LazyBottomSections({ lang , trips }) {
+export default function LazyBottomSections({ lang , trips , isSaudi = true }) {
 	const { ref, inView } = useInView({ triggerOnce: true, rootMargin: "50px" });
 	const [shouldLoad, setShouldLoad] = useState(false);
 
@@ -20,7 +20,7 @@ export default function LazyBottomSections({ lang , trips }) {
 		<div ref={ref}>
 			{shouldLoad ? (
 				<>
-					<TripsGrid lang={lang} trips={trips} />
+					<TripsGrid lang={lang} trips={trips} isSaudi={isSaudi} />
 					
 				</>
 			) : null}

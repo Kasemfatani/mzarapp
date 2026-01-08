@@ -7,6 +7,8 @@ import { cache } from "react";
 
 import BookWrapper from "@/components/book-path-new/BookWrapper";
 
+import { getIsSaudiFromHeaders } from "@/lib/apiConfig";
+
 // 2. Wrap the fetch function with cache()
 const getData = cache(async (lang , id) => {
 	// Remove the redundant 'cache: "no-store"' unless you explicitly
@@ -62,11 +64,12 @@ export default async function Page({ params }) {
 		// console.log("Trip Detail Data:", data);
 		if (!data) notFound();
 
-
+	 // reuseable geo helper
+   const { isSaudi } = await getIsSaudiFromHeaders(headers());
 
 	// console.log("BookTourNew Page busData:", data);
 
 	return (
-		<BookWrapper lang={lang} busData={data} disabledDays={[]}/>
+		<BookWrapper lang={lang} busData={data} disabledDays={[]} isSaudi={isSaudi}/>
 	);
 }

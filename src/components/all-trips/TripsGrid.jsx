@@ -18,7 +18,7 @@ const CURRENCY_SVG = (
 	</svg>
 );
 
-export default function TripsGrid({ lang, trips }) {
+export default function TripsGrid({ lang, trips , isSaudi = true }) {
 	const isAr = lang === "ar";
 
 	// Pagination state
@@ -61,7 +61,7 @@ export default function TripsGrid({ lang, trips }) {
 			<div className="max-w-7xl mx-auto">
 				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 					{visibleTrips.map((trip) => (
-						<TripCard key={trip.id} trip={trip} isAr={isAr} />
+						<TripCard key={trip.id} trip={trip} isAr={isAr} isSaudi={isSaudi} />
 					))}
 				</div>
 
@@ -87,7 +87,25 @@ export default function TripsGrid({ lang, trips }) {
 	);
 }
 
-function TripCard({ trip, isAr }) {
+function TripCard({ trip, isAr , isSaudi = true  }) {
+
+	// --- Currency Logic ---
+	const SAR_RATE = 3.75;
+	let displayPrice;
+	let currencySymbol;
+
+	if (isSaudi) {
+		displayPrice = trip.start_price;
+		currencySymbol = isAr ? CURRENCY_SVG : "SAR";
+	} else {
+		displayPrice = trip.start_price / SAR_RATE;
+		currencySymbol = isAr ? "دولار" : "USD";
+	}
+	// --- End Currency Logic ---
+
+
+
+
 	let cityName = "";
 	if (trip.city_id === 1) {
 		cityName = isAr ? "مكة المكرمة" : "Makkah";
@@ -204,8 +222,8 @@ function TripCard({ trip, isAr }) {
 							className="text-2xl text-[#3C6652]"
 							style={{ fontWeight: 700 }}
 						>
-							<span dir="rtl">
-								{trip.start_price.toFixed(2)} {CURRENCY_SVG}
+							<span >
+								{displayPrice.toFixed(2)} {currencySymbol}
 							</span>
 							{perPerson && (
 								<span className="text-sm " >

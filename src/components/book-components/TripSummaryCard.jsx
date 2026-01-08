@@ -15,6 +15,8 @@ const CURRENCY_SVG = (
 	</svg>
 );
 
+const SAR_RATE = 3.75;
+
 export function TripSummaryCard({
   imageUrl,
   location,
@@ -28,11 +30,26 @@ export function TripSummaryCard({
   minPeople,
   lang = "ar",
   tax = 0,
+  isSaudi = true,
 }) {
   const isAr = lang === "ar";
   const numericPrice = Number(price) || 0;
   const numericTax = Number(tax) || 0;
   const finalPrice = numericPrice * (1 + numericTax);
+
+  // --- Currency Logic ---
+	
+	let displayPrice;
+	let currencySymbol;
+
+	if (isSaudi) {
+		displayPrice = finalPrice;
+		currencySymbol = isAr ? CURRENCY_SVG : "SAR";
+	} else {
+		displayPrice = finalPrice / SAR_RATE;
+		currencySymbol = isAr ? "دولار" : "USD";
+	}
+	// --- End Currency Logic ---
 
   return (
     <div className="bg-white rounded-[20px] shadow-[0px_25px_50px_-12px_rgba(0,0,0,0.25)] border-[0.8px] border-[rgba(243,244,246,0.6)] overflow-hidden ">
@@ -95,7 +112,7 @@ export function TripSummaryCard({
           <div className="flex items-center  px-4 py-3 gap-2">
             <p className="text-[#3c6652] text-center">
               {isAr ? "ابتداءً من" : "Starting from"}{" "}
-              <span className="rtl">{finalPrice.toFixed(2)} {CURRENCY_SVG}</span>{" "}
+              <span className="">{displayPrice.toFixed(2)} {currencySymbol}</span>{" "}
               {isAr ? "للفرد" : "per person"}{" "}
               (<span className="text-[#867957]">{isAr ? "حد أدنى" : "Minimum"} {minPeople} {isAr ? "أشخاص" : "people"}</span>)
             </p>

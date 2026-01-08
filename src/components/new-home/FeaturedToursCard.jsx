@@ -30,7 +30,22 @@ export function FeaturedToursCard({
 	min_people_count,
 	isPopular = false,
   isAr = false,
+  isSaudi = true, // Default to true if the prop is not passed
 }) {
+
+	// --- Currency Logic ---
+	const SAR_RATE = 3.75;
+	let displayPrice;
+	let currencySymbol;
+
+	if (isSaudi) {
+		displayPrice = start_price;
+		currencySymbol = isAr ? CURRENCY_SVG : "SAR";
+	} else {
+		displayPrice = start_price / SAR_RATE;
+		currencySymbol = isAr ? "دولار" : "USD";
+	}
+	// --- End Currency Logic ---
 
 	let link = `/book-path/${id}`;
 
@@ -115,7 +130,9 @@ export function FeaturedToursCard({
 							className="text-2xl text-[#867957] mt-1 "
 							style={{  fontWeight: 700 }}
 						>
-							<span className="text-lg rtl flex items-center gap-1">{start_price.toFixed(2)} {CURRENCY_SVG}</span>
+							<span className="text-lg  flex items-center gap-1">
+								{displayPrice.toFixed(2)} {currencySymbol}
+							</span>
 						</div>
 					</div>
 

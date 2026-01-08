@@ -15,6 +15,13 @@ const CURRENCY_SVG = (
 	</svg>
 );
 
+const SAR_RATE = 3.75;
+
+function toDollar(amount) {
+	return (amount / SAR_RATE).toFixed(2);
+}
+
+
 export function PriceCalculationBox({
 	vehicle = null,
 	addons = [],
@@ -24,8 +31,21 @@ export function PriceCalculationBox({
 	lang = "en",
 	tax = 0,
 	promoDiscountPercent = 0, // <-- new
+	isSaudi = true,
 }) {
 	const isAr = lang === "ar";
+
+	// --- Currency Logic ---
+	let currencySymbol;
+
+	if (isSaudi) {
+		currencySymbol = isAr ? CURRENCY_SVG : "SAR";
+	} else {
+		currencySymbol = isAr ? "دولار" : "USD";
+	}
+	// --- End Currency Logic ---
+
+
 	const rawBase = Number(
 		isExpress
 			? vehicle?.express_price ?? vehicle?.web_price ?? 0
@@ -121,12 +141,12 @@ export function PriceCalculationBox({
 						</p>
 						<div className="flex items-center gap-2">
 							{promoDiscountPercent > 0 && (
-								<p className="text-[#9aa3b2] line-through rtl">
-									{rawBaseDisplay} {CURRENCY_SVG}
+								<p className="text-[#9aa3b2] line-through ">
+									{ isSaudi ? rawBaseDisplay : toDollar(rawBaseDisplay)} {currencySymbol}
 								</p>
 							)}
-							<p className="text-[#1e2939] rtl">
-								{baseUnitDisplay} {CURRENCY_SVG}
+							<p className="text-[#1e2939] ">
+								{ isSaudi ? baseUnitDisplay : toDollar(baseUnitDisplay)} {currencySymbol}
 							</p>
 						</div>
 					</div>
@@ -138,8 +158,8 @@ export function PriceCalculationBox({
 								{isAr ? "خصم" : "discount"} (
 								{promoDiscountPercent}%)
 							</p>
-							<p className="text-[#3c6652] rtl">
-								-{discountDisplay} {CURRENCY_SVG}
+							<p className="text-[#3c6652] ">
+								-{ isSaudi ? discountDisplay : toDollar(discountDisplay)} {currencySymbol}
 							</p>
 						</div>
 					)}
@@ -154,7 +174,7 @@ export function PriceCalculationBox({
 								className="w-5 h-5 text-[#867957]"
 								strokeWidth={1.67}
 							/>
-							<p className="text-[#867957]">{addonsTotalDisplay}</p>
+							<p className="text-[#867957]">{ isSaudi ? addonsTotalDisplay : toDollar(addonsTotalDisplay)}</p>
 						</div>
 					</div>
 
@@ -163,8 +183,8 @@ export function PriceCalculationBox({
 						<p className="text-[#364153]">
 							{isAr ? "إجمالي السعر" : "Total price"}
 						</p>
-						<p className="text-[#1e2939] rtl">
-							{totalBeforeTaxDisplay} {CURRENCY_SVG}
+						<p className="text-[#1e2939] ">
+							{ isSaudi ? totalBeforeTaxDisplay : toDollar(totalBeforeTaxDisplay)} {currencySymbol}
 						</p>
 					</div>
 
@@ -174,8 +194,8 @@ export function PriceCalculationBox({
 							{isAr ? "الضريبة" : "Tax"}
 							{typeof tax === "number" ? ` (${(tax * 100).toFixed(0)}%)` : ""}
 						</p>
-						<p className="text-[#1e2939] rtl">
-							{taxAmountDisplay} {CURRENCY_SVG}
+						<p className="text-[#1e2939] ">
+							{ isSaudi ? taxAmountDisplay : toDollar(taxAmountDisplay)} {currencySymbol}
 						</p>
 					</div>
 
@@ -191,8 +211,8 @@ export function PriceCalculationBox({
 									: "Including all fees and taxes"}
 							</p>
 						</div>
-						<p className="text-white rtl">
-							{finalTotalDisplay} {CURRENCY_SVG}
+						<p className="text-white ">
+							{ isSaudi ? finalTotalDisplay : toDollar(finalTotalDisplay)} {currencySymbol}
 						</p>
 					</div>
 

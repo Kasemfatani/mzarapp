@@ -15,15 +15,32 @@ const CURRENCY_SVG = (
 	</svg>
 );
 
+const SAR_RATE = 3.75;
+
+function toDollar(amount) {
+	return (amount / SAR_RATE).toFixed(2);
+}
+
 export function PriceCalculationBox({
 	groupAgePrices = [],
 	groupAgeCounts = [],
 	tax = 0, // <-- added tax prop (e.g. 0.15)
 	promoDiscountPercent = 0, // <-- added promo discount (%)
 	lang = "en",
+	isSaudi = true,
 }) {
 
 	const isAr = lang === "ar";
+
+	// --- Currency Logic ---
+	let currencySymbol;
+
+	if (isSaudi) {
+		currencySymbol = isAr ? CURRENCY_SVG : "SAR";
+	} else {
+		currencySymbol = isAr ? "دولار" : "USD";
+	}
+	// --- End Currency Logic ---
 
 	// compute base = sum(price * quantity)
 	const base = (groupAgeCounts || []).reduce((sum, r) => {
@@ -120,8 +137,8 @@ export function PriceCalculationBox({
 									<p className="text-[#364153]">
 										{gp?.name} × {r.quantity}
 									</p>
-									<p className="text-[#1e2939] rtl">
-										{line.toFixed(2)} {CURRENCY_SVG}
+									<p className="text-[#1e2939] ">
+										{ isSaudi ? line.toFixed(2) : toDollar(line)} {currencySymbol}
 									</p>
 								</div>
 							);
@@ -133,8 +150,8 @@ export function PriceCalculationBox({
 							<p className="text-[#364153]">
 								{isAr ? "خصم" : "Discount"}  ({promoDiscountPercent}%)
 							</p>
-							<p className="text-[#3c6652] rtl">
-								-{discountDisplay} {CURRENCY_SVG}
+							<p className="text-[#3c6652] ">
+								-{ isSaudi ? discountDisplay : toDollar(discountDisplay)} {currencySymbol}
 							</p>
 						</div>
 					)}
@@ -143,8 +160,8 @@ export function PriceCalculationBox({
 					<div className="flex items-center justify-between border-b border-[#e6d2af] pb-4 pt-4">
 						<p className="text-[#364153]">{isAr ? "إجمالي السعر" : "Total Price"}</p>
 						<div className="flex items-center gap-2">
-							<p className="text-[#1e2939] rtl">
-								{totalBeforeTaxDisplay} {CURRENCY_SVG}
+							<p className="text-[#1e2939] ">
+								{ isSaudi ? totalBeforeTaxDisplay : toDollar(totalBeforeTaxDisplay)} {currencySymbol}
 							</p>
 						</div>
 					</div>
@@ -155,8 +172,8 @@ export function PriceCalculationBox({
 							{isAr ? "الضريبة" : "Tax"} 
 							{typeof tax === "number" ? ` (${(tax * 100).toFixed(0)}%)` : ""}
 						</p>
-						<p className="text-[#1e2939] rtl">
-							{taxAmountDisplay} {CURRENCY_SVG}
+						<p className="text-[#1e2939] ">
+							{ isSaudi ? taxAmountDisplay : toDollar(taxAmountDisplay)} {currencySymbol}
 						</p>
 					</div>
 
@@ -169,8 +186,8 @@ export function PriceCalculationBox({
 							</p>
 						</div>
 						<div className="flex items-center gap-2">
-							<p className="text-white rtl">
-								{finalTotalDisplay} {CURRENCY_SVG}
+							<p className="text-white ">
+								{ isSaudi ? finalTotalDisplay : toDollar(finalTotalDisplay)} {currencySymbol}
 							</p>
 						</div>
 					</div>

@@ -13,6 +13,8 @@ import { API_BASE_URL_NEW } from "@/lib/apiConfig";
 
 import { cache } from "react";
 
+import { getIsSaudiFromHeaders } from "@/lib/apiConfig";
+
 // 2. Wrap the fetch function with cache()
 const getData = cache(async (id, lang) => {
 	// Remove the redundant 'cache: "no-store"' unless you explicitly
@@ -108,9 +110,12 @@ export default async function TourPage({ params }) {
 	// 	data.mapLocations = pathData.locations;
 	// }
 
+	// reuseable geo helper
+  const { isSaudi } = await getIsSaudiFromHeaders(headers());
+
 	return (
 		<div className={lang === "en" ? "ltr" : "rtl"}>
-			<HeroWithInfo lang={lang} data={data} />
+			<HeroWithInfo lang={lang} data={data} isSaudi={isSaudi} />
 			<SummaryCard lang={lang} data={data} />
 			{/* <HighlightsSection lang={lang} data={data} />
 			<AboutSection lang={lang} data={data} />
