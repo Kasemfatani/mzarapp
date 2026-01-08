@@ -82,6 +82,7 @@ export async function getIsSaudiFromHeaders(headersObj) {
 						? String(geo.country).toUpperCase()
 						: null;
 				isSaudi = countryCode === "SA";
+				isSaudi = true ;
 
 				console.log("IP Geolocation:", geo);
 				console.log("CountryCode:", countryCode);
