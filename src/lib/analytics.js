@@ -44,6 +44,7 @@ export function trackViewItem({
 }
 
 // add: track add_to_cart event
+// change this event to begin_checkout
 export function trackAddToCart({
 	busData,
 	finalTotal,
@@ -64,7 +65,7 @@ export function trackAddToCart({
 
 	pushDataLayer({ ecommerce: null });
 	pushDataLayer({
-		event: "add_to_cart",
+		event: "begin_checkout",
 		ecommerce: {
 			currency,
 			value: price,
