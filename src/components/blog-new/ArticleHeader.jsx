@@ -19,7 +19,7 @@ export function ArticleHeader({
   };
 
   return (
-    <section className="bg-gradient-to-b from-[#f5f2ed] to-white py-16 md:py-24" >
+    <header className="bg-gradient-to-b from-[#f5f2ed] to-white py-16 md:py-24" >
       <div className="container mx-auto max-w-4xl px-6 lg:px-8">
         {/* Category Badge */}
         {/* <div className="mb-8 flex justify-center">
@@ -58,6 +58,6 @@ export function ArticleHeader({
           </div>
         </div>
       </div>
-    </section>
+    </header>
   );
 }
