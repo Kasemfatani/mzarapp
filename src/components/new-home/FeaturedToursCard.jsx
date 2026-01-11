@@ -39,7 +39,6 @@ export function FeaturedToursCard({
   isAr = false,
   isSaudi = true, // Default to true if the prop is not passed
 }) {
-isSaudi = true ;
 	// --- Currency Logic ---
 	const SAR_RATE = 3.75;
 	let displayPrice;
