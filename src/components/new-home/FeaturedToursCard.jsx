@@ -39,7 +39,7 @@ export function FeaturedToursCard({
   isAr = false,
   isSaudi = true, // Default to true if the prop is not passed
 }) {
-
+isSaudi = true ;
 	// --- Currency Logic ---
 	const SAR_RATE = 3.75;
 	let displayPrice;
@@ -137,7 +137,7 @@ export function FeaturedToursCard({
 							className="text-2xl text-[#867957] mt-1 "
 							style={{  fontWeight: 700 }}
 						>
-							<span className="text-lg  flex items-center gap-1">
+							<span className="text-sm  flex items-center gap-1">
 								{displayPrice.toFixed(2)} {currencySymbol}
 							</span>
 						</div>
