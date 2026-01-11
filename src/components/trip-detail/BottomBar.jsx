@@ -15,6 +15,13 @@ const CURRENCY_SVG = (
 	</svg>
 );
 
+const SAR_LABEL = (
+	<span className="">
+		{CURRENCY_SVG}
+		<span className="mx-1 font-thin">(SAR)</span>
+	</span>
+);
+
 export function BottomBar( { lang , data , isSaudi=true } ) {
   const isAr = lang === "ar";
 
@@ -25,7 +32,7 @@ export function BottomBar( { lang , data , isSaudi=true } ) {
 
 	if (isSaudi) {
 		displayPrice = data.start_price;
-		currencySymbol = isAr ? CURRENCY_SVG : "SAR";
+		currencySymbol = isAr ? SAR_LABEL : "SAR";
 	} else {
 		displayPrice = data.start_price / SAR_RATE;
 		currencySymbol = isAr ? "دولار" : "USD";
@@ -58,7 +65,7 @@ export function BottomBar( { lang , data , isSaudi=true } ) {
         {/* Main Content - Primary CTA Section */}
         <div className="flex items-center justify-between mb-1">
           {/* Price Section */}
-          <div className="flex flex-row items-center gap-1">
+          <div className="flex flex-col md:flex-row items-center gap-1">
             <p className="text-[13px] md:text-[20px] leading-[1.5] text-white/80">{isAr ? "السعر يبدأ من" : "Price starts from"}</p>
             <div className="flex items-center gap-3">
              

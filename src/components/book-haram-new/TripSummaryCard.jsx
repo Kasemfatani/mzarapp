@@ -17,6 +17,13 @@ const CURRENCY_SVG = (
 
 const SAR_RATE = 3.75;
 
+const SAR_LABEL = (
+	<span className="">
+		{CURRENCY_SVG}
+		<span className="mx-1 font-thin">(SAR)</span>
+	</span>
+);
+
 export function TripSummaryCard({
 	imageUrl,
 	location,
@@ -44,7 +51,7 @@ export function TripSummaryCard({
 
 	if (isSaudi) {
 		displayPrice = finalPrice;
-		currencySymbol = isAr ? CURRENCY_SVG : "SAR";
+		currencySymbol = isAr ? SAR_LABEL : "SAR";
 	} else {
 		displayPrice = finalPrice / SAR_RATE;
 		currencySymbol = isAr ? "دولار" : "USD";
@@ -64,7 +71,7 @@ export function TripSummaryCard({
 				<div className="absolute inset-0 bg-gradient-to-t from-[rgba(0,0,0,0.7)] via-[rgba(0,0,0,0.2)] to-[rgba(0,0,0,0)]" />
 
 				{/* Location Badge */}
-				<div className="absolute top-6 right-2 bg-[rgba(255,255,255,0.95)] rounded-[20px] shadow-[0px_20px_25px_-5px_rgba(0,0,0,0.1),0px_8px_10px_-6px_rgba(0,0,0,0.1)] px-2 py-0 flex items-center gap-1 text-sm">
+				<div className="absolute bottom-6 md:top-6 md:bottom-auto right-2 bg-[rgba(255,255,255,0.95)] rounded-[20px] shadow-[0px_20px_25px_-5px_rgba(0,0,0,0.1),0px_8px_10px_-6px_rgba(0,0,0,0.1)] px-2 py-0 flex items-center gap-1 text-sm">
 					<MapPin className="w-4 h-4 text-[#3c6652]" strokeWidth={1.33} />
 					<p className="text-[#3c6652]">{location}</p>
 				</div>

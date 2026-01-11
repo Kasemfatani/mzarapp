@@ -21,6 +21,12 @@ function toDollar(amount) {
 	return (amount / SAR_RATE).toFixed(2);
 }
 
+const SAR_LABEL = (
+	<span className="">
+		{CURRENCY_SVG}
+		<span className="mx-1 font-thin">(SAR)</span>
+	</span>
+);
 
 export function PriceCalculationBox({
 	vehicle = null,
@@ -39,7 +45,7 @@ export function PriceCalculationBox({
 	let currencySymbol;
 
 	if (isSaudi) {
-		currencySymbol = isAr ? CURRENCY_SVG : "SAR";
+		currencySymbol = isAr ? SAR_LABEL : "SAR";
 	} else {
 		currencySymbol = isAr ? "دولار" : "USD";
 	}
@@ -200,7 +206,7 @@ export function PriceCalculationBox({
 					</div>
 
 					{/* Final total */}
-					<div className="bg-gradient-to-b from-[#3c6652] to-[#2d4d3d] rounded-[18px] px-6 py-4 flex items-center justify-between">
+					<div className="bg-gradient-to-b from-[#3c6652] to-[#2d4d3d] rounded-[18px] px-2 md:px-6 py-4 flex items-center justify-between">
 						<div className="flex flex-col items-start">
 							<p className="text-[rgba(255,255,255,0.8)]">
 								{isAr ? "المجموع النهائي" : "Final total"}

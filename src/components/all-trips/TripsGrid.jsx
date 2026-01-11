@@ -2,7 +2,7 @@
 
 import { MapPin, Users, Clock, Star } from "lucide-react";
 import { Pagination } from "./Pagination";
-import Image from 'next/image'
+import Image from "next/image";
 import { useState, useEffect } from "react";
 
 const CURRENCY_SVG = (
@@ -18,7 +18,14 @@ const CURRENCY_SVG = (
 	</svg>
 );
 
-export default function TripsGrid({ lang, trips , isSaudi = true }) {
+const SAR_LABEL = (
+	<span className="">
+		{CURRENCY_SVG}
+		<span className="mx-1 font-thin">(SAR)</span>
+	</span>
+);
+
+export default function TripsGrid({ lang, trips, isSaudi = true }) {
 	const isAr = lang === "ar";
 
 	// Pagination state
@@ -87,8 +94,7 @@ export default function TripsGrid({ lang, trips , isSaudi = true }) {
 	);
 }
 
-function TripCard({ trip, isAr , isSaudi = true  }) {
-
+function TripCard({ trip, isAr, isSaudi = true }) {
 	// --- Currency Logic ---
 	const SAR_RATE = 3.75;
 	let displayPrice;
@@ -96,15 +102,12 @@ function TripCard({ trip, isAr , isSaudi = true  }) {
 
 	if (isSaudi) {
 		displayPrice = trip.start_price;
-		currencySymbol = isAr ? CURRENCY_SVG : "SAR";
+		currencySymbol = isAr ? SAR_LABEL : "SAR";
 	} else {
 		displayPrice = trip.start_price / SAR_RATE;
 		currencySymbol = isAr ? "دولار" : "USD";
 	}
 	// --- End Currency Logic ---
-
-
-
 
 	let cityName = "";
 	if (trip.city_id === 1) {
@@ -222,12 +225,13 @@ function TripCard({ trip, isAr , isSaudi = true  }) {
 							className="text-2xl text-[#3C6652]"
 							style={{ fontWeight: 700 }}
 						>
-							<span >
+							<span>
 								{displayPrice.toFixed(2)} {currencySymbol}
 							</span>
 							{perPerson && (
-								<span className="text-sm " >
-									 {" "}{isAr ? "للفرد الواحد " : " per person"}
+								<span className="text-sm ">
+									{" "}
+									{isAr ? "للفرد الواحد " : " per person"}
 								</span>
 							)}
 						</div>
@@ -246,20 +250,23 @@ function TripCard({ trip, isAr , isSaudi = true  }) {
 
 						{/* Secondary Button */}
 						{disableBooking ? (
-						<a 
-							href='#'
-							className="flex-1 px-4 py-2.5 border-2 border-[#E7D3AF] text-[#3C6652] rounded-xl hover:bg-[#E7D3AF] hover:border-[#E7D3AF] transition-all duration-300 text-center"
-							style={{ fontWeight: 500 }} disabled
-						>
-							{isAr ? " قريباً ..." : "Soon ..."}
-						</a> ) : (
-						<a 
-							href={link}
-							className="flex-1 px-4 py-2.5 border-2 border-[#E7D3AF] text-[#3C6652] rounded-xl hover:bg-[#E7D3AF] hover:border-[#E7D3AF] transition-all duration-300 text-center"
-							style={{ fontWeight: 500 }}
-						>
-							{isAr ? "احجز الآن" : "Book Now"}
-						</a> )}
+							<a
+								href="#"
+								className="flex-1 px-4 py-2.5 border-2 border-[#E7D3AF] text-[#3C6652] rounded-xl hover:bg-[#E7D3AF] hover:border-[#E7D3AF] transition-all duration-300 text-center"
+								style={{ fontWeight: 500 }}
+								disabled
+							>
+								{isAr ? " قريباً ..." : "Soon ..."}
+							</a>
+						) : (
+							<a
+								href={link}
+								className="flex-1 px-4 py-2.5 border-2 border-[#E7D3AF] text-[#3C6652] rounded-xl hover:bg-[#E7D3AF] hover:border-[#E7D3AF] transition-all duration-300 text-center"
+								style={{ fontWeight: 500 }}
+							>
+								{isAr ? "احجز الآن" : "Book Now"}
+							</a>
+						)}
 					</div>
 				</div>
 			</div>

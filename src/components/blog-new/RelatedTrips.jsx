@@ -23,7 +23,7 @@ export function RelatedTrips({ isAr, blog = {}, API_BASE_URL_NEW , isSaudi = tru
 	let currencySymbol;
 
 	if (isSaudi) {
-		currencySymbol = isAr ? "ريال" : "SAR";
+		currencySymbol = isAr ? "ريال (SAR)" : "SAR";
 	} else {
 		currencySymbol = isAr ? "دولار" : "USD";
 	}
@@ -118,8 +118,8 @@ export function RelatedTrips({ isAr, blog = {}, API_BASE_URL_NEW , isSaudi = tru
 														<p className="text-sm text-[#718096]">
 															{isAr ? "ابدأ من" : "Starting from"}
 														</p>
-														<p className="text-xl text-[#3C6652]">
-															{ isSaudi ? formatPrice(trip.start_price ?? trip.startPrice) : toDollar(formatPrice(trip.start_price ?? trip.startPrice))}
+														<p className="text-sm text-[#3C6652]">
+															{ isSaudi ? formatPrice(trip.start_price ?? trip.startPrice) : toDollar(formatPrice(trip.start_price ?? trip.startPrice))} {" "}
 															{currencySymbol}
 														</p>
 													</div>

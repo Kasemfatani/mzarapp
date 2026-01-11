@@ -17,6 +17,13 @@ const CURRENCY_SVG = (
 	</svg>
 );
 
+const SAR_LABEL = (
+	<span className="">
+		{CURRENCY_SVG}
+		<span className="mx-1 font-thin">(SAR)</span>
+	</span>
+);
+
 export function FeaturedToursCard({
 	id,
 	image,
@@ -40,7 +47,7 @@ export function FeaturedToursCard({
 
 	if (isSaudi) {
 		displayPrice = start_price;
-		currencySymbol = isAr ? CURRENCY_SVG : "SAR";
+		currencySymbol = isAr ? SAR_LABEL : "SAR";
 	} else {
 		displayPrice = start_price / SAR_RATE;
 		currencySymbol = isAr ? "دولار" : "USD";
