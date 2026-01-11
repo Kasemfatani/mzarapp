@@ -87,7 +87,7 @@ export default function SingleBlogWrapper({
 	const formattedDate = format(parseISO(blog.createdAt), "dd/MM/yyyy");
 
 	return (
-		<div className={lang === "en" ? "ltr" : "rtl"}>
+		<article className={lang === "en" ? "ltr" : "rtl"}>
 			<ArticleHeader
 				// category={blog.category}
 				title={blog.title}
@@ -130,6 +130,6 @@ export default function SingleBlogWrapper({
 			/>
 			{/* <Newsletter isAr={isAr} /> */}
 			<FinalCTA isAr={isAr} />
-		</div>
+		</article>
 	);
 }

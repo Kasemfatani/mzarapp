@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Send, Shield } from "lucide-react";
 import { API_BASE_URL_NEW } from "@/lib/apiConfig";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
+import Image from "next/image";
 
 export function ContactForm({ isAr, InquiryType }) {
 	const [formData, setFormData] = useState({
@@ -332,9 +333,10 @@ export function ContactForm({ isAr, InquiryType }) {
 					<div className="order-1 flex items-center justify-center lg:order-2">
 						<div className="overflow-hidden rounded-3xl shadow-lg">
 							<img
-								src="https://images.unsplash.com/photo-1709715357479-591f9971fb05?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjdXN0b21lciUyMHN1cHBvcnQlMjBoZWxwfGVufDF8fHx8MTc2NTg3OTM1MHww&ixlib=rb-4.1.0&q=80&w=1080"
+								src="/contact-us/contact-form.webp"
 								alt={isAr ? "دعم العملاء" : "Customer Support"}
 								className="h-full w-full object-cover"
+								loading="lazy"
 							/>
 						</div>
 					</div>

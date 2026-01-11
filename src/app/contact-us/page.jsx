@@ -37,7 +37,7 @@ export function generateMetadata() {
 
 	if (lang === "ar") {
 		return {
-			title: "اتصل بنا",
+			title: " تواصل معنا",
 		};
 	}
 	return {

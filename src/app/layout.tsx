@@ -133,7 +133,7 @@ export default function RootLayout({
 									"@id": "https://www.mzarapp.com#organization",
 									name: "MzarApp",
 									url: "https://www.mzarapp.com",
-									logo: "/Home/header-logo.png",
+									logo: "https://www.mzarapp.com/Home/header-logo.png",
 								},
 								{
 									"@type": "WebSite",
