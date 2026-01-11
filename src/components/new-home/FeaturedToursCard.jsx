@@ -17,6 +17,13 @@ const CURRENCY_SVG = (
 	</svg>
 );
 
+const SAR_LABEL = (
+	<span className="">
+		{CURRENCY_SVG}
+		<span className="mx-1 font-thin">(SAR)</span>
+	</span>
+);
+
 export function FeaturedToursCard({
 	id,
 	image,
@@ -32,7 +39,7 @@ export function FeaturedToursCard({
   isAr = false,
   isSaudi = true, // Default to true if the prop is not passed
 }) {
-
+isSaudi = true ;
 	// --- Currency Logic ---
 	const SAR_RATE = 3.75;
 	let displayPrice;
@@ -40,7 +47,7 @@ export function FeaturedToursCard({
 
 	if (isSaudi) {
 		displayPrice = start_price;
-		currencySymbol = isAr ? CURRENCY_SVG : "SAR";
+		currencySymbol = isAr ? SAR_LABEL : "SAR";
 	} else {
 		displayPrice = start_price / SAR_RATE;
 		currencySymbol = isAr ? "دولار" : "USD";
@@ -130,7 +137,7 @@ export function FeaturedToursCard({
 							className="text-2xl text-[#867957] mt-1 "
 							style={{  fontWeight: 700 }}
 						>
-							<span className="text-lg  flex items-center gap-1">
+							<span className="text-sm  flex items-center gap-1">
 								{displayPrice.toFixed(2)} {currencySymbol}
 							</span>
 						</div>
