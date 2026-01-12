@@ -1,6 +1,6 @@
 import { ArrowLeft , ArrowRight } from 'lucide-react';
 
-export function FinalCTA({isAr}) {
+export default function FinalCTA({isAr}) {
 
   return (
     <section className="bg-gradient-to-br from-[#0d5940] to-[#116149] py-20 md:py-28">

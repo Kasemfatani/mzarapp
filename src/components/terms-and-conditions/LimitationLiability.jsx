@@ -4,7 +4,7 @@ import { useState } from "react";
 import { ChevronDown, AlertTriangle } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 
-export function LimitationLiability({ isAr }) {
+export default function LimitationLiability({ isAr }) {
 	const liabilityItems = [
 		{
 			id: "1",

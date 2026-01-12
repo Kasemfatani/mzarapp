@@ -1,6 +1,6 @@
 import { Smartphone, MousePointer, XCircle, CheckCircle } from "lucide-react";
 
-export function HowToCancel({ isAr }) {
+export default function HowToCancel({ isAr }) {
 	const steps = [
 		{
 			number: "1",

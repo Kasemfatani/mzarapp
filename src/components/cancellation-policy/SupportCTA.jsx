@@ -1,6 +1,6 @@
 import { MessageCircle, HelpCircle } from 'lucide-react';
 
-export function SupportCTA({ isAr }) {
+export default function SupportCTA({ isAr }) {
 
   return (
     <section className="bg-gradient-to-br from-[#0d5940] to-[#116149] py-20 md:py-32" >

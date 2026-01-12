@@ -7,7 +7,7 @@ import {
 	Clock,
 } from "lucide-react";
 
-export function UserResponsibilities({ isAr }) {
+export default function UserResponsibilities({ isAr }) {
 	const responsibilities = [
 		{
 			icon: UserCheck,

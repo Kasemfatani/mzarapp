@@ -4,9 +4,11 @@ import { cookies, headers } from "next/headers";
 
 import { Hero } from "@/components/cancellation-policy/Hero";
 import { QuickSummary } from "@/components/cancellation-policy/QuickSummary";
-import { DetailedPolicy } from "@/components/cancellation-policy/DetailedPolicy";
-import { HowToCancel } from "@/components/cancellation-policy/HowToCancel";
-import { SupportCTA } from "@/components/cancellation-policy/SupportCTA";
+// import { DetailedPolicy } from "@/components/cancellation-policy/DetailedPolicy";
+// import { HowToCancel } from "@/components/cancellation-policy/HowToCancel";
+// import { SupportCTA } from "@/components/cancellation-policy/SupportCTA";
+
+import LazyBottomSections from "@/components/cancellation-policy/LazyBottomSections";
 
 // import { API_BASE_URL_NEW } from "@/lib/apiConfig";
 
@@ -51,9 +53,10 @@ export default async function CancellationPolicyPage() {
 		<div className={lang === "en" ? "ltr" : "rtl"}>
 			<Hero isAr={isAr} />
 			<QuickSummary isAr={isAr} />
-			<DetailedPolicy isAr={isAr} />
+			<LazyBottomSections isAr={isAr} />
+			{/* <DetailedPolicy isAr={isAr} />
 			<HowToCancel isAr={isAr} />
-			<SupportCTA isAr={isAr} />
+			<SupportCTA isAr={isAr} /> */}
 			
 		</div>
 	);

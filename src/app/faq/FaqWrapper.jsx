@@ -4,9 +4,12 @@ import { useState } from "react";
 import { Hero } from "@/components/faq/Hero";
 import { CategoryTabs } from "@/components/faq/CategoryTabs";
 import { FAQAccordion } from "@/components/faq/FAQAccordion";
-import { TrustReinforcement } from "@/components/faq/TrustReinforcement";
-import { SupportCTA } from "@/components/faq/SupportCTA";
-import { FinalCTA } from "@/components/faq/FinalCTA";
+// import { TrustReinforcement } from "@/components/faq/TrustReinforcement";
+// import { SupportCTA } from "@/components/faq/SupportCTA";
+// import { FinalCTA } from "@/components/faq/FinalCTA";
+import LazyBottomSections from "@/components/faq/LazyBottomSections";
+
+
 
 export default function FaqWrapper({ lang }) {
 	const isAr = lang === "ar";
@@ -319,9 +322,10 @@ export default function FaqWrapper({ lang }) {
 				searchQuery={searchQuery}
 				isAr={isAr}
 			/>
-			<TrustReinforcement isAr={isAr} />
+			<LazyBottomSections isAr={isAr} />
+			{/* <TrustReinforcement isAr={isAr} />
 			<SupportCTA isAr={isAr} />
-			<FinalCTA isAr={isAr} />
+			<FinalCTA isAr={isAr} /> */}
 		</div>
 	);
 }

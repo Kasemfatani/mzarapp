@@ -4,7 +4,7 @@ import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 
-export function DetailedPolicy({ isAr }) {
+export default function DetailedPolicy({ isAr }) {
 	const [openId, setOpenId] = useState("1");
 
 	const toggleItem = (id) => {

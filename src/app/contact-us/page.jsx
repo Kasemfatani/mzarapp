@@ -4,12 +4,17 @@ import { cookies, headers } from "next/headers";
 
 import { Hero } from "@/components/contact-us/Hero";
 import { ContactOptions } from "@/components/contact-us/ContactOptions";
-import ContactFormWithCaptcha from "@/components/contact-us/ContactFormWithCaptcha";
-import { CompanyInfo } from "@/components/contact-us/CompanyInfo";
-import { Map } from "@/components/contact-us/Map";
-import { FAQShortcut } from "@/components/contact-us/FAQShortcut";
-import { FinalCTA } from "@/components/contact-us/FinalCTA";
+// import ContactFormWithCaptcha from "@/components/contact-us/ContactFormWithCaptcha";
+// import { CompanyInfo } from "@/components/contact-us/CompanyInfo";
+// import { Map } from "@/components/contact-us/Map";
+// import { FAQShortcut } from "@/components/contact-us/FAQShortcut";
+// import { FinalCTA } from "@/components/contact-us/FinalCTA";
 import { API_BASE_URL_NEW } from "@/lib/apiConfig";
+
+import LazyTopSections from "@/components/contact-us/LazyTopSections";
+
+import LazyBottomSections from "@/components/contact-us/LazyBottomSections";
+
 
 import { cache } from "react";
 
@@ -57,11 +62,13 @@ export default async function ContactUsPage() {
 		<div className={lang === "en" ? "ltr" : "rtl"}>
 			<Hero isAr={isAr} />
 			<ContactOptions isAr={isAr} />
-			<ContactFormWithCaptcha isAr={isAr} InquiryType={data} />
-			<CompanyInfo isAr={isAr} />
-			<Map isAr={isAr} />
+			<LazyTopSections isAr={isAr} data={data} />
+			{/* <ContactFormWithCaptcha isAr={isAr} InquiryType={data} />
+			<CompanyInfo isAr={isAr} /> */}
+			<LazyBottomSections isAr={isAr} />
+			{/* <Map isAr={isAr} />
 			<FAQShortcut isAr={isAr} />
-			<FinalCTA isAr={isAr} />
+			<FinalCTA isAr={isAr} /> */}
 		</div>
 	);
 }
