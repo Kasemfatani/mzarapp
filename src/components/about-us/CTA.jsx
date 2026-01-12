@@ -1,6 +1,6 @@
 import { ArrowLeft, MessageCircle , ArrowRight} from 'lucide-react';
 
-export function CTA({ lang }) {
+export default function CTA({ lang }) {
   const isAr = lang === 'ar';
   return (
     <section className="bg-white py-20 md:py-28" >

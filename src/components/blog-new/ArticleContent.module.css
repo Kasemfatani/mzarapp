@@ -1,0 +1,7 @@
+.forceFont {
+  font-family: var(--font-body) !important;
+}
+
+.forceFont * {
+  font-family: var(--font-body) !important;
+}

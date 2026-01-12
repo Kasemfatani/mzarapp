@@ -2,7 +2,7 @@ import { BadgeCheck, FileCheck, CreditCard } from 'lucide-react';
 
 
 
-export function TrustCompliance({ lang }) {
+export default function TrustCompliance({ lang }) {
 
   const isAr = lang === 'ar';
 

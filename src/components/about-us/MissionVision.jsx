@@ -1,6 +1,6 @@
 import { Target, Compass } from 'lucide-react';
 
-export function MissionVision( { lang } ) {
+export default function MissionVision( { lang } ) {
   const isAr = lang === 'ar';
   return (
     <section className="bg-[#f5f2ed] py-20 md:py-28">

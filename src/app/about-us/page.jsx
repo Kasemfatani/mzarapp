@@ -4,12 +4,15 @@ import { cookies, headers } from "next/headers";
 
 import { Hero } from "@/components/about-us/Hero";
 import { OurStory } from "@/components/about-us/OurStory";
-import { MissionVision } from "@/components/about-us/MissionVision";
-import { WhyMazah } from "@/components/about-us/WhyMazah";
-import { Stats } from "@/components/about-us/Stats";
-import { Values } from "@/components/about-us/Values";
-import { TrustCompliance } from "@/components/about-us/TrustCompliance";
-import { CTA } from "@/components/about-us/CTA";
+// import { MissionVision } from "@/components/about-us/MissionVision";
+// import { WhyMazah } from "@/components/about-us/WhyMazah";
+// import { Stats } from "@/components/about-us/Stats";
+// import { Values } from "@/components/about-us/Values";
+// import { TrustCompliance } from "@/components/about-us/TrustCompliance";
+// import { CTA } from "@/components/about-us/CTA";
+
+import LazyTopSections from "@/components/about-us/LazyTopSections";
+import LazyBottomSections from "@/components/about-us/LazyBottomSections";
 
 // import { API_BASE_URL_NEW } from "@/lib/apiConfig";
 
@@ -52,12 +55,14 @@ export default async function TourPage() {
 		<div className={lang === "en" ? "ltr" : "rtl"}>
 			<Hero lang={lang} />
 			<OurStory lang={lang} />
-			<MissionVision lang={lang} />
+			<LazyTopSections lang={lang} />
+			{/* <MissionVision lang={lang} />
 			<WhyMazah lang={lang} />
-			<Stats lang={lang} />
-			<Values lang={lang} />
+			<Stats lang={lang} /> */}
+			<LazyBottomSections lang={lang} />
+			{/* <Values lang={lang} />
 			<TrustCompliance lang={lang} />
-			<CTA lang={lang} />
+			<CTA lang={lang} /> */}
 		</div>
 	);
 }

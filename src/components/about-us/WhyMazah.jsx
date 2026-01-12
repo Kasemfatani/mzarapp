@@ -7,7 +7,7 @@ import {
 	Languages,
 } from "lucide-react";
 
-export function WhyMazah({ lang }) {
+export default function WhyMazah({ lang }) {
 	const isAr = lang === "ar";
 
 	const benefits = [
