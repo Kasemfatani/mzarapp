@@ -16,6 +16,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 // add analytics import
+import { trackBeginCheckout } from "@/lib/analytics";
 import { trackAddToCart } from "@/lib/analytics";
 import { format, addDays, startOfToday } from "date-fns";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
@@ -122,7 +123,14 @@ export default function BookTourPage({ busData, lang, isSaudi = true }) {
 			}
 		}
 		if (lang) getQueryParams();
-	}, [lang]);
+	}, []);
+
+	useEffect(() => {
+    if (!busData) return;
+    trackAddToCart({
+      busData,
+    });
+  }, []);
 
 	// store promo_code from URL params (overwrites existing partnerPromoCode)
 	useEffect(() => {
@@ -406,7 +414,7 @@ export default function BookTourPage({ busData, lang, isSaudi = true }) {
 
 			// fire add_to_cart before starting payment (for GA4)
 			try {
-				trackAddToCart({
+				trackBeginCheckout({
 					busData,
 					finalTotal,
 					promoCode,
@@ -415,7 +423,7 @@ export default function BookTourPage({ busData, lang, isSaudi = true }) {
 				});
 			} catch (e) {
 				// non-blocking if analytics fails
-				console.warn("trackAddToCart failed", e);
+				console.warn("trackBeginCheckout failed", e);
 			}
 
 			if (finalTotal == 0) {
