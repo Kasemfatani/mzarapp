@@ -30,7 +30,7 @@ function AnimatedCounter({ value, isRating = false , isAr = false}) {
   return <>{isRating ? count.toFixed(1) :  Math.floor(count).toLocaleString(isAr ? 'ar-SA' : 'en-US')}</>;
 }
 
-export function Stats({lang}) {
+export default function Stats({lang}) {
 
   const isAr = lang === 'ar';
 

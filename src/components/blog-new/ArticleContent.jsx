@@ -1,11 +1,14 @@
 import { Lightbulb } from "lucide-react";
 import parse from "html-react-parser";
+import styles from "./ArticleContent.module.css";
 
 export function ArticleContent({ content, isAr, BLOG_URL }) {
 	return (
 		<section className="bg-white py-8 md:py-12">
 			<div className="container mx-auto max-w-7xl px-6 lg:px-8">
-				<article className="prose prose-lg max-w-none md:w-[70%]">
+				<article
+					className={`prose prose-lg max-w-none md:w-[70%] ${styles.forceFont}`}
+				>
 					{content.map((block, index) => {
 						switch (block.type) {
 							case "paragraph":

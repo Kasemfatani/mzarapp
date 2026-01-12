@@ -4,11 +4,12 @@ import { cookies, headers } from "next/headers";
 
 import { Hero } from "@/components/terms-and-conditions/Hero";
 import { PlatformRole } from "@/components/terms-and-conditions/PlatformRole";
-import { UserResponsibilities } from "@/components/terms-and-conditions/UserResponsibilities";
-import { BookingsPayments } from "@/components/terms-and-conditions/BookingsPayments";
-import { LimitationLiability } from "@/components/terms-and-conditions/LimitationLiability";
+// import { UserResponsibilities } from "@/components/terms-and-conditions/UserResponsibilities";
+// import { BookingsPayments } from "@/components/terms-and-conditions/BookingsPayments";
+// import { LimitationLiability } from "@/components/terms-and-conditions/LimitationLiability";
 // import { Updates } from "@/components/terms-and-conditions/Updates";
-import { FinalCTA } from "@/components/terms-and-conditions/FinalCTA";
+// import { FinalCTA } from "@/components/terms-and-conditions/FinalCTA";
+import LazyBottomSections from "@/components/terms-and-conditions/LazyBottomSections";
 // import { API_BASE_URL_NEW } from "@/lib/apiConfig";
 
 // import { cache } from "react";
@@ -52,11 +53,12 @@ export default async function TermsAndConditionsPage() {
 		<div className={lang === "en" ? "ltr" : "rtl"}>
 			<Hero isAr={isAr} />
 			<PlatformRole isAr={isAr} />
-			<UserResponsibilities isAr={isAr} />
+			<LazyBottomSections isAr={isAr} />
+			{/* <UserResponsibilities isAr={isAr} />
 			<BookingsPayments isAr={isAr} />
-			<LimitationLiability isAr={isAr} />
+			<LimitationLiability isAr={isAr} /> */}
 			{/* <Updates isAr={isAr} /> */}
-			<FinalCTA isAr={isAr} />
+			{/* <FinalCTA isAr={isAr} /> */}
 			
 			
 		</div>

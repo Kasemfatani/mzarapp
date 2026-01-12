@@ -2,7 +2,7 @@
 
 import { HelpCircle, ArrowLeft , ArrowRight } from 'lucide-react';
 
-export function FAQShortcut( { isAr }) {
+export default function FAQShortcut( { isAr }) {
   return (
     <section className="bg-[#f5f2ed] py-20 md:py-28" >
       <div className="container mx-auto max-w-4xl px-6 text-center lg:px-8">

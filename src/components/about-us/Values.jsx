@@ -13,7 +13,7 @@ import {
 	Star, // add for Excellence
 } from "lucide-react";
 
-export function Values({ lang }) {
+export default function Values({ lang }) {
 	const isAr = lang === "ar";
 
 	const values = [

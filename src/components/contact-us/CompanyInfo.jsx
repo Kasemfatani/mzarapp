@@ -3,7 +3,7 @@
 import { MapPin, Mail, Phone, Clock } from 'lucide-react';
 
 
-export function CompanyInfo( { isAr }) {
+export default function CompanyInfo( { isAr }) {
 
   
 const infoBlocks = [

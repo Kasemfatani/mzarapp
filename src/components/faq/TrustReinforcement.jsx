@@ -1,6 +1,6 @@
 import { ShieldCheck, Award, Headphones } from "lucide-react";
 
-export function TrustReinforcement({ isAr }) {
+export default function TrustReinforcement({ isAr }) {
 	const trustPoints = [
 		{
 			icon: Headphones,

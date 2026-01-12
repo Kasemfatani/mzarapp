@@ -9,7 +9,7 @@ import {
 	ShieldCheck,
 } from "lucide-react";
 
-export function BookingsPayments({ isAr }) {
+export default function BookingsPayments({ isAr }) {
 	const paymentRules = [
 		{
 			icon: CheckSquare,

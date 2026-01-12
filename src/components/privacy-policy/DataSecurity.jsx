@@ -1,6 +1,6 @@
 import { Lock, Server, Shield, Eye } from "lucide-react";
 
-export function DataSecurity({ isAr }) {
+export default function DataSecurity({ isAr }) {
 	const securityFeatures = [
 		{
 			icon: Lock,

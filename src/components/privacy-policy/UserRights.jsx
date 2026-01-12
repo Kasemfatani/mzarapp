@@ -1,6 +1,6 @@
 
 
-export function UserRights({ isAr }) {
+export default function UserRights({ isAr }) {
 
 
 	return (

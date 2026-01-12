@@ -1,6 +1,6 @@
 import { MessageCircle, Mail } from 'lucide-react';
 
-export function SupportCTA({isAr}) {
+export default function SupportCTA({isAr}) {
 
   return (
     <section className="bg-white py-20 md:py-28">
