@@ -44,8 +44,34 @@ export function trackViewItem({
 }
 
 // add: track add_to_cart event
-// change this event to begin_checkout
 export function trackAddToCart({
+	busData,
+	finalTotal = 0,
+	
+	currency = "SAR",
+}) {
+	if (typeof window === "undefined") return;
+	const price = Number(finalTotal) || 0;
+	const item = {
+		item_id: String(busData?.id ?? ""),
+		item_name: busData?.name ?? "",
+
+	};
+
+	pushDataLayer({ ecommerce: null });
+	pushDataLayer({
+		event: "add_to_cart",
+		ecommerce: {
+			currency,
+			value: price,
+			items: [item],
+		},
+	});
+}
+
+
+// change this event to begin_checkout
+export function trackBeginCheckout({
 	busData,
 	finalTotal,
 	promoCode,

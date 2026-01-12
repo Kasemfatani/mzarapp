@@ -17,6 +17,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 // add analytics import
+import { trackBeginCheckout } from "@/lib/analytics";
 import { trackAddToCart } from "@/lib/analytics";
 import { format, addDays, startOfToday } from "date-fns";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
@@ -72,7 +73,12 @@ const getSchema = (lang, max_people_count = 20, min_people_count = 1) => {
 	});
 };
 
-export default function BookTourPage({ lang, busData, disabledDays = [] , isSaudi = true}) {
+export default function BookTourPage({
+	lang,
+	busData,
+	disabledDays = [],
+	isSaudi = true,
+}) {
 	const [leftSeats, setLeftSeats] = useState(null);
 	const [loading, setLoading] = useState(false);
 	const [selectedAddons, setSelectedAddons] = useState([]);
@@ -116,6 +122,13 @@ export default function BookTourPage({ lang, busData, disabledDays = [] , isSaud
 		mode: "onSubmit",
 	});
 
+	useEffect(() => {
+			if (!busData) return;
+			trackAddToCart({
+				busData,
+			});
+		}, []);
+
 	// sync selectedAddons state into form.add_ons
 	useEffect(() => {
 		form.setValue("add_ons", selectedAddons);
@@ -144,7 +157,6 @@ export default function BookTourPage({ lang, busData, disabledDays = [] , isSaud
 		});
 		return () => subscription.unsubscribe?.();
 	}, [form]);
-
 
 	// store promo_code from URL params (overwrites existing partnerPromoCode)
 	useEffect(() => {
@@ -320,7 +332,6 @@ export default function BookTourPage({ lang, busData, disabledDays = [] , isSaud
 			const taxAmount = Number((taxRate * totalBeforeTax).toFixed(2));
 			const finalTotal = Number((totalBeforeTax + taxAmount).toFixed(2));
 
-
 			// persist useful info for success page analytics / debugging
 			try {
 				const storedPrev = JSON.parse(
@@ -344,23 +355,23 @@ export default function BookTourPage({ lang, busData, disabledDays = [] , isSaud
 
 			// fire add_to_cart before starting payment (for GA4)
 			try {
-				trackAddToCart({
-				busData,
-				finalTotal,
-				promoCode,
-				quantity: selection.people || 1,
-				currency: "SAR",
+				trackBeginCheckout({
+					busData,
+					finalTotal,
+					promoCode,
+					quantity: selection.people || 1,
+					currency: "SAR",
 				});
 			} catch (e) {
 				// non-blocking if analytics fails
-				console.warn("trackAddToCart failed", e);
+				console.warn("trackBeginCheckout failed", e);
 			}
-			if (finalTotal == 0 ){
-                // free booking -> redirect to success page with free tranRef
-                setLoading(false);
-                window.location.href = `/book-path-success?status=success&tranRef=free`;
-                return;
-            }
+			if (finalTotal == 0) {
+				// free booking -> redirect to success page with free tranRef
+				setLoading(false);
+				window.location.href = `/book-path-success?status=success&tranRef=free`;
+				return;
+			}
 
 			console.log(
 				"Starting ClickPay payment for amount (finalTotal):",
@@ -383,7 +394,7 @@ export default function BookTourPage({ lang, busData, disabledDays = [] , isSaud
 					lang,
 					cart_id: cartId,
 					customer_details: {
-						name: '',
+						name: "",
 						email: "customer@gmail.com",
 						whatsapp: whatsapp_country_code + whatsapp,
 					},
@@ -492,7 +503,9 @@ export default function BookTourPage({ lang, busData, disabledDays = [] , isSaud
 								rating={busData.rating}
 								reviewCount={busData.rating_count}
 								title={busData.name}
-								subtitle={busData.short_description ? busData.short_description : ""}
+								subtitle={
+									busData.short_description ? busData.short_description : ""
+								}
 								duration={busData.duration}
 								maxPeople={busData.max_people_count}
 								price={busData.price}

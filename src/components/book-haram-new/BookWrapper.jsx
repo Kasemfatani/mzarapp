@@ -16,6 +16,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 // add analytics import
+import { trackBeginCheckout } from "@/lib/analytics";
 import { trackAddToCart } from "@/lib/analytics";
 import { format, addDays, startOfToday } from "date-fns";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
@@ -47,7 +48,12 @@ const getSchema = (lang, max_people_count = 20, min_people_count = 1) => {
 	});
 };
 
-export default function BookTourPage({ lang, busData, disabledDays = [] , isSaudi = true }) {
+export default function BookTourPage({
+	lang,
+	busData,
+	disabledDays = [],
+	isSaudi = true,
+}) {
 	const [leftSeats, setLeftSeats] = useState(null);
 	const [loading, setLoading] = useState(false);
 
@@ -75,6 +81,13 @@ export default function BookTourPage({ lang, busData, disabledDays = [] , isSaud
 		},
 		mode: "onSubmit",
 	});
+
+	useEffect(() => {
+			if (!busData) return;
+			trackAddToCart({
+				busData,
+			});
+		}, []);
 
 	// store promo_code from URL params (overwrites existing partnerPromoCode)
 	useEffect(() => {
@@ -240,28 +253,26 @@ export default function BookTourPage({ lang, busData, disabledDays = [] , isSaud
 				// ignore localStorage errors
 			}
 
-
 			// fire add_to_cart before starting payment (for GA4)
-						try {
-							trackAddToCart({
-								busData,
-								finalTotal,
-								promoCode,
-								quantity: selection.people || 1,
-								currency: "SAR",
-							});
-						} catch (e) {
-							// non-blocking if analytics fails
-							console.warn("trackAddToCart failed", e);
-						}
+			try {
+				trackBeginCheckout({
+					busData,
+					finalTotal,
+					promoCode,
+					quantity: selection.people || 1,
+					currency: "SAR",
+				});
+			} catch (e) {
+				// non-blocking if analytics fails
+				console.warn("trackBeginCheckout failed", e);
+			}
 
-			if (finalTotal == 0 ){
-                // free booking -> redirect to success page with free tranRef
-                setLoading(false);
-                window.location.href = `/book-haram-success?status=success&tranRef=free`;
-                return;
-            }
-
+			if (finalTotal == 0) {
+				// free booking -> redirect to success page with free tranRef
+				setLoading(false);
+				window.location.href = `/book-haram-success?status=success&tranRef=free`;
+				return;
+			}
 
 			console.log("Starting ClickPay payment:", {
 				base,
