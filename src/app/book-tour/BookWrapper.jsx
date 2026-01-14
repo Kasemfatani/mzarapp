@@ -18,6 +18,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 // add analytics import
 import { trackBeginCheckout } from "@/lib/analytics";
 import { trackAddToCart } from "@/lib/analytics";
+import { handleInvalidForm } from "@/lib/formUtils"; 
 import { format, addDays, startOfToday } from "date-fns";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
 import PromoCodeSection from "@/components/book-path-new/PromoCodeSection";
@@ -126,11 +127,11 @@ export default function BookTourPage({ busData, lang, isSaudi = true }) {
 	}, []);
 
 	useEffect(() => {
-    if (!busData) return;
-    trackAddToCart({
-      busData,
-    });
-  }, []);
+		if (!busData) return;
+		trackAddToCart({
+			busData,
+		});
+	}, []);
 
 	// store promo_code from URL params (overwrites existing partnerPromoCode)
 	useEffect(() => {
@@ -272,212 +273,220 @@ export default function BookTourPage({ busData, lang, isSaudi = true }) {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [form, busData]);
 
-	const onConfirm = form.handleSubmit(async (values) => {
-		// prevent booking when requested people > available seats
-		if (
-			typeof leftSeats === "number" &&
-			Number(values.people || 0) > Number(leftSeats)
-		) {
-			toast.error(
-				lang === "ar"
-					? `الحد الأقصى للمقاعد المتاحة هو ${leftSeats}`
-					: `Available seats limit is ${leftSeats}`
-			);
-			return;
-		}
-
-		try {
-			setLoading(true); // set loading true on submit
-			const selection = {
-				date: format(values.date, "yyyy-MM-dd"),
-				time: values.time,
-				meetingPoint: values.meetingPoint,
-				lang,
-				bus_id: busData?.id,
-				people: values.people,
-				// store age counts
-				group_age_counts: values.group_age_counts,
-			};
-			localStorage.setItem(STORAGE_KEY, JSON.stringify(selection));
-
-			// Parse whatsapp using PhoneInput value (already full international)
-			// --- Add whatsapp_country_code and strip leading zero ---
-			const whatsappParsed = parsePhoneNumberFromString(values.whatsapp || "");
-			const stripLeadingZero = (num) =>
-				num && num.startsWith("0") ? num.replace(/^0+/, "") : num;
-			const whatsapp = whatsappParsed
-				? stripLeadingZero(whatsappParsed.nationalNumber)
-				: stripLeadingZero(values.whatsapp);
-			const whatsapp_country_code = whatsappParsed
-				? whatsappParsed.countryCallingCode
-				: "";
-
-			// Build booking payload (+ group_age_counts)
-			const payload = {
-				name: values.name,
-				phone: null,
-				whatsapp,
-				phone_country_code: null,
-				whatsapp_country_code,
-				bus_id: busData?.id,
-				date: selection.date,
-				time_id: selection.time?.id,
-				gathering_point_id: Number(selection.meetingPoint?.id),
-				people_count: selection.people,
-				payment_method: "online",
-				promo_code: promoCode ? promoCode : null,
-				group_age_counts: (values.group_age_counts || []).map((r) => ({
-					id: Number(r.id),
-					quantity: Number(r.quantity || 0),
-				})),
-			};
-			console.log("Booking payload:", payload);
-
-			const res = await fetch(
-				`${API_BASE_URL_NEW}/landing/landing-bus-trip/booking`,
-				{
-					method: "POST",
-					headers: { "Content-Type": "application/json" },
-					body: JSON.stringify(payload),
-				}
-			);
-			const json = await res.json();
-
-			if (!res.ok || !json.status) {
+	const onConfirm = form.handleSubmit(
+		async (values) => {
+			// prevent booking when requested people > available seats
+			if (
+				typeof leftSeats === "number" &&
+				Number(values.people || 0) > Number(leftSeats)
+			) {
 				toast.error(
 					lang === "ar"
-						? "حدث خطأ أثناء إرسال المعلومات"
-						: "Something went wrong sending the info"
+						? `الحد الأقصى للمقاعد المتاحة هو ${leftSeats}`
+						: `Available seats limit is ${leftSeats}`
 				);
 				return;
 			}
 
-			const { trip_id, customer_id, process_id, ticket } = json.data || {};
-
-			const cartId = `${process_id}_${Date.now()}`;
-
-			const stored = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
-			localStorage.setItem(
-				STORAGE_KEY,
-				JSON.stringify({
-					...stored,
-					trip_id,
-					customer_id,
-					process_id,
-					cart_id: cartId,
-					ticket,
-					// customer_email: values.email,
-					customer_name: values.name,
-					customer_whatsapp: whatsapp_country_code + whatsapp,
-				})
-			);
-
-			// Payment amount: sum(group price * qty)
-			const prices = busData?.group_age_prices || [];
-			const counts = values.group_age_counts || [];
-			const base = counts.reduce((sum, r) => {
-				const gp = prices.find((p) => p.id === r.id);
-				return sum + Number(gp?.price || 0) * Number(r.quantity || 0);
-			}, 0);
-
-			// apply promo discount on the base (matches PriceCalculationBox)
-			const discountAmount = Number(
-				((Number(promoDiscountPercent || 0) / 100) * base).toFixed(2)
-			);
-			const totalBeforeTax = Number((base - discountAmount).toFixed(2));
-
-			// tax applied after discount
-			const taxRate = Number(busData?.tax ?? 0);
-			const taxAmount = Number((taxRate * totalBeforeTax).toFixed(2));
-			const finalTotal = Number((totalBeforeTax + taxAmount).toFixed(2));
-
-			// persist useful info for success page analytics / debugging
 			try {
-				const storedPrev = JSON.parse(
-					localStorage.getItem(STORAGE_KEY) || "{}"
+				setLoading(true); // set loading true on submit
+				const selection = {
+					date: format(values.date, "yyyy-MM-dd"),
+					time: values.time,
+					meetingPoint: values.meetingPoint,
+					lang,
+					bus_id: busData?.id,
+					people: values.people,
+					// store age counts
+					group_age_counts: values.group_age_counts,
+				};
+				localStorage.setItem(STORAGE_KEY, JSON.stringify(selection));
+
+				// Parse whatsapp using PhoneInput value (already full international)
+				// --- Add whatsapp_country_code and strip leading zero ---
+				const whatsappParsed = parsePhoneNumberFromString(
+					values.whatsapp || ""
 				);
+				const stripLeadingZero = (num) =>
+					num && num.startsWith("0") ? num.replace(/^0+/, "") : num;
+				const whatsapp = whatsappParsed
+					? stripLeadingZero(whatsappParsed.nationalNumber)
+					: stripLeadingZero(values.whatsapp);
+				const whatsapp_country_code = whatsappParsed
+					? whatsappParsed.countryCallingCode
+					: "";
+
+				// Build booking payload (+ group_age_counts)
+				const payload = {
+					name: values.name,
+					phone: null,
+					whatsapp,
+					phone_country_code: null,
+					whatsapp_country_code,
+					bus_id: busData?.id,
+					date: selection.date,
+					time_id: selection.time?.id,
+					gathering_point_id: Number(selection.meetingPoint?.id),
+					people_count: selection.people,
+					payment_method: "online",
+					promo_code: promoCode ? promoCode : null,
+					group_age_counts: (values.group_age_counts || []).map((r) => ({
+						id: Number(r.id),
+						quantity: Number(r.quantity || 0),
+					})),
+				};
+				console.log("Booking payload:", payload);
+
+				const res = await fetch(
+					`${API_BASE_URL_NEW}/landing/landing-bus-trip/booking`,
+					{
+						method: "POST",
+						headers: { "Content-Type": "application/json" },
+						body: JSON.stringify(payload),
+					}
+				);
+				const json = await res.json();
+
+				if (!res.ok || !json.status) {
+					toast.error(
+						lang === "ar"
+							? "حدث خطأ أثناء إرسال المعلومات"
+							: "Something went wrong sending the info"
+					);
+					return;
+				}
+
+				const { trip_id, customer_id, process_id, ticket } = json.data || {};
+
+				const cartId = `${process_id}_${Date.now()}`;
+
+				const stored = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
 				localStorage.setItem(
 					STORAGE_KEY,
 					JSON.stringify({
-						...storedPrev,
-						bus_id: busData?.id ?? storedPrev.bus_id,
-						bus_name: busData?.name ?? storedPrev.bus_name,
-						finalTotal,
-						promoCode: promoCode || storedPrev.promoCode || "",
-						tax: taxAmount,
-						people: selection.people || storedPrev.people || 1,
+						...stored,
+						trip_id,
+						customer_id,
+						process_id,
+						cart_id: cartId,
+						ticket,
+						// customer_email: values.email,
+						customer_name: values.name,
+						customer_whatsapp: whatsapp_country_code + whatsapp,
 					})
 				);
-			} catch (e) {
-				// ignore localStorage errors
-			}
 
-			// fire add_to_cart before starting payment (for GA4)
-			try {
-				trackBeginCheckout({
-					busData,
-					finalTotal,
-					promoCode,
-					quantity: selection.people || 1,
-					currency: "SAR",
-				});
-			} catch (e) {
-				// non-blocking if analytics fails
-				console.warn("trackBeginCheckout failed", e);
-			}
+				// Payment amount: sum(group price * qty)
+				const prices = busData?.group_age_prices || [];
+				const counts = values.group_age_counts || [];
+				const base = counts.reduce((sum, r) => {
+					const gp = prices.find((p) => p.id === r.id);
+					return sum + Number(gp?.price || 0) * Number(r.quantity || 0);
+				}, 0);
 
-			if (finalTotal == 0) {
-				// free booking -> redirect to success page with free tranRef
-				setLoading(false);
-				window.location.href = `/book-tour-success?status=success&tranRef=free`;
-				return;
-			}
-
-			console.log("Payment calc:", {
-				base,
-				discountAmount,
-				totalBeforeTax,
-				taxRate,
-				taxAmount,
-				finalTotal,
-			});
-
-			const clickpayRes = await fetch("/api/pay/clickpay/init", {
-				method: "POST",
-				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify({
-					amount: finalTotal,
-					lang,
-					cart_id: cartId,
-					customer_details: {
-						name: "",
-						email: "customer@gmail.com",
-						whatsapp: whatsapp_country_code + whatsapp,
-					},
-					successPath: "/book-tour-success",
-					failPath: "/book-tour-new",
-				}),
-			});
-			const clickpayJson = await clickpayRes.json();
-			if (!clickpayRes.ok || !clickpayJson?.paymentUrl) {
-				toast.error(
-					clickpayJson?.error ||
-						(lang === "ar" ? "فشل بدء الدفع" : "Failed to start payment")
+				// apply promo discount on the base (matches PriceCalculationBox)
+				const discountAmount = Number(
+					((Number(promoDiscountPercent || 0) / 100) * base).toFixed(2)
 				);
-				return;
+				const totalBeforeTax = Number((base - discountAmount).toFixed(2));
+
+				// tax applied after discount
+				const taxRate = Number(busData?.tax ?? 0);
+				const taxAmount = Number((taxRate * totalBeforeTax).toFixed(2));
+				const finalTotal = Number((totalBeforeTax + taxAmount).toFixed(2));
+
+				// persist useful info for success page analytics / debugging
+				try {
+					const storedPrev = JSON.parse(
+						localStorage.getItem(STORAGE_KEY) || "{}"
+					);
+					localStorage.setItem(
+						STORAGE_KEY,
+						JSON.stringify({
+							...storedPrev,
+							bus_id: busData?.id ?? storedPrev.bus_id,
+							bus_name: busData?.name ?? storedPrev.bus_name,
+							finalTotal,
+							promoCode: promoCode || storedPrev.promoCode || "",
+							tax: taxAmount,
+							people: selection.people || storedPrev.people || 1,
+						})
+					);
+				} catch (e) {
+					// ignore localStorage errors
+				}
+
+				// fire add_to_cart before starting payment (for GA4)
+				try {
+					trackBeginCheckout({
+						busData,
+						finalTotal,
+						promoCode,
+						quantity: selection.people || 1,
+						currency: "SAR",
+					});
+				} catch (e) {
+					// non-blocking if analytics fails
+					console.warn("trackBeginCheckout failed", e);
+				}
+
+				if (finalTotal == 0) {
+					// free booking -> redirect to success page with free tranRef
+					setLoading(false);
+					window.location.href = `/book-tour-success?status=success&tranRef=free`;
+					return;
+				}
+
+				console.log("Payment calc:", {
+					base,
+					discountAmount,
+					totalBeforeTax,
+					taxRate,
+					taxAmount,
+					finalTotal,
+				});
+
+				const clickpayRes = await fetch("/api/pay/clickpay/init", {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({
+						amount: finalTotal,
+						lang,
+						cart_id: cartId,
+						customer_details: {
+							name: "",
+							email: "customer@gmail.com",
+							whatsapp: whatsapp_country_code + whatsapp,
+						},
+						successPath: "/book-tour-success",
+						failPath: "/book-tour-new",
+					}),
+				});
+				const clickpayJson = await clickpayRes.json();
+				if (!clickpayRes.ok || !clickpayJson?.paymentUrl) {
+					toast.error(
+						clickpayJson?.error ||
+							(lang === "ar" ? "فشل بدء الدفع" : "Failed to start payment")
+					);
+					return;
+				}
+				window.location.href = clickpayJson.paymentUrl;
+			} catch (e) {
+				console.error("Booking or ClickPay error", e);
+				toast.error(
+					lang === "ar"
+						? "فشل إرسال المعلومات أو بدء الدفع"
+						: "Failed to send info or start payment"
+				);
+			} finally {
+				setLoading(false); // reset loading if error occurs
 			}
-			window.location.href = clickpayJson.paymentUrl;
-		} catch (e) {
-			console.error("Booking or ClickPay error", e);
-			toast.error(
-				lang === "ar"
-					? "فشل إرسال المعلومات أو بدء الدفع"
-					: "Failed to send info or start payment"
-			);
-		} finally {
-			setLoading(false); // reset loading if error occurs
+		},
+		(errors) => {
+			// scroll / focus first invalid field
+			if (typeof window !== "undefined") handleInvalidForm(form, errors);
 		}
-	});
+	);
 
 	const onCancel = () => {
 		if (typeof window !== "undefined") window.history.back();

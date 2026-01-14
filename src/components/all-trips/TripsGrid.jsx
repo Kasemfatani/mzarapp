@@ -140,12 +140,14 @@ function TripCard({ trip, isAr, isSaudi = true }) {
 		<div className="group bg-white rounded-[20px] shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden hover:-translate-y-1 flex flex-col h-full">
 			{/* Image Section */}
 			<div className="relative h-56 overflow-hidden">
+				<a href={`/trip-detail/${trip.id}`} >
 				<Image
 					src={trip.image}
 					alt={trip.name}
 					className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
 					fill
 				/>
+				</a>
 
 				{/* City Badge - Top Left */}
 				<div className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-full flex items-center gap-2 shadow-md">
