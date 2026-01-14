@@ -18,6 +18,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 // add analytics import
 import { trackBeginCheckout } from "@/lib/analytics";
 import { trackAddToCart } from "@/lib/analytics";
+import { handleInvalidForm } from "@/lib/formUtils"; 
 import { format, addDays, startOfToday } from "date-fns";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
 
@@ -36,15 +37,23 @@ const getSchema = (lang, max_people_count = 20, min_people_count = 1) => {
 
 	return z.object({
 		date: z
-			.date({ invalid_type_error: requiredDate })
+			.date({ invalid_type_error: requiredDate , required_error: requiredDate, })
 			.refine(Boolean, { message: requiredDate }),
 		time: z
-			.object({ id: z.any(), name: z.string() })
+			.object(
+				{ id: z.any(), name: z.string() },
+				{ invalid_type_error: requiredTime, required_error: requiredTime })
 			.refine((v) => v && v.id && v.name, { message: requiredTime }),
 		people: z.coerce.number().int().min(1).max(max_people_count).default(1),
 		name: z.string().min(1, reqName).max(100),
 		whatsapp: z.string().min(7, reqPhone),
-		country_id: z.coerce.number().min(1, reqNationality),
+		country_id: z.preprocess(
+				(val) => {
+					if (val === "" || val === null || typeof val === "undefined") return undefined;
+					return Number(val);
+				},
+				z.number({ invalid_type_error: reqNationality, required_error: reqNationality }).min(1, reqNationality)
+			),
 	});
 };
 
@@ -148,7 +157,8 @@ export default function BookTourPage({
 		return () => sub.unsubscribe?.();
 	}, [form, busData, lang]);
 
-	const onConfirm = form.handleSubmit(async (values) => {
+	const onConfirm = form.handleSubmit(
+		async (values) => {
 		try {
 			setLoading(true); // set loading true on submit
 			const selection = {
@@ -319,7 +329,12 @@ export default function BookTourPage({
 		} finally {
 			setLoading(false); // reset loading if error occurs
 		}
-	});
+	},
+		(errors) => {
+			// scroll / focus first invalid field
+			if (typeof window !== "undefined") handleInvalidForm(form, errors);
+		}
+);
 
 	const onCancel = () => {
 		if (typeof window !== "undefined") window.history.back();

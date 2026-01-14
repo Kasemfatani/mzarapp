@@ -19,6 +19,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 // add analytics import
 import { trackBeginCheckout } from "@/lib/analytics";
 import { trackAddToCart } from "@/lib/analytics";
+import { handleInvalidForm } from "@/lib/formUtils"; 
 import { format, addDays, startOfToday } from "date-fns";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
 
@@ -32,8 +33,8 @@ const getSchema = (lang, max_people_count = 20, min_people_count = 1) => {
 	const reqName = lang === "ar" ? "الاسم مطلوب" : "Name is required";
 	const reqPhone =
 		lang === "ar" ? "رقم الواتساب مطلوب" : "WhatsApp is required";
-	const reqNationality =
-		lang === "ar" ? "الجنسية مطلوبة" : "Nationality is required";
+	const reqVehicle =
+		lang === "ar" ? "المركبة مطلوبة" : "Vehicle is required";
 	// new localized address messages
 	const reqAddress = lang === "ar" ? "العنوان مطلوب" : "Address is required";
 	const reqLat =
@@ -43,19 +44,25 @@ const getSchema = (lang, max_people_count = 20, min_people_count = 1) => {
 
 	return z.object({
 		date: z
-			.date({ invalid_type_error: requiredDate })
+			.date({ invalid_type_error: requiredDate , required_error: requiredDate, })
 			.refine(Boolean, { message: requiredDate }),
 		time: z
-			.object({ id: z.any(), name: z.string() })
+			.object(
+				{ id: z.any(), name: z.string() },
+				{ invalid_type_error: requiredTime, required_error: requiredTime }
+			)
 			.refine((v) => v && v.id && v.name, { message: requiredTime }),
 		vehicle: z
-			.object({
-				id: z.any(),
-				name: z.string(),
-				number_of_seats: z.number().optional(),
-				web_price: z.any().optional(),
-				express_price: z.any().optional(),
-			})
+			.object(
+				{
+				 id: z.any(),
+				 name: z.string(),
+				 number_of_seats: z.number().optional(),
+				 web_price: z.any().optional(),
+				 express_price: z.any().optional(),
+				},
+				{ invalid_type_error: reqVehicle, required_error: reqVehicle }
+		)
 			.nullable()
 			.refine((v) => v && v.id, {
 				message: lang === "ar" ? "اختر المركبة" : "Please select vehicle",
@@ -217,7 +224,8 @@ export default function BookTourPage({
 		return () => sub.unsubscribe?.();
 	}, [form, busData, lang]);
 
-	const onConfirm = form.handleSubmit(async (values) => {
+	const onConfirm = form.handleSubmit(
+		async (values) => {
 		try {
 			setLoading(true); // set loading true on submit
 			const selection = {
@@ -421,7 +429,13 @@ export default function BookTourPage({
 		} finally {
 			setLoading(false); // reset loading if error occurs
 		}
-	});
+	},
+		(errors) => {
+			// scroll / focus first invalid field
+			if (typeof window !== "undefined") handleInvalidForm(form, errors);
+		}
+
+);
 
 	const onCancel = () => {
 		if (typeof window !== "undefined") window.history.back();
