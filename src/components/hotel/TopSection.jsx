@@ -39,9 +39,9 @@ export default function TopSection({ audio, lang }) {
 						: "How to enhance your experience with Mzar"}
 				</h2> */}
 
-				<div className="w-full max-w-5xl mx-auto rounded-2xl overflow-hidden shadow-lg">
+				{/* <div className="w-full max-w-5xl mx-auto rounded-2xl overflow-hidden shadow-lg">
 					<div className="w-full aspect-video bg-black">
-						{/* responsive youtube iframe */}
+						
 						<iframe
 							className="w-full h-full block"
 							src="https://www.youtube.com/embed/S8VDz0V1QwM"
@@ -49,7 +49,7 @@ export default function TopSection({ audio, lang }) {
 							frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen=""
 						/>
 					</div>
-				</div>
+				</div> */}
 
 				{/* <div className="flex justify-center mt-6">
 					<Link
