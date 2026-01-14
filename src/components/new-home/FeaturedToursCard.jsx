@@ -1,8 +1,7 @@
 "use client";
 
-
 import { Star, Clock, TrendingUp, MapPin, Users } from "lucide-react";
-import Image from 'next/image'
+import Image from "next/image";
 
 const CURRENCY_SVG = (
 	<svg
@@ -36,8 +35,8 @@ export function FeaturedToursCard({
 	duration,
 	min_people_count,
 	isPopular = false,
-  isAr = false,
-  isSaudi = true, // Default to true if the prop is not passed
+	isAr = false,
+	isSaudi = true, // Default to true if the prop is not passed
 }) {
 	// --- Currency Logic ---
 	const SAR_RATE = 3.75;
@@ -69,20 +68,20 @@ export function FeaturedToursCard({
 	}
 
 	return (
-		<div
-			className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group hover:scale-[1.02]"
-			
-		>
+		<div className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group hover:scale-[1.02]">
 			{/* Image Container */}
 			<div className="relative h-64 overflow-hidden">
-				<Image
-					src={image}
-					alt={name}
-					className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-					fill
-				/>
+				<a href={`/trip-detail/${id}`}>
+					<Image
+						src={image}
+						alt={name}
+						className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+						fill
+					/>
+				</a>
+
 				{/* Gradient Overlay */}
-				<div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+				<div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent pointer-events-none"></div>
 
 				{/* Popular Badge */}
 				{isPopular && (
@@ -108,33 +107,29 @@ export function FeaturedToursCard({
 			{/* Content */}
 			<div className="p-6">
 				{/* name */}
-				<h3
-					className="text-[#3C6652] mb-2  font-semibold"
-					style={{ fontSize: "1.375rem" }}
-				>
-					{name}
-				</h3>
+				<a href={`/trip-detail/${id}`}>
+					<h3
+						className="text-[#3C6652] mb-2  font-semibold"
+						style={{ fontSize: "1.375rem" }}
+					>
+						{name}
+					</h3>
+				</a>
 
 				{/* short_description */}
-				<p
-					className="text-gray-600 text-sm mb-4 line-clamp-2 "
-					
-				>
+				<p className="text-gray-600 text-sm mb-4 line-clamp-2 ">
 					{short_description}
 				</p>
 
 				<div className="flex flex-col md:flex-row justify-center   md:justify-between items-center">
-          {/* start_price */}
+					{/* start_price */}
 					<div className="mb-4 ">
-						<span
-							className="text-sm text-gray-600"
-							
-						>
+						<span className="text-sm text-gray-600">
 							{isAr ? "ابتداءً من" : "Starting from"}
 						</span>
 						<div
 							className="text-2xl text-[#867957] mt-1 "
-							style={{  fontWeight: 700 }}
+							style={{ fontWeight: 700 }}
 						>
 							<span className="text-sm  flex items-center gap-1">
 								{displayPrice.toFixed(2)} {currencySymbol}
@@ -156,7 +151,9 @@ export function FeaturedToursCard({
 								className="flex items-center gap-2 text-gray-600 text-sm"
 								style={{ fontFamily: '"Readex Pro", sans-serif' }}
 							>
-								<span>{min_people_count} {isAr ? "شخص" : "people"}</span>
+								<span>
+									{min_people_count} {isAr ? "شخص" : "people"}
+								</span>
 								<Users size={16} className="text-[#867957]" />
 							</div>
 						</div>
@@ -184,12 +181,12 @@ export function FeaturedToursCard({
 							</div>
 						</div>
 					</div>
-					
 				</div>
 
 				{/* CTA Buttons */}
 				<div className="flex flex-col gap-3">
-					<a href={`/trip-detail/${id}`}
+					<a
+						href={`/trip-detail/${id}`}
 						className="w-full text-center bg-[#3C6652] text-white py-3 rounded-xl hover:bg-[#1E3A5F] transition-all shadow-md hover:shadow-lg"
 						style={{ fontFamily: '"Readex Pro", sans-serif', fontWeight: 500 }}
 					>
@@ -198,20 +195,27 @@ export function FeaturedToursCard({
 
 					{disableBooking ? (
 						<a
-						href='#'
-						className="w-full text-[#867957] hover:text-[#3C6652] transition-colors text-center"
-						style={{ fontFamily: '"Readex Pro", sans-serif', fontWeight: 500 }}
-					>
-						{isAr ? " قريباً ..." : "Soon ..."}
-					</a>) : (
+							href="#"
+							className="w-full text-[#867957] hover:text-[#3C6652] transition-colors text-center"
+							style={{
+								fontFamily: '"Readex Pro", sans-serif',
+								fontWeight: 500,
+							}}
+						>
+							{isAr ? " قريباً ..." : "Soon ..."}
+						</a>
+					) : (
 						<a
-						href={link}
-						className="w-full text-[#867957] hover:text-[#3C6652] transition-colors text-center"
-						style={{ fontFamily: '"Readex Pro", sans-serif', fontWeight: 500 }}
-					>
-						{isAr ? "احجز الآن ←" : "Book Now →"}
-					</a> )}
-
+							href={link}
+							className="w-full text-[#867957] hover:text-[#3C6652] transition-colors text-center"
+							style={{
+								fontFamily: '"Readex Pro", sans-serif',
+								fontWeight: 500,
+							}}
+						>
+							{isAr ? "احجز الآن ←" : "Book Now →"}
+						</a>
+					)}
 				</div>
 			</div>
 		</div>
