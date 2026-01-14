@@ -140,13 +140,13 @@ function TripCard({ trip, isAr, isSaudi = true }) {
 		<div className="group bg-white rounded-[20px] shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden hover:-translate-y-1 flex flex-col h-full">
 			{/* Image Section */}
 			<div className="relative h-56 overflow-hidden">
-				<a href={`/trip-detail/${trip.id}`} >
-				<Image
-					src={trip.image}
-					alt={trip.name}
-					className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-					fill
-				/>
+				<a href={`/trip-detail/${trip.id}`}>
+					<Image
+						src={trip.image}
+						alt={trip.name}
+						className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+						fill
+					/>
 				</a>
 
 				{/* City Badge - Top Left */}
@@ -170,12 +170,14 @@ function TripCard({ trip, isAr, isSaudi = true }) {
 			{/* Card Content */}
 			<div className="p-5 flex flex-col flex-1">
 				{/* Title */}
-				<h3
-					className="text-lg text-[#0F172A] mb-2  line-clamp-2 min-h-[3.5rem] leading-relaxed"
-					style={{ fontWeight: 700 }}
-				>
-					{trip.name}
-				</h3>
+				<a href={`/trip-detail/${trip.id}`}>
+					<h3
+						className="text-lg text-[#0F172A] mb-2  line-clamp-2 min-h-[3.5rem] leading-relaxed"
+						style={{ fontWeight: 700 }}
+					>
+						{trip.name}
+					</h3>
+				</a>
 
 				{/* Description */}
 				<p className="text-sm text-[#475569] mb-4  line-clamp-6 leading-relaxed">

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import {
 	Calendar,
 	Clock,
@@ -11,7 +11,7 @@ import {
 	Moon,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { format, addDays, startOfToday } from "date-fns";
+import { format, addDays, startOfToday, isSameDay } from "date-fns";
 import {
 	Form,
 	FormField,
@@ -60,6 +60,52 @@ export function BookingForm({
 	const today = startOfToday();
 	const tomorrow = addDays(today, 1);
 	const maxDate = addDays(today, 14);
+	// filter times when selected date is today (only show times >= now + 2h)
+	const selectedDate = form.watch("date");
+	const allTimes = data?.times || [];
+	const filteredTimes = useMemo(() => {
+		if (!selectedDate) return allTimes;
+		if (!isSameDay(selectedDate, today)) return allTimes;
+		const now = new Date();
+		const threshold = new Date(now.getTime() + 2 * 60 * 60 * 1000);
+		const avail = allTimes.filter((t) => {
+			const [hh = 0, mm = 0, ss = 0] = String(t.time || "00:00:00")
+				.split(":")
+				.map(Number);
+			const dt = new Date(selectedDate);
+			dt.setHours(hh, mm, ss, 0);
+			return dt.getTime() >= threshold.getTime();
+		});
+		return avail.length ? avail : allTimes; // if none available, return allTimes (we'll switch date to tomorrow below)
+	}, [selectedDate, allTimes, today]);
+
+	// if user picked today but there are no times >= now+2h, force date -> tomorrow
+	useEffect(() => {
+		if (!selectedDate) return;
+		if (!isSameDay(selectedDate, today)) return;
+		// check if any time is >= now+2h
+		const now = new Date();
+		const threshold = new Date(now.getTime() + 2 * 60 * 60 * 1000);
+		const any = allTimes.some((t) => {
+			const [hh = 0, mm = 0, ss = 0] = String(t.time || "00:00:00")
+				.split(":")
+				.map(Number);
+			const dt = new Date(selectedDate);
+			dt.setHours(hh, mm, ss, 0);
+			return dt.getTime() >= threshold.getTime();
+		});
+		if (!any) {
+			form.setValue("date", tomorrow);
+			form.setValue("time", undefined);
+		} else {
+			// if selected time is no longer valid, clear it
+			const cur = form.getValues("time");
+			if (cur?.id && !filteredTimes.find((t) => t.id === cur.id)) {
+				form.setValue("time", undefined);
+			}
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [selectedDate, allTimes]);
 
 	const tripTypes = [
 		{ id: 1, name: isAr ? "رحلة كاملة" : "Full Trip" },
@@ -96,7 +142,7 @@ export function BookingForm({
 						<DatePickerFormField
 							form={form}
 							lang={lang}
-							minDate={data.min_date}
+							minDate={today}
 							maxDate={data.max_date}
 							label={isAr ? "اختر التاريخ المناسب" : "Pick a date"}
 							disabledDays={disabledDays}
@@ -113,7 +159,7 @@ export function BookingForm({
 							<BookingTimeField
 								form={form}
 								name="time"
-								bookingHours={data.times}
+								bookingHours={filteredTimes}
 								language={lang}
 								className="border "
 							/>
