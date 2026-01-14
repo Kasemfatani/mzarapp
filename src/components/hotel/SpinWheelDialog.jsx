@@ -52,7 +52,7 @@ export default function SpinWheelDialog({
 		let active = true;
 		async function fetchWheelData() {
 			setLoading(true);
-			setError("");
+			// setError("");
 			try {
 				const res = await fetch(`${API_BASE_URL_NEW}/landing/wheels/list`, {
 					headers: { lang },
@@ -70,8 +70,8 @@ export default function SpinWheelDialog({
 							id: item.id,
 							option: item.name,
 							style: {
-								backgroundColor: item.color, textColor: "#ffffffff"
-
+								backgroundColor: item.color,
+								textColor: "#ffffffff",
 							},
 						}))
 					);
@@ -126,11 +126,18 @@ export default function SpinWheelDialog({
 		if (winPrize && mobile && country_code && client_name) {
 			setRegistering(true);
 			setError("");
-			console.log("body:", mobile, country_code, client_name, winPrize.id , partner_id);
+			console.log(
+				"body:",
+				mobile,
+				country_code,
+				client_name,
+				winPrize.id,
+				partner_id
+			);
 			try {
 				const res = await fetch(`${API_BASE_URL_NEW}/landing/wheels/register`, {
 					method: "POST",
-					headers: { "Content-Type": "application/json" , lang },
+					headers: { "Content-Type": "application/json", lang },
 					body: JSON.stringify({
 						mobile,
 						country_code,
@@ -139,11 +146,15 @@ export default function SpinWheelDialog({
 						partner_id,
 					}),
 				});
-				
+
 				const json = await res.json();
 				console.log("Registered winner response:", json);
 				if (!json.status) {
-					setError(t.error);
+					if (json.message) {
+						setError(json.message);
+					} else {
+						setError(t.error);
+					}
 				}
 			} catch (err) {
 				console.error("Error registering winner:", err);
@@ -162,13 +173,15 @@ export default function SpinWheelDialog({
 				}`}
 			>
 				<DialogHeader>
-					<DialogTitle
-						className={`text-2xl md:text-3xl font-bold text-center text-[#8B6F47] ${
-							isAr ? "font-arabic" : ""
-						}`}
-					>
-						{t.title}
-					</DialogTitle>
+					{!error && (
+						<DialogTitle
+							className={`text-2xl md:text-3xl font-bold text-center text-[#8B6F47] ${
+								isAr ? "font-arabic" : ""
+							}`}
+						>
+							{t.title}
+						</DialogTitle>
+					)}
 				</DialogHeader>
 
 				<div className="flex flex-col items-center justify-center ">
