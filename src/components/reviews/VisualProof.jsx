@@ -7,7 +7,7 @@ import { Navigation, Pagination } from "swiper/modules";
 
 import "swiper/css";
 
-export function VisualProof({ isAr }) {
+export default function VisualProof({ isAr }) {
 	const customerPhotos = [
 		{
 			id: "1",

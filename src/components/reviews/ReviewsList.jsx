@@ -3,7 +3,7 @@ import { ReviewCard } from "./ReviewCard";
 import { Pagination } from "./Pagination";
 // import { Review } from '../../data/reviews';
 
-export function ReviewsList({ reviews = [], isAr }) {
+export default function ReviewsList({ reviews = [], isAr }) {
 	const [currentPage, setCurrentPage] = useState(1);
 	const itemsPerPage = 5;
 

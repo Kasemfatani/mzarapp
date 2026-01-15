@@ -86,12 +86,24 @@ export function FiltersBar({ totalResults, lang, filters, onFiltersChange }) {
 						onBlur={() =>
 							onFiltersChange({ ...filters, search_text: searchQuery })
 						}
+						onKeyDown={(e) => {
+							if (e.key === "Enter") {
+								onFiltersChange({ ...filters, search_text: searchQuery });
+							}
+						}}
 						placeholder={isAr ? "ابحث عن رحلة..." : "Search for a trip..."}
 						className="w-full h-[50px] bg-white border border-[#E2E8F0] rounded-[28px] px-6 pl-14 text-[15px] text-[#0F172A] placeholder:text-[#94A3B8] focus:outline-none focus:ring-2 focus:ring-[#0097A7] focus:border-transparent transition-all shadow-md"
 					/>
-					<div className="absolute left-5 top-1/2 -translate-y-1/2 pointer-events-none">
+					<button
+						type="button"
+						onClick={() =>
+							onFiltersChange({ ...filters, search_text: searchQuery })
+						}
+						className="absolute left-5 top-1/2 -translate-y-1/2"
+						aria-label={isAr ? "بحث" : "Search"}
+					>
 						<Search className="w-5 h-5 text-[#0097A7]" strokeWidth={2} />
-					</div>
+					</button>
 				</div>
 			</div>
 
@@ -191,12 +203,12 @@ export function FiltersBar({ totalResults, lang, filters, onFiltersChange }) {
 
 						<div className="flex-1" />
 
-						<button className="px-4 py-2 bg-[#F1F5F9] border border-[#CBD5E1] rounded-[14px] flex items-center gap-2 hover:bg-[#E2E8F0] transition-colors whitespace-nowrap">
+						{/* <button className="px-4 py-2 bg-[#F1F5F9] border border-[#CBD5E1] rounded-[14px] flex items-center gap-2 hover:bg-[#E2E8F0] transition-colors whitespace-nowrap">
 							<span className="text-sm text-[#0F172A]">
 								{isAr ? "تصفية متقدمة" : "Advanced Filters"}
 							</span>
 							<SlidersHorizontal className="w-4 h-4 text-[#006064]" />
-						</button>
+						</button> */}
 
 						{hasActiveFilters() && (
 							<button
@@ -267,7 +279,7 @@ function FilterDropdown({ label, icon, options, value, onChange, onClear }) {
 					)}
 				</div>
 				<span className="text-sm">{selectedLabel}</span>
-				
+
 				{!isActive && <ChevronDown className="w-4 h-4 text-[#475569]" />}
 			</button>
 
@@ -422,7 +434,6 @@ function DurationFilter({ value, onChange, onClear, isAr }) {
 					/>
 				) : (
 					<>
-						
 						<ChevronDown className="w-4 h-4 text-[#475569]" />
 					</>
 				)}
@@ -470,7 +481,9 @@ function RatingFilter({ value, onChange, onClear, isAr }) {
 						: "bg-white text-[#0F172A] border-[#E2E8F0] hover:border-[#0097A7]"
 				}`}
 			>
-				{isActive ? null : (<Star className="w-4 h-4 text-[#FFC107] fill-[#FFC107]" />) }
+				{isActive ? null : (
+					<Star className="w-4 h-4 text-[#FFC107] fill-[#FFC107]" />
+				)}
 				<span className="text-sm">
 					{isActive ? `${value}+ ⭐` : isAr ? "التقييم" : "Rating"}
 				</span>
@@ -484,7 +497,6 @@ function RatingFilter({ value, onChange, onClear, isAr }) {
 					/>
 				) : (
 					<>
-						
 						<ChevronDown className="w-4 h-4 text-[#475569]" />
 					</>
 				)}
