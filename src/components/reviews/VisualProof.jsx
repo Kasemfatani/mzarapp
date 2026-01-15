@@ -82,9 +82,9 @@ export function VisualProof({ isAr }) {
 										/>
 										<div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
 										<div className="absolute bottom-0 right-0 w-full p-6">
-											<div className="mb-2 inline-block rounded-full bg-[#3C6652] px-3 py-1 text-sm text-white">
+											{/* <div className="mb-2 inline-block rounded-full bg-[#3C6652] px-3 py-1 text-sm text-white">
 												{isAr ? "تجربة فعلية – مزار" : "Actual Experience – Mzar"}
-											</div>
+											</div> */}
 											<p className="text-lg text-white">{photo.caption}</p>
 										</div>
 									</div>
