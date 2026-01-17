@@ -11,34 +11,119 @@ export default function VisualProof({ isAr }) {
 	const customerPhotos = [
 		{
 			id: "1",
-			url: "https://images.unsplash.com/photo-1711336290921-1fd1eeadd569?w=600",
-			caption:  isAr ? "جولة المعالم التاريخية - مكة المكرمة" : "Historical Landmarks Tour - Makkah",
+			url: "/gallery/1.webp",
+			// caption:  isAr ? "جولة المعالم التاريخية - مكة المكرمة" : "Historical Landmarks Tour - Makkah",
 		},
 		{
 			id: "2",
-			url: "https://images.unsplash.com/photo-1723512414375-45ff0ed80afd?w=600",
+			url: "/gallery/2.webp",
 			caption: isAr ? "تجربة روحانية في المسجد الحرام" : "Spiritual Experience at Al-Masjid Al-Haram",
 		},
 		{
 			id: "3",
-			url: "https://images.unsplash.com/photo-1722990040470-53c0ec51ff7c?w=600",
-			caption: isAr ? "جولة التراث الإسلامي" : "Islamic Heritage Tour",
+			url: "/gallery/3.webp",
+			// caption: isAr ? "جولة التراث الإسلامي" : "Islamic Heritage Tour",
 		},
 		{
 			id: "4",
-			url: "https://images.unsplash.com/photo-1617182195886-21a605900f11?w=600",
-			caption: isAr ? "المسجد الحرام من الأعلى" : "Al-Masjid Al-Haram from Above",
+			url: "/gallery/4.webp",
+			// caption: isAr ? "المسجد الحرام من الأعلى" : "Al-Masjid Al-Haram from Above",
 		},
 		{
 			id: "5",
-			url: "https://images.unsplash.com/photo-1674313505558-206662f3de03?w=600",
-			caption: isAr ? "غار حراء وجبل النور" : "Hira Cave and Mount Noor",
+			url: "/gallery/5.webp",
+			// caption: isAr ? "غار حراء وجبل النور" : "Hira Cave and Mount Noor",
 		},
 		{
 			id: "6",
-			url: "https://images.unsplash.com/photo-1759994976016-cd0799b2f480?w=600",
-			caption: isAr ? "جبل عرفة - رحلة روحانية" : "Mount Arafat - Spiritual Journey",
+			url: "/gallery/6.webp",
+			// caption: isAr ? "جبل عرفة - رحلة روحانية" : "Mount Arafat - Spiritual Journey",
 		},
+		{
+			id: "7",
+			url: "/gallery/7.webp",
+		},
+		{
+			id: "8",
+			url: "/gallery/8.webp",
+		},
+		{
+			id: "9",
+			url: "/gallery/9.webp",
+		},
+		{
+			id: "10",
+			url: "/gallery/10.webp",
+		},
+		{
+			id: "11",
+			url: "/gallery/11.webp",
+		},
+		{
+			id: "12",
+			url: "/gallery/12.webp",
+		},
+		{
+			id: "13",
+			url: "/gallery/13.webp",
+		},
+		{
+			id: "14",
+			url: "/gallery/14.webp",
+		},
+		{
+			id: "15",
+			url: "/gallery/15.webp",
+		},
+		{
+			id: "16",
+			url: "/gallery/16.webp",
+		},
+		{
+			id: "17",
+			url: "/gallery/17.webp",
+		},
+		{
+			id: "18",
+			url: "/gallery/18.webp",
+		},
+		{
+			id: "19",
+			url: "/gallery/19.webp",
+		},
+		// {
+		// 	id: "20",
+		// 	url: "/gallery/20.webp",
+		// },
+		// {
+		// 	id: "21",
+		// 	url: "/gallery/21.webp",
+		// },
+		// {
+		// 	id: "22",
+		// 	url: "/gallery/22.webp",
+		// },
+		// {
+		// 	id: "23",
+		// 	url: "/gallery/23.webp",
+		// },
+		// {
+		// 	id: "24",
+		// 	url: "/gallery/24.webp",
+		// },
+		// {
+		// 	id: "25",
+		// 	url: "/gallery/25.webp",
+		// },
+		// {
+		// 	id: "26",
+		// 	url: "/gallery/26.webp",
+		// },
+		// {
+		// 	id: "27",
+		// 	url: "/gallery/27.webp",
+		// },
+
 	];
 
 	const swiperRef = useRef(null);
@@ -81,12 +166,9 @@ export default function VisualProof({ isAr }) {
 											className="h-80 w-full object-cover transition-transform duration-500 group-hover:scale-110"
 										/>
 										<div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-										<div className="absolute bottom-0 right-0 w-full p-6">
-											{/* <div className="mb-2 inline-block rounded-full bg-[#3C6652] px-3 py-1 text-sm text-white">
-												{isAr ? "تجربة فعلية – مزار" : "Actual Experience – Mzar"}
-											</div> */}
+										{/* <div className="absolute bottom-0 right-0 w-full p-6">
 											<p className="text-lg text-white">{photo.caption}</p>
-										</div>
+										</div> */}
 									</div>
 								</div>
 							</SwiperSlide>
