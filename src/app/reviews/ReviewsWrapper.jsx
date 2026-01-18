@@ -10,9 +10,38 @@ import { useState, useCallback } from "react";
 import { PageHeader } from "@/components/reviews/PageHeader";
 import { ReviewsSummary } from "@/components/reviews/ReviewsSummary";
 import { FilterBar } from "@/components/reviews/FilterBar";
-import { ReviewsList } from "@/components/reviews/ReviewsList";
-import { VisualProof } from "@/components/reviews/VisualProof";
-import { ConversionCTA } from "@/components/reviews/ConversionCTA";
+// import { ReviewsList } from "@/components/reviews/ReviewsList";
+// import { VisualProof } from "@/components/reviews/VisualProof";
+// import { ConversionCTA } from "@/components/reviews/ConversionCTA";
+
+import dynamic from "next/dynamic";
+import Loading from "@/app/loading";
+import LazyLoader from "@/components/LazyLoader";
+
+const ReviewsList = dynamic(
+	() => import("@/components/reviews/ReviewsList"),
+	{
+		ssr: false,
+		loading: () => <Loading />,
+	}
+);
+
+const ConversionCTA = dynamic(
+	() => import("@/components/reviews/ConversionCTA"),
+	{
+		ssr: false,
+		loading: () => <Loading />,
+	}
+);
+
+const VisualProof = dynamic(
+	() => import("@/components/reviews/VisualProof"),
+	{
+		ssr: false,
+		loading: () => <Loading />,
+	}
+);
+
 
 export default function FaqWrapper({ lang }) {
 	const isAr = lang === "ar";
@@ -82,9 +111,11 @@ export default function FaqWrapper({ lang }) {
 				totalResults={sortedReviews.length}
 				isAr={isAr}
 			/>
-			<ReviewsList reviews={sortedReviews} isAr={isAr} />
-			<VisualProof isAr={isAr} />
-			<ConversionCTA isAr={isAr} />
+			<LazyLoader rootMargin="50px">
+				<ReviewsList reviews={sortedReviews} isAr={isAr} />
+				<VisualProof isAr={isAr} />
+				<ConversionCTA isAr={isAr} />
+			</LazyLoader>
 		</div>
 	);
 }

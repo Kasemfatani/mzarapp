@@ -1,7 +1,7 @@
 "use client";
 import { Compass, CalendarCheck, Sparkles } from 'lucide-react';
 
-export function ConversionCTA({ isAr }) {
+export default function ConversionCTA({ isAr }) {
   return (
     <section className="bg-gradient-to-br from-[#3C6652] via-[#2d4d3d] to-[#3C6652] py-20 md:py-32" >
       <div className="container mx-auto max-w-5xl px-6 lg:px-8">

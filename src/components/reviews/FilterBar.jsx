@@ -93,7 +93,7 @@ export function FilterBar({ onFiltersChange, totalResults , isAr }) {
               <select
                 value={tourType}
                 onChange={(e) => setTourType(e.target.value)}
-                className="w-full appearance-none rounded-xl border-2 border-[#e2e8f0] bg-white px-4 py-3 pr-10 text-lg text-[#3C6652] transition-all focus:border-[#3C6652] focus:outline-none"
+                className="w-full appearance-none rounded-xl border-2 border-[#e2e8f0] bg-white px-4 py-3 pr-10 text-base text-[#3C6652] transition-all focus:border-[#3C6652] focus:outline-none"
               >
                 { (isAr ? tourTypes : tourTypesEn).map((type) => (
                   <option key={type.id} value={type.id}>

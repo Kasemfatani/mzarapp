@@ -3,7 +3,7 @@ import { ReviewCard } from "./ReviewCard";
 import { Pagination } from "./Pagination";
 // import { Review } from '../../data/reviews';
 
-export function ReviewsList({ reviews = [], isAr }) {
+export default function ReviewsList({ reviews = [], isAr }) {
 	const [currentPage, setCurrentPage] = useState(1);
 	const itemsPerPage = 5;
 
@@ -21,7 +21,7 @@ export function ReviewsList({ reviews = [], isAr }) {
 				{reviews.length === 0 ? (
 					<div className="rounded-2xl bg-[#f5f2ed] py-16 text-center">
 						<p className="text-2xl text-[#718096]">
-							لا توجد تقييمات تطابق الفلاتر المحددة
+						{isAr ? 'لا توجد تقييمات تطابق الفلاتر المحددة' : 'No reviews match the selected filters'}
 						</p>
 					</div>
 				) : (
