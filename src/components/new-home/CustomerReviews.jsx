@@ -225,14 +225,14 @@ export default function CustomerReviews({ lang }) {
 				</Swiper>
 
 				{/* CTA Section */}
-				<div className="text-center">
-					{/* <button className="bg-[#3C6652] text-white px-10 py-4 rounded-xl hover:bg-[#1E3A5F] transition-all shadow-lg hover:shadow-xl hover:scale-105 inline-flex items-center gap-3" style={{ fontFamily: '"Readex Pro", sans-serif', fontWeight: 500 }}>
+				<div className="text-center mt-6">
+					<a href="/reviews" className="bg-[#3C6652] text-white px-10 py-4 rounded-xl hover:bg-[#1E3A5F] transition-all shadow-lg hover:shadow-xl hover:scale-105 inline-flex items-center gap-3" style={{ fontFamily: '"Readex Pro", sans-serif', fontWeight: 500 }}>
             <span>{isAr ? 'استعرض جميع التقييمات' : 'View All Reviews'}</span>
             <div className="flex items-center gap-0.5">
               <Star size={16} className="fill-[#867957] text-[#867957]" />
               <span className="text-sm">4.9/5</span>
             </div>
-          </button> */}
+          </a>
 
 					{/* Trust Badge */}
 					{/* <div className="mt-8 flex items-center justify-center gap-3 text-sm text-gray-600">
