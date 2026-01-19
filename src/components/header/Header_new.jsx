@@ -4,7 +4,7 @@ import { Menu, X, Globe, Phone, Mail } from "lucide-react";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import Image from 'next/image'
+import Image from "next/image";
 
 export default function Header() {
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -122,14 +122,10 @@ export default function Header() {
 							</div>
 							<div className="flex items-start gap-2">
 								<button
-									className="hover:text-[#E7D3AF] transition-colors"
+									className="flex items-center gap-2 px-3 py-1 bg-transparent hover:text-[#E7D3AF] transition-colors rounded"
 									onClick={() => {
-										const nextLang = "ar";
-
-										// Keep localStorage
+										const nextLang = isAr ? "en" : "ar";
 										localStorage.setItem("lang", nextLang);
-
-										// Also set a cookie for server-side usage (1 year)
 										const oneYear = 60 * 60 * 24 * 365;
 										const isHTTPS =
 											typeof window !== "undefined" &&
@@ -137,40 +133,19 @@ export default function Header() {
 										document.cookie = `lang=${nextLang}; path=/; max-age=${oneYear}; samesite=lax${
 											isHTTPS ? "; secure" : ""
 										}`;
-
 										setLang(nextLang);
-
 										window.location.reload();
 									}}
+									aria-label={
+										isAr ? "Switch to English" : "التبديل إلى العربية"
+									}
+									aria-pressed={isAr}
 								>
-									العربية
+									<Globe size={18} />
+									<span className="font-medium text-base">
+										{isAr ? "العربية" : "EN"}
+									</span>
 								</button>
-								<span>|</span>
-								<button
-									className="hover:text-[#E7D3AF] transition-colors"
-									onClick={() => {
-										const nextLang = "en";
-
-										// Keep localStorage
-										localStorage.setItem("lang", nextLang);
-
-										// Also set a cookie for server-side usage (1 year)
-										const oneYear = 60 * 60 * 24 * 365;
-										const isHTTPS =
-											typeof window !== "undefined" &&
-											window.location.protocol === "https:";
-										document.cookie = `lang=${nextLang}; path=/; max-age=${oneYear}; samesite=lax${
-											isHTTPS ? "; secure" : ""
-										}`;
-
-										setLang(nextLang);
-
-										window.location.reload();
-									}}
-								>
-									EN
-								</button>
-								<Globe size={18} />
 							</div>
 						</div>
 					</div>
@@ -204,25 +179,25 @@ export default function Header() {
 								fontWeight: 500,
 							}}
 						>
-							<a
-								href="/"
-								className="text-[#3C6652] hover:text-[#867957] transition-colors"
-							>
-								{isAr ? "الرئيسية" : "Home"}
-							</a>
-							<a
-								href="/all-trips"
-								className="text-[#3C6652] hover:text-[#867957] transition-colors"
-							>
-								{isAr ? "التجارب" : "Experiences"}
-							</a>
-							<a
-								href="/about-us"
-								className="text-[#3C6652] hover:text-[#867957] transition-colors"
-							>
-								{isAr ? " من نحن" : "About Us"}
-							</a>
-							{/* <a
+								<a
+									href="/"
+									className="text-[#3C6652] hover:text-[#867957] transition-colors"
+								>
+									{isAr ? "الرئيسية" : "Home"}
+								</a>
+								<a
+									href="/all-trips"
+									className="text-[#3C6652] hover:text-[#867957] transition-colors"
+								>
+									{isAr ? "التجارب" : "Experiences"}
+								</a>
+								<a
+									href="/about-us"
+									className="text-[#3C6652] hover:text-[#867957] transition-colors"
+								>
+									{isAr ? " من نحن" : "About Us"}
+								</a>
+								{/* <a
 								href="#bookings"
 								className="text-[#3C6652] hover:text-[#867957] transition-colors"
 							>
@@ -279,13 +254,13 @@ export default function Header() {
 								>
 									{isAr ? "التجارب" : "Experiences"}
 								</a>
-									<a
-										href="/about-us"
-										className="text-[#3C6652] hover:text-[#857856] transition-colors"
-									>
-										{isAr ? " من نحن" : "About Us"}
-									</a>
-									{/* <a
+								<a
+									href="/about-us"
+									className="text-[#3C6652] hover:text-[#857856] transition-colors"
+								>
+									{isAr ? " من نحن" : "About Us"}
+								</a>
+								{/* <a
 										href="#bookings"
 										className="text-[#3C6652] hover:text-[#857856] transition-colors"
 									>
@@ -297,10 +272,10 @@ export default function Header() {
 								>
 									{isAr ? "تواصل معنا" : "Contact Us"}
 								</a>
-								<a href="/all-trips"
+								<a
+									href="/all-trips"
 									className="bg-[#3C6652] text-white px-6 py-3 rounded-lg hover:bg-[#1E3A5F] transition-colors"
 									style={{
-										
 										fontWeight: 500,
 									}}
 								>
