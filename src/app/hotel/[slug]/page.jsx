@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { API_BASE_URL_NEW } from "@/lib/apiConfig";
 import HotelClientShell from "@/components/hotel/HotelClientShell";
 import FeaturedToursSection from "@/components/new-home/FeaturedToursSection";
+import HotelWrapper from "@/components/hotel/HotelWrapper";
 import { cache } from "react";
 
 
@@ -51,16 +52,17 @@ export default async function HotelPage({ params }) {
 	const partner = json.data;
 
 	// Fetch top packages data
-	const topPackagesData = await getData(lang);
+	// const topPackagesData = await getData(lang);
 	
 
 
 
 	return (
 		<div className={lang === "en" ? "ltr" : "rtl"}>
-			<HotelClientShell lang={lang} partner={partner}>
+
+			<HotelWrapper lang={lang} partner={partner} />
+			{/* <HotelClientShell lang={lang} partner={partner}>
 				<FeaturedToursSection lang={lang} topData={topPackagesData} />
-				{/* <Trips /> */}
 				<LazyTopSections
 					lang={lang}
 					audio={partner.audios}
@@ -68,7 +70,7 @@ export default async function HotelPage({ params }) {
 					promo_code={partner.promo_code}
 					hotelLogoSrc={partner.logo2}
 				/>
-			</HotelClientShell>
+			</HotelClientShell> */}
 		</div>
 	);
 }

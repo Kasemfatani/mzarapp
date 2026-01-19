@@ -16,10 +16,14 @@ export default function Header() {
 		pathname === "/saad-alqurashi" ||
 		pathname === "/saad-new" ||
 		pathname === "/special-tour" ||
-		pathname === "/raslania" ||
-		pathname.startsWith("/hotel/")
+		pathname === "/raslania" 
 	) {
 		return null;
+	}
+
+	let showMenue = true;
+	if (pathname.startsWith("/hotel/")) {
+		showMenue = false;
 	}
 
 	let [lang, setLang] = useState("en");
@@ -183,7 +187,7 @@ export default function Header() {
 				dir={isAr ? "rtl" : "ltr"}
 			>
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-					<div className="flex items-center justify-between h-20">
+					<div className={`flex items-center ${showMenue ? "justify-between" : "justify-center"} h-20`}>
 						{/* Logo - positioned right in  */}
 						<div className="flex-shrink-0">
 							<Link href="/">
@@ -198,6 +202,7 @@ export default function Header() {
 						</div>
 
 						{/* Desktop Navigation -  */}
+						{showMenue && (
 						<nav
 							className="hidden lg:flex items-center gap-8"
 							style={{
@@ -235,8 +240,9 @@ export default function Header() {
 								{isAr ? "تواصل معنا" : "Contact Us"}
 							</a>
 						</nav>
-
+						)}
 						{/* Desktop CTA */}
+						{showMenue && (
 						<div className="hidden lg:flex items-center gap-4">
 							<a href="/all-trips"
 								className="bg-[#3C6652] text-white px-8 py-3 rounded-lg hover:bg-[#1E3A5F] transition-all shadow-md hover:shadow-lg"
@@ -248,14 +254,17 @@ export default function Header() {
 								{isAr ? "احجز الآن" : "Book Now"}
 							</a>
 						</div>
+						)}
 
 						{/* Mobile menu button */}
+						{showMenue && (
 						<button
 							className="lg:hidden text-[#3C6652]"
 							onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
 						>
 							{mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
 						</button>
+						)}
 					</div>
 
 					{/* Mobile Navigation */}
