@@ -130,9 +130,12 @@ export function BookingForm({
 
 	// read current counts to render numbers
 	const counts = form.watch("group_age_counts") || [];
-	const getQty = (id) => counts.find((c) => c.id === id)?.quantity || 0;
+	const getQty = (id) =>
+		counts.find((c) => c.id === id)?.quantity ?? (id === 1 ? 1 : 0);
+
 	const setQty = (id, next) => {
-		const nextVal = Math.max(0, Number(next || 0));
+		const minForId = id === 1 ? 1 : 0; // id 1 minimum is 1 person
+		const nextVal = Math.max(minForId, Number(next || 0));
 		const nextArr = (() => {
 			if (!counts.length) return [{ id, quantity: nextVal }];
 			const exists = counts.some((c) => c.id === id);
@@ -157,7 +160,7 @@ export function BookingForm({
 				day: "2-digit",
 			})
 				.formatToParts(d)
-				.map((p) => [p.type, p.value])
+				.map((p) => [p.type, p.value]),
 		);
 		return {
 			y: Number(parts.year),
@@ -182,7 +185,7 @@ export function BookingForm({
 				second: "2-digit",
 			})
 				.formatToParts(new Date())
-				.map((p) => [p.type, p.value])
+				.map((p) => [p.type, p.value]),
 		);
 		return {
 			h: Number(parts.hour),
@@ -281,7 +284,7 @@ export function BookingForm({
 															"bg-white rounded-[10px] px-6 py-4 flex items-center justify-between cursor-pointer transition-all",
 															active
 																? "border-2 border-[#3c6652] bg-[#fffff5]"
-																: "border border-[rgba(4,67,67,0.32)] hover:border-[#867957]"
+																: "border border-[rgba(4,67,67,0.32)] hover:border-[#867957]",
 														)}
 													>
 														<div
@@ -289,7 +292,7 @@ export function BookingForm({
 																"flex flex-col text-center",
 																active
 																	? "text-[#3c6652]"
-																	: "text-[rgba(4,67,67,0.32)]"
+																	: "text-[rgba(4,67,67,0.32)]",
 															)}
 														>
 															<p>{point.name}</p>
@@ -373,7 +376,7 @@ export function BookingForm({
 															"flex-1 p-3 rounded-[10px] border transition-all",
 															active
 																? "bg-[#fffff5] border-[#3c6652] border-2"
-																: "border-[#d0d0d0] hover:border-[#867957] cursor-pointer"
+																: "border-[#d0d0d0] hover:border-[#867957] cursor-pointer",
 														)}
 													>
 														<div className="flex flex-col items-center w-full">
@@ -428,8 +431,8 @@ export function BookingForm({
 															? "ريال للشخص"
 															: "دولار للشخص"
 														: isSaudi
-														? "SAR per person"
-														: "USD per person"}
+															? "SAR per person"
+															: "USD per person"}
 												</p>
 											</div>
 											<div className="flex items-center gap-4">
@@ -443,11 +446,12 @@ export function BookingForm({
 												<span className="min-w-[20px] text-lg font-semibold text-[#111827] text-center">
 													{q}
 												</span>
+												{/** enforce minimum per group (id 1 => min 1) */}
 												<button
 													type="button"
 													onClick={() => setQty(g.id, q - 1)}
 													className="w-10 h-10 rounded-full bg-[#f5f0ea] text-[#111827]/80 text-xl leading-none flex items-center justify-center"
-													disabled={q <= 0}
+													disabled={q <= (g.id === 1 ? 1 : 0)}
 												>
 													−
 												</button>

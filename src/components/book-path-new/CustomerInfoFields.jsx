@@ -31,7 +31,7 @@ import {
 import { ChevronsUpDown, Check } from "lucide-react";
 import LocationPickerMap from "@/components/book-components/LocationPickerMap";
 
-export function CustomerInfoFields({ lang = "ar", form }) {
+export function CustomerInfoFields({ lang = "ar", form , countryCode = "SA", }) {
 	const isAr = lang === "ar";
 	const [nationalityOpen, setNationalityOpen] = useState(false);
 	const [countries, setCountries] = useState([]);
@@ -142,7 +142,8 @@ export function CustomerInfoFields({ lang = "ar", form }) {
 												style={{ direction: "ltr" }}
 											>
 												<PhoneInput
-													defaultCountry="sa"
+													defaultCountry={countryCode ? countryCode.toLowerCase() : "sa"}
+													// defaultCountry={"sa"}
 													value={field.value}
 													onChange={field.onChange}
 													className=""

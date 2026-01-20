@@ -21,6 +21,8 @@ export function BookingVehicleField({
 	language = "en",
 	className = "",
 }) {
+	const isAr = language === "ar";
+	let justifyClass = isAr ? "justify-end" : "justify-between";
 	return (
 		<FormField
 			control={form.control}
@@ -38,7 +40,7 @@ export function BookingVehicleField({
 							}}
 							value={field.value?.id ? String(field.value.id) : ""}
 						>
-							<SelectTrigger className="w-full select-trigger">
+							<SelectTrigger className={`w-full select-trigger ${justifyClass} px-2`} id={name}>
 								<SelectValue
 									placeholder={
 										placeholder ||
@@ -48,7 +50,7 @@ export function BookingVehicleField({
 							</SelectTrigger>
 							<SelectContent>
 								{vehicles.map((item) => (
-									<SelectItem key={item.id} value={String(item.id)} disabled={!item.is_enabled}>
+									<SelectItem key={item.id} value={String(item.id)} disabled={!item.is_enabled} className={justifyClass}>
 										{item.image && (
 											<Image
 												src={item.image}

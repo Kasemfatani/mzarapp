@@ -11,7 +11,7 @@ import { Input } from "@/components/ui/input";
 import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
 
-export function CustomerInfoFields({ lang = "ar", form }) {
+export function CustomerInfoFields({ lang = "ar", form , countryCode = "SA" }) {
 	const isAr = lang === "ar";
 	return (
 		<div className="bg-white rounded-[20px] shadow-[0px_20px_25px_-5px_rgba(0,0,0,0.1),0px_8px_10px_-6px_rgba(0,0,0,0.1)] border-[0.8px] border-[rgba(243,244,246,0.6)] w-full">
@@ -73,7 +73,8 @@ export function CustomerInfoFields({ lang = "ar", form }) {
 									<FormControl>
 										<div className="phone-input-book" style={{ direction: "ltr" }}>
 												<PhoneInput
-													defaultCountry="sa"
+													defaultCountry={countryCode ? countryCode.toLowerCase() : "sa"}
+													// defaultCountry={"sa"}
 													value={field.value}
 													onChange={field.onChange}
 													className=""

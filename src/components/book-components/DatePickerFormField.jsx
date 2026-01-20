@@ -41,6 +41,7 @@ export function DatePickerFormField({
 										variant="outline"
 										className="w-full justify-start text-start bg-white rounded-md border p-3"
 										type="button"
+										id={name}
 									>
 										<CalendarIcon className="mr-2 h-4 w-4" />
 										{field.value

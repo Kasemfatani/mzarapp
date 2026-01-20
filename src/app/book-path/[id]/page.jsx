@@ -65,11 +65,11 @@ export default async function Page({ params }) {
 		if (!data) notFound();
 
 	 // reuseable geo helper
-   const { isSaudi } = await getIsSaudiFromHeaders(headers());
+   const { isSaudi , countryCode } = await getIsSaudiFromHeaders(headers());
 
 	// console.log("BookTourNew Page busData:", data);
 
 	return (
-		<BookWrapper lang={lang} busData={data} disabledDays={[]} isSaudi={isSaudi}/>
+		<BookWrapper lang={lang} busData={data} disabledDays={[]} isSaudi={isSaudi} countryCode={countryCode} />
 	);
 }

@@ -1,4 +1,4 @@
-import { ArrowLeft, Clock, Shield } from 'lucide-react';
+import { ArrowLeft,ArrowRight,  Clock, Shield } from 'lucide-react';
 import { motion } from 'motion/react';
 
 
@@ -70,7 +70,7 @@ export function BottomBar( { lang , data , isSaudi=true } ) {
             <div className="flex items-center gap-3">
              
               <div className="">
-                <span className="text-[13px] md:text-[20px] leading-[1.2] text-white" >
+                <span className="text-lg md:text-2xl text-white" >
                   {displayPrice.toFixed(2)}
                 </span>
               </div>
@@ -94,8 +94,9 @@ export function BottomBar( { lang , data , isSaudi=true } ) {
             href={link}
             className="bg-[#857856] hover:bg-[#756849] text-white px-6 py-3 rounded-[18px] flex items-center gap-3 transition-all shadow-md hover:shadow-lg"
           >
-            <ArrowLeft className="w-4 h-4" />
+            
             <span className="text-[11px] md:text-[18px]  leading-[1.3]">{isAr ? "احجز الآن" : "Book Now"}</span>
+            {isAr ? <ArrowLeft className="w-4 h-4" /> : <ArrowRight className="w-4 h-4" />}
           </a> )}
           
         </div>
