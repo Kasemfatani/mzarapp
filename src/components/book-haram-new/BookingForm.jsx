@@ -90,6 +90,7 @@ export function BookingForm({
 							<FormField
 								control={form.control}
 								name="time"
+								id="time"
 								render={({ field }) => (
 									<FormItem>
 										<div className="flex flex-col sm:flex-row md:items-stretch justify-between gap-4">
@@ -138,6 +139,7 @@ export function BookingForm({
 							<FormField
 								control={form.control}
 								name="people"
+								id="people"
 								render={({ field }) => (
 									<FormItem>
 										<FormControl>

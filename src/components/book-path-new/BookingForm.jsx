@@ -141,6 +141,7 @@ export function BookingForm({
 					<form className="flex flex-col gap-6">
 						<DatePickerFormField
 							form={form}
+							id="date"
 							lang={lang}
 							minDate={today}
 							maxDate={data.max_date}
@@ -159,6 +160,7 @@ export function BookingForm({
 							<BookingTimeField
 								form={form}
 								name="time"
+								id="time"
 								bookingHours={filteredTimes}
 								language={lang}
 								className="border "
@@ -185,6 +187,7 @@ export function BookingForm({
 							<BookingVehicleField
 								form={form}
 								name="vehicle"
+								id="vehicle"
 								vehicles={data.cars || []}
 								language={lang}
 								className="border "

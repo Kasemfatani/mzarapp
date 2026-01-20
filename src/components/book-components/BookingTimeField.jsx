@@ -15,6 +15,7 @@ import {
 export function BookingTimeField({
 	form,
 	name = "time",
+	id,
 	placeholder,
 	bookingHours = [],
 	language = "en",
@@ -40,7 +41,7 @@ export function BookingTimeField({
 							}}
 							value={field.value?.id ? String(field.value.id) : ""}
 						>
-							<SelectTrigger className={`w-full select-trigger ${justifyClass} px-2`} id={name}>
+							<SelectTrigger className={`w-full select-trigger ${justifyClass} px-2`} id={id || name}>
 								<SelectValue
 									placeholder={
 										placeholder ||

@@ -89,6 +89,7 @@ export default function BookTourPage({
 			whatsapp: "",
 			country_id: undefined,
 		},
+		shouldFocusError: false,
 		mode: "onSubmit",
 	});
 

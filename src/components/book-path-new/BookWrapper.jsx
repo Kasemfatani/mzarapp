@@ -127,6 +127,7 @@ export default function BookTourPage({
 			name: "",
 			whatsapp: "",
 		},
+		shouldFocusError: false,
 		mode: "onSubmit",
 	});
 
