@@ -16,6 +16,7 @@ import Image from "next/image";
 export function BookingVehicleField({
 	form,
 	name = "vehicle",
+	id,
 	placeholder,
 	vehicles = [],
 	language = "en",
@@ -40,7 +41,7 @@ export function BookingVehicleField({
 							}}
 							value={field.value?.id ? String(field.value.id) : ""}
 						>
-							<SelectTrigger className={`w-full select-trigger ${justifyClass} px-2`} id={name}>
+							<SelectTrigger className={`w-full select-trigger ${justifyClass} px-2`} id={id || name}>
 								<SelectValue
 									placeholder={
 										placeholder ||

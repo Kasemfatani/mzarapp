@@ -17,6 +17,7 @@ import { Calendar } from "@/components/ui/calendar";
 export function DatePickerFormField({
 	form,
 	name = "date",
+	id,
 	label,
 	lang = "ar",
 	minDate,
@@ -41,14 +42,14 @@ export function DatePickerFormField({
 										variant="outline"
 										className="w-full justify-start text-start bg-white rounded-md border p-3"
 										type="button"
-										id={name}
+										id={id || name}
 									>
 										<CalendarIcon className="mr-2 h-4 w-4" />
 										{field.value
 											? format(field.value, "PPP")
 											: isAr
-											? "اختر التاريخ"
-											: "Pick a date"}
+												? "اختر التاريخ"
+												: "Pick a date"}
 									</Button>
 								</PopoverTrigger>
 								<PopoverContent className="w-auto p-0">

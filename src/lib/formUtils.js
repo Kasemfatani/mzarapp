@@ -1,14 +1,22 @@
 export function scrollToFirstError(errors) {
 	// errors: react-hook-form errors object
 	if (!errors) return;
-	const keys = Object.keys(errors);
+	let keys = Object.keys(errors);
 	if (!keys.length) return;
+
+	// If there are multiple errors and the first one is 'name', move it to the end.
+	// This ensures we prioritize fields like date/time/vehicle which are higher up.
+	if (keys.length > 1 && keys[0] === "name") {
+		keys = keys.filter((k) => k !== "name");
+		keys.push("name");
+	}
 
 	// Find all error elements in the DOM
 	const errorElements = [];
 
 	for (const key of keys) {
 		const selectors = [
+			`#${key}`,
 			`[name="${key}"]`,
 			`[name="${key.replace(/\./g, "][")}"]`,
 			`[data-rhf="${key}"]`,
@@ -40,7 +48,8 @@ export function scrollToFirstError(errors) {
 		const firstEl = errorElements[0];
 		firstEl.scrollIntoView({ behavior: "smooth", block: "center" });
 		try {
-			firstEl.focus();
+			// preventScroll: true ensures the browser doesn't jerk the screen after we just smoothed scrolled
+			firstEl.focus({ preventScroll: true });
 		} catch (e) {}
 	} else {
 		// fallback to top
@@ -49,16 +58,7 @@ export function scrollToFirstError(errors) {
 }
 
 export function handleInvalidForm(form, errors) {
-	// prefer react-hook-form setFocus (handles nested fields/dot paths)
-	console.log("handleInvalidForm errors:", errors);
-	try {
-		if (form?.setFocus) {
-			const k = Object.keys(errors)[0];
-			console.log("first error key:", k);
-			console.log("errors:", errors);
-			if (k) form.setFocus(k);
-		}
-	} catch (e) {}
-	// then DOM scroll/focus fallback
+	// We rely solely on scrollToFirstError because it sorts by DOM position.
+	// The default setFocus uses the order of keys in 'errors', which is arbitrary and causes jumping.
 	scrollToFirstError(errors);
 }

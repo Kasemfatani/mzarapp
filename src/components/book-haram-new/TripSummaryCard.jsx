@@ -100,11 +100,11 @@ export function TripSummaryCard({
 
 				{/* Tags */}
 				<div className="flex gap-4 justify-center">
-					<div className="bg-gradient-to-r from-[rgba(231,211,175,0.3)] to-[rgba(231,211,175,0.2)] border-[0.8px] border-[rgba(231,211,175,0.6)] rounded-full px-[16.8px] py-[4.8px] flex items-center gap-1">
+					<div className=" bg-gradient-to-r from-[rgba(231,211,175,0.3)] to-[rgba(231,211,175,0.2)] border-[0.8px] border-[rgba(231,211,175,0.6)] rounded-full px-[16.8px] py-[4.8px] flex items-center gap-1">
 						<Users className="w-4 h-4 text-[#867957]" strokeWidth={1.33} />
 						<p className="text-[#1e2939]">{minPeople} - {maxPeople}</p>
 					</div>
-					<div className="bg-gradient-to-r from-[rgba(231,211,175,0.3)] to-[rgba(231,211,175,0.2)] border-[0.8px] border-[rgba(231,211,175,0.6)] rounded-full px-[16.8px] py-[4.8px] flex items-center gap-1">
+					<div className="w-3/6 md:w-auto bg-gradient-to-r from-[rgba(231,211,175,0.3)] to-[rgba(231,211,175,0.2)] border-[0.8px] border-[rgba(231,211,175,0.6)] rounded-full px-[16.8px] py-[4.8px] flex items-center gap-1">
 						<Clock className="w-4 h-4 text-[#867957]" strokeWidth={1.33} />
 						<p className="text-[#1e2939]">{duration}</p>
 					</div>

@@ -166,6 +166,7 @@ export default function BookTourPage({ busData, lang, isSaudi = true , countryCo
 			name: "",
 			whatsapp: "",
 		},
+		shouldFocusError: false,
 		mode: "onSubmit",
 	});
 
