@@ -128,7 +128,7 @@ export default function PromoCodeSection({
 			<div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-2 text-[#364153] text-sm">
 				<div className="flex items-center justify-center gap-2 bg-[#f7f6f2] rounded-xl py-2">
 					<CheckCircle2 className="w-4 h-4 text-[#3c6652]" />
-					<span>{isAr ? "خصم معتمد من مزار" : "Mzarr verified discount"}</span>
+					<span>{isAr ? "خصم معتمد من مزار" : "Mzar verified discount"}</span>
 				</div>
 				<div className="flex items-center justify-center gap-2 bg-[#f7f6f2] rounded-xl py-2">
 					<Clock4 className="w-4 h-4 text-[#3c6652]" />
