@@ -108,8 +108,8 @@ export function BookingForm({
 	}, [selectedDate, allTimes]);
 
 	const tripTypes = [
-		{ id: 1, name: isAr ? "رحلة كاملة" : "Regular Tour" , desc : isAr ? "تجربة غنية بالمعرفة، تفيض بالتفاصيل، لتجعل من كل لحظة ذكرى خالدة." : "A knowledge-rich experience, Deep in details, Turn every moment into a lasting memory." },
-		{ id: 2, name: isAr ? "رحله سريعه" : "Express Tour" , desc : isAr ? "تجربة مركزة، توفر الوقت، وزيارة قيمة." : "A focused experience, Save time, Valuable visit." },
+		{ id: 1, name: isAr ? "رحلة متكاملة" : "Regular Tour" , desc : isAr ? "تجربة غنية بالمعرفة تهتم بالتفاصيل وتجعل كل لحظة ذكرى خالدة" : "A knowledge-rich experience, Deep in details, Turn every moment into a lasting memory." },
+		{ id: 2, name: isAr ? "رحلة سريعة" : "Express Tour" , desc : isAr ? "تجربة مركزة تحفظ وقتك وتثري تجربتك " : "A focused experience, Save time, Valuable visit." },
 	];
 
 	// read is_express from form
