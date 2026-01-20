@@ -62,6 +62,7 @@ export default function BookTourPage({
 	busData,
 	disabledDays = [],
 	isSaudi = true,
+	countryCode = "SA",
 }) {
 	const [leftSeats, setLeftSeats] = useState(null);
 	const [loading, setLoading] = useState(false);
@@ -389,7 +390,7 @@ export default function BookTourPage({
 								isSaudi={isSaudi}
 							/>
 
-							<CustomerInfoFields lang={lang} form={form} />
+							<CustomerInfoFields lang={lang} form={form}  countryCode={countryCode} />
 
 							<ActionButtons
 								onConfirm={onConfirm}

@@ -22,8 +22,16 @@ export default function PromoCodeSection({
   // Pre-fill promo code from localStorage on mount
 	useEffect(() => {
 		const partnerPromo = localStorage.getItem("partnerPromoCode");
+		const expiry = localStorage.getItem("partnerPromoCodeExpiry");
+		const now = Date.now();
+
 		if (partnerPromo) {
-			setCode(partnerPromo);
+			if (expiry && now > parseInt(expiry, 10)) {
+				localStorage.removeItem("partnerPromoCode");
+				localStorage.removeItem("partnerPromoCodeExpiry");
+			} else {
+				setCode(partnerPromo);
+			}
 		}
 	}, []);
 

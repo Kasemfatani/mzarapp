@@ -20,6 +20,8 @@ export function BookingTimeField({
 	language = "en",
 	className = "",
 }) {
+	const isAr = language === "ar";
+	let justifyClass = isAr ? "justify-end" : "justify-between";
 	return (
 		<FormField
 			control={form.control}
@@ -38,7 +40,7 @@ export function BookingTimeField({
 							}}
 							value={field.value?.id ? String(field.value.id) : ""}
 						>
-							<SelectTrigger className="w-full select-trigger">
+							<SelectTrigger className={`w-full select-trigger ${justifyClass} px-2`} id={name}>
 								<SelectValue
 									placeholder={
 										placeholder ||
@@ -48,7 +50,7 @@ export function BookingTimeField({
 							</SelectTrigger>
 							<SelectContent>
 								{bookingHours?.map((item) => (
-									<SelectItem key={item.id} value={String(item.id)}>
+									<SelectItem key={item.id} value={String(item.id)} className={justifyClass}>
 										<span>{item.name}</span>
 									</SelectItem>
 								))}

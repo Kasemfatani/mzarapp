@@ -51,7 +51,7 @@ export function ActionButtons({ onConfirm, onCancel, loading = false , lang }) {
 			<div className="text-center px-4">
 				<p className="text-[#4a5565] text-sm">
 				{isAr ? "سياسة الحجز والإلغاء" : "Booking and Cancellation Policy"}<span className="text-[#b52b2b]"> * </span>
-					{isAr ? "لن يتم خصم أي مبلغ حتى تأكيد حجز بطل. الحد الأدنى للإقامة هو 7 أيام. 05xxxxxxxx - يمكن إلغاء الحجز مع استرجاع كامل المبلغ قبل 24 ساعة من موعد الرحلة. بعد هذا الوقت، لن يتم استرداد أي رسوم أو يتم استرداد 50% من قيمة الحجز فقط إذا تم إلغاء الحجز قبل 8 ساعات من بدء الرحلة." : "No amount will be deducted until the booking is fully confirmed. Minimum stay is 7 days. 05xxxxxxxx - Bookings can be cancelled with a full refund up to 24 hours before the trip. After this time, no fees will be refunded or only 50% of the booking value will be refunded if the booking is cancelled at least 8 hours before the trip starts."}
+					{isAr ? "عند تأكيد الحجز ، أنت توافق على شروط الحجز وسياسة الإلغاء الخاصة بمزار. يمكن إلغاء الحجز قبل موعد الرحلة بساعتين دون رسوم، وبعدها تُطبق رسوم إلغاء بنسبة 25%. لمزيد من المساعدة، تواصل معنا مباشرة عبر الواتساب" : "By confirming, you agree to Mzar’s booking and cancellation policy. You can cancel your booking up to 2 hours before the trip with no fees. For assistance, contact our WhatsApp"} <span dir="ltr">+966580121025</span>
 				</p>
 			</div>
 		</div>

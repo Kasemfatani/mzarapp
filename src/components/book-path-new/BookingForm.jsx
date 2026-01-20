@@ -108,8 +108,8 @@ export function BookingForm({
 	}, [selectedDate, allTimes]);
 
 	const tripTypes = [
-		{ id: 1, name: isAr ? "رحلة كاملة" : "Full Trip" },
-		{ id: 2, name: isAr ? "رحله سريعه" : "Quick Trip" },
+		{ id: 1, name: isAr ? "رحلة كاملة" : "Regular Tour" , desc : isAr ? "تجربة غنية بالمعرفة، تفيض بالتفاصيل، لتجعل من كل لحظة ذكرى خالدة." : "A knowledge-rich experience, Deep in details, Turn every moment into a lasting memory." },
+		{ id: 2, name: isAr ? "رحله سريعه" : "Express Tour" , desc : isAr ? "تجربة مركزة، توفر الوقت، وزيارة قيمة." : "A focused experience, Save time, Valuable visit." },
 	];
 
 	// read is_express from form
@@ -314,6 +314,9 @@ export function BookingForm({
 													)}
 													<p className="text-[#1e2939]">{type.name}</p>
 												</div>
+												<p className="text-xs text-[#4a5565] mt-2">
+													{type.desc}
+												</p>
 											</button>
 										);
 									})}

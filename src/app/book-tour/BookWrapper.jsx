@@ -86,7 +86,7 @@ const getSchema = (lang, max_people_count = 20) => {
 		);
 };
 
-export default function BookTourPage({ busData, lang, isSaudi = true }) {
+export default function BookTourPage({ busData, lang, isSaudi = true , countryCode = "SA" }) {
 	const [leftSeats, setLeftSeats] = useState(null);
 	const [loading, setLoading] = useState(false);
 	const [disabledDays, setDisabledDays] = useState([0, 1, 2, 3, 4, 5, 6]);
@@ -548,7 +548,7 @@ export default function BookTourPage({ busData, lang, isSaudi = true }) {
 								isSaudi={isSaudi}
 							/>
 
-							<CustomerInfoFields lang={lang} form={form} />
+							<CustomerInfoFields lang={lang} form={form}  countryCode={countryCode} />
 
 							<ActionButtons
 								onConfirm={onConfirm}

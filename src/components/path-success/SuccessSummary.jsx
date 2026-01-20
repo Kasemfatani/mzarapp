@@ -444,7 +444,7 @@ export default function SuccessSummary({ initialLang = "en" }) {
 						</div>
 
 						{/* Show date/time we know to help support */}
-						<div className="flex flex-col md:flex-row gap-4 md:gap-8">
+						{/* <div className="flex flex-col md:flex-row gap-4 md:gap-8">
 							<div className="flex items-center gap-3 border rounded-full px-4 py-2">
 								<Calendar className="text-gray-600" size={18} />
 								<span className="text-sm md:text-base">{date || "—"}</span>
@@ -453,7 +453,7 @@ export default function SuccessSummary({ initialLang = "en" }) {
 								<Clock className="text-gray-600" size={18} />
 								<span className="text-sm md:text-base">{timeName || "—"}</span>
 							</div>
-						</div>
+						</div> */}
 					</>
 				)}
 			</div>

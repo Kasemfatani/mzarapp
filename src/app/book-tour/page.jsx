@@ -61,10 +61,10 @@ export default async function Page() {
 			if (!data) notFound();
 
    // reuseable geo helper
-  const { isSaudi } = await getIsSaudiFromHeaders(headers());
+  const { isSaudi , countryCode } = await getIsSaudiFromHeaders(headers());
 
 
 	return (
-		<BookWrapper lang={lang} busData={data} isSaudi={isSaudi} />
+		<BookWrapper lang={lang} busData={data} isSaudi={isSaudi} countryCode={countryCode} />
 	);
 }
