@@ -1,3 +1,5 @@
+"use client";
+
 import { format } from "date-fns";
 import { Calendar as CalendarIcon } from "lucide-react";
 import {
@@ -13,6 +15,7 @@ import {
 } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
+import { useState } from "react";
 
 export function DatePickerFormField({
 	form,
@@ -25,6 +28,7 @@ export function DatePickerFormField({
 	disabledDays = [0, 1],
 }) {
 	const isAr = lang === "ar";
+	const [open, setOpen] = useState(false);
 	return (
 		<div className="flex flex-col gap-2">
 			<label className="flex items-center text-[#364153]">
@@ -36,7 +40,7 @@ export function DatePickerFormField({
 				render={({ field }) => (
 					<FormItem>
 						<FormControl>
-							<Popover>
+							<Popover open={open} onOpenChange={setOpen}>
 								<PopoverTrigger asChild>
 									<Button
 										variant="outline"
@@ -57,7 +61,10 @@ export function DatePickerFormField({
 										<Calendar
 											mode="single"
 											selected={field.value || undefined}
-											onSelect={(date) => field.onChange(date || null)}
+											onSelect={(date) => {
+												field.onChange(date || null);
+												setOpen(false);
+											}}
 											fromDate={minDate}
 											toDate={maxDate}
 											disabled={[
