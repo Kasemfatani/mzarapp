@@ -86,7 +86,7 @@ return (
 						<div className="relative w-full h-64 rounded-[20px] overflow-hidden shadow-lg mb-3">
 							{/* Background Map Image */}
 							<Image
-								src="/trip-detail/map-img.webp"
+								src={location.image}
 								alt="Map background"
 								fill
 								className="object-cover"
