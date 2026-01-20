@@ -130,7 +130,7 @@ export function TripSummaryCard({
 				>
 					<div className="flex justify-center items-center px-4 py-3 gap-2 text-sm">
 						<p className="text-[#3c6652] text-center">
-							{isAr ? "ابتداءً من" : "Starting from"}{" "}
+							{isAr ? "" : "Costs"}{" "}
 							<span >
 								{displayPrice.toFixed(2)} {currencySymbol}
 							</span>{" "}

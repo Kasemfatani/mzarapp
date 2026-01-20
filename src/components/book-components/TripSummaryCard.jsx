@@ -118,7 +118,7 @@ export function TripSummaryCard({
         >
           <div className="flex items-center  px-4 py-3 gap-2">
             <p className="text-[#3c6652] text-center">
-              {isAr ? "ابتداءً من" : "Starting from"}{" "}
+              {isAr ? "" : "Costs"}{" "}
               <span className="">{displayPrice.toFixed(2)} {currencySymbol}</span>{" "}
               {isAr ? "للفرد" : "per person"}{" "}
               (<span className="text-[#867957]">{isAr ? "حد أدنى" : "Minimum"} {minPeople} {isAr ? "أشخاص" : "people"}</span>)
