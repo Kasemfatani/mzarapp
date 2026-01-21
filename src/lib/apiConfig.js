@@ -30,9 +30,9 @@ export async function getIsSaudiFromHeaders(headersObj) {
 			if (val) {
 				countryCode = String(val).slice(0, 2).toUpperCase();
 				isSaudi = countryCode === "SA";
-				console.log(
-					`[Geo] Resolved via header '${h}': ${countryCode} (isSaudi: ${isSaudi})`
-				);
+				// console.log(
+				// 	`[Geo] Resolved via header '${h}': ${countryCode} (isSaudi: ${isSaudi})`
+				// );
 				return { isSaudi, countryCode, ipUsed: null };
 			}
 		}

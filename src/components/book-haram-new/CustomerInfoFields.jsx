@@ -107,6 +107,8 @@ export function CustomerInfoFields({ lang = "ar", form , countryCode = "SA", }) 
 										</FormLabel>
 										<FormControl>
 											<div
+												id="whatsapp"
+												data-error-for="whatsapp"
 												className="phone-input-book"
 												style={{ direction: "ltr" }}
 											>
@@ -133,7 +135,7 @@ export function CustomerInfoFields({ lang = "ar", form , countryCode = "SA", }) 
 									<FormItem className="flex-1">
 										<FormLabel className="text-[#364153]">
 											{isAr ? "الجنسية" : "Nationality"}
-											<span className="text-[#fb2c36]"> *</span>
+											<span id="country_id" className="text-[#fb2c36]"> *</span>
 										</FormLabel>
 
 										<Popover
