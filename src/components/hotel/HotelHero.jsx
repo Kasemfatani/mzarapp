@@ -15,8 +15,8 @@ export default function HotelHero({ lang = "ar", partner }) {
 			? "مزار تقدم لك خدمات مميزة داخل مكة مع هدية حصرية ل زوار " + partner?.name
 			: "Mzar offers you exclusive services within Mecca with a special gift for " + partner?.name + " visitors",
 		offer: isAr
-			? "لا عروض - لا أسعار – لا ضغط"
-			: "No offers - No prices - No pressure",
+			? " إثراء - راحة - تجربة لا تُنسى"
+			: " Enrichment - Comfort - Unforgettable Experience",
 		travelSafe: isAr
 			? "تنقلات وخدمات داخل مكة"
 			: "Transportation and services within Mecca",
