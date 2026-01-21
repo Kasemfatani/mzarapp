@@ -64,7 +64,7 @@ export default function GiftInstructions({ lang = "ar", code = "-" }) {
 	};
 
 	return (
-		<section className="container mx-auto w-full relative z-10 bg-white p-4 md:p-6 rounded-2xl shadow-2xl mb-12 md:mb-16 -mt-6 md:-mt-24">
+		<section className="container mx-auto w-full relative z-10 bg-white p-4 md:p-6 rounded-2xl shadow-2xl mb-12 md:mb-16 -mt-6 md:-mt-14">
 			<h2 className="text-center text-[#0B4F3B] text-xl md:text-3xl font-semibold mb-4">
 				{t.title}
 			</h2>
