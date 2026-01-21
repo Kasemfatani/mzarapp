@@ -138,6 +138,8 @@ export function CustomerInfoFields({ lang = "ar", form , countryCode = "SA", }) 
 										</FormLabel>
 										<FormControl>
 											<div
+												id="whatsapp"
+												data-error-for="whatsapp"
 												className="phone-input-book"
 												style={{ direction: "ltr" }}
 											>
