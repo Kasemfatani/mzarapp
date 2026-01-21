@@ -19,8 +19,8 @@ export default function GiftInstructions({ lang = "ar", code = "-" }) {
 		copyHint: isAr ? "انسخ الكود" : "Copy the code",
 		copied: isAr ? "تم نسخ الكود" : "Code copied",
 		whatsAppBtn: isAr
-			? "احجز خدمتك الآن عبر واتساب"
-			: "Book your service now on WhatsApp",
+			? "  للإستفسار تواصل معنا عبر واتساب"
+			: " For inquiries, contact us via WhatsApp",
 		downloadBtn: isAr
 			? "اذهب للموقع أو حمل التطبيق"
 			: "Visit site or download the app",
@@ -171,7 +171,7 @@ export default function GiftInstructions({ lang = "ar", code = "-" }) {
 				</a>
 
 				<a
-					href="https://www.mzarapp.com/all-trips"
+					href="https://onelink.to/yb2xky"
 					target="_blank"
 					rel="noopener noreferrer"
 					className="w-full flex items-center justify-center gap-2 border border-[#0B4F3B]/25 text-[#0B4F3B] font-semibold py-3 rounded-full text-sm md:text-base hover:bg-[#F5F7FA] transition"
