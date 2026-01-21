@@ -3,13 +3,13 @@ import { Subtitles } from "lucide-react";
 import { useState } from "react";
 
 
-export default function HeroWin({ lang = "ar" }) {
+export default function HeroWin({ lang = "ar" , giftName = "-", giftDescription = "-"}) {
 	const isAr = lang === "ar";
 	const t = {
 		title: isAr ? "مبروك!" : "Congratulations!",
 		Subtitles: isAr ? "لقد حصلت على هديتك بنجاح" : "You have successfully claimed your gift",
-		gift: isAr ? "لقد حصلت على خصم 30% علي الرحلات" : "You have received a 30% discount on trips",
-		giftDesc: isAr ? "لقد لوريم ايبسوم هو نموذج افتراضي يوضع في التصاميم لتعرض على العميل ليتصور طريقه وضع النصوص بالتصاميم سواء كانت تصاميم مطبوعه … بروشور او فلاير على سبيل المثال … او نماذج مواقع انترنت … على خصم 30% علي الرحلات" : "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+		gift: isAr ? `لقد حصلت على  ${giftName}` : `You have received a ${giftName}`,
+		giftDesc:  giftDescription ,
 	};
 
 	return (

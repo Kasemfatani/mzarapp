@@ -1,8 +1,16 @@
 "use client";
 import { useState } from "react";
-import { Copy, Gift, Percent, MessageCircle, Download } from "lucide-react";
+import {
+	Copy,
+	Download,
+	UserPlus,
+	Map,
+	Calendar,
+	Percent,
+	CheckCircle,
+} from "lucide-react";
 
-export default function GiftInstructions({ lang = "ar", code = "MZAR30" }) {
+export default function GiftInstructions({ lang = "ar", code = "-" }) {
 	const isAr = lang === "ar";
 	const [copied, setCopied] = useState(false);
 
@@ -13,33 +21,36 @@ export default function GiftInstructions({ lang = "ar", code = "MZAR30" }) {
 		whatsAppBtn: isAr
 			? "احجز خدمتك الآن عبر واتساب"
 			: "Book your service now on WhatsApp",
-		downloadBtn: isAr ? "نزّل التطبيق" : "Download the app",
+		downloadBtn: isAr
+			? "اذهب للموقع أو حمل التطبيق"
+			: "Visit site or download the app",
 		steps: isAr
 			? [
-					"اختر الخدمة التي تناسبها",
-					"تواصل مع فريق الحجز عبر واتساب",
-					"قدم كود الخصم MZAR30",
-					"استكمل بيانات الحجز",
-					"أكد موعد وخدمات رحلتك",
-					"استمتع برحلتك مع خصمك",
+					"حمل التطبيق أو اذهب للموقع الإلكتروني ( اضغط هنا )",
+					"سجل حساب جديد في حال تحميل التطبيق",
+					"اختر التجربة المطابقة للهدية",
+					"قم بالحجز",
+					"أدخل كود الخصم",
+					"تأكيد الحجز",
 				]
 			: [
-					"Choose the service that suits you",
-					"Contact the booking team via WhatsApp",
-					"Provide the promo code MZAR30",
-					"Complete your booking details",
-					"Confirm your trip date and services",
-					"Enjoy your trip with your discount",
+					"Download the app or visit the website (Click here)",
+					"Create a new account if you downloaded the app",
+					"Choose the experience matching the gift",
+					"Make a booking",
+					"Enter the promo code",
+					"Confirm the booking",
 				],
 	};
 
+	// each step can provide: icon (lucide component), img (string) and/or link
 	const stepsConfig = [
-		{ icon: Gift },
-		{ icon: MessageCircle },
-		{ icon: Percent },
-		{ icon: Percent },
-		{ icon: Percent },
-		{ icon: Percent },
+		{ icon: Download, link: "https://www.mzarapp.com/all-trips" }, // app / site
+		{ icon: UserPlus }, // sign up
+		{ icon: Map }, // choose experience
+		{ icon: Calendar }, // make booking
+		{ icon: Percent }, // enter promo code
+		{ icon: CheckCircle }, // confirm
 	];
 
 	const handleCopy = async () => {
@@ -88,28 +99,59 @@ export default function GiftInstructions({ lang = "ar", code = "MZAR30" }) {
 				<div className="relative flex flex-col md:flex-row justify-center gap-4 md:gap-8">
 					{/* horizontal Line (behind numbers) */}
 					<div className="hidden md:block absolute left-[95px] right-[95px] top-7  h-1 bg-gray-200 rounded-full z-0" />
-          {/* vertical Line (behind numbers) */}
-          <div className={`md:hidden absolute ${isAr ? "right-5" : "left-5"} top-7 bottom-7 w-1  bg-gray-200 rounded-full z-0`} />
+					{/* vertical Line (behind numbers) */}
+					<div
+						className={`md:hidden absolute ${isAr ? "right-5" : "left-5"} top-7 bottom-7 w-1  bg-gray-200 rounded-full z-0`}
+					/>
 
 					{t.steps.map((label, idx) => {
-						const Icon = stepsConfig[idx]?.icon || Gift;
+						const cfg = stepsConfig[idx] || {};
+						const Icon = cfg.icon;
 						const stepNumber = idx + 1;
-						return (
-							<div
-								key={idx}
-								className="flex flex-row md:flex-col items-center  gap-4 text-center relative z-10"
-							>
+
+						const iconNode = cfg.img ? (
+							<img
+								src={cfg.img}
+								alt={label}
+								className="w-6 md:w-10 h-6 md:h-10 object-contain"
+							/>
+						) : Icon ? (
+							<Icon className="w-6 md:w-10 h-6 md:h-10 text-[#0B4F3B]" />
+						) : null;
+
+						const content = (
+							<>
 								<div className="">
 									<div className="w-10 md:w-12 h-10 md:h-12 rounded-md border border-[#857856] flex items-center justify-center text-base md:text-xl font-semibold text-[#857856] bg-white">
 										{stepNumber}
 									</div>
 								</div>
 								<div className="w-12 md:w-16 h-12 md:h-16 rounded-xl border border-[#0B4F3B]/15 flex items-center justify-center bg-white mb-2">
-									<Icon className="w-6 md:w-10 h-6 md:h-10 text-[#0B4F3B]" />
+									{iconNode}
 								</div>
-								<p className="text-sm md:text-base text-[#5B6474] leading-relaxed">
+								<p className="text-sm md:text-base text-[#5B6474] leading-relaxed md:w-32 text-start md:text-center">
 									{label}
 								</p>
+							</>
+						);
+
+						return (
+							<div
+								key={idx}
+								className="flex flex-row md:flex-col items-center gap-4 text-center relative z-10"
+							>
+								{cfg.link ? (
+									<a
+										href={cfg.link}
+										target="_blank"
+										rel="noopener noreferrer"
+										className="flex flex-row md:flex-col items-center gap-4 text-center relative z-10"
+									>
+										{content}
+									</a>
+								) : (
+									content
+								)}
 							</div>
 						);
 					})}
@@ -124,11 +166,12 @@ export default function GiftInstructions({ lang = "ar", code = "MZAR30" }) {
 					rel="noopener noreferrer"
 					className="block w-full text-center bg-[#25D366] hover:bg-[#1ebe5a] text-white font-semibold py-3 rounded-full text-sm md:text-base transition"
 				>
-          <i className="fa-brands fa-whatsapp text-2xl"></i> {"  "}
+					<i className="fa-brands fa-whatsapp text-2xl"></i> {"  "}
 					{t.whatsAppBtn}
 				</a>
-				<a 
-					href="https://onelink.to/yb2xky"
+
+				<a
+					href="https://www.mzarapp.com/all-trips"
 					target="_blank"
 					rel="noopener noreferrer"
 					className="w-full flex items-center justify-center gap-2 border border-[#0B4F3B]/25 text-[#0B4F3B] font-semibold py-3 rounded-full text-sm md:text-base hover:bg-[#F5F7FA] transition"

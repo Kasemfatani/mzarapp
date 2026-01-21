@@ -69,7 +69,7 @@ export default function HotelHero({ lang = "ar", partner }) {
 				{/* Hotel icon (external placeholder) */}
 				<div className={`mb-4 md:mb-8`}>
 					<img
-						src="/hotel/hotel-icon.png"
+						src={partner?.logo}
 						alt="Hotel Logo"
 						className="h-24 w-auto mx-auto brightness-110"
 					/>
@@ -87,38 +87,6 @@ export default function HotelHero({ lang = "ar", partner }) {
 						<p className="text-sm md:text-lg bg-[#E6D2AF]/60 p-4 rounded-full"> <span className="text-[#857856]">✔</span> {t.travelSafe}</p>
 						<p className="text-sm md:text-lg bg-[#E6D2AF]/60 p-4 rounded-full"> <span className="text-[#857856]">✔</span> {t.support}</p>
 					</div>
-					{/* <form
-						onSubmit={handleSubmit}
-						className="w-full flex flex-col md:flex-row items-stretch gap-3 md:gap-4 backdrop-blur-sm bg-white/10 p-3 rounded-2xl"
-					>
-						<input
-							type="text"
-							value={name}
-							onChange={(e) => setName(e.target.value)}
-							placeholder={t.namePh}
-							className="flex-1 rounded-2xl bg-white/15 text-white text-center placeholder-white/70 border border-white/25 focus:border-white/50 outline-none px-4 py-3 md:py-4"
-							dir={isAr ? "rtl" : "ltr"}
-							required
-						/>
-						<div className="flex-1" dir="ltr">
-							<PhoneInput
-								defaultCountry="sa"
-								value={whatsApp}
-								onChange={setWhatsApp}
-								className="w-full"
-								forceDialCode
-								inputClassName="rounded-2xl !bg-white/15 !text-white text-center placeholder-white/70 border border-white/25 focus:border-white/50 outline-none px-4 py-3 md:py-4 w-full"
-								placeholder={t.waPh}
-								required
-							/>
-						</div>
-						<button
-							type="submit"
-							className="flex-1 rounded-2xl px-6 py-3 md:py-4 font-semibold text-white bg-[var(--main-color)] hover:bg-[var(--sec-color)] hover:text-black transition-colors"
-						>
-							{t.cta}
-						</button>
-					</form> */}
 				</div>
 			</div>
 		</section>

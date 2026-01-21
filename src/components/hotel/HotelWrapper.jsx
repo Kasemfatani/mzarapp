@@ -14,6 +14,9 @@ export default function HotelWrapper({ lang = "ar", partner }) {
 	const [clientName, setClientName] = useState("");
 	const [countryCode, setCountryCode] = useState("");
 	const [mobile, setMobile] = useState("");
+	const [coupons, setCoupons] = useState("");
+	const [giftName, setGiftName] = useState("");
+	const [giftDescription, setGiftDescription] = useState("");
 
 	const goToStep2 = ({ name, cc, phone }) => {
 		setClientName(name);
@@ -22,10 +25,11 @@ export default function HotelWrapper({ lang = "ar", partner }) {
 		setStep(2);
 	};
 
-	const handleSelectionSuccess = () => {
+	const handleSelectionSuccess = (coupons) => {
 		// TODO: show step 3 (congrats + instructions)
+		setCoupons(coupons);
 		setStep(3);
-		// alert(lang === "ar" ? "تم الاختيار بنجاح!" : "Selection submitted!");
+		
 	};
 
 	return (
@@ -48,14 +52,16 @@ export default function HotelWrapper({ lang = "ar", partner }) {
 						mobile={mobile}
 						onSuccess={handleSelectionSuccess}
 						onBack={() => setStep(1)}
+						setGiftName={setGiftName}
+						setGiftDescription={setGiftDescription}
 					/>
 				</>
 			)}
 
 			{step === 3 && (
 				<>
-					<HeroWin lang={lang} />
-					<GiftInstructions lang={lang} />
+					<HeroWin lang={lang} giftName={giftName} giftDescription={giftDescription} />
+					<GiftInstructions lang={lang} code={coupons}  />
 				</>
 			)}
 		</>
