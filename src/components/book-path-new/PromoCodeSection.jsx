@@ -9,7 +9,7 @@ export default function PromoCodeSection({
 	value = "",
 	onApplied = () => {},
 	onCleared = () => {},
-  promo_type = "trip",
+	promo_type = "trip",
 }) {
 	const isAr = lang === "ar";
 	const [code, setCode] = useState(value || "");
@@ -19,14 +19,17 @@ export default function PromoCodeSection({
 
 	useEffect(() => setCode(value || ""), [value]);
 
-  // Pre-fill promo code from localStorage on mount
+	// Pre-fill promo code from localStorage on mount
 	useEffect(() => {
 		const partnerPromo = localStorage.getItem("partnerPromoCode");
 		const expiry = localStorage.getItem("partnerPromoCodeExpiry");
 		const now = Date.now();
 
 		if (partnerPromo) {
-			if (expiry && now > parseInt(expiry, 10)) {
+			if (!expiry) {
+				// expiry missing , remove partner promo
+				localStorage.removeItem("partnerPromoCode");
+			} else if (expiry && now > parseInt(expiry, 10)) {
 				localStorage.removeItem("partnerPromoCode");
 				localStorage.removeItem("partnerPromoCodeExpiry");
 			} else {
@@ -42,9 +45,9 @@ export default function PromoCodeSection({
 		setOk(false);
 		try {
 			const url = `${API_BASE_URL_NEW}/landing/coupons/check?promo_code=${encodeURIComponent(
-				code.trim()
+				code.trim(),
 			)}&promo_type=${encodeURIComponent(promo_type)}`;
-			const res = await fetch(url, { method: "GET" , headers: { lang } });
+			const res = await fetch(url, { method: "GET", headers: { lang } });
 			const json = await res.json();
 			if (res.ok && json?.status && json?.data) {
 				const discount = Number(json.data.discount_value || 0);
@@ -53,12 +56,12 @@ export default function PromoCodeSection({
 				setMessage(
 					isAr
 						? `تم تطبيق الخصم (${discount}٪)`
-						: `Discount applied (${discount}%)`
+						: `Discount applied (${discount}%)`,
 				);
 			} else {
 				setOk(false);
 				setMessage(
-					json?.message || (isAr ? "رمز الخصم غير صالح" : "Invalid promo code")
+					json?.message || (isAr ? "رمز الخصم غير صالح" : "Invalid promo code"),
 				);
 			}
 		} catch (e) {
@@ -87,17 +90,14 @@ export default function PromoCodeSection({
 					: "Enter the code to get the best available price"}
 			</p>
 
-			<div
-				className={`flex items-center gap-2 `}
-			>
-				
+			<div className={`flex items-center gap-2 `}>
 				<Input
 					value={code}
 					onChange={(e) => setCode(e.target.value)}
 					placeholder={isAr ? "أدخل كود الخصم هنا" : "Enter promo code here"}
 					className="h-11 flex-1 rounded-xl bg-[#fbfbfb] shadow-md"
 				/>
-        <Button
+				<Button
 					type="button"
 					className="h-11 px-6 rounded-xl bg-[#3c6652] hover:bg-[#2d4d3d] text-white"
 					onClick={apply}
