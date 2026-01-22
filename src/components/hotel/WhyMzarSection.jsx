@@ -18,9 +18,9 @@ const featuresEn = [
 
 const images = [
 	"/gallery/4.webp",
-	"/gallery/19.jpg",
-	"/gallery/25.png",
-	"/gallery/17.png",
+	"/gallery/19.webp",
+	"/gallery/25.webp",
+	"/gallery/17.webp",
 ];
 
 export default function WhyMzarSection({ lang = "ar" }) {
