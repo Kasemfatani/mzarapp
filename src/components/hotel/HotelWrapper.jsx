@@ -29,6 +29,11 @@ export default function HotelWrapper({ lang = "ar", partner }) {
 		// TODO: show step 3 (congrats + instructions)
 		setCoupons(coupons);
 		setStep(3);
+		if (typeof window !== "undefined") {
+            requestAnimationFrame(() => {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+            });
+      }
 		
 	};
 
