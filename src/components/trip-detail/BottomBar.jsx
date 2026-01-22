@@ -33,11 +33,11 @@ export function BottomBar( { lang , data , isSaudi=true } ) {
 	if (isSaudi) {
 		displayPrice = data.start_price;
 		currencySymbol = isAr ? SAR_LABEL : "SAR";
-    displayOldPrice = data.old_price;
+    displayOldPrice = data.old_price ? data.old_price : null;
 	} else {
 		displayPrice = data.start_price / SAR_RATE;
 		currencySymbol = isAr ? "دولار" : "USD";
-    displayOldPrice = data.old_price / SAR_RATE;
+    displayOldPrice = data.old_price ? data.old_price / SAR_RATE : null;
 	}
 	// --- End Currency Logic ---
 

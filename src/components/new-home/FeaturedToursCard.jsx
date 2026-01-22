@@ -49,11 +49,11 @@ export function FeaturedToursCard({
 	if (isSaudi) {
 		displayPrice = start_price;
 		currencySymbol = isAr ? SAR_LABEL : "SAR";
-		displayOldPrice = old_price;
+		displayOldPrice = old_price ? old_price : null;
 	} else {
 		displayPrice = start_price / SAR_RATE;
 		currencySymbol = isAr ? "دولار" : "USD";
-		displayOldPrice = old_price / SAR_RATE;
+		displayOldPrice = old_price ? old_price / SAR_RATE : null;
 	}
 	// --- End Currency Logic ---
 
@@ -141,9 +141,11 @@ export function FeaturedToursCard({
 							<span className="text-sm  flex items-center gap-1">
 								{displayPrice.toFixed(2)} {currencySymbol}
 							</span>
+							{displayOldPrice && (
 							<span className="text-xs  flex items-center gap-1 line-through opacity-70">
 								{displayOldPrice.toFixed(2)} {currencySymbol}
 							</span>
+							)}
 						</div>
 					</div>
 
