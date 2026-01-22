@@ -99,13 +99,16 @@ function TripCard({ trip, isAr, isSaudi = true }) {
 	const SAR_RATE = 3.75;
 	let displayPrice;
 	let currencySymbol;
+	let displayOldPrice;
 
 	if (isSaudi) {
 		displayPrice = trip.start_price;
 		currencySymbol = isAr ? SAR_LABEL : "SAR";
+		displayOldPrice = trip.old_price;
 	} else {
 		displayPrice = trip.start_price / SAR_RATE;
 		currencySymbol = isAr ? "دولار" : "USD";
+		displayOldPrice = trip.old_price / SAR_RATE;
 	}
 	// --- End Currency Logic ---
 
@@ -239,6 +242,9 @@ function TripCard({ trip, isAr, isSaudi = true }) {
 								</span>
 							)}
 						</div>
+						<span className="text-sm line-through opacity-70">
+								{displayOldPrice.toFixed(2)} {currencySymbol}
+						</span>
 					</div>
 
 					{/* Buttons */}

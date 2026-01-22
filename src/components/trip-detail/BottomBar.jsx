@@ -24,18 +24,20 @@ const SAR_LABEL = (
 
 export function BottomBar( { lang , data , isSaudi=true } ) {
   const isAr = lang === "ar";
-
   // --- Currency Logic ---
 	const SAR_RATE = 3.75;
 	let displayPrice;
 	let currencySymbol;
+  let displayOldPrice ;
 
 	if (isSaudi) {
 		displayPrice = data.start_price;
 		currencySymbol = isAr ? SAR_LABEL : "SAR";
+    displayOldPrice = data.old_price;
 	} else {
 		displayPrice = data.start_price / SAR_RATE;
 		currencySymbol = isAr ? "دولار" : "USD";
+    displayOldPrice = data.old_price / SAR_RATE;
 	}
 	// --- End Currency Logic ---
 
@@ -65,19 +67,22 @@ export function BottomBar( { lang , data , isSaudi=true } ) {
         {/* Main Content - Primary CTA Section */}
         <div className="flex items-center justify-between mb-1">
           {/* Price Section */}
-          <div className="flex flex-col md:flex-row items-center gap-1">
+          <div className="flex flex-col md:flex-row items-start gap-1">
             <p className="text-[13px] md:text-[20px] leading-[1.5] text-white/80">{isAr ? "السعر يبدأ من" : "Price starts from"}</p>
-            <div className="flex items-center gap-3">
+            <div className="flex flex-col items-center gap-1">
              
-              <div className="">
+              <div className=" ">
                 <span className="text-lg md:text-2xl text-white" >
                   {displayPrice.toFixed(2)}
                 </span>
+                <span className=" relative text-white/80"> {currencySymbol} </span>
               </div>
-               {/* currency symbol */}
-              <div className=" relative text-white/80">
-                {currencySymbol}
-              </div>
+               {/* old price */}
+              {displayOldPrice && (
+                <span className="text-sm md:text-base line-through opacity-90 text-white/70">
+                  {displayOldPrice.toFixed(2)} {currencySymbol}
+                </span>
+              )}
             </div>
           </div>
 

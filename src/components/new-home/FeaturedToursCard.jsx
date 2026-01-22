@@ -30,6 +30,7 @@ export function FeaturedToursCard({
 	city,
 	short_description,
 	start_price,
+	old_price,
 	rating,
 	rating_count,
 	duration,
@@ -38,17 +39,21 @@ export function FeaturedToursCard({
 	isAr = false,
 	isSaudi = true, // Default to true if the prop is not passed
 }) {
+
 	// --- Currency Logic ---
 	const SAR_RATE = 3.75;
 	let displayPrice;
 	let currencySymbol;
+	let displayOldPrice;
 
 	if (isSaudi) {
 		displayPrice = start_price;
 		currencySymbol = isAr ? SAR_LABEL : "SAR";
+		displayOldPrice = old_price;
 	} else {
 		displayPrice = start_price / SAR_RATE;
 		currencySymbol = isAr ? "دولار" : "USD";
+		displayOldPrice = old_price / SAR_RATE;
 	}
 	// --- End Currency Logic ---
 
@@ -66,6 +71,8 @@ export function FeaturedToursCard({
 	if (id === 87) {
 		disableBooking = true;
 	}
+
+	
 
 	return (
 		<div className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group hover:scale-[1.02]">
@@ -87,7 +94,7 @@ export function FeaturedToursCard({
 				{isPopular && (
 					<div
 						className="absolute top-4 right-4 bg-gradient-to-r from-[#867957] to-[#3C6652] text-white px-4 py-2 rounded-full shadow-lg flex items-center gap-2 text-sm"
-						style={{ fontFamily: '"Readex Pro", sans-serif', fontWeight: 500 }}
+						style={{  fontWeight: 500 }}
 					>
 						<TrendingUp size={16} />
 						<span>{isAr ? "الأكثر طلبًا" : "Most Popular"} </span>
@@ -97,7 +104,7 @@ export function FeaturedToursCard({
 				{/* city Tag */}
 				<div
 					className="absolute bottom-4 right-4 bg-white/20 backdrop-blur-md text-white px-3 py-1 rounded-lg flex items-center gap-2 text-sm"
-					style={{ fontFamily: '"Readex Pro", sans-serif' }}
+					
 				>
 					<MapPin size={14} />
 					<span>{city}</span>
@@ -134,6 +141,9 @@ export function FeaturedToursCard({
 							<span className="text-sm  flex items-center gap-1">
 								{displayPrice.toFixed(2)} {currencySymbol}
 							</span>
+							<span className="text-xs  flex items-center gap-1 line-through opacity-70">
+								{displayOldPrice.toFixed(2)} {currencySymbol}
+							</span>
 						</div>
 					</div>
 
@@ -142,14 +152,14 @@ export function FeaturedToursCard({
 						<div className="flex items-center gap-4 mb-4 justify-center md:justify-end flex-wrap">
 							<div
 								className="flex items-center gap-2 text-gray-600 text-sm"
-								style={{ fontFamily: '"Readex Pro", sans-serif' }}
+								
 							>
 								<span>{duration}</span>
 								<Clock size={16} className="text-[#867957]" />
 							</div>
 							<div
 								className="flex items-center gap-2 text-gray-600 text-sm"
-								style={{ fontFamily: '"Readex Pro", sans-serif' }}
+								
 							>
 								<span>
 									{min_people_count} {isAr ? "شخص" : "people"}
@@ -162,7 +172,7 @@ export function FeaturedToursCard({
 						<div className="flex items-center gap-3 mb-4 justify-end">
 							<span
 								className="text-gray-600 text-sm"
-								style={{ fontFamily: '"Readex Pro", sans-serif' }}
+								
 							>
 								({rating_count} {isAr ? "تقييم" : "reviews"} )
 							</span>
@@ -188,7 +198,7 @@ export function FeaturedToursCard({
 					<a
 						href={`/trip-detail/${id}`}
 						className="w-full text-center bg-[#3C6652] text-white py-3 rounded-xl hover:bg-[#1E3A5F] transition-all shadow-md hover:shadow-lg"
-						style={{ fontFamily: '"Readex Pro", sans-serif', fontWeight: 500 }}
+						style={{  fontWeight: 500 }}
 					>
 						{isAr ? "شاهد التفاصيل" : "View Details"}
 					</a>
@@ -198,7 +208,7 @@ export function FeaturedToursCard({
 							href="#"
 							className="w-full text-[#867957] hover:text-[#3C6652] transition-colors text-center"
 							style={{
-								fontFamily: '"Readex Pro", sans-serif',
+								
 								fontWeight: 500,
 							}}
 						>
@@ -209,7 +219,7 @@ export function FeaturedToursCard({
 							href={link}
 							className="w-full text-[#867957] hover:text-[#3C6652] transition-colors text-center"
 							style={{
-								fontFamily: '"Readex Pro", sans-serif',
+								
 								fontWeight: 500,
 							}}
 						>
