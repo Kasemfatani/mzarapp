@@ -63,7 +63,7 @@ export default function HotelHero({ lang = "ar", partner }) {
 				alt="Hotel hero background"
 				className="absolute inset-0 w-full h-full object-cover -z-10"
 			/>
-			{/* <div className="absolute inset-0 bg-[#0b4f3b]/70 -z-10" /> */}
+			<div className="absolute inset-0 bg-[#0b4f3b]/70 -z-10" />
 
 			<div className="  px-4 pt-10 pb-28 ">
 				{/* Hotel icon (external placeholder) */}
