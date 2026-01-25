@@ -9,10 +9,10 @@ export default function HeroSelection({ lang = "ar" }) {
 	};
 
 	return (
-		<section className="relative md:min-h-[90vh] w-full overflow-hidden flex flex-col justify-start items-center">
+		<section className="relative md:min-h-[90vh] w-full overflow-hidden flex flex-col justify-center items-center">
 			{/* Step 2 hero BG */}
 			<img
-				src="/hotel/Hero2.webp"
+				src="/hotel/Hero-select.webp"
 				alt="Step 2 background"
 				className="absolute inset-0 w-full h-full object-cover -z-10"
 			/>
@@ -20,13 +20,13 @@ export default function HeroSelection({ lang = "ar" }) {
 
 			<div className="px-4 py-10 text-white">
 				{/* Hotel icon (external placeholder) */}
-					<div className={`mb-4 md:mb-8`}>
+					{/* <div className={`mb-4 md:mb-8`}>
 						<img
 							src="/hotel/gift-select.png"
 							alt="gift Logo"
 							className="h-56 w-auto mx-auto brightness-110"
 						/>
-					</div>
+					</div> */}
 					<h2 className="text-2xl md:text-5xl font-extrabold text-center">{t.title}</h2>
 			</div>
 		</section>

@@ -161,7 +161,7 @@ export default function GiftSelectionStep({
 								aria-checked={selected === item.id}
 								className="bg-white shadow-2xl  rounded-2xl overflow-hidden border border-white/20 cursor-pointer hover:bg-white/15 transition select-none focus:outline-none focus:ring-2 focus:ring-[var(--main-color)]"
 							>
-								<div className="h-40 w-full relative">
+								<div className="h-auto w-full relative">
 									<img
 										src={item.image || "/hotel/Hero2.webp"}
 										alt={item.name || ""}
