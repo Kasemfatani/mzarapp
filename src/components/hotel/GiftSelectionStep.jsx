@@ -117,11 +117,11 @@ export default function GiftSelectionStep({
 	};
 
 	return (
-		<section className=" container mx-auto w-full relative z-10 bg-white p-3 rounded-2xl shadow-2xl py-6 -mt-[18px] md:-mt-[300px] mb-12 md:mb-16">
+		<section className=" container mx-auto w-full relative z-10 bg-white p-3 rounded-2xl shadow-2xl py-6 -mt-[18px] md:-mt-[120px] mb-12 md:mb-16">
 			<div className=" px-4 py-2 text-white">
 				{items.length > 0 && (
 					<div className={`mb-4`}>
-						<h2 className="text-[#5B6474] text-lg mt-2">
+						<h2 className="text-[#5B6474] text-lg mt-2 text-center">
 							{isAr ? "اختر هدية واحدة" : "Pick one gift"}
 						</h2>
 					</div>
@@ -139,7 +139,7 @@ export default function GiftSelectionStep({
 				) : items.length === 0 ? (
 					<div className="mb-4 text-black text-center">{t.loadFailed}</div>
 				) : (
-					<div className="grid md:grid-cols-3 gap-6">
+					<div className="flex flex-wrap justify-center gap-6">
 						{items.map((item) => (
 							<label
 								key={item.id}
@@ -159,7 +159,7 @@ export default function GiftSelectionStep({
 								tabIndex={0}
 								role="radio"
 								aria-checked={selected === item.id}
-								className="bg-white shadow-2xl  rounded-2xl overflow-hidden border border-white/20 cursor-pointer hover:bg-white/15 transition select-none focus:outline-none focus:ring-2 focus:ring-[var(--main-color)]"
+								className="w-full md:w-1/3 max-w-[380px] bg-white shadow-2xl rounded-2xl overflow-hidden border border-white/20 cursor-pointer hover:bg-white/15 transition select-none focus:outline-none focus:ring-2 focus:ring-[var(--main-color)]"
 							>
 								<div className="h-auto w-full relative">
 									<img
@@ -197,7 +197,7 @@ export default function GiftSelectionStep({
 						type="button"
 						onClick={submitSelection}
 						disabled={loading}
-						className={`px-8 py-3 rounded-full font-semibold text-white transition w-full
+						className={`px-8 py-3 rounded-full font-semibold text-white transition w-3/6 mx-auto block
               ${loading ? "bg-gray-500 cursor-not-allowed" : "bg-[var(--main-color)] hover:bg-[var(--sec-color)] hover:text-black"}`}
 					>
 						{loading ? (isAr ? "جاري الإرسال..." : "Submitting...") : t.submit}

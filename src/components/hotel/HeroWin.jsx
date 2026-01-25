@@ -7,13 +7,13 @@ export default function HeroWin({ lang = "ar" , giftName = "-", giftDescription 
 	const isAr = lang === "ar";
 	const t = {
 		title: isAr ? "مبروك!" : "Congratulations!",
-		Subtitles: isAr ? "لقد حصلت على هديتك بنجاح" : "You have successfully claimed your gift",
-		gift: isAr ? `لقد حصلت على  ${giftName}` : `You have received a ${giftName}`,
-		giftDesc:  giftDescription ,
+		Subtitles: isAr ? `استمتع بهديتك : ${giftName}` : `Enjoy your gift:  ${giftName}`,
+		// gift: isAr ? `لقد حصلت على  ${giftName}` : `You have received a ${giftName}`,
+		// giftDesc:  giftDescription ,
 	};
 
 	return (
-		<section className="relative md:min-h-[90vh] w-full overflow-hidden flex flex-col justify-center items-center">
+		<section className="relative md:min-h-[50vh] w-full overflow-hidden flex flex-col justify-center items-center">
 			{/* Step 2 hero BG */}
 			<img
 				src="/hotel/Hero2.webp"
@@ -33,8 +33,8 @@ export default function HeroWin({ lang = "ar" , giftName = "-", giftDescription 
 					</div> */}
 					<h2 className="text-2xl md:text-5xl font-extrabold text-center mb-4 md:mb-8">{t.title}</h2>
 					<h2 className="text-2xl md:text-5xl font-extrabold text-center mb-4 md:mb-8">{t.Subtitles}</h2>
-					<p className="text-center mb-4 md:mb-8 text-gray-200 md:text-2xl">{t.gift}</p>
-					<p className="text-center mb-4 md:mb-8 w-full max-w-4xl text-gray-200 md:text-2xl">{t.giftDesc}</p>
+					{/* <p className="text-center mb-4 md:mb-8 text-gray-200 md:text-2xl">{t.gift}</p>
+					<p className="text-center mb-4 md:mb-8 w-full max-w-4xl text-gray-200 md:text-2xl">{t.giftDesc}</p> */}
 			</div>
 		</section>
 	);

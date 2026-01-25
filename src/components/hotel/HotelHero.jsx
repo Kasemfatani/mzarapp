@@ -12,17 +12,17 @@ export default function HotelHero({ lang = "ar", partner }) {
 	const t = {
 		title: isAr ? "أهلًا بك ضيفنا في" : "Welcome, dear guest in",
 		sub: isAr
-			? "مزار تقدم لك خدمات مميزة داخل مكة مع هدية حصرية ل زوار " + partner?.name
-			: "Mzar offers you exclusive services within Mecca with a special gift for " + partner?.name + " visitors",
+			? "استمتع بتجارب فريدة، ورحلات إثرائية مميزة في مكة المكرمة"
+			: "Enjoy unique experiences and Memorable tours in Makkah",
 		offer: isAr
-			? " إثراء - راحة - تجربة لا تُنسى"
-			: " Enrichment - Comfort - Unforgettable Experience",
+			? "هدايا خاصة لزوار " + partner?.name
+			: " Exclusive gifts for " + partner?.name + " guests",
 		travelSafe: isAr
-			? "تنقلات وخدمات داخل مكة"
-			: "Transportation and services within Mecca",
+			? "جولات تاريخية وثقافية"
+			: "Historical & Cultural Tours",
 		support : isAr
-			? "دعم ميداني بالقرب من الحرم"
-			: "Field support near the Haram",
+			? "محتوى موثوق ودقيق"
+			: "Trusted & Verified content",
 		// namePh: isAr ? "اسمك الكامل" : "Your full name",
 		// waPh: isAr ? "رقم الجوال (واتساب)" : "WhatsApp number",
 		// cta: isAr ? "اختر هديتك الآن" : "Choose your gift now",
