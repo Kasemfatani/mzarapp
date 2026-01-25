@@ -1,22 +1,36 @@
 "use client";
 import { useState } from "react";
-import { parsePhoneNumberFromString } from "libphonenumber-js";
-import { PhoneInput } from "react-international-phone";
-import "react-international-phone/style.css";
+
+
 
 export default function HotelHero({ lang = "ar", partner }) {
 	// const [name, setName] = useState("");
 	// const [whatsApp, setWhatsApp] = useState("");
 
+	
+
 	const isAr = lang === "ar";
+
+	let partnerName = partner?.name ;
+	if (!isAr && partner?.name_en){
+		partnerName = partner?.name_en ;
+	}
+
+	let bgImg = "/hotel/Hero1.webp";
+	if (partner?.background_image){
+		bgImg = partner?.background_image ;
+	}
+
+
+
 	const t = {
 		title: isAr ? "أهلًا بك ضيفنا في" : "Welcome, dear guest in",
 		sub: isAr
 			? "استمتع بتجارب فريدة، ورحلات إثرائية مميزة في مكة المكرمة"
 			: "Enjoy unique experiences and Memorable tours in Makkah",
 		offer: isAr
-			? "هدايا خاصة لزوار " + partner?.name
-			: " Exclusive gifts for " + partner?.name + " guests",
+			? "هدايا خاصة لزوار " + partnerName
+			: " Exclusive gifts for " + partnerName + " guests",
 		travelSafe: isAr
 			? "جولات تاريخية وثقافية"
 			: "Historical & Cultural Tours",
@@ -59,7 +73,7 @@ export default function HotelHero({ lang = "ar", partner }) {
 		<section className="relative md:min-h-[90vh]  w-full overflow-hidden flex flex-col justify-center items-center">
 			{/* BG image (external) */}
 			<img
-				src="/hotel/Hero1.webp"
+				src={bgImg}
 				alt="Hotel hero background"
 				className="absolute inset-0 w-full h-full object-cover -z-10"
 			/>
@@ -79,7 +93,7 @@ export default function HotelHero({ lang = "ar", partner }) {
 					className={` text-center text-white max-w-4xl`}
 				>
 					<h1 className="text-3xl md:text-5xl font-extrabold !leading-snug mb-4 md:mb-8">
-						{t.title} {partner?.name}
+						{t.title} {partnerName}
 					</h1>
 					<p className="text-base md:text-3xl text-[#C9A961] mb-4 md:mb-8">{t.sub}</p>
 					<p className="text-base md:text-3xl  mb-4 md:mb-8">{t.offer}</p>
