@@ -15,31 +15,31 @@ export default function GiftInstructions({ lang = "ar", code = "-" }) {
 	const [copied, setCopied] = useState(false);
 
 	const t = {
-		title: isAr ? "كيفية استخدام هديتك" : "How to use your gift",
+		title: isAr ? "كيف تستفيد من هديتك؟" : "How to redeem your gift?",
 		copyHint: isAr ? "انسخ الكود" : "Copy the code",
 		copied: isAr ? "تم نسخ الكود" : "Code copied",
 		whatsAppBtn: isAr
-			? "  للإستفسار تواصل معنا عبر واتساب"
-			: " For inquiries, contact us via WhatsApp",
+			? "للاستفسارات تواصل معنا عبر الواتساب"
+			: " For inquiries, reach out to us on WhatsApp",
 		downloadBtn: isAr
-			? "اذهب للموقع أو حمل التطبيق"
-			: "Visit site or download the app",
+			? "حـمل تطبيق مـــزار او قم بزيارة الموقع الإلكتروني"
+			: "Download Mzar app or visit our website",
 		steps: isAr
 			? [
-					"حمل التطبيق أو اذهب للموقع الإلكتروني ( اضغط هنا )",
-					"سجل حساب جديد في حال تحميل التطبيق",
+					"ادخل على موقع مزار أو حمل التطبيق. (اضغط هنا)",
+					"أنشئ حسابك في التطبيق",
 					"اختر التجربة المطابقة للهدية",
-					"قم بالحجز",
+					"أدخل بيانات الحجز",
 					"أدخل كود الخصم",
-					"تأكيد الحجز",
+					"استمتع بتجربة إثرائية فريدة مع مــزار",
 				]
 			: [
-					"Download the app or visit the website (Click here)",
-					"Create a new account if you downloaded the app",
+					"Visit Mzar website or download the app. (Click here)",
+					"Create your account in the app",
 					"Choose the experience matching the gift",
-					"Make a booking",
+					"Enter your booking details",
 					"Enter the promo code",
-					"Confirm the booking",
+					"Enjoy a unique experience with Mzar",
 				],
 	};
 

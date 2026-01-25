@@ -9,7 +9,7 @@ export default function HeroSelection({ lang = "ar" }) {
 	};
 
 	return (
-		<section className="relative md:min-h-[90vh] w-full overflow-hidden flex flex-col justify-center items-center">
+		<section className="relative md:min-h-[50vh] w-full overflow-hidden flex flex-col justify-center items-center">
 			{/* Step 2 hero BG */}
 			<img
 				src="/hotel/Hero-select.webp"
