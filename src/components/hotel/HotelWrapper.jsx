@@ -17,6 +17,7 @@ export default function HotelWrapper({ lang = "ar", partner }) {
 	const [coupons, setCoupons] = useState("");
 	const [giftName, setGiftName] = useState("");
 	const [giftDescription, setGiftDescription] = useState("");
+	const [phoneExistError, setPhoneExistError] = useState("");
 
 	const goToStep2 = ({ name, cc, phone }) => {
 		setClientName(name);
@@ -37,12 +38,17 @@ export default function HotelWrapper({ lang = "ar", partner }) {
 		
 	};
 
+	const goToStep1 = (errorMsg) => {
+		setPhoneExistError(errorMsg);
+		setStep(1);
+	};
+
 	return (
 		<>
 			{step === 1 && (
 				<>
 					<HotelHero lang={lang} partner={partner} />
-					<UserForm lang={lang} onNext={goToStep2} />
+					<UserForm lang={lang} onNext={goToStep2} phoneExistError={phoneExistError} />
 				</>
 			)}
 
@@ -59,6 +65,7 @@ export default function HotelWrapper({ lang = "ar", partner }) {
 						onBack={() => setStep(1)}
 						setGiftName={setGiftName}
 						setGiftDescription={setGiftDescription}
+						onExistPhone={goToStep1}
 					/>
 				</>
 			)}

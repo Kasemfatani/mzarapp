@@ -5,7 +5,7 @@ import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
 import { User, Phone } from "lucide-react";
 
-export default function UserForm({ lang = "ar", onNext }) {
+export default function UserForm({ lang = "ar", onNext , phoneExistError }) {
 	const [name, setName] = useState("");
 	const [whatsApp, setWhatsApp] = useState("");
 
@@ -49,6 +49,11 @@ export default function UserForm({ lang = "ar", onNext }) {
 			onSubmit={handleSubmit}
 			className="container mx-auto w-full relative z-10 bg-white p-3 rounded-2xl shadow-2xl py-6 -mt-[50px] md:-mt-[90px] mb-12 md:mb-16"
 		>
+			{phoneExistError && (
+					<div className="mb-4 text-black bg-red-200 border border-red-500/40 rounded-lg px-4 py-2">
+						{phoneExistError}
+					</div>
+				)}
 			<div className="flex flex-col md:flex-row  gap-3 md:gap-4 mb-4 md:mb-8">
 				<div className="flex-1 flex flex-col gap-2">
 					<label>

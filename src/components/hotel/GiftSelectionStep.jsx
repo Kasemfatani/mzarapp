@@ -14,6 +14,7 @@ export default function GiftSelectionStep({
 	onBack,
 	setGiftName,
 	setGiftDescription,
+	onExistPhone,
 }) {
 	const isAr = lang === "ar";
 	const t = {
@@ -101,6 +102,9 @@ export default function GiftSelectionStep({
 				}
 			} else {
 				setError(json?.message || (isAr ? "حدث خطأ" : "An error occurred"));
+				if (json?.data?.number_exists) {
+					onExistPhone?.(json?.message);
+				}
 			}
 		} catch (e) {
 			console.error("Gift submit error:", e);
@@ -115,14 +119,13 @@ export default function GiftSelectionStep({
 	return (
 		<section className=" container mx-auto w-full relative z-10 bg-white p-3 rounded-2xl shadow-2xl py-6 -mt-[18px] md:-mt-[300px] mb-12 md:mb-16">
 			<div className=" px-4 py-2 text-white">
-				{ items.length > 0 && (
+				{items.length > 0 && (
 					<div className={`mb-4`}>
-					<h2 className="text-[#5B6474] text-lg mt-2">
-						{isAr ? "اختر هدية واحدة" : "Pick one gift"}
-					</h2>
-				</div>
+						<h2 className="text-[#5B6474] text-lg mt-2">
+							{isAr ? "اختر هدية واحدة" : "Pick one gift"}
+						</h2>
+					</div>
 				)}
-				
 
 				{error && (
 					<div className="mb-4 text-black bg-red-200 border border-red-500/40 rounded-lg px-4 py-2">
@@ -158,12 +161,17 @@ export default function GiftSelectionStep({
 								aria-checked={selected === item.id}
 								className="bg-white shadow-2xl  rounded-2xl overflow-hidden border border-white/20 cursor-pointer hover:bg-white/15 transition select-none focus:outline-none focus:ring-2 focus:ring-[var(--main-color)]"
 							>
-								<div className="h-40 w-full">
+								<div className="h-40 w-full relative">
 									<img
 										src={item.image || "/hotel/Hero2.webp"}
 										alt={item.name || ""}
 										className="w-full h-full object-cover"
 									/>
+									{item.category && (
+										<span className="absolute top-3 left-3 bg-white/80 text-xs px-2 py-1 rounded-md font-semibold text-black">
+											{item.category}
+										</span>
+									)}
 								</div>
 								<div className="py-8 px-4 flex items-center gap-4">
 									<input
