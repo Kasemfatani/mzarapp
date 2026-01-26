@@ -17,7 +17,7 @@ const getData = cache(async (lang) => {
 		`${API_BASE_URL_NEW}/landing/landing-guided-tour/booking-data?package_id=87`,
 		{
 			headers: { lang },
-		}
+		},
 	);
 
 	if (!res.ok) return null;
@@ -35,37 +35,51 @@ function determineLang() {
 }
 
 export function generateMetadata() {
-	
 	const lang = determineLang();
 
 	if (lang === "ar") {
 		return {
 			title: "حجز جولة المسجد النبوي",
-			
 		};
 	}
 	return {
 		title: "Booking Masjid An-Nabawi Tour",
-		
 	};
 }
 
 export default async function Page() {
-	
 	const lang = determineLang();
-	
-	
-		// Call the cached function again—it will reuse the result from generateMetadata
-		const data = await getData(lang);
-		// console.log("Trip Detail Data:", data);
-		if (!data) notFound();
+
+	// Call the cached function again—it will reuse the result from generateMetadata
+	const data = await getData(lang);
+	// console.log("Trip Detail Data:", data);
+	if (!data) notFound();
+
+	// get the available days from backend
+	const availableDaysFromBackend = data.days || [];
+
+	// change 7 to 0, keep others as is
+	const normalizedAvailable = availableDaysFromBackend.map((day) =>
+		day === 7 ? 0 : day,
+	);
+
+	//  generate disabled days: Filter out the available ones from the full week [0-6]
+	const disabledDays = [0, 1, 2, 3, 4, 5, 6].filter(
+		(day) => !normalizedAvailable.includes(day),
+	);
 
 	// reuseable geo helper
-  const { isSaudi , countryCode  } = await getIsSaudiFromHeaders(headers());
+	const { isSaudi, countryCode } = await getIsSaudiFromHeaders(headers());
 
 	// console.log("BookTourNew Page busData:", data);
 
 	return (
-		<BookWrapper lang={lang} busData={data} disabledDays={[0,1,2,4,5,6]} isSaudi={isSaudi} countryCode={countryCode} />
+		<BookWrapper
+			lang={lang}
+			busData={data}
+			disabledDays={disabledDays}
+			isSaudi={isSaudi}
+			countryCode={countryCode}
+		/>
 	);
 }
