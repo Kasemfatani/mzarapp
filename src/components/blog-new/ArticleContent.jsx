@@ -87,7 +87,7 @@ export function ArticleContent({ content, isAr, BLOG_URL }) {
 										<div className="overflow-hidden rounded-2xl">
 											<img
 												src={`${BLOG_URL}${block.content}`}
-												alt="Article content"
+												alt={block.caption || "image"}
 												className="h-auto w-full object-cover"
 											/>
 										</div>
