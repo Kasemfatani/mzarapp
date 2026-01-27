@@ -90,10 +90,10 @@ export function BookingForm({
 							<FormField
 								control={form.control}
 								name="time"
-								id="time"
+								
 								render={({ field }) => (
 									<FormItem>
-										<div className="flex flex-col sm:flex-row md:items-stretch justify-between gap-4">
+										<div id="time" className="flex flex-col sm:flex-row md:items-stretch justify-between gap-4">
 											{times.map((time) => {
 												const active = field.value?.id === time.id;
 												return (

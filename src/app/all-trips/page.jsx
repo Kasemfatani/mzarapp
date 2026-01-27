@@ -27,6 +27,19 @@ function determineLang() {
 	);
 }
 
+export function generateMetadata() {
+	const lang = determineLang();
+
+	if (lang === "ar") {
+		return {
+			title: "جميع التجارب | مزار",
+		};
+	}
+	return {
+		title: "All Experiences | Mzar",
+	};
+}
+
 export default async function AllTrip({ searchParams }) {
 	const lang = determineLang();
 
