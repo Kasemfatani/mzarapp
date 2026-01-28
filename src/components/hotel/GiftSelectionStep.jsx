@@ -30,6 +30,7 @@ export default function GiftSelectionStep({
 	const [selected, setSelected] = useState(null);
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState("");
+	const [typeId, setTypeId] = useState(null);
 
 	useEffect(() => {
 		let cancelled = false;
@@ -93,7 +94,7 @@ export default function GiftSelectionStep({
 			const json = await res.json();
 
 			if (res.ok && json?.status !== false) {
-				onSuccess?.(json.data?.coupon_code || "-");
+				onSuccess?.(json.data?.coupon_code || "-" , typeId);
 				if (json.data?.coupon_code) {
 					localStorage.setItem("partnerPromoCode", json.data.coupon_code);
 					// Set expiry to 24 hours from now
@@ -147,6 +148,7 @@ export default function GiftSelectionStep({
 									setSelected(item.id);
 									setGiftName(item.name);
 									setGiftDescription(item.description);
+									setTypeId(item.type_id);
 								}}
 								onKeyDown={(e) => {
 									if (e.key === "Enter" || e.key === " ") {
@@ -154,6 +156,7 @@ export default function GiftSelectionStep({
 										setSelected(item.id);
 										setGiftName(item.name);
 										setGiftDescription(item.description);
+										setTypeId(item.type_id);
 									}
 								}}
 								tabIndex={0}
@@ -178,7 +181,10 @@ export default function GiftSelectionStep({
 										type="radio"
 										name="gift"
 										checked={selected === item.id}
-										onChange={() => setSelected(item.id)}
+										onChange={() => {
+											setSelected(item.id);
+											setTypeId(item.type_id);
+										}}
 										className="w-5 h-5 accent-[var(--main-color)]"
 										aria-hidden="true"
 									/>

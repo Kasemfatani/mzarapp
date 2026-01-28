@@ -18,6 +18,7 @@ export default function HotelWrapper({ lang = "ar", partner }) {
 	const [giftName, setGiftName] = useState("");
 	const [giftDescription, setGiftDescription] = useState("");
 	const [phoneExistError, setPhoneExistError] = useState("");
+	const [typeId, setTypeId] = useState(null);
 
 	const goToStep2 = ({ name, cc, phone }) => {
 		setClientName(name);
@@ -26,9 +27,10 @@ export default function HotelWrapper({ lang = "ar", partner }) {
 		setStep(2);
 	};
 
-	const handleSelectionSuccess = (coupons) => {
+	const handleSelectionSuccess = (coupons , type_id) => {
 		// TODO: show step 3 (congrats + instructions)
 		setCoupons(coupons);
+		setTypeId(type_id);
 		setStep(3);
 		if (typeof window !== "undefined") {
             requestAnimationFrame(() => {
@@ -73,7 +75,7 @@ export default function HotelWrapper({ lang = "ar", partner }) {
 			{step === 3 && (
 				<>
 					<HeroWin lang={lang} giftName={giftName} giftDescription={giftDescription} />
-					<GiftInstructions lang={lang} code={coupons}  />
+					<GiftInstructions lang={lang} code={coupons} typeId={typeId} />
 				</>
 			)}
 		</>
