@@ -1,4 +1,6 @@
 "use client";
+import parse from "html-react-parser";
+
 import { useState } from "react";
 import {
 	Copy,
@@ -10,7 +12,7 @@ import {
 	CheckCircle,
 } from "lucide-react";
 
-export default function GiftInstructions({ lang = "ar", code = "-" }) {
+export default function GiftInstructions({ lang = "ar", code = "-" , typeId = null }) {
 	const isAr = lang === "ar";
 	const [copied, setCopied] = useState(false);
 
@@ -26,7 +28,7 @@ export default function GiftInstructions({ lang = "ar", code = "-" }) {
 			: "Download Mzar app or visit our website",
 		steps: isAr
 			? [
-					"ادخل على موقع مزار أو حمل التطبيق. (اضغط هنا)",
+					"ادخل على موقع مزار أو حمل التطبيق. <span className='text-blue-600 hover:underline'>(اضغط هنا)</span>",
 					"أنشئ حسابك في التطبيق",
 					"اختر التجربة المطابقة للهدية",
 					"أدخل بيانات الحجز",
@@ -34,7 +36,7 @@ export default function GiftInstructions({ lang = "ar", code = "-" }) {
 					"استمتع بتجربة إثرائية فريدة مع مــزار",
 				]
 			: [
-					"Visit Mzar website or download the app. (Click here)",
+					"Visit Mzar website or download the app. <span className='text-blue-600 hover:underline'>(Click here)</span>",
 					"Create your account in the app",
 					"Choose the experience matching the gift",
 					"Enter your booking details",
@@ -45,7 +47,7 @@ export default function GiftInstructions({ lang = "ar", code = "-" }) {
 
 	// each step can provide: icon (lucide component), img (string) and/or link
 	const stepsConfig = [
-		{ icon: Download, link: "https://www.mzarapp.com/all-trips" }, // app / site
+		{ icon: Download, link: `https://www.mzarapp.com/all-trips?city_id=1&type=${typeId}` }, // app / site
 		{ icon: UserPlus }, // sign up
 		{ icon: Map }, // choose experience
 		{ icon: Calendar }, // make booking
@@ -130,7 +132,7 @@ export default function GiftInstructions({ lang = "ar", code = "-" }) {
 									{iconNode}
 								</div>
 								<p className="text-sm md:text-base text-[#5B6474] leading-relaxed md:w-32 text-start md:text-center">
-									{label}
+									{parse(label)}
 								</p>
 							</>
 						);
