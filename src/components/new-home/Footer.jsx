@@ -146,6 +146,14 @@ export default function Footer() {
 							</li>
 							<li>
 								<a
+									href="/blogs"
+									className="text-gray-600 hover:text-[#867957] transition-colors text-sm block"
+								>
+									{isAr ? 'المقالات' : 'Blogs'}
+								</a>
+							</li>
+							<li>
+								<a
 									href="/contact-us"
 									className="text-gray-600 hover:text-[#867957] transition-colors text-sm block"
 								>
