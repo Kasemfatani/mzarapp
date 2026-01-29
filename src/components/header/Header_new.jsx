@@ -204,12 +204,12 @@ export default function Header() {
 								>
 									{isAr ? " من نحن" : "About Us"}
 								</a>
-								{/* <a
-								href="#bookings"
-								className="text-[#3C6652] hover:text-[#867957] transition-colors"
-							>
-								{isAr ? "الحجوزات" : "Bookings"}
-							</a> */}
+								<a
+									href="/blogs"
+									className="text-[#3C6652] hover:text-[#867957] transition-colors"
+								>
+									{isAr ? "المقالات" : "Blogs"}
+								</a>
 								<a
 									href="/contact-us"
 									className="text-[#3C6652] hover:text-[#867957] transition-colors"
@@ -271,12 +271,12 @@ export default function Header() {
 								>
 									{isAr ? " من نحن" : "About Us"}
 								</a>
-								{/* <a
-										href="#bookings"
-										className="text-[#3C6652] hover:text-[#857856] transition-colors"
-									>
-										{isAr ? "الحجوزات" : "Bookings"}
-									</a> */}
+								<a
+									href="/blogs"
+									className="text-[#3C6652] hover:text-[#857856] transition-colors"
+								>
+									{isAr ? "المقالات" : "Blogs"}
+								</a>
 								<a
 									href="/contact-us"
 									className="text-[#3C6652] hover:text-[#857856] transition-colors"
