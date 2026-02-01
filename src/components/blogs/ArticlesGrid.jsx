@@ -1,4 +1,4 @@
-import { Clock, Eye, ArrowLeft , ArrowRight } from "lucide-react";
+import { Clock, Eye, ArrowLeft, ArrowRight } from "lucide-react";
 // import { Article } from '../../data/articles';
 
 export function ArticlesGrid({ articles, isAr, BLOG_URL }) {
@@ -50,6 +50,10 @@ export function ArticlesGrid({ articles, isAr, BLOG_URL }) {
 						>
 							{/* Image */}
 							<div className="relative h-56 overflow-hidden">
+								<a
+									href={`/blog/${article.slug}`}
+									className="absolute inset-0 z-10"
+								></a>
 								<img
 									src={
 										article.featuredImage
@@ -65,9 +69,11 @@ export function ArticlesGrid({ articles, isAr, BLOG_URL }) {
 
 							{/* Content */}
 							<div className="p-6">
-								<h3 className="mb-3 line-clamp-2 text-2xl text-[#3C6652] transition-colors group-hover:text-[#867957]">
-									{article.title}
-								</h3>
+								<a href={`/blog/${article.slug}`}>
+									<h3 className="mb-3 line-clamp-2 text-2xl text-[#3C6652] transition-colors group-hover:text-[#867957]">
+										{article.title}
+									</h3>
+								</a>
 
 								<p className="mb-6 line-clamp-2 text-lg leading-relaxed text-[#4a5568]">
 									{article.subtitle}
@@ -88,12 +94,18 @@ export function ArticlesGrid({ articles, isAr, BLOG_URL }) {
 										</div>
 									</div>
 
-									<a href={`/blog/${article.slug}`} className="group/link flex items-center gap-2 text-lg text-[#3C6652] transition-colors hover:text-[#867957]">
+									<a
+										href={`/blog/${article.slug}`}
+										className="group/link flex items-center gap-2 text-lg text-[#3C6652] transition-colors hover:text-[#867957]"
+									>
 										<span className="relative after:absolute after:bottom-0 after:right-0 after:h-0.5 after:w-0 after:bg-[#867957] after:transition-all after:duration-300 group-hover/link:after:w-full">
 											{isAr ? "اقرأ المزيد" : "Read More"}
 										</span>
-                    {isAr ? <ArrowLeft className="h-4 w-4 transition-transform group-hover/link:-translate-x-1" /> : <ArrowRight className="h-4 w-4 transition-transform group-hover/link:translate-x-1" />}
-										
+										{isAr ? (
+											<ArrowLeft className="h-4 w-4 transition-transform group-hover/link:-translate-x-1" />
+										) : (
+											<ArrowRight className="h-4 w-4 transition-transform group-hover/link:translate-x-1" />
+										)}
 									</a>
 								</div>
 							</div>

@@ -1,4 +1,4 @@
-import { Clock, ArrowLeft , ArrowRight } from "lucide-react";
+import { Clock, ArrowLeft, ArrowRight } from "lucide-react";
 
 export function FeaturedArticles({ isAr, articles, BLOG_URL }) {
 	const mainFeatured = articles[0];
@@ -24,6 +24,10 @@ export function FeaturedArticles({ isAr, articles, BLOG_URL }) {
 						<div className="group lg:col-span-2">
 							<article className="overflow-hidden rounded-3xl bg-white shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
 								<div className="relative h-80 overflow-hidden lg:h-96">
+									<a
+										href={`/blog/${mainFeatured.slug}`}
+										className="absolute inset-0 z-10"
+									></a>
 									<img
 										src={BLOG_URL + mainFeatured.featuredImage}
 										alt={mainFeatured.title}
@@ -33,9 +37,11 @@ export function FeaturedArticles({ isAr, articles, BLOG_URL }) {
 								</div>
 
 								<div className="p-8">
-									<h3 className="mb-4 text-3xl text-[#3C6652] transition-colors group-hover:text-[#867957]">
-										{mainFeatured.title}
-									</h3>
+									<a href={`/blog/${mainFeatured.slug}`}>
+										<h3 className="mb-4 text-3xl text-[#3C6652] transition-colors group-hover:text-[#867957]">
+											{mainFeatured.title}
+										</h3>
+									</a>
 									<p className="mb-6 line-clamp-2 text-xl leading-relaxed text-[#4a5568]">
 										{mainFeatured.subtitle}
 									</p>
@@ -48,11 +54,16 @@ export function FeaturedArticles({ isAr, articles, BLOG_URL }) {
 												{isAr ? "دقائق قراءة" : "min read"}
 											</span>
 										</div>
-										<a href={`/blog/${mainFeatured.slug}`} className="group/btn flex items-center gap-2 text-xl text-[#3C6652] transition-colors hover:text-[#867957]">
+										<a
+											href={`/blog/${mainFeatured.slug}`}
+											className="group/btn flex items-center gap-2 text-xl text-[#3C6652] transition-colors hover:text-[#867957]"
+										>
 											<span>{isAr ? "اقرأ المقال" : "Read Article"}</span>
-                      {isAr ? <ArrowLeft className="h-5 w-5 transition-transform group-hover/btn:-translate-x-1" /> :
-                      <ArrowRight className="h-5 w-5 transition-transform group-hover/btn:translate-x-1" />}
-											
+											{isAr ? (
+												<ArrowLeft className="h-5 w-5 transition-transform group-hover/btn:-translate-x-1" />
+											) : (
+												<ArrowRight className="h-5 w-5 transition-transform group-hover/btn:translate-x-1" />
+											)}
 										</a>
 									</div>
 								</div>
@@ -68,6 +79,10 @@ export function FeaturedArticles({ isAr, articles, BLOG_URL }) {
 								className="group overflow-hidden rounded-3xl bg-white shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
 							>
 								<div className="relative h-48 overflow-hidden">
+									<a
+										href={`/blog/${article.slug}`}
+										className="absolute inset-0 z-10"
+									></a>
 									<img
 										src={BLOG_URL + article.featuredImage}
 										alt={article.title}
@@ -77,9 +92,11 @@ export function FeaturedArticles({ isAr, articles, BLOG_URL }) {
 								</div>
 
 								<div className="p-6">
-									<h3 className="mb-3 line-clamp-2 text-xl text-[#3C6652] transition-colors group-hover:text-[#867957]">
-										{article.title}
-									</h3>
+									<a href={`/blog/${article.slug}`}>
+										<h3 className="mb-3 line-clamp-2 text-xl text-[#3C6652] transition-colors group-hover:text-[#867957]">
+											{article.title}
+										</h3>
+									</a>
 
 									<div className="flex items-center justify-between">
 										<div className="flex items-center gap-2 text-base text-[#718096]">
@@ -88,7 +105,10 @@ export function FeaturedArticles({ isAr, articles, BLOG_URL }) {
 												{article.readTime} {isAr ? "دقائق" : "min"}
 											</span>
 										</div>
-										<a href={`/blog/${article.slug}`} className="text-lg text-[#3C6652] transition-colors hover:text-[#867957]">
+										<a
+											href={`/blog/${article.slug}`}
+											className="text-lg text-[#3C6652] transition-colors hover:text-[#867957]"
+										>
 											{isAr ? "اقرأ ←" : "Read →"}
 										</a>
 									</div>
