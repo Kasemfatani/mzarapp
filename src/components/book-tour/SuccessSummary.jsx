@@ -232,7 +232,7 @@ export default function SuccessSummary({ initialLang = "en" }) {
 
 			try {
 				const res = await fetch(
-					`${API_BASE_URL_NEW}/customer/landing-bus-trip/booking-payment`,
+					`${API_BASE_URL_NEW}/landing/landing-bus-trip/booking-payment`,
 					{
 						method: "POST",
 						headers: {
