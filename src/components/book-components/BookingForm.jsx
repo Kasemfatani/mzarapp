@@ -62,6 +62,7 @@ export function BookingForm({
 	leftSeats,
 	tax = 0,
 	isSaudi = true,
+	maxDate = addDays(new Date(), 14),
 }) {
 	// auto-select nearest gathering point (if user hasn't picked one)
 	// useEffect(() => {
@@ -126,7 +127,7 @@ export function BookingForm({
 	const isAr = lang === "ar";
 	const today = startOfToday();
 	const tomorrow = addDays(today, 1);
-	const maxDate = addDays(today, 14);
+	// const maxDate = addDays(today, 14);
 
 	// read current counts to render numbers
 	const counts = form.watch("group_age_counts") || [];

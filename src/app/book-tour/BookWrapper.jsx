@@ -534,6 +534,7 @@ export default function BookTourPage({
 								leftSeats={leftSeats}
 								tax={typeof busData?.tax === "number" ? busData.tax : 0}
 								isSaudi={isSaudi}
+								maxDate={busData.last_date}
 							/>
 
 							{/* Promo section (after form) */}
