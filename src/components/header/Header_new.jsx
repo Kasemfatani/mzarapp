@@ -26,6 +26,11 @@ export default function Header() {
 		showMenue = false;
 	}
 
+	let showTopBar = true;
+	if (pathname === "/mashair" || pathname === "/haram") {
+		showTopBar = false;
+	}
+
 	let [lang, setLang] = useState("en");
 	useEffect(() => {
 		if (typeof window !== "undefined") {
@@ -50,111 +55,116 @@ export default function Header() {
 	return (
 		<>
 			{/* Top Bar */}
-			<div className="bg-[#3C6652] text-white py-2" dir={isAr ? "rtl" : "ltr"}>
-				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-					<div className="flex flex-col md:flex-row items-center justify-between text-sm">
-						<div className="flex items-center justify-center gap-2 flex-wrap mb-2 md:mb-0">
-							<a
-								href="mailto:contact@mzarapp.com"
-								className="flex items-center gap-1 hover:underline"
-							>
-								<i className="fa-solid fa-envelope"></i>
-								contact@mzarapp.com
-							</a>
-							<a
-								href="tel:920005785"
-								className="flex items-center gap-1 hover:underline"
-							>
-								<i className="fa-solid fa-phone"></i>
-								920005785
-							</a>
-							<a
-								href="https://wa.me/+966580121025"
-								target="_blank"
-								rel="noopener noreferrer"
-								className="flex items-center gap-1 hover:underline"
-							>
-								<i className="fa-brands fa-whatsapp"></i>
-								+966580121025
-							</a>
-						</div>
-						<div className="flex flex-col md:flex-row items-center gap-3 md:gap-6">
-							<div className="flex items-center gap-4">
+			{showTopBar && (
+				<div
+					className="bg-[#3C6652] text-white py-2"
+					dir={isAr ? "rtl" : "ltr"}
+				>
+					<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+						<div className="flex flex-col md:flex-row items-center justify-between text-sm">
+							<div className="flex items-center justify-center gap-2 flex-wrap mb-2 md:mb-0">
 								<a
-									href="https://www.youtube.com/@mzarapp"
-									target="_blank"
-									rel="noopener noreferrer"
+									href="mailto:contact@mzarapp.com"
+									className="flex items-center gap-1 hover:underline"
 								>
-									<i className="fa-brands fa-youtube text-white"></i>
+									<i className="fa-solid fa-envelope"></i>
+									contact@mzarapp.com
 								</a>
 								<a
-									href="https://www.instagram.com/mzarapp/"
-									target="_blank"
-									rel="noopener noreferrer"
+									href="tel:920005785"
+									className="flex items-center gap-1 hover:underline"
 								>
-									<i className="fa-brands fa-instagram text-white"></i>
+									<i className="fa-solid fa-phone"></i>
+									920005785
 								</a>
 								<a
-									href="https://www.facebook.com/mzarapp"
+									href="https://wa.me/+966580121025"
 									target="_blank"
 									rel="noopener noreferrer"
+									className="flex items-center gap-1 hover:underline"
 								>
-									<i className="fa-brands fa-facebook text-white"></i>
-								</a>
-								{/* LinkedIn, TikTok, and X */}
-								<a
-									href="https://www.linkedin.com/company/mzarapp"
-									target="_blank"
-									rel="noopener noreferrer"
-								>
-									<i className="fa-brands fa-linkedin text-white"></i>
-								</a>
-								<a
-									href="https://www.tiktok.com/@mzarapp"
-									target="_blank"
-									rel="noopener noreferrer"
-								>
-									<i className="fa-brands fa-tiktok text-white"></i>
-								</a>
-								<a
-									href="https://x.com/mzarapp"
-									target="_blank"
-									rel="noopener noreferrer"
-								>
-									<i className="fa-brands fa-x-twitter text-white"></i>
+									<i className="fa-brands fa-whatsapp"></i>
+									+966580121025
 								</a>
 							</div>
-							<div className="flex items-start gap-2">
-								<button
-									className="flex items-center gap-2 px-3 py-1 bg-transparent hover:text-[#E7D3AF] transition-colors rounded"
-									onClick={() => {
-										const nextLang = isAr ? "en" : "ar";
-										localStorage.setItem("lang", nextLang);
-										const oneYear = 60 * 60 * 24 * 365;
-										const isHTTPS =
-											typeof window !== "undefined" &&
-											window.location.protocol === "https:";
-										document.cookie = `lang=${nextLang}; path=/; max-age=${oneYear}; samesite=lax${
-											isHTTPS ? "; secure" : ""
-										}`;
-										setLang(nextLang);
-										window.location.reload();
-									}}
-									aria-label={
-										isAr ? "Switch to English" : "التبديل إلى العربية"
-									}
-									aria-pressed={isAr}
-								>
-									<Globe size={18} />
-									<span className="font-medium text-base">
-										{isAr ? "العربية" : "EN"}
-									</span>
-								</button>
+							<div className="flex flex-col md:flex-row items-center gap-3 md:gap-6">
+								<div className="flex items-center gap-4">
+									<a
+										href="https://www.youtube.com/@mzarapp"
+										target="_blank"
+										rel="noopener noreferrer"
+									>
+										<i className="fa-brands fa-youtube text-white"></i>
+									</a>
+									<a
+										href="https://www.instagram.com/mzarapp/"
+										target="_blank"
+										rel="noopener noreferrer"
+									>
+										<i className="fa-brands fa-instagram text-white"></i>
+									</a>
+									<a
+										href="https://www.facebook.com/mzarapp"
+										target="_blank"
+										rel="noopener noreferrer"
+									>
+										<i className="fa-brands fa-facebook text-white"></i>
+									</a>
+									{/* LinkedIn, TikTok, and X */}
+									<a
+										href="https://www.linkedin.com/company/mzarapp"
+										target="_blank"
+										rel="noopener noreferrer"
+									>
+										<i className="fa-brands fa-linkedin text-white"></i>
+									</a>
+									<a
+										href="https://www.tiktok.com/@mzarapp"
+										target="_blank"
+										rel="noopener noreferrer"
+									>
+										<i className="fa-brands fa-tiktok text-white"></i>
+									</a>
+									<a
+										href="https://x.com/mzarapp"
+										target="_blank"
+										rel="noopener noreferrer"
+									>
+										<i className="fa-brands fa-x-twitter text-white"></i>
+									</a>
+								</div>
+								<div className="flex items-start gap-2">
+									<button
+										className="flex items-center gap-2 px-3 py-1 bg-transparent hover:text-[#E7D3AF] transition-colors rounded"
+										onClick={() => {
+											const nextLang = isAr ? "en" : "ar";
+											localStorage.setItem("lang", nextLang);
+											const oneYear = 60 * 60 * 24 * 365;
+											const isHTTPS =
+												typeof window !== "undefined" &&
+												window.location.protocol === "https:";
+											document.cookie = `lang=${nextLang}; path=/; max-age=${oneYear}; samesite=lax${
+												isHTTPS ? "; secure" : ""
+											}`;
+											setLang(nextLang);
+											window.location.reload();
+										}}
+										aria-label={
+											isAr ? "Switch to English" : "التبديل إلى العربية"
+										}
+										aria-pressed={isAr}
+									>
+										<Globe size={18} />
+										<span className="font-medium text-base">
+											{isAr ? "العربية" : "EN"}
+										</span>
+									</button>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
+			)}
 
 			{/* Main Header */}
 			<div
@@ -230,6 +240,33 @@ export default function Header() {
 								>
 									{isAr ? "احجز الآن" : "Book Now"}
 								</a>
+								{!showTopBar && (
+									<button
+										className="flex items-center gap-2 px-3 py-1 bg-transparent hover:text-[#E7D3AF] transition-colors rounded"
+										onClick={() => {
+											const nextLang = isAr ? "en" : "ar";
+											localStorage.setItem("lang", nextLang);
+											const oneYear = 60 * 60 * 24 * 365;
+											const isHTTPS =
+												typeof window !== "undefined" &&
+												window.location.protocol === "https:";
+											document.cookie = `lang=${nextLang}; path=/; max-age=${oneYear}; samesite=lax${
+												isHTTPS ? "; secure" : ""
+											}`;
+											setLang(nextLang);
+											window.location.reload();
+										}}
+										aria-label={
+											isAr ? "Switch to English" : "التبديل إلى العربية"
+										}
+										aria-pressed={isAr}
+									>
+										<Globe size={18} />
+										<span className="font-medium text-base">
+											{isAr ? "العربية" : "EN"}
+										</span>
+									</button>
+								)}
 							</div>
 						)}
 
@@ -292,6 +329,33 @@ export default function Header() {
 								>
 									{isAr ? "احجز الآن" : "Book Now"}
 								</a>
+								{!showTopBar && (
+									<button
+										className="flex items-center justify-center gap-2 px-3 py-1 bg-transparent hover:text-[#E7D3AF] transition-colors rounded"
+										onClick={() => {
+											const nextLang = isAr ? "en" : "ar";
+											localStorage.setItem("lang", nextLang);
+											const oneYear = 60 * 60 * 24 * 365;
+											const isHTTPS =
+												typeof window !== "undefined" &&
+												window.location.protocol === "https:";
+											document.cookie = `lang=${nextLang}; path=/; max-age=${oneYear}; samesite=lax${
+												isHTTPS ? "; secure" : ""
+											}`;
+											setLang(nextLang);
+											window.location.reload();
+										}}
+										aria-label={
+											isAr ? "Switch to English" : "التبديل إلى العربية"
+										}
+										aria-pressed={isAr}
+									>
+										<Globe size={18} />
+										<span className="font-medium text-base">
+											{isAr ? "العربية" : "EN"}
+										</span>
+									</button>
+								)}
 							</nav>
 						</div>
 					)}
