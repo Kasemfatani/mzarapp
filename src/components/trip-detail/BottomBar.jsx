@@ -114,9 +114,10 @@ export function BottomBar({ lang, data, isSaudi = true }) {
 							href={`https://wa.me/+966580121025`}
 							target="_blank"
 							rel="noopener noreferrer"
-							className="bg-[#857856] hover:bg-[#756849] text-white px-6 py-3 rounded-[18px] flex items-center gap-3 transition-all shadow-md hover:shadow-lg"
+							className="bg-[#857856] hover:bg-[#756849] text-white px-6 py-3 rounded-[18px] flex items-center gap-1 transition-all shadow-md hover:shadow-lg"
 						>
-							<span className="text-[11px] md:text-[18px]  leading-[1.3]">
+              <i className="fa-brands fa-whatsapp"></i>
+							<span className="text-[13px] md:text-lg">
 								{isAr ? "تواصل عبر واتساب" : "Contact via WhatsApp"}
 							</span>
 						</a>
