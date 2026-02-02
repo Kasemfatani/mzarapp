@@ -1,6 +1,6 @@
-import { ArrowLeft,ArrowRight,  Clock, Shield } from 'lucide-react';
-import { motion } from 'motion/react';
-
+import { ArrowLeft, ArrowRight, Clock, Shield } from "lucide-react";
+import { motion } from "motion/react";
+import { usePathname } from "next/navigation";
 
 const CURRENCY_SVG = (
 	<svg
@@ -22,26 +22,38 @@ const SAR_LABEL = (
 	</span>
 );
 
-export function BottomBar( { lang , data , isSaudi=true } ) {
-  const isAr = lang === "ar";
-  // --- Currency Logic ---
+export function BottomBar({ lang, data, isSaudi = true }) {
+	const isAr = lang === "ar";
+
+	// client pathname
+	const pathname = usePathname() || "";
+
+	let specialPage = false;
+	if (pathname === "/mashair" || pathname === "/haram") {
+		specialPage = true;
+	}
+
+	// --- Currency Logic ---
 	const SAR_RATE = 3.75;
 	let displayPrice;
 	let currencySymbol;
-  let displayOldPrice ;
 
 	if (isSaudi) {
 		displayPrice = data.start_price;
 		currencySymbol = isAr ? SAR_LABEL : "SAR";
-    displayOldPrice = data.old_price ? data.old_price : null;
 	} else {
 		displayPrice = data.start_price / SAR_RATE;
 		currencySymbol = isAr ? "دولار" : "USD";
-    displayOldPrice = data.old_price ? data.old_price / SAR_RATE : null;
 	}
+
+	// if path is /haram multiply price by 4
+	if (pathname === "/haram" && typeof displayPrice === "number") {
+		displayPrice = displayPrice * 4;
+	}
+
 	// --- End Currency Logic ---
 
-  let link = `/book-path/${data.id}`;
+	let link = `/book-path/${data.id}`;
 
 	if (data.id === 88) {
 		link = `/book-haram`;
@@ -51,74 +63,99 @@ export function BottomBar( { lang , data , isSaudi=true } ) {
 		link = `/book-madinah`;
 	}
 
-  let disableBooking = false;
+	let disableBooking = false;
 	if (data.id === 87) {
 		disableBooking = true;
 	}
 
-  return (
-    <motion.div 
-      initial={{ y: 100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5, delay: 0.8 }}
-      className="fixed  bottom-0 w-full  bg-gradient-to-b from-[#0f3d2e] to-[#1a5a42] border-t-4 border-[#c9a463] shadow-[0px_-6px_20px_rgba(0,0,0,0.08)] z-50"
-    >
-      <div className="container mx-auto  px-10 py-1">
-        {/* Main Content - Primary CTA Section */}
-        <div className="flex items-center justify-between mb-1">
-          {/* Price Section */}
-          <div className="flex flex-col md:flex-row items-start gap-1">
-            <p className="text-[13px] md:text-[20px] leading-[1.5] text-white/80">{isAr ? "السعر يبدأ من" : "Price starts from"}</p>
-            <div className="flex flex-col items-center gap-1">
-             
-              <div className=" ">
-                <span className="text-lg md:text-2xl text-white" >
-                  {displayPrice.toFixed(2)}
-                </span>
-                <span className=" relative text-white/80"> {currencySymbol} </span>
-              </div>
-               {/* old price */}
-              {displayOldPrice && (
-                <span className="text-sm md:text-base line-through opacity-90 text-white/70">
-                  {displayOldPrice.toFixed(2)} {currencySymbol}
-                </span>
-              )}
-            </div>
-          </div>
+	return (
+		<motion.div
+			initial={{ y: 100 }}
+			animate={{ y: 0 }}
+			transition={{ duration: 0.5, delay: 0.8 }}
+			className="fixed  bottom-0 w-full  bg-gradient-to-b from-[#0f3d2e] to-[#1a5a42] border-t-4 border-[#c9a463] shadow-[0px_-6px_20px_rgba(0,0,0,0.08)] z-50"
+		>
+			<div className="container mx-auto  px-10 py-1">
+				{/* Main Content - Primary CTA Section */}
+				<div className="flex items-center justify-between mb-1">
+					{/* Price Section */}
+					<div className="flex flex-col md:flex-row items-center gap-1">
+						<p className="text-[13px] md:text-[20px] leading-[1.5] text-white/80">
+							{isAr ? "السعر يبدأ من" : "Price starts from"}
+						</p>
+						<div className="flex items-center gap-1">
+							<div className="">
+								<span className="text-lg md:text-2xl text-white">
+									{displayPrice.toFixed(2)}
+								</span>
+							</div>
+							{/* currency symbol */}
+							<div className=" relative text-white/80">{currencySymbol}</div>
+						</div>
+						{specialPage && (
+							<span className="text-white/80">
+								{isAr ? " لأربعة أشخاص" : " for 4 people"}
+							</span>
+						)}
+					</div>
 
-          {/* CTA Button - Premium spacing */}
-          {disableBooking ? (
-						<a 
-            href='#'
-            className="bg-[#857856] hover:bg-[#756849] text-white px-6 py-3 rounded-[18px] flex items-center gap-3 transition-all shadow-md hover:shadow-lg"
-          >
-            
-            <span className="text-[11px] md:text-[18px]  leading-[1.3]">{isAr ? " قريباً ..." : "Soon ..."}</span>
-          </a>) : (
-						<a 
-            href={link}
-            className="bg-[#857856] hover:bg-[#756849] text-white px-6 py-3 rounded-[18px] flex items-center gap-3 transition-all shadow-md hover:shadow-lg"
-          >
-            
-            <span className="text-[11px] md:text-[18px]  leading-[1.3]">{isAr ? "احجز الآن" : "Book Now"}</span>
-            {isAr ? <ArrowLeft className="w-4 h-4" /> : <ArrowRight className="w-4 h-4" />}
-          </a> )}
-          
-        </div>
+					{/* CTA Button - Premium spacing */}
+					{disableBooking ? (
+						<a
+							href="#"
+							className="bg-[#857856] hover:bg-[#756849] text-white px-6 py-3 rounded-[18px] flex items-center gap-3 transition-all shadow-md hover:shadow-lg"
+						>
+							<span className="text-[11px] md:text-[18px]  leading-[1.3]">
+								{isAr ? " قريباً ..." : "Soon ..."}
+							</span>
+						</a>
+					) : specialPage ? (
+						<a
+							href={`https://wa.me/+966580121025`}
+							target="_blank"
+							rel="noopener noreferrer"
+							className="bg-[#857856] hover:bg-[#756849] text-white px-6 py-3 rounded-[18px] flex items-center gap-3 transition-all shadow-md hover:shadow-lg"
+						>
+							<span className="text-[11px] md:text-[18px]  leading-[1.3]">
+								{isAr ? "تواصل عبر واتساب" : "Contact via WhatsApp"}
+							</span>
+						</a>
+					) : (
+						<a
+							href={link}
+							className="bg-[#857856] hover:bg-[#756849] text-white px-6 py-3 rounded-[18px] flex items-center gap-3 transition-all shadow-md hover:shadow-lg"
+						>
+							<span className="text-[11px] md:text-[18px]  leading-[1.3]">
+								{isAr ? "احجز الآن" : "Book Now"}
+							</span>
+							{isAr ? (
+								<ArrowLeft className="w-4 h-4" />
+							) : (
+								<ArrowRight className="w-4 h-4" />
+							)}
+						</a>
+					)}
+				</div>
 
-        {/* Trust Badges - Secondary Info */}
-        <div className="flex items-center justify-center gap-10 pt-1 border-t border-white/10">
-          <div className="flex items-center gap-2.5 py-1">
-            <Shield className="w-4 h-4 text-[#c9a463]" />
-            <span className="text-[11px] leading-[1.5] text-white/70">{isAr ? "إلغاء مجاني قبل 24 ساعة" : "Free cancellation before 24 hours"}</span>
-          </div>
-          <div className="w-px h-4 bg-white/30"></div>
-          <div className="flex items-center gap-2.5 py-1">
-            <Clock className="w-4 h-4 text-[#c9a463]" />
-            <span className="text-[11px] leading-[1.5] text-white/70">{isAr ? "تأكيد فوري" : "Instant confirmation"}</span>
-          </div>
-        </div>
-      </div>
-    </motion.div>
-  );
+				{/* Trust Badges - Secondary Info */}
+				<div className="flex items-center justify-center gap-10 pt-1 border-t border-white/10">
+					<div className="flex items-center gap-2.5 py-1">
+						<Shield className="w-4 h-4 text-[#c9a463]" />
+						<span className="text-[11px] leading-[1.5] text-white/70">
+							{isAr
+								? "إلغاء مجاني قبل 24 ساعة"
+								: "Free cancellation before 24 hours"}
+						</span>
+					</div>
+					<div className="w-px h-4 bg-white/30"></div>
+					<div className="flex items-center gap-2.5 py-1">
+						<Clock className="w-4 h-4 text-[#c9a463]" />
+						<span className="text-[11px] leading-[1.5] text-white/70">
+							{isAr ? "تأكيد فوري" : "Instant confirmation"}
+						</span>
+					</div>
+				</div>
+			</div>
+		</motion.div>
+	);
 }
