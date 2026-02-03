@@ -134,9 +134,27 @@ export function BookingForm({
 	const getQty = (id) =>
 		counts.find((c) => c.id === id)?.quantity ?? (id === 1 ? 1 : 0);
 
+	// total people derived from group counts
+	const totalPeople = counts.reduce((s, r) => s + Number(r.quantity || 0), 0);
+
 	const setQty = (id, next) => {
 		const minForId = id === 1 ? 1 : 0; // id 1 minimum is 1 person
-		const nextVal = Math.max(minForId, Number(next || 0));
+		const desired = Number(next || 0);
+
+		// current qty for this group
+		const currentQty =
+			counts.find((c) => c.id === id)?.quantity ?? (id === 1 ? 1 : 0);
+		const otherTotal = totalPeople - currentQty;
+
+		let nextVal;
+		if (typeof leftSeats === "number") {
+			// max allowed for this group without exceeding leftSeats
+			const maxForThis = Math.max(0, leftSeats - otherTotal);
+			nextVal = Math.min(Math.max(minForId, desired), maxForThis);
+		} else {
+			nextVal = Math.max(minForId, desired);
+		}
+
 		const nextArr = (() => {
 			if (!counts.length) return [{ id, quantity: nextVal }];
 			const exists = counts.some((c) => c.id === id);
@@ -341,10 +359,12 @@ export function BookingForm({
 							<FormField
 								control={form.control}
 								name="time"
-								
 								render={({ field }) => (
 									<FormItem>
-										<div id="time" className="flex flex-col sm:flex-row md:items-stretch justify-between gap-4">
+										<div
+											id="time"
+											className="flex flex-col sm:flex-row md:items-stretch justify-between gap-4"
+										>
 											{/* if there are no times for that day at all */}
 											{(times || []).length === 0 && (
 												<p className="text-sm text-[#6a7282]">
@@ -442,7 +462,20 @@ export function BookingForm({
 												<button
 													type="button"
 													onClick={() => setQty(g.id, q + 1)}
-													className="w-10 h-10 rounded-full bg-[#3c6652] text-white text-xl leading-none flex items-center justify-center"
+													className={cn(
+														"w-10 h-10 rounded-full bg-[#3c6652] text-white text-xl leading-none flex items-center justify-center",
+														typeof leftSeats === "number" &&
+															totalPeople >= leftSeats &&
+															"opacity-50 cursor-not-allowed",
+													)}
+													disabled={
+														typeof leftSeats === "number" &&
+														totalPeople >= leftSeats
+													}
+													aria-disabled={
+														typeof leftSeats === "number" &&
+														totalPeople >= leftSeats
+													}
 												>
 													+
 												</button>
