@@ -68,6 +68,18 @@ export function BottomBar({ lang, data, isSaudi = true }) {
 		disableBooking = true;
 	}
 
+	// WhatsApp prefilled message for special pages (language dependent)
+	let waMessage = "";
+	if (pathname === "/mashair") {
+		waMessage = isAr
+			? "مرحبًا مزار، أرغب في معرفة المزيد عن رحلة المشاعر."
+			: "Hello Mzar, I am interested to know more about Mashair trip.";
+	} else if (pathname === "/haram") {
+		waMessage = isAr
+			? "مرحبًا مزار، أرغب في معرفة المزيد عن رحلة المسجد الحرام."
+			: "Hello Mzar, I am interested to know more about Masjid Al-Haram tour.";
+	}
+
 	return (
 		<motion.div
 			initial={{ y: 100 }}
@@ -111,12 +123,14 @@ export function BottomBar({ lang, data, isSaudi = true }) {
 						</a>
 					) : specialPage ? (
 						<a
-							href={`https://wa.me/+966580121025`}
+							href={`https://wa.me/+966580121025?text=${encodeURIComponent(
+								waMessage,
+							)}`}
 							target="_blank"
 							rel="noopener noreferrer"
 							className="bg-[#857856] hover:bg-[#756849] text-white px-6 py-3 rounded-[18px] flex items-center gap-1 transition-all shadow-md hover:shadow-lg"
 						>
-              <i className="fa-brands fa-whatsapp"></i>
+							<i className="fa-brands fa-whatsapp"></i>
 							<span className="text-[13px] md:text-lg">
 								{isAr ? "تواصل عبر واتساب" : "Contact via WhatsApp"}
 							</span>
