@@ -116,7 +116,7 @@ export function RelatedTrips({ isAr, blog = {}, API_BASE_URL_NEW , isSaudi = tru
 												<div className="absolute left-4 top-4">
 													<div className="rounded-full bg-white px-4 py-2 shadow-lg">
 														<p className="text-sm text-[#718096]">
-															{isAr ? "ابدأ من" : "Starting from"}
+															{isAr ? "ابتداء من" : "Starting from"}
 														</p>
 														<p className="text-sm text-[#3C6652]">
 															{ isSaudi ? formatPrice(trip.start_price ?? trip.startPrice) : toDollar(formatPrice(trip.start_price ?? trip.startPrice))} {" "}
