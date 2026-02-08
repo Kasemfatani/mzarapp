@@ -32,24 +32,47 @@ export default function Header() {
 	}
 
 	let [lang, setLang] = useState("en");
+
 	useEffect(() => {
-		if (typeof window !== "undefined") {
-			let currentLang = localStorage.getItem("lang");
-			if (currentLang === "ar" || currentLang === "en") {
-				setLang(currentLang);
-			} else {
-				localStorage.setItem("lang", "en");
-				setLang("en");
-				currentLang = "en";
-			}
-			// Always set the cookie to match localStorage
+		if (typeof window === "undefined") return;
+
+		const applyLang = (value) => {
+			const next = value === "ar" ? "ar" : "en";
+			setLang(next);
+
 			const oneYear = 60 * 60 * 24 * 365;
 			const isHTTPS = window.location.protocol === "https:";
-			document.cookie = `lang=${currentLang}; path=/; max-age=${oneYear}; samesite=lax${
+			document.cookie = `lang=${next}; path=/; max-age=${oneYear}; samesite=lax${
 				isHTTPS ? "; secure" : ""
 			}`;
+		};
+
+		const stored = localStorage.getItem("lang");
+		if (stored === "ar" || stored === "en") {
+			applyLang(stored);
+		} else {
+			// NEW: fallback to server-chosen lang or browser lang
+			const htmlLang = document?.documentElement?.lang;
+			const browserLang = (navigator.language || "")
+				.toLowerCase()
+				.startsWith("ar")
+				? "ar"
+				: "en";
+			const initial =
+				htmlLang === "ar" ? "ar" : htmlLang === "en" ? "en" : browserLang;
+
+			localStorage.setItem("lang", initial);
+			applyLang(initial);
 		}
-	}, [lang]);
+
+		const onLangChange = () => applyLang(localStorage.getItem("lang"));
+		window.addEventListener("langchange", onLangChange);
+
+		return () => {
+			window.removeEventListener("langchange", onLangChange);
+		};
+	}, []);
+
 	const isAr = lang === "ar";
 
 	return (
