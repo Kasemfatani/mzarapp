@@ -1,46 +1,35 @@
 import { cookies, headers } from "next/headers";
 import { notFound } from "next/navigation";
-// import { API_BASE_URL } from "@/lib/apiConfig";
 import SingleBlogWrapper from "@/components/blog-new/SingleBlogWrapper";
-
-import { BLOG_URL } from "@/lib/apiConfig";
-
+import { BLOG_URL, getIsSaudiFromHeaders } from "@/lib/apiConfig";
 import { cache } from "react";
-
-import { getIsSaudiFromHeaders } from "@/lib/apiConfig";
+import SyncLangFromSlug from "@/components/blog-new/SyncLangFromSlug";
 
 const getData = cache(async (lang, slug) => {
 	const res = await fetch(`${BLOG_URL}/api/blogs/${slug}`, {
 		headers: { lang },
 	});
-
 	if (!res.ok) return null;
 	const json = await res.json();
-	// Laravel Resource responses are wrapped in `data`
 	return json?.data || null;
 });
 
-// Helper to determine language (keep this logic centralized)
-function determineLang() {
-	const cookieLang = cookies().get("lang")?.value;
-	const acceptLang = headers().get("accept-language");
-	return (
-		cookieLang || (acceptLang && acceptLang.startsWith("ar") ? "ar" : "en")
-	);
+// Helper: detect language from slug (Arabic chars => "ar", else "en")
+function getLangFromSlug(slug) {
+	const decoded = decodeURIComponent(slug || "");
+	const hasArabic = /[\u0600-\u06FF]/.test(decoded);
+	return hasArabic ? "ar" : "en";
 }
 
 export async function generateMetadata({ params }) {
-	const lang = determineLang();
 	const slug = params?.slug;
 	if (!slug) return { title: "Blog" };
 
+	const lang = getLangFromSlug(slug);
 	const data = await getData(lang, slug);
 	if (!data) return { title: "Blog" };
 
-	const SITE_URL = ("https://www.mzarapp.com").replace(
-		/\/$/,
-		""
-	);
+	const SITE_URL = "https://www.mzarapp.com".replace(/\/$/, "");
 	const title = data.title || "Blog";
 	const description = data.subtitle || "";
 	const canonical = `${SITE_URL}/blog/${slug}`;
@@ -63,24 +52,22 @@ export async function generateMetadata({ params }) {
 
 export default async function Page({ params }) {
 	const { slug } = params;
+	const lang = getLangFromSlug(slug); // "ar" or "en"
 
-	const lang = determineLang();
+	
 
+	// Fetch blog data using this lang
 	const blogsData = await getData(lang, slug);
-
 	if (!blogsData) {
 		notFound();
 	}
 
-	// reuseable geo helper
 	const { isSaudi } = await getIsSaudiFromHeaders(headers());
 
-	// prepare JSON-LD (build BlogPosting + BreadcrumbList here, merge with existing schema from backend (FAQPage etc.))
 	const userSchema = Array.isArray(blogsData?.schemaMarkup)
 		? blogsData.schemaMarkup
 		: [];
 
-	// Build BlogPosting
 	const blogPosting = {
 		"@context": "https://schema.org",
 		"@type": "BlogPosting",
@@ -97,7 +84,6 @@ export default async function Page({ params }) {
 		datePublished: blogsData.createdAt || null,
 	};
 
-	// Build BreadcrumbList (position 3 points to this blog)
 	const breadcrumb = {
 		"@context": "https://schema.org",
 		"@type": "BreadcrumbList",
@@ -123,7 +109,6 @@ export default async function Page({ params }) {
 		],
 	};
 
-	// Keep only non-BlogPosting/BreadcrumbList entries from backend (e.g. FAQPage)
 	const preserved = userSchema.filter((s) => {
 		const t = s && s["@type"] ? s["@type"] : null;
 		return t !== "BlogPosting" && t !== "BreadcrumbList";
@@ -131,16 +116,19 @@ export default async function Page({ params }) {
 
 	const finalSchema = [blogPosting, breadcrumb, ...preserved];
 	const jsonLdString = finalSchema.length ? JSON.stringify(finalSchema) : null;
-	// console.log("JSON-LD for blog:", jsonLdString);
 
 	return (
 		<>
+			{/*  Sync lang to localStorage / <html> on the client */}
+			<SyncLangFromSlug lang={lang} />
+
 			{jsonLdString ? (
 				<script
 					type="application/ld+json"
 					dangerouslySetInnerHTML={{ __html: jsonLdString }}
 				/>
 			) : null}
+
 			<SingleBlogWrapper
 				lang={lang}
 				blog={blogsData}

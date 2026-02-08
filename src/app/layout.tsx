@@ -68,7 +68,7 @@ export async function generateMetadata(): Promise<Metadata> {
 					type: "website",
 					locale: "ar_EG",
 				},
-		  }
+			}
 		: {
 				title: "Mzar: Your Journey into the Depths of History and Spirituality",
 				keywords:
@@ -93,7 +93,7 @@ export async function generateMetadata(): Promise<Metadata> {
 					type: "website",
 					locale: "en_US",
 				},
-		  };
+			};
 }
 
 export default function RootLayout({
@@ -102,7 +102,13 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	const langCookie = cookies().get("lang")?.value;
-	const lang = langCookie === "ar" ? "ar" : "en";
+
+	// NEW: fallback to browser language if cookie missing
+	const acceptLang = headers().get("accept-language");
+	const headerLang =
+		acceptLang && acceptLang.toLowerCase().startsWith("ar") ? "ar" : "en";
+
+	const lang = langCookie ? (langCookie === "ar" ? "ar" : "en") : headerLang;
 
 	return (
 		<html
@@ -116,12 +122,11 @@ export default function RootLayout({
 				{/* Remove Google Fonts preconnects (no longer needed) */}
 				{/* <link rel="preconnect" href="https://fonts.googleapis.com" /> */}
 				{/* <link
-					rel="preconnect"
-					href="https://fonts.gstatic.com"
-					crossOrigin="anonymous"
-				/> */}
+                    rel="preconnect"
+                    href="https://fonts.gstatic.com"
+                    crossOrigin="anonymous"
+                /> */}
 
-				
 				<script
 					type="application/ld+json"
 					dangerouslySetInnerHTML={{
