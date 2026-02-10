@@ -1,6 +1,7 @@
 "use client";
 
 import { Sparkles, TrendingUp } from "lucide-react";
+import { getAddonUnitPrice } from "@/lib/addonPricing";
 
 const CURRENCY_SVG = (
 	<svg
@@ -51,22 +52,28 @@ export function PriceCalculationBox({
 	}
 	// --- End Currency Logic ---
 
-
 	const rawBase = Number(
 		isExpress
-			? vehicle?.express_price ?? vehicle?.web_price ?? 0
-			: vehicle?.web_price ?? 0
+			? (vehicle?.express_price ?? vehicle?.web_price ?? 0)
+			: (vehicle?.web_price ?? 0),
 	);
 	const discountAmount = Number(
-		((promoDiscountPercent / 100) * rawBase).toFixed(2)
+		((promoDiscountPercent / 100) * rawBase).toFixed(2),
 	);
 	const baseUnit = Number((rawBase - discountAmount).toFixed(2)); // discounted base
+
+	const vehicleId = vehicle?.id;
 
 	const addonsTotal = selectedAddons.reduce((sum, id) => {
 		const a = addons.find((x) => x.id === id);
 		if (!a) return sum;
+
+		const unitPrice = getAddonUnitPrice(a, vehicleId);
+
+		// If this add-on is priced by car and vehicle isn't selected yet,
+		// unitPrice will be 0 (so it won't affect totals).
 		const multiplier = a.allow_multiple ? Number(people || 1) : 1;
-		return sum + Number(a.price || 0) * multiplier;
+		return sum + unitPrice * multiplier;
 	}, 0);
 
 	const totalBeforeTax = baseUnit + addonsTotal;
@@ -148,11 +155,13 @@ export function PriceCalculationBox({
 						<div className="flex items-center gap-2">
 							{promoDiscountPercent > 0 && (
 								<p className="text-[#9aa3b2] line-through ">
-									{ isSaudi ? rawBaseDisplay : toDollar(rawBaseDisplay)} {currencySymbol}
+									{isSaudi ? rawBaseDisplay : toDollar(rawBaseDisplay)}{" "}
+									{currencySymbol}
 								</p>
 							)}
 							<p className="text-[#1e2939] ">
-								{ isSaudi ? baseUnitDisplay : toDollar(baseUnitDisplay)} {currencySymbol}
+								{isSaudi ? baseUnitDisplay : toDollar(baseUnitDisplay)}{" "}
+								{currencySymbol}
 							</p>
 						</div>
 					</div>
@@ -161,11 +170,11 @@ export function PriceCalculationBox({
 					{promoDiscountPercent > 0 && (
 						<div className="flex items-center justify-between border-b border-[#e6d2af] pb-4 pt-4">
 							<p className="text-[#364153]">
-								{isAr ? "خصم" : "discount"} (
-								{promoDiscountPercent}%)
+								{isAr ? "خصم" : "discount"} ({promoDiscountPercent}%)
 							</p>
 							<p className="text-[#3c6652] ">
-								-{ isSaudi ? discountDisplay : toDollar(discountDisplay)} {currencySymbol}
+								-{isSaudi ? discountDisplay : toDollar(discountDisplay)}{" "}
+								{currencySymbol}
 							</p>
 						</div>
 					)}
@@ -180,7 +189,9 @@ export function PriceCalculationBox({
 								className="w-5 h-5 text-[#867957]"
 								strokeWidth={1.67}
 							/>
-							<p className="text-[#867957]">{ isSaudi ? addonsTotalDisplay : toDollar(addonsTotalDisplay)}</p>
+							<p className="text-[#867957]">
+								{isSaudi ? addonsTotalDisplay : toDollar(addonsTotalDisplay)}
+							</p>
 						</div>
 					</div>
 
@@ -190,7 +201,10 @@ export function PriceCalculationBox({
 							{isAr ? "إجمالي السعر" : "Total price"}
 						</p>
 						<p className="text-[#1e2939] ">
-							{ isSaudi ? totalBeforeTaxDisplay : toDollar(totalBeforeTaxDisplay)} {currencySymbol}
+							{isSaudi
+								? totalBeforeTaxDisplay
+								: toDollar(totalBeforeTaxDisplay)}{" "}
+							{currencySymbol}
 						</p>
 					</div>
 
@@ -201,7 +215,8 @@ export function PriceCalculationBox({
 							{typeof tax === "number" ? ` (${(tax * 100).toFixed(0)}%)` : ""}
 						</p>
 						<p className="text-[#1e2939] ">
-							{ isSaudi ? taxAmountDisplay : toDollar(taxAmountDisplay)} {currencySymbol}
+							{isSaudi ? taxAmountDisplay : toDollar(taxAmountDisplay)}{" "}
+							{currencySymbol}
 						</p>
 					</div>
 
@@ -218,7 +233,8 @@ export function PriceCalculationBox({
 							</p>
 						</div>
 						<p className="text-white ">
-							{ isSaudi ? finalTotalDisplay : toDollar(finalTotalDisplay)} {currencySymbol}
+							{isSaudi ? finalTotalDisplay : toDollar(finalTotalDisplay)}{" "}
+							{currencySymbol}
 						</p>
 					</div>
 
