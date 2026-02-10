@@ -24,7 +24,6 @@ import { BookingTimeField } from "@/components/book-components/BookingTimeField"
 import { BookingVehicleField } from "@/components/book-components/BookingVehicleField";
 
 import { BookingAddonsField } from "./BookingAddonsField";
-import { da, is } from "date-fns/locale";
 
 const CURRENCY_SVG = (
 	<svg
@@ -108,12 +107,27 @@ export function BookingForm({
 	}, [selectedDate, allTimes]);
 
 	const tripTypes = [
-		{ id: 1, name: isAr ? "رحلة متكاملة" : "Regular Tour" , desc : isAr ? "تجربة غنية بالمعرفة تهتم بالتفاصيل وتجعل كل لحظة ذكرى خالدة" : "A knowledge-rich experience, Deep in details, Turn every moment into a lasting memory." },
-		{ id: 2, name: isAr ? "رحلة سريعة" : "Express Tour" , desc : isAr ? "تجربة مركزة تحفظ وقتك وتثري تجربتك " : "A focused experience, Save time, Valuable visit." },
+		{
+			id: 1,
+			name: isAr ? "رحلة متكاملة" : "Regular Tour",
+			desc: isAr
+				? "تجربة غنية بالمعرفة تهتم بالتفاصيل وتجعل كل لحظة ذكرى خالدة"
+				: "A knowledge-rich experience, Deep in details, Turn every moment into a lasting memory.",
+		},
+		{
+			id: 2,
+			name: isAr ? "رحلة سريعة" : "Express Tour",
+			desc: isAr
+				? "تجربة مركزة تحفظ وقتك وتثري تجربتك "
+				: "A focused experience, Save time, Valuable visit.",
+		},
 	];
 
 	// read is_express from form
 	const isExpress = form.watch("is_express");
+
+	// read selected vehicle (for add-on per-car pricing display)
+	const selectedVehicle = form.watch("vehicle");
 
 	return (
 		<div className="bg-white rounded-[20px] shadow-[0px_20px_25px_-5px_rgba(0,0,0,0.1)] border-[0.8px] border-[rgba(243,244,246,0.6)] w-full">
@@ -213,7 +227,7 @@ export function BookingForm({
 													type="button"
 													onClick={() =>
 														field.onChange(
-															Math.max(minSeats, (field.value || minSeats) - 1)
+															Math.max(minSeats, (field.value || minSeats) - 1),
 														)
 													}
 													disabled={(field.value || minSeats) <= minSeats}
@@ -240,17 +254,17 @@ export function BookingForm({
 															Math.min(
 																typeof leftSeats === "number"
 																	? leftSeats
-																	: vehicleMaxSeats ?? Infinity,
-																(field.value || minSeats) + 1
-															)
+																	: (vehicleMaxSeats ?? Infinity),
+																(field.value || minSeats) + 1,
+															),
 														)
 													}
 													disabled={
 														typeof leftSeats === "number"
 															? (field.value || minSeats) >= leftSeats
 															: vehicleMaxSeats
-															? (field.value || minSeats) >= vehicleMaxSeats
-															: false
+																? (field.value || minSeats) >= vehicleMaxSeats
+																: false
 													}
 													className={`w-16 h-16 rounded-[16px] flex items-center justify-center ${
 														(typeof leftSeats === "number" &&
@@ -300,7 +314,7 @@ export function BookingForm({
 													"flex-1 p-3 rounded-[10px] border transition-all",
 													active
 														? "bg-[#fffff5] border-[#3c6652] border-2"
-														: "border-[#d0d0d0] hover:border-[#867957] cursor-pointer"
+														: "border-[#d0d0d0] hover:border-[#867957] cursor-pointer",
 												)}
 											>
 												<div className="flex  items-center w-full gap-2">
@@ -335,6 +349,7 @@ export function BookingForm({
 							onChange={setSelectedAddons}
 							lang={lang}
 							isSaudi={isSaudi}
+							vehicle={selectedVehicle} 
 						/>
 					</form>
 				</Form>
