@@ -27,15 +27,14 @@ const SCRIPT_PATHS = [
 // Patterns for dynamic routes you also want scripts on.
 const DYNAMIC_PATTERNS = [/^\/hotel\/[^/]+$/]; // hotel/<slug> (one segment after /hotel)
 
-
 export default function TrackingScripts() {
 	const pathname = usePathname();
 
-	// const shouldIncludeScripts =
-	// 	SCRIPT_PATHS.includes(pathname) ||
-	// 	DYNAMIC_PATTERNS.some((re) => re.test(pathname));
+	const isBlogPage = /^\/blog\/[^/]+$/.test(pathname);
 
-	// if (!shouldIncludeScripts) return null;
+	if (isBlogPage) {
+		return null;
+	}
 
 	return (
 		<>
@@ -53,7 +52,7 @@ export default function TrackingScripts() {
         `}
 			</Script>
 			<GoogleTagManager gtmId="GTM-WS294KJ" />
-      {/* Google tag (gtag.js) for AW-16518722477 */}
+			{/* Google tag (gtag.js) for AW-16518722477 */}
 			<Script
 				src="https://www.googletagmanager.com/gtag/js?id=AW-16518722477"
 				strategy="afterInteractive"
