@@ -8,6 +8,8 @@ import SyncLangFromSlug from "@/components/blog-new/SyncLangFromSlug";
 const getData = cache(async (lang, slug) => {
 	const res = await fetch(`${BLOG_URL}/api/blogs/${slug}`, {
 		headers: { lang },
+		// TEMP: bypass any Next/edge cache while debugging
+		cache: "no-store",
 	});
 	if (!res.ok) return null;
 	const json = await res.json();
@@ -53,8 +55,6 @@ export async function generateMetadata({ params }) {
 export default async function Page({ params }) {
 	const { slug } = params;
 	const lang = getLangFromSlug(slug); // "ar" or "en"
-
-	
 
 	// Fetch blog data using this lang
 	const blogsData = await getData(lang, slug);
