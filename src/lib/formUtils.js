@@ -6,10 +6,10 @@ export function scrollToFirstError(errors) {
 
 	// If there are multiple errors and the first one is 'name', move it to the end.
 	// This ensures we prioritize fields like date/time/vehicle which are higher up.
-	if (keys.length > 1 && keys[0] === "name") {
-		keys = keys.filter((k) => k !== "name");
-		keys.push("name");
-	}
+	// if (keys.length > 1 && keys[0] === "name") {
+	// 	keys = keys.filter((k) => k !== "name");
+	// 	keys.push("name");
+	// }
 
 	// Find all error elements in the DOM
 	const errorElements = [];

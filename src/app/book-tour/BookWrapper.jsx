@@ -38,6 +38,9 @@ const getSchema = (lang, max_people_count = 20) => {
 
 	return z
 		.object({
+			name: z.string().min(1, reqName).max(100),
+			whatsapp: z.string().min(7, reqPhone),
+			country_id: z.number().optional(),
 			date: z
 				.date({
 					invalid_type_error: requiredDate,
@@ -67,8 +70,7 @@ const getSchema = (lang, max_people_count = 20) => {
 				)
 				.default([]),
 
-			name: z.string().min(1, reqName).max(100),
-			whatsapp: z.string().min(7, reqPhone),
+			
 		})
 		.refine(
 			(vals) =>
@@ -101,6 +103,8 @@ export default function BookTourPage({
 	const [promoCode, setPromoCode] = useState("");
 	const [promoApplied, setPromoApplied] = useState(false);
 	const [promoDiscountPercent, setPromoDiscountPercent] = useState(0);
+
+	const [isPartOneSubmitted, setIsPartOneSubmitted] = useState(false);
 
 	// helpers to convert between Day indexes and slugs coming from API
 	const slugToIndex = {
@@ -170,6 +174,7 @@ export default function BookTourPage({
 
 			name: "",
 			whatsapp: "",
+			country_id: undefined,
 		},
 		shouldFocusError: false,
 		mode: "onSubmit",
@@ -336,6 +341,7 @@ export default function BookTourPage({
 						gathering_point_id: Number(selection.meetingPoint?.id),
 						people_count: selection.people,
 						payment_method: method === "cash" ? "cash" : "online",
+						country_id: values.country_id, // send selected country id
 
 						promo_code: promoCode ? promoCode : null,
 						group_age_counts: (values.group_age_counts || []).map((r) => ({
@@ -523,7 +529,22 @@ export default function BookTourPage({
 					<div className="flex flex-col-reverse md:flex-row  gap-8 md:gap-12">
 						{/* Booking Flow */}
 						<div className="md:w-[60%] flex flex-col gap-6">
-							<BookingForm
+
+							{/* Customer info fields */}
+							<CustomerInfoFields
+								lang={lang}
+								form={form}
+								countryCode={countryCode}
+								packageId={busData?.id}
+								onPartOneSubmit={() => setIsPartOneSubmitted(true)}
+							/>
+
+							<div
+								className={`transition-opacity duration-500 ${
+									isPartOneSubmitted ? "opacity-100" : "opacity-40"
+								} `}
+							>
+								<BookingForm
 								lang={lang}
 								form={form}
 								times={dayTimes}
@@ -536,6 +557,8 @@ export default function BookTourPage({
 								isSaudi={isSaudi}
 								maxDate={busData.last_date}
 							/>
+							</div>
+
 
 							{/* Promo section (after form) */}
 							<PromoCodeSection
@@ -566,12 +589,6 @@ export default function BookTourPage({
 								promoDiscountPercent={promoDiscountPercent}
 								lang={lang}
 								isSaudi={isSaudi}
-							/>
-
-							<CustomerInfoFields
-								lang={lang}
-								form={form}
-								countryCode={countryCode}
 							/>
 
 							<ActionButtons

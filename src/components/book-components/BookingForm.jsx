@@ -258,7 +258,7 @@ export function BookingForm({
 					</div>
 					<div className="bg-[rgba(231,211,175,0.2)] border-[0.8px] border-[#e7d3af] rounded-full px-2 py-2">
 						<p className="text-[#867957]">
-							{isAr ? "خطوة 1 من  2" : "Step 1 of 2"}
+							{isAr ? "خطوة 2 من  2" : "Step 2 of 2"}
 						</p>
 					</div>
 				</div>

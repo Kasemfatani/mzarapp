@@ -42,6 +42,8 @@ const getSchema = (lang, max_people_count = 20, min_people_count = 1) => {
 		lang === "ar" ? "إحداثيات خط الطول مطلوبة" : "Longitude is required";
 
 	return z.object({
+		name: z.string().min(1, reqName).max(100),
+		whatsapp: z.string().min(7, reqPhone),
 		date: z
 			.date({ invalid_type_error: requiredDate, required_error: requiredDate })
 			.refine(Boolean, { message: requiredDate }),
@@ -74,8 +76,7 @@ const getSchema = (lang, max_people_count = 20, min_people_count = 1) => {
 		// address_lat: z.string().min(1, reqLat),
 		// address_lng: z.string().min(1, reqLng),
 
-		name: z.string().min(1, reqName).max(100),
-		whatsapp: z.string().min(7, reqPhone),
+		
 	});
 };
 
@@ -97,6 +98,7 @@ export default function BookTourPage({
 		status: true,
 		message: "",
 	});
+	const [isPartOneSubmitted, setIsPartOneSubmitted] = useState(false);
 
 	// console.log("BookWrapper busData:", busData);
 
@@ -112,6 +114,8 @@ export default function BookTourPage({
 			),
 		),
 		defaultValues: {
+			name: "",
+			whatsapp: "",
 			date: undefined,
 			time: undefined,
 			vehicle: undefined,
@@ -123,8 +127,7 @@ export default function BookTourPage({
 			// address_lat: "",
 			// address_lng: "",
 
-			name: "",
-			whatsapp: "",
+			
 		},
 		shouldFocusError: false,
 		mode: "onSubmit",
@@ -464,21 +467,35 @@ export default function BookTourPage({
 					<div className="flex flex-col-reverse md:flex-row  gap-8 md:gap-12">
 						{/* Booking Flow */}
 						<div className="md:w-[60%] flex flex-col gap-6">
-							<BookingForm
+							<CustomerInfoFields
 								lang={lang}
 								form={form}
-								times={busData.times}
-								busId={busData.id}
-								minSeats={1}
-								disabledDays={disabledDays}
-								data={busData}
-								addons={busData.add_ons ?? []}
-								selectedAddons={selectedAddons}
-								setSelectedAddons={setSelectedAddons}
-								vehicleMaxSeats={vehicleMaxSeats}
-								availability={availability}
-								isSaudi={isSaudi}
+								countryCode={countryCode}
+								packageId={busData?.id}
+								onPartOneSubmit={() => setIsPartOneSubmitted(true)}
 							/>
+
+							<div
+								className={`transition-opacity duration-500 ${
+									isPartOneSubmitted ? "opacity-100" : "opacity-40"
+								} `}
+							>
+								<BookingForm
+									lang={lang}
+									form={form}
+									times={busData.times}
+									busId={busData.id}
+									minSeats={1}
+									disabledDays={disabledDays}
+									data={busData}
+									addons={busData.add_ons ?? []}
+									selectedAddons={selectedAddons}
+									setSelectedAddons={setSelectedAddons}
+									vehicleMaxSeats={vehicleMaxSeats}
+									availability={availability}
+									isSaudi={isSaudi}
+								/>
+							</div>
 
 							{/* Promo section (after form) */}
 							<PromoCodeSection
@@ -507,12 +524,6 @@ export default function BookTourPage({
 								tax={typeof busData?.tax === "number" ? busData.tax : 0}
 								promoDiscountPercent={promoDiscountPercent} // <-- pass discount
 								isSaudi={isSaudi}
-							/>
-
-							<CustomerInfoFields
-								lang={lang}
-								form={form}
-								countryCode={countryCode}
 							/>
 
 							<ActionButtons

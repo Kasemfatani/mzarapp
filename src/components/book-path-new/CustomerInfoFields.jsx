@@ -13,60 +13,81 @@ import {
 import { Input } from "@/components/ui/input";
 import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
-import { API_BASE_URL_NEW } from "@/lib/apiConfig";
+import { API_BASE_URL } from "@/lib/apiConfig";
 import { Button } from "@/components/ui/button";
-import {
-	Popover,
-	PopoverTrigger,
-	PopoverContent,
-} from "@/components/ui/popover";
-import {
-	Command,
-	CommandInput,
-	CommandEmpty,
-	CommandGroup,
-	CommandItem,
-	CommandList,
-} from "@/components/ui/command";
-import { ChevronsUpDown, Check } from "lucide-react";
-import LocationPickerMap from "@/components/book-components/LocationPickerMap";
 
-export function CustomerInfoFields({ lang = "ar", form , countryCode = "SA", }) {
+import { toast } from "sonner";
+import { parsePhoneNumberFromString } from "libphonenumber-js";
+
+export function CustomerInfoFields({
+	lang = "ar",
+	form,
+	countryCode = "SA",
+	packageId,
+	onPartOneSubmit,
+}) {
 	const isAr = lang === "ar";
-	const [nationalityOpen, setNationalityOpen] = useState(false);
-	const [countries, setCountries] = useState([]);
 
-	// local map coords
-	// const [lat, setLat] = useState(21.425893460537548);
-	// const [lng, setLng] = useState(39.82470840448206);
+	const [isSubmitting, setIsSubmitting] = useState(false);
+	const [isSaved, setIsSaved] = useState(false); // <-- new state
 
-	useEffect(() => {
-		fetch(`${API_BASE_URL_NEW}/landing/countries`, { headers: { lang } })
-			.then((res) => res.json())
-			.then((data) => {
-				if (Array.isArray(data)) setCountries(data);
-				else if (Array.isArray(data.data)) setCountries(data.data);
+	const handlePartOneSubmit = async () => {
+		const result = await form.trigger(["name", "whatsapp"]);
+		if (!result) {
+			return;
+		}
+
+		setIsSubmitting(true);
+		const values = form.getValues();
+
+		const whatsappParsed = parsePhoneNumberFromString(values.whatsapp || "");
+		const stripLeadingZero = (num) =>
+			num && num.startsWith("0") ? num.replace(/^0+/, "") : num;
+		const whatsapp = whatsappParsed
+			? stripLeadingZero(whatsappParsed.nationalNumber)
+			: stripLeadingZero(values.whatsapp);
+		const whatsapp_country_code = whatsappParsed
+			? whatsappParsed.countryCallingCode
+			: "";
+
+		const payload = {
+			name: values.name,
+			mobile: whatsapp,
+			country_code: whatsapp_country_code,
+			package_id: packageId,
+		};
+
+		try {
+			const res = await fetch(`${API_BASE_URL}/landing/home/booking-pt1`, {
+				method: "POST",
+				headers: { "Content-Type": "application/json", lang },
+				body: JSON.stringify(payload),
 			});
-	}, []);
 
-	// register address fields once
-	// useEffect(() => {
-	// 	form.register("address_name");
-	// 	form.register("address_lat");
-	// 	form.register("address_lng");
-	// }, [form]);
+			const data = await res.json();
 
-	// push coords to form as strings
-	// useEffect(() => {
-	// 	form.setValue("address_lat", String(lat), { shouldValidate: true });
-	// }, [lat, form]);
-	// useEffect(() => {
-	// 	form.setValue("address_lng", String(lng), { shouldValidate: true });
-	// }, [lng, form]);
+			if (!res.ok || !data.status) {
+				throw new Error(
+					data.message ||
+						(isAr
+							? "فشل إرسال المعلومات. يرجى المحاولة مرة أخرى."
+							: "Failed to submit information. Please try again."),
+				);
+			}
 
-	const getCountryName = (id) => {
-		const country = countries.find((c) => c.id === id);
-		return country ? country.name : "";
+			toast.success(
+				isAr
+					? "تم حفظ معلوماتك بنجاح! يرجى إكمال تفاصيل الحجز."
+					: "Information saved successfully! Please complete your booking details.",
+			);
+
+			setIsSubmitting(false);
+			setIsSaved(true); // show "Saved" and keep button disabled
+			onPartOneSubmit(); // Notify parent (will make BookingForm opaque -> normal)
+		} catch (error) {
+			toast.error(error.message);
+			setIsSubmitting(false); // Re-enable button on error
+		}
 	};
 
 	return (
@@ -86,7 +107,7 @@ export function CustomerInfoFields({ lang = "ar", form , countryCode = "SA", }) 
 					</div>
 					<div className="bg-[rgba(231,211,175,0.2)] border-[0.8px] border-[#e7d3af] rounded-full px-2 py-1">
 						<p className="text-[#867957]">
-							{isAr ? "خطوة 2 من 2" : "Step 2 of 2"}
+							{isAr ? "خطوة 1 من 2" : "Step 1 of 2"}
 						</p>
 					</div>
 				</div>
@@ -102,7 +123,7 @@ export function CustomerInfoFields({ lang = "ar", form , countryCode = "SA", }) 
 									<FormLabel className="flex items-center gap-2">
 										<User
 											className="w-5 h-5 text-[#867957]"
-											strokeWidth={1.67}
+											strokeWidt={1.67}
 										/>
 										<span className="text-[#364153]">
 											{isAr ? "الاسم الكامل" : "Full Name"}
@@ -144,7 +165,9 @@ export function CustomerInfoFields({ lang = "ar", form , countryCode = "SA", }) 
 												style={{ direction: "ltr" }}
 											>
 												<PhoneInput
-													defaultCountry={countryCode ? countryCode.toLowerCase() : "sa"}
+													defaultCountry={
+														countryCode ? countryCode.toLowerCase() : "sa"
+													}
 													// defaultCountry={"sa"}
 													value={field.value}
 													onChange={field.onChange}
@@ -158,56 +181,28 @@ export function CustomerInfoFields({ lang = "ar", form , countryCode = "SA", }) 
 								)}
 							/>
 						</div>
-
-						{/* Address + Map (stores name, lat, lng as strings) */}
-						{/* <div className="flex flex-col gap-2">
-							<label className="text-[#364153]">
-								{isAr ? "العنوان" : "Address*"}
-							</label>
-							
-							<LocationPickerMap
-								lat={lat}
-								lng={lng}
-								setLat={setLat}
-								setLng={setLng}
-								onAddressChange={(addr) =>
-									form.setValue("address_name", addr, { shouldValidate: true })
-								}
-								language={lang}
-							/>
-							{form.formState.errors.address_name?.message && (
-								<p className="text-sm text-destructive mt-1">
-									{String(form.formState.errors.address_name.message)}
-								</p>
-							)}
-							
-							{(form.formState.errors.address_lat ||
-								form.formState.errors.address_lng) && (
-								<p className="text-xs text-destructive mt-1">
-									{form.formState.errors.address_lat?.message ||
-										form.formState.errors.address_lng?.message}
-								</p>
-							)}
-						</div> */}
 					</form>
 				</Form>
 
-				{/* Security Note */}
-				<div className="bg-gradient-to-r from-[#eff6ff] to-[#eef2ff] border-[0.8px] border-[#bedbff] rounded-[18px] px-4 py-6 flex items-start gap-2">
-					<Lock className="w-5 h-5 text-[#1a1a1a] flex-shrink-0 mt-0.5" />
-					<div className="flex flex-col">
-						<p className="text-[#193cb8]">
-							{isAr
-								? "معلوماتك في أمان تام"
-								: "Your information is completely safe"}
-						</p>
-						<p className="text-[#155dfc] text-sm">
-							{isAr
-								? "نحن نحترم خصوصيتك بشكل كامل. جميع البيانات مشفّرة ولن نشارك معلوماتك مع أي جهة خارجية"
-								: "We fully respect your privacy. All data is encrypted and we will not share your information with any external party"}
-						</p>
-					</div>
-				</div>
+				{/* Security Note -> Save button */}
+				<Button
+					type="button"
+					onClick={handlePartOneSubmit}
+					disabled={isSubmitting || isSaved}
+					className="w-full bg-[#3c6652]"
+				>
+					{isSubmitting
+						? isAr
+							? "جار الحفظ..."
+							: "Saving..."
+						: isSaved
+							? isAr
+								? "تم الحفظ"
+								: "Saved"
+							: isAr
+								? "حفظ ومتابعة"
+								: "Save and Continue"}
+				</Button>
 			</div>
 		</div>
 	);
