@@ -57,8 +57,8 @@ export function BottomBar({ lang, data, isSaudi = true }) {
 
 	if (data.id === 88) {
 		link = `/book-haram`;
-	} else if (data.id === 96) {
-		link = `/book-tour`;
+	} else if (data.type === 3) {
+		link = `/book-tour/${data.id}`;
 	} else if (data.id === 87) {
 		link = `/book-madinah`;
 	}

@@ -8,12 +8,12 @@ import { API_BETA_URL } from "@/lib/apiConfig";
 import { getIsSaudiFromHeaders } from "@/lib/apiConfig";
 
 // 2. Wrap the fetch function with cache()
-const getData = cache(async (lang) => {
+const getData = cache(async (lang , id) => {
 	// Remove the redundant 'cache: "no-store"' unless you explicitly
 	// need to revalidate on every request (which would prevent caching/deduplication).
 	// If you need revalidation, use 'next: { revalidate: N }' instead of 'no-store'
 	const res = await fetch(
-		`${API_BASE_URL_NEW}/landing/landing-bus-trip/booking-data?package_id=96`,
+		`${API_BASE_URL_NEW}/landing/landing-bus-trip/booking-data?package_id=${id}`,
 		{
 			headers: { lang },
 		}
@@ -51,12 +51,15 @@ export function generateMetadata() {
 	};
 }
 
-export default async function Page() {
+export default async function Page({ params }) {
 	
+	const { id } = params;
+	if (!id) return notFound();
+
 	const lang = determineLang();
 
 	// Call the cached function again—it will reuse the result from generateMetadata
-			const data = await getData(lang);
+			const data = await getData(lang , id);
 			// console.log("Trip Detail Data:", data);
 			if (!data) notFound();
 
