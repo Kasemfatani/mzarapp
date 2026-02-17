@@ -30,9 +30,9 @@ export default function FixedWhatsLink({
 			dir={lang === "ar" ? "rtl" : "ltr"}
 		>
 			<i className="fa-brands fa-whatsapp"></i>
-			<span className="hidden md:inline text-white font-semibold max-w-xs truncate">
+			{/* <span className="hidden md:inline text-white font-semibold max-w-xs truncate">
 				{text}
-			</span>
+			</span> */}
 		</a>
 	);
 }
