@@ -537,6 +537,7 @@ export default function BookTourPage({
 								countryCode={countryCode}
 								packageId={busData?.id}
 								onPartOneSubmit={() => setIsPartOneSubmitted(true)}
+								packageName={busData?.name}
 							/>
 
 							<div
