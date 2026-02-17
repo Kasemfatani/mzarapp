@@ -228,7 +228,7 @@ export default function BookTourPage({
 		return () => sub.unsubscribe?.();
 	}, [form, busData, lang]);
 
-	const onConfirm = form.handleSubmit(
+	const onConfirm = (method) => form.handleSubmit(
 		async (values) => {
 			try {
 				setLoading(true); // set loading true on submit
@@ -270,7 +270,7 @@ export default function BookTourPage({
 					time_id: selection.time?.id,
 					transportation_type_id: selection.vehicle?.id,
 					people_count: selection.people,
-					payment_type: "online",
+					payment_type: method === "cash" ? "cash" : "online",
 					promo_code: promoApplied ? promoCode : null, // <-- include promo
 					add_ons: values.add_ons || selectedAddons,
 					is_express: !!values.is_express,
@@ -394,6 +394,13 @@ export default function BookTourPage({
 					return;
 				}
 
+				// Cash booking: skip payment gateway
+					if (method === "cash") {
+						setLoading(false);
+						window.location.href = `/book-path-success?status=success&tranRef=cash`;
+						return;
+					}
+
 				console.log(
 					"Starting ClickPay payment for amount (finalTotal):",
 					finalTotal,
@@ -448,6 +455,10 @@ export default function BookTourPage({
 			if (typeof window !== "undefined") handleInvalidForm(form, errors);
 		},
 	);
+
+	// Two explicit handlers
+	const onPayNow = onConfirm("online");
+	const onPayCash = onConfirm("cash");
 
 	const onCancel = () => {
 		if (typeof window !== "undefined") window.history.back();
@@ -528,7 +539,8 @@ export default function BookTourPage({
 							/>
 
 							<ActionButtons
-								onConfirm={onConfirm}
+								onConfirm={onPayNow}
+								onPayCash={onPayCash}
 								onCancel={onCancel}
 								lang={lang}
 							/>
