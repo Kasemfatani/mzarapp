@@ -12,7 +12,7 @@ import { Input } from "@/components/ui/input";
 import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
 import { API_BASE_URL_NEW } from "@/lib/apiConfig";
-import { API_BASE_URL } from "@/lib/apiConfig";
+
 import {
 	Popover,
 	PopoverTrigger,
@@ -68,8 +68,8 @@ export function CustomerInfoFields({
 
 		const payload = {
 			name: values.name,
-			mobile: whatsapp,
-			country_code: whatsapp_country_code,
+			whatsapp: whatsapp,
+			whatsapp_country_code: whatsapp_country_code,
 			package_id: packageId,
 			country_id: values.country_id,
 		};
@@ -82,7 +82,7 @@ export function CustomerInfoFields({
 		});
 
 		try {
-			const res = await fetch(`${API_BASE_URL}/landing/home/booking-pt1`, {
+			const res = await fetch(`${API_BASE_URL_NEW}/landing/customer/add`, {
 				method: "POST",
 				headers: { "Content-Type": "application/json", lang },
 				body: JSON.stringify(payload),

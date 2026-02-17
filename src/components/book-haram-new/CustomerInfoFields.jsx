@@ -29,7 +29,7 @@ import {
 	CommandList,
 } from "@/components/ui/command";
 import { ChevronsUpDown, Check } from "lucide-react";
-import { API_BASE_URL } from "@/lib/apiConfig";
+
 import { toast } from "sonner";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
 import FixedWhatsLink from "@/components/common/FixedWhatsLink";
@@ -72,8 +72,8 @@ export function CustomerInfoFields({
 
 		const payload = {
 			name: values.name,
-			mobile: whatsapp,
-			country_code: whatsapp_country_code,
+			whatsapp: whatsapp,
+			whatsapp_country_code: whatsapp_country_code,
 			package_id: packageId,
 			country_id: values.country_id,
 		};
@@ -86,7 +86,7 @@ export function CustomerInfoFields({
 		});
 
 		try {
-			const res = await fetch(`${API_BASE_URL}/landing/home/booking-pt1`, {
+			const res = await fetch(`${API_BASE_URL_NEW}/landing/customer/add`, {
 				method: "POST",
 				headers: { "Content-Type": "application/json", lang },
 				body: JSON.stringify(payload),
