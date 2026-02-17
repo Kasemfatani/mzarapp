@@ -123,8 +123,8 @@ function TripCard({ trip, isAr, isSaudi = true }) {
 
 	if (trip.id === 88) {
 		link = `/book-haram`;
-	} else if (trip.id === 96) {
-		link = `/book-tour`;
+	} else if (trip.type === 3) {
+		link = `/book-tour/${trip.id}`;
 	} else if (trip.id === 87) {
 		link = `/book-madinah`;
 	}

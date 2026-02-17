@@ -38,6 +38,7 @@ export function FeaturedToursCard({
 	isPopular = false,
 	isAr = false,
 	isSaudi = true, // Default to true if the prop is not passed
+	type,
 }) {
 
 	// --- Currency Logic ---
@@ -61,8 +62,8 @@ export function FeaturedToursCard({
 
 	if (id === 88) {
 		link = `/book-haram`;
-	} else if (id === 96) {
-		link = `/book-tour`;
+	} else if (type === 3) {
+		link = `/book-tour/${id}`;
 	} else if (id === 87) {
 		link = `/book-madinah`;
 	}

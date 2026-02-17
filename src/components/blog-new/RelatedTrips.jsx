@@ -97,7 +97,7 @@ export function RelatedTrips({ isAr, blog = {}, API_BASE_URL_NEW , isSaudi = tru
 								(() => {
 									let link = `/book-path/${trip.id}`;
 									if (trip.id === 88) link = `/book-haram`;
-									else if (trip.id === 96) link = `/book-tour`;
+									else if (trip.type === 3) link = `/book-tour/${trip.id}`;
 									else if (trip.id === 87) link = `/book-madinah`;
 
 									return (
