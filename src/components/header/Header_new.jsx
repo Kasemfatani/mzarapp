@@ -21,6 +21,13 @@ export default function Header() {
 		return null;
 	}
 
+	// hide fixed whatsapp on booking pages
+	const hideFixedWhats =
+		pathname === "/book-tour" ||
+		pathname === "/book-haram" ||
+		pathname === "/book-madinah" ||
+		(pathname && pathname.startsWith("/book-path"));
+
 	let showMenue = true;
 	if (pathname.startsWith("/hotel/")) {
 		showMenue = false;
@@ -187,6 +194,21 @@ export default function Header() {
 						</div>
 					</div>
 				</div>
+			)}
+
+			{/* fixed whatsapp (no text) */}
+			{/* fixed whatsapp (no text) */}
+			{!hideFixedWhats && (
+				<a
+					href="https://wa.me/+966580121025"
+					className="fixed-what"
+					target="_blank"
+					rel="noopener noreferrer"
+					aria-label="WhatsApp"
+					dir={isAr ? "rtl" : "ltr"}
+				>
+					<i className="fa-brands fa-whatsapp"></i>
+				</a>
 			)}
 
 			{/* Main Header */}

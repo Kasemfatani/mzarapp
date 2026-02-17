@@ -32,6 +32,7 @@ import { ChevronsUpDown, Check } from "lucide-react";
 import { API_BASE_URL } from "@/lib/apiConfig";
 import { toast } from "sonner";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
+import FixedWhatsLink from "@/components/common/FixedWhatsLink";
 
 export function CustomerInfoFields({
 	lang = "ar",
@@ -39,6 +40,7 @@ export function CustomerInfoFields({
 	countryCode = "SA",
 	packageId,
 	onPartOneSubmit,
+	packageName,
 }) {
 	const isAr = lang === "ar";
 	const [nationalityOpen, setNationalityOpen] = useState(false);
@@ -46,6 +48,7 @@ export function CustomerInfoFields({
 
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [isSaved, setIsSaved] = useState(false); // <-- new state
+	const [savedWhats, setSavedWhats] = useState(null); // { name, countryName }
 
 	const handlePartOneSubmit = async () => {
 		const result = await form.trigger(["name", "whatsapp", "country_id"]);
@@ -54,6 +57,7 @@ export function CustomerInfoFields({
 		}
 
 		setIsSubmitting(true);
+
 		const values = form.getValues();
 
 		const whatsappParsed = parsePhoneNumberFromString(values.whatsapp || "");
@@ -73,6 +77,13 @@ export function CustomerInfoFields({
 			package_id: packageId,
 			country_id: values.country_id,
 		};
+
+		// save data for whatsapp link
+		const countryName = getCountryName(values.country_id) || "";
+		setSavedWhats({
+			name: values.name || "",
+			countryName,
+		});
 
 		try {
 			const res = await fetch(`${API_BASE_URL}/landing/home/booking-pt1`, {
@@ -100,6 +111,7 @@ export function CustomerInfoFields({
 
 			setIsSubmitting(false);
 			setIsSaved(true); // show "Saved" and keep button disabled
+
 			onPartOneSubmit(); // Notify parent (will make BookingForm opaque -> normal)
 		} catch (error) {
 			toast.error(error.message);
@@ -123,6 +135,16 @@ export function CustomerInfoFields({
 
 	return (
 		<div className="bg-white rounded-[20px] shadow-[0px_20px_25px_-5px_rgba(0,0,0,0.1),0px_8px_10px_-6px_rgba(0,0,0,0.1)] border-[0.8px] border-[rgba(243,244,246,0.6)] w-full">
+			{/* when saved, show floating whatsapp link with prefilled text */}
+			{savedWhats && (
+				<FixedWhatsLink
+					lang={lang}
+					packageName={packageName || ""}
+					name={savedWhats.name}
+					countryName={savedWhats.countryName || ""}
+				/>
+			)}
+
 			<div className="p-6 flex flex-col gap-8">
 				{/* Header */}
 				<div className="flex flex-col md:flex-row items-center justify-between gap-2">
@@ -289,7 +311,6 @@ export function CustomerInfoFields({
 					</form>
 				</Form>
 
-				
 				<Button
 					type="button"
 					onClick={handlePartOneSubmit}

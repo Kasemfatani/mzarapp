@@ -18,6 +18,7 @@ import { Button } from "@/components/ui/button";
 
 import { toast } from "sonner";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
+import FixedWhatsLink from "@/components/common/FixedWhatsLink";
 
 export function CustomerInfoFields({
 	lang = "ar",
@@ -25,11 +26,13 @@ export function CustomerInfoFields({
 	countryCode = "SA",
 	packageId,
 	onPartOneSubmit,
+	packageName,
 }) {
 	const isAr = lang === "ar";
 
 	const [isSubmitting, setIsSubmitting] = useState(false);
-	const [isSaved, setIsSaved] = useState(false); // <-- new state
+	const [isSaved, setIsSaved] = useState(false);
+	const [savedWhats, setSavedWhats] = useState(null); // { name, countryName }
 
 	const handlePartOneSubmit = async () => {
 		const result = await form.trigger(["name", "whatsapp"]);
@@ -56,6 +59,13 @@ export function CustomerInfoFields({
 			country_code: whatsapp_country_code,
 			package_id: packageId,
 		};
+
+		// save data for whatsapp link
+
+		setSavedWhats({
+			name: values.name || "",
+			countryName: "", // no country selection in this form, so leave blank
+		});
 
 		try {
 			const res = await fetch(`${API_BASE_URL}/landing/home/booking-pt1`, {
@@ -92,6 +102,15 @@ export function CustomerInfoFields({
 
 	return (
 		<div className="bg-white rounded-[20px] shadow-[0px_20px_25px_-5px_rgba(0,0,0,0.1),0px_8px_10px_-6px_rgba(0,0,0,0.1)] border-[0.8px] border-[rgba(243,244,246,0.6)] w-full">
+			{/* when save, show floating whatsapp link with prefilled text */}
+			{savedWhats && (
+				<FixedWhatsLink
+					lang={lang}
+					packageName={packageName || ""}
+					name={savedWhats.name}
+					countryName={savedWhats.countryName || ""}
+				/>
+			)}
 			<div className="p-6 flex flex-col gap-8">
 				{/* Header */}
 				<div className="flex flex-col md:flex-row items-center justify-between gap-2">
