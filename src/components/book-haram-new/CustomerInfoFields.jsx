@@ -29,14 +29,86 @@ import {
 	CommandList,
 } from "@/components/ui/command";
 import { ChevronsUpDown, Check } from "lucide-react";
+import { API_BASE_URL } from "@/lib/apiConfig";
+import { toast } from "sonner";
+import { parsePhoneNumberFromString } from "libphonenumber-js";
 
-export function CustomerInfoFields({ lang = "ar", form , countryCode = "SA", }) {
+export function CustomerInfoFields({
+	lang = "ar",
+	form,
+	countryCode = "SA",
+	packageId,
+	onPartOneSubmit,
+}) {
 	const isAr = lang === "ar";
 	const [nationalityOpen, setNationalityOpen] = useState(false);
 	const [countries, setCountries] = useState([]);
 
+	const [isSubmitting, setIsSubmitting] = useState(false);
+	const [isSaved, setIsSaved] = useState(false); // <-- new state
+
+	const handlePartOneSubmit = async () => {
+		const result = await form.trigger(["name", "whatsapp", "country_id"]);
+		if (!result) {
+			return;
+		}
+
+		setIsSubmitting(true);
+		const values = form.getValues();
+
+		const whatsappParsed = parsePhoneNumberFromString(values.whatsapp || "");
+		const stripLeadingZero = (num) =>
+			num && num.startsWith("0") ? num.replace(/^0+/, "") : num;
+		const whatsapp = whatsappParsed
+			? stripLeadingZero(whatsappParsed.nationalNumber)
+			: stripLeadingZero(values.whatsapp);
+		const whatsapp_country_code = whatsappParsed
+			? whatsappParsed.countryCallingCode
+			: "";
+
+		const payload = {
+			name: values.name,
+			mobile: whatsapp,
+			country_code: whatsapp_country_code,
+			package_id: packageId,
+			country_id: values.country_id,
+		};
+
+		try {
+			const res = await fetch(`${API_BASE_URL}/landing/home/booking-pt1`, {
+				method: "POST",
+				headers: { "Content-Type": "application/json", lang },
+				body: JSON.stringify(payload),
+			});
+
+			const data = await res.json();
+
+			if (!res.ok || !data.status) {
+				throw new Error(
+					data.message ||
+						(isAr
+							? "فشل إرسال المعلومات. يرجى المحاولة مرة أخرى."
+							: "Failed to submit information. Please try again."),
+				);
+			}
+
+			toast.success(
+				isAr
+					? "تم حفظ معلوماتك بنجاح! يرجى إكمال تفاصيل الحجز."
+					: "Information saved successfully! Please complete your booking details.",
+			);
+
+			setIsSubmitting(false);
+			setIsSaved(true); // show "Saved" and keep button disabled
+			onPartOneSubmit(); // Notify parent (will make BookingForm opaque -> normal)
+		} catch (error) {
+			toast.error(error.message);
+			setIsSubmitting(false); // Re-enable button on error
+		}
+	};
+
 	useEffect(() => {
-		fetch(`${API_BASE_URL_NEW}/landing/countries` , { headers: { lang } })
+		fetch(`${API_BASE_URL_NEW}/landing/countries`, { headers: { lang } })
 			.then((res) => res.json())
 			.then((data) => {
 				if (Array.isArray(data)) setCountries(data);
@@ -58,10 +130,16 @@ export function CustomerInfoFields({ lang = "ar", form , countryCode = "SA", }) 
 						<h3 className="text-[#3c6652] text-2xl tracking-[-0.24px]">
 							{isAr ? "معلوماتك الشخصية" : "Your Personal Information"}
 						</h3>
-						<p className="text-[#4a5565]">{isAr ? "نحتاج بعض المعلومات لإتمام حجزك" : "We need some information to complete your booking"}</p>
+						<p className="text-[#4a5565]">
+							{isAr
+								? "نحتاج بعض المعلومات لإتمام حجزك"
+								: "We need some information to complete your booking"}
+						</p>
 					</div>
 					<div className="bg-[rgba(231,211,175,0.2)] border-[0.8px] border-[#e7d3af] rounded-full px-2 py-1">
-						<p className="text-[#867957]">{isAr ? "خطوة 2 من 2" : "Step 2 of 2"}</p>
+						<p className="text-[#867957]">
+							{isAr ? "خطوة 1 من 2" : "Step 1 of 2"}
+						</p>
 					</div>
 				</div>
 
@@ -78,13 +156,17 @@ export function CustomerInfoFields({ lang = "ar", form , countryCode = "SA", }) 
 											className="w-5 h-5 text-[#867957]"
 											strokeWidth={1.67}
 										/>
-										<span className="text-[#364153]">{isAr ? "الاسم الكامل" : "Full Name"}</span>
+										<span className="text-[#364153]">
+											{isAr ? "الاسم الكامل" : "Full Name"}
+										</span>
 										<span className="text-[#fb2c36]">*</span>
 									</FormLabel>
 									<FormControl>
 										<Input
 											type="text"
-											placeholder={isAr ? "أدخل اسمك الكامل" : "Enter your full name"}
+											placeholder={
+												isAr ? "أدخل اسمك الكامل" : "Enter your full name"
+											}
 											className="w-full shadow-none bg-gradient-to-b from-[#f8f4ed] to-[#f5f1eb] border-[0.8px] border-[rgba(229,231,235,0.6)] rounded-[18px] p-4 placeholder:text-[#9ca3af]"
 											{...field}
 										/>
@@ -103,7 +185,8 @@ export function CustomerInfoFields({ lang = "ar", form , countryCode = "SA", }) 
 								render={({ field }) => (
 									<FormItem className="flex-1">
 										<FormLabel className="text-[#364153]">
-											{isAr ? "رقم الواتساب" : "WhatsApp"}<span className="text-[#fb2c36]"> *</span>
+											{isAr ? "رقم الواتساب" : "WhatsApp"}
+											<span className="text-[#fb2c36]"> *</span>
 										</FormLabel>
 										<FormControl>
 											<div
@@ -113,7 +196,9 @@ export function CustomerInfoFields({ lang = "ar", form , countryCode = "SA", }) 
 												style={{ direction: "ltr" }}
 											>
 												<PhoneInput
-													defaultCountry={countryCode ? countryCode.toLowerCase() : "sa"}
+													defaultCountry={
+														countryCode ? countryCode.toLowerCase() : "sa"
+													}
 													// defaultCountry={"sa"}
 													value={field.value}
 													onChange={field.onChange}
@@ -135,7 +220,10 @@ export function CustomerInfoFields({ lang = "ar", form , countryCode = "SA", }) 
 									<FormItem className="flex-1">
 										<FormLabel className="text-[#364153]">
 											{isAr ? "الجنسية" : "Nationality"}
-											<span id="country_id" className="text-[#fb2c36]"> *</span>
+											<span id="country_id" className="text-[#fb2c36]">
+												{" "}
+												*
+											</span>
 										</FormLabel>
 
 										<Popover
@@ -153,8 +241,8 @@ export function CustomerInfoFields({ lang = "ar", form , countryCode = "SA", }) 
 													{field.value
 														? getCountryName(field.value)
 														: isAr
-														? "اختر الجنسية"
-														: "Select nationality"}
+															? "اختر الجنسية"
+															: "Select nationality"}
 													<ChevronsUpDown className="ml-2 h-4 w-4 opacity-50" />
 												</Button>
 											</PopoverTrigger>
@@ -201,16 +289,25 @@ export function CustomerInfoFields({ lang = "ar", form , countryCode = "SA", }) 
 					</form>
 				</Form>
 
-				{/* Security Note */}
-				<div className="bg-gradient-to-r from-[#eff6ff] to-[#eef2ff] border-[0.8px] border-[#bedbff] rounded-[18px] px-4 py-6 flex items-start gap-2">
-					<Lock className="w-5 h-5 text-[#1a1a1a] flex-shrink-0 mt-0.5" />
-					<div className="flex flex-col">
-						<p className="text-[#193cb8]">{isAr ? "معلوماتك في أمان تام" : "Your information is completely safe"}</p>
-						<p className="text-[#155dfc] text-sm">
-							{isAr ? "نحن نحترم خصوصيتك بشكل كامل. جميع البيانات مشفّرة ولن نشارك معلوماتك مع أي جهة خارجية" : "We fully respect your privacy. All data is encrypted and we will not share your information with any external party"}
-						</p>
-					</div>
-				</div>
+				
+				<Button
+					type="button"
+					onClick={handlePartOneSubmit}
+					disabled={isSubmitting || isSaved}
+					className="w-full bg-[#3c6652]"
+				>
+					{isSubmitting
+						? isAr
+							? "جار الحفظ..."
+							: "Saving..."
+						: isSaved
+							? isAr
+								? "تم الحفظ"
+								: "Saved"
+							: isAr
+								? "حفظ ومتابعة"
+								: "Save and Continue"}
+				</Button>
 			</div>
 		</div>
 	);
