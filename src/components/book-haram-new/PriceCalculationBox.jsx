@@ -63,12 +63,17 @@ export function PriceCalculationBox({
 	const taxAmount = Number((Number(tax || 0) * totalBeforeTax).toFixed(2));
 	const finalTotal = Number((totalBeforeTax + taxAmount).toFixed(2));
 
-	// Calculate Online Discount (5% on final total)
-	const onlineDiscountPercent = 0.05;
-	const onlineDiscountAmount = Number(
-		(finalTotal * onlineDiscountPercent).toFixed(2),
+	// --- ONLINE CALCULATION (Discount at start) ---
+	const onlineDiscountBaseAmount = Number((totalBeforeTax * 0.05).toFixed(2));
+	const onlineTaxableAmount = Number(
+		(totalBeforeTax - onlineDiscountBaseAmount).toFixed(2),
 	);
-	const onlineTotal = Number((finalTotal - onlineDiscountAmount).toFixed(2));
+	const onlineTaxAmount = Number(
+		(Number(tax || 0) * onlineTaxableAmount).toFixed(2),
+	);
+	const onlineTotal = Number(
+		(onlineTaxableAmount + onlineTaxAmount).toFixed(2),
+	);
 
 	// displays
 	const baseDisplay = base.toFixed(2);
@@ -210,7 +215,10 @@ export function PriceCalculationBox({
 					<div className="flex items-center justify-between py-2">
 						<div className="flex flex-col items-start">
 							<p className="text-[#4a5565]">
-								{isAr ? "المجموع" : "Total"} <span className="font-bold">{isAr ? "(دفع نقدي)" : "(Pay Cash)"}</span>
+								{isAr ? "المجموع" : "Total"}{" "}
+								<span className="font-bold">
+									{isAr ? "(دفع نقدي)" : "(Pay Cash)"}
+								</span>
 							</p>
 						</div>
 						<div className="flex items-center gap-2">
@@ -246,9 +254,7 @@ export function PriceCalculationBox({
 							</p>
 							<p className="text-white text-base font-bold">
 								{isSaudi ? onlineTotalDisplay : toDollar(onlineTotalDisplay)}{" "}
-								<span className="text-sm font-normal">
-									{currencySymbol}
-								</span>
+								<span className="text-sm font-normal">{currencySymbol}</span>
 							</p>
 						</div>
 					</div>
