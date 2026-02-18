@@ -1,6 +1,6 @@
 "use client";
 
-import { Sparkles, TrendingUp } from "lucide-react";
+import { Sparkles } from "lucide-react";
 
 const CURRENCY_SVG = (
 	<svg
@@ -18,7 +18,7 @@ const CURRENCY_SVG = (
 const SAR_RATE = 3.75;
 
 function toDollar(amount) {
-	return (amount / SAR_RATE).toFixed(2);
+	return (Number(amount) / SAR_RATE).toFixed(2);
 }
 
 const SAR_LABEL = (
@@ -31,17 +31,15 @@ const SAR_LABEL = (
 export function PriceCalculationBox({
 	groupAgePrices = [],
 	groupAgeCounts = [],
-	tax = 0, // <-- added tax prop (e.g. 0.15)
-	promoDiscountPercent = 0, // <-- added promo discount (%)
+	tax = 0, // e.g. 0.15
+	promoDiscountPercent = 0, // %
 	lang = "en",
 	isSaudi = true,
 }) {
-
 	const isAr = lang === "ar";
 
 	// --- Currency Logic ---
 	let currencySymbol;
-
 	if (isSaudi) {
 		currencySymbol = isAr ? SAR_LABEL : "SAR";
 	} else {
@@ -49,28 +47,27 @@ export function PriceCalculationBox({
 	}
 	// --- End Currency Logic ---
 
+	const formatAmount = (n) => (isSaudi ? Number(n).toFixed(2) : toDollar(n));
+
 	// compute base = sum(price * quantity)
 	const base = (groupAgeCounts || []).reduce((sum, r) => {
 		const gp = (groupAgePrices || []).find((p) => p.id === r.id);
 		return sum + Number(gp?.price || 0) * Number(r.quantity || 0);
 	}, 0);
 
-	// apply promo discount on the base
+	// apply promo discount on base
 	const discountAmount = Number(
-		((Number(promoDiscountPercent || 0) / 100) * base).toFixed(2)
+		((Number(promoDiscountPercent || 0) / 100) * base).toFixed(2),
 	);
 	const totalBeforeTax = Number((base - discountAmount).toFixed(2));
 
-	// tax after total price
+	// tax after discount
 	const taxAmount = Number((Number(tax || 0) * totalBeforeTax).toFixed(2));
 	const finalTotal = Number((totalBeforeTax + taxAmount).toFixed(2));
 
-	// displays
-	const baseDisplay = Number(base).toFixed(2);
-	const discountDisplay = discountAmount.toFixed(2);
-	const totalBeforeTaxDisplay = totalBeforeTax.toFixed(2);
-	const taxAmountDisplay = taxAmount.toFixed(2);
-	const finalTotalDisplay = finalTotal.toFixed(2);
+	// online discount (5% on final total)
+	const onlineDiscountAmount = Number((finalTotal * 0.05).toFixed(2));
+	const onlineTotal = Number((finalTotal - onlineDiscountAmount).toFixed(2));
 
 	return (
 		<div
@@ -80,7 +77,7 @@ export function PriceCalculationBox({
 					"linear-gradient(146.179deg, rgba(231, 211, 175, 0.4) 0%, rgba(231, 211, 175, 0.25) 50%, rgb(255, 255, 255) 100%), linear-gradient(90deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.3) 100%)",
 			}}
 		>
-			<div className="relative p-6 flex flex-col gap-4">
+			<div className="relative p-0 md:p-6 py-4 md:py-6 flex flex-col gap-4">
 				{/* Header */}
 				<div className="flex items-center justify-between px-6">
 					<div className="flex items-center gap-4">
@@ -88,8 +85,11 @@ export function PriceCalculationBox({
 							<h3 className="text-[#3c6652] text-2xl tracking-[-0.24px]">
 								{isAr ? "ملخص الأسعار" : "Price Summary"}
 							</h3>
-							<p className="text-[#4a5565]">{isAr ? "يتم التحديث تلقائياً" : "Automatically updated"}</p>
+							<p className="text-[#4a5565]">
+								{isAr ? "يتم التحديث تلقائياً" : "Automatically updated"}
+							</p>
 						</div>
+
 						<div className="bg-gradient-to-b from-[#3c6652] to-[#2d4d3d] rounded-full w-14 h-14 flex items-center justify-center">
 							<svg
 								className="w-7 h-7 text-white"
@@ -120,6 +120,7 @@ export function PriceCalculationBox({
 							</svg>
 						</div>
 					</div>
+
 					<Sparkles
 						className="hidden md:block w-6 h-6 text-[#867957]"
 						strokeWidth={2}
@@ -129,13 +130,14 @@ export function PriceCalculationBox({
 				<div className="h-px bg-[#E6D2AF]" />
 
 				{/* Price Items */}
-				<div className="px-6 flex flex-col gap-2">
+				<div className="px-1 md:px-6 flex flex-col gap-2">
 					{/* per-group breakdown */}
 					{(groupAgeCounts || [])
 						.filter((r) => Number(r.quantity || 0) > 0)
 						.map((r) => {
 							const gp = (groupAgePrices || []).find((p) => p.id === r.id);
 							const line = Number(gp?.price || 0) * Number(r.quantity || 0);
+
 							return (
 								<div
 									key={r.id}
@@ -144,8 +146,8 @@ export function PriceCalculationBox({
 									<p className="text-[#364153]">
 										{gp?.name} × {r.quantity}
 									</p>
-									<p className="text-[#1e2939] ">
-										{ isSaudi ? line.toFixed(2) : toDollar(line)} {currencySymbol}
+									<p className="text-[#1e2939]">
+										{formatAmount(line)} {currencySymbol}
 									</p>
 								</div>
 							);
@@ -155,54 +157,85 @@ export function PriceCalculationBox({
 					{promoDiscountPercent > 0 && (
 						<div className="flex items-center justify-between border-b border-[#e6d2af] pb-4 pt-4">
 							<p className="text-[#364153]">
-								{isAr ? "خصم" : "Discount"}  ({promoDiscountPercent}%)
+								{isAr ? "خصم" : "Discount"} ({promoDiscountPercent}%)
 							</p>
-							<p className="text-[#3c6652] ">
-								-{ isSaudi ? discountDisplay : toDollar(discountDisplay)} {currencySymbol}
+							<p className="text-[#3c6652]">
+								-{formatAmount(discountAmount)} {currencySymbol}
 							</p>
 						</div>
 					)}
 
-					{/* Total price (after discount, before tax) */}
+					{/* Total (after promo, before tax) */}
 					<div className="flex items-center justify-between border-b border-[#e6d2af] pb-4 pt-4">
-						<p className="text-[#364153]">{isAr ? "إجمالي السعر" : "Total Price"}</p>
-						<div className="flex items-center gap-2">
-							<p className="text-[#1e2939] ">
-								{ isSaudi ? totalBeforeTaxDisplay : toDollar(totalBeforeTaxDisplay)} {currencySymbol}
-							</p>
-						</div>
+						<p className="text-[#364153]">
+							{isAr ? "إجمالي السعر" : "Total Price"}
+						</p>
+						<p className="text-[#1e2939]">
+							{formatAmount(totalBeforeTax)} {currencySymbol}
+						</p>
 					</div>
 
 					{/* Tax */}
 					<div className="flex items-center justify-between border-b border-[#e6d2af] pb-4 pt-4">
 						<p className="text-[#364153]">
-							{isAr ? "الضريبة" : "Tax"} 
-							{typeof tax === "number" ? ` (${(tax * 100).toFixed(0)}%)` : ""}
+							{isAr ? "الضريبة" : "Tax"}
+							{typeof tax === "number"
+								? ` (${(Number(tax) * 100).toFixed(0)}%)`
+								: ""}
 						</p>
-						<p className="text-[#1e2939] ">
-							{ isSaudi ? taxAmountDisplay : toDollar(taxAmountDisplay)} {currencySymbol}
+						<p className="text-[#1e2939]">
+							{formatAmount(taxAmount)} {currencySymbol}
 						</p>
 					</div>
 
-					{/* Final total */}
-					<div className="bg-gradient-to-b from-[#3c6652] to-[#2d4d3d] rounded-[18px] px-2 md:px-6 py-4 flex items-center justify-between">
+					{/* Standard Final total (Cash) */}
+					<div className="flex items-center justify-between py-2">
 						<div className="flex flex-col items-start">
-							<p className="text-[rgba(255,255,255,0.8)]">{isAr ? "المجموع النهائي" : "Final Total"}</p>
-							<p className="text-[rgba(255,255,255,0.6)] text-sm">
-								{isAr ? "شامل جميع الرسوم والضرائب" : "Includes all fees and taxes"}
+							<p className="text-[#4a5565]">
+								{isAr ? "المجموع" : "Total"}{" "}
+								<span className="font-bold">
+									{isAr ? "(دفع نقدي)" : "(Pay Cash)"}
+								</span>
 							</p>
 						</div>
-						<div className="flex items-center gap-2">
-							<p className="text-white ">
-								{ isSaudi ? finalTotalDisplay : toDollar(finalTotalDisplay)} {currencySymbol}
+						<p className="text-[#1e2939] font-medium">
+							{formatAmount(finalTotal)} {currencySymbol}
+						</p>
+					</div>
+
+					{/* Online Total with Discount */}
+					<div className="bg-gradient-to-br from-[#3c6652] to-[#1e3a2d] rounded-[18px] px-2 md:px-6 py-4 flex items-center justify-between shadow-lg relative overflow-hidden group">
+						{/* Shimmer effect overlay */}
+						<div className="absolute inset-0 bg-white/10 skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+
+						<div className="flex flex-col items-start relative z-10">
+							<div className="flex items-center gap-2 mb-1">
+								<p className="text-white font-bold text-base">
+									{isAr ? "ادفع إلكترونياً (وفر 5%)" : "Pay Online (Save 5%)"}
+								</p>
+							</div>
+							<p className="text-[rgba(255,255,255,0.7)] text-xs">
+								{isAr ? "أفضل سعر متاح!" : "Best price available!"}
+							</p>
+						</div>
+
+						<div className="flex flex-col items-end gap-0 relative z-10">
+							<p className="text-[#86efac] text-xs line-through opacity-70">
+								{formatAmount(finalTotal)}
+							</p>
+							<p className="text-white text-base font-bold">
+								{formatAmount(onlineTotal)}{" "}
+								<span className="text-sm font-normal">{currencySymbol}</span>
 							</p>
 						</div>
 					</div>
 
 					{/* Final note */}
-					<div className="bg-[#f0fdf4] border-[0.8px] border-[#b9f8cf] rounded-[16.4px] px-6 py-2 flex items-center gap-2">
+					<div className="bg-[#f0fdf4] border-[0.8px] border-[#b9f8cf] rounded-[16.4px] px-6 py-2 flex items-center gap-2 mt-2">
 						<p className="text-[#4a5565]">
-							{isAr ? "السعر نهائي بدون أي رسوم إضافية مخفية" : "No hidden fees or extra charges"}	
+							{isAr
+								? "السعر نهائي بدون أي رسوم إضافية مخفية"
+								: "No hidden fees or extra charges"}
 						</p>
 						<p className="text-[#00a63e]">✓</p>
 					</div>

@@ -80,6 +80,13 @@ export function PriceCalculationBox({
 	const taxAmount = Number((Number(tax || 0) * totalBeforeTax).toFixed(2));
 	const finalTotal = Number((totalBeforeTax + taxAmount).toFixed(2));
 
+	// Calculate Online Discount (5% on final total)
+	const onlineDiscountPercent = 0.05;
+	const onlineDiscountAmount = Number(
+		(finalTotal * onlineDiscountPercent).toFixed(2),
+	);
+	const onlineTotal = Number((finalTotal - onlineDiscountAmount).toFixed(2));
+
 	const rawBaseDisplay = rawBase.toFixed(2);
 	const discountDisplay = discountAmount.toFixed(2);
 	const baseUnitDisplay = baseUnit.toFixed(2);
@@ -87,6 +94,7 @@ export function PriceCalculationBox({
 	const totalBeforeTaxDisplay = totalBeforeTax.toFixed(2);
 	const taxAmountDisplay = taxAmount.toFixed(2);
 	const finalTotalDisplay = finalTotal.toFixed(2);
+	const onlineTotalDisplay = onlineTotal.toFixed(2);
 
 	return (
 		<div
@@ -96,7 +104,7 @@ export function PriceCalculationBox({
 					"linear-gradient(146.179deg, rgba(231, 211, 175, 0.4) 0%, rgba(231, 211, 175, 0.25) 50%, rgb(255, 255, 255) 100%), linear-gradient(90deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.3) 100%)",
 			}}
 		>
-			<div className="relative p-6 flex flex-col gap-4">
+			<div className="relative p-0 md:p-6 py-4 md:py-6 flex flex-col gap-4">
 				{/* Header */}
 				<div className="flex items-center justify-between px-6">
 					<div className="flex items-center gap-4">
@@ -146,7 +154,7 @@ export function PriceCalculationBox({
 
 				<div className="h-px bg-[#E6D2AF]" />
 
-				<div className="px-6 flex flex-col gap-2">
+				<div className="px-1 md:px-6 flex flex-col gap-2">
 					{/* Trip price (show strike-through if discounted) */}
 					<div className="flex items-center justify-between border-b border-[#e6d2af] pb-4 pt-4">
 						<p className="text-[#364153]">
@@ -220,25 +228,51 @@ export function PriceCalculationBox({
 						</p>
 					</div>
 
-					{/* Final total */}
-					<div className="bg-gradient-to-b from-[#3c6652] to-[#2d4d3d] rounded-[18px] px-2 md:px-6 py-4 flex items-center justify-between">
+					{/* Standard Final total (for Cash) */}
+					<div className="flex items-center justify-between py-2">
 						<div className="flex flex-col items-start">
-							<p className="text-[rgba(255,255,255,0.8)]">
-								{isAr ? "المجموع النهائي" : "Final total"}
-							</p>
-							<p className="text-[rgba(255,255,255,0.6)] text-sm">
-								{isAr
-									? "شامل جميع الرسوم والضرائب"
-									: "Including all fees and taxes"}
+							<p className="text-[#4a5565]">
+								{isAr ? "المجموع" : "Total"}{" "}
+								<span className="font-bold">
+									{isAr ? "(دفع نقدي)" : "(Pay Cash)"}
+								</span>
 							</p>
 						</div>
-						<p className="text-white ">
-							{isSaudi ? finalTotalDisplay : toDollar(finalTotalDisplay)}{" "}
-							{currencySymbol}
-						</p>
+						<div className="flex items-center gap-2">
+							<p className="text-[#1e2939] font-medium">
+								{isSaudi ? finalTotalDisplay : toDollar(finalTotalDisplay)}{" "}
+								{currencySymbol}
+							</p>
+						</div>
 					</div>
 
-					<div className="bg-[#f0fdf4] border-[0.8px] border-[#b9f8cf] rounded-[16.4px] px-6 py-2 flex items-center gap-2">
+					{/* Online Total with Discount */}
+					<div className="bg-gradient-to-br from-[#3c6652] to-[#1e3a2d] rounded-[18px] px-2 md:px-6 py-4 flex items-center justify-between shadow-lg relative overflow-hidden group">
+						{/* Shimmer effect overlay */}
+						<div className="absolute inset-0 bg-white/10 skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+
+						<div className="flex flex-col items-start relative z-10">
+							<div className="flex items-center gap-2 mb-1">
+								<p className="text-white font-bold text-base">
+									{isAr ? "ادفع إلكترونياً (وفر 5%)" : "Pay Online (Save 5%)"}
+								</p>
+							</div>
+							<p className="text-[rgba(255,255,255,0.7)] text-xs">
+								{isAr ? "أفضل سعر متاح!" : "Best price available!"}
+							</p>
+						</div>
+						<div className="flex flex-col items-end gap-0 relative z-10">
+							<p className="text-[#86efac] text-xs line-through opacity-70">
+								{isSaudi ? finalTotalDisplay : toDollar(finalTotalDisplay)}
+							</p>
+							<p className="text-white text-base font-bold">
+								{isSaudi ? onlineTotalDisplay : toDollar(onlineTotalDisplay)}{" "}
+								<span className="text-sm font-normal">{currencySymbol}</span>
+							</p>
+						</div>
+					</div>
+
+					<div className="bg-[#f0fdf4] border-[0.8px] border-[#b9f8cf] rounded-[16.4px] px-6 py-2 flex items-center gap-2 mt-2">
 						<p className="text-[#4a5565]">
 							{isAr
 								? "السعر نهائي بدون أي رسوم إضافية مخفية"

@@ -69,8 +69,6 @@ const getSchema = (lang, max_people_count = 20) => {
 					}),
 				)
 				.default([]),
-
-			
 		})
 		.refine(
 			(vals) =>
@@ -407,7 +405,21 @@ export default function BookTourPage({
 					// tax applied after discount
 					const taxRate = Number(busData?.tax ?? 0);
 					const taxAmount = Number((taxRate * totalBeforeTax).toFixed(2));
-					const finalTotal = Number((totalBeforeTax + taxAmount).toFixed(2));
+
+					// Initial Total
+					let finalTotal = Number((totalBeforeTax + taxAmount).toFixed(2));
+
+					// Apply 5% discount if paying online
+					if (method === "online") {
+						const onlineDiscount = Number((finalTotal * 0.05).toFixed(2));
+						finalTotal = Number((finalTotal - onlineDiscount).toFixed(2));
+						console.log(
+							"Applying 5% Online Discount. Old Total:",
+							(totalBeforeTax + taxAmount).toFixed(2),
+							"New Total:",
+							finalTotal,
+						);
+					}
 
 					// persist useful info for success page analytics / debugging
 					try {
@@ -529,7 +541,6 @@ export default function BookTourPage({
 					<div className="flex flex-col-reverse md:flex-row  gap-8 md:gap-12">
 						{/* Booking Flow */}
 						<div className="md:w-[60%] flex flex-col gap-6">
-
 							{/* Customer info fields */}
 							<CustomerInfoFields
 								lang={lang}
@@ -546,20 +557,19 @@ export default function BookTourPage({
 								} `}
 							>
 								<BookingForm
-								lang={lang}
-								form={form}
-								times={dayTimes}
-								gatheringPoints={busData.gathering_points}
-								busId={busData.id}
-								disabledDays={disabledDays}
-								groupAgePrices={busData.group_age_prices || []}
-								leftSeats={leftSeats}
-								tax={typeof busData?.tax === "number" ? busData.tax : 0}
-								isSaudi={isSaudi}
-								maxDate={busData.last_date}
-							/>
+									lang={lang}
+									form={form}
+									times={dayTimes}
+									gatheringPoints={busData.gathering_points}
+									busId={busData.id}
+									disabledDays={disabledDays}
+									groupAgePrices={busData.group_age_prices || []}
+									leftSeats={leftSeats}
+									tax={typeof busData?.tax === "number" ? busData.tax : 0}
+									isSaudi={isSaudi}
+									maxDate={busData.last_date}
+								/>
 							</div>
-
 
 							{/* Promo section (after form) */}
 							<PromoCodeSection

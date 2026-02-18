@@ -23,13 +23,13 @@ export function ActionButtons({
 						<>
 							
 							<p className="text-white">
-								{loading ? "جارٍ المعالجة..." : "ادفع الآن"}
+								{loading ? "جارٍ المعالجة..." : "الدفع الالكتروني"}
 							</p>
 						</>
 					) : (
 						<>
 							<p className="text-white">
-								{loading ? "Processing..." : "Pay Now"}
+								{loading ? "Processing..." : "Pay online"}
 							</p>
 						</>
 					)}
@@ -41,7 +41,7 @@ export function ActionButtons({
 					disabled={loading}
 					className="w-full bg-[#3c6652] rounded-[30px] shadow-[0px_15px_25px_-15px_rgba(0,0,0,0.2)] px-8 py-4 flex items-center justify-center gap-2 hover:bg-[#2d4d3d] transition-colors"
 				>
-					<p className="text-white">{isAr ? "ادفع نقدًا" : "Pay Cash"}</p>
+					<p className="text-white">{isAr ? "الدفع نقدا" : "Pay cash"}</p>
 				</button>
 			</div>
 
