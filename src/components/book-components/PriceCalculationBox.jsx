@@ -55,19 +55,31 @@ export function PriceCalculationBox({
 		return sum + Number(gp?.price || 0) * Number(r.quantity || 0);
 	}, 0);
 
+	// --- STANDARD CALCULATION (CASH) ---
 	// apply promo discount on base
-	const discountAmount = Number(
+	const promoDiscountAmount = Number(
 		((Number(promoDiscountPercent || 0) / 100) * base).toFixed(2),
 	);
-	const totalBeforeTax = Number((base - discountAmount).toFixed(2));
+	const totalBeforeTax = Number((base - promoDiscountAmount).toFixed(2));
 
-	// tax after discount
+	// tax
 	const taxAmount = Number((Number(tax || 0) * totalBeforeTax).toFixed(2));
 	const finalTotal = Number((totalBeforeTax + taxAmount).toFixed(2));
 
-	// online discount (5% on final total)
-	const onlineDiscountAmount = Number((finalTotal * 0.05).toFixed(2));
-	const onlineTotal = Number((finalTotal - onlineDiscountAmount).toFixed(2));
+	// --- ONLINE CALCULATION (Discount at start) ---
+	// We apply the 5% on the Base (or Base after Promo).
+	// Usually "at start" means reducing the amount before tax is added.
+	// Let's apply 5% on the 'totalBeforeTax' (which is Base - Promo).
+	const onlineDiscountBaseAmount = Number((totalBeforeTax * 0.05).toFixed(2));
+	const onlineTaxableAmount = Number(
+		(totalBeforeTax - onlineDiscountBaseAmount).toFixed(2),
+	);
+	const onlineTaxAmount = Number(
+		(Number(tax || 0) * onlineTaxableAmount).toFixed(2),
+	);
+	const onlineTotal = Number(
+		(onlineTaxableAmount + onlineTaxAmount).toFixed(2),
+	);
 
 	return (
 		<div
@@ -160,7 +172,7 @@ export function PriceCalculationBox({
 								{isAr ? "خصم" : "Discount"} ({promoDiscountPercent}%)
 							</p>
 							<p className="text-[#3c6652]">
-								-{formatAmount(discountAmount)} {currencySymbol}
+								-{formatAmount(promoDiscountAmount)} {currencySymbol}
 							</p>
 						</div>
 					)}

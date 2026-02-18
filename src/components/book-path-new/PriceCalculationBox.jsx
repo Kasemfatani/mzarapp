@@ -80,12 +80,18 @@ export function PriceCalculationBox({
 	const taxAmount = Number((Number(tax || 0) * totalBeforeTax).toFixed(2));
 	const finalTotal = Number((totalBeforeTax + taxAmount).toFixed(2));
 
-	// Calculate Online Discount (5% on final total)
-	const onlineDiscountPercent = 0.05;
-	const onlineDiscountAmount = Number(
-		(finalTotal * onlineDiscountPercent).toFixed(2),
+	// --- ONLINE CALCULATION (Discount at start) ---
+	// Apply 5% on the Total Before Tax
+	const onlineDiscountBaseAmount = Number((totalBeforeTax * 0.05).toFixed(2));
+	const onlineTaxableAmount = Number(
+		(totalBeforeTax - onlineDiscountBaseAmount).toFixed(2),
 	);
-	const onlineTotal = Number((finalTotal - onlineDiscountAmount).toFixed(2));
+	const onlineTaxAmount = Number(
+		(Number(tax || 0) * onlineTaxableAmount).toFixed(2),
+	);
+	const onlineTotal = Number(
+		(onlineTaxableAmount + onlineTaxAmount).toFixed(2),
+	);
 
 	const rawBaseDisplay = rawBase.toFixed(2);
 	const discountDisplay = discountAmount.toFixed(2);

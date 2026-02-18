@@ -402,21 +402,37 @@ export default function BookTourPage({
 					);
 					const totalBeforeTax = Number((base - discountAmount).toFixed(2));
 
+					// --- Standard Cash Calculation ---
 					// tax applied after discount
 					const taxRate = Number(busData?.tax ?? 0);
 					const taxAmount = Number((taxRate * totalBeforeTax).toFixed(2));
-
-					// Initial Total
+					// Initial Total (Cash)
 					let finalTotal = Number((totalBeforeTax + taxAmount).toFixed(2));
 
-					// Apply 5% discount if paying online
+					// Apply 5% discount if paying online (At the start logic)
 					if (method === "online") {
-						const onlineDiscount = Number((finalTotal * 0.05).toFixed(2));
-						finalTotal = Number((finalTotal - onlineDiscount).toFixed(2));
+						// 1. Calculate discount on the pre-tax amount
+						const onlineDiscount = Number((totalBeforeTax * 0.05).toFixed(2));
+						// 2. New Taxable Base
+						const onlineTaxable = Number(
+							(totalBeforeTax - onlineDiscount).toFixed(2),
+						);
+						// 3. New Tax
+						const onlineTax = Number((taxRate * onlineTaxable).toFixed(2));
+						// 4. New Total
+						finalTotal = Number((onlineTaxable + onlineTax).toFixed(2));
+
 						console.log(
-							"Applying 5% Online Discount. Old Total:",
-							(totalBeforeTax + taxAmount).toFixed(2),
-							"New Total:",
+							"Applying 5% Online Discount (Start Method).",
+							"Base:",
+							totalBeforeTax,
+							"Discount:",
+							onlineDiscount,
+							"Taxable:",
+							onlineTaxable,
+							"Tax:",
+							onlineTax,
+							"New Final Total:",
 							finalTotal,
 						);
 					}
