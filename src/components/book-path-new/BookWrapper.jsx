@@ -75,8 +75,6 @@ const getSchema = (lang, max_people_count = 20, min_people_count = 1) => {
 		// address_name: z.string().min(1, reqAddress),
 		// address_lat: z.string().min(1, reqLat),
 		// address_lng: z.string().min(1, reqLng),
-
-		
 	});
 };
 
@@ -126,8 +124,6 @@ export default function BookTourPage({
 			// address_name: "",
 			// address_lat: "",
 			// address_lng: "",
-
-			
 		},
 		shouldFocusError: false,
 		mode: "onSubmit",
@@ -228,233 +224,248 @@ export default function BookTourPage({
 		return () => sub.unsubscribe?.();
 	}, [form, busData, lang]);
 
-	const onConfirm = (method) => form.handleSubmit(
-		async (values) => {
-			try {
-				setLoading(true); // set loading true on submit
-				const selection = {
-					date: format(values.date, "yyyy-MM-dd"),
-					time: values.time,
-					vehicle: values.vehicle,
-					tour_id: busData?.id,
-					people: values.people,
-					is_express: values.is_express,
-					add_ons: values.add_ons || selectedAddons,
-					// optional store address
-					// address_name: values.address_name,
-					// address_lat: values.address_lat,
-					// address_lng: values.address_lng,
-				};
-				localStorage.setItem(STORAGE_KEY, JSON.stringify(selection));
-
-				const whatsappParsed = parsePhoneNumberFromString(
-					values.whatsapp || "",
-				);
-				const stripLeadingZero = (num) =>
-					num && num.startsWith("0") ? num.replace(/^0+/, "") : num;
-				const whatsapp = whatsappParsed
-					? stripLeadingZero(whatsappParsed.nationalNumber)
-					: stripLeadingZero(values.whatsapp);
-				const whatsapp_country_code = whatsappParsed
-					? whatsappParsed.countryCallingCode
-					: "";
-
-				const payload = {
-					name: values.name,
-					phone: null,
-					whatsapp,
-					phone_country_code: null,
-					whatsapp_country_code,
-					package_id: busData?.id,
-					date: selection.date,
-					time_id: selection.time?.id,
-					transportation_type_id: selection.vehicle?.id,
-					people_count: selection.people,
-					payment_type: method === "cash" ? "cash" : "online",
-					promo_code: promoApplied ? promoCode : null, // <-- include promo
-					add_ons: values.add_ons || selectedAddons,
-					is_express: !!values.is_express,
-					// new address fields in payload
-					// address_name: values.address_name,
-					// address_lat: String(values.address_lat),
-					// address_lng: String(values.address_lng),
-				};
-				console.log("Booking payload:", payload);
-
-				const res = await fetch(`${API_BASE_URL_NEW}/landing/trip/booking`, {
-					method: "POST",
-					headers: { "Content-Type": "application/json" },
-					body: JSON.stringify(payload),
-				});
-				const json = await res.json();
-
-				if (!res.ok || !json.status) {
-					toast.error(
-						lang === "ar"
-							? "حدث خطأ أثناء إرسال المعلومات"
-							: "Something went wrong sending the info",
-					);
-					return;
-				}
-
-				const { trip_id, customer_id, ref_no } = json.data || {};
-
-				const cartId = `${ref_no}_${Date.now()}`;
-
-				const stored = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
-				localStorage.setItem(
-					STORAGE_KEY,
-					JSON.stringify({
-						...stored,
-						trip_id,
-						customer_id,
-						ref_no,
-						cart_id: cartId,
-						customer_name: values.name,
-						customer_whatsapp: whatsapp_country_code + whatsapp,
-					}),
-				);
-
-				// Compute payment amount (must match PriceCalculationBox)
-				const vehicle = values.vehicle;
-				const vehicleId = vehicle?.id;
-				const isExpressVal = !!values.is_express;
-
-				const rawBase = Number(
-					isExpressVal
-						? (vehicle?.express_price ?? vehicle?.web_price ?? 0)
-						: (vehicle?.web_price ?? 0),
-				);
-
-				const peopleCount = Number(values.people || 1);
-
-				const selectedAddonsArray =
-					(values.add_ons && values.add_ons.length
-						? values.add_ons
-						: selectedAddons) || [];
-
-				const addonsTotal = selectedAddonsArray.reduce((sum, id) => {
-					const a = (busData?.add_ons || []).find((x) => x.id === id);
-					if (!a) return sum;
-
-					const unitPrice = getAddonUnitPrice(a, vehicleId);
-					const multiplier = a.allow_multiple ? peopleCount : 1;
-
-					return sum + unitPrice * multiplier;
-				}, 0);
-
-				// apply promo discount on the base unit only
-				const discountAmount = Number(
-					((promoDiscountPercent / 100) * rawBase).toFixed(2),
-				);
-				const baseUnit = Number((rawBase - discountAmount).toFixed(2));
-				const totalBeforeTax = Number((baseUnit + addonsTotal).toFixed(2));
-				const taxRate = Number(busData?.tax ?? 0);
-				const taxAmount = Number((taxRate * totalBeforeTax).toFixed(2));
-				const finalTotal = Number((totalBeforeTax + taxAmount).toFixed(2));
-
-				// persist useful info for success page analytics / debugging
+	const onConfirm = (method) =>
+		form.handleSubmit(
+			async (values) => {
 				try {
-					const storedPrev = JSON.parse(
-						localStorage.getItem(STORAGE_KEY) || "{}",
+					setLoading(true); // set loading true on submit
+					const selection = {
+						date: format(values.date, "yyyy-MM-dd"),
+						time: values.time,
+						vehicle: values.vehicle,
+						tour_id: busData?.id,
+						people: values.people,
+						is_express: values.is_express,
+						add_ons: values.add_ons || selectedAddons,
+						// optional store address
+						// address_name: values.address_name,
+						// address_lat: values.address_lat,
+						// address_lng: values.address_lng,
+					};
+					localStorage.setItem(STORAGE_KEY, JSON.stringify(selection));
+
+					const whatsappParsed = parsePhoneNumberFromString(
+						values.whatsapp || "",
 					);
+					const stripLeadingZero = (num) =>
+						num && num.startsWith("0") ? num.replace(/^0+/, "") : num;
+					const whatsapp = whatsappParsed
+						? stripLeadingZero(whatsappParsed.nationalNumber)
+						: stripLeadingZero(values.whatsapp);
+					const whatsapp_country_code = whatsappParsed
+						? whatsappParsed.countryCallingCode
+						: "";
+
+					const payload = {
+						name: values.name,
+						phone: null,
+						whatsapp,
+						phone_country_code: null,
+						whatsapp_country_code,
+						package_id: busData?.id,
+						date: selection.date,
+						time_id: selection.time?.id,
+						transportation_type_id: selection.vehicle?.id,
+						people_count: selection.people,
+						payment_type: method === "cash" ? "cash" : "online",
+						promo_code: promoApplied ? promoCode : null, // <-- include promo
+						add_ons: values.add_ons || selectedAddons,
+						is_express: !!values.is_express,
+						// new address fields in payload
+						// address_name: values.address_name,
+						// address_lat: String(values.address_lat),
+						// address_lng: String(values.address_lng),
+					};
+					console.log("Booking payload:", payload);
+
+					const res = await fetch(`${API_BASE_URL_NEW}/landing/trip/booking`, {
+						method: "POST",
+						headers: { "Content-Type": "application/json" },
+						body: JSON.stringify(payload),
+					});
+					const json = await res.json();
+
+					if (!res.ok || !json.status) {
+						toast.error(
+							lang === "ar"
+								? "حدث خطأ أثناء إرسال المعلومات"
+								: "Something went wrong sending the info",
+						);
+						return;
+					}
+
+					const { trip_id, customer_id, ref_no } = json.data || {};
+
+					const cartId = `${ref_no}_${Date.now()}`;
+
+					const stored = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
 					localStorage.setItem(
 						STORAGE_KEY,
 						JSON.stringify({
-							...storedPrev,
-							bus_id: busData?.id ?? storedPrev.bus_id,
-							bus_name: busData?.name ?? storedPrev.bus_name,
-							finalTotal,
-							promoCode: promoCode || storedPrev.promoCode || "",
-							tax: taxAmount,
-							people: selection.people || storedPrev.people || 1,
+							...stored,
+							trip_id,
+							customer_id,
+							ref_no,
+							cart_id: cartId,
+							customer_name: values.name,
+							customer_whatsapp: whatsapp_country_code + whatsapp,
 						}),
 					);
-				} catch (e) {
-					// ignore localStorage errors
-				}
 
-				// fire add_to_cart before starting payment (for GA4)
-				try {
-					trackBeginCheckout({
-						busData,
-						finalTotal,
-						promoCode,
-						quantity: selection.people || 1,
-						currency: "SAR",
-					});
-				} catch (e) {
-					// non-blocking if analytics fails
-					console.warn("trackBeginCheckout failed", e);
-				}
-				if (finalTotal == 0) {
-					// free booking -> redirect to success page with free tranRef
-					setLoading(false);
-					window.location.href = `/book-path-success?status=success&tranRef=free`;
-					return;
-				}
+					// Compute payment amount (must match PriceCalculationBox)
+					const vehicle = values.vehicle;
+					const vehicleId = vehicle?.id;
+					const isExpressVal = !!values.is_express;
 
-				// Cash booking: skip payment gateway
+					const rawBase = Number(
+						isExpressVal
+							? (vehicle?.express_price ?? vehicle?.web_price ?? 0)
+							: (vehicle?.web_price ?? 0),
+					);
+
+					const peopleCount = Number(values.people || 1);
+
+					const selectedAddonsArray =
+						(values.add_ons && values.add_ons.length
+							? values.add_ons
+							: selectedAddons) || [];
+
+					const addonsTotal = selectedAddonsArray.reduce((sum, id) => {
+						const a = (busData?.add_ons || []).find((x) => x.id === id);
+						if (!a) return sum;
+
+						const unitPrice = getAddonUnitPrice(a, vehicleId);
+						const multiplier = a.allow_multiple ? peopleCount : 1;
+
+						return sum + unitPrice * multiplier;
+					}, 0);
+
+					// apply promo discount on the base unit only
+					const discountAmount = Number(
+						((promoDiscountPercent / 100) * rawBase).toFixed(2),
+					);
+					const baseUnit = Number((rawBase - discountAmount).toFixed(2));
+					const totalBeforeTax = Number((baseUnit + addonsTotal).toFixed(2));
+					const taxRate = Number(busData?.tax ?? 0);
+					const taxAmount = Number((taxRate * totalBeforeTax).toFixed(2));
+
+					// Initial Total
+					let finalTotal = Number((totalBeforeTax + taxAmount).toFixed(2));
+
+					// Apply 5% discount if paying online
+					if (method === "online") {
+						const onlineDiscount = Number((finalTotal * 0.05).toFixed(2));
+						finalTotal = Number((finalTotal - onlineDiscount).toFixed(2));
+						console.log(
+							"Applying 5% Online Discount. Old Total:",
+							(totalBeforeTax + taxAmount).toFixed(2),
+							"New Total:",
+							finalTotal,
+						);
+					}
+
+					// persist useful info for success page analytics / debugging
+					try {
+						const storedPrev = JSON.parse(
+							localStorage.getItem(STORAGE_KEY) || "{}",
+						);
+						localStorage.setItem(
+							STORAGE_KEY,
+							JSON.stringify({
+								...storedPrev,
+								bus_id: busData?.id ?? storedPrev.bus_id,
+								bus_name: busData?.name ?? storedPrev.bus_name,
+								finalTotal,
+								promoCode: promoCode || storedPrev.promoCode || "",
+								tax: taxAmount,
+								people: selection.people || storedPrev.people || 1,
+							}),
+						);
+					} catch (e) {
+						// ignore localStorage errors
+					}
+
+					// fire add_to_cart before starting payment (for GA4)
+					try {
+						trackBeginCheckout({
+							busData,
+							finalTotal,
+							promoCode,
+							quantity: selection.people || 1,
+							currency: "SAR",
+						});
+					} catch (e) {
+						// non-blocking if analytics fails
+						console.warn("trackBeginCheckout failed", e);
+					}
+					if (finalTotal == 0) {
+						// free booking -> redirect to success page with free tranRef
+						setLoading(false);
+						window.location.href = `/book-path-success?status=success&tranRef=free`;
+						return;
+					}
+
+					// Cash booking: skip payment gateway
 					if (method === "cash") {
 						setLoading(false);
 						window.location.href = `/book-path-success?status=success&tranRef=cash`;
 						return;
 					}
 
-				console.log(
-					"Starting ClickPay payment for amount (finalTotal):",
-					finalTotal,
-					{
-						baseUnit,
-						addonsTotal,
-						totalBeforeTax,
-						taxRate,
-						taxAmount,
-						peopleCount,
-					},
-				);
-
-				const clickpayRes = await fetch("/api/pay/clickpay/init", {
-					method: "POST",
-					headers: { "Content-Type": "application/json" },
-					body: JSON.stringify({
-						amount: finalTotal,
-						lang,
-						cart_id: cartId,
-						customer_details: {
-							name: "",
-							email: "customer@gmail.com",
-							whatsapp: whatsapp_country_code + whatsapp,
+					console.log(
+						"Starting ClickPay payment for amount (finalTotal):",
+						finalTotal,
+						{
+							baseUnit,
+							addonsTotal,
+							totalBeforeTax,
+							taxRate,
+							taxAmount,
+							peopleCount,
 						},
-						successPath: "/book-path-success",
-						failPath: `/book-path/${busData?.id}`,
-					}),
-				});
-				const clickpayJson = await clickpayRes.json();
-				if (!clickpayRes.ok || !clickpayJson?.paymentUrl) {
-					toast.error(
-						clickpayJson?.error ||
-							(lang === "ar" ? "فشل بدء الدفع" : "Failed to start payment"),
 					);
-					return;
+
+					const clickpayRes = await fetch("/api/pay/clickpay/init", {
+						method: "POST",
+						headers: { "Content-Type": "application/json" },
+						body: JSON.stringify({
+							amount: finalTotal,
+							lang,
+							cart_id: cartId,
+							customer_details: {
+								name: "",
+								email: "customer@gmail.com",
+								whatsapp: whatsapp_country_code + whatsapp,
+							},
+							successPath: "/book-path-success",
+							failPath: `/book-path/${busData?.id}`,
+						}),
+					});
+					const clickpayJson = await clickpayRes.json();
+					if (!clickpayRes.ok || !clickpayJson?.paymentUrl) {
+						toast.error(
+							clickpayJson?.error ||
+								(lang === "ar" ? "فشل بدء الدفع" : "Failed to start payment"),
+						);
+						return;
+					}
+					window.location.href = clickpayJson.paymentUrl;
+				} catch (e) {
+					console.error("Booking or ClickPay error", e);
+					toast.error(
+						lang === "ar"
+							? "فشل إرسال المعلومات أو بدء الدفع"
+							: "Failed to send info or start payment",
+					);
+				} finally {
+					setLoading(false); // reset loading if error occurs
 				}
-				window.location.href = clickpayJson.paymentUrl;
-			} catch (e) {
-				console.error("Booking or ClickPay error", e);
-				toast.error(
-					lang === "ar"
-						? "فشل إرسال المعلومات أو بدء الدفع"
-						: "Failed to send info or start payment",
-				);
-			} finally {
-				setLoading(false); // reset loading if error occurs
-			}
-		},
-		(errors) => {
-			// scroll / focus first invalid field
-			if (typeof window !== "undefined") handleInvalidForm(form, errors);
-		},
-	);
+			},
+			(errors) => {
+				// scroll / focus first invalid field
+				if (typeof window !== "undefined") handleInvalidForm(form, errors);
+			},
+		);
 
 	// Two explicit handlers
 	const onPayNow = onConfirm("online");
