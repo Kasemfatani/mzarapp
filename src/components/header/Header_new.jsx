@@ -26,7 +26,8 @@ export default function Header() {
 		pathname === "/book-tour" ||
 		pathname === "/book-haram" ||
 		pathname === "/book-madinah" ||
-		(pathname && pathname.startsWith("/book-path"));
+		(pathname && pathname.startsWith("/book-path")) || 
+		(pathname && pathname.startsWith("/book-tour")) ;
 
 	let showMenue = true;
 	if (pathname.startsWith("/hotel/")) {
