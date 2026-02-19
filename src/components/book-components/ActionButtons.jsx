@@ -22,10 +22,10 @@ export function ActionButtons({
 						{isAr
 							? loading
 								? "جارٍ المعالجة..."
-								: "ادفع الآن"
+								: "الدفع الالكتروني"
 							: loading
 								? "Processing..."
-								: "Pay Now"}
+								: "Pay online"}
 					</p>
 					{/* <CheckCircle2 className="w-7 h-7 text-white" strokeWidth={2.33} /> */}
 				</button>
@@ -36,7 +36,7 @@ export function ActionButtons({
 					disabled={loading}
 					className="w-full bg-[#3c6652] rounded-[30px] shadow-[0px_15px_25px_-15px_rgba(0,0,0,0.2)] px-8 py-4 flex items-center justify-center gap-2 hover:bg-[#2d4d3d] transition-colors"
 				>
-					<p className="text-white">{isAr ? "ادفع نقدًا" : "Pay Cash"}</p>
+					<p className="text-white">{isAr ? "الدفع نقدا" : "Pay cash"}</p>
 					{/* <CheckCircle2 className="w-7 h-7 text-white" strokeWidth={2.33} /> */}
 				</button>
 			</div>
