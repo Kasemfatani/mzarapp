@@ -1,5 +1,5 @@
 const API_BASE_URL = "https://dash.mzarapp.com/api";
-const API_BASE_URL_NEW = "https://beta.mzarapp.com/api";
+const API_BASE_URL_NEW = "https://app.mzarapp.com/api";
 const API_BETA_URL = "https://beta.mzarapp.com/api";
 const BLOG_URL = "https://app.mzarapp.com";
 
