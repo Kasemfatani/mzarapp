@@ -409,28 +409,33 @@ export default function BookTourPage({
 					// Initial Total (Cash)
 					let finalTotal = Number((totalBeforeTax + taxAmount).toFixed(2));
 
-					// Apply 5% discount if paying online (At the start logic)
+					// Apply 5% discount if paying online (Calculated on Base)
 					if (method === "online") {
-						// 1. Calculate discount on the pre-tax amount
-						const onlineDiscount = Number((totalBeforeTax * 0.05).toFixed(2));
-						// 2. New Taxable Base
+						// 1. Calculate 5% discount on the Original Base
+						const onlineDiscount = Number((base * 0.05).toFixed(2));
+
+						// 2. New Taxable Base = Base - PromoDiscount - OnlineDiscount
 						const onlineTaxable = Number(
-							(totalBeforeTax - onlineDiscount).toFixed(2),
+							(base - discountAmount - onlineDiscount).toFixed(2),
 						);
+
 						// 3. New Tax
 						const onlineTax = Number((taxRate * onlineTaxable).toFixed(2));
+
 						// 4. New Total
 						finalTotal = Number((onlineTaxable + onlineTax).toFixed(2));
 
 						console.log(
-							"Applying 5% Online Discount (Start Method).",
+							"Applying 5% Online Discount (On Base).",
 							"Base:",
-							totalBeforeTax,
-							"Discount:",
+							base,
+							"Online Discount (5%):",
 							onlineDiscount,
-							"Taxable:",
+							"Promo Discount:",
+							discountAmount,
+							"New Taxable:",
 							onlineTaxable,
-							"Tax:",
+							"New Tax:",
 							onlineTax,
 							"New Final Total:",
 							finalTotal,

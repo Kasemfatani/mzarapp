@@ -66,17 +66,21 @@ export function PriceCalculationBox({
 	const taxAmount = Number((Number(tax || 0) * totalBeforeTax).toFixed(2));
 	const finalTotal = Number((totalBeforeTax + taxAmount).toFixed(2));
 
-	// --- ONLINE CALCULATION (Discount at start) ---
-	// We apply the 5% on the Base (or Base after Promo).
-	// Usually "at start" means reducing the amount before tax is added.
-	// Let's apply 5% on the 'totalBeforeTax' (which is Base - Promo).
-	const onlineDiscountBaseAmount = Number((totalBeforeTax * 0.05).toFixed(2));
+	// --- ONLINE CALCULATION (Discount calculated on Base) ---
+	// 1. Calculate 5% exactly on the Base Price
+	const onlineDiscountAmount = Number((base * 0.05).toFixed(2));
+
+	// 2. Subtract both discounts (Promo + Online) from Base
 	const onlineTaxableAmount = Number(
-		(totalBeforeTax - onlineDiscountBaseAmount).toFixed(2),
+		(base - promoDiscountAmount - onlineDiscountAmount).toFixed(2),
 	);
+
+	// 3. Calculate Tax on the new lower amount
 	const onlineTaxAmount = Number(
 		(Number(tax || 0) * onlineTaxableAmount).toFixed(2),
 	);
+
+	// 4. Final Online Total
 	const onlineTotal = Number(
 		(onlineTaxableAmount + onlineTaxAmount).toFixed(2),
 	);
