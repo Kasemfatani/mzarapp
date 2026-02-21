@@ -15,6 +15,8 @@ import { cache } from "react";
 
 import { getIsSaudiFromHeaders } from "@/lib/apiConfig";
 
+import HaramPromoSaver from "@/components/common/HaramPromoSaver";
+
 // 2. Wrap the fetch function with cache()
 const getData = cache(async (id, lang) => {
 	// Remove the redundant 'cache: "no-store"' unless you explicitly
@@ -115,6 +117,8 @@ export default async function TourPage({ params }) {
 
 	return (
 		<div className={lang === "en" ? "ltr" : "rtl"}>
+			{/* Save promo_code (if present) to localStorage on client */}
+			{data.id === 88 && <HaramPromoSaver />}
 			<HeroWithInfo lang={lang} data={data} isSaudi={isSaudi} />
 			<SummaryCard lang={lang} data={data} />
 			{/* <HighlightsSection lang={lang} data={data} />
