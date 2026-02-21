@@ -39,6 +39,7 @@ export function FeaturedToursCard({
 	isAr = false,
 	isSaudi = true, // Default to true if the prop is not passed
 	type,
+	is_available,
 }) {
 
 	// --- Currency Logic ---
@@ -69,7 +70,7 @@ export function FeaturedToursCard({
 	}
 
 	let disableBooking = false;
-	if (id === 87) {
+	if (!is_available ) {
 		disableBooking = true;
 	}
 
