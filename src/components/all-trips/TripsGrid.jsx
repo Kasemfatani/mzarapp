@@ -132,10 +132,10 @@ function TripCard({ trip, isAr, isSaudi = true }) {
 	}
 
 	let disableBooking = false;
-	if (trip.id === 87) {
+	if (!trip.is_available) {
 		disableBooking = true;
 	}
-
+	
 	return (
 		<div className="group bg-white rounded-[20px] shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden hover:-translate-y-1 flex flex-col h-full">
 			{/* Image Section */}

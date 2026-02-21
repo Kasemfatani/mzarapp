@@ -64,7 +64,7 @@ export function BottomBar({ lang, data, isSaudi = true }) {
 	}
 
 	let disableBooking = false;
-	if (data.id === 87) {
+	if (!data.is_available) {
 		disableBooking = true;
 	}
 
