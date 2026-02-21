@@ -21,20 +21,49 @@ export default function PromoCodeSection({
 
 	// Pre-fill promo code from localStorage on mount
 	useEffect(() => {
-		const partnerPromo = localStorage.getItem("partnerPromoCode");
-		const expiry = localStorage.getItem("partnerPromoCodeExpiry");
-		const now = Date.now();
+		try {
+			// partner promo (global)
+			const partnerPromo = localStorage.getItem("partnerPromoCode");
+			const partnerExpiry = localStorage.getItem("partnerPromoCodeExpiry");
+			const now = Date.now();
 
-		if (partnerPromo) {
-			if (!expiry) {
-				// expiry missing , remove partner promo
-				localStorage.removeItem("partnerPromoCode");
-			} else if (expiry && now > parseInt(expiry, 10)) {
-				localStorage.removeItem("partnerPromoCode");
-				localStorage.removeItem("partnerPromoCodeExpiry");
-			} else {
-				setCode(partnerPromo);
+			if (partnerPromo) {
+				if (!partnerExpiry) {
+					// expiry missing , remove partner promo
+					localStorage.removeItem("partnerPromoCode");
+				} else if (partnerExpiry && now > parseInt(partnerExpiry, 10)) {
+					localStorage.removeItem("partnerPromoCode");
+					localStorage.removeItem("partnerPromoCodeExpiry");
+				} else {
+					setCode(partnerPromo);
+				}
 			}
+
+			// if current page is /book-haram (booking page for package id 88),
+			// prefer haram-specific promo stored by HaramPromoSaver
+			if (typeof window !== "undefined") {
+				const pathname = window.location.pathname || "";
+				// handle both '/book-haram' and '/book-haram/' variants
+				if (pathname.startsWith("/book-haram")) {
+					const haramPromo = localStorage.getItem("haramPromoCode");
+					const haramExpiry = localStorage.getItem("haramPromoCodeExpiry");
+					if (haramPromo) {
+						if (!haramExpiry) {
+							// expiry missing , remove haram promo
+							localStorage.removeItem("haramPromoCode");
+						} else if (haramExpiry && now > parseInt(haramExpiry, 10)) {
+							// expiry passed, remove haram promo
+							localStorage.removeItem("haramPromoCode");
+							localStorage.removeItem("haramPromoCodeExpiry");
+						} else {
+							// override partner promo on the haram booking page
+							setCode(haramPromo);
+						}
+					}
+				}
+			}
+		} catch (e) {
+			/* ignore errors */
 		}
 	}, []);
 
