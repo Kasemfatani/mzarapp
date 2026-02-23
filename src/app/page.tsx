@@ -4,6 +4,8 @@ import FeaturedToursSection from "@/components/new-home/FeaturedToursSection";
 
 import LazyTopSections from "@/components/new-home/LazyTopSections";
 import LazyBottomSections from "@/components/new-home/LazyBottomSections";
+import LazyLoader from "@/components/LazyLoader";
+import RamadanSection from "@/components/new-home/RamadanSection";
 
 import { notFound } from "next/navigation";
 
@@ -21,9 +23,8 @@ export default async function TourPage() {
 
 	// --- IP Geolocation Logic ---
 	// reuseable geo helper
-  const { isSaudi } = await getIsSaudiFromHeaders(headers());
+	const { isSaudi } = await getIsSaudiFromHeaders(headers());
 	// --- End IP Geolocation Logic ---
-
 
 	const res = await fetch(`${API_BASE_URL_NEW}/landing/home/top-packages`, {
 		headers: { lang },
@@ -39,6 +40,11 @@ export default async function TourPage() {
 		<div className={lang === "en" ? "ltr" : "rtl"}>
 			<HeroSection lang={lang} />
 			<FeaturedToursSection lang={lang} topData={topData} isSaudi={isSaudi} />
+
+			<LazyLoader>
+				<RamadanSection lang={lang} isSaudi={isSaudi} />
+			</LazyLoader>
+
 			{/* <QuickCategories lang={lang} />
 				<BannerCta lang={lang} />
 				<HowItWorks lang={lang} /> */}
@@ -50,7 +56,6 @@ export default async function TourPage() {
 				<DownloadAppSection lang={lang} /> */}
 
 			<LazyBottomSections lang={lang} />
-			
 		</div>
 	);
 }

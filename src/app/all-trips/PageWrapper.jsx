@@ -7,6 +7,8 @@ import { SeoContent } from "@/components/all-trips/SeoContent";
 import LazyBottomSections from "@/components/all-trips/LazyBottomSections";
 import { useMemo } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import LazyLoader from "@/components/LazyLoader";
+import RamadanSection from "@/components/new-home/RamadanSection";
 
 export default function AllTripPageWrapper({ lang, data , isSaudi = true }) {
 	const isAr = lang === "ar";
@@ -51,6 +53,12 @@ export default function AllTripPageWrapper({ lang, data , isSaudi = true }) {
 				filters={filters}
 				onFiltersChange={onFiltersChange}
 			/>
+
+			<LazyLoader>
+				<RamadanSection lang={lang} isSaudi={isSaudi} />
+			</LazyLoader>
+
+
 			<LazyBottomSections lang={lang} trips={Array.isArray(data) ? data : []} isSaudi={isSaudi} />
 			{/* <TripsGrid
 				lang={lang}
