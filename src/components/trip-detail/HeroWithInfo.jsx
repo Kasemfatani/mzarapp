@@ -34,7 +34,7 @@ export function HeroWithInfo({ lang, data, isSaudi = true }) {
 	// WhatsApp prefilled message
     const whatsappNumber = "+966580121025";
     const whatsappMessage = isAr
-        ? `مرحبًا مزار، أنا مهتم بـ ${data.name}، هل يمكنني الحصول على مزيد من التفاصيل؟`
+        ? `مرحبًا مزار، أنا مهتم في ${data.name}، هل يمكنني الحصول على مزيد من التفاصيل؟`
         : `Hello MzarApp, I am interested in ${data.name}, can I get more details?`;
     const whatsappHref =
         "https://wa.me/" +
