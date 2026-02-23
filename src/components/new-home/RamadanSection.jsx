@@ -62,8 +62,8 @@ export default function RamadanSection({ lang, isSaudi = true }) {
 						</div>
 						<h2 className="text-3xl md:text-4xl font-bold text-[#004B40]">
 							{isAr
-								? "باقات روحانية مختارة بعناية"
-								: "Carefully Selected Spiritual Packages"}
+								? "تجارب ليالي رمضان "
+								: "Ramadan Nights Experiences"}
 						</h2>
 					</div>
 
@@ -72,7 +72,7 @@ export default function RamadanSection({ lang, isSaudi = true }) {
 							href="/all-trips"
 							className="text-[#004B40] font-bold flex items-center gap-2 hover:text-[#867957] transition-colors"
 						>
-							{isAr ? "عرض كافة الباقات" : "View all packages"}
+							{isAr ? "عرض كافة التجارب" : "View all experiences"}
 							{isAr ? <ArrowLeft size={18} /> : <ArrowRight size={18} />}
 						</Link>
 					)}
