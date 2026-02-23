@@ -51,10 +51,17 @@ export default function TripsGrid({ lang, trips, isSaudi = true }) {
 		if (currentPage > totalPages) setCurrentPage(1);
 	}, [itemsPerPage, trips.length, currentPage]);
 
-	const totalPages = Math.max(1, Math.ceil(trips.length / itemsPerPage));
+	// exclude specific IDs from being rendered here
+    const excludedIds = [98, 99, 100, 101];
+    const filteredTrips = trips.filter((t) => !excludedIds.includes(t.id));
+	
+	const totalPages = Math.max(1, Math.ceil(filteredTrips.length / itemsPerPage));
 	const start = (currentPage - 1) * itemsPerPage;
 	const end = start + itemsPerPage;
-	const visibleTrips = trips.slice(start, end);
+
+	const visibleTrips = filteredTrips.slice(start, end);
+
+	
 
 	// helper: scroll to #trips-sec if present
 	const scrollToTrips = () => {
@@ -95,6 +102,9 @@ export default function TripsGrid({ lang, trips, isSaudi = true }) {
 }
 
 function TripCard({ trip, isAr, isSaudi = true }) {
+
+	if (trip.id === 98 || trip.id === 99 || trip.id === 100 || trip.id === 101 ) return null;
+
 	// --- Currency Logic ---
 	const SAR_RATE = 3.75;
 	let displayPrice;
