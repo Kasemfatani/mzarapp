@@ -8,33 +8,57 @@ import { motion } from "motion/react";
 
 import { ArrowRight, ArrowLeft } from "lucide-react";
 import { BottomBar } from "./BottomBar";
-import Image from 'next/image'
+import Image from "next/image";
 
-export function HeroWithInfo({ lang, data , isSaudi=true }) {
+export function HeroWithInfo({ lang, data, isSaudi = true }) {
 	const isAr = lang === "ar";
 	// console.log("data:", data);
 
 	useEffect(() => {
-    // push view_item when card is rendered on client
-    trackViewItem({
-      id: data.id,
-      type: data.type,
-      city: data.city,
-      name: data.name,
-      rating: data.rating,
-      start_price: data.start_price,
-      currency: "SAR" ,
-    });
-  }, []);
+		// push view_item when card is rendered on client
+		trackViewItem({
+			id: data.id,
+			type: data.type,
+			city: data.city,
+			name: data.name,
+			rating: data.rating,
+			start_price: data.start_price,
+			currency: "SAR",
+		});
+	}, []);
 
 	const onCancel = () => {
 		if (typeof window !== "undefined") window.history.back();
 	};
 
+	// WhatsApp prefilled message
+    const whatsappNumber = "+966580121025";
+    const whatsappMessage = isAr
+        ? `مرحبًا مزار، أنا مهتم بـ ${data.name}، هل يمكنني الحصول على مزيد من التفاصيل؟`
+        : `Hello MzarApp, I am interested in ${data.name}, can I get more details?`;
+    const whatsappHref =
+        "https://wa.me/" +
+        whatsappNumber.replace(/^\+/, "") +
+        "?text=" +
+        encodeURIComponent(whatsappMessage);
+
 	return (
 		<>
+			<a
+				href={whatsappHref}
+				className="fixed-what"
+				target="_blank"
+				rel="noopener noreferrer"
+				aria-label="WhatsApp"
+				dir={isAr ? "rtl" : "ltr"}
+			>
+				<i className="fa-brands fa-whatsapp"></i>
+			</a>
 			<div className="container mx-auto px-8 py-2 flex items-center gap-1">
-				<button onClick={onCancel} className="w-10 h-10 flex items-center justify-center rounded-[12px] hover:bg-gray-100 transition-colors">
+				<button
+					onClick={onCancel}
+					className="w-10 h-10 flex items-center justify-center rounded-[12px] hover:bg-gray-100 transition-colors"
+				>
 					{isAr ? (
 						<span>
 							<ArrowRight
@@ -133,7 +157,7 @@ export function HeroWithInfo({ lang, data , isSaudi=true }) {
 										{data.rating}
 									</span>
 								</div>
-								
+
 								<p className="text-[14px] leading-[1.5] text-gray-600">
 									{isAr
 										? `(${data.rating_count} تقييم)`
