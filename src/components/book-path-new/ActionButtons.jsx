@@ -71,7 +71,7 @@ export function ActionButtons({
 					{isAr ? "سياسة الحجز والإلغاء" : "Booking and Cancellation Policy"}
 					<span className="text-[#b52b2b]"> * </span>
 					{isAr
-						? "عند تأكيد الحجز ، أنت توافق على شروط الحجز وسياسة الإلغاء الخاصة بمزار. يمكن إلغاء الحجز قبل موعد الرحلة بساعتين دون رسوم، وبعدها تُطبق رسوم إلغاء بنسبة 25%. لمزيد من المساعدة، تواصل معنا مباشرة عبر الواتساب"
+						? "عند تأكيد الحجز ، أنت توافق على شروط الحجز وسياسة الإلغاء الخاصة بمزار. يمكن إلغاء الحجز قبل موعد الرحلة بساعتين دون رسوم، وبعدها تُطبق رسوم إلغاء بنسبة 100%. لمزيد من المساعدة، تواصل معنا مباشرة عبر الواتساب"
 						: "By confirming, you agree to Mzar’s booking and cancellation policy. You can cancel your booking up to 2 hours before the trip with no fees. For assistance, contact our WhatsApp"}{" "}
 					<span dir="ltr">+966580121025</span>
 				</p>
