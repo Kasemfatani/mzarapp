@@ -62,8 +62,8 @@ export default function RamadanSection({ lang, isSaudi = true }) {
 						</div>
 						<h2 className="text-3xl md:text-4xl font-bold text-[#004B40]">
 							{isAr
-								? "تجارب ليالي رمضان "
-								: "Ramadan Nights Experiences"}
+								? "تجارب عيد الفطر"
+								: "Eid Al-Fitr Experiences"}
 						</h2>
 					</div>
 

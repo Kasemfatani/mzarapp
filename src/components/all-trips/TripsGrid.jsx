@@ -52,7 +52,7 @@ export default function TripsGrid({ lang, trips, isSaudi = true }) {
 	}, [itemsPerPage, trips.length, currentPage]);
 
 	// exclude specific IDs from being rendered here
-    const excludedIds = [98, 99, 100, 101];
+    const excludedIds = [98, 99, 100, 101 , 102 , 103 , 104];
     const filteredTrips = trips.filter((t) => !excludedIds.includes(t.id));
 	
 	const totalPages = Math.max(1, Math.ceil(filteredTrips.length / itemsPerPage));
