@@ -28,6 +28,8 @@ const staticRoutes: Array<{
 	{ path: "/contact-us", priority: 0.7, changeFrequency: "monthly" },
 	{ path: "/faq", priority: 0.7, changeFrequency: "monthly" },
 	{ path: "/gallary", priority: 0.7, changeFrequency: "monthly" },
+	{ path: "/haram", priority: 0.8, changeFrequency: "weekly" },
+	{ path: "/mashair", priority: 0.8, changeFrequency: "weekly" },
 	{ path: "/privacy-policy", priority: 0.3, changeFrequency: "yearly" },
 	{ path: "/reviews", priority: 0.7, changeFrequency: "monthly" },
 	{
@@ -50,6 +52,7 @@ type BlogItem = {
 
 type PackageItem = {
 	id?: number;
+	type?: number;
 	is_available?: number;
 };
 
@@ -109,7 +112,7 @@ async function getBlogEntries(): Promise<MetadataRoute.Sitemap> {
 	return entries;
 }
 
-async function getTripDetailEntries(): Promise<MetadataRoute.Sitemap> {
+async function getPackageEntries(): Promise<MetadataRoute.Sitemap> {
 	try {
 		const res = await fetch(`${API_BASE_URL_NEW}/landing/packages/list`, {
 			headers: { lang: "ar" },
@@ -122,33 +125,45 @@ async function getTripDetailEntries(): Promise<MetadataRoute.Sitemap> {
 
 		const json = await res.json();
 		const packages: PackageItem[] = Array.isArray(json?.data) ? json.data : [];
-		const seenIds = new Set<number>();
+		const entries: MetadataRoute.Sitemap = [];
+		const seenUrls = new Set<string>();
 
-		return packages
-			.filter((pkg) => {
-				const id = Number(pkg?.id);
+		for (const pkg of packages) {
+			const id = Number(pkg?.id);
+			const type = Number(pkg?.type);
+			const isAvailable = Number(pkg?.is_available) === 1;
 
-				if (!id || Number.isNaN(id)) {
-					return false;
+			if (!id || Number.isNaN(id) || !isAvailable) {
+				continue;
+			}
+
+			const candidatePaths = [`/trip-detail/${id}`];
+
+			if (type === 1) {
+				candidatePaths.push(`/book-path/${id}`);
+			}
+
+			if (type === 3) {
+				candidatePaths.push(`/book-tour/${id}`);
+			}
+
+			for (const path of candidatePaths) {
+				if (seenUrls.has(path)) {
+					continue;
 				}
 
-				if (seenIds.has(id)) {
-					return false;
-				}
+				seenUrls.add(path);
 
-				if (Number(pkg?.is_available) !== 1) {
-					return false;
-				}
+				entries.push({
+					url: `${SITE_URL}${path}`,
+					lastModified: new Date(),
+					changeFrequency: "weekly",
+					priority: path.startsWith("/trip-detail/") ? 0.8 : 0.6,
+				});
+			}
+		}
 
-				seenIds.add(id);
-				return true;
-			})
-			.map((pkg) => ({
-				url: `${SITE_URL}/trip-detail/${pkg.id}`,
-				lastModified: new Date(),
-				changeFrequency: "weekly" as const,
-				priority: 0.8,
-			}));
+		return entries;
 	} catch {
 		return [];
 	}
@@ -162,10 +177,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 		priority: route.priority,
 	}));
 
-	const [blogEntries, tripDetailEntries] = await Promise.all([
+	const [blogEntries, packageEntries] = await Promise.all([
 		getBlogEntries(),
-		getTripDetailEntries(),
+		getPackageEntries(),
 	]);
 
-	return [...staticEntries, ...blogEntries, ...tripDetailEntries];
+	return [...staticEntries, ...blogEntries, ...packageEntries];
 }
