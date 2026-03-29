@@ -28,8 +28,6 @@ const staticRoutes: Array<{
 	{ path: "/contact-us", priority: 0.7, changeFrequency: "monthly" },
 	{ path: "/faq", priority: 0.7, changeFrequency: "monthly" },
 	{ path: "/gallary", priority: 0.7, changeFrequency: "monthly" },
-	{ path: "/haram", priority: 0.8, changeFrequency: "weekly" },
-	{ path: "/mashair", priority: 0.8, changeFrequency: "weekly" },
 	{ path: "/privacy-policy", priority: 0.3, changeFrequency: "yearly" },
 	{ path: "/reviews", priority: 0.7, changeFrequency: "monthly" },
 	{
