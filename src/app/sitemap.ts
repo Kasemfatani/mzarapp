@@ -4,6 +4,7 @@ import { API_BASE_URL_NEW, BLOG_URL } from "@/lib/apiConfig";
 export const revalidate = 3600;
 
 const SITE_URL = "https://www.mzarapp.com".replace(/\/$/, "");
+const LOCALES = ["en", "ar"] as const;
 
 type ChangeFrequency =
 	| "always"
@@ -55,11 +56,10 @@ type PackageItem = {
 };
 
 async function getBlogEntries(): Promise<MetadataRoute.Sitemap> {
-	const langs = ["en", "ar"];
 	const seen = new Set<string>();
 	const entries: MetadataRoute.Sitemap = [];
 
-	for (const lang of langs) {
+	for (const lang of LOCALES) {
 		try {
 			const res = await fetch(`${BLOG_URL}/api/blogs`, {
 				headers: { lang },
@@ -87,7 +87,7 @@ async function getBlogEntries(): Promise<MetadataRoute.Sitemap> {
 					.map((part) => encodeURIComponent(part))
 					.join("/");
 
-				const path = `/blog/${encodedSlug}`;
+				const path = `/${lang}/blog/${encodedSlug}`;
 
 				if (seen.has(path)) {
 					continue;
@@ -135,29 +135,32 @@ async function getPackageEntries(): Promise<MetadataRoute.Sitemap> {
 				continue;
 			}
 
-			const candidatePaths = [`/trip-detail/${id}`];
+			const basePaths = [`/trip-detail/${id}`];
 
 			if (type === 1) {
-				candidatePaths.push(`/book-path/${id}`);
+				basePaths.push(`/book-path/${id}`);
 			}
 
 			if (type === 3) {
-				candidatePaths.push(`/book-tour/${id}`);
+				basePaths.push(`/book-tour/${id}`);
 			}
 
-			for (const path of candidatePaths) {
-				if (seenUrls.has(path)) {
-					continue;
+			for (const locale of LOCALES) {
+				for (const basePath of basePaths) {
+					const path = `/${locale}${basePath}`;
+					if (seenUrls.has(path)) {
+						continue;
+					}
+
+					seenUrls.add(path);
+
+					entries.push({
+						url: `${SITE_URL}${path}`,
+						lastModified: new Date(),
+						changeFrequency: "weekly",
+						priority: basePath.startsWith("/trip-detail/") ? 0.8 : 0.6,
+					});
 				}
-
-				seenUrls.add(path);
-
-				entries.push({
-					url: `${SITE_URL}${path}`,
-					lastModified: new Date(),
-					changeFrequency: "weekly",
-					priority: path.startsWith("/trip-detail/") ? 0.8 : 0.6,
-				});
 			}
 		}
 
@@ -168,12 +171,18 @@ async function getPackageEntries(): Promise<MetadataRoute.Sitemap> {
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-	const staticEntries: MetadataRoute.Sitemap = staticRoutes.map((route) => ({
-		url: `${SITE_URL}${route.path}`,
-		lastModified: new Date(),
-		changeFrequency: route.changeFrequency,
-		priority: route.priority,
-	}));
+	const staticEntries: MetadataRoute.Sitemap = LOCALES.flatMap((locale) =>
+		staticRoutes.map((route) => {
+			const localizedPath =
+				route.path === "/" ? `/${locale}` : `/${locale}${route.path}`;
+			return {
+				url: `${SITE_URL}${localizedPath}`,
+				lastModified: new Date(),
+				changeFrequency: route.changeFrequency,
+				priority: route.priority,
+			};
+		}),
+	);
 
 	const [blogEntries, packageEntries] = await Promise.all([
 		getBlogEntries(),
