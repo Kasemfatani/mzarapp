@@ -28,7 +28,7 @@ export default function LocationPickerMap({
 
 		if (!loaderRef.current) {
 			loaderRef.current = new Loader({
-				apiKey: "AIzaSyCuS6yzhdLKU-fiY7zfmGX1yDPrHDvfYIE",
+				apiKey: "AIzaSyAwm9TCAs2UaRkfzdA83mj-xiwSs4LxiN8",
 				libraries: ["places"],
 				language: language === "ar" ? "ar" : "en",
 			});

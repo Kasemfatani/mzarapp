@@ -53,7 +53,7 @@ export default function MapSelector({ data, step, setStep, mainData, setMainData
     };
 
     loadScript(
-      'https://maps.googleapis.com/maps/api/js?key=AIzaSyCuS6yzhdLKU-fiY7zfmGX1yDPrHDvfYIE&libraries=places&callback=initMap'
+      'https://maps.googleapis.com/maps/api/js?key=AIzaSyAwm9TCAs2UaRkfzdA83mj-xiwSs4LxiN8&libraries=places&callback=initMap'
     );
   }, []);
 
