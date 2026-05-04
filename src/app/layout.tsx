@@ -4,8 +4,8 @@ import React, { Suspense } from "react";
 import "./globals.css";
 //import "./video-react.css";
 import mzarImg from "/public/Home/header-logo.png";
-import Header from "@/components/header/Header";
-import LazyFooter from "@/components/home/LazyFooter";
+import Header from "@/components/header/Header_new";
+import LazyFooter from "@/components/new-home/LazyFooter";
 //import "@fortawesome/fontawesome-free/css/all.min.css";
 import "../style/main.css";
 import { Toaster } from "@/components/ui/sonner";
@@ -15,6 +15,28 @@ import { headers, cookies } from "next/headers";
 import TrackingScripts from "@/components/TrackingScripts";
 import DeferredCssLinks from "@/components/DeferredCssLinks"; // ADD
 import ScrollToTopOnPageChange from "@/components/ScrollToTopOnPageChange";
+import localFont from "next/font/local";
+
+const readex = localFont({
+	src: "../../public/fonts/ReadexPro-Regular.woff2",
+	variable: "--font-readex",
+	display: "swap",
+	preload: true,
+});
+const handicrafts = localFont({
+	src: "../../public/fonts/TheYearofHandicrafts-SemiBold.woff2",
+	variable: "--font-handicrafts",
+	weight: "600",
+	display: "swap",
+	preload: true,
+});
+const camel = localFont({
+	src: "../../public/fonts/TheYearofTheCamel-ExtraBold.woff2",
+	variable: "--font-camel",
+	weight: "800",
+	display: "swap",
+	preload: true,
+});
 
 export async function generateMetadata(): Promise<Metadata> {
 	const acceptLang = headers().get("accept-language");
@@ -46,7 +68,7 @@ export async function generateMetadata(): Promise<Metadata> {
 					type: "website",
 					locale: "ar_EG",
 				},
-		  }
+			}
 		: {
 				title: "Mzar: Your Journey into the Depths of History and Spirituality",
 				keywords:
@@ -71,7 +93,7 @@ export async function generateMetadata(): Promise<Metadata> {
 					type: "website",
 					locale: "en_US",
 				},
-		  };
+			};
 }
 
 export default function RootLayout({
@@ -80,20 +102,31 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	const langCookie = cookies().get("lang")?.value;
-	const lang = langCookie === "ar" ? "ar" : "en";
+
+	// NEW: fallback to browser language if cookie missing
+	const acceptLang = headers().get("accept-language");
+	const headerLang =
+		acceptLang && acceptLang.toLowerCase().startsWith("ar") ? "ar" : "en";
+
+	const lang = langCookie ? (langCookie === "ar" ? "ar" : "en") : headerLang;
 
 	return (
-		<html lang={lang} id="root" suppressHydrationWarning={true}>
+		<html
+			lang={lang}
+			id="root"
+			className={`${readex.variable} ${handicrafts.variable} ${camel.variable}`}
+			suppressHydrationWarning={true}
+		>
 			<head>
 				{/* Google Fonts */}
 				{/* Remove Google Fonts preconnects (no longer needed) */}
 				{/* <link rel="preconnect" href="https://fonts.googleapis.com" /> */}
 				{/* <link
-					rel="preconnect"
-					href="https://fonts.gstatic.com"
-					crossOrigin="anonymous"
-				/> */}
-				<link rel="preload" as="image" href="/hero.webp" />
+                    rel="preconnect"
+                    href="https://fonts.gstatic.com"
+                    crossOrigin="anonymous"
+                /> */}
+
 				<script
 					type="application/ld+json"
 					dangerouslySetInnerHTML={{
@@ -105,7 +138,7 @@ export default function RootLayout({
 									"@id": "https://www.mzarapp.com#organization",
 									name: "MzarApp",
 									url: "https://www.mzarapp.com",
-									logo: "/Home/header-logo.png",
+									logo: "https://www.mzarapp.com/Home/header-logo.png",
 								},
 								{
 									"@type": "WebSite",

@@ -26,7 +26,7 @@ const messages = {
 		paymentOk: "Payment received",
 		finalizeFailedTitle: "We couldn’t finalize your booking",
 		finalizeFailedDesc:
-			"Your payment was successful, but there was a problem finalizing your booking. Please save the transaction ID below and contact our support team.",
+			"there was a problem . Please save the transaction ID below and contact our support team.",
 		transactionId: "Transaction ID",
 		takeScreenshot: "Tip: Take a screenshot of this page.",
 		contactSupport: "Contact support",
@@ -51,7 +51,7 @@ const messages = {
 		paymentOk: "تم استلام الدفع",
 		finalizeFailedTitle: "تعذر إكمال الحجز",
 		finalizeFailedDesc:
-			"تمت عملية الدفع بنجاح، لكن حدثت مشكلة عند إتمام الحجز. يرجى حفظ رقم العملية أدناه والتواصل مع فريق الدعم.",
+			"حدثت مشكلة . يرجى حفظ رقم العملية أدناه والتواصل مع فريق الدعم",
 		transactionId: "رقم العملية",
 		takeScreenshot: "معلومة: التقط لقطة شاشة لهذه الصفحة.",
 		contactSupport: "تواصل مع الدعم",
@@ -84,24 +84,17 @@ export default function SuccessSummary({ initialLang = "en" }) {
 
 			const params = new URLSearchParams(window.location.search);
 			const status = params.get("status");
-			const tranid =
+			// support ClickPay tranRef and legacy names
+			const urlTran =
+				params.get("tranRef") ||
 				params.get("tranid") ||
 				params.get("TranId") ||
 				params.get("trackId") ||
 				params.get("trackid") ||
 				"";
 
-			// Persist tran id for UI
-			setTranId(tranid);
-
-			if (status !== "success" || !tranid) {
-				toast.error(
-					lang === "ar" ? "فشلت عملية الدفع" : "Payment was not successful"
-				);
-				// Keep behavior: go back to booking if payment didn't succeed
-				window.location.replace("/book-madinah");
-				return;
-			}
+			// Persist tran id for UI (keep existing state if present)
+			setTranId((prev) => (prev || urlTran ? urlTran || prev : prev));
 
 			// Read selection from localStorage
 			let sel;
@@ -112,9 +105,97 @@ export default function SuccessSummary({ initialLang = "en" }) {
 			}
 			setSelection(sel || null);
 
-			// Clear localStorage to prevent resubmission on refresh
-			// localStorage.removeItem(STORAGE_KEY);
+			const cartId = sel?.process_id;
 
+			if (!cartId && status !== "failed") {
+				toast.error(
+					lang === "ar"
+						? "لم يتم العثور على بيانات الحجز"
+						: "Booking data not found"
+				);
+				window.location.replace("/book-madinah");
+				return;
+			}
+
+			// If status is pending, query ClickPay by cart_id to get tran_ref (or failed info)
+			if (status === "pending") {
+				// small delay for server callback to arrive
+				await new Promise((r) => setTimeout(r, 2000));
+				try {
+					const verifyRes = await fetch("/api/pay/clickpay/query", {
+						method: "POST",
+						headers: { "Content-Type": "application/json" },
+						body: JSON.stringify({ cart_id: cartId }),
+					});
+
+					const verifyData = await verifyRes.json().catch(() => ({}));
+
+					if (!verifyRes.ok) {
+						throw new Error(
+							verifyData.message || "Payment verification failed"
+						);
+					}
+
+					const tranRef = verifyData?.data?.tran_ref;
+					if (!tranRef) throw new Error("Transaction reference not found");
+
+					setTranId(tranRef);
+
+					// set URL status based on verification result so effect can handle it
+					const newUrl = new URL(window.location.href);
+					newUrl.searchParams.set(
+						"status",
+						verifyData?.status === "success" ? "success" : "failed"
+					);
+					newUrl.searchParams.set("tranRef", tranRef);
+					window.history.replaceState({}, "", newUrl.toString());
+					return; // will re-run effect because tranId / status changed
+				} catch (err) {
+					console.error("Payment verification error:", err);
+					toast.error(
+						lang === "ar"
+							? "فشل التحقق من الدفع. يرجى الاتصال بالدعم."
+							: "Payment verification failed. Please contact support."
+					);
+					setFinalizeError(true);
+					setSubmitting(false);
+					return;
+				}
+			}
+
+			// If status indicates success, ensure tranId exists (from URL or state)
+			if (status === "success") {
+				const finalTran = urlTran || tranId;
+				if (!finalTran) {
+					setFinalizeError(true);
+					setSubmitting(false);
+					return;
+				}
+				if (finalTran !== tranId) {
+					setTranId(finalTran);
+					return; // wait for tranId change
+				}
+			}
+
+			// If status indicates failure, show fallback UI with tran id (do NOT attempt finalization)
+			if (status === "failed") {
+				const finalTran = urlTran || tranId;
+				if (finalTran && finalTran !== tranId) {
+					setTranId(finalTran);
+				}
+				// Payment rejected — show fallback UI with tranId and don't finalize booking
+				setFinalizeError(true);
+				setSubmitting(false);
+				return;
+			}
+
+			// Only proceed when tranId is available (and status is success)
+			if (!tranId) {
+				// waiting for verification to complete
+				return;
+			}
+
+			// validate selection fields
 			if (
 				!sel ||
 				!sel.date ||
@@ -123,7 +204,6 @@ export default function SuccessSummary({ initialLang = "en" }) {
 				!sel.process_id ||
 				!sel.trip_id
 			) {
-				// Payment is ok, but we lack data to create booking
 				setFinalizeError(true);
 				setSubmitting(false);
 				return;
@@ -137,9 +217,11 @@ export default function SuccessSummary({ initialLang = "en" }) {
 				trip_id: sel.trip_id,
 				customer_id: sel.customer_id,
 				process_id: sel.process_id,
-				transaction_id: tranid,
+				transaction_id: tranId,
 			};
-			// console.log("Creating booking with payload:", payload);
+
+			console.log("Finalizing madinah booking with payload:", payload);
+
 			try {
 				const res = await fetch(
 					`${API_BASE_URL_NEW}/landing/landing-guided-tour/booking-payment`,
@@ -148,14 +230,12 @@ export default function SuccessSummary({ initialLang = "en" }) {
 						headers: {
 							"Content-Type": "application/json",
 							Accept: "application/json",
-							lang: lang, // or use your lang variable
+							lang: lang,
 						},
 						body: JSON.stringify(payload),
 					}
 				);
 				const json = await res.json().catch(() => ({}));
-				// console.log("Booking create response:", json);
-				// Check both HTTP status and API status
 				if (!res.ok || !json.status) {
 					toast.error(
 						(lang === "ar"
@@ -167,29 +247,17 @@ export default function SuccessSummary({ initialLang = "en" }) {
 					setSubmitting(false);
 					return;
 				}
-
-				// If API returns a reference number, capture it
 				const refNo = json?.data?.ref_no || "";
 				if (refNo) setBookingNo(refNo);
 				setData(json?.data || "");
 				setSubmitting(false);
 			} catch (e) {
-				console.error("bus-booking-create error", e);
-				// Don't redirect; show graceful fallback instead
+				console.error("madinah-booking-create error", e);
 				setFinalizeError(true);
 				setSubmitting(false);
-				// Optional gentle toast confirming payment and guiding next step
-				// toast.success(
-				// 	lang === "ar" ? "تم الدفع بنجاح" : "Payment successful"
-				// );
-				// toast.warning(
-				// 	lang === "ar"
-				// 		? "حدثت مشكلة أثناء إتمام الحجز. يُرجى التواصل مع الدعم."
-				// 		: "We couldn’t finalize your booking. Please contact support."
-				// );
 			}
 		})();
-	}, [lang]);
+	}, [lang, tranId]);
 
 	const handleCopy = async () => {
 		try {
@@ -235,13 +303,20 @@ export default function SuccessSummary({ initialLang = "en" }) {
 	return (
 		<section className="container mx-auto px-6 md:px-20 my-12">
 			<div className="flex flex-col items-center text-center">
-				<div className="size-28 md:size-32 rounded-full bg-emerald-100 flex items-center justify-center mb-6">
-					<CheckCircle2 className="text-emerald-600" size={56} />
-				</div>
-
 				{/* If booking finalized */}
 				{!finalizeError ? (
 					<>
+						<div
+							className={cn(
+								"size-28 md:size-32 rounded-full flex items-center justify-center mb-6",
+								!finalizeError ? "bg-emerald-100" : "bg-red-100"
+							)}
+						>
+							<CheckCircle2
+								className={!finalizeError ? "text-emerald-600" : "text-red-600"}
+								size={56}
+							/>
+						</div>
 						<h1 className="text-2xl md:text-3xl font-extrabold mb-3">
 							{t.title}
 						</h1>
@@ -285,9 +360,6 @@ export default function SuccessSummary({ initialLang = "en" }) {
 				) : (
 					// Fallback UI: payment ok, booking not finalized
 					<>
-						<h1 className="text-2xl md:text-3xl font-extrabold mb-2">
-							{t.paymentOk}
-						</h1>
 						<h2 className="text-xl md:text-2xl font-semibold text-red-600 mb-4">
 							{t.finalizeFailedTitle}
 						</h2>
@@ -314,14 +386,14 @@ export default function SuccessSummary({ initialLang = "en" }) {
 						{/* Show trip_id, customer_id, process_id */}
 
 						<div className="flex flex-col gap-2 mb-4">
-							{selection.trip_id ? (
+							{selection?.trip_id ? (
 								<div>
 									<strong>Trip ID:</strong>{" "}
 									<span className="font-mono">{selection?.trip_id || "—"}</span>
 								</div>
 							) : null}
 
-							{selection.customer_id ? (
+							{selection?.customer_id ? (
 								<div>
 									<strong>Customer ID:</strong>{" "}
 									<span className="font-mono">
@@ -330,7 +402,7 @@ export default function SuccessSummary({ initialLang = "en" }) {
 								</div>
 							) : null}
 
-							{selection.process_id ? (
+							{selection?.process_id ? (
 								<div>
 									<strong>Process ID:</strong>{" "}
 									<span className="font-mono">

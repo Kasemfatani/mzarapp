@@ -248,7 +248,7 @@ export default function Destinations({ data, lang }) {
 						{/* responsive youtube iframe */}
 						<iframe
 							className="w-full h-full block"
-							src={language === "ar" ? "https://www.youtube.com/embed/TP0U0AWIZg4?si=euB0Hjt77Mh0xvJp" : "https://www.youtube.com/embed/Z3WxckCQ8Uc?si=XkyPrit3osPsXatp"}
+							src={language === "ar" ? "https://www.youtube.com/embed/p40p7djNJg8" : "https://www.youtube.com/embed/pvA6aX0xcVk"}
 							title="Mzar - Emotional journey"
 							frameborder="0"
 							allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

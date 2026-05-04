@@ -1,0 +1,176 @@
+import { ArrowLeft, ArrowRight, Clock, Shield } from "lucide-react";
+import { motion } from "motion/react";
+import { usePathname } from "next/navigation";
+
+const CURRENCY_SVG = (
+	<svg
+		viewBox="0 0 1124.14 1256.39"
+		width="1.5em"
+		height="1.5em"
+		fill="white"
+		style={{ display: "inline", verticalAlign: "top" }}
+	>
+		<path d="M699.62,1113.02h0c-20.06,44.48-33.32,92.75-38.4,143.37l424.51-90.24c20.06-44.47,33.31-92.75,38.4-143.37l-424.51,90.24Z" />
+		<path d="M1085.73,895.8c20.06-44.47,33.32-92.75,38.4-143.37l-330.68,70.33v-135.2l292.27-62.11c20.06-44.47,33.32-92.75,38.4-143.37l-330.68,70.27V66.13c-50.67,28.45-95.67,66.32-132.25,110.99v403.35l-132.25,28.11V0c-50.67,28.44-95.67,66.32-132.25,110.99v525.69l-295.91,62.88c-20.06,44.47-33.33,92.75-38.42,143.37l334.33-71.05v170.26l-358.3,76.14c-20.06,44.47-33.32,92.75-38.4,143.37l375.04-79.7c30.53-6.35,56.77-24.4,73.83-49.24l68.78-101.97v-.02c7.14-10.55,11.3-23.27,11.3-36.97v-149.98l132.25-28.11v270.4l424.53-90.28Z" />
+	</svg>
+);
+
+const SAR_LABEL = (
+	<span className="">
+		{CURRENCY_SVG}
+		<span className="mx-1 font-thin">(SAR)</span>
+	</span>
+);
+
+export function BottomBar({ lang, data, isSaudi = true }) {
+	const isAr = lang === "ar";
+
+	// client pathname
+	const pathname = usePathname() || "";
+
+	let specialPage = false;
+	if (pathname === "/mashair" || pathname === "/haram") {
+		specialPage = true;
+	}
+
+	// --- Currency Logic ---
+	const SAR_RATE = 3.75;
+	let displayPrice;
+	let currencySymbol;
+
+	if (isSaudi) {
+		displayPrice = data.start_price;
+		currencySymbol = isAr ? SAR_LABEL : "SAR";
+	} else {
+		displayPrice = data.start_price / SAR_RATE;
+		currencySymbol = isAr ? "دولار" : "USD";
+	}
+
+	// if path is /haram multiply price by 4
+	if (pathname === "/haram" && typeof displayPrice === "number") {
+		displayPrice = displayPrice * 4;
+	}
+
+	// --- End Currency Logic ---
+
+	let link = `/book-path/${data.id}`;
+
+	if (data.id === 88) {
+		link = `/book-haram`;
+	} else if (data.type === 3) {
+		link = `/book-tour/${data.id}`;
+	} else if (data.id === 87) {
+		link = `/book-madinah`;
+	}
+
+	let disableBooking = false;
+	if (!data.is_available) {
+		disableBooking = true;
+	}
+
+	// WhatsApp prefilled message for special pages (language dependent)
+	let waMessage = "";
+	if (pathname === "/mashair") {
+		waMessage = isAr
+			? "مرحبًا مزار، أرغب في معرفة المزيد عن رحلة المشاعر."
+			: "Hello Mzar, I am interested to know more about Mashair trip.";
+	} else if (pathname === "/haram") {
+		waMessage = isAr
+			? "مرحبًا مزار، أرغب في معرفة المزيد عن رحلة المسجد الحرام."
+			: "Hello Mzar, I am interested to know more about Masjid Al-Haram tour.";
+	}
+
+	return (
+		<motion.div
+			initial={{ y: 100 }}
+			animate={{ y: 0 }}
+			transition={{ duration: 0.5, delay: 0.8 }}
+			className="fixed  bottom-0 w-full  bg-gradient-to-b from-[#0f3d2e] to-[#1a5a42] border-t-4 border-[#c9a463] shadow-[0px_-6px_20px_rgba(0,0,0,0.08)] z-50"
+		>
+			<div className="container mx-auto  px-10 py-1">
+				{/* Main Content - Primary CTA Section */}
+				<div className="flex items-center justify-between mb-1">
+					{/* Price Section */}
+					<div className="flex flex-col md:flex-row items-center gap-1">
+						<p className="text-[13px] md:text-[20px] leading-[1.5] text-white/80">
+							{isAr ? "السعر يبدأ من" : "Price starts from"}
+						</p>
+						<div className="flex items-center gap-1">
+							<div className="">
+								<span className="text-lg md:text-2xl text-white">
+									{displayPrice.toFixed(2)}
+								</span>
+							</div>
+							{/* currency symbol */}
+							<div className=" relative text-white/80">{currencySymbol}</div>
+						</div>
+						{specialPage && (
+							<span className="text-white/80">
+								{isAr ? " لأربعة أشخاص" : " for 4 people"}
+							</span>
+						)}
+					</div>
+
+					{/* CTA Button - Premium spacing */}
+					{disableBooking ? (
+						<a
+							href="#"
+							className="bg-[#857856] hover:bg-[#756849] text-white px-6 py-3 rounded-[18px] flex items-center gap-3 transition-all shadow-md hover:shadow-lg"
+						>
+							<span className="text-[11px] md:text-[18px]  leading-[1.3]">
+								{isAr ? " قريباً ..." : "Soon ..."}
+							</span>
+						</a>
+					) : specialPage ? (
+						<a
+							href={`https://wa.me/+966580121025?text=${encodeURIComponent(
+								waMessage,
+							)}`}
+							target="_blank"
+							rel="noopener noreferrer"
+							className="bg-[#857856] hover:bg-[#756849] text-white px-6 py-3 rounded-[18px] flex items-center gap-1 transition-all shadow-md hover:shadow-lg"
+						>
+							<i className="fa-brands fa-whatsapp"></i>
+							<span className="text-[13px] md:text-lg">
+								{isAr ? "تواصل عبر واتساب" : "Contact via WhatsApp"}
+							</span>
+						</a>
+					) : (
+						<a
+							href={link}
+							className="bg-[#857856] hover:bg-[#756849] text-white px-6 py-3 rounded-[18px] flex items-center gap-3 transition-all shadow-md hover:shadow-lg"
+						>
+							<span className="text-[11px] md:text-[18px]  leading-[1.3]">
+								{isAr ? "احجز الآن" : "Book Now"}
+							</span>
+							{isAr ? (
+								<ArrowLeft className="w-4 h-4" />
+							) : (
+								<ArrowRight className="w-4 h-4" />
+							)}
+						</a>
+					)}
+				</div>
+
+				{/* Trust Badges - Secondary Info */}
+				<div className="flex items-center justify-center gap-10 pt-1 border-t border-white/10">
+					<div className="flex items-center gap-2.5 py-1">
+						<Shield className="w-4 h-4 text-[#c9a463]" />
+						<span className="text-[11px] leading-[1.5] text-white/70">
+							{isAr
+								? "إلغاء مجاني قبل 24 ساعة"
+								: "Free cancellation before 24 hours"}
+						</span>
+					</div>
+					<div className="w-px h-4 bg-white/30"></div>
+					<div className="flex items-center gap-2.5 py-1">
+						<Clock className="w-4 h-4 text-[#c9a463]" />
+						<span className="text-[11px] leading-[1.5] text-white/70">
+							{isAr ? "تأكيد فوري" : "Instant confirmation"}
+						</span>
+					</div>
+				</div>
+			</div>
+		</motion.div>
+	);
+}

@@ -54,15 +54,9 @@ export default function PreviewSection({ initialLang }) {
 				<div className="grid grid-cols-1 md:grid-cols-5 gap-4 items-stretch max-w-5xl mx-auto mb-8">
 					{/* Video */}
 					<div className="md:col-span-3 aspect-video rounded-2xl overflow-hidden bg-black flex items-center justify-center">
-						<iframe
-							src={isAr ? "https://www.youtube.com/embed/BB7Mu5pSGeg?si=qNyOYB7OuR8gCPTX" : "https://www.youtube.com/embed/0mF9Yb_ETIs?si=psDm_KebD_xz60x6"}
-							title={isAr ? "فيديو" : "video"}
-							frameborder="0"
-							allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-							referrerpolicy="strict-origin-when-cross-origin"
-							allowfullscreen
-							className="w-full h-full"
-						></iframe>
+						<a href="/haram/vid-replace.png" data-fancybox="preview-gallery">
+						<img src="/haram/vid-replace.png" alt="img" className="w-full h-full object-cover"/>
+						</a>
 					</div>
 					{/* Images */}
 					<div className="md:col-span-2 grid grid-cols-2 grid-rows-2 gap-4">
@@ -88,12 +82,11 @@ export default function PreviewSection({ initialLang }) {
 				{/* Button */}
 				<div className="flex justify-center">
 					<Link
-						href="https://onelink.to/yb2xky"
-						target="_blank"
+						href="/book-haram"
 						className="inline-block"
 					>
 						<span className="inline-block bg-[var(--main-color)] text-white hover:bg-[var(--sec-color)] hover:text-black px-24 py-3 font-semibold rounded-lg">
-							{isAr ? "جرّب تطبيق مزار الآن" : "Try Mzar App Now"}
+							{isAr ? "احجز الآن" : "Book Now"}
 						</span>
 					</Link>
 				</div>

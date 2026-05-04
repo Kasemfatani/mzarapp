@@ -6,7 +6,8 @@ import { cn } from "@/lib/utils";
 import Loading from "@/app/loading";
 import { API_BASE_URL_NEW } from "@/lib/apiConfig";
 import { toast } from "sonner";
-// import DownloadButtons from "./DownloadButtons"
+// add purchase analytics import
+import { trackPurchase } from "@/lib/analytics";
 
 const STORAGE_KEY = "bookTour.selection";
 
@@ -15,7 +16,7 @@ const messages = {
 		title: "Your booking is confirmed",
 		bookingNo: "Booking No:",
 		thanks: "Thank you!",
-		done: "Your booking is complete. You should receive an email with your booking details.",
+		done: "Your booking is complete.",
 		downloadTicket: "Download your ticket",
 		sendWhatsapp: "Send your ticket to WhatsApp",
 		getApp: "Get the app",
@@ -25,8 +26,7 @@ const messages = {
 		// Fallback (payment ok but booking not finalized)
 		paymentOk: "Payment received",
 		finalizeFailedTitle: "We couldn’t finalize your booking",
-		finalizeFailedDesc:
-			"Your payment was successful, but there was a problem finalizing your booking. Please save the transaction ID below and contact our support team.",
+		finalizeFailedDesc: "there was a problem. Please contact our support team.",
 		transactionId: "Transaction ID",
 		takeScreenshot: "Tip: Take a screenshot of this page.",
 		contactSupport: "Contact support",
@@ -40,7 +40,7 @@ const messages = {
 		title: "تم تأكيد حجزك بنجاح",
 		bookingNo: "رقم الحجز:",
 		thanks: "شكرًا لك!",
-		done: "تم إكمال حجزك. ستصلك رسالة بريد إلكتروني بتفاصيل الحجز.",
+		done: "تم إكمال حجزك. ستصلك رسالة بتفاصيل الحجز.",
 		downloadTicket: "تحميل تذكرتك",
 		sendWhatsapp: "إرسال تذكرتك إلى واتساب",
 		getApp: "تنزيل التطبيق",
@@ -51,7 +51,7 @@ const messages = {
 		paymentOk: "تم استلام الدفع",
 		finalizeFailedTitle: "تعذر إكمال الحجز",
 		finalizeFailedDesc:
-			"تمت عملية الدفع بنجاح، لكن حدثت مشكلة عند إتمام الحجز. يرجى حفظ رقم العملية أدناه والتواصل مع فريق الدعم.",
+			"حدثت مشكلة عند إتمام الحجز. يرجى حفظ رقم العملية أدناه والتواصل مع فريق الدعم.",
 		transactionId: "رقم العملية",
 		takeScreenshot: "معلومة: التقط لقطة شاشة لهذه الصفحة.",
 		contactSupport: "تواصل مع الدعم",
@@ -85,26 +85,17 @@ export default function SuccessSummary({ initialLang = "en" }) {
 
 			const params = new URLSearchParams(window.location.search);
 			const status = params.get("status");
-			const tranid =
+			const urlTran =
+				params.get("tranRef") ||
 				params.get("tranid") ||
 				params.get("TranId") ||
 				params.get("trackId") ||
 				params.get("trackid") ||
 				"";
 
-			// Persist tran id for UI
-			setTranId(tranid);
+			setTranId((prev) => (prev || urlTran ? urlTran || prev : prev));
 
-			if (status !== "success" || !tranid) {
-				toast.error(
-					lang === "ar" ? "فشلت عملية الدفع" : "Payment was not successful"
-				);
-				// Keep behavior: go back to booking if payment didn't succeed
-				window.location.replace("/book-tour");
-				return;
-			}
-
-			// Read selection from localStorage
+			// Read selection from localStorage to get process_id (cart_id)
 			let sel;
 			try {
 				sel = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
@@ -113,8 +104,105 @@ export default function SuccessSummary({ initialLang = "en" }) {
 			}
 			setSelection(sel || null);
 
-			// Clear localStorage to prevent resubmission on refresh
-			// localStorage.removeItem(STORAGE_KEY);
+			const cartId = sel?.cart_id;
+
+			if (!cartId && status !== "failed") {
+				toast.error(
+					lang === "ar"
+						? "لم يتم العثور على بيانات الحجز"
+						: "Booking data not found"
+				);
+				window.location.replace("/book-tour");
+				return;
+			}
+
+			// If status is pending, we need to verify with ClickPay
+			if (status === "pending") {
+				console.log("Payment pending, querying ClickPay for cart_id:", cartId);
+
+				// Wait a moment for the server callback to arrive
+				await new Promise((resolve) => setTimeout(resolve, 2000));
+
+				try {
+					// Query ClickPay using the cart_id
+					const verifyRes = await fetch("/api/pay/clickpay/query", {
+						method: "POST",
+						headers: { "Content-Type": "application/json" },
+						body: JSON.stringify({ cart_id: cartId }),
+					});
+
+					const verifyData = await verifyRes.json().catch(() => ({}));
+
+					if (!verifyRes.ok) {
+						throw new Error(
+							verifyData.message || "Payment verification failed."
+						);
+					}
+
+					const tranRef = verifyData?.data?.tran_ref;
+
+					if (!tranRef) {
+						throw new Error("Transaction reference not found");
+					}
+
+					console.log("Payment verified, tranRef:", tranRef);
+					setTranId(tranRef);
+
+					// Update URL to show final status
+					const newUrl = new URL(window.location.href);
+					newUrl.searchParams.set(
+						"status",
+						verifyData?.status === "success" ? "success" : "failed"
+					);
+					newUrl.searchParams.set("tranRef", tranRef);
+					window.history.replaceState({}, "", newUrl.toString());
+
+					// The useEffect will re-run due to tranId/status change
+					return;
+				} catch (verificationError) {
+					console.error("Payment verification error:", verificationError);
+					toast.error(
+						lang === "ar"
+							? "فشل التحقق من الدفع. يرجى الاتصال بالدعم."
+							: "Payment verification failed. Please contact support."
+					);
+					setFinalizeError(true);
+					setSubmitting(false);
+					return;
+				}
+			} else if (status === "success") {
+				const finalTran = urlTran || tranId;
+				if (!finalTran) {
+					setFinalizeError(true);
+					setSubmitting(false);
+					return;
+				}
+				if (finalTran !== tranId) {
+					setTranId(finalTran);
+					return; // Will re-run when tranId updates
+				}
+			} else if (status === "failed") {
+				const finalTran = urlTran || tranId;
+				if (finalTran && finalTran !== tranId) {
+					setTranId(finalTran);
+				}
+				setFinalizeError(true);
+				setSubmitting(false);
+				return;
+			} else {
+				// Fallback for any other invalid status
+				toast.error(
+					lang === "ar" ? "حالة دفع غير صالحة" : "Invalid payment status"
+				);
+				window.location.replace("/book-tour");
+				return;
+			}
+
+			// Only proceed with booking finalization if we have a tranId
+			if (!tranId) {
+				console.log("Waiting for tranId to be set...");
+				return;
+			}
 
 			if (
 				!sel ||
@@ -124,7 +212,6 @@ export default function SuccessSummary({ initialLang = "en" }) {
 				!sel.process_id ||
 				!sel.trip_id
 			) {
-				// Payment is ok, but we lack data to create booking
 				setFinalizeError(true);
 				setSubmitting(false);
 				return;
@@ -139,12 +226,13 @@ export default function SuccessSummary({ initialLang = "en" }) {
 				trip_id: sel.trip_id,
 				customer_id: sel.customer_id,
 				process_id: sel.process_id,
-				transaction_id: tranid,
+				transaction_id: tranId,
 			};
+			console.log("Finalizing booking with payload:", payload);
 
 			try {
 				const res = await fetch(
-					`${API_BASE_URL_NEW}/customer/landing-bus-trip/booking-payment`,
+					`${API_BASE_URL_NEW}/landing/landing-bus-trip/booking-payment`,
 					{
 						method: "POST",
 						headers: {
@@ -156,6 +244,7 @@ export default function SuccessSummary({ initialLang = "en" }) {
 					}
 				);
 				const json = await res.json().catch(() => ({}));
+				console.log("bus-booking-create response:", json);
 				if (!res.ok || !json.status) {
 					toast.error(
 						(lang === "ar"
@@ -167,28 +256,45 @@ export default function SuccessSummary({ initialLang = "en" }) {
 					setSubmitting(false);
 					return;
 				}
+				console.log("Booking finalized successfully");
 				// If API returns a reference number, capture it
 				const refNo = json?.data?.ref_no || "";
 				if (refNo) setBookingNo(refNo);
 				setData(json?.data || "");
 				setSubmitting(false);
+
+				// push GA4 purchase event (use saved localStorage selection)
+				try {
+					const stored = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+					const purchaseValue = Number(stored.finalTotal || 0);
+					const purchaseTax = Number(stored.tax || 0);
+					const coupon = stored.promoCode || undefined;
+					const itemObj = {
+						item_id: String(stored.bus_id || stored.trip_id || ""),
+						item_name: stored.bus_name || "",
+						price: purchaseValue,
+						quantity: Number(stored.people || 1),
+						coupon: coupon || undefined,
+					};
+
+					trackPurchase({
+						transaction_id: tranId,
+						value: purchaseValue,
+						tax: purchaseTax,
+						currency: "SAR",
+						coupon,
+						items: [itemObj],
+					});
+				} catch (e) {
+					console.warn("trackPurchase failed", e);
+				}
 			} catch (e) {
 				console.error("bus-booking-create error", e);
-				// Don't redirect; show graceful fallback instead
 				setFinalizeError(true);
 				setSubmitting(false);
-				// Optional gentle toast confirming payment and guiding next step
-				// toast.success(
-				// 	lang === "ar" ? "تم الدفع بنجاح" : "Payment successful"
-				// );
-				// toast.warning(
-				// 	lang === "ar"
-				// 		? "حدثت مشكلة أثناء إتمام الحجز. يُرجى التواصل مع الدعم."
-				// 		: "We couldn’t finalize your booking. Please contact support."
-				// );
 			}
 		})();
-	}, [lang]);
+	}, [lang, tranId]); // Added tranId to dependency array
 
 	const handleCopy = async () => {
 		try {
@@ -234,13 +340,20 @@ export default function SuccessSummary({ initialLang = "en" }) {
 	return (
 		<section className="container mx-auto px-6 md:px-20 my-12">
 			<div className="flex flex-col items-center text-center">
-				<div className="size-28 md:size-32 rounded-full bg-emerald-100 flex items-center justify-center mb-6">
-					<CheckCircle2 className="text-emerald-600" size={56} />
-				</div>
-
 				{/* If booking finalized */}
 				{!finalizeError ? (
 					<>
+						<div
+							className={cn(
+								"size-28 md:size-32 rounded-full flex items-center justify-center mb-6",
+								!finalizeError ? "bg-emerald-100" : "bg-red-100"
+							)}
+						>
+							<CheckCircle2
+								className={!finalizeError ? "text-emerald-600" : "text-red-600"}
+								size={56}
+							/>
+						</div>
 						<h1 className="text-2xl md:text-3xl font-extrabold mb-3">
 							{t.title}
 						</h1>
@@ -284,9 +397,6 @@ export default function SuccessSummary({ initialLang = "en" }) {
 				) : (
 					// Fallback UI: payment ok, booking not finalized
 					<>
-						<h1 className="text-2xl md:text-3xl font-extrabold mb-2">
-							{t.paymentOk}
-						</h1>
 						<h2 className="text-xl md:text-2xl font-semibold text-red-600 mb-4">
 							{t.finalizeFailedTitle}
 						</h2>
@@ -309,7 +419,7 @@ export default function SuccessSummary({ initialLang = "en" }) {
 								</button>
 							) : null}
 						</div>
-						<div className="text-gray-500 mb-8">{t.takeScreenshot}</div>
+						<div className="text-red-500 mb-8">{t.takeScreenshot}</div>
 
 						{/* Support CTAs */}
 						<div className="w-full flex flex-col md:flex-row gap-3 justify-center mb-10">
@@ -328,15 +438,15 @@ export default function SuccessSummary({ initialLang = "en" }) {
 								{t.whatsappUs} (+966580121025)
 							</a>
 							{/* <a
-								href={emailHref}
-								className="inline-flex items-center justify-center h-11 px-5 rounded-lg border border-gray-300 hover:bg-gray-100 transition-colors"
-							>
-								{t.emailUs} (contact@mzarapp.com)
-							</a> */}
+                                href={emailHref}
+                                className="inline-flex items-center justify-center h-11 px-5 rounded-lg border border-gray-300 hover:bg-gray-100 transition-colors"
+                            >
+                                {t.emailUs} (contact@mzarapp.com)
+                            </a> */}
 						</div>
 
 						{/* Show date/time we know to help support */}
-						<div className="flex flex-col md:flex-row gap-4 md:gap-8">
+						{/* <div className="flex flex-col md:flex-row gap-4 md:gap-8">
 							<div className="flex items-center gap-3 border rounded-full px-4 py-2">
 								<Calendar className="text-gray-600" size={18} />
 								<span className="text-sm md:text-base">{date || "—"}</span>
@@ -345,7 +455,7 @@ export default function SuccessSummary({ initialLang = "en" }) {
 								<Clock className="text-gray-600" size={18} />
 								<span className="text-sm md:text-base">{timeName || "—"}</span>
 							</div>
-						</div>
+						</div> */}
 					</>
 				)}
 			</div>

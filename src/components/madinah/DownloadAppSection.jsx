@@ -55,12 +55,12 @@ export default function DownloadAppSection({ initialLang }) {
 					{/* Download button + WhatsApp link */}
 					<div className="flex flex-col md:flex-row items-center gap-3 mt-2 w-full">
 						<Link
-							href="https://onelink.to/yb2xky"
+							href="/book-madinah"
 							className="inline-block"
-							target="_blank"
+							
 						>
 							<span className="inline-block bg-[var(--main-color)] text-white hover:bg-[var(--sec-color)] hover:text-black px-6 py-3  font-semibold rounded-lg">
-								{isAr ? "احجز الآن باستخدام التطبيق" : "Book Now Using The App"}
+								{isAr ? "احجز الآن" : "Book Now"}
 							</span>
 						</Link>
 

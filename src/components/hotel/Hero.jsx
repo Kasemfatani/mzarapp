@@ -112,6 +112,9 @@ export default function Hero({
 	useEffect(() => {
 		if (promo_code) {
 			localStorage.setItem("partnerPromoCode", promo_code);
+			// Set expiry to 24 hours from now
+			const expiry = Date.now() + 24 * 60 * 60 * 1000;
+			localStorage.setItem("partnerPromoCodeExpiry", expiry.toString());
 		}
 	}, [promo_code]);
 

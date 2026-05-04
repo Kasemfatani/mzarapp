@@ -4,7 +4,7 @@
 @tailwind utilities;
 
 /* Register local fonts from /public/fonts */
-@font-face {
+/* @font-face {
   font-family: "TheYearOfTheCamel";
   src: url("/fonts/the-year-of-the-camel-extrabold.otf") format("opentype");
   font-weight: 800 900;
@@ -12,7 +12,7 @@
   font-display: swap;
 }
 @font-face {
-  font-family: "TheYearOfHandicrafts";
+  font-family: var(--font-handicrafts);
   src: url("/fonts/TheYearofHandicrafts-SemiBold.otf") format("opentype");
   font-weight: 600;
   font-style: normal;
@@ -24,12 +24,12 @@
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
-}
+} */
 
 :root {
   /* default: English */
-  --font-body: "TheYearOfTheCamel", system-ui, sans-serif;
-  --font-heading: "TheYearOfTheCamel", system-ui, sans-serif;
+  --font-body: var(--font-camel), system-ui, sans-serif;
+  --font-heading: var(--font-camel), system-ui, sans-serif;
   overflow-y: scroll;
 }
 html body[data-scroll-locked] {
@@ -39,8 +39,8 @@ html body[data-scroll-locked] {
 
 /* When the document language is Arabic */
 html[lang="ar"] {
-  --font-body: "ReadexPro", system-ui, sans-serif;
-  --font-heading: "TheYearOfHandicrafts", system-ui, sans-serif;
+  --font-body: var(--font-readex), system-ui, sans-serif;
+  --font-heading: var(--font-handicrafts), system-ui, sans-serif;
 }
 
 /* @media (prefers-color-scheme: dark) {
@@ -51,7 +51,9 @@ html[lang="ar"] {
   transition: all 0.3s ease;
 } */
 
-
+p {
+  white-space: pre-line;
+}
 
 
 .side-menu {
@@ -235,6 +237,59 @@ a {
   width: 100% !important;
   height: 100% !important;
 }
+
+
+/* container / wrapper used by react-international-phone */
+.phone-input-book .react-international-phone-input-container,
+.phone-input-book .react-international-phone-input-wrapper,
+.phone-input-book .react-international-phone-input {
+  width: 100% !important;
+  height: 3rem !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.5rem;
+  background: linear-gradient(to bottom, #f8f4ed, #f5f1eb) !important;
+  border: 0.8px solid rgba(229,231,235,0.6) !important;
+  border-radius: 18px !important;
+  padding: 0 0.5rem !important;
+  box-sizing: border-box !important;
+}
+
+/* country selector button */
+.phone-input-book .react-international-phone-country-selector-button,
+.phone-input-book .react-international-phone-country-select {
+  height: 100% !important;
+  padding: 0 0.6rem !important;
+  display: flex !important;
+  align-items: center !important;
+  background: transparent !important;
+  border: none !important;
+  gap: 0.35rem;
+  flex-shrink: 0;
+}
+
+/* input element inside the phone control */
+.phone-input-book .react-international-phone-input input,
+.phone-input-book input.react-international-phone-input {
+  width: 100% !important;
+  height: 100% !important;
+  background: transparent !important;
+  border: none !important;
+  padding: 0.35rem 0 !important;
+  font-family: inherit !important;
+  font-size: 1rem !important;
+  outline: none !important;
+}
+
+/* icon / flag sizing */
+.phone-input-book .react-international-phone-country-selector-button img,
+.phone-input-book .react-international-phone-country-selector-button svg {
+  height: 1.6rem !important;
+  width: auto !important;
+}
+
+
+
 
 /* Hide default number input arrows for all browsers */
 .tour-booking-number-input::-webkit-inner-spin-button,
@@ -549,21 +604,7 @@ a {
 .ltr{
   direction:ltr;
 }
-/* story animation for swiper in promo code in PromoCode in saad-new page */
-/* @keyframes story {
-	from {
-		width: 0%;
-	}
-	to {
-		width: 100%;
-	}
-}
 
-.animate-story {
-	animation: story linear forwards;
-} */
-
-/* end of story animation for swiper in promo code */
 
 
 /* Global overrides (beat legacy Cairo rules) */

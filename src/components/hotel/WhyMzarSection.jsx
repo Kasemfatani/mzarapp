@@ -18,9 +18,9 @@ const featuresEn = [
 
 const images = [
 	"/gallery/4.webp",
-	"/gallery/19.jpg",
-	"/gallery/25.png",
-	"/gallery/17.png",
+	"/gallery/19.webp",
+	"/gallery/25.webp",
+	"/gallery/17.webp",
 ];
 
 export default function WhyMzarSection({ lang = "ar" }) {
@@ -60,7 +60,7 @@ export default function WhyMzarSection({ lang = "ar" }) {
 		}, []);
 
 	return (
-		<section  className="w-full bg-white py-10 px-2 flex justify-center">
+		<section  className="bg-[url(/landmark/whatLandMark-bg.webp)] w-full bg-white py-10 px-2 flex justify-center">
 			<div
 				className={`flex flex-col md:flex-row  items-center gap-8 max-w-6xl w-full`}
 			>

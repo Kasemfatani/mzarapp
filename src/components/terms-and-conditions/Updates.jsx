@@ -1,0 +1,77 @@
+import { Bell, Calendar, Mail } from 'lucide-react';
+
+export function Updates( { isAr }) {
+  return (
+    <section className="bg-white py-20 md:py-32">
+      <div className="container mx-auto max-w-5xl px-6 lg:px-8">
+        <div className="mb-12 text-center">
+          <h2 className="mb-4 text-4xl text-[#0d5940] md:text-5xl">
+             {isAr ? "تحديثات الشروط" : "Terms Updates"}
+          </h2>
+          <p className="mx-auto max-w-2xl text-xl text-[#718096]">
+            {isAr ? "كيف نُبقيك على اطلاع بأي تغييرات" : "How we keep you informed of any changes"}
+          </p>
+        </div>
+
+        {/* Main Notice Box */}
+        <div className="overflow-hidden rounded-3xl border-2 border-[#c9a961] bg-gradient-to-br from-[#e8f4f0] to-white shadow-xl">
+          <div className="bg-gradient-to-r from-[#0d5940] to-[#116149] px-10 py-8">
+            <div className="flex items-center gap-4">
+              <div className="flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-full bg-[#c9a961]">
+                <Bell className="h-8 w-8 text-white" strokeWidth={2.5} />
+              </div>
+              <h3 className="text-3xl text-white">
+                 {isAr ? "إشعار مهم" : "Important Notice"}
+              </h3>
+            </div>
+          </div>
+
+          <div className="p-10">
+            <p className="mb-8 text-2xl leading-relaxed text-[#0d5940]">
+               {isAr ? "قد يتم تحديث شروط الاستخدام من وقت لآخر لتحسين الخدمة أو الامتثال للتشريعات الجديدة." : "Terms of use may be updated from time to time to improve the service or comply with new legislation."} <strong>{isAr ? "سيتم إشعارك بأي تغييرات جوهرية." : "You will be notified of any material changes."}</strong>
+            </p>
+
+            <div className="grid gap-6 md:grid-cols-2">
+              <div className="rounded-2xl bg-[#f5f2ed] p-6">
+                <div className="mb-4 flex items-center gap-3">
+                  <Calendar className="h-6 w-6 text-[#c9a961]" strokeWidth={2.5} />
+                  <h4 className="text-xl text-[#0d5940]">
+                   {isAr ? "فترة الإشعار" : "Notice Period"}
+                  </h4>
+                </div>
+                <p className="text-lg leading-relaxed text-[#4a5568]">
+                 {isAr ? "سيتم إشعارك قبل " : "You will be notified at least "} <strong>{isAr ? "30 يومًا" : "30 days"}</strong> {isAr ? "على الأقل من دخول التغييرات حيز التنفيذ" : "before the changes take effect."}
+                </p>
+              </div>
+
+              <div className="rounded-2xl bg-[#f5f2ed] p-6">
+                <div className="mb-4 flex items-center gap-3">
+                  <Mail className="h-6 w-6 text-[#c9a961]" strokeWidth={2.5} />
+                  <h4 className="text-xl text-[#0d5940]">
+                   {isAr ? "طريقة الإشعار" : "Notification Method"}
+                  </h4>
+                </div>
+                <p className="text-lg leading-relaxed text-[#4a5568]">
+                  {isAr ? "سيتم إرسال إشعار إلى بريدك الإلكتروني المسجل وعرض تنبيه في المنصة" : "A notification will be sent to your registered email and an alert will be displayed on the platform."}
+                </p>
+              </div>
+            </div>
+
+            <div className="mt-8 rounded-2xl bg-[#e8f4f0] p-6">
+              <p className="text-lg leading-relaxed text-[#0d5940]">
+                 ✓ <strong>{isAr ? "استمرارك في استخدام المنصة" : "Continuing to use the platform"}</strong> {isAr ? "بعد التحديثات يعني موافقتك على الشروط الجديدة" : " after the updates means your acceptance of the new terms."}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Version History */}
+        <div className="mt-12 rounded-3xl bg-[#f5f2ed] p-8 text-center">
+          <p className="text-xl text-[#4a5568]">
+            📋 {isAr ? "يمكنك الاطلاع على سجل التحديثات السابقة وتواريخ التعديلات في أي وقت" : "You can view the history of previous updates and modification dates at any time"}
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
