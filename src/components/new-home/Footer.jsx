@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import { useCurrentLocale } from "@/lib/useLocale";
 
 // TikTok Icon
 const TikTokIcon = () => (
@@ -39,13 +40,13 @@ const XIcon = () => (
 );
 
 export default function Footer() {
-	const [language, setLanguage] = useState("en"); // Default language is 'en'
 
-	useEffect(() => {
-		if (typeof window !== "undefined") {
-			setLanguage(localStorage.getItem("lang"));
-		}
-	}, [language]);
+	const {
+		locale
+	} = useCurrentLocale();
+
+	const language = locale; 
+
 
 	const isAr = language === "ar";
 

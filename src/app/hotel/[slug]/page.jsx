@@ -7,6 +7,7 @@ import HotelClientShell from "@/components/hotel/HotelClientShell";
 import FeaturedToursSection from "@/components/new-home/FeaturedToursSection";
 import HotelWrapper from "@/components/hotel/HotelWrapper";
 import { cache } from "react";
+import { getServerLocale } from "@/lib/localeServer";
 
 
 export const revalidate = 300;
@@ -28,10 +29,7 @@ const getData = cache(async (lang) => {
 export default async function HotelPage({ params }) {
 	const { slug } = params;
 
-	const cookieLang = cookies().get("lang")?.value;
-	const acceptLang = headers().get("accept-language");
-	const lang =
-		cookieLang || (acceptLang && acceptLang.startsWith("ar") ? "ar" : "en");
+	const lang = getServerLocale();
 
 	// Fetch partner by slug
 	const res = await fetch(

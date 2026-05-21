@@ -3,6 +3,7 @@ import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { usePathname } from "next/navigation";
+import { useCurrentLocale } from "@/lib/useLocale";
 
 const Footer = dynamic(() => import("./Footer"), {
 	ssr: false,
@@ -14,6 +15,10 @@ export default function LazyFooter(props) {
 	const [shouldLoad, setShouldLoad] = useState(false);
 	const pathname = usePathname();
 
+	const {
+		barePath
+	} = useCurrentLocale();
+
 	
 
 	useEffect(() => {
@@ -22,10 +27,10 @@ export default function LazyFooter(props) {
 
 	// Decide whether to skip rendering AFTER hooks are called
   const skipFooter =
-    pathname === "/saad-alqurashi" ||
-    pathname === "/saad-new" ||
-    pathname === "/raslania" ||
-    pathname.startsWith("/hotel/");
+    barePath === "/saad-alqurashi" ||
+    barePath === "/saad-new" ||
+    barePath === "/raslania" ||
+    barePath.startsWith("/hotel/");
 
   if (skipFooter) {
     return null;

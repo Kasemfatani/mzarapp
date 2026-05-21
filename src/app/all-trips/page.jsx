@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { cache } from "react";
 import { getIsSaudiFromHeaders } from "@/lib/apiConfig";
 import PartnerPromoSaver from "@/components/PartnerPromoSaver";
+import { getServerLocale } from "@/lib/localeServer";
 
 export const revalidate = 300;
 
@@ -21,11 +22,8 @@ const getData = cache(async (lang, qs) => {
 });
 
 function determineLang() {
-	const cookieLang = cookies().get("lang")?.value;
-	const acceptLang = headers().get("accept-language");
-	return (
-		cookieLang || (acceptLang && acceptLang.startsWith("ar") ? "ar" : "en")
-	);
+	const resolvedLocale = getServerLocale();
+	return resolvedLocale;
 }
 
 export function generateMetadata() {

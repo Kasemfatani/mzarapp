@@ -1,4 +1,4 @@
-import { cookies, headers } from "next/headers";
+import { headers } from "next/headers";
 import HeroSection from "@/components/new-home/HeroSection";
 import FeaturedToursSection from "@/components/new-home/FeaturedToursSection";
 
@@ -12,18 +12,18 @@ import { notFound } from "next/navigation";
 import { API_BASE_URL_NEW } from "@/lib/apiConfig";
 import { API_BETA_URL } from "@/lib/apiConfig";
 import { getIsSaudiFromHeaders } from "@/lib/apiConfig";
+import { getServerLocale } from "@/lib/localeServer";
 
 export const revalidate = 300;
 
 export default async function TourPage() {
-	const cookieLang = cookies().get("lang")?.value;
-	const acceptLang = headers().get("accept-language");
-	const lang =
-		cookieLang || (acceptLang && acceptLang.startsWith("ar") ? "ar" : "en");
+	const requestHeaders = headers();
+	const resolvedLocale = getServerLocale();
+	const lang = resolvedLocale === "ar" ? "ar" : "en";
 
 	// --- IP Geolocation Logic ---
 	// reuseable geo helper
-	const { isSaudi } = await getIsSaudiFromHeaders(headers());
+	const { isSaudi } = await getIsSaudiFromHeaders(requestHeaders);
 	// --- End IP Geolocation Logic ---
 
 	const res = await fetch(`${API_BASE_URL_NEW}/landing/home/top-packages`, {
