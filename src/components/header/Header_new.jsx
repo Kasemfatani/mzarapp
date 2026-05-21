@@ -1,88 +1,59 @@
 "use client";
 
-import { Menu, X, Globe, Phone, Mail } from "lucide-react";
-import { useState, useEffect } from "react";
+import { Menu, X, Globe } from "lucide-react";
+import { useState } from "react";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { useCurrentLocale } from "@/lib/useLocale";
 
 export default function Header() {
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 	const router = useRouter();
-	const pathname = usePathname();
+	const {
+		locale: lang,
+		isAr,
+		barePath: bare,
+		localizedHref: l,
+		getSwitchPath,
+	} = useCurrentLocale();
 
-	// Don't render the header on the custome page
+	// Don't render the header on custom pages
 	if (
-		pathname === "/saad-alqurashi" ||
-		pathname === "/saad-new" ||
-		pathname === "/special-tour" ||
-		pathname === "/raslania"
+		bare === "/saad-alqurashi" ||
+		bare === "/saad-new" ||
+		bare === "/special-tour" ||
+		bare === "/raslania"
 	) {
 		return null;
 	}
 
 	// hide fixed whatsapp on booking pages
 	const hideFixedWhats =
-		pathname === "/book-tour" ||
-		pathname === "/book-haram" ||
-		pathname === "/book-madinah" ||
-		(pathname && pathname.startsWith("/book-path")) || 
-		(pathname && pathname.startsWith("/book-tour")) || 
-		(pathname && pathname.startsWith("/trip-detail")) ;
+		bare === "/book-tour" ||
+		bare === "/book-haram" ||
+		bare === "/book-madinah" ||
+		bare.startsWith("/book-path") ||
+		bare.startsWith("/book-tour") ||
+		bare.startsWith("/trip-detail");
 
 	let showMenue = true;
-	if (pathname.startsWith("/hotel/")) {
+	if (bare.startsWith("/hotel/")) {
 		showMenue = false;
 	}
 
 	let showTopBar = true;
-	if (pathname === "/mashair" || pathname === "/haram") {
+	if (bare === "/mashair" || bare === "/haram") {
 		showTopBar = false;
 	}
 
-	let [lang, setLang] = useState("en");
-
-	useEffect(() => {
-		if (typeof window === "undefined") return;
-
-		const applyLang = (value) => {
-			const next = value === "ar" ? "ar" : "en";
-			setLang(next);
-
-			const oneYear = 60 * 60 * 24 * 365;
-			const isHTTPS = window.location.protocol === "https:";
-			document.cookie = `lang=${next}; path=/; max-age=${oneYear}; samesite=lax${
-				isHTTPS ? "; secure" : ""
-			}`;
-		};
-
-		const stored = localStorage.getItem("lang");
-		if (stored === "ar" || stored === "en") {
-			applyLang(stored);
-		} else {
-			// NEW: fallback to server-chosen lang or browser lang
-			const htmlLang = document?.documentElement?.lang;
-			const browserLang = (navigator.language || "")
-				.toLowerCase()
-				.startsWith("ar")
-				? "ar"
-				: "en";
-			const initial =
-				htmlLang === "ar" ? "ar" : htmlLang === "en" ? "en" : browserLang;
-
-			localStorage.setItem("lang", initial);
-			applyLang(initial);
-		}
-
-		const onLangChange = () => applyLang(localStorage.getItem("lang"));
-		window.addEventListener("langchange", onLangChange);
-
-		return () => {
-			window.removeEventListener("langchange", onLangChange);
-		};
-	}, []);
-
-	const isAr = lang === "ar";
+	// Switch language by navigating to the same bare path under the other locale
+	const switchLang = () => {
+		const nextLang = isAr ? "en" : "ar";
+		const nextPath = getSwitchPath(nextLang);
+		// router.push(nextPath);
+		window.location.href = nextPath;
+	};
 
 	return (
 		<>
@@ -142,7 +113,6 @@ export default function Header() {
 									>
 										<i className="fa-brands fa-facebook text-white"></i>
 									</a>
-									{/* LinkedIn, TikTok, and X */}
 									<a
 										href="https://www.linkedin.com/company/mzarapp"
 										target="_blank"
@@ -168,19 +138,7 @@ export default function Header() {
 								<div className="flex items-start gap-2">
 									<button
 										className="flex items-center gap-2 px-3 py-1 bg-transparent hover:text-[#E7D3AF] transition-colors rounded"
-										onClick={() => {
-											const nextLang = isAr ? "en" : "ar";
-											localStorage.setItem("lang", nextLang);
-											const oneYear = 60 * 60 * 24 * 365;
-											const isHTTPS =
-												typeof window !== "undefined" &&
-												window.location.protocol === "https:";
-											document.cookie = `lang=${nextLang}; path=/; max-age=${oneYear}; samesite=lax${
-												isHTTPS ? "; secure" : ""
-											}`;
-											setLang(nextLang);
-											window.location.reload();
-										}}
+										onClick={switchLang}
 										aria-label={
 											isAr ? "Switch to English" : "التبديل إلى العربية"
 										}
@@ -198,8 +156,7 @@ export default function Header() {
 				</div>
 			)}
 
-			{/* fixed whatsapp (no text) */}
-			{/* fixed whatsapp (no text) */}
+			{/* Fixed WhatsApp button */}
 			{!hideFixedWhats && (
 				<a
 					href="https://wa.me/+966580121025"
@@ -222,9 +179,9 @@ export default function Header() {
 					<div
 						className={`flex items-center ${showMenue ? "justify-between" : "justify-center"} h-20`}
 					>
-						{/* Logo - positioned right in  */}
+						{/* Logo */}
 						<div className="flex-shrink-0">
-							<Link href="/">
+							<Link href={l("/")}>
 								<Image
 									src="/Home/header-logo.png"
 									alt="logo"
@@ -235,77 +192,59 @@ export default function Header() {
 							</Link>
 						</div>
 
-						{/* Desktop Navigation -  */}
+						{/* Desktop Navigation */}
 						{showMenue && (
 							<nav
 								className="hidden lg:flex items-center gap-8"
-								style={{
-									fontWeight: 500,
-								}}
+								style={{ fontWeight: 500 }}
 							>
 								<a
-									href="/"
+									href={l("/")}
 									className="text-[#3C6652] hover:text-[#867957] transition-colors"
 								>
 									{isAr ? "الرئيسية" : "Home"}
 								</a>
 								<a
-									href="/all-trips"
+									href={l("/all-trips")}
 									className="text-[#3C6652] hover:text-[#867957] transition-colors"
 								>
 									{isAr ? "التجارب" : "Experiences"}
 								</a>
 								<a
-									href="/about-us"
+									href={l("/about-us")}
 									className="text-[#3C6652] hover:text-[#867957] transition-colors"
 								>
 									{isAr ? " من نحن" : "About Us"}
 								</a>
 								<a
-									href="/blogs"
+									href={l("/blogs")}
 									className="text-[#3C6652] hover:text-[#867957] transition-colors"
 								>
 									{isAr ? "المقالات" : "Blogs"}
 								</a>
 								<a
-									href="/contact-us"
+									href={l("/contact-us")}
 									className="text-[#3C6652] hover:text-[#867957] transition-colors"
 								>
 									{isAr ? "تواصل معنا" : "Contact Us"}
 								</a>
 							</nav>
 						)}
+
 						{/* Desktop CTA */}
 						{showMenue && (
 							<div className="hidden lg:flex items-center gap-4">
 								<a
-									href="/all-trips"
+									href={l("/all-trips")}
 									className="bg-[#3C6652] text-white px-8 py-3 rounded-lg hover:bg-[#1E3A5F] transition-all shadow-md hover:shadow-lg"
-									style={{
-										fontWeight: 500,
-									}}
+									style={{ fontWeight: 500 }}
 								>
 									{isAr ? "احجز الآن" : "Book Now"}
 								</a>
 								{!showTopBar && (
 									<button
 										className="flex items-center gap-2 px-3 py-1 bg-transparent hover:text-[#E7D3AF] transition-colors rounded"
-										onClick={() => {
-											const nextLang = isAr ? "en" : "ar";
-											localStorage.setItem("lang", nextLang);
-											const oneYear = 60 * 60 * 24 * 365;
-											const isHTTPS =
-												typeof window !== "undefined" &&
-												window.location.protocol === "https:";
-											document.cookie = `lang=${nextLang}; path=/; max-age=${oneYear}; samesite=lax${
-												isHTTPS ? "; secure" : ""
-											}`;
-											setLang(nextLang);
-											window.location.reload();
-										}}
-										aria-label={
-											isAr ? "Switch to English" : "التبديل إلى العربية"
-										}
+										onClick={switchLang}
 										aria-pressed={isAr}
 									>
 										<Globe size={18} />
@@ -331,70 +270,48 @@ export default function Header() {
 					{/* Mobile Navigation */}
 					{mobileMenuOpen && (
 						<div className="lg:hidden py-4 border-t text-center">
-							<nav
-								className="flex flex-col gap-4"
-								style={{
-									fontWeight: 500,
-								}}
-							>
+							<nav className="flex flex-col gap-4" style={{ fontWeight: 500 }}>
 								<a
-									href="/"
+									href={l("/")}
 									className="text-[#3C6652] hover:text-[#857856] transition-colors"
 								>
 									{isAr ? "الرئيسية" : "Home"}
 								</a>
 								<a
-									href="/all-trips"
+									href={l("/all-trips")}
 									className="text-[#3C6652] hover:text-[#857856] transition-colors"
 								>
 									{isAr ? "التجارب" : "Experiences"}
 								</a>
 								<a
-									href="/about-us"
+									href={l("/about-us")}
 									className="text-[#3C6652] hover:text-[#857856] transition-colors"
 								>
 									{isAr ? " من نحن" : "About Us"}
 								</a>
 								<a
-									href="/blogs"
+									href={l("/blogs")}
 									className="text-[#3C6652] hover:text-[#857856] transition-colors"
 								>
 									{isAr ? "المقالات" : "Blogs"}
 								</a>
 								<a
-									href="/contact-us"
+									href={l("/contact-us")}
 									className="text-[#3C6652] hover:text-[#857856] transition-colors"
 								>
 									{isAr ? "تواصل معنا" : "Contact Us"}
 								</a>
 								<a
-									href="/all-trips"
+									href={l("/all-trips")}
 									className="bg-[#3C6652] text-white px-6 py-3 rounded-lg hover:bg-[#1E3A5F] transition-colors"
-									style={{
-										fontWeight: 500,
-									}}
+									style={{ fontWeight: 500 }}
 								>
 									{isAr ? "احجز الآن" : "Book Now"}
 								</a>
 								{!showTopBar && (
 									<button
 										className="flex items-center justify-center gap-2 px-3 py-1 bg-transparent hover:text-[#E7D3AF] transition-colors rounded"
-										onClick={() => {
-											const nextLang = isAr ? "en" : "ar";
-											localStorage.setItem("lang", nextLang);
-											const oneYear = 60 * 60 * 24 * 365;
-											const isHTTPS =
-												typeof window !== "undefined" &&
-												window.location.protocol === "https:";
-											document.cookie = `lang=${nextLang}; path=/; max-age=${oneYear}; samesite=lax${
-												isHTTPS ? "; secure" : ""
-											}`;
-											setLang(nextLang);
-											window.location.reload();
-										}}
-										aria-label={
-											isAr ? "Switch to English" : "التبديل إلى العربية"
-										}
+										onClick={switchLang}
 										aria-pressed={isAr}
 									>
 										<Globe size={18} />

@@ -1,7 +1,6 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
-const LOCALES = ["en", "ar"] as const;
 const EXCLUDED_PREFIXES = ["/_next", "/api"];
 
 function isExcludedPath(pathname: string): boolean {
@@ -42,8 +41,14 @@ export function middleware(request: NextRequest) {
 		const rewrittenPath = pathname.replace(/^\/(en|ar)/, "") || "/";
 		const rewriteUrl = request.nextUrl.clone();
 		rewriteUrl.pathname = rewrittenPath;
+		const requestHeaders = new Headers(request.headers);
+		requestHeaders.set("x-locale", locale);
 
-		const response = NextResponse.rewrite(rewriteUrl);
+		const response = NextResponse.rewrite(rewriteUrl, {
+			request: {
+				headers: requestHeaders,
+			},
+		});
 		response.cookies.set("lang", locale, {
 			path: "/",
 			maxAge: 60 * 60 * 24 * 365,
