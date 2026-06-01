@@ -8,7 +8,7 @@ import { WhatWeCollect } from "@/components/privacy-policy/WhatWeCollect";
 // import { DataSecurity } from "@/components/privacy-policy/DataSecurity";
 // import { UserRights } from "@/components/privacy-policy/UserRights";
 import LazyBottomSections from "@/components/privacy-policy/LazyBottomSections";
-
+import { getServerLocale } from "@/lib/localeServer";
 // import { ContactCTA } from "@/components/privacy-policy/ContactCTA";
 
 // import { API_BASE_URL_NEW } from "@/lib/apiConfig";
@@ -19,11 +19,7 @@ import LazyBottomSections from "@/components/privacy-policy/LazyBottomSections";
 
 // Helper to determine language (keep this logic centralized)
 function determineLang() {
-	const cookieLang = cookies().get("lang")?.value;
-	const acceptLang = headers().get("accept-language");
-	return (
-		cookieLang || (acceptLang && acceptLang.startsWith("ar") ? "ar" : "en")
-	);
+	return getServerLocale();
 }
 
 export function generateMetadata() {
@@ -32,12 +28,12 @@ export function generateMetadata() {
 
 	if (lang === "ar") {
 		return {
-			title: "سياسة الخصوصية",
+			title: "سياسة الخصوصية | مزار",
 			
 		};
 	}
 	return {
-		title: "Privacy Policy",
+		title: "Privacy Policy | Mzar",
 		
 	};
 }

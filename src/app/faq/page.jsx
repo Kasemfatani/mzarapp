@@ -7,15 +7,12 @@ import FaqWrapper from "./FaqWrapper";
 
 // import { cache } from "react";
 
-
+import { getServerLocale } from "@/lib/localeServer";
+	
 
 // Helper to determine language (keep this logic centralized)
 function determineLang() {
-	const cookieLang = cookies().get("lang")?.value;
-	const acceptLang = headers().get("accept-language");
-	return (
-		cookieLang || (acceptLang && acceptLang.startsWith("ar") ? "ar" : "en")
-	);
+	return getServerLocale();
 }
 
 export function generateMetadata() {
@@ -24,12 +21,12 @@ export function generateMetadata() {
 
 	if (lang === "ar") {
 		return {
-			title: "الأسئلة الشائعة",
+			title: "الأسئلة الشائعة | مزار",
 			
 		};
 	}
 	return {
-		title: "FAQ",
+		title: "FAQ | Mzar",
 		
 	};
 }

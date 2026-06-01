@@ -15,6 +15,7 @@ import LazyTopSections from "@/components/contact-us/LazyTopSections";
 
 import LazyBottomSections from "@/components/contact-us/LazyBottomSections";
 
+import { getServerLocale } from "@/lib/localeServer";
 
 import { cache } from "react";
 
@@ -30,11 +31,7 @@ const getData = cache(async (lang) => {
 
 // Helper to determine language (keep this logic centralized)
 function determineLang() {
-	const cookieLang = cookies().get("lang")?.value;
-	const acceptLang = headers().get("accept-language");
-	return (
-		cookieLang || (acceptLang && acceptLang.startsWith("ar") ? "ar" : "en")
-	);
+	return getServerLocale();
 }
 
 export function generateMetadata() {
@@ -42,11 +39,11 @@ export function generateMetadata() {
 
 	if (lang === "ar") {
 		return {
-			title: " تواصل معنا",
+			title: "تواصل معنا | مزار",
 		};
 	}
 	return {
-		title: "Contact Us",
+		title: "Contact Us | Mzar",
 	};
 }
 

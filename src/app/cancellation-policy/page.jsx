@@ -7,7 +7,7 @@ import { QuickSummary } from "@/components/cancellation-policy/QuickSummary";
 // import { DetailedPolicy } from "@/components/cancellation-policy/DetailedPolicy";
 // import { HowToCancel } from "@/components/cancellation-policy/HowToCancel";
 // import { SupportCTA } from "@/components/cancellation-policy/SupportCTA";
-
+import { getServerLocale } from "@/lib/localeServer";
 import LazyBottomSections from "@/components/cancellation-policy/LazyBottomSections";
 
 // import { API_BASE_URL_NEW } from "@/lib/apiConfig";
@@ -18,11 +18,7 @@ import LazyBottomSections from "@/components/cancellation-policy/LazyBottomSecti
 
 // Helper to determine language (keep this logic centralized)
 function determineLang() {
-	const cookieLang = cookies().get("lang")?.value;
-	const acceptLang = headers().get("accept-language");
-	return (
-		cookieLang || (acceptLang && acceptLang.startsWith("ar") ? "ar" : "en")
-	);
+	return getServerLocale();
 }
 
 export function generateMetadata() {
@@ -31,12 +27,12 @@ export function generateMetadata() {
 
 	if (lang === "ar") {
 		return {
-			title: "سياسة الإلغاء",
+			title: "سياسة الإلغاء | مزار",
 			
 		};
 	}
 	return {
-		title: "Cancellation Policy",
+		title: "Cancellation Policy | Mzar",
 		
 	};
 }
