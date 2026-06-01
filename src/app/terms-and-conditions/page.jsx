@@ -11,18 +11,14 @@ import { PlatformRole } from "@/components/terms-and-conditions/PlatformRole";
 // import { FinalCTA } from "@/components/terms-and-conditions/FinalCTA";
 import LazyBottomSections from "@/components/terms-and-conditions/LazyBottomSections";
 // import { API_BASE_URL_NEW } from "@/lib/apiConfig";
-
+import { getServerLocale } from "@/lib/localeServer";
 // import { cache } from "react";
 
 
 
 // Helper to determine language (keep this logic centralized)
 function determineLang() {
-	const cookieLang = cookies().get("lang")?.value;
-	const acceptLang = headers().get("accept-language");
-	return (
-		cookieLang || (acceptLang && acceptLang.startsWith("ar") ? "ar" : "en")
-	);
+	return getServerLocale();
 }
 
 export function generateMetadata() {
@@ -31,12 +27,12 @@ export function generateMetadata() {
 
 	if (lang === "ar") {
 		return {
-			title: "الشروط والأحكام",
+			title: "الشروط والأحكام | مزار",
 			
 		};
 	}
 	return {
-		title: "Terms and Conditions",
+		title: "Terms and Conditions | Mzar",
 		
 	};
 }
