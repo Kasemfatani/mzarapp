@@ -5,18 +5,20 @@ import React, { useEffect, useState } from "react";
 import SuccessSummary from "@/components/path-success/SuccessSummary";
 import Loading from "@/app/loading";
 // export const revalidate = 300;
+import { useCurrentLocale } from "@/lib/useLocale";
 
 const STORAGE_KEY = "path.selection";
 
 export default function TourSuccess() {
-	const [lang, setLang] = useState(null);
+	const { locale } = useCurrentLocale();
+	const lang = locale;
 	// Read language from localStorage (client)
-	useEffect(() => {
-		if (typeof window !== "undefined") {
-			const storedLang = localStorage.getItem("lang");
-			setLang(storedLang === "ar" ? "ar" : "en");
-		}
-	}, []);
+	// useEffect(() => {
+	// 	if (typeof window !== "undefined") {
+	// 		const storedLang = localStorage.getItem("lang");
+	// 		setLang(storedLang === "ar" ? "ar" : "en");
+	// 	}
+	// }, []);
 
 	// useEffect(() => {
 	// 	if (typeof window === "undefined") return;

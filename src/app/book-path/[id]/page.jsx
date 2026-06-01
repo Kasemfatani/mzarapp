@@ -6,7 +6,7 @@ import { notFound } from "next/navigation";
 import { cache } from "react";
 
 import BookWrapper from "@/components/book-path-new/BookWrapper";
-
+import { getServerLocale } from "@/lib/localeServer";
 import { getIsSaudiFromHeaders } from "@/lib/apiConfig";
 
 // 2. Wrap the fetch function with cache()
@@ -28,11 +28,7 @@ const getData = cache(async (lang , id) => {
 
 // Helper to determine language (keep this logic centralized)
 function determineLang() {
-	const cookieLang = cookies().get("lang")?.value;
-	const acceptLang = headers().get("accept-language");
-	return (
-		cookieLang || (acceptLang && acceptLang.startsWith("ar") ? "ar" : "en")
-	);
+	return getServerLocale();
 }
 
 export function generateMetadata() {
@@ -41,13 +37,11 @@ export function generateMetadata() {
 
 	if (lang === "ar") {
 		return {
-			title: "حجز ",
-			
+			title: "حجز رحلة | مزار",
 		};
 	}
 	return {
-		title: "Booking ",
-		
+		title: "Booking Trip | Mzar",
 	};
 }
 

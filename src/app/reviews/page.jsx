@@ -7,15 +7,11 @@ import ReviewsWrapper from "./ReviewsWrapper";
 
 // import { cache } from "react";
 
-
+import { getServerLocale } from "@/lib/localeServer";
 
 // Helper to determine language (keep this logic centralized)
 function determineLang() {
-	const cookieLang = cookies().get("lang")?.value;
-	const acceptLang = headers().get("accept-language");
-	return (
-		cookieLang || (acceptLang && acceptLang.startsWith("ar") ? "ar" : "en")
-	);
+	return getServerLocale();
 }
 
 export function generateMetadata() {
@@ -24,12 +20,12 @@ export function generateMetadata() {
 
 	if (lang === "ar") {
 		return {
-			title: "المراجعات",
+			title: "المراجعات | مزار",
 			
 		};
 	}
 	return {
-		title: "Reviews",
+		title: "Reviews | Mzar",
 		
 	};
 }
