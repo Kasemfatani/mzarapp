@@ -1,6 +1,8 @@
 import { Clock, ArrowLeft, ArrowRight } from "lucide-react";
 
 export function FeaturedArticles({ isAr, articles, BLOG_URL }) {
+	if (!articles || articles.length === 0) return null;
+
 	const mainFeatured = articles[0];
 	const secondaryFeatured = articles.slice(1, 3);
 
