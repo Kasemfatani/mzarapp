@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { cache } from "react";
 import { API_BASE_URL_NEW } from "@/lib/apiConfig";
 import { API_BETA_URL } from "@/lib/apiConfig";
-
+import { getServerLocale } from "@/lib/localeServer";
 import { getIsSaudiFromHeaders } from "@/lib/apiConfig";
 
 // 2. Wrap the fetch function with cache()
@@ -26,11 +26,7 @@ const getData = cache(async (lang , id) => {
 
 // Helper to determine language (keep this logic centralized)
 function determineLang() {
-	const cookieLang = cookies().get("lang")?.value;
-	const acceptLang = headers().get("accept-language");
-	return (
-		cookieLang || (acceptLang && acceptLang.startsWith("ar") ? "ar" : "en")
-	);
+	return getServerLocale();
 }
 
 
@@ -41,13 +37,11 @@ export function generateMetadata() {
 
 	if (lang === "ar") {
 		return {
-			title: "حجز حافلة الجولات الإثرائية",
-			
+			title: "حجز حافلة الجولات الإثرائية | مزار",
 		};
 	}
 	return {
-		title: "Booking Enriching Bus Tours",
-		
+		title: "Booking Enriching Bus Tours | Mzar",
 	};
 }
 

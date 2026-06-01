@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import { cache } from "react";
 
 import BookWrapper from "@/components/book-haram-new/BookWrapper";
-
+import { getServerLocale } from "@/lib/localeServer";
 import { getIsSaudiFromHeaders } from "@/lib/apiConfig";
 
 // 2. Wrap the fetch function with cache()
@@ -27,11 +27,7 @@ const getData = cache(async (lang) => {
 
 // Helper to determine language (keep this logic centralized)
 function determineLang() {
-	const cookieLang = cookies().get("lang")?.value;
-	const acceptLang = headers().get("accept-language");
-	return (
-		cookieLang || (acceptLang && acceptLang.startsWith("ar") ? "ar" : "en")
-	);
+	return getServerLocale();
 }
 
 export function generateMetadata() {
@@ -39,11 +35,11 @@ export function generateMetadata() {
 
 	if (lang === "ar") {
 		return {
-			title: "حجز جولة المسجد النبوي",
+			title: "حجز جولة المسجد النبوي | مزار",
 		};
 	}
 	return {
-		title: "Booking Masjid An-Nabawi Tour",
+		title: "Booking Masjid An-Nabawi Tour | Mzar",
 	};
 }
 
