@@ -16,6 +16,8 @@ import TrackingScripts from "@/components/TrackingScripts";
 import DeferredCssLinks from "@/components/DeferredCssLinks"; // ADD
 import ScrollToTopOnPageChange from "@/components/ScrollToTopOnPageChange";
 import localFont from "next/font/local";
+import { getServerLocale } from "@/lib/localeServer";
+
 
 const readex = localFont({
 	src: "../../public/fonts/ReadexPro-Regular.woff2",
@@ -39,8 +41,8 @@ const camel = localFont({
 });
 
 export async function generateMetadata(): Promise<Metadata> {
-	const acceptLang = headers().get("accept-language");
-	const lang = acceptLang && acceptLang.startsWith("ar") ? "ar" : "en";
+	
+	const lang = getServerLocale();
 
 	const siteUrl = process.env.APP_URL || "https://www.mzarapp.com/";
 
@@ -101,14 +103,9 @@ export default function RootLayout({
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
-	const langCookie = cookies().get("lang")?.value;
+	
 
-	// NEW: fallback to browser language if cookie missing
-	const acceptLang = headers().get("accept-language");
-	const headerLang =
-		acceptLang && acceptLang.toLowerCase().startsWith("ar") ? "ar" : "en";
-
-	const lang = langCookie ? (langCookie === "ar" ? "ar" : "en") : headerLang;
+	const lang = getServerLocale() || "en"; // Default to 'en' if locale detection fails
 
 	return (
 		<html

@@ -49,6 +49,9 @@ export default function Header() {
 
 	// Switch language by navigating to the same bare path under the other locale
 	const switchLang = () => {
+		if (bare.startsWith("/blog/")) {
+		return ;
+	}
 		const nextLang = isAr ? "en" : "ar";
 		const nextPath = getSwitchPath(nextLang);
 		// router.push(nextPath);

@@ -13,7 +13,7 @@ import { FinalCTA } from "./FinalCTA";
 export default function BlogWrapper({ lang, blogsData, BLOG_URL }) {
 	const isAr = lang === "ar";
 
-	console.log("Blogs  in BlogWrapper:", blogsData.blogs);
+	// console.log("Blogs  in BlogWrapper:", blogsData.blogs);
 
 	const [activeCategory, setActiveCategory] = useState("all");
 

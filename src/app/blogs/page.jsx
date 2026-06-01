@@ -7,6 +7,9 @@ import { BLOG_URL } from "@/lib/apiConfig";
 
 import { cache } from "react";
 
+import { getServerLocale } from "@/lib/localeServer";
+
+
 const getData = cache(async (lang) => {
 	
 	const res = await fetch(
@@ -24,11 +27,7 @@ const getData = cache(async (lang) => {
 
 // Helper to determine language (keep this logic centralized)
 function determineLang() {
-	const cookieLang = cookies().get("lang")?.value;
-	const acceptLang = headers().get("accept-language");
-	return (
-		cookieLang || (acceptLang && acceptLang.startsWith("ar") ? "ar" : "en")
-	);
+	return getServerLocale();
 }
 
 export function generateMetadata() {
@@ -37,12 +36,12 @@ export function generateMetadata() {
 
 	if (lang === "ar") {
 		return {
-			title: "مقالات",
+			title: "مقالات | مزار",
 			
 		};
 	}
 	return {
-		title: "Blogs",
+		title: "Blogs | Mzar",
 		
 	};
 }

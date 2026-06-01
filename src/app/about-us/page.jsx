@@ -14,6 +14,9 @@ import { OurStory } from "@/components/about-us/OurStory";
 import LazyTopSections from "@/components/about-us/LazyTopSections";
 import LazyBottomSections from "@/components/about-us/LazyBottomSections";
 
+import { getServerLocale } from "@/lib/localeServer";
+	
+
 // import { API_BASE_URL_NEW } from "@/lib/apiConfig";
 
 // import { cache } from "react";
@@ -22,11 +25,7 @@ import LazyBottomSections from "@/components/about-us/LazyBottomSections";
 
 // Helper to determine language (keep this logic centralized)
 function determineLang() {
-	const cookieLang = cookies().get("lang")?.value;
-	const acceptLang = headers().get("accept-language");
-	return (
-		cookieLang || (acceptLang && acceptLang.startsWith("ar") ? "ar" : "en")
-	);
+	return getServerLocale();
 }
 
 export function generateMetadata() {
@@ -35,12 +34,12 @@ export function generateMetadata() {
 
 	if (lang === "ar") {
 		return {
-			title: "من نحن",
+			title: "من نحن | مزار",
 			
 		};
 	}
 	return {
-		title: "about us",
+		title: "about us | Mzar",
 		
 	};
 }
