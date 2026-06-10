@@ -1,0 +1,5 @@
+/* target Swiper's DOM class from a local module class */
+.IncludedExperiences :global(.swiper-wrapper) {
+	padding-bottom: 30px;
+}
+
