@@ -1,6 +1,7 @@
 import { headers } from "next/headers";
 import HeroSection from "@/components/new-home/HeroSection";
 import FeaturedToursSection from "@/components/new-home/FeaturedToursSection";
+import FullPackageSection from "@/components/new-home/FullPackageSection";
 
 import LazyTopSections from "@/components/new-home/LazyTopSections";
 import LazyBottomSections from "@/components/new-home/LazyBottomSections";
@@ -39,8 +40,9 @@ export default async function TourPage() {
 	return (
 		<div className={lang === "en" ? "ltr" : "rtl"}>
 			<HeroSection lang={lang} />
+			<FullPackageSection lang={lang} isSaudi={isSaudi} />
 			<FeaturedToursSection lang={lang} topData={topData} isSaudi={isSaudi} />
-
+	
 			<LazyLoader>
 				<RamadanSection lang={lang} isSaudi={isSaudi} />
 			</LazyLoader>
