@@ -41,8 +41,9 @@ export default async function TourPage() {
 		<div className={lang === "en" ? "ltr" : "rtl"}>
 			<HeroSection lang={lang} />
 			<FullPackageSection lang={lang} isSaudi={isSaudi} />
-			<FeaturedToursSection lang={lang} topData={topData} isSaudi={isSaudi} />
-	
+			<LazyLoader>
+				<FeaturedToursSection lang={lang} topData={topData} isSaudi={isSaudi} />
+			</LazyLoader>
 			<LazyLoader>
 				<RamadanSection lang={lang} isSaudi={isSaudi} />
 			</LazyLoader>

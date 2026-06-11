@@ -1,23 +1,21 @@
 import {
-	UtensilsCrossed,
-	Wifi,
-	MapPin,
-	ShieldCheck,
-	Ticket,
 	PlusCircle,
 } from "lucide-react";
 
-const iconMap = {
-	restaurant: UtensilsCrossed,
-	wifi: Wifi,
-	mapPin: MapPin,
-	shield: ShieldCheck,
-	ticket: Ticket,
-	plusCircle: PlusCircle,
-};
+// const iconMap = {
+// 	restaurant: UtensilsCrossed,
+// 	wifi: Wifi,
+// 	mapPin: MapPin,
+// 	shield: ShieldCheck,
+// 	ticket: Ticket,
+// 	plusCircle: PlusCircle,
+// };
 
-export default function WhatsIncludedGrid({ isAr, data }) {
-	const { t, features } = data;
+import Image from "next/image";
+
+export default function WhatsIncludedGrid({ isAr, data , mockData }) {
+	const { t } = mockData;
+	const features = data.features || [];
 
 	return (
 		<section>
@@ -26,19 +24,23 @@ export default function WhatsIncludedGrid({ isAr, data }) {
 			</h2>
 
 			<div className="grid grid-cols-2 gap-6 md:grid-cols-3">
-				{features.map((item) => {
-					const Icon = iconMap[item.icon] || PlusCircle;
+				{features.map((item , index) => {
+					
 
 					return (
 						<div
-							key={item.id}
+							key={index}
 							className="space-y-3 rounded-xl border border-[#1B4332]/5 bg-white p-6 text-center shadow-2xl"
 						>
-							<Icon
+							<Image
+								src={item.image}
+								alt={item.title}
+								width={28}
+								height={28}
 								className="mx-auto h-7 w-7 text-[#775a19]"
 								strokeWidth={2}
 							/>
-							<p className="text-sm font-bold text-[#1b4332]">{item.label}</p>
+							<p className="text-sm font-bold text-[#1b4332]">{item.title}</p>
 						</div>
 					);
 				})}

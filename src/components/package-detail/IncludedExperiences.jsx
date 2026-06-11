@@ -6,9 +6,9 @@ import "swiper/css";
 import "swiper/css/pagination";
 import styles from "./IncludedExperiences.module.css";
 
-export default function IncludedExperiences({ isAr, data }) {
-	const { t, experiences } = data;
-
+export default function IncludedExperiences({ isAr, data , mockData }) {
+	const { t } = mockData;
+	const experiences = data.included_experiences || [];
 	return (
 		<section className="overflow-hidden">
 			<h2 className="mb-6 text-2xl font-semibold text-[#1b4332]">
@@ -31,13 +31,13 @@ export default function IncludedExperiences({ isAr, data }) {
 					<SwiperSlide key={item.id} className="h-auto">
 						<article className="h-full overflow-hidden rounded-xl bg-white shadow-[0_6px_24px_rgba(27,67,50,0.10)]">
 							<img
-								src={item.image}
-								alt={item.title}
+								src={item.cover || "https://images.unsplash.com/photo-1527004013197-933c4bb611b3?q=80&w=1200&auto=format&fit=crop"}
+								alt={item.name}
 								className="h-48 w-full object-cover"
 							/>
 							<div className="p-5">
 								<h3 className="mb-2 text-xl font-semibold text-[#1b4332]">
-									{item.title}
+									{item.name}
 								</h3>
 								<p className="text-sm leading-6 text-[#414844]">
 									{item.description}

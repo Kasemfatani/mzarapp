@@ -1,5 +1,6 @@
-export default function AccommodationsSection({ isAr, data }) {
-	const { t, accommodations } = data;
+export default function AccommodationsSection({ isAr, data , mockData }) {
+	const { t } = mockData;
+	const accommodations = data.accommodations || [];
 
 	const renderStars = (count) =>
 		Array.from({ length: count }).map((_, i) => (
@@ -16,30 +17,29 @@ export default function AccommodationsSection({ isAr, data }) {
 
 			<div className="grid grid-cols-1 gap-8 md:grid-cols-2">
 				{accommodations.map((hotel, index) => {
-					const stars = index === 0 ? 4 : 5;
 
 					return (
 						<article
 							key={hotel.id}
-							className="flex min-h-[180px] overflow-hidden rounded-xl bg-white shadow-2xl"
+							className="flex min-h-[150px] overflow-hidden rounded-xl bg-white shadow-2xl"
 						>
-							<div className="w-1/3 min-h-[180px]">
+							<div className="w-1/3 min-h-[150px]">
 								<img
 									src={hotel.image}
-									alt={hotel.name}
+									alt={hotel.title}
 									className="h-full w-full object-cover"
 								/>
 							</div>
 
 							<div className="w-2/3 p-6 flex flex-col justify-center">
 								<h3 className="text-lg font-semibold text-[#1b4332]">
-									{hotel.name}
+									{hotel.title}
 								</h3>
 
-								<p className="mt-1 text-sm text-[#414844]">{hotel.subtitle}</p>
+								{/* <p className="mt-1 text-sm text-[#414844]">{hotel.subtitle}</p> */}
 
 								<div className="mt-3 flex items-center gap-1">
-									{renderStars(stars)}
+									{renderStars(hotel.star_rate || 5)}
 								</div>
 							</div>
 						</article>

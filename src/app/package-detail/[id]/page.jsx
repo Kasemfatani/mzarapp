@@ -2,7 +2,7 @@ import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 
 import { API_BASE_URL_NEW } from "@/lib/apiConfig";
-
+import { API_BETA_URL } from "@/lib/apiConfig"; 
 import { cache } from "react";
 
 import { getIsSaudiFromHeaders } from "@/lib/apiConfig";
@@ -17,7 +17,7 @@ const getData = cache(async (id, lang) => {
 	// need to revalidate on every request (which would prevent caching/deduplication).
 	// If you need revalidation, use 'next: { revalidate: N }' instead of 'no-store'
 	const res = await fetch(
-		`${API_BASE_URL_NEW}/landing/packages/show?package_id=${id}`,
+		`${API_BETA_URL}/landing/full-experience/details?id=${id}`,
 		{
 			headers: { lang },
 		},
@@ -34,17 +34,17 @@ function determineLang() {
 }
 
 // Add: use API data for page metadata
-// export async function generateMetadata({ params }) {
-// 	const { id } = params || {};
-// 	if (!id) return {};
-// 	const lang = determineLang();
-// 	const data = await getData(id, lang);
-// 	if (!data) return {};
-// 	return {
-// 		title: data.meta_title || "",
-// 		description: data.meta_description || "",
-// 	};
-// }
+export async function generateMetadata({ params }) {
+	const { id } = params || {};
+	if (!id) return {};
+	const lang = determineLang();
+	const data = await getData(id, lang);
+	if (!data) return {};
+	return {
+		title: data.name || "",
+		description: data.description || "",
+	};
+}
 
 export const revalidate = 300;
 
@@ -56,15 +56,15 @@ export default async function PackageDetailPage({ params }) {
 	const isAr = lang === "ar";
 
 	// Call the cached function again—it will reuse the result from generateMetadata
-	// const data = await getData(id, lang);
+	const data = await getData(id, lang);
 	// console.log("Trip Detail Data:", data);
-	// if (!data) notFound();
+	if (!data) notFound();
 
   const mockData = getPackageDetailMockData(isAr);
 	// reuseable geo helper
 	const { isSaudi } = await getIsSaudiFromHeaders(headers());
 
 	return <div className={lang === "en" ? "ltr" : "rtl"}>
-		 <PackageDetailContent isAr={isAr} data={mockData} />
+		 <PackageDetailContent isAr={isAr} isSaudi={isSaudi} data={data} mockData = {mockData} />
 	</div>;
 }

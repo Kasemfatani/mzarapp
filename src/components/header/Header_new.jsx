@@ -175,7 +175,7 @@ export default function Header() {
 
 			{/* Main Header */}
 			<div
-				className="bg-white shadow-md sticky top-0 z-50"
+				className="bg-white shadow-md z-50"
 				dir={isAr ? "rtl" : "ltr"}
 			>
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

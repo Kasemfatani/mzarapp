@@ -1,7 +1,43 @@
 "use client";
 
-export default function MobileBookingBar({ isAr, data }) {
-	const { t, price } = data;
+const CURRENCY_SVG = (
+	<svg
+		viewBox="0 0 1124.14 1256.39"
+		width="1em"
+		height="1em"
+		fill="currentColor"
+		style={{ display: "inline", verticalAlign: "top" }}
+	>
+		<path d="M699.62,1113.02h0c-20.06,44.48-33.32,92.75-38.4,143.37l424.51-90.24c20.06-44.47,33.31-92.75,38.4-143.37l-424.51,90.24Z" />
+		<path d="M1085.73,895.8c20.06-44.47,33.32-92.75,38.4-143.37l-330.68,70.33v-135.2l292.27-62.11c20.06-44.47,33.32-92.75,38.4-143.37l-330.68,70.27V66.13c-50.67,28.45-95.67,66.32-132.25,110.99v403.35l-132.25,28.11V0c-50.67,28.44-95.67,66.32-132.25,110.99v525.69l-295.91,62.88c-20.06,44.47-33.33,92.75-38.42,143.37l334.33-71.05v170.26l-358.3,76.14c-20.06,44.47-33.32,92.75-38.4,143.37l375.04-79.7c30.53-6.35,56.77-24.4,73.83-49.24l68.78-101.97v-.02c7.14-10.55,11.3-23.27,11.3-36.97v-149.98l132.25-28.11v270.4l424.53-90.28Z" />
+	</svg>
+);
+
+const SAR_LABEL = (
+	<span>
+		{CURRENCY_SVG}
+		<span className="mx-1 font-thin">(SAR)</span>
+	</span>
+);
+
+
+export default function MobileBookingBar({ isAr, data , isSaudi, mockData }) {
+	const { t } = mockData;
+	const price = data.starting_price_per_person || 0;
+
+	// --- Currency Logic (kept) ---
+	const SAR_RATE = 3.75;
+	let displayPrice;
+	let currencySymbol;
+
+	if (isSaudi) {
+		displayPrice = price;
+		currencySymbol = isAr ? SAR_LABEL : "SAR";
+	} else {
+		displayPrice = price / SAR_RATE;
+		currencySymbol = isAr ? "دولار" : "USD";
+	}
+	// --- End Currency Logic ---
 
 	return (
 		<div className="fixed inset-x-0 bottom-0 z-50 border-t border-[#e8e2d2] bg-white/95 px-4 py-3 backdrop-blur-md lg:hidden">
@@ -10,12 +46,12 @@ export default function MobileBookingBar({ isAr, data }) {
 					<p className="text-[11px] font-semibold uppercase tracking-wider text-[#414844]">
 						{t.totalPrice}
 					</p>
-					<div className="flex items-baseline gap-1">
-						<span className="text-2xl font-black text-[#1b4332]">
-							${price.toLocaleString()}
+					<div className="flex  gap-1">
+						<span className="text-xl font-black text-[#1b4332]">
+							{displayPrice.toFixed(2)} {currencySymbol}
 						</span>
-						<span className="text-xs text-[#414844]">/{t.perPerson}</span>
 					</div>
+					<span className="text-xs text-[#414844]">{t.perPerson}</span>
 				</div>
 				<a
 					href="https://wa.me/+966580121025"

@@ -1,13 +1,13 @@
 import { Clock3, Star, Users } from "lucide-react";
 
-export default function HeroSection({ isAr, data }) {
-	const { t } = data;
+export default function HeroSection({ isAr, data , mockData}) {
+	 const { t } = mockData; // Use mockData for static text in the hero section
 
 	return (
 		<section className="relative h-[340px] w-full overflow-hidden rounded-2xl shadow-xl md:h-[500px]">
 			<img
-				src={data.heroImage}
-				alt={t.title}
+				src={data.cover || mockData.heroImage}
+				alt={data.name || ''}
 				className="h-full w-full object-cover"
 			/>
 			<div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
@@ -17,22 +17,22 @@ export default function HeroSection({ isAr, data }) {
 					{t.badge}
 				</span>
 
-				<h1 className="text-2xl font-bold md:text-5xl">{t.title}</h1>
+				<h1 className="text-2xl font-bold md:text-5xl">{data.name || ''}</h1>
 
-				<div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm md:text-base">
+				<div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-2 text-base md:text-lg">
 					<span className="flex items-center gap-2">
 						<Clock3 className="h-4 w-4 md:h-5 md:w-5" />
-						{t.duration}
+						{data.duration}
 					</span>
 
 					<span className="flex items-center gap-2">
 						<Star className="h-4 w-4 fill-current md:h-5 md:w-5" />
-						{t.rating}
+						{data.rate}
 					</span>
 
 					<span className="flex items-center gap-2">
 						<Users className="h-4 w-4 md:h-5 md:w-5" />
-						{t.group}
+						{data.max_people_count}
 					</span>
 				</div>
 			</div>
