@@ -8,84 +8,86 @@ import Link from "next/link";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { FullPackageCard } from "./FullPackageCard";
 import { API_BASE_URL_NEW } from "@/lib/apiConfig";
+import { API_BETA_URL } from "@/lib/apiConfig";
 import Loading from "@/app/loading";
 import styles from "./QuickCategories.module.css";
 import { usePathname } from "next/navigation";
 
 export default function FullPackageSection({ lang, isSaudi = true }) {
 	const isAr = lang === "ar";
-	const dummyData = [
-		{
-			id: 101,
-			image: "https://images.unsplash.com/photo-1544124499-58912cbddaad?w=800",
-			name: isAr ? "باقة مكة المكرمة الشاملة" : "Full Makkah Experience",
-			city: isAr ? "مكة المكرمة" : "Makkah",
-			short_description: isAr ? "استمتع برحلة متكاملة تشمل زيارة المشاعر المقدسة والمساجد التاريخية." : "Enjoy a complete journey including visits to holy sites and historical mosques.",
-			start_price: 1200,
-			duration: isAr ? "3 أيام" : "3 Days",
-			is_available: true,
-		},
-		{
-			id: 102,
-			image: "https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?w=800",
-			name: isAr ? "رحلة المدينة المنورة الإثرائية" : "Enriching Madinah Tour",
-			city: isAr ? "المدينة المنورة" : "Madinah",
-			short_description: isAr ? "اكتشف معالم المدينة المنورة وتاريخ المسجد النبوي الشريف." : "Discover the landmarks of Madinah and the history of Al-Masjid An-Nabawi.",
-			start_price: 950,
-			duration: isAr ? "2 يوم" : "2 Days",
-			is_available: true,
-		},
-		{
-			id: 103,
-			image: "https://images.unsplash.com/photo-1518467166778-b88f373ffec7?w=800",
-			name: isAr ? "باقة مزار الذهبية" : "Mzar Golden Package",
-			city: isAr ? "مكة والمدينة" : "Makkah & Madinah",
-			short_description: isAr ? "تجربة فاخرة تجمع بين روحانية مكة وجمال المدينة المنورة." : "A luxury experience combining the spirituality of Makkah and the beauty of Madinah.",
-			start_price: 2500,
-			duration: isAr ? "5 أيام" : "5 Days",
-			is_available: true,
-		},
-		{
-			id: 104,
-			image: "https://images.unsplash.com/photo-1564769625905-50e93615e769?w=800",
-			name: isAr ? "جولة المعالم الإسلامية" : "Islamic Landmarks Tour",
-			city: isAr ? "جدة ومكة" : "Jeddah & Makkah",
-			short_description: isAr ? "رحلة عبر الزمن لاستكشاف الجذور العميقة للتاريخ الإسلامي." : "A journey through time to explore the deep roots of Islamic history.",
-			start_price: 800,
-			duration: isAr ? "1 يوم" : "1 Day",
-			is_available: false,
-		},
-	];
+	// const dummyData = [
+	// 	{
+	// 		id: 101,
+	// 		image: "https://images.unsplash.com/photo-1544124499-58912cbddaad?w=800",
+	// 		name: isAr ? "باقة مكة المكرمة الشاملة" : "Full Makkah Experience",
+	// 		city: isAr ? "مكة المكرمة" : "Makkah",
+	// 		short_description: isAr ? "استمتع برحلة متكاملة تشمل زيارة المشاعر المقدسة والمساجد التاريخية." : "Enjoy a complete journey including visits to holy sites and historical mosques.",
+	// 		start_price: 1200,
+	// 		duration: isAr ? "3 أيام" : "3 Days",
+	// 		is_available: true,
+	// 	},
+	// 	{
+	// 		id: 102,
+	// 		image: "https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?w=800",
+	// 		name: isAr ? "رحلة المدينة المنورة الإثرائية" : "Enriching Madinah Tour",
+	// 		city: isAr ? "المدينة المنورة" : "Madinah",
+	// 		short_description: isAr ? "اكتشف معالم المدينة المنورة وتاريخ المسجد النبوي الشريف." : "Discover the landmarks of Madinah and the history of Al-Masjid An-Nabawi.",
+	// 		start_price: 950,
+	// 		duration: isAr ? "2 يوم" : "2 Days",
+	// 		is_available: true,
+	// 	},
+	// 	{
+	// 		id: 103,
+	// 		image: "https://images.unsplash.com/photo-1518467166778-b88f373ffec7?w=800",
+	// 		name: isAr ? "باقة مزار الذهبية" : "Mzar Golden Package",
+	// 		city: isAr ? "مكة والمدينة" : "Makkah & Madinah",
+	// 		short_description: isAr ? "تجربة فاخرة تجمع بين روحانية مكة وجمال المدينة المنورة." : "A luxury experience combining the spirituality of Makkah and the beauty of Madinah.",
+	// 		start_price: 2500,
+	// 		duration: isAr ? "5 أيام" : "5 Days",
+	// 		is_available: true,
+	// 	},
+	// 	{
+	// 		id: 104,
+	// 		image: "https://images.unsplash.com/photo-1564769625905-50e93615e769?w=800",
+	// 		name: isAr ? "جولة المعالم الإسلامية" : "Islamic Landmarks Tour",
+	// 		city: isAr ? "جدة ومكة" : "Jeddah & Makkah",
+	// 		short_description: isAr ? "رحلة عبر الزمن لاستكشاف الجذور العميقة للتاريخ الإسلامي." : "A journey through time to explore the deep roots of Islamic history.",
+	// 		start_price: 800,
+	// 		duration: isAr ? "1 يوم" : "1 Day",
+	// 		is_available: false,
+	// 	},
+	// ];
 
-	const [data, setData] = useState(dummyData);
-	const [loading, setLoading] = useState(false);
+	const [data, setData] = useState([]);
+	const [loading, setLoading] = useState(true);
 	const pathname = usePathname();
 	// const showLink = !(
 	// 	pathname === "/all-trips" || pathname?.startsWith("/all-trips/")
 	// );
 
-	// useEffect(() => {
-	// 	const fetchPackages = async () => {
-	// 		try {
-	// 			const res = await fetch(
-	// 				`${API_BASE_URL_NEW}/landing/home/ramadan-packages`,
-	// 				{
-	// 					headers: { lang },
-	// 				},
-	// 			);
-	// 			const json = await res.json();
-	// 			if (json?.data) {
-	// 				setData(json.data);
-	// 			}
-	// 		} catch (error) {
-	// 			console.error("Failed to fetch Ramadan packages", error);
-	// 		} finally {
-	// 			setLoading(false);
-	// 		}
-	// 	};
+	useEffect(() => {
+		const fetchPackages = async () => {
+			try {
+				const res = await fetch(
+					`${API_BETA_URL}/landing/full-experience/list`,
+					{
+						headers: { lang },
+					},
+				);
+				const json = await res.json();
+				if (json?.data) {
+					setData(json.data);
+					// console.log("Fetched full experience packages:", json.data);
+				}
+			} catch (error) {
+				console.error("Failed to fetch full experience packages", error);
+			} finally {
+				setLoading(false);
+			}
+		};
 
-	// 	fetchPackages();
-	// }, []);
+		fetchPackages();
+	}, []);
 
 	if (loading) {
 		return <Loading />;

@@ -1,6 +1,6 @@
 "use client";
 
-import { Star, Clock } from "lucide-react";
+import { Star, CalendarDays, CheckCircle2 } from "lucide-react";
 import Image from "next/image";
 
 const CURRENCY_SVG = (
@@ -17,7 +17,7 @@ const CURRENCY_SVG = (
 );
 
 const SAR_LABEL = (
-	<span className="">
+	<span>
 		{CURRENCY_SVG}
 		<span className="mx-1 font-thin">(SAR)</span>
 	</span>
@@ -25,114 +25,100 @@ const SAR_LABEL = (
 
 export function FullPackageCard({
 	id,
-	image,
 	name,
-	city,
-	short_description,
-	start_price,
+	cover = "https://images.unsplash.com/photo-1544124499-58912cbddaad?w=800",
+	starting_price_per_person,
 	duration,
+	rate,
+	features = [],
 	isAr = false,
 	isSaudi = true,
 }) {
-	// --- Currency Logic ---
+	// --- Currency Logic (kept) ---
 	const SAR_RATE = 3.75;
 	let displayPrice;
 	let currencySymbol;
 
 	if (isSaudi) {
-		displayPrice = start_price;
+		displayPrice = starting_price_per_person;
 		currencySymbol = isAr ? SAR_LABEL : "SAR";
 	} else {
-		displayPrice = start_price / SAR_RATE;
+		displayPrice = starting_price_per_person / SAR_RATE;
 		currencySymbol = isAr ? "دولار" : "USD";
 	}
 	// --- End Currency Logic ---
 
 	return (
-		<div className="bg-white rounded-3xl shadow-md border border-gray-100 hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col h-full group">
-			{/* Image Container */}
-			<div className="relative h-60 w-full overflow-hidden">
-				<a href={`/trip-detail/${id}`}>
+		<div className="bg-white rounded-2xl overflow-hidden shadow-[0_4px_20px_rgba(27,67,50,0.08)] group hover:-translate-y-2 transition-all duration-300 border border-[#c1c8c2]/40 flex flex-col h-full">
+			<div className="relative h-64 w-full overflow-hidden">
+				<a href={`/package-detail/${id}`}>
 					<Image
-						src={image}
+						src={cover}
 						alt={name}
-						className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
 						fill
+						className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
 					/>
 				</a>
 
-				{/* Tags */}
-				<div className="absolute top-4 flex flex-row justify-between w-full px-4">
-					<div className="bg-[rgba(255,255,255,0.95)] rounded-full px-3 py-1.5 flex items-center gap-2 shadow-md">
-						
-						<Star
-							className="w-4 h-4 fill-[#FDC700] text-[#FDC700]"
-							strokeWidth={1.2}
-						/>
-						<span
-							style={{
-								fontFamily: '"Readex Pro", sans-serif',
-								fontWeight: 600,
-								color: "#101828",
-							}}
-						>
-							
-							{typeof rating !== "undefined" ? rating : "4.8"}
-						</span>
-					</div>
-					<div className="bg-white/90 backdrop-blur-sm text-[#004B40] px-3 py-1.5 rounded-full text-xs flex items-center gap-1.5 shadow-md">
-						
-						<Clock size={14} />
-						<span
-							style={{
-								fontFamily: '"Readex Pro", sans-serif',
-								fontWeight: 500,
-							}}
-						>
-							
-							{duration}
-						</span>
-					</div>
+				<div className="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full flex items-center gap-1 shadow-lg">
+					<Star
+						className="w-4 h-4 fill-[#FDC700] text-[#FDC700]"
+						strokeWidth={1.5}
+					/>
+					<span className="font-bold text-sm text-[#1b1c1c]">
+						{typeof rate === "number" ? rate.toFixed(1) : "4.8"}
+					</span>
 				</div>
 			</div>
 
-			{/* Content */}
 			<div className="p-6 flex flex-col flex-grow">
-				{/* Title */}
-				<a href={`/trip-detail/${id}`}>
+				<div className="flex justify-between items-start mb-4 gap-3">
 					<h3
-						className="text-xl text-gray-900 mb-3 font-bold line-clamp-1"
-						style={{ fontFamily: '"Readex Pro", sans-serif' }}
+						className="text-[24px] leading-tight text-[#012d1d] line-clamp-2"
+						style={{ fontFamily: '"Readex Pro", sans-serif', fontWeight: 600 }}
 					>
 						{name}
 					</h3>
-				</a>
-
-				{/* Description */}
-				<p className="text-gray-500 text-sm mb-4 line-clamp-2 leading-relaxed">
-					{short_description}
-				</p>
-
-				{/* Price */}
-				<div className="mt-auto mb-6 flex items-center gap-2 text-[#867957]">
-					<span className="text-sm text-gray-500">
-						{isAr ? "ابتداءً من" : "Starting from"}
-					</span>
-					<div className="text-xl font-bold flex items-center gap-1">
+					<span className="text-[#775a19] font-bold whitespace-nowrap">
 						{displayPrice?.toFixed(2)} {currencySymbol}
-					</div>
+					</span>
 				</div>
 
-				{/* CTA Buttons */}
-				<div className="flex gap-3 w-full">
-					<a
-						href={`/package-detail/${id}`}
-						className="flex-1 bg-gray-50 text-gray-700 py-3 rounded-xl text-sm font-medium hover:bg-gray-100 transition-colors border border-gray-200 flex items-center justify-center"
-						style={{ fontFamily: '"Readex Pro", sans-serif' }}
-					>
-						{isAr ? " عرض التفاصيل " : " View Details"}
-					</a>
+				<div className="flex items-center gap-1 text-[#414844] text-sm mb-6">
+					<CalendarDays className="w-4 h-4" />
+					<span>{duration}</span>
 				</div>
+
+				<ul className="space-y-3 mb-8">
+					{features.slice(0, 2).map((feature, index) => (
+						<li
+							key={`${feature?.title || "feature"}-${index}`}
+							className="flex items-center gap-2 text-sm text-[#414844]"
+						>
+							{feature?.image ? (
+								<img
+									src={feature.image}
+									alt={feature.title || "feature"}
+									className="w-5 h-5 object-contain"
+									loading="lazy"
+								/>
+							) : (
+								<CheckCircle2 className="w-5 h-5 text-[#012d1d]" />
+							)}
+							<span>
+								{feature?.title || (isAr ? "ميزة مضافة" : "Included feature")}
+							</span>
+						</li>
+					))}
+				</ul>
+
+				<a
+					href={`/package-detail/${id}`}
+					className="w-full py-3 border border-[#775a19] text-[#775a19] rounded-xl font-bold hover:bg-[#775a19] hover:text-white transition-colors duration-300 text-center mt-auto"
+					style={{ fontFamily: '"Readex Pro", sans-serif' }}
+				>
+					{isAr ? "عرض التفاصيل" : "View Details"}
+				</a>
 			</div>
 		</div>
 	);
