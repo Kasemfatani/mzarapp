@@ -1,11 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import {
-	Cormorant_Garamond,
-	DM_Sans,
-	Noto_Naskh_Arabic,
-} from "next/font/google";
+import { Cormorant_Garamond, DM_Sans } from "next/font/google";
 
 const cormorant = Cormorant_Garamond({
 	subsets: ["latin"],
@@ -20,101 +16,92 @@ const dmSans = DM_Sans({
 	display: "swap",
 });
 
-const notoNaskh = Noto_Naskh_Arabic({
-	subsets: ["arabic"],
-	weight: ["400", "600"],
-	display: "swap",
-});
-
 const packages = [
+	{
+		id: "seerahPlus",
+		chip: "Comfort included",
+		chipTitle: "Seerah Umrah Plus",
+		tag: "Most Comfortable",
+		accommodationIncluded: true,
+		days: "8 Days",
+		title: "Seerah Umrah Plus",
+		description:
+			"A complete journey that includes accommodation, private transportation, and enriching experiences across Makkah and Madinah, offering a more comfortable and rewarding Umrah experience.",
+		price: "SAR 3,006",
+		features: [
+			"Comfortable 4-Star Hotel Accommodation",
+			"A Fully Organized Journey with No Additional Planning Required",
+			"Visits to the Landmarks of the Prophet's Seerah",
+			"Private Transportation Throughout the Journey",
+			"Dedicated Support and Assistance Every Step of the Way",
+		],
+	},
 	{
 		id: "seerah",
 		chip: "Already have hotels",
-		chipTitle: "Seerah",
+		chipTitle: "Seerah Umrah",
 		tag: "Best for Hotel-Ready Travelers",
 		accommodationIncluded: false,
 		days: "5 Days",
-		title: "Seerah Umrah Experience",
-		arabic: "عمرة السيرة",
+		title: "Seerah Umrah",
 		description:
-			"Walk through the story of the Prophet ﷺ. Ideal for travelers who already have hotels.",
-		price: "SAR 5,387",
+			"An enriching journey between Makkah and Madinah that combines performing Umrah with Seerah tours, private transportation, and multilingual audio guidance.",
+		price: "SAR 2,323",
 		features: [
-			"Private airport pickup and drop-off",
-			"Guided Makkah heritage route",
-			"Multilingual audio storytelling",
-			"Dedicated local support concierge",
+			"Experience the events of the Prophet's Seerah in their true locations",
+			"Listen to the stories of each place in your preferred language",
+			"Comfortable private transportation",
+			"An experience that combines Umrah and knowledge",
+			"Full flexibility in choosing your accommodation",
+		],
+	},
+	{
+		id: "mashaerPlus",
+		chip: "Most complete",
+		chipTitle: "Mashaer Umrah Plus",
+		tag: "Best for Discovery",
+		accommodationIncluded: true,
+		days: "8 Days",
+		title: "Mashaer Umrah Plus",
+		description:
+			"A complete journey that includes accommodation and enriching experiences across Makkah, Madinah, Jeddah, and Taif, offering the perfect balance of comfort, spirituality, and discovery.",
+		price: "SAR 3,911",
+		features: [
+			"Comfortable 4-Star Hotel Accommodation",
+			"Explore Four Cities in One Journey",
+			"Diverse Enriching, Cultural, and Historical Experiences",
+			"Private Transportation Throughout the Journey",
+			"A Unique Experience Combining Comfort, Spirituality, and Exploration",
 		],
 	},
 	{
 		id: "mashaer",
-		chip: "Best first choice",
-		chipTitle: "Mashaer",
+		chip: "Most popular",
+		chipTitle: "Mashaer Umrah",
 		tag: "Most Popular",
-		accommodationIncluded: true,
+		accommodationIncluded: false,
 		days: "5 Days",
-		title: "Mashaer Umrah Experience",
-		arabic: "عمرة المشاعر",
+		title: "Mashaer Umrah",
 		description:
-			"A complete first-time Umrah package with guided experiences and hotel comfort in Makkah and Madinah.",
-		price: "SAR 7,699",
+			"An eight-day journey across Makkah, Madinah, Jeddah, and Taif, combining Umrah with culture, history, and exploration in one enriching experience.",
+		price: "SAR 2,756",
 		featured: true,
 		features: [
-			"4-star hotel stay in both cities",
-			"Grand Mosque guided experience",
-			"Private transfer Makkah to Madinah",
-			"Family-friendly paced itinerary",
-		],
-	},
-	{
-		id: "landmarks",
-		chip: "More exploration",
-		chipTitle: "Landmarks",
-		tag: "Best for Explorers",
-		accommodationIncluded: false,
-		days: "8 Days",
-		title: "Landmarks Umrah Experience",
-		arabic: "عمرة المعالم",
-		description:
-			"Discover beyond the ordinary with enriched journeys across Makkah, Madinah, Jeddah, and Taif.",
-		price: "SAR 6,737",
-		features: [
-			"Historic Jeddah discovery walk",
-			"Taif mountain and rose route",
-			"Wadi Dhi Tuwa experience",
-			"Extended heritage-focused itinerary",
-		],
-	},
-	{
-		id: "noor",
-		chip: "Most complete",
-		chipTitle: "Noor",
-		tag: "Best for Families",
-		accommodationIncluded: true,
-		days: "8 Days",
-		title: "Noor Umrah Experience",
-		arabic: "عمرة النور",
-		description:
-			"The ultimate MZAR journey combining premium comfort, spiritual depth, and broader exploration.",
-		price: "SAR 8,855",
-		features: [
-			"Premium curated private transport",
-			"Priority advisor planning support",
-			"All core guided mosque experiences",
-			"Expanded city-to-city exploration",
+			"Explore Four Cities in One Journey",
+			"A Unique Combination of Umrah, Culture, and Heritage",
+			"Interactive Multilingual Audio Content",
+			"Comfortable private transportation",
+			"Full flexibility in choosing your accommodation",
 		],
 	},
 ];
 
 function PackageChipButton({ pkg, isActive, onClick }) {
-	const isNoor = pkg.id === "noor";
 	const activeClass = isActive
-		? "border-[#3D6753] bg-[#F1F7F4] shadow-[0_10px_28px_rgba(61,103,83,0.12)]"
-		: isNoor
-			? "border-[#2E4A3E] bg-[#2E4A3E]"
-			: "border-[#E6E1D7] bg-white";
-	const titleColor = isNoor && !isActive ? "text-white" : "text-[#2E4A3E]";
-	const chipColor = isNoor && !isActive ? "text-[#E7D3B0]" : "text-[#867957]";
+		? "border-[#2E4A3E] bg-gradient-to-br from-[#2E4A3E] to-[#3D6753] shadow-[0_16px_34px_rgba(61,103,83,0.22)]"
+		: "border-[#E6E1D7] bg-white";
+	const titleColor = isActive ? "text-white" : "text-[#2E4A3E]";
+	const chipColor = isActive ? "text-[#E7D3B0]" : "text-[#867957]";
 
 	return (
 		<button
@@ -162,12 +149,18 @@ function PackageBadges({ pkg, dark = false }) {
 	const badgeBase = dark
 		? "border border-[#E7D3B0]/50 bg-[#E7D3B0]/10 text-[#E7D3B0]"
 		: "border border-[#E6E1D7] bg-[#FAF8F2] text-[#867957]";
-	const isMostPopular = pkg.tag === "Most Popular" && !dark;
+	const isMostPopular = pkg.tag === "Most Popular";
 
 	return (
 		<div className="mb-4 flex flex-wrap gap-2">
 			{isMostPopular ? (
-				<span className="inline-flex items-center gap-1.5 rounded-full border border-[#3D6753] bg-[#3D6753] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.08em] text-white">
+				<span
+					className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.08em] ${
+						dark
+							? "border border-[#E7D3B0]/50 bg-[#E7D3B0]/15 text-[#E7D3B0]"
+							: "border border-[#3D6753] bg-[#3D6753] text-white"
+					}`}
+				>
 					<svg
 						width="10"
 						height="10"
@@ -203,44 +196,60 @@ function PackageBadges({ pkg, dark = false }) {
 }
 
 function MashaerFeaturedCard({ pkg, isActive }) {
+	const isDark = isActive;
 	const activeClass = isActive
-		? "ring-2 ring-[#3D6753] ring-offset-2 ring-offset-[#F3EFE6]"
+		? "ring-2 ring-[#E7D3B0] ring-offset-2 ring-offset-[#F3EFE6]"
 		: "";
 
 	return (
 		<article
 			id={`pkg-${pkg.id}`}
-			className={`mb-6 overflow-hidden rounded-[18px] border-[1.5px] border-[#3D6753] bg-white p-8 shadow-[0_20px_50px_rgba(61,103,83,0.12)] transition-all duration-300 ${activeClass}`}
+			className={`mb-6 overflow-hidden rounded-[18px] border-[1.5px] p-8 shadow-[0_20px_50px_rgba(61,103,83,0.12)] transition-all duration-300 ${
+				isDark
+					? "border-[#2E4A3E] bg-gradient-to-br from-[#2E4A3E] to-[#3D6753]"
+					: "border-[#3D6753] bg-white"
+			} ${activeClass}`}
 		>
-			<PackageBadges pkg={pkg} />
+			<PackageBadges pkg={pkg} dark={isDark} />
 
 			<div className="mb-5 flex flex-wrap items-start justify-between gap-4">
 				<div>
 					<h3
-						className={`${cormorant.className} text-[35px] leading-[1.05] text-[#2E4A3E]`}
+						className={`${cormorant.className} text-[35px] leading-[1.05] ${
+							isDark ? "text-white" : "text-[#2E4A3E]"
+						}`}
 					>
 						{pkg.title}
 					</h3>
-					<div
-						className={`${notoNaskh.className} mt-1 text-[15px] text-[#867957]`}
-					>
-						{pkg.arabic}
-					</div>
 				</div>
 				<div className="text-right">
-					<div className="text-[10px] font-semibold uppercase tracking-[0.08em] text-[#867957]">
+					<div
+						className={`text-[10px] font-semibold uppercase tracking-[0.08em] ${
+							isDark ? "text-[#E7D3B0]" : "text-[#867957]"
+						}`}
+					>
 						Starting From
 					</div>
-					<div className="text-[35px] font-semibold leading-none text-[#2E4A3E]">
+					<div
+						className={`text-[35px] font-semibold leading-none ${
+							isDark ? "text-white" : "text-[#2E4A3E]"
+						}`}
+					>
 						{pkg.price}
 					</div>
-					<div className="text-[11px] text-[#6B665F]">
-						per group of 5 guests
+					<div
+						className={`text-[11px] ${isDark ? "text-white/80" : "text-[#6B665F]"}`}
+					>
+						per guest
 					</div>
 				</div>
 			</div>
 
-			<p className="mb-5 max-w-[920px] text-[14px] font-light leading-[1.65] text-[#6B665F]">
+			<p
+				className={`mb-5 max-w-[920px] text-[14px] font-light leading-[1.65] ${
+					isDark ? "text-white/85" : "text-[#6B665F]"
+				}`}
+			>
 				{pkg.description}
 			</p>
 
@@ -248,9 +257,11 @@ function MashaerFeaturedCard({ pkg, isActive }) {
 				{pkg.features.map((feature) => (
 					<li
 						key={feature}
-						className="flex items-start gap-2.5 text-[13px] text-[#2E4A3E]"
+						className={`flex items-start gap-2.5 text-[13px] ${
+							isDark ? "text-white" : "text-[#2E4A3E]"
+						}`}
 					>
-						<CheckIcon />
+						<CheckIcon dark={isDark} />
 						<span>{feature}</span>
 					</li>
 				))}
@@ -260,54 +271,7 @@ function MashaerFeaturedCard({ pkg, isActive }) {
 }
 
 function StandardPackageCard({ pkg, isActive }) {
-	const activeClass = isActive
-		? "ring-2 ring-[#3D6753] ring-offset-2 ring-offset-[#F3EFE6]"
-		: "";
-
-	return (
-		<article
-			id={`pkg-${pkg.id}`}
-			className={`rounded-[16px] border border-[#E6E1D7] bg-white p-7 shadow-[0_10px_30px_rgba(0,0,0,0.05)] transition-all duration-300 ${activeClass}`}
-		>
-			<PackageBadges pkg={pkg} />
-			<h3
-				className={`${cormorant.className} text-[31px] leading-[1.05] text-[#2E4A3E]`}
-			>
-				{pkg.title}
-			</h3>
-			<div className={`${notoNaskh.className} mt-1 text-[14px] text-[#867957]`}>
-				{pkg.arabic}
-			</div>
-			<p className="mb-5 mt-3 text-[13px] font-light leading-[1.65] text-[#6B665F]">
-				{pkg.description}
-			</p>
-
-			<ul className="mb-5 space-y-2">
-				{pkg.features.map((feature) => (
-					<li
-						key={feature}
-						className="flex items-start gap-2.5 text-[13px] text-[#2E4A3E]"
-					>
-						<CheckIcon />
-						<span>{feature}</span>
-					</li>
-				))}
-			</ul>
-
-			<div className="text-[12px] text-[#6B665F]">
-				<div className="text-[10px] font-semibold uppercase tracking-[0.08em] text-[#867957]">
-					Starting From
-				</div>
-				<span className="text-[25px] font-semibold text-[#2E4A3E]">
-					{pkg.price}
-				</span>
-				<span className="ml-2">per group of 5 guests</span>
-			</div>
-		</article>
-	);
-}
-
-function NoorPackageCard({ pkg, isActive }) {
+	const isDark = isActive;
 	const activeClass = isActive
 		? "ring-2 ring-[#E7D3B0] ring-offset-2 ring-offset-[#F3EFE6]"
 		: "";
@@ -315,22 +279,25 @@ function NoorPackageCard({ pkg, isActive }) {
 	return (
 		<article
 			id={`pkg-${pkg.id}`}
-			className={`relative overflow-hidden rounded-[16px] border border-[#2E4A3E] bg-gradient-to-br from-[#2E4A3E] to-[#3D6753] p-7 shadow-[0_20px_50px_rgba(61,103,83,0.18)] transition-all duration-300 ${activeClass}`}
+			className={`rounded-[16px] border p-7 shadow-[0_10px_30px_rgba(0,0,0,0.05)] transition-all duration-300 ${
+				isDark
+					? "border-[#2E4A3E] bg-gradient-to-br from-[#2E4A3E] to-[#3D6753]"
+					: "border-[#E6E1D7] bg-white"
+			} ${activeClass}`}
 		>
-			<div className="absolute right-4 top-4 rounded-full border border-[#E7D3B0]/40 bg-[#E7D3B0]/15 px-3 py-1 text-[9px] font-semibold uppercase tracking-[0.08em] text-[#E7D3B0]">
-				Premium
-			</div>
-
-			<PackageBadges pkg={pkg} dark />
+			<PackageBadges pkg={pkg} dark={isDark} />
 			<h3
-				className={`${cormorant.className} text-[31px] leading-[1.05] text-white`}
+				className={`${cormorant.className} text-[31px] leading-[1.05] ${
+					isDark ? "text-white" : "text-[#2E4A3E]"
+				}`}
 			>
 				{pkg.title}
 			</h3>
-			<div className={`${notoNaskh.className} mt-1 text-[14px] text-[#E7D3B0]`}>
-				{pkg.arabic}
-			</div>
-			<p className="mb-5 mt-3 text-[13px] font-light leading-[1.65] text-white/85">
+			<p
+				className={`mb-5 mt-3 text-[13px] font-light leading-[1.65] ${
+					isDark ? "text-white/85" : "text-[#6B665F]"
+				}`}
+			>
 				{pkg.description}
 			</p>
 
@@ -338,29 +305,39 @@ function NoorPackageCard({ pkg, isActive }) {
 				{pkg.features.map((feature) => (
 					<li
 						key={feature}
-						className="flex items-start gap-2.5 text-[13px] text-white"
+						className={`flex items-start gap-2.5 text-[13px] ${
+							isDark ? "text-white" : "text-[#2E4A3E]"
+						}`}
 					>
-						<CheckIcon dark />
+						<CheckIcon dark={isDark} />
 						<span>{feature}</span>
 					</li>
 				))}
 			</ul>
 
-			<div className="text-[12px] text-white/80">
-				<div className="text-[10px] font-semibold uppercase tracking-[0.08em] text-[#E7D3B0]">
+			<div
+				className={`text-[12px] ${isDark ? "text-white/80" : "text-[#6B665F]"}`}
+			>
+				<div
+					className={`text-[10px] font-semibold uppercase tracking-[0.08em] ${
+						isDark ? "text-[#E7D3B0]" : "text-[#867957]"
+					}`}
+				>
 					Starting From
 				</div>
-				<span className="text-[25px] font-semibold text-white">
+				<span
+					className={`text-[25px] font-semibold ${isDark ? "text-white" : "text-[#2E4A3E]"}`}
+				>
 					{pkg.price}
 				</span>
-				<span className="ml-2">per group of 5 guests</span>
+				<span className="ml-2">per guest</span>
 			</div>
 		</article>
 	);
 }
 
 export default function UmrahPackagesSection() {
-	const [activePackageId, setActivePackageId] = useState("mashaer");
+	const [activePackageId, setActivePackageId] = useState("seerahPlus");
 	const sectionRef = useRef(null);
 
 	const handleSelectPackage = (packageId) => {
@@ -376,7 +353,7 @@ export default function UmrahPackagesSection() {
 
 	return (
 		<section
-      id="umrah-packages"
+			id="umrah-packages"
 			ref={sectionRef}
 			className={`${dmSans.className} bg-[#F3EFE6] px-5 py-24 sm:px-8 md:px-12 lg:px-16`}
 		>
@@ -416,25 +393,13 @@ export default function UmrahPackagesSection() {
 				) : null}
 
 				<div className="grid gap-5 lg:grid-cols-3">
-					{secondaryPackages.map((pkg) => {
-						if (pkg.id === "noor") {
-							return (
-								<NoorPackageCard
-									key={pkg.id}
-									pkg={pkg}
-									isActive={activePackageId === pkg.id}
-								/>
-							);
-						}
-
-						return (
-							<StandardPackageCard
-								key={pkg.id}
-								pkg={pkg}
-								isActive={activePackageId === pkg.id}
-							/>
-						);
-					})}
+					{secondaryPackages.map((pkg) => (
+						<StandardPackageCard
+							key={pkg.id}
+							pkg={pkg}
+							isActive={activePackageId === pkg.id}
+						/>
+					))}
 				</div>
 			</div>
 		</section>
