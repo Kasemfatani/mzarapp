@@ -112,7 +112,7 @@ function PackageChipButton({ pkg, isActive, onClick }) {
 			<div
 				className={`mb-1 text-[10px] font-semibold uppercase tracking-[0.1em] ${chipColor}`}
 			>
-				{pkg.chip}
+				{/* {pkg.chip} */}
 			</div>
 			<div className={`text-[15px] font-semibold ${titleColor}`}>
 				{pkg.chipTitle}
