@@ -26,21 +26,21 @@ const experiences = [
 		title: "First Migration Paths Experience",
 		description:
 			"A historical tour to the first home of Hijrah, where the Messenger of Allah ﷺ arrived in Al-Madinah Al-Munawwarah",
-		image: "/tour-bus/Cultural_District.webp",
+		image: "/umrah/first-migration.png",
 	},
 	{
 		location: "JEDDAH",
 		title: "Historic Al-Balad",
 		description:
 			"Wander through the UNESCO-listed heart of old Jeddah, where centuries of trade, culture, and architecture come to life.",
-		image: "/landmark/big-img.webp",
+		image: "/umrah/historic-al-balad.webp",
 	},
 	{
 		location: "TAIF",
 		title: "Mountains of Taif",
 		description:
 			"Escape to the cool mountains of Taif, famous for its breathtaking landscapes, rose farms, and rich Islamic heritage.",
-		image: "/gallery/10.webp",
+		image: "/umrah/taif.webp",
 	},
 ];
 

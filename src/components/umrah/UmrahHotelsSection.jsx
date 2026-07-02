@@ -72,7 +72,7 @@ export default function UmrahHotelsSection() {
 				<div className="grid grid-cols-2 gap-4">
 					<div className="aspect-[3/4] overflow-hidden rounded-[14px] border border-[#E6E1D7] bg-white">
 						<img
-							src="/makkah2.webp"
+							src="/umrah/novotel.jpg"
 							alt="Hotel stay in Makkah"
 							loading="lazy"
 							className="h-full w-full object-cover"
@@ -80,7 +80,7 @@ export default function UmrahHotelsSection() {
 					</div>
 					<div className="mt-6 aspect-[3/4] overflow-hidden rounded-[14px] border border-[#E6E1D7] bg-white">
 						<img
-							src="/madinah2.webp"
+							src="/umrah/voco.png"
 							alt="Hotel stay in Madinah"
 							loading="lazy"
 							className="h-full w-full object-cover"
