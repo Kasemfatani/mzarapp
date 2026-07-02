@@ -153,7 +153,7 @@ function PackageBadges({ pkg, dark = false }) {
 
 	return (
 		<div className="mb-4 flex flex-wrap gap-2">
-			{isMostPopular ? (
+			{/* {isMostPopular ? (
 				<span
 					className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.08em] ${
 						dark
@@ -178,7 +178,7 @@ function PackageBadges({ pkg, dark = false }) {
 				>
 					{pkg.tag}
 				</span>
-			)}
+			)} */}
 			<span
 				className={`rounded-full px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.08em] ${badgeBase}`}
 			>
@@ -348,8 +348,8 @@ export default function UmrahPackagesSection() {
 		}
 	};
 
-	const mashaerPackage = packages.find((pkg) => pkg.id === "mashaer");
-	const secondaryPackages = packages.filter((pkg) => pkg.id !== "mashaer");
+	const mashaerPackage = packages.find((pkg) => pkg.id === "seerahPlus");
+	const secondaryPackages = packages.filter((pkg) => pkg.id !== "seerahPlus");
 
 	return (
 		<section
