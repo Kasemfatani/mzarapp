@@ -15,7 +15,9 @@ const dmSans = DM_Sans({
 
 export default function UmrahWatchJourneySection() {
 	return (
-		<section className={`${dmSans.className} bg-white px-5 py-24 sm:px-8 md:px-12 lg:px-16`}>
+		<section
+			className={`${dmSans.className} bg-white px-5 py-24 sm:px-8 md:px-12 lg:px-16`}
+		>
 			<div className="mx-auto max-w-[980px]">
 				<div className="mb-11 text-center">
 					<span className="mb-3 block text-[10px] font-semibold uppercase tracking-[0.18em] text-[#867957]">
@@ -24,7 +26,10 @@ export default function UmrahWatchJourneySection() {
 					<h2
 						className={`${cormorant.className} mb-4 text-[32px] leading-[1.14] text-[#2E4A3E] sm:text-[42px] md:text-[50px]`}
 					>
-						More Than a Journey. <span className="italic text-[#3D6753]">A Story You Will Live.</span>
+						More Than a Journey.{" "}
+						<span className="italic text-[#3D6753]">
+							A Story You Will Live.
+						</span>
 					</h2>
 					<p className="mx-auto max-w-[760px] text-[15px] font-light leading-[1.75] text-[#6B665F] sm:text-[16px]">
 						From the sacred landmarks of Makkah and Madinah to the places that
