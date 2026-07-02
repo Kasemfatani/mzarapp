@@ -137,11 +137,11 @@ export default function UmrahTrustSection() {
 						<PartnerRow
 							logo={
 								<Image
-									src="/conf/2.svg"
+									src="/conf/Ministry-of-Tourism.png"
 									alt="Saudi Ministry of Tourism logo"
 									width={84}
 									height={36}
-									className="h-9 w-auto object-contain"
+									className="h-14 md:h-18  w-auto object-contain"
 								/>
 							}
 							title="Saudi Ministry of Tourism"
@@ -150,11 +150,11 @@ export default function UmrahTrustSection() {
 						<PartnerRow
 							logo={
 								<Image
-									src="/conf/royal-commission.png"
+									src="/conf/Royal-Commission-Makkah.png"
 									alt="Royal Commission logo"
 									width={110}
 									height={36}
-									className="h-9 w-auto object-contain"
+									className="h-14 md:h-12 w-auto object-contain"
 								/>
 							}
 							title="Royal Commission for Makkah City"
@@ -163,11 +163,11 @@ export default function UmrahTrustSection() {
 						<PartnerRow
 							logo={
 								<Image
-									src="/path/exclusive-logo.png"
+									src="/conf/Al-haramain.png"
 									alt="Alharamain logo"
 									width={92}
 									height={36}
-									className="h-9 w-auto object-contain"
+									className="h-12  w-auto object-contain"
 								/>
 							}
 							title="Alharamain"
