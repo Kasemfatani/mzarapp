@@ -1,5 +1,6 @@
 import UmrahHero from "@/components/umrah/UmrahHero";
 import UmrahTrustSection from "@/components/umrah/UmrahTrustSection";
+import UmrahWhyChooseSection from "@/components/umrah/UmrahWhyChooseSection";
 
 export function generateMetadata() {
 	return {
@@ -14,6 +15,7 @@ export default async function UmrahPage() {
 		<div className="bg-[#FAF8F2]">
 			<UmrahHero />
 			<UmrahTrustSection />
+			<UmrahWhyChooseSection />
 		</div>
 	);
 }
