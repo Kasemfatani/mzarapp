@@ -8,6 +8,7 @@ import UmrahPackagesSection from "@/components/umrah/UmrahPackagesSection";
 import UmrahPackagesComparisonSection from "@/components/umrah/UmrahPackagesComparisonSection";
 import UmrahHotelsSection from "@/components/umrah/UmrahHotelsSection";
 import UmrahTestimonialsSection from "@/components/umrah/UmrahTestimonialsSection";
+import UmrahFaqSection from "@/components/umrah/UmrahFaqSection";
 
 export function generateMetadata() {
 	return {
@@ -30,6 +31,7 @@ export default async function UmrahPage() {
 			<UmrahPackagesComparisonSection />
 			<UmrahHotelsSection />
 			<UmrahTestimonialsSection />
+			<UmrahFaqSection />
 		</div>
 	);
 }
