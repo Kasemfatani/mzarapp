@@ -54,14 +54,14 @@ export default function UmrahHolyMosquesSection() {
 				<div className="grid gap-6 md:grid-cols-2">
 					<MosqueCard
 						title="Al-Masjid Al-Haram Experience"
-						imageSrc="/haram/big-img.webp"
+						imageSrc="/umrah/Al-Masjid-Al-Haram .jpg"
 						description="Discover the stories behind the Kaaba, Zamzam, Safa and Marwa, and the most important landmarks within the Grand Mosque through a guided enriching experience."
 						includes={haramIncludes}
 					/>
 
 					<MosqueCard
 						title="Al-Masjid Al-Nabawi Experience"
-						imageSrc="/madinah/big-img.webp"
+						imageSrc="/umrah/Al-Masjid-Al-Nabawi.png"
 						description="Walk through the Prophet's Mosque while exploring the events, locations, and stories that shaped the history of Madinah."
 						includes={nabawiIncludes}
 					/>
