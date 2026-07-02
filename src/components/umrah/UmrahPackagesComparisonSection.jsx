@@ -14,37 +14,130 @@ const dmSans = DM_Sans({
 });
 
 const packages = [
-	{ id: "seerah", name: "Seerah", fullName: "Seerah Umrah Experience" },
-	{ id: "mashaer", name: "Mashaer", fullName: "Mashaer Umrah Experience" },
-	{ id: "landmarks", name: "Landmarks", fullName: "Landmarks Umrah Experience" },
-	{ id: "noor", name: "Noor", fullName: "Noor Umrah Experience" },
+	{ id: "seerah", name: "Seerah Umrah", fullName: "Seerah Umrah" },
+	{
+		id: "seerahPlus",
+		name: "Seerah Umrah Plus",
+		fullName: "Seerah Umrah Plus",
+	},
+	{ id: "mashaer", name: "Mashaer Umrah", fullName: "Mashaer Umrah" },
+	{
+		id: "mashaerPlus",
+		name: "Mashaer Umrah Plus",
+		fullName: "Mashaer Umrah Plus",
+	},
 ];
 
 const featureRows = [
 	{
-		feature: "Hotel Accommodation",
-		values: { seerah: false, mashaer: true, landmarks: false, noor: true },
+		feature: "Duration",
+		values: {
+			seerah: "5 days",
+			seerahPlus: "5 days",
+			mashaer: "8 days",
+			mashaerPlus: "8 days",
+		},
 	},
 	{
-		feature: "Private Transportation",
-		values: { seerah: true, mashaer: true, landmarks: true, noor: true },
+		feature: "Accommodation",
+		values: {
+			seerah: false,
+			seerahPlus: true,
+			mashaer: false,
+			mashaerPlus: true,
+		},
 	},
 	{
-		feature: "Guided Mosque Experiences",
-		values: { seerah: true, mashaer: true, landmarks: true, noor: true },
+		feature: "Sacred Sites",
+		values: {
+			seerah: true,
+			seerahPlus: true,
+			mashaer: true,
+			mashaerPlus: true,
+		},
 	},
 	{
-		feature: "Historic Jeddah and Taif Exploration",
-		values: { seerah: false, mashaer: false, landmarks: true, noor: true },
+		feature: "Al-Masjid Al-haram tour",
+		values: {
+			seerah: true,
+			seerahPlus: true,
+			mashaer: true,
+			mashaerPlus: true,
+		},
 	},
 	{
-		feature: "Premium Concierge Support",
-		values: { seerah: false, mashaer: false, landmarks: false, noor: true },
+		feature: "Tuwa Tour",
+		values: {
+			seerah: true,
+			seerahPlus: true,
+			mashaer: true,
+			mashaerPlus: true,
+		},
+	},
+	{
+		feature: "Historical Jeddah tour",
+		values: {
+			seerah: false,
+			seerahPlus: false,
+			mashaer: true,
+			mashaerPlus: true,
+		},
+	},
+	{
+		feature: "Taif & Al Hada tour",
+		values: {
+			seerah: false,
+			seerahPlus: false,
+			mashaer: true,
+			mashaerPlus: true,
+		},
+	},
+	{
+		feature: "Madinah tour",
+		values: {
+			seerah: true,
+			seerahPlus: true,
+			mashaer: true,
+			mashaerPlus: true,
+		},
+	},
+	{
+		feature: "Al-Masjid Al-Nabawi tour",
+		values: {
+			seerah: true,
+			seerahPlus: true,
+			mashaer: true,
+			mashaerPlus: true,
+		},
+	},
+	{
+		feature: "Private transportation",
+		values: {
+			seerah: true,
+			seerahPlus: true,
+			mashaer: true,
+			mashaerPlus: true,
+		},
+	},
+	{
+		feature: "Multilingual Audio Guide",
+		values: {
+			seerah: true,
+			seerahPlus: true,
+			mashaer: true,
+			mashaerPlus: true,
+		},
 	},
 ];
 
-function AvailabilityCell({ included }) {
-	if (included) {
+function AvailabilityCell({ value }) {
+	if (typeof value === "string") {
+		return (
+			<span className="text-[13px] font-medium text-[#4C453C]">{value}</span>
+		);
+	}
+
+	if (value) {
 		return (
 			<span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-[#EAF3EE] text-[#3D6753]">
 				<svg
@@ -69,7 +162,9 @@ function AvailabilityCell({ included }) {
 
 export default function UmrahPackagesComparisonSection() {
 	return (
-		<section className={`${dmSans.className} bg-white px-5 py-24 sm:px-8 md:px-12 lg:px-16`}>
+		<section
+			className={`${dmSans.className} bg-white px-5 py-24 sm:px-8 md:px-12 lg:px-16`}
+		>
 			<div className="mx-auto max-w-[1160px]">
 				<div className="mb-12 text-center">
 					<span className="mb-3 block text-[10px] font-semibold uppercase tracking-[0.18em] text-[#867957]">
@@ -113,7 +208,10 @@ export default function UmrahPackagesComparisonSection() {
 							</thead>
 							<tbody>
 								{featureRows.map((row) => (
-									<tr key={row.feature} className="odd:bg-white even:bg-[#FCFBF8]">
+									<tr
+										key={row.feature}
+										className="odd:bg-white even:bg-[#FCFBF8]"
+									>
 										<td className="border-b border-[#EDE9E0] px-4 py-4 text-[13px] font-medium leading-[1.35] text-[#4C453C]">
 											{row.feature}
 										</td>
@@ -127,7 +225,7 @@ export default function UmrahPackagesComparisonSection() {
 												}`}
 											>
 												<div className="flex items-center justify-center">
-													<AvailabilityCell included={row.values[pkg.id]} />
+													<AvailabilityCell value={row.values[pkg.id]} />
 												</div>
 											</td>
 										))}
@@ -163,8 +261,10 @@ export default function UmrahPackagesComparisonSection() {
 											pkg.id === "mashaer" ? "" : "rounded-[10px] bg-[#FAF8F2] "
 										}`}
 									>
-										<span className="text-[12px] text-[#5E574F]">{row.feature}</span>
-										<AvailabilityCell included={row.values[pkg.id]} />
+										<span className="text-[12px] text-[#5E574F]">
+											{row.feature}
+										</span>
+										<AvailabilityCell value={row.values[pkg.id]} />
 									</li>
 								))}
 							</ul>
