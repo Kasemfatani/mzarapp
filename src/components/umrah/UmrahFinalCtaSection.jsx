@@ -43,7 +43,7 @@ export default function UmrahFinalCtaSection() {
 					className={`${cormorant.className} text-[34px] leading-[1.1] text-white sm:text-[44px] md:text-[64px]`}
 				>
 					Experience Umrah{" "}
-					<span className="italic text-[#E7D3B0]">Beyond the Ordinary</span>
+					Beyond the Ordinary
 				</h2>
 				<p className="mx-auto mt-5 max-w-[520px] text-[16px] font-light leading-[1.75] text-white">
 					Discover the stories behind the places, explore the landmarks of

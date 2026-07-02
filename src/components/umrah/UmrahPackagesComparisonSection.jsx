@@ -173,7 +173,7 @@ export default function UmrahPackagesComparisonSection() {
 					<h2
 						className={`${cormorant.className} text-[32px] leading-[1.14] text-[#2E4A3E] sm:text-[42px] md:text-[50px]`}
 					>
-						Compare <span className="italic text-[#3D6753]">Packages</span>
+						Compare Packages
 					</h2>
 				</div>
 

@@ -34,9 +34,7 @@ export default function UmrahHotelsSection() {
 						className={`${cormorant.className} mb-4 text-[32px] leading-[1.14] text-[#2E4A3E] sm:text-[42px] md:text-[48px]`}
 					>
 						Stay in Comfort.{" "}
-						<span className="italic text-[#3D6753]">
-							Explore with Peace of Mind.
-						</span>
+						Explore with Peace of Mind.
 					</h2>
 					<p className="mb-7 max-w-[560px] text-[15px] font-light leading-[1.75] text-[#6B665F] sm:text-[16px]">
 						Enjoy a comfortable stay in carefully selected hotels that

@@ -388,7 +388,7 @@ export default function UmrahPackagesSection() {
 					<h2
 						className={`${cormorant.className} mb-4 text-[32px] leading-[1.14] text-[#2E4A3E] sm:text-[42px] md:text-[52px]`}
 					>
-						Choose Your <span className="italic text-[#3D6753]">Journey</span>
+						Choose Your Journey
 					</h2>
 					<p className="mx-auto max-w-[640px] text-[15px] font-light leading-[1.75] text-[#6B665F]">
 						Every package includes exclusive guided experiences and multilingual

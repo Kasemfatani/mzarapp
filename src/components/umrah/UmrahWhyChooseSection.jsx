@@ -46,9 +46,7 @@ export default function UmrahWhyChooseSection() {
 					>
 						Not Just a Trip.
 						<br />
-						<span className="italic text-[#3D6753]">
-							A Journey Through History.
-						</span>
+						A Journey Through History.
 					</h2>
 					<p className="mx-auto max-w-[560px] text-[16px] font-light leading-[1.7] text-[#6B665F]">
 						We help you discover the stories, events, and meanings behind every

@@ -102,10 +102,10 @@ export default function UmrahTrustSection() {
 						Trusted & Licensed
 					</span>
 					<h2
-						className={`${cormorant.className} text-[32px] leading-[1.15] text-[#2E4A3E] sm:text-[42px] md:text-[48px]`}
+						className={` text-[32px] leading-[1.15] text-[#2E4A3E] sm:text-[42px] md:text-[48px]`}
 					>
-						Trusted by Travelers from{" "}
-						<span className="italic text-[#3D6753]">51+ Countries</span>
+						Trusted by Travelers from{" "}51+ Countries
+						<span className=""></span>
 					</h2>
 				</div>
 

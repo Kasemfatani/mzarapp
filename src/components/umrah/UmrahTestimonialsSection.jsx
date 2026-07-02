@@ -62,7 +62,7 @@ export default function UmrahTestimonialsSection() {
 						className={`${cormorant.className} text-[32px] leading-[1.14] text-[#2E4A3E] sm:text-[42px] md:text-[50px]`}
 					>
 						Words from the{" "}
-						<span className="italic text-[#3D6753]">Journey</span>
+						Journey
 					</h2>
 				</div>
 

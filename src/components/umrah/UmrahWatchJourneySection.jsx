@@ -27,9 +27,7 @@ export default function UmrahWatchJourneySection() {
 						className={`${cormorant.className} mb-4 text-[32px] leading-[1.14] text-[#2E4A3E] sm:text-[42px] md:text-[50px]`}
 					>
 						More Than a Journey.{" "}
-						<span className="italic text-[#3D6753]">
-							A Story You Will Live.
-						</span>
+						A Story You Will Live.
 					</h2>
 					<p className="mx-auto max-w-[760px] text-[15px] font-light leading-[1.75] text-[#6B665F] sm:text-[16px]">
 						From the sacred landmarks of Makkah and Madinah to the places that
