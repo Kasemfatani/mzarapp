@@ -56,10 +56,7 @@ export default function UmrahHero() {
 						poster="/hero.webp"
 						className="h-full w-full object-cover"
 					>
-						<source
-							src="/uploads/Video_Project_web_hero_section_compressed.mp4"
-							type="video/mp4"
-						/>
+						<source src="/umrah/umrah-hero-section.mp4" type="video/mp4" />
 					</video>
 				</div>
 
