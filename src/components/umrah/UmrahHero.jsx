@@ -114,9 +114,9 @@ export default function UmrahHero() {
 						className={`${cormorant.className} mb-7 text-[34px] font-[400] italic leading-[1.05] text-[#E7D3B0] drop-shadow-[0_2px_30px_rgba(34,58,48,0.3)] sm:mb-9 sm:text-[48px] md:text-[62px] lg:text-[78px]`}
 					>
 						Experience the Places Where History Happened
-						<span className={`${notoNaskh.className} not-italic`}>
+						{/* <span className={`${notoNaskh.className} not-italic`}>
 							&#65018;
-						</span>
+						</span> */}
 					</h2>
 
 					<p className="mx-auto mb-9 max-w-2xl text-[15px] font-light leading-[1.7] text-white/90 drop-shadow-[0_1px_14px_rgba(34,58,48,0.4)] sm:mb-11 sm:text-[16px] md:text-[18px]">
