@@ -12,6 +12,29 @@ import UmrahFaqSection from "@/components/umrah/UmrahFaqSection";
 import UmrahFinalCtaSection from "@/components/umrah/UmrahFinalCtaSection";
 import UmrahFooterSection from "@/components/umrah/UmrahFooterSection";
 import UmrahSectionReveal from "@/components/umrah/UmrahSectionReveal";
+import { Cormorant_Garamond, DM_Sans, Noto_Naskh_Arabic } from "next/font/google";
+
+const dmSans = DM_Sans({
+	subsets: ["latin"],
+	weight: ["300", "400", "500", "600"],
+	variable: "--umrah-font-body",
+	display: "swap",
+});
+
+const cormorant = Cormorant_Garamond({
+	subsets: ["latin"],
+	weight: ["300", "400", "500", "600"],
+	style: ["normal", "italic"],
+	variable: "--umrah-font-heading",
+	display: "swap",
+});
+
+const notoNaskh = Noto_Naskh_Arabic({
+	subsets: ["arabic"],
+	weight: ["400", "600"],
+	variable: "--umrah-font-arabic",
+	display: "swap",
+});
 
 export function generateMetadata() {
 	return {
@@ -23,7 +46,9 @@ export function generateMetadata() {
 
 export default async function UmrahPage() {
 	return (
-		<div className="bg-[#FAF8F2]">
+		<div
+			className={`${dmSans.variable} ${cormorant.variable} ${notoNaskh.variable} umrah-font-scope bg-[#FAF8F2]`}
+		>
 			<UmrahHero />
 			<UmrahTrustSection />
 			<UmrahWhyChooseSection />
