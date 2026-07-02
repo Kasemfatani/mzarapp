@@ -127,7 +127,7 @@ export default function UmrahHero() {
 
 					<div className="mb-10 flex flex-col items-stretch justify-center gap-3 sm:mb-11 sm:flex-row sm:items-center sm:gap-4">
 						<a
-							href="#plan-journey"
+							href="#umrah-packages"
 							className="inline-flex items-center justify-center rounded-md bg-[#3D6753] px-7 py-4 text-[15px] font-medium tracking-[0.03em] text-white shadow-[0_12px_30px_rgba(61,103,83,0.35)] transition hover:bg-[#345746]"
 						>
 							Plan My Umrah Journey

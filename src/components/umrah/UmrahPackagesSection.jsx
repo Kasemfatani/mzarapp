@@ -376,6 +376,7 @@ export default function UmrahPackagesSection() {
 
 	return (
 		<section
+      id="umrah-packages"
 			ref={sectionRef}
 			className={`${dmSans.className} bg-[#F3EFE6] px-5 py-24 sm:px-8 md:px-12 lg:px-16`}
 		>

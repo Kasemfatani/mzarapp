@@ -11,6 +11,7 @@ import UmrahTestimonialsSection from "@/components/umrah/UmrahTestimonialsSectio
 import UmrahFaqSection from "@/components/umrah/UmrahFaqSection";
 import UmrahFinalCtaSection from "@/components/umrah/UmrahFinalCtaSection";
 import UmrahFooterSection from "@/components/umrah/UmrahFooterSection";
+import UmrahSectionReveal from "@/components/umrah/UmrahSectionReveal";
 
 export function generateMetadata() {
 	return {
