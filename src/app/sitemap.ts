@@ -41,6 +41,11 @@ const staticRoutes: Array<{
 		priority: 0.3,
 		changeFrequency: "yearly",
 	},
+	{
+		path: "/umrah",
+		priority: 0.4,
+		changeFrequency: "monthly",
+	},
 ];
 
 type BlogItem = {

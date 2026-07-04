@@ -23,7 +23,8 @@ export default function Header() {
 		bare === "/saad-alqurashi" ||
 		bare === "/saad-new" ||
 		bare === "/special-tour" ||
-		bare === "/raslania"
+		bare === "/raslania" ||
+		bare === "/umrah"
 	) {
 		return null;
 	}

@@ -30,6 +30,7 @@ export default function LazyFooter(props) {
     barePath === "/saad-alqurashi" ||
     barePath === "/saad-new" ||
     barePath === "/raslania" ||
+		barePath === "/umrah" ||
     barePath.startsWith("/hotel/");
 
   if (skipFooter) {
