@@ -59,7 +59,7 @@ export default async function UmrahPage() {
 			<UmrahPackagesComparisonSection />
 			<UmrahHotelsSection />
 			<UmrahTestimonialsSection />
-			{/* <UmrahFaqSection /> */}
+			<UmrahFaqSection />
 			<UmrahFinalCtaSection />
 			<UmrahFooterSection />
 		</div>

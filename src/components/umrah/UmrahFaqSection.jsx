@@ -17,31 +17,56 @@ const whatsappLink =
 	"https://wa.me/966580121025?text=Hello%2C%20I%27d%20like%20to%20learn%20more%20about%20MZAR%20Umrah%20Experiences";
 
 const faqs = [
-	{
-		question: "What makes MZAR different from regular Umrah agencies?",
-		answer:
-			"MZAR focuses on immersive guided experiences, combining worship with historical storytelling and curated routes in Makkah and Madinah.",
-	},
-	{
-		question: "Do your packages include hotel accommodation?",
-		answer:
-			"Some packages include accommodation while others are experience-focused for guests who already arranged hotels. The comparison section shows exactly what is included.",
-	},
-	{
-		question: "Can I customize the itinerary for my family?",
-		answer:
-			"Yes. Our team can tailor routes, pace, and key stops based on your group size, travel dates, and preferences.",
-	},
-	{
-		question: "Are your experiences suitable for first-time Umrah travelers?",
-		answer:
-			"Absolutely. Our most popular package is designed to make first-time journeys smooth, guided, and spiritually meaningful.",
-	},
-	{
-		question: "How early should I book my journey?",
-		answer:
-			"We recommend booking as early as possible, especially in busy seasons, so you can secure preferred dates and package availability.",
-	},
+  {
+    question: "What is included in the package?",
+    answer:
+      "Each package includes a curated selection of guided experiences, transportation between destinations included in the itinerary, multilingual audio guidance, and access to MZAR's enrichment content. Package inclusions vary depending on the selected package.",
+  },
+  {
+    question: "Does the package include hotel accommodation?",
+    answer:
+      "Some packages include accommodation, while others are experience-only packages. The package details page clearly indicates whether accommodation is included before booking.",
+  },
+  {
+    question: "Are flights included?",
+    answer:
+      "No. Flights are not included unless specifically stated in the package description.",
+  },
+  {
+    question: "What languages are available?",
+    answer:
+      "MZAR currently offers multilingual content and audio guidance in 7 languages, allowing guests to explore sites and stories in their preferred language.",
+  },
+  {
+    question: "Can I book for one person only?",
+    answer:
+      "Our Umrah packages currently require a minimum of 2 guests per booking. If you are travelling alone, please contact our team and we will do our best to assist you with available options.",
+  },
+  {
+    question: "Are the experiences suitable for families and elderly guests?",
+    answer:
+      "Yes. Many experiences are designed with comfort and accessibility in mind. Package details indicate the level of walking and physical activity required.",
+  },
+  {
+    question: "Will I visit Al-Masjid Al-Haram and Al-Masjid Al-Nabawi?",
+    answer:
+      "Yes. Depending on the selected package, your journey may include guided experiences related to Al-Masjid Al-Haram, Al-Masjid Al-Nabawi, and other significant Islamic landmarks.",
+  },
+  {
+    question: "Are transportation services included?",
+    answer:
+      "Yes. Transportation included in each package is clearly outlined in the package details.",
+  },
+  {
+    question: "How do I receive my booking confirmation?",
+    answer:
+      "You will receive a confirmation immediately after your booking is completed, along with the relevant trip details and instructions.",
+  },
+  {
+    question: "What happens if I need to cancel or change my booking?",
+    answer:
+      "Cancellation and modification policies vary depending on the package and booking conditions. Please refer to the booking terms or contact our support team for assistance.",
+  },
 ];
 
 export default function UmrahFaqSection() {
