@@ -33,7 +33,7 @@ export default function UmrahHero() {
 	return (
 		<>
 			<a
-				href="https://wa.me/+966580121025"
+				href="https://wa.me/966580121025?text=Hello%2C%20I%27d%20like%20to%20learn%20more%20about%20MZAR%20Umrah%20Experiences"
 				className="fixed-what"
 				target="_blank"
 				rel="noopener noreferrer"
