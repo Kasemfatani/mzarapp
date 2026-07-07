@@ -17,7 +17,7 @@ const dmSans = DM_Sans({
 });
 
 const getWhatsAppLink = (packageName) => {
-	const text = `Hello, I'd like to book the ${packageName} package. Promo code: SAIRAHAYATI`;
+	const text = `Hello, I'd like to book the ${packageName} package. Promo code: SAIRA`;
 	return `https://wa.me/966580121025?text=${encodeURIComponent(text)}`;
 };
 

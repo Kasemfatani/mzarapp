@@ -14,7 +14,7 @@ const dmSans = DM_Sans({
 });
 
 const whatsappLink =
-	"https://wa.me/966580121025?text=Hello%2C%20I%27d%20like%20to%20learn%20more%20about%20MZAR%20Umrah%20Experiences.%20Promo%20code%3A%20SAIRAHAYATI";
+	"https://wa.me/966580121025?text=Hello%2C%20I%27d%20like%20to%20learn%20more%20about%20MZAR%20Umrah%20Experiences.%20Promo%20code%3A%20SAIRA";
 
 const faqs = [
   {
