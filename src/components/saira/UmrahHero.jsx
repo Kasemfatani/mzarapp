@@ -27,13 +27,13 @@ const notoNaskh = Noto_Naskh_Arabic({
 });
 
 const WA_LINK =
-	"https://wa.me/966580121025?text=Hello%2C%20I%27d%20like%20to%20learn%20more%20about%20MZAR%20Umrah%20Experiences";
+	"https://wa.me/966580121025?text=Hello%2C%20I%27d%20like%20to%20learn%20more%20about%20MZAR%20Umrah%20Experiences.%20Promo%20code%3A%20SAIRA";
 
 export default function UmrahHero() {
 	return (
 		<>
 			<a
-				href="https://wa.me/966580121025?text=Hello%2C%20I%27d%20like%20to%20learn%20more%20about%20MZAR%20Umrah%20Experiences"
+				href={WA_LINK}
 				className="fixed-what"
 				target="_blank"
 				rel="noopener noreferrer"
@@ -86,19 +86,27 @@ export default function UmrahHero() {
 				</div>
 
 				<div className="relative z-10 mx-auto w-full max-w-4xl text-center">
-					<div className="mb-8 inline-flex items-center gap-2 rounded-full border border-white/45 bg-white/10 px-4 py-2 backdrop-blur-sm sm:mb-10">
-						<svg
-							width="11"
-							height="11"
-							viewBox="0 0 16 16"
-							fill="#E7D3B0"
-							aria-hidden="true"
-						>
-							<path d="M8 0L9.8 5.5H16L10.9 8.9L12.7 14.4L8 11L3.3 14.4L5.1 8.9L0 5.5H6.2Z" />
-						</svg>
-						<span className="text-[10px] font-medium uppercase tracking-[0.13em] text-white">
-							Saudi Ministry of Tourism Licensed
-						</span>
+					<div className="mb-8 inline-flex flex-wrap justify-center items-center gap-3 sm:mb-10">
+						<div className="inline-flex items-center gap-2 rounded-full border border-white/45 bg-white/10 px-4 py-2 backdrop-blur-sm">
+							<svg
+								width="11"
+								height="11"
+								viewBox="0 0 16 16"
+								fill="#E7D3B0"
+								aria-hidden="true"
+							>
+								<path d="M8 0L9.8 5.5H16L10.9 8.9L12.7 14.4L8 11L3.3 14.4L5.1 8.9L0 5.5H6.2Z" />
+							</svg>
+							<span className="text-[10px] font-medium uppercase tracking-[0.13em] text-white">
+								Saudi Ministry of Tourism Licensed
+							</span>
+						</div>
+						<div className="inline-flex items-center gap-2 rounded-full border border-[#E7D3B0] bg-[#3D6753]/45 px-4 py-2 backdrop-blur-sm">
+							<span className="h-1.5 w-1.5 rounded-full bg-[#E7D3B0] animate-pulse" />
+							<span className="text-[10px] font-semibold uppercase tracking-[0.13em] text-[#E7D3B0]">
+								Saira Hayati Partnership
+							</span>
+						</div>
 					</div>
 
 					<h1

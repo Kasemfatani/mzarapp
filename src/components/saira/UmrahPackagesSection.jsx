@@ -17,7 +17,7 @@ const dmSans = DM_Sans({
 });
 
 const getWhatsAppLink = (packageName) => {
-	const text = `Hello, I'd like to book the ${packageName} package.`;
+	const text = `Hello, I'd like to book the ${packageName} package. Promo code: SAIRA`;
 	return `https://wa.me/966580121025?text=${encodeURIComponent(text)}`;
 };
 
@@ -32,7 +32,7 @@ const packages = [
 		title: "Seerah Umrah Plus",
 		description:
 			"A complete journey that includes accommodation, private transportation, and enriching experiences across Makkah and Madinah, offering a more comfortable and rewarding Umrah experience.",
-		price: "SAR 3,006",
+		price: "801 USD",
 		features: [
 			"Comfortable 4-Star Hotel Accommodation",
 			"A Fully Organized Journey with No Additional Planning Required",
@@ -51,7 +51,7 @@ const packages = [
 		title: "Seerah Umrah",
 		description:
 			"An enriching journey between Makkah and Madinah that combines performing Umrah with Seerah tours, private transportation, and multilingual audio guidance.",
-		price: "SAR 2,323",
+		price: "619 USD",
 		features: [
 			"Experience the events of the Prophet's Seerah in their true locations",
 			"Listen to the stories of each place in your preferred language",
@@ -70,7 +70,7 @@ const packages = [
 		title: "Mashaer Umrah Plus",
 		description:
 			"A complete journey that includes accommodation and enriching experiences across Makkah, Madinah, Jeddah, and Taif, offering the perfect balance of comfort, spirituality, and discovery.",
-		price: "SAR 3,911",
+		price: "1042 USD",
 		features: [
 			"Comfortable 4-Star Hotel Accommodation",
 			"Explore Four Cities in One Journey",
@@ -89,7 +89,7 @@ const packages = [
 		title: "Mashaer Umrah",
 		description:
 			"An eight-day journey across Makkah, Madinah, Jeddah, and Taif, combining Umrah with culture, history, and exploration in one enriching experience.",
-		price: "SAR 2,756",
+		price: "735 USD",
 		featured: true,
 		features: [
 			"Explore Four Cities in One Journey",
@@ -272,7 +272,7 @@ function MashaerFeaturedCard({ pkg, isActive }) {
 				))}
 			</ul>
 
-			<div className="mt-6 pt-6 border-t border-current/10 ">
+			<div className="mt-6 pt-6 border-t border-current/10  ">
 				<a
 					href={getWhatsAppLink(pkg.title)}
 					target="_blank"

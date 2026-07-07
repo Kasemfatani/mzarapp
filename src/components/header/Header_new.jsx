@@ -24,7 +24,8 @@ export default function Header() {
 		bare === "/saad-new" ||
 		bare === "/special-tour" ||
 		bare === "/raslania" ||
-		bare === "/umrah"
+		bare === "/umrah" ||
+		bare === "/saira"
 	) {
 		return null;
 	}
