@@ -16,6 +16,11 @@ const dmSans = DM_Sans({
 	display: "swap",
 });
 
+const getWhatsAppLink = (packageName) => {
+	const text = `Hello, I'd like to book the ${packageName} package.`;
+	return `https://wa.me/966580121025?text=${encodeURIComponent(text)}`;
+};
+
 const packages = [
 	{
 		id: "seerahPlus",
@@ -266,6 +271,21 @@ function MashaerFeaturedCard({ pkg, isActive }) {
 					</li>
 				))}
 			</ul>
+
+			<div className="mt-6 pt-6 border-t border-current/10 ">
+				<a
+					href={getWhatsAppLink(pkg.title)}
+					target="_blank"
+					rel="noopener noreferrer"
+					className={`w-full sm:w-auto inline-flex items-center justify-center rounded-md px-6 py-3 text-[14px] font-semibold transition duration-200 ${
+						isDark
+							? "bg-[#E7D3B0] text-[#2E4A3E] hover:bg-white"
+							: "bg-[#3D6753] text-white hover:bg-[#345746]"
+					}`}
+				>
+					Book {pkg.title}
+				</a>
+			</div>
 		</article>
 	);
 }
@@ -315,22 +335,36 @@ function StandardPackageCard({ pkg, isActive }) {
 				))}
 			</ul>
 
-			<div
-				className={`text-[12px] ${isDark ? "text-white/80" : "text-[#6B665F]"}`}
-			>
+			<div className="mt-5 pt-5 border-t border-current/10">
 				<div
-					className={`text-[10px] font-semibold uppercase tracking-[0.08em] ${
-						isDark ? "text-[#E7D3B0]" : "text-[#867957]"
+					className={`text-[12px] ${isDark ? "text-white/80" : "text-[#6B665F]"}`}
+				>
+					<div
+						className={`text-[10px] font-semibold uppercase tracking-[0.08em] ${
+							isDark ? "text-[#E7D3B0]" : "text-[#867957]"
+						}`}
+					>
+						Starting From
+					</div>
+					<span
+						className={`text-[25px] font-semibold ${isDark ? "text-white" : "text-[#2E4A3E]"}`}
+					>
+						{pkg.price}
+					</span>
+					<span className="ml-2">per guest</span>
+				</div>
+				<a
+					href={getWhatsAppLink(pkg.title)}
+					target="_blank"
+					rel="noopener noreferrer"
+					className={`mt-4 w-full inline-flex items-center justify-center rounded-md px-5 py-2.5 text-[14px] font-semibold transition duration-200 ${
+						isDark
+							? "bg-[#E7D3B0] text-[#2E4A3E] hover:bg-white"
+							: "bg-[#3D6753] text-white hover:bg-[#345746]"
 					}`}
 				>
-					Starting From
-				</div>
-				<span
-					className={`text-[25px] font-semibold ${isDark ? "text-white" : "text-[#2E4A3E]"}`}
-				>
-					{pkg.price}
-				</span>
-				<span className="ml-2">per guest</span>
+					Book {pkg.title}
+				</a>
 			</div>
 		</article>
 	);

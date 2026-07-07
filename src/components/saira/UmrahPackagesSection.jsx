@@ -16,6 +16,11 @@ const dmSans = DM_Sans({
 	display: "swap",
 });
 
+const getWhatsAppLink = (packageName) => {
+	const text = `Hello, I'd like to book the ${packageName} package. Promo code: SAIRAHAYATI`;
+	return `https://wa.me/966580121025?text=${encodeURIComponent(text)}`;
+};
+
 const packages = [
 	{
 		id: "seerahPlus",
@@ -27,7 +32,7 @@ const packages = [
 		title: "Seerah Umrah Plus",
 		description:
 			"A complete journey that includes accommodation, private transportation, and enriching experiences across Makkah and Madinah, offering a more comfortable and rewarding Umrah experience.",
-		price: "SAR 3,006",
+		price: "801 USD",
 		features: [
 			"Comfortable 4-Star Hotel Accommodation",
 			"A Fully Organized Journey with No Additional Planning Required",
@@ -46,7 +51,7 @@ const packages = [
 		title: "Seerah Umrah",
 		description:
 			"An enriching journey between Makkah and Madinah that combines performing Umrah with Seerah tours, private transportation, and multilingual audio guidance.",
-		price: "SAR 2,323",
+		price: "619 USD",
 		features: [
 			"Experience the events of the Prophet's Seerah in their true locations",
 			"Listen to the stories of each place in your preferred language",
@@ -65,7 +70,7 @@ const packages = [
 		title: "Mashaer Umrah Plus",
 		description:
 			"A complete journey that includes accommodation and enriching experiences across Makkah, Madinah, Jeddah, and Taif, offering the perfect balance of comfort, spirituality, and discovery.",
-		price: "SAR 3,911",
+		price: "1042 USD",
 		features: [
 			"Comfortable 4-Star Hotel Accommodation",
 			"Explore Four Cities in One Journey",
@@ -84,7 +89,7 @@ const packages = [
 		title: "Mashaer Umrah",
 		description:
 			"An eight-day journey across Makkah, Madinah, Jeddah, and Taif, combining Umrah with culture, history, and exploration in one enriching experience.",
-		price: "SAR 2,756",
+		price: "735 USD",
 		featured: true,
 		features: [
 			"Explore Four Cities in One Journey",
@@ -266,6 +271,21 @@ function MashaerFeaturedCard({ pkg, isActive }) {
 					</li>
 				))}
 			</ul>
+
+			<div className="mt-6 pt-6 border-t border-current/10  ">
+				<a
+					href={getWhatsAppLink(pkg.title)}
+					target="_blank"
+					rel="noopener noreferrer"
+					className={`w-full sm:w-auto inline-flex items-center justify-center rounded-md px-6 py-3 text-[14px] font-semibold transition duration-200 ${
+						isDark
+							? "bg-[#E7D3B0] text-[#2E4A3E] hover:bg-white"
+							: "bg-[#3D6753] text-white hover:bg-[#345746]"
+					}`}
+				>
+					Book {pkg.title}
+				</a>
+			</div>
 		</article>
 	);
 }
@@ -315,22 +335,36 @@ function StandardPackageCard({ pkg, isActive }) {
 				))}
 			</ul>
 
-			<div
-				className={`text-[12px] ${isDark ? "text-white/80" : "text-[#6B665F]"}`}
-			>
+			<div className="mt-5 pt-5 border-t border-current/10">
 				<div
-					className={`text-[10px] font-semibold uppercase tracking-[0.08em] ${
-						isDark ? "text-[#E7D3B0]" : "text-[#867957]"
+					className={`text-[12px] ${isDark ? "text-white/80" : "text-[#6B665F]"}`}
+				>
+					<div
+						className={`text-[10px] font-semibold uppercase tracking-[0.08em] ${
+							isDark ? "text-[#E7D3B0]" : "text-[#867957]"
+						}`}
+					>
+						Starting From
+					</div>
+					<span
+						className={`text-[25px] font-semibold ${isDark ? "text-white" : "text-[#2E4A3E]"}`}
+					>
+						{pkg.price}
+					</span>
+					<span className="ml-2">per guest</span>
+				</div>
+				<a
+					href={getWhatsAppLink(pkg.title)}
+					target="_blank"
+					rel="noopener noreferrer"
+					className={`mt-4 w-full inline-flex items-center justify-center rounded-md px-5 py-2.5 text-[14px] font-semibold transition duration-200 ${
+						isDark
+							? "bg-[#E7D3B0] text-[#2E4A3E] hover:bg-white"
+							: "bg-[#3D6753] text-white hover:bg-[#345746]"
 					}`}
 				>
-					Starting From
-				</div>
-				<span
-					className={`text-[25px] font-semibold ${isDark ? "text-white" : "text-[#2E4A3E]"}`}
-				>
-					{pkg.price}
-				</span>
-				<span className="ml-2">per guest</span>
+					Book {pkg.title}
+				</a>
 			</div>
 		</article>
 	);
