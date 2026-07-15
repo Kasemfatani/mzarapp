@@ -324,6 +324,18 @@ export default function Footer() {
 								</a>
 							</div>
 
+							<div className="flex justify-center md:justify-start items-center gap-2">
+								<i className="fa-brands fa-whatsapp text-[#867957]"></i>
+								<a
+									href="https://wa.me/+966549177484"
+									target="_blank"
+									rel="noopener noreferrer"
+									className="ltr:ml-2 rtl:mr-2 text-gray-600 hover:text-[#867957] ltr"
+								>
+									+966549177484
+								</a>
+							</div>
+
 							{/* Location */}
 							<div className="flex justify-center md:justify-start items-start gap-3">
 								<MapPin
