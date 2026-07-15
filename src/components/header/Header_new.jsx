@@ -119,6 +119,7 @@ export default function Header() {
 									<i className="fa-brands fa-whatsapp"></i>
 									+966580121025
 								</a>
+								{/* second number */}
 								<a
 									href="https://wa.me/+966549177484"
 									target="_blank"
