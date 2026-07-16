@@ -12,6 +12,7 @@ import UmrahFaqSection from "@/components/umrah/UmrahFaqSection";
 import UmrahFinalCtaSection from "@/components/umrah/UmrahFinalCtaSection";
 import UmrahFooterSection from "@/components/umrah/UmrahFooterSection";
 import UmrahSectionReveal from "@/components/umrah/UmrahSectionReveal";
+import WhatsAppCampaignModal from "@/components/common/WhatsAppCampaignModal";
 import { Cormorant_Garamond, DM_Sans, Noto_Naskh_Arabic } from "next/font/google";
 
 const dmSans = DM_Sans({
@@ -62,6 +63,7 @@ export default async function UmrahPage() {
 			<UmrahFaqSection />
 			<UmrahFinalCtaSection />
 			<UmrahFooterSection />
+			<WhatsAppCampaignModal />
 		</div>
 	);
 }
