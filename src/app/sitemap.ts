@@ -30,6 +30,7 @@ const staticRoutes: Array<{
 	{ path: "/faq", priority: 0.7, changeFrequency: "monthly" },
 	{ path: "/gallary", priority: 0.7, changeFrequency: "monthly" },
 	{ path: "/privacy-policy", priority: 0.3, changeFrequency: "yearly" },
+	{ path: "/account-deletion", priority: 0.3, changeFrequency: "yearly" },
 	{ path: "/reviews", priority: 0.7, changeFrequency: "monthly" },
 	{
 		path: "/terms-and-conditions",

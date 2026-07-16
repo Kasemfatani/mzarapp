@@ -274,6 +274,14 @@ export default function Footer() {
 							</li>
 							<li>
 								<a
+									href="/account-deletion"
+									className="text-gray-600 hover:text-[#867957] transition-colors text-sm block"
+								>
+									{isAr ? 'حذف الحساب' : 'Account Deletion'}
+								</a>
+							</li>
+							<li>
+								<a
 									href="/terms-and-conditions"
 									className="text-gray-600 hover:text-[#867957] transition-colors text-sm block"
 								>
