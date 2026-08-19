@@ -1,11 +1,8 @@
 import { headers } from "next/headers";
 import HeroSection from "@/components/new-home/HeroSection";
+import MzarServicesSection from "@/components/new-home/MzarServicesSection";
 import FeaturedToursSection from "@/components/new-home/FeaturedToursSection";
-
-import LazyTopSections from "@/components/new-home/LazyTopSections";
-import LazyBottomSections from "@/components/new-home/LazyBottomSections";
-import LazyLoader from "@/components/LazyLoader";
-import RamadanSection from "@/components/new-home/RamadanSection";
+import AudioGuideSection from "@/components/new-home/AudioGuideSection";
 
 import { notFound } from "next/navigation";
 
@@ -39,23 +36,9 @@ export default async function TourPage() {
 	return (
 		<div className={lang === "en" ? "ltr" : "rtl"}>
 			<HeroSection lang={lang} />
+			<MzarServicesSection lang={lang} />
 			<FeaturedToursSection lang={lang} topData={topData} isSaudi={isSaudi} />
-
-			<LazyLoader>
-				<RamadanSection lang={lang} isSaudi={isSaudi} />
-			</LazyLoader>
-
-			{/* <QuickCategories lang={lang} />
-				<BannerCta lang={lang} />
-				<HowItWorks lang={lang} /> */}
-			<LazyTopSections lang={lang} />
-
-			{/* <SpecialOffers lang={lang} />
-				<WhyChooseUs lang={lang} />
-				<CustomerReviews lang={lang} />
-				<DownloadAppSection lang={lang} /> */}
-
-			<LazyBottomSections lang={lang} />
+			<AudioGuideSection lang={lang} />
 		</div>
 	);
 }
