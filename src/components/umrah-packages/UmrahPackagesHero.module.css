@@ -1,0 +1,172 @@
+/* Scoped styles for UmrahPackagesHero */
+.heroSection {
+  position: relative;
+  padding: 120px 0 90px;
+  color: #ffffff;
+  background: linear-gradient(110deg, rgba(18, 52, 42, 0.95) 0%, rgba(18, 52, 42, 0.72) 100%),
+              url('https://images.unsplash.com/photo-1564769625905-50e93615e769?auto=format&fit=crop&w=1800&q=88') center/cover;
+  overflow: hidden;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #cddbd5;
+  font-size: 0.93rem;
+  margin-bottom: 18px;
+}
+
+.breadcrumbs a {
+  color: #cddbd5;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.breadcrumbs a:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+.breadcrumbSeparator {
+  opacity: 0.6;
+}
+
+.eyebrow {
+  display: inline-block;
+  color: #ead494;
+  font-weight: 800;
+  font-size: 0.92rem;
+  letter-spacing: 0.05em;
+  margin-bottom: 14px;
+  background: rgba(234, 212, 148, 0.15);
+  padding: 4px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(234, 212, 148, 0.3);
+}
+
+.title {
+  font-size: clamp(2.15rem, 4.5vw, 3.6rem);
+  font-weight: 800;
+  line-height: 1.35;
+  margin: 0 0 16px;
+  color: #ffffff;
+  max-width: 820px;
+}
+
+.subtitle {
+  font-size: 1.15rem;
+  max-width: 780px;
+  color: #eef4f1;
+  line-height: 1.7;
+  margin: 0 0 32px;
+}
+
+.heroActions {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  margin-bottom: 36px;
+}
+
+.btnPrimary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: 12px;
+  background: #315f4c;
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 14px rgba(49, 95, 76, 0.3);
+  border: 1px solid transparent;
+}
+
+.btnPrimary:hover {
+  background: #1d4d3e;
+  transform: translateY(-2px);
+  color: #ffffff;
+}
+
+.btnSecondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: 12px;
+  background: #ffffff;
+  color: #15372d;
+  font-weight: 800;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  border: 1.5px solid #dce4df;
+}
+
+.btnSecondary:hover {
+  background: #edf4f0;
+  color: #315f4c;
+  transform: translateY(-2px);
+}
+
+.trustRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 28px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+  color: #f1e4be;
+  font-weight: 700;
+  font-size: 0.92rem;
+}
+
+.trustItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.checkIcon {
+  color: #ead494;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .heroSection {
+    padding: 90px 0 60px;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  .heroActions {
+    flex-direction: column;
+  }
+
+  .btnPrimary, .btnSecondary {
+    width: 100%;
+    text-align: center;
+  }
+
+  .trustRow {
+    gap: 10px 18px;
+    font-size: 0.85rem;
+  }
+}

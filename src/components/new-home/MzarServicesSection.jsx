@@ -51,7 +51,7 @@ export default function MzarServicesSection({ lang = "ar" }) {
         ? ["3 مدد", "نقل", "جولات", "أساسية وبلس"]
         : ["3 Durations", "Transport", "Tours", "Basic & Plus"],
       linkText: isAr ? "استكشف باقات العمرة" : "Explore Umrah Packages",
-      href: "#",
+      href: "/umrah-packages",
     },
     {
       id: "tours",
