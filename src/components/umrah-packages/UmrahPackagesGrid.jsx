@@ -154,7 +154,7 @@ export default function UmrahPackagesGrid({ lang = "ar", packages = [] }) {
                   {/* Standard Variant Button */}
                   {card.standard && (
                     <a
-                      href={getWhatsappUrl(card.standard.name)}
+                      href={`/umrah-package/${card.standard.id}`}
                       className={styles.variantButton}
                     >
                       <span className={styles.variantTitle}>{card.standard.name}</span>
@@ -172,7 +172,7 @@ export default function UmrahPackagesGrid({ lang = "ar", packages = [] }) {
                   {/* Plus Variant Button */}
                   {card.plus && (
                     <a
-                      href={getWhatsappUrl(card.plus.name)}
+                      href={`/umrah-package/${card.plus.id}`}
                       className={`${styles.variantButton} ${styles.variantPlus}`}
                     >
                       <span className={styles.variantTitle}>{card.plus.name}</span>

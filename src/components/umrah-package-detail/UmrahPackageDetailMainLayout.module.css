@@ -1,0 +1,264 @@
+/* Scoped styles for UmrahPackageDetailMainLayout */
+.mainSection {
+  padding: 60px 0 80px;
+  background-color: #ffffff;
+  position: relative;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.detailLayout {
+  display: grid;
+  grid-template-columns: 1.55fr 0.65fr;
+  gap: 48px;
+}
+
+.sidebarColumn {
+  position: relative;
+  height: 100%;
+}
+
+.contentColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.detailBlock {
+  display: flex;
+  flex-direction: column;
+}
+
+.blockTitle {
+  font-size: 1.55rem;
+  font-weight: 800;
+  color: #15372d;
+  margin: 0 0 20px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #edf4ef;
+}
+
+/* Included Experiences Grid */
+.experienceGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.experienceCard {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border: 1px solid #e5dcce;
+  border-radius: 18px;
+  padding: 18px 20px;
+  background: #fdfbf7;
+  box-shadow: 0 4px 12px rgba(21, 54, 43, 0.03);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.experienceCard:hover {
+  transform: translateY(-2px);
+  border-color: #aa9256;
+}
+
+.experienceNumber {
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: #aa9256;
+  background: #ffffff;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(170, 146, 86, 0.25);
+  flex-shrink: 0;
+}
+
+.experienceName {
+  margin: 0;
+  font-size: 0.96rem;
+  font-weight: 700;
+  color: #15372d;
+  line-height: 1.5;
+}
+
+/* Included Services Checklist */
+.servicesChecklist {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.checklistItem {
+  background: #edf4f0;
+  border-radius: 14px;
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.94rem;
+  font-weight: 700;
+  color: #15372d;
+  border: 1px solid #dce8e1;
+}
+
+.checkIcon {
+  color: #315f4c;
+  flex-shrink: 0;
+}
+
+/* Booking Policy Box */
+.policyBox {
+  border-inline-start: 4px solid #315f4c;
+  background: #fbf7ee;
+  border: 1px solid #dfd2b2;
+  border-inline-start: 5px solid #315f4c;
+  padding: 24px 28px;
+  border-radius: 16px;
+}
+
+.policyBox b {
+  display: block;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #15372d;
+  margin-bottom: 8px;
+}
+
+.policyBox p {
+  margin: 0;
+  color: #5f6d67;
+  font-size: 0.94rem;
+  line-height: 1.8;
+}
+
+/* Purchase Sticky Sidebar (Desktop) */
+.purchasePanel {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 96px;
+  border: 1px solid #dfd2b2;
+  border-radius: 24px;
+  padding: 28px;
+  background: #ffffff;
+  box-shadow: 0 16px 40px rgba(24, 57, 46, 0.08);
+  display: flex;
+  flex-direction: column;
+  z-index: 10;
+}
+
+.purchaseEyebrow {
+  display: inline-block;
+  color: #aa9256;
+  font-weight: 800;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+}
+
+.purchaseTitle {
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: #15372d;
+  margin: 0 0 18px;
+  line-height: 1.35;
+}
+
+.purchaseSummary {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #edf4ef;
+}
+
+.summaryRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.95rem;
+}
+
+.summaryRow span {
+  color: #5f6d67;
+  font-weight: 600;
+}
+
+.summaryRow strong {
+  color: #15372d;
+  font-weight: 800;
+}
+
+.summaryRow em {
+  font-style: normal;
+  font-weight: 900;
+  color: #315f4c;
+  font-size: 1.15rem;
+}
+
+.btnPurchaseWhatsapp {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px 24px;
+  border-radius: 14px;
+  background: #315f4c;
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 1.02rem;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 16px rgba(49, 95, 76, 0.3);
+  text-align: center;
+}
+
+.btnPurchaseWhatsapp:hover {
+  background: #15372d;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(21, 54, 43, 0.4);
+  color: #ffffff;
+}
+
+.purchaseNote {
+  display: block;
+  line-height: 1.6;
+  margin-top: 14px;
+  color: #7a806e;
+  font-size: 0.78rem;
+  text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .mainSection {
+    padding: 40px 0 60px;
+  }
+
+  .detailLayout {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .experienceGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .servicesChecklist {
+    grid-template-columns: 1fr;
+  }
+
+  .purchasePanel {
+    position: static;
+  }
+}
