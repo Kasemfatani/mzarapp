@@ -37,49 +37,49 @@ export default function AudioGuideSection({ lang = "ar" }) {
       title: "جبل النور — قصة نزول الوحي",
       transcript:
         "على سفح جبل النور، تبدأ قصة من أعظم قصص التاريخ. هنا كان النبي ﷺ يتعبد في غار حراء، قبل أن تبدأ لحظة الوحي الأولى.",
-      audioSrc: "https://actions.google.com/sounds/v1/ambiences/outdoor_market.ogg",
+      audioSrc: "/Jabal-Al-Nour/Arabic.mp3",
     },
     en: {
       name: "English",
       title: "Jabal Al-Nour — Story of Revelation",
       transcript:
         "At the foot of Jabal Al-Noor begins one of history’s greatest stories. Here, the Prophet ﷺ worshipped in the Cave of Hira before the first revelation.",
-      audioSrc: "https://actions.google.com/sounds/v1/ambiences/daytime_forest_bonfire.ogg",
+      audioSrc: "/Jabal-Al-Nour/English.mp3",
     },
     fr: {
       name: "Français",
       title: "Mont Al-Nour — L'Histoire de la Révélation",
       transcript:
         "Au pied du mont Al-Nour commence une histoire majeure. C’est ici que le Prophète ﷺ méditait dans la grotte de Hira avant la première révélation.",
-      audioSrc: "https://actions.google.com/sounds/v1/ambiences/wind_desert.ogg",
+      audioSrc: "/Jabal-Al-Nour/French.mp3",
     },
     tr: {
       name: "Türkçe",
       title: "Nur Dağı — Vahyin İniş Hikayesi",
       transcript:
         "Nur Dağı’nın eteklerinde tarihin en büyük hikâyelerinden biri başlar. Peygamber ﷺ Hira Mağarası’nda ilk vahiyden önce ibadet ederdi.",
-      audioSrc: "https://actions.google.com/sounds/v1/ambiences/rain_heavy_loud.ogg",
+      audioSrc: "/Jabal-Al-Nour/Turkish.mp3",
     },
     ur: {
       name: "اردو",
       title: "جبل نور — نزول وحی کی داستان",
       transcript:
         "جبل نور کے دامن میں تاریخ کی ایک عظیم داستان شروع ہوتی ہے۔ یہاں نبی ﷺ غار حرا میں عبادت فرمایا کرتے تھے۔",
-      audioSrc: "https://actions.google.com/sounds/v1/ambiences/night_crickets.ogg",
+      audioSrc: "/Jabal-Al-Nour/Urdu.mp3",
     },
     ms: {
       name: "Bahasa Melayu",
       title: "Jabal Al-Nour — Kisah Penurunan Wahyu",
       transcript:
         "Di kaki Jabal Al-Nour bermula salah satu kisah teragung sejarah. Di sinilah Nabi ﷺ beribadah di Gua Hira sebelum wahyu pertama turun.",
-      audioSrc: "https://actions.google.com/sounds/v1/ambiences/meadow_morning.ogg",
+      audioSrc: "/Jabal-Al-Nour/Malayu.mp3",
     },
     ru: {
       name: "Русский",
       title: "Гора ан-Нур — История ниспослания откровения",
       transcript:
         "У подножия горы ан-Нур начинается одна из величайших историй. Здесь Пророк ﷺ уединялся в пещере Хира перед первым откровением.",
-      audioSrc: "https://actions.google.com/sounds/v1/ambiences/mountain_wind_howling.ogg",
+      audioSrc: "/Jabal-Al-Nour/Russian.mp3",
     },
   };
 
@@ -244,15 +244,21 @@ export default function AudioGuideSection({ lang = "ar" }) {
       <audio
         ref={audioRef}
         src={currentContent.audioSrc}
+        onLoadedMetadata={() => {
+          if (audioRef.current && audioRef.current.duration && !isNaN(audioRef.current.duration)) {
+            setDuration(Math.floor(audioRef.current.duration));
+          }
+        }}
         onTimeUpdate={() => {
           if (audioRef.current) {
             setCurrentTime(Math.floor(audioRef.current.currentTime));
-            if (audioRef.current.duration) {
+            if (audioRef.current.duration && !isNaN(audioRef.current.duration)) {
               setDuration(Math.floor(audioRef.current.duration));
             }
           }
         }}
         onEnded={() => pauseAudio()}
+        preload="metadata"
       />
 
       <div className={styles.container}>
@@ -380,10 +386,11 @@ export default function AudioGuideSection({ lang = "ar" }) {
                 <span>{formatTime(duration)}</span>
               </div>
 
-              {/* Transcript */}
+              {/* Transcript - Commented out for now
               <div className={styles.audioTranscript}>
                 {currentContent.transcript}
               </div>
+              */}
             </div>
           </div>
         </div>
