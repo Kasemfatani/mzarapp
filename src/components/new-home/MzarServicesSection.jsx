@@ -68,7 +68,7 @@ export default function MzarServicesSection({ lang = "ar" }) {
         ? ["90 دقيقة", "7 لغات"]
         : ["90 Minutes", "7 Languages"],
       linkText: isAr ? "احجز جولتك" : "Book Your Tour",
-      href: "#",
+      href: "/holy-sanctuaries-tours",
     },
     {
       id: "trails",

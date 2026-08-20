@@ -1,0 +1,154 @@
+/* Scoped styles for SanctuaryDualCta */
+.ctaSection {
+  padding: 80px 0 100px;
+  background-color: #f8f6f2;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.dualCtaCard {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 40px;
+  align-items: center;
+  padding: 48px 52px;
+  border-radius: 28px;
+  background: radial-gradient(circle at 10% 115%, rgba(190, 162, 95, 0.2), transparent 40%),
+              linear-gradient(110deg, #fbf7ed 0%, #f2ecdc 100%);
+  border: 1px solid #dfd2b2;
+  box-shadow: 0 16px 42px rgba(170, 146, 86, 0.12);
+  position: relative;
+  overflow: hidden;
+}
+
+.dualCtaCard::before {
+  content: "";
+  position: absolute;
+  top: 20px;
+  inset-inline-end: 0;
+  width: 6px;
+  height: calc(100% - 40px);
+  border-radius: 8px 0 0 8px;
+  background: linear-gradient(#c2a665, #e3d2a4);
+}
+
+.ctaCopy {
+  position: relative;
+  z-index: 1;
+}
+
+.eyebrow {
+  display: inline-block;
+  color: #aa9256;
+  font-weight: 800;
+  font-size: 0.88rem;
+  letter-spacing: 0.05em;
+  margin-bottom: 10px;
+  background: #ffffff;
+  padding: 4px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(170, 146, 86, 0.25);
+}
+
+.title {
+  color: #15372d;
+  font-size: clamp(1.8rem, 3.2vw, 2.4rem);
+  font-weight: 800;
+  margin: 0 0 12px;
+  line-height: 1.35;
+}
+
+.subtitle {
+  color: #5f6d67;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  margin: 0;
+  max-width: 580px;
+}
+
+.ctaActions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+  z-index: 1;
+}
+
+.btnPrimary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 15px 24px;
+  border-radius: 14px;
+  background: #315f4c;
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: all 0.22s ease;
+  box-shadow: 0 4px 16px rgba(49, 95, 76, 0.25);
+}
+
+.btnPrimary:hover {
+  background: #15372d;
+  transform: translateY(-2px);
+  color: #ffffff;
+}
+
+.btnNabawi {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 15px 24px;
+  border-radius: 14px;
+  background: #8b2b3d;
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: all 0.22s ease;
+  box-shadow: 0 4px 16px rgba(139, 43, 61, 0.25);
+}
+
+.btnNabawi:hover {
+  background: #702131;
+  transform: translateY(-2px);
+  color: #ffffff;
+}
+
+.textLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: #315f4c;
+  font-weight: 800;
+  font-size: 0.95rem;
+  text-decoration: none;
+  padding: 8px 0;
+  transition: color 0.2s ease;
+}
+
+.textLink:hover {
+  color: #aa9256;
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .ctaSection {
+    padding: 50px 0 70px;
+  }
+
+  .dualCtaCard {
+    grid-template-columns: 1fr;
+    padding: 36px 28px;
+    gap: 28px;
+  }
+}

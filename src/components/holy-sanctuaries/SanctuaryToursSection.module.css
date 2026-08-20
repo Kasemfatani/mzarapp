@@ -1,0 +1,258 @@
+/* Scoped styles for SanctuaryToursSection */
+.toursSection {
+  padding: 80px 0;
+  background-color: #ffffff;
+  position: relative;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.sectionHeading {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.eyebrow {
+  display: inline-block;
+  color: #aa9256;
+  font-weight: 800;
+  font-size: 0.95rem;
+  letter-spacing: 0.05em;
+  margin-bottom: 10px;
+  background: #fdfaf3;
+  padding: 4px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(170, 146, 86, 0.25);
+}
+
+.title {
+  color: #15372d;
+  font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+  font-weight: 800;
+  margin: 0 0 12px;
+  line-height: 1.35;
+}
+
+.subtitle {
+  color: #5f6d67;
+  font-size: 1.05rem;
+  max-width: 620px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* 2-Tour Cards Grid */
+.tourGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+
+.tourCard {
+  border-radius: 24px;
+  border: 1px solid #e3dac8;
+  background: #ffffff;
+  overflow: hidden;
+  box-shadow: 0 12px 35px rgba(21, 54, 43, 0.06);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.tourCard:hover {
+  transform: translateY(-4px);
+  border-color: #cbb487;
+  box-shadow: 0 20px 48px rgba(21, 54, 43, 0.12);
+}
+
+.tourPhoto {
+  height: 280px;
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.tourPhoto::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgba(7, 34, 28, 0.8) 0%, rgba(7, 34, 28, 0.1) 60%);
+}
+
+.haramPhoto {
+  background-image: url('https://images.unsplash.com/photo-1564769625905-50e93615e769?auto=format&fit=crop&w=900&q=88');
+}
+
+.nabawiPhoto {
+  background-image: url('https://images.unsplash.com/photo-1588513646744-e94675143d6f?auto=format&fit=crop&w=900&q=88');
+}
+
+.cityBadge {
+  position: relative;
+  z-index: 1;
+  background: rgba(18, 52, 42, 0.85);
+  color: #f7e8c3;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 800;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.tourNumber {
+  position: relative;
+  z-index: 1;
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background: #ffffff;
+  color: #15372d;
+  display: grid;
+  place-items: center;
+  font-weight: 900;
+  font-size: 1rem;
+}
+
+.cardBody {
+  padding: 30px 28px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.cardEyebrow {
+  color: #aa9256;
+  font-weight: 800;
+  font-size: 0.88rem;
+  margin-bottom: 8px;
+}
+
+.cardTitle {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #15372d;
+  margin: 0 0 12px;
+  line-height: 1.35;
+}
+
+.cardDescription {
+  color: #5f6d67;
+  font-size: 0.98rem;
+  line-height: 1.75;
+  margin: 0 0 20px;
+}
+
+.highlightsRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 22px;
+}
+
+.highlightChip {
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: #fbf9f5;
+  border: 1px solid #ebdcc5;
+  color: #15372d;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.factsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  padding: 16px;
+  background: #fbfdfc;
+  border: 1px solid #dce8e1;
+  border-radius: 16px;
+  margin-bottom: 24px;
+}
+
+.factItem {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.88rem;
+  color: #15372d;
+}
+
+.factLabel {
+  font-size: 0.72rem;
+  color: #708078;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.factValue {
+  font-weight: 800;
+}
+
+.cardActions {
+  margin-top: auto;
+}
+
+.btnCardPrimary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 14px 20px;
+  border-radius: 14px;
+  background: #315f4c;
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: all 0.22s ease;
+  box-shadow: 0 4px 14px rgba(49, 95, 76, 0.25);
+}
+
+.btnCardPrimary:hover {
+  background: #15372d;
+  transform: translateY(-2px);
+  color: #ffffff;
+}
+
+.btnNabawi {
+  background: #8b2b3d;
+  box-shadow: 0 4px 14px rgba(139, 43, 61, 0.25);
+}
+
+.btnNabawi:hover {
+  background: #702131;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .toursSection {
+    padding: 60px 0;
+  }
+
+  .tourGrid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .tourPhoto {
+    height: 230px;
+  }
+
+  .cardBody {
+    padding: 24px 20px;
+  }
+
+  .factsGrid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+}

@@ -32,8 +32,8 @@ export default function UmrahPackageMobileBottomBar({ lang = "ar", packageData =
         href={whatsappUrl}
         className={styles.btnMobileWhatsapp}
       >
-        <MessageCircle className="w-4 h-4 fill-current" />
-        <span>{isAr ? "احجز عبر واتساب" : "Book on WhatsApp"}</span>
+        {/* <MessageCircle className="w-4 h-4 fill-current" /> */}
+        <span>{isAr ? "احجز" : "Book"}</span>
       </a>
     </div>
   );

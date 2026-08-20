@@ -1,0 +1,117 @@
+/* Scoped styles for SanctuaryExperienceSteps */
+.stepsSection {
+  padding: 80px 0;
+  background-color: #f8f6f2;
+  position: relative;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.sectionHeading {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.eyebrow {
+  display: inline-block;
+  color: #aa9256;
+  font-weight: 800;
+  font-size: 0.95rem;
+  letter-spacing: 0.05em;
+  margin-bottom: 10px;
+  background: #ffffff;
+  padding: 4px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(170, 146, 86, 0.25);
+}
+
+.title {
+  color: #15372d;
+  font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+  font-weight: 800;
+  margin: 0 0 12px;
+  line-height: 1.35;
+}
+
+.subtitle {
+  color: #5f6d67;
+  font-size: 1.05rem;
+  max-width: 620px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* Steps Grid */
+.stepsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  position: relative;
+}
+
+.stepCard {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 28px 22px;
+  border: 1px solid #e3dac8;
+  box-shadow: 0 8px 24px rgba(21, 54, 43, 0.04);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+.stepCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 36px rgba(21, 54, 43, 0.09);
+  border-color: #aa9256;
+}
+
+.stepNumber {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: #edf4ef;
+  color: #315f4c;
+  font-weight: 900;
+  font-size: 1.15rem;
+  display: grid;
+  place-items: center;
+  margin-bottom: 18px;
+  border: 1px solid #dce8e1;
+}
+
+.stepTitle {
+  font-size: 1.22rem;
+  font-weight: 800;
+  color: #15372d;
+  margin: 0 0 10px;
+}
+
+.stepDescription {
+  margin: 0;
+  color: #5f6d67;
+  font-size: 0.92rem;
+  line-height: 1.65;
+}
+
+/* Responsive */
+@media (max-width: 960px) {
+  .stepsSection {
+    padding: 60px 0;
+  }
+
+  .stepsGrid {
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+}
+
+@media (max-width: 560px) {
+  .stepsGrid {
+    grid-template-columns: 1fr;
+  }
+}
