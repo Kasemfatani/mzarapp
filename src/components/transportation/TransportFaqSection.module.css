@@ -1,0 +1,112 @@
+/* Scoped styles for TransportFaqSection */
+.faqSection {
+  padding: 80px 0 100px;
+  background-color: #ffffff;
+  position: relative;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.sectionHeading {
+  text-align: center;
+  margin-bottom: 44px;
+}
+
+.eyebrow {
+  display: inline-block;
+  color: #aa9256;
+  font-weight: 800;
+  font-size: 0.95rem;
+  letter-spacing: 0.05em;
+  margin-bottom: 10px;
+  background: #fdfaf3;
+  padding: 4px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(170, 146, 86, 0.25);
+}
+
+.title {
+  color: #15372d;
+  font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+  font-weight: 800;
+  margin: 0;
+  line-height: 1.35;
+}
+
+.faqList {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.faqItem {
+  background: #fdfbf7;
+  border: 1px solid #e5dccb;
+  border-radius: 18px;
+  overflow: hidden;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.faqItem[open] {
+  border-color: #315f4c;
+  box-shadow: 0 8px 24px rgba(21, 54, 43, 0.06);
+}
+
+.faqQuestion {
+  padding: 20px 24px;
+  font-size: 1.08rem;
+  font-weight: 800;
+  color: #15372d;
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  user-select: none;
+}
+
+.faqQuestion::-webkit-details-marker {
+  display: none;
+}
+
+.chevronIcon {
+  color: #315f4c;
+  transition: transform 0.25s ease;
+  flex-shrink: 0;
+}
+
+.faqItem[open] .chevronIcon {
+  transform: rotate(180deg);
+}
+
+.faqAnswer {
+  padding: 0 24px 22px;
+  color: #5f6d67;
+  font-size: 0.96rem;
+  line-height: 1.75;
+  margin: 0;
+  border-top: 1px solid #edf4ef;
+  padding-top: 16px;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .faqSection {
+    padding: 50px 0 70px;
+  }
+
+  .faqQuestion {
+    padding: 16px 18px;
+    font-size: 0.98rem;
+  }
+
+  .faqAnswer {
+    padding: 14px 18px 18px;
+    font-size: 0.9rem;
+  }
+}

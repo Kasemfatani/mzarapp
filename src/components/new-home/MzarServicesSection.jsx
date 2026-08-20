@@ -102,7 +102,7 @@ export default function MzarServicesSection({ lang = "ar" }) {
         ? ["1 - 49 راكبًا", "فئات متنوعة"]
         : ["1 - 49 Passengers", "Diverse Fleet"],
       linkText: isAr ? "استعرض المركبات" : "View Vehicles",
-      href: "#",
+      href: "/transportation",
     },
   ];
 
