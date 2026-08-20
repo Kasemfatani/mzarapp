@@ -259,12 +259,14 @@ export default function Header() {
 						{/* Modal Body */}
 						<div className="p-6 flex flex-col gap-4">
 							{/* Option 1 */}
-							<a
-								href="https://wa.me/966580121025"
-								target="_blank"
-								rel="noopener noreferrer"
-								onClick={() => setIsWhatsModalOpen(false)}
-								className="flex items-center justify-between p-4 bg-[#F8F9FA] hover:bg-[#3C6652]/5 border border-gray-150 hover:border-[#3C6652] rounded-2xl transition-all duration-300 group hover:shadow-md cursor-pointer"
+							<button
+								type="button"
+								onClick={(e) => {
+									e.stopPropagation();
+									setIsWhatsModalOpen(false);
+									window.open("https://wa.me/966580121025", "_blank", "noopener,noreferrer");
+								}}
+								className="w-full flex items-center justify-between p-4 bg-[#F8F9FA] hover:bg-[#3C6652]/5 border border-gray-150 hover:border-[#3C6652] rounded-2xl transition-all duration-300 group hover:shadow-md cursor-pointer text-start"
 							>
 								<div className="flex items-center gap-4">
 									<div className="w-12 h-12 rounded-full bg-[#25D366]/10 flex items-center justify-center text-[#25D366] group-hover:bg-[#25D366] group-hover:text-white transition-all duration-300 shadow-md">
@@ -286,15 +288,17 @@ export default function Header() {
 										<ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-white transition-all duration-300 transform group-hover:translate-x-1" />
 									)}
 								</div>
-							</a>
+							</button>
 
 							{/* Option 2 */}
-							<a
-								href="https://wa.me/966549177484"
-								target="_blank"
-								rel="noopener noreferrer"
-								onClick={() => setIsWhatsModalOpen(false)}
-								className="flex items-center justify-between p-4 bg-[#F8F9FA] hover:bg-[#3C6652]/5 border border-gray-150 hover:border-[#3C6652] rounded-2xl transition-all duration-300 group hover:shadow-md cursor-pointer"
+							<button
+								type="button"
+								onClick={(e) => {
+									e.stopPropagation();
+									setIsWhatsModalOpen(false);
+									window.open("https://wa.me/966549177484", "_blank", "noopener,noreferrer");
+								}}
+								className="w-full flex items-center justify-between p-4 bg-[#F8F9FA] hover:bg-[#3C6652]/5 border border-gray-150 hover:border-[#3C6652] rounded-2xl transition-all duration-300 group hover:shadow-md cursor-pointer text-start"
 							>
 								<div className="flex items-center gap-4">
 									<div className="w-12 h-12 rounded-full bg-[#25D366]/10 flex items-center justify-center text-[#25D366] group-hover:bg-[#25D366] group-hover:text-white transition-all duration-300 shadow-md">
@@ -316,7 +320,7 @@ export default function Header() {
 										<ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-white transition-all duration-300 transform group-hover:translate-x-1" />
 									)}
 								</div>
-							</a>
+							</button>
 						</div>
 					</div>
 				</div>

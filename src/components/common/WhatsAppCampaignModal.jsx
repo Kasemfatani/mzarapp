@@ -13,6 +13,9 @@ export default function WhatsAppCampaignModal() {
 		const handleGlobalClick = (e) => {
 			const anchor = e.target.closest("a");
 			if (anchor && anchor.href) {
+				if (anchor.hasAttribute("data-no-intercept") || anchor.closest("[data-no-whatsapp-intercept]")) {
+					return;
+				}
 				const href = anchor.href;
 				if (href.includes("wa.me") || href.includes("api.whatsapp.com/send")) {
 					e.preventDefault();

@@ -40,6 +40,7 @@ export default function MzarServicesSection({ lang = "ar" }) {
       id: "umrah",
       isMain: true,
       badge: isAr ? "الخدمة الأشمل" : "Most Comprehensive",
+      label: isAr ? "رحلة متكاملة" : "Complete Package",
       icon: <Moon className="w-6 h-6" />,
       needs: ["complete", "family"],
       title: isAr ? "باقات العمرة المتكاملة" : "Comprehensive Umrah Packages",
@@ -55,7 +56,9 @@ export default function MzarServicesSection({ lang = "ar" }) {
     {
       id: "tours",
       isMain: false,
-      icon: <Landmark className="w-6 h-6" />,
+      visualClass: styles.serviceVisualSanctuaries,
+      label: isAr ? "معرفة إيمانية" : "Spiritual Insight",
+      icon: <Landmark className="w-5 h-5" />,
       needs: ["short", "family"],
       title: isAr ? "جولات الحرمين" : "Two Holy Mosques Tours",
       description: isAr
@@ -70,7 +73,9 @@ export default function MzarServicesSection({ lang = "ar" }) {
     {
       id: "trails",
       isMain: false,
-      icon: <Compass className="w-6 h-6" />,
+      visualClass: styles.serviceVisualTrails,
+      label: isAr ? "اكتشف القصة" : "Discover the Story",
+      icon: <Compass className="w-5 h-5" />,
       needs: ["short", "family"],
       title: isAr ? "مسارات تاريخية وإثرائية" : "Historical & Cultural Trails",
       description: isAr
@@ -85,7 +90,9 @@ export default function MzarServicesSection({ lang = "ar" }) {
     {
       id: "transport",
       isMain: false,
-      icon: <Car className="w-6 h-6" />,
+      visualClass: styles.serviceVisualTransport,
+      label: isAr ? "تنقل مطمئن" : "Reliable Transfer",
+      icon: <Car className="w-5 h-5" />,
       needs: ["transport", "complete"],
       title: isAr ? "خدمات النقل" : "Transportation Services",
       description: isAr
@@ -158,7 +165,7 @@ export default function MzarServicesSection({ lang = "ar" }) {
           })}
         </div>
 
-        {/* Services Showcase Grid */}
+        {/* New 4-Column Showcase Grid */}
         <div className={styles.servicesShowcase}>
           {services.map((service) => {
             const matches = selectedNeed === "all" || service.needs.includes(selectedNeed);
@@ -181,15 +188,25 @@ export default function MzarServicesSection({ lang = "ar" }) {
                 className={tileClasses}
                 data-badge={service.badge}
                 onClick={(e) => {
-                  // For now, link to nothing yet as requested
                   if (service.href === "#") {
                     e.preventDefault();
                   }
                 }}
               >
+                {/* Visual Image Header for non-main tiles */}
+                {!service.isMain && (
+                  <span className={`${styles.serviceVisual} ${service.visualClass}`} aria-hidden="true">
+                    <span className={styles.serviceVisualOverlay} />
+                  </span>
+                )}
+
+                {/* Service Label Tag */}
+                <span className={styles.serviceLabel}>{service.label}</span>
+
                 <div className={styles.serviceIcon}>{service.icon}</div>
                 <h3 className={styles.tileTitle}>{service.title}</h3>
                 <p className={styles.tileDescription}>{service.description}</p>
+                
                 <div className={styles.serviceFacts}>
                   {service.facts.map((fact, i) => (
                     <span key={i} className={styles.factTag}>
@@ -197,13 +214,12 @@ export default function MzarServicesSection({ lang = "ar" }) {
                     </span>
                   ))}
                 </div>
+
                 <span className={styles.cardLink}>
-                  {service.linkText}
-                  {isAr ? (
-                    <ArrowLeft className="w-4 h-4 transition-transform duration-200" />
-                  ) : (
-                    <ArrowRight className="w-4 h-4 transition-transform duration-200" />
-                  )}
+                  <span>{service.linkText}</span>
+                  <span className={styles.cardLinkArrow}>
+                    {isAr ? <ArrowLeft className="w-4 h-4" /> : <ArrowRight className="w-4 h-4" />}
+                  </span>
                 </span>
               </a>
             );
@@ -226,8 +242,6 @@ export default function MzarServicesSection({ lang = "ar" }) {
             <a
               className={styles.btnPrimary}
               href={whatsappHelpUrl}
-              target="_blank"
-              rel="noopener noreferrer"
             >
               <MessageCircle className="w-5 h-5" />
               <span>{isAr ? "ساعدني في الاختيار" : "Help Me Choose"}</span>
