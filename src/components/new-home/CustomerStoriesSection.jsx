@@ -34,6 +34,18 @@ export default function CustomerStoriesSection({ lang = "ar" }) {
     { id: "transport", label: isAr ? "النقل" : "Transportation" },
   ];
 
+  const PLACEHOLDER_YOUTUBE_URL = "https://www.youtube.com/embed/frw4Z53HxGc";
+
+  const getYouTubeEmbedUrl = (url) => {
+    if (!url) return "";
+    if (url.includes("/embed/")) return url;
+    const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/);
+    if (match && match[1]) {
+      return `https://www.youtube.com/embed/${match[1]}`;
+    }
+    return url;
+  };
+
   const storiesData = [
     {
       id: "ahmed",
@@ -42,6 +54,7 @@ export default function CustomerStoriesSection({ lang = "ar" }) {
       origin: isAr ? "السعودية · أغسطس 2026" : "Saudi Arabia · Aug 2026",
       avatar: isAr ? "أح" : "AH",
       image: "https://images.unsplash.com/photo-1591604466107-ec97de577aff?auto=format&fit=crop&w=1200&q=86",
+      youtubeUrl: PLACEHOLDER_YOUTUBE_URL,
       quote: isAr
         ? "“كانت الجولة مع مزار مختلفة تمامًا. أبنائي استمعوا إلى القصص أثناء المشي، وشعرنا جميعًا بقيمة كل مكان زرناه.”"
         : "“The tour with Mzar was truly exceptional. My children listened to the stories while walking, and we all felt the deep value of every holy site.”",
@@ -58,6 +71,7 @@ export default function CustomerStoriesSection({ lang = "ar" }) {
       origin: isAr ? "ماليزيا · يوليو 2026" : "Malaysia · Jul 2026",
       avatar: isAr ? "فا" : "FA",
       image: "https://images.unsplash.com/photo-1564769625905-50e93615e769?auto=format&fit=crop&w=1200&q=86",
+      youtubeUrl: PLACEHOLDER_YOUTUBE_URL,
       quote: isAr
         ? "“استخدمت والدتي المرشد الصوتي بالملايو، بينما استمعت أنا بالإنجليزية. أكملنا الجولة معًا دون أن يفوتنا أي تفصيل تاريخي.”"
         : "“My mother used the Malay audio guide while I listened in English. We completed the tour together without missing any historical detail.”",
@@ -65,7 +79,7 @@ export default function CustomerStoriesSection({ lang = "ar" }) {
         ? ["عائلة من 4 ضيوف", "الملايو والإنجليزية", "الحرم المكي"]
         : ["Family of 4", "Malay & English", "Masjid Al-Haram"],
       experienceName: isAr ? "جولة المسجد الحرام الإثرائية" : "Masjid Al-Haram Enriching Tour",
-      experienceLink: "/trip-detail/45",
+      experienceLink: "/holy-sanctuaries-tours",
     },
     {
       id: "yousef",
@@ -74,6 +88,7 @@ export default function CustomerStoriesSection({ lang = "ar" }) {
       origin: isAr ? "الإمارات · يونيو 2026" : "UAE · Jun 2026",
       avatar: isAr ? "يو" : "YO",
       image: "https://images.unsplash.com/photo-1580418827493-f2b22c0a76cb?auto=format&fit=crop&w=1200&q=86",
+      youtubeUrl: PLACEHOLDER_YOUTUBE_URL,
       quote: isAr
         ? "“كان برنامج العمرة منظمًا من الاستقبال حتى نهاية الرحلة، وناسب والديّ دون إرهاق أو انتظار طويل.”"
         : "“The Umrah program was well-organized from airport pickup to departure, perfectly suitable for my elderly parents without fatigue.”",
@@ -81,7 +96,7 @@ export default function CustomerStoriesSection({ lang = "ar" }) {
         ? ["3 ضيوف", "باقة متكاملة", "مكة والمدينة"]
         : ["3 Guests", "Full Package", "Makkah & Madinah"],
       experienceName: isAr ? "باقة عمرة السيرة" : "Seerah Umrah Package",
-      experienceLink: "/trip-detail/45",
+      experienceLink: "/umrah-packages",
     },
     {
       id: "omar",
@@ -90,6 +105,7 @@ export default function CustomerStoriesSection({ lang = "ar" }) {
       origin: isAr ? "باكستان · مايو 2026" : "Pakistan · May 2026",
       avatar: isAr ? "عم" : "OK",
       image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=1200&q=86",
+      youtubeUrl: PLACEHOLDER_YOUTUBE_URL,
       quote: isAr
         ? "“وصل السائق في الوقت المحدد، وكانت المركبة مناسبة للعائلة والأمتعة. انتقلنا بين مكة والمدينة براحة كاملة.”"
         : "“The driver arrived right on time, vehicle was immaculate and spacious for our luggage. Smooth, comfortable intercity transfer.”",
@@ -97,7 +113,7 @@ export default function CustomerStoriesSection({ lang = "ar" }) {
         ? ["عائلة من 6 ضيوف", "اللغة الأردية", "نقل بين المدن"]
         : ["Family of 6", "Urdu Language", "Intercity Transfer"],
       experienceName: isAr ? "النقل الخاص بين الحرمين" : "Private Intercity Transfer",
-      experienceLink: "/trip-detail/45",
+      experienceLink: "/transportation",
     },
   ];
 
@@ -192,14 +208,27 @@ export default function CustomerStoriesSection({ lang = "ar" }) {
 
         {/* Featured Story Card */}
         <article className={styles.featuredStory}>
-          <div 
-            className={styles.storyMedia} 
-            style={{ backgroundImage: `url('${currentStory.image}')` }}
-          >
-            <div className={styles.storyMediaOverlay} />
-            <div className={styles.storyVideoLabel}>
-              {isAr ? "قصة الزائر · 01:15" : "Visitor Story · 01:15"}
-            </div>
+          <div className={styles.storyMedia}>
+            {currentStory.youtubeUrl ? (
+              <iframe
+                title={currentStory.name}
+                src={getYouTubeEmbedUrl(currentStory.youtubeUrl)}
+                className={styles.storyVideoIframe}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+              />
+            ) : (
+              <div 
+                className={styles.storyFallbackImage}
+                style={{ backgroundImage: `url('${currentStory.image}')` }}
+              >
+                <div className={styles.storyMediaOverlay} />
+                <div className={styles.storyVideoLabel}>
+                  {isAr ? "قصة الزائر · 01:15" : "Visitor Story · 01:15"}
+                </div>
+              </div>
+            )}
           </div>
 
           <div className={styles.storyDetails}>

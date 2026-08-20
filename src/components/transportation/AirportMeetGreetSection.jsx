@@ -49,8 +49,9 @@ export default function AirportMeetGreetSection({ lang = "ar" }) {
             <ul className={styles.benefitsGrid}>
               {benefits.map((benefit, index) => (
                 <li key={index} className={styles.benefitPill}>
-                  <span>{benefit}</span>
                   <Check className={`w-4 h-4 ${styles.checkIcon}`} />
+                  <span>{benefit}</span>
+                  
                 </li>
               ))}
             </ul>

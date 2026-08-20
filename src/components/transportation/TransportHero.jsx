@@ -7,8 +7,8 @@ export default function TransportHero({ lang = "ar" }) {
   const isAr = lang === "ar";
 
   const trustBadges = isAr
-    ? ["تتبع موعد الرحلة بدقة", "سائقون محترفون ومرخصون", "دعم مباشر على مدار الساعة", "مركبات حديثة ومكيفة"]
-    : ["Live Flight Tracking", "Professional Certified Drivers", "24/7 Direct WhatsApp Support", "Modern Air-Conditioned Fleet"];
+    ? ["تتبع موعد الرحلة", "سائقون محترفون", "دعم مباشر", "مركبات مكيفة"]
+    : ["Flight Tracking", "Professional Drivers", "Direct Support", "Air-Conditioned"];
 
   return (
     <section className={styles.heroSection}>

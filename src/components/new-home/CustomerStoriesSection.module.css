@@ -165,7 +165,23 @@
 .storyMedia {
   position: relative;
   min-height: 380px;
-  color: #ffffff;
+  background-color: #142735;
+  overflow: hidden;
+  display: flex;
+}
+
+.storyVideoIframe {
+  width: 100%;
+  height: 100%;
+  min-height: 380px;
+  border: none;
+  display: block;
+}
+
+.storyFallbackImage {
+  width: 100%;
+  height: 100%;
+  position: relative;
   background-size: cover;
   background-position: center;
 }
