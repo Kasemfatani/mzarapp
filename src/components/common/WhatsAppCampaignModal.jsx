@@ -12,38 +12,94 @@ export default function WhatsAppCampaignModal() {
 	useEffect(() => {
 		const handleGlobalClick = (e) => {
 			const anchor = e.target.closest("a");
-			if (anchor && anchor.href) {
-				if (anchor.hasAttribute("data-no-intercept") || anchor.closest("[data-no-whatsapp-intercept]")) {
-					return;
-				}
-				const href = anchor.href;
-				if (href.includes("wa.me") || href.includes("api.whatsapp.com/send")) {
-					e.preventDefault();
-					let text = "";
-					try {
-						const url = new URL(href);
-						text = url.searchParams.get("text") || "";
-						if (!text) {
-							const match = href.match(/[?&]text=([^&]+)/);
-							if (match) {
-								text = decodeURIComponent(match[1]);
-							}
-						}
-					} catch (err) {
-						const match = href.match(/[?&]text=([^&]+)/);
+			if (!anchor || !anchor.href) return;
+
+			if (
+				anchor.hasAttribute("data-no-intercept") ||
+				anchor.closest("[data-no-whatsapp-intercept]")
+			) {
+				return;
+			}
+
+			const rawHref = anchor.getAttribute("href") || "";
+			let pathname = "";
+			try {
+				const parsed = new URL(anchor.href, window.location.origin);
+				pathname = parsed.pathname;
+			} catch (err) {
+				pathname = rawHref.split("?")[0];
+			}
+
+			// Case 1: Direct WhatsApp links (wa.me / api.whatsapp.com)
+			if (anchor.href.includes("wa.me") || anchor.href.includes("api.whatsapp.com/send")) {
+				e.preventDefault();
+				e.stopPropagation();
+				let text = "";
+				try {
+					const url = new URL(anchor.href);
+					text = url.searchParams.get("text") || "";
+					if (!text) {
+						const match = anchor.href.match(/[?&]text=([^&]+)/);
 						if (match) {
 							text = decodeURIComponent(match[1]);
 						}
 					}
-					setPrefilledText(text);
-					setIsOpen(true);
+				} catch (err) {
+					const match = anchor.href.match(/[?&]text=([^&]+)/);
+					if (match) {
+						text = decodeURIComponent(match[1]);
+					}
 				}
+				setPrefilledText(text);
+				setIsOpen(true);
+				return;
+			}
+
+			// Case 2: Intercept booking URLs (/book-madinah, /book-haram, /book-path, /book-tour)
+			const isBookMadinah = pathname.startsWith("/book-madinah") || rawHref.includes("book-madinah");
+			const isBookHaram = pathname.startsWith("/book-haram") || rawHref.includes("book-haram");
+			const isBookTour = pathname.startsWith("/book-tour") || rawHref.includes("book-tour");
+			const isBookPath = pathname.startsWith("/book-path") || rawHref.includes("book-path");
+
+			if (isBookMadinah || isBookHaram || isBookTour || isBookPath) {
+				e.preventDefault();
+				e.stopPropagation();
+
+				// Try to extract trip / package name from nearby card or DOM
+				const card = anchor.closest("article, .group, [class*='card'], .ready-cont, section, .container") || document;
+				const titleEl = card.querySelector("h1, h2, h3, h4, .title, [class*='title'], [class*='name']");
+				let extractedName = "";
+				if (titleEl) {
+					extractedName = titleEl.textContent.trim().replace(/\s+/g, " ");
+				}
+
+				let text = "";
+				if (isBookMadinah) {
+					text = isAr
+						? "السلام عليكم، أرغب بحجز جولة المسجد النبوي الإثرائية"
+						: "Hello, I would like to book the Prophet's Mosque Tour";
+				} else if (isBookHaram) {
+					text = isAr
+						? "السلام عليكم، أرغب بحجز جولة المسجد الحرام الإثرائية"
+						: "Hello, I would like to book the Grand Mosque Tour";
+				} else if (isBookTour) {
+					text = isAr
+						? (extractedName ? `السلام عليكم، أرغب بحجز جولة ${extractedName}` : "السلام عليكم، أرغب بحجز جولة سياحية")
+						: (extractedName ? `Hello, I would like to book the ${extractedName} tour` : "Hello, I would like to book a tour");
+				} else if (isBookPath) {
+					text = isAr
+						? (extractedName ? `السلام عليكم، أرغب بحجز مسار ${extractedName}` : "السلام عليكم، أرغب بحجز مسار إثرائي")
+						: (extractedName ? `Hello, I would like to book the ${extractedName} trail` : "Hello, I would like to book a trail experience");
+				}
+
+				setPrefilledText(text);
+				setIsOpen(true);
 			}
 		};
 
 		document.addEventListener("click", handleGlobalClick);
 		return () => document.removeEventListener("click", handleGlobalClick);
-	}, []);
+	}, [isAr]);
 
 	useEffect(() => {
 		if (isOpen) {

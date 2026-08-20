@@ -4,6 +4,7 @@ import { MapPin, Users, Clock, Star } from "lucide-react";
 import { Pagination } from "./Pagination";
 import Image from "next/image";
 import { useState, useEffect } from "react";
+import { getBookingWhatsAppUrl } from "@/lib/whatsappHelpers";
 
 const CURRENCY_SVG = (
 	<svg

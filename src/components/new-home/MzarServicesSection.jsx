@@ -85,7 +85,7 @@ export default function MzarServicesSection({ lang = "ar" }) {
         ? ["10 مسارات", "مرشد صوتي"]
         : ["10 Trails", "Audio Guide"],
       linkText: isAr ? "استكشف المسارات" : "Explore Trails",
-      href: "#",
+      href: "/all-trips?type=1",
     },
     {
       id: "transport",

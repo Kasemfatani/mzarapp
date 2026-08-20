@@ -16,6 +16,7 @@ import { cache } from "react";
 import { getIsSaudiFromHeaders } from "@/lib/apiConfig";
 import { getServerLocale } from "@/lib/localeServer";
 import HaramPromoSaver from "@/components/common/HaramPromoSaver";
+import WhatsAppCampaignModal from "@/components/common/WhatsAppCampaignModal";
 
 // 2. Wrap the fetch function with cache()
 const getData = cache(async (id, lang) => {
@@ -116,6 +117,7 @@ export default async function TourPage({ params }) {
 		<div className={lang === "en" ? "ltr" : "rtl"}>
 			{/* Save promo_code (if present) to localStorage on client */}
 			{data.id === 88 && <HaramPromoSaver />}
+			<WhatsAppCampaignModal />
 			<HeroWithInfo lang={lang} data={data} isSaudi={isSaudi} />
 			<SummaryCard lang={lang} data={data} />
 			{/* <HighlightsSection lang={lang} data={data} />
