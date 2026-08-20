@@ -200,7 +200,7 @@ html[dir=ltr] .progress-bar {
 
 
 body {
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 .rtl {
