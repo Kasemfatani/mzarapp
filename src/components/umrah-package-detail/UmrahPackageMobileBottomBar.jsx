@@ -9,31 +9,39 @@ export default function UmrahPackageMobileBottomBar({ lang = "ar", packageData =
 
   const {
     name = "",
-    starting_price_per_person = 0,
+    nameEn = "",
+    duration = "",
+    durationEn = "",
+    pricing = {},
   } = packageData;
+
+  const pkgTitle = isAr ? name : nameEn;
+  const startPrice = pricing.madinah?.standard?.toLocaleString() || "—";
 
   const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
     isAr
-      ? `السلام عليكم، أود حجز ${name} بتفاصيلها`
-      : `Hello, I would like to book ${name}`
+      ? `السلام عليكم، أود حجز ${name} (${duration}) والاستفسار عن الأسعار`
+      : `Hello, I would like to book ${nameEn} (${durationEn}) and inquire about rates`
   )}`;
 
   return (
     <div className={styles.mobileBar}>
       <div className={styles.priceInfo}>
-        <small>{isAr ? "سعر الفرد يبدأ من" : "Starting per person"}</small>
+        <small>{isAr ? "سعر الفرد يبدأ من" : "Rate per person from"}</small>
         <strong>
-          {starting_price_per_person?.toLocaleString()}
+          {startPrice}
           <em>{isAr ? "ر.س" : "SAR"}</em>
         </strong>
       </div>
 
       <a
         href={whatsappUrl}
+        target="_blank"
+        rel="noopener noreferrer"
         className={styles.btnMobileWhatsapp}
       >
-        {/* <MessageCircle className="w-4 h-4 fill-current" /> */}
-        <span>{isAr ? "احجز" : "Book"}</span>
+        <MessageCircle className="w-4 h-4 text-[#25D366]" />
+        <span>{isAr ? "احجز عبر واتساب" : "Book via WhatsApp"}</span>
       </a>
     </div>
   );

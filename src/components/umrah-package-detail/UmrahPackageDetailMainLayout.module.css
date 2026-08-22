@@ -1,12 +1,12 @@
 /* Scoped styles for UmrahPackageDetailMainLayout */
 .mainSection {
-  padding: 60px 0 80px;
+  padding: 60px 0 90px;
   background-color: #ffffff;
   position: relative;
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 1240px;
   margin: 0 auto;
   padding: 0 20px;
 }
@@ -15,6 +15,13 @@
   display: grid;
   grid-template-columns: 1.55fr 0.65fr;
   gap: 48px;
+  align-items: start;
+}
+
+.contentColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 52px;
 }
 
 .sidebarColumn {
@@ -22,133 +29,467 @@
   height: 100%;
 }
 
-.contentColumn {
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-}
-
 .detailBlock {
   display: flex;
   flex-direction: column;
+}
+
+.blockHeading {
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #edf4ef;
+}
+
+.blockEyebrow {
+  display: inline-block;
+  color: #aa9256;
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
 }
 
 .blockTitle {
   font-size: 1.55rem;
   font-weight: 800;
   color: #15372d;
-  margin: 0 0 20px;
-  padding-bottom: 12px;
-  border-bottom: 2px solid #edf4ef;
+  margin: 0;
+  line-height: 1.35;
 }
 
-/* Included Experiences Grid */
-.experienceGrid {
+/* 1. Journey Route Box */
+.journeyRouteBox {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 22px 26px;
+  background: #fdfbf7;
+  border: 1px solid #e7ddca;
+  border-radius: 20px;
+  box-shadow: 0 4px 16px rgba(21, 55, 45, 0.03);
+}
+
+.routeItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.routePoint {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #ffffff;
+  border: 1px solid #dcd3c0;
+  padding: 8px 14px;
+  border-radius: 12px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #2b3a34;
+}
+
+.routePointMajor {
+  background: #315f4c;
+  color: #ffffff;
+  border-color: #234738;
+}
+
+.routePointMajor svg {
+  color: #ead494;
+}
+
+.routeConnector {
+  display: flex;
+  align-items: center;
+  width: 24px;
+}
+
+.routeLine {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: #d8cdb6;
+}
+
+/* 2. Package Comparison Table */
+.comparisonTableWrapper {
+  overflow-x: auto;
+  border-radius: 18px;
+  border: 1px solid #e2dac9;
+  background: #ffffff;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  margin-bottom: 24px;
+}
+
+.comparisonTable {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: start;
+}
+
+.comparisonTable th {
+  padding: 16px 20px;
+  font-size: 0.94rem;
+  font-weight: 800;
+  background: #f7f9f8;
+  border-bottom: 1.5px solid #e2dac9;
+  color: #15372d;
+}
+
+.thStandard {
+  color: #315f4c !important;
+  background: #eef5f1 !important;
+}
+
+.thPlus {
+  color: #7f2637 !important;
+  background: #fdf5f6 !important;
+}
+
+.comparisonTable td {
+  padding: 14px 20px;
+  font-size: 0.92rem;
+  border-bottom: 1px solid #edf2ef;
+}
+
+.featureCell {
+  color: #15372d;
+  font-weight: 700;
+  width: 38%;
+}
+
+.standardCell {
+  color: #315f4c;
+  font-weight: 600;
+  background: #fafdfb;
+}
+
+.plusCell {
+  color: #7f2637;
+  font-weight: 700;
+  background: #fffcfd;
+}
+
+/* Dual Airport Pricing Matrix Box */
+.pricingMatrixBox {
+  background: #fdfaf3;
+  border: 1.5px solid #ebdcb7;
+  border-radius: 20px;
+  padding: 24px 28px;
+}
+
+.matrixHeading {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #15372d;
+  margin: 0 0 18px;
+}
+
+.matrixGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 14px;
+  gap: 16px;
+  margin-bottom: 14px;
 }
 
-.experienceCard {
+.matrixCard {
+  background: #ffffff;
+  border: 1px solid #e5dcce;
+  border-radius: 16px;
+  padding: 16px 18px;
+}
+
+.matrixCardHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #f0e8dc;
+}
+
+.matrixCardHeader h4 {
+  font-size: 0.92rem;
+  font-weight: 800;
+  color: #15372d;
+  margin: 0;
+}
+
+.matrixCardBody {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.matrixPriceItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.88rem;
+  color: #5f6d67;
+  padding: 4px 8px;
+  background: #f7faf8;
+  border-radius: 8px;
+}
+
+.matrixPriceItem strong {
+  color: #315f4c;
+  font-weight: 800;
+}
+
+.matrixPriceItemPlus {
+  background: #fdf5f6;
+  color: #7f2637;
+}
+
+.matrixPriceItemPlus strong {
+  color: #7f2637;
+}
+
+.matrixNotice {
+  display: block;
+  color: #8c7f66;
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+/* 3. Daily Itinerary Timeline */
+.itineraryTimeline {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.timelineItem {
   display: flex;
   align-items: center;
   gap: 16px;
-  border: 1px solid #e5dcce;
-  border-radius: 18px;
-  padding: 18px 20px;
+  background: #fbfbf9;
+  border: 1px solid #e8e2d4;
+  border-radius: 16px;
+  padding: 14px 18px;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.timelineItem:hover {
+  transform: translateX(-3px);
+  border-color: #aa9256;
+  background: #ffffff;
+}
+
+:global(.ltr) .timelineItem:hover {
+  transform: translateX(3px);
+}
+
+.timelineDayBadge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #315f4c;
+  color: #ffffff;
+  border-radius: 12px;
+  padding: 6px 12px;
+  min-width: 72px;
+  flex-shrink: 0;
+  text-align: center;
+}
+
+.timelineDayBadge small {
+  font-size: 0.65rem;
+  color: #ead494;
+  text-transform: uppercase;
+}
+
+.timelineDayBadge b {
+  font-size: 0.95rem;
+  font-weight: 800;
+}
+
+.timelineContent {
+  flex: 1;
+}
+
+.timelineTitle {
+  font-size: 0.96rem;
+  font-weight: 700;
+  color: #15372d;
+  margin: 0;
+  line-height: 1.45;
+}
+
+/* 4. Included Experiences Grid */
+.experienceGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.experienceCard {
   background: #fdfbf7;
-  box-shadow: 0 4px 12px rgba(21, 54, 43, 0.03);
+  border: 1px solid #e7ddca;
+  border-radius: 18px;
+  padding: 20px 22px;
+  display: flex;
+  flex-direction: column;
   transition: transform 0.2s ease, border-color 0.2s ease;
 }
 
 .experienceCard:hover {
   transform: translateY(-2px);
   border-color: #aa9256;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
+}
+
+.experienceCardTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
 }
 
 .experienceNumber {
-  font-size: 1.15rem;
-  font-weight: 900;
-  color: #aa9256;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
   background: #ffffff;
-  width: 40px;
-  height: 40px;
-  border-radius: 12px;
+  color: #aa9256;
+  border: 1px solid rgba(170, 146, 86, 0.3);
   display: grid;
   place-items: center;
-  border: 1px solid rgba(170, 146, 86, 0.25);
-  flex-shrink: 0;
+  font-size: 1rem;
+  font-weight: 900;
+}
+
+.experienceBadge {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: #315f4c;
+  background: #eef5f1;
+  border: 1px solid #dce8e1;
+  padding: 3px 10px;
+  border-radius: 999px;
 }
 
 .experienceName {
-  margin: 0;
-  font-size: 0.96rem;
-  font-weight: 700;
+  font-size: 1.05rem;
+  font-weight: 800;
   color: #15372d;
-  line-height: 1.5;
+  margin: 0 0 8px;
+  line-height: 1.35;
 }
 
-/* Included Services Checklist */
-.servicesChecklist {
+.experienceDesc {
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: #5f6d67;
+  margin: 0;
+}
+
+/* 5. Inclusions & Exclusions Checklist */
+.inclusionsGrid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 20px;
+}
+
+.inclusionCard {
+  background: #f7faf8;
+  border: 1px solid #dce8e1;
+  border-radius: 20px;
+  padding: 24px 22px;
+}
+
+.exclusionCard {
+  background: #fdf8f8;
+  border-color: #f2dbdb;
+}
+
+.inclusionCardHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.inclusionCardHeader h3 {
+  font-size: 1.08rem;
+  font-weight: 800;
+  color: #15372d;
+  margin: 0;
+}
+
+.exclusionCard .inclusionCardHeader h3 {
+  color: #884242;
+}
+
+.inclusionList {
   list-style: none;
   padding: 0;
   margin: 0;
-}
-
-.checklistItem {
-  background: #edf4f0;
-  border-radius: 14px;
-  padding: 14px 18px;
   display: flex;
-  align-items: center;
+  flex-direction: column;
   gap: 12px;
-  font-size: 0.94rem;
-  font-weight: 700;
-  color: #15372d;
-  border: 1px solid #dce8e1;
 }
 
-.checkIcon {
-  color: #315f4c;
-  flex-shrink: 0;
+.inclusionList li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: #2b3934;
 }
 
-/* Booking Policy Box */
+.plusInclusionItem {
+  background: #fdf5f6;
+  border: 1px solid #fbd6dc;
+  border-radius: 12px;
+  padding: 8px 12px;
+  color: #7f2637 !important;
+}
+
+/* 6. Booking Policy Box */
 .policyBox {
-  border-inline-start: 4px solid #315f4c;
   background: #fbf7ee;
   border: 1px solid #dfd2b2;
   border-inline-start: 5px solid #315f4c;
-  padding: 24px 28px;
+  padding: 22px 26px;
   border-radius: 16px;
 }
 
-.policyBox b {
-  display: block;
-  font-size: 1.1rem;
+.policyHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.policyHeader b {
+  font-size: 1.05rem;
   font-weight: 800;
   color: #15372d;
-  margin-bottom: 8px;
 }
 
 .policyBox p {
   margin: 0;
   color: #5f6d67;
-  font-size: 0.94rem;
-  line-height: 1.8;
+  font-size: 0.92rem;
+  line-height: 1.75;
 }
 
-/* Purchase Sticky Sidebar (Desktop) */
+/* 7. Purchase Sticky Sidebar (Desktop) */
 .purchasePanel {
   position: -webkit-sticky;
   position: sticky;
   top: 96px;
   border: 1px solid #dfd2b2;
   border-radius: 24px;
-  padding: 28px;
+  padding: 26px;
   background: #ffffff;
   box-shadow: 0 16px 40px rgba(24, 57, 46, 0.08);
   display: flex;
@@ -160,9 +501,10 @@
   display: inline-block;
   color: #aa9256;
   font-weight: 800;
-  font-size: 0.85rem;
-  letter-spacing: 0.05em;
-  margin-bottom: 8px;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  margin-bottom: 6px;
+  text-transform: uppercase;
 }
 
 .purchaseTitle {
@@ -173,20 +515,110 @@
   line-height: 1.35;
 }
 
+/* Selector Sections */
+.selectorSection {
+  margin-bottom: 16px;
+}
+
+.selectorLabel {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: #5f6d67;
+  margin-bottom: 6px;
+}
+
+.tierButtonGroup {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.btnTier {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 8px;
+  border: 1.5px solid #dce8e1;
+  border-radius: 12px;
+  background: #fbfbf9;
+  color: #15372d;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btnTier b {
+  font-size: 0.88rem;
+}
+
+.btnTier small {
+  font-size: 0.7rem;
+  color: #728078;
+}
+
+.btnTierActive {
+  background: #315f4c !important;
+  color: #ffffff !important;
+  border-color: #315f4c !important;
+}
+
+.btnTierActive small {
+  color: #ead494 !important;
+}
+
+.btnTierPlusActive {
+  background: #7f2637 !important;
+  color: #ffffff !important;
+  border-color: #7f2637 !important;
+}
+
+.btnTierPlusActive small {
+  color: #fbd6dc !important;
+}
+
+.airportButtonGroup {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.btnAirport {
+  padding: 8px 10px;
+  border: 1.5px solid #e2dac9;
+  border-radius: 10px;
+  background: #ffffff;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #5f6d67;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.btnAirportActive {
+  background: #15372d;
+  color: #ffffff;
+  border-color: #15372d;
+}
+
+/* Purchase Summary */
 .purchaseSummary {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  margin-bottom: 24px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid #edf4ef;
+  gap: 10px;
+  margin: 16px 0 20px;
+  padding: 16px;
+  background: #f9fbf9;
+  border: 1px solid #e7ede9;
+  border-radius: 14px;
 }
 
 .summaryRow {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
 }
 
 .summaryRow span {
@@ -206,17 +638,21 @@
   font-size: 1.15rem;
 }
 
+.pricePlusColor {
+  color: #7f2637 !important;
+}
+
 .btnPurchaseWhatsapp {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  padding: 16px 24px;
+  padding: 15px 20px;
   border-radius: 14px;
   background: #315f4c;
   color: #ffffff;
   font-weight: 800;
-  font-size: 1.02rem;
+  font-size: 1rem;
   text-decoration: none;
   transition: all 0.25s ease;
   box-shadow: 0 4px 16px rgba(49, 95, 76, 0.3);
@@ -232,33 +668,83 @@
 
 .purchaseNote {
   display: block;
-  line-height: 1.6;
-  margin-top: 14px;
+  line-height: 1.55;
+  margin-top: 12px;
   color: #7a806e;
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   text-align: center;
 }
 
 /* Responsive */
-@media (max-width: 900px) {
-  .mainSection {
-    padding: 40px 0 60px;
-  }
-
+@media (max-width: 1024px) {
   .detailLayout {
     grid-template-columns: 1fr;
-    gap: 36px;
-  }
-
-  .experienceGrid {
-    grid-template-columns: 1fr;
-  }
-
-  .servicesChecklist {
-    grid-template-columns: 1fr;
+    gap: 40px;
   }
 
   .purchasePanel {
     position: static;
+  }
+
+  .matrixGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .inclusionsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .journeyRouteBox {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 16px;
+    gap: 0;
+  }
+
+  .routeItem {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .routePoint {
+    width: 100%;
+    max-width: 260px;
+    justify-content: center;
+    text-align: center;
+    padding: 10px 18px;
+    font-size: 0.92rem;
+  }
+
+  .routeConnector {
+    width: 2px;
+    height: 22px;
+    justify-content: center;
+    margin: 4px auto;
+  }
+
+  .routeLine {
+    width: 2px;
+    height: 100%;
+  }
+}
+
+@media (max-width: 680px) {
+  .experienceGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .timelineItem {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .timelineDayBadge {
+    align-self: flex-start;
   }
 }

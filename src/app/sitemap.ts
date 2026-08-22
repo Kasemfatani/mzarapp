@@ -166,30 +166,19 @@ async function getPackageEntries(): Promise<MetadataRoute.Sitemap> {
 	}
 }
 
-async function getFullExperienceEntries(): Promise<MetadataRoute.Sitemap> {
-	try {
-		const res = await fetch(`${API_BASE_URL_NEW}/landing/full-experience/list`, {
-			headers: { lang: "ar" },
-			next: { revalidate: 3600 },
-		});
+import { getAllUmrahPackages } from "@/data/umrahPackagesData";
 
-		if (!res.ok) {
-			return [];
-		}
+function getFullExperienceEntries(): MetadataRoute.Sitemap {
+	const packages = getAllUmrahPackages();
+	const entries: MetadataRoute.Sitemap = [];
+	const seenUrls = new Set<string>();
 
-		const json = await res.json();
-		const packages = Array.isArray(json?.data) ? json.data : [];
-		const entries: MetadataRoute.Sitemap = [];
-		const seenUrls = new Set<string>();
+	for (const pkg of packages) {
+		const paths = [`/umrah-package/${pkg.slug}`, `/umrah-package/${pkg.id}`];
 
-		for (const pkg of packages) {
-			const id = Number(pkg?.id);
-			if (!id || Number.isNaN(id)) {
-				continue;
-			}
-
-			for (const locale of LOCALES) {
-				const path = `/${locale}/umrah-package/${id}`;
+		for (const locale of LOCALES) {
+			for (const basePath of paths) {
+				const path = `/${locale}${basePath}`;
 				if (seenUrls.has(path)) {
 					continue;
 				}
@@ -200,15 +189,13 @@ async function getFullExperienceEntries(): Promise<MetadataRoute.Sitemap> {
 					url: `${SITE_URL}${path}`,
 					lastModified: new Date(),
 					changeFrequency: "weekly",
-					priority: 0.8,
+					priority: 0.85,
 				});
 			}
 		}
-
-		return entries;
-	} catch {
-		return [];
 	}
+
+	return entries;
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -225,11 +212,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 		}),
 	);
 
-	const [blogEntries, packageEntries, fullExperienceEntries] = await Promise.all([
+	const [blogEntries, packageEntries] = await Promise.all([
 		getBlogEntries(),
 		getPackageEntries(),
-		getFullExperienceEntries(),
 	]);
+
+	const fullExperienceEntries = getFullExperienceEntries();
 
 	return [...staticEntries, ...blogEntries, ...packageEntries, ...fullExperienceEntries];
 }

@@ -1,37 +1,27 @@
 import { notFound } from "next/navigation";
-import { API_BASE_URL_NEW } from "@/lib/apiConfig";
 import { getServerLocale } from "@/lib/localeServer";
+import { getUmrahPackageByIdOrSlug, getAllUmrahPackages } from "@/data/umrahPackagesData";
 import UmrahPackageDetailHero from "@/components/umrah-package-detail/UmrahPackageDetailHero";
 import UmrahPackageDetailMainLayout from "@/components/umrah-package-detail/UmrahPackageDetailMainLayout";
 import RelatedPackagesSection from "@/components/umrah-package-detail/RelatedPackagesSection";
 import UmrahPackageMobileBottomBar from "@/components/umrah-package-detail/UmrahPackageMobileBottomBar";
 import WhatsAppCampaignModal from "@/components/common/WhatsAppCampaignModal";
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export async function generateMetadata({ params }) {
   const { id } = params;
   const lang = getServerLocale();
   const isAr = lang === "ar";
+  const pkg = getUmrahPackageByIdOrSlug(id);
 
-  try {
-    const res = await fetch(`${API_BASE_URL_NEW}/landing/full-experience/details?id=${id}`, {
-      headers: { lang },
-      next: { revalidate: 300 },
-    });
-
-    if (res.ok) {
-      const json = await res.json();
-      const pkg = json?.data;
-      if (pkg?.name) {
-        return {
-          title: `${pkg.name} | ${isAr ? "مزار" : "Mzar"}`,
-          description: pkg.description || (isAr ? "تفاصيل باقة العمرة والأسعار والخدمات المشمولة" : "Umrah package details, pricing, and inclusions"),
-        };
-      }
-    }
-  } catch (e) {
-    // fallback
+  if (pkg) {
+    return {
+      title: `${isAr ? pkg.name : pkg.nameEn} | ${isAr ? "مزار" : "Mzar"}`,
+      description: isAr
+        ? `${pkg.description} تفاصيل باقة ${pkg.name} والأسعار والبرنامج اليومي والجولات المشمولة وخيارات الحجز.`
+        : `${pkg.descriptionEn} Complete ${pkg.nameEn} details, daily itinerary, pricing, and inclusions.`,
+    };
   }
 
   return {
@@ -47,30 +37,13 @@ export default async function UmrahPackageDetailPage({ params }) {
   const resolvedLocale = getServerLocale();
   const lang = resolvedLocale === "ar" ? "ar" : "en";
 
-  const [detailsRes, listRes] = await Promise.all([
-    fetch(`${API_BASE_URL_NEW}/landing/full-experience/details?id=${id}`, {
-      headers: { lang },
-      next: { revalidate: 300 },
-    }).catch(() => null),
-    fetch(`${API_BASE_URL_NEW}/landing/full-experience/list`, {
-      headers: { lang },
-      next: { revalidate: 300 },
-    }).catch(() => null),
-  ]);
+  const packageData = getUmrahPackageByIdOrSlug(id);
 
-  if (!detailsRes || !detailsRes.ok) {
+  if (!packageData) {
     notFound();
   }
 
-  const detailsJson = await detailsRes.json();
-  const packageData = detailsJson?.data;
-
-  if (!packageData || !packageData.id) {
-    notFound();
-  }
-
-  const listJson = listRes?.ok ? await listRes.json().catch(() => null) : null;
-  const allPackages = listJson?.data || [];
+  const allPackages = getAllUmrahPackages();
 
   return (
     <div className={lang === "en" ? "ltr" : "rtl"}>
@@ -78,7 +51,7 @@ export default async function UmrahPackageDetailPage({ params }) {
       <UmrahPackageDetailMainLayout lang={lang} packageData={packageData} />
       <RelatedPackagesSection
         lang={lang}
-        currentPackageId={id}
+        currentPackageSlug={packageData.slug}
         packagesList={allPackages}
       />
       <UmrahPackageMobileBottomBar lang={lang} packageData={packageData} />

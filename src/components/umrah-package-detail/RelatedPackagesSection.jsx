@@ -1,18 +1,20 @@
 "use client";
 
+import Link from "next/link";
 import styles from "./RelatedPackagesSection.module.css";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, MapPin, Sparkles } from "lucide-react";
 
 export default function RelatedPackagesSection({
   lang = "ar",
-  currentPackageId = null,
+  currentPackageSlug = null,
   packagesList = [],
 }) {
   const isAr = lang === "ar";
+  const ArrowIcon = isAr ? ArrowLeft : ArrowRight;
 
-  // Filter out the current package from the related list
+  // Filter out current package
   const otherPackages = packagesList.filter(
-    (pkg) => String(pkg.id) !== String(currentPackageId)
+    (pkg) => pkg.slug !== currentPackageSlug
   );
 
   if (otherPackages.length === 0) return null;
@@ -30,29 +32,61 @@ export default function RelatedPackagesSection({
           </h2>
         </div>
 
-        {/* Related Packages Grid */}
+        {/* Compact Related Packages Grid */}
         <div className={styles.relatedGrid}>
-          {otherPackages.map((pkg) => (
-            <a
-              key={pkg.id}
-              href={`/umrah-package/${pkg.id}`}
-              className={styles.relatedCard}
-            >
-              <h3 className={styles.cardTitle}>{pkg.name}</h3>
-              {pkg.duration && <p className={styles.cardDuration}>{pkg.duration}</p>}
+          {otherPackages.map((pkg) => {
+            const startStandard = pkg.pricing?.madinah?.standard?.toLocaleString() || "—";
+            const startPlus = pkg.pricing?.madinah?.plus?.toLocaleString() || "—";
 
-              <div className={styles.cardPrice}>
-                <span>
-                  {isAr ? "من " : "From "}
-                  {pkg.starting_price_per_person?.toLocaleString()}{" "}
-                  {isAr ? "ر.س" : "SAR"}
-                </span>
-                <span className={styles.viewText}>
-                  {isAr ? "التفاصيل ←" : "Details →"}
-                </span>
-              </div>
-            </a>
-          ))}
+            return (
+              <Link
+                key={pkg.slug}
+                href={`/umrah-package/${pkg.slug}`}
+                className={styles.relatedCard}
+              >
+                {/* Top Meta */}
+                <div className={styles.cardTop}>
+                  <span className={styles.cardDurationBadge}>
+                    {isAr ? pkg.duration : pkg.durationEn}
+                  </span>
+                  {pkg.tag && (
+                    <span className={styles.cardTag}>
+                      <Sparkles className="w-3 h-3 inline-block me-1" />
+                      {isAr ? pkg.tag : pkg.tagEn}
+                    </span>
+                  )}
+                </div>
+
+                <h3 className={styles.cardTitle}>{isAr ? pkg.name : pkg.nameEn}</h3>
+
+                <p className={styles.cardStay}>
+                  <MapPin className="w-3.5 h-3.5 text-[#aa9256] shrink-0" />
+                  <span>
+                    {isAr ? pkg.makkahNights : pkg.makkahNightsEn} · {isAr ? pkg.madinahNights : pkg.madinahNightsEn}
+                  </span>
+                </p>
+
+                {/* Compact Dual Pricing */}
+                <div className={styles.cardPriceBox}>
+                  <div className={styles.priceCol}>
+                    <small>{isAr ? "الأساسية" : "Standard"}</small>
+                    <strong>{startStandard} <em>{isAr ? "ر.س" : "SAR"}</em></strong>
+                  </div>
+                  <div className={styles.priceDivider} />
+                  <div className={`${styles.priceCol} ${styles.priceColPlus}`}>
+                    <small>{isAr ? "بلس (مع إقامة)" : "Plus (With Hotel)"}</small>
+                    <strong>{startPlus} <em>{isAr ? "ر.س" : "SAR"}</em></strong>
+                  </div>
+                </div>
+
+                {/* Action Link */}
+                <div className={styles.cardAction}>
+                  <span>{isAr ? "عرض التفاصيل والأسعار" : "View Details & Pricing"}</span>
+                  <ArrowIcon className={`w-4 h-4 ${styles.cardArrow}`} />
+                </div>
+              </Link>
+            );
+          })}
         </div>
       </div>
     </section>

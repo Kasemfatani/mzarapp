@@ -1,5 +1,5 @@
-import { API_BASE_URL_NEW } from "@/lib/apiConfig";
 import { getServerLocale } from "@/lib/localeServer";
+import { getAllUmrahPackages } from "@/data/umrahPackagesData";
 import UmrahPackagesHero from "@/components/umrah-packages/UmrahPackagesHero";
 import UmrahPackagesGrid from "@/components/umrah-packages/UmrahPackagesGrid";
 import UmrahPackagesDiffExplainer from "@/components/umrah-packages/UmrahPackagesDiffExplainer";
@@ -7,7 +7,7 @@ import UmrahPackagesInclusions from "@/components/umrah-packages/UmrahPackagesIn
 import UmrahPackagesCta from "@/components/umrah-packages/UmrahPackagesCta";
 import WhatsAppCampaignModal from "@/components/common/WhatsAppCampaignModal";
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export async function generateMetadata() {
   const lang = getServerLocale();
@@ -26,22 +26,7 @@ export async function generateMetadata() {
 export default async function UmrahPackagesPage() {
   const resolvedLocale = getServerLocale();
   const lang = resolvedLocale === "ar" ? "ar" : "en";
-
-  let packages = [];
-
-  try {
-    const res = await fetch(`${API_BASE_URL_NEW}/landing/full-experience/list`, {
-      headers: { lang },
-      next: { revalidate: 300 },
-    });
-
-    if (res.ok) {
-      const json = await res.json();
-      packages = json?.data || [];
-    }
-  } catch (err) {
-    console.error("Error fetching umrah packages list:", err);
-  }
+  const packages = getAllUmrahPackages();
 
   return (
     <div className={lang === "en" ? "ltr" : "rtl"}>
