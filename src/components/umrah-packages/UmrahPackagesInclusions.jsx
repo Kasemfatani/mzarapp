@@ -1,7 +1,7 @@
 "use client";
 
 import styles from "./UmrahPackagesInclusions.module.css";
-import { CheckCircle2, XCircle, Info } from "lucide-react";
+import { CheckCircle2, XCircle } from "lucide-react";
 
 export default function UmrahPackagesInclusions({ lang = "ar" }) {
   const isAr = lang === "ar";
@@ -92,19 +92,6 @@ export default function UmrahPackagesInclusions({ lang = "ar" }) {
               ))}
             </ul>
           </article>
-        </div>
-
-        {/* Price Note Notice */}
-        <div className={styles.catalogNote}>
-          <span className={styles.noteBadge}>
-            <Info className="w-4 h-4 inline-block me-1" />
-            {isAr ? "معلومة السعر" : "Pricing Note"}
-          </span>
-          <span>
-            {isAr
-              ? "الأسعار للفرد الواحد، مقدّرة على 3 أشخاص، وتشمل الضريبة. تختلف باختلاف العدد ومطار المغادرة، وتخضع للتوفر."
-              : "Prices are per person, based on 3 people sharing, and include tax. They vary depending on the group size and departure airport, and are subject to availability."}
-          </span>
         </div>
       </div>
     </section>

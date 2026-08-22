@@ -115,7 +115,7 @@ export default function UmrahPackageDetailHero({ lang = "ar", packageData = {} }
             <div className={styles.airportBreakdown}>
               <div className={styles.airportRow}>
                 <span className={styles.airportName}>
-                  {isAr ? "المغادرة من مطار المدينة:" : "From Madinah Airport:"}
+                  {isAr ? "المغادرة من مطار المدينة:" : "Departure from Madinah Airport:"}
                 </span>
                 <div className={styles.airportRates}>
                   <span>{isAr ? "الأساسية: " : "Standard: "}<b>{startMadinahStandard} {isAr ? "ر.س" : "SAR"}</b></span>
@@ -125,7 +125,7 @@ export default function UmrahPackageDetailHero({ lang = "ar", packageData = {} }
 
               <div className={styles.airportRow}>
                 <span className={styles.airportName}>
-                  {isAr ? "المغادرة من مطار جدة:" : "From Jeddah Airport:"}
+                  {isAr ? "المغادرة من مطار جدة:" : "Departure from Jeddah Airport:"}
                 </span>
                 <div className={styles.airportRates}>
                   <span>{isAr ? "الأساسية: " : "Standard: "}<b>{startJeddahStandard} {isAr ? "ر.س" : "SAR"}</b></span>
