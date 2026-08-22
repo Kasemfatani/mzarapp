@@ -310,7 +310,7 @@ export default function CustomerStoriesSection({ lang = "ar" }) {
         </div>
 
         {/* Guest Photo Gallery */}
-        <div className={styles.guestGallery}>
+        {/* <div className={styles.guestGallery}>
           <div className={styles.guestGalleryHeading}>
             <h3>{isAr ? "بعدسة ضيوف مزار" : "Captured by Mzar Guests"}</h3>
             <p>
@@ -318,7 +318,6 @@ export default function CustomerStoriesSection({ lang = "ar" }) {
                 ? "لحظات التقطها زوارنا أثناء الجولات والمسارات."
                 : "Moments captured by our guests during tours and trails."}
             </p>
-            {/* 'عرض جميع الصور' link is omitted for now as requested */}
           </div>
 
           <div className={styles.guestPhotos}>
@@ -336,10 +335,10 @@ export default function CustomerStoriesSection({ lang = "ar" }) {
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
 
         {/* Stories Bottom Action Buttons */}
-        <div className={styles.storiesActions}>
+        {/* <div className={styles.storiesActions}>
           <a className={styles.btnPrimary} href="#featured-tours">
             <span>
               {isAr
@@ -356,7 +355,7 @@ export default function CustomerStoriesSection({ lang = "ar" }) {
             <MessageCircle className="w-5 h-5" />
             <span>{isAr ? "شارك تجربتك" : "Share Your Story"}</span>
           </a>
-        </div>
+        </div> */}
       </div>
     </section>
   );
