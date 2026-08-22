@@ -106,28 +106,28 @@ export default function MzarServicesSection({ lang = "ar" }) {
     },
   ];
 
-  const stats = [
-    {
-      icon: <Users className="w-6 h-6" />,
-      number: "+10,000",
-      label: isAr ? "زائر سعيد" : "Happy Visitors",
-    },
-    {
-      icon: <Star className="w-6 h-6" />,
-      number: "4.9 / 5",
-      label: isAr ? "متوسط التقييم" : "Average Rating",
-    },
-    {
-      icon: <Globe className="w-6 h-6" />,
-      number: "7",
-      label: isAr ? "لغات عالمية" : "Global Languages",
-    },
-    {
-      icon: <Headphones className="w-6 h-6" />,
-      number: "24/7",
-      label: isAr ? "دعم متواصل" : "Continuous Support",
-    },
-  ];
+  // const stats = [
+  //   {
+  //     icon: <Users className="w-6 h-6" />,
+  //     number: "+10,000",
+  //     label: isAr ? "زائر سعيد" : "Happy Visitors",
+  //   },
+  //   {
+  //     icon: <Star className="w-6 h-6" />,
+  //     number: "4.9 / 5",
+  //     label: isAr ? "متوسط التقييم" : "Average Rating",
+  //   },
+  //   {
+  //     icon: <Globe className="w-6 h-6" />,
+  //     number: "7",
+  //     label: isAr ? "لغات عالمية" : "Global Languages",
+  //   },
+  //   {
+  //     icon: <Headphones className="w-6 h-6" />,
+  //     number: "24/7",
+  //     label: isAr ? "دعم متواصل" : "Continuous Support",
+  //   },
+  // ];
 
   return (
     <section className={styles.servicesSection} id="services">
@@ -253,7 +253,7 @@ export default function MzarServicesSection({ lang = "ar" }) {
         </div>
 
         {/* Statistics Metric Strip (Extracted from #popular) */}
-        <div className={styles.metricStrip}>
+        {/* <div className={styles.metricStrip}>
           {stats.map((stat, idx) => (
             <div key={idx} className={styles.metricItem}>
               <div className={styles.metricIcon}>{stat.icon}</div>
@@ -261,7 +261,7 @@ export default function MzarServicesSection({ lang = "ar" }) {
               <span className={styles.metricLabel}>{stat.label}</span>
             </div>
           ))}
-        </div>
+        </div> */}
       </div>
     </section>
   );

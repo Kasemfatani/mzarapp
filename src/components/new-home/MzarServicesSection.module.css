@@ -145,15 +145,15 @@
 }
 
 .serviceVisualSanctuaries {
-  background-image: url('https://images.unsplash.com/photo-1588513646744-e94675143d6f?auto=format&fit=crop&w=700&q=84');
+  background-image: url('/new-home/sanctuaries.webp');
 }
 
 .serviceVisualTrails {
-  background-image: url('https://images.unsplash.com/photo-1564769625905-50e93615e769?auto=format&fit=crop&w=700&q=84');
+  background-image: url('/new-home/trails.webp');
 }
 
 .serviceVisualTransport {
-  background-image: url('https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=700&q=84');
+  background-image: url('/new-home/transport.webp');
 }
 
 /* Main Tile (Umrah Packages) - Full Cover Image */

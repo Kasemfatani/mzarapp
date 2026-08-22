@@ -16,7 +16,7 @@ export default function TransportFleetSection({ lang = "ar" }) {
         ? "خيار عملي للأفراد والأزواج والتنقلات الخفيفة والمريحة."
         : "Practical and reliable choice for solo travelers, couples, and light airport transfers.",
       image:
-        "https://images.unsplash.com/photo-1550355291-bbee04a92027?auto=format&fit=crop&w=700&q=80",
+        "/transportation/sedan.png",
       recommended: false,
       specs: [
         { icon: <Users className="w-3.5 h-3.5" />, text: isAr ? "3 مسافرين" : "3 Passengers" },
@@ -32,7 +32,7 @@ export default function TransportFleetSection({ lang = "ar" }) {
         ? "مساحة مريحة وفارهة للعائلة مع مرونة وسعة أكبر للحقائب."
         : "Spacious, comfortable ride designed for families with generous luggage room.",
       image:
-        "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=700&q=80",
+        "/transportation/family.png",
       recommended: true,
       ribbon: isAr ? "الأنسب للعائلات" : "Best for Families",
       specs: [
@@ -49,7 +49,7 @@ export default function TransportFleetSection({ lang = "ar" }) {
         ? "مناسبة للعائلات الممتدة والمجموعات الصغيرة والرحلات المشتركة."
         : "Ideal for extended families, small tour groups, and shared group transfers.",
       image:
-        "https://images.unsplash.com/photo-1570125909232-eb263c188f7e?auto=format&fit=crop&w=700&q=80",
+        "/transportation/small-bus.png",
       recommended: false,
       specs: [
         { icon: <Users className="w-3.5 h-3.5" />, text: isAr ? "18 مسافرًا" : "18 Passengers" },
@@ -65,7 +65,7 @@ export default function TransportFleetSection({ lang = "ar" }) {
         ? "حل متكامل ومريح للحملات والمجموعات الكبيرة والبرامج السياحية."
         : "Full-sized luxury coach solution for large groups, delegations, and Umrah delegations.",
       image:
-        "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=700&q=80",
+        "/transportation/big-bus.jpg",
       recommended: false,
       specs: [
         { icon: <Users className="w-3.5 h-3.5" />, text: isAr ? "49 مسافرًا" : "49 Passengers" },

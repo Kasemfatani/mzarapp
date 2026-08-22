@@ -7,7 +7,7 @@ import CustomerStoriesSection from "@/components/new-home/CustomerStoriesSection
 import HomeBlogInsightsSection from "@/components/new-home/HomeBlogInsightsSection";
 import HomeFaqSection from "@/components/new-home/HomeFaqSection";
 import SuccessPartnersSection from "@/components/new-home/SuccessPartnersSection";
-import HomeAppBannerSection from "@/components/new-home/HomeAppBannerSection";
+import DownloadAppSection from "@/components/new-home/DownloadAppSection";
 import HomeBottomCtaSection from "@/components/new-home/HomeBottomCtaSection";
 import WhatsAppCampaignModal from "@/components/common/WhatsAppCampaignModal";
 
@@ -59,7 +59,7 @@ export default async function TourPage() {
 			<HomeBlogInsightsSection lang={lang} initialBlogs={initialBlogs} />
 			<HomeFaqSection lang={lang} />
 			<SuccessPartnersSection lang={lang} />
-			<HomeAppBannerSection lang={lang} />
+			<DownloadAppSection lang={lang} />
 			<HomeBottomCtaSection lang={lang} />
 			
 		</div>

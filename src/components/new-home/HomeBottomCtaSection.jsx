@@ -1,7 +1,8 @@
 "use client";
 
 import styles from "./HomeBottomCtaSection.module.css";
-import { MessageCircle, Compass, ArrowLeft, ArrowRight } from "lucide-react";
+import stylesNumbers from "./MzarServicesSection.module.css";
+import { MessageCircle, Compass, ArrowLeft, ArrowRight, Users, Star, Globe, Headphones } from "lucide-react";
 
 export default function HomeBottomCtaSection({ lang = "ar" }) {
   const isAr = lang === "ar";
@@ -11,6 +12,29 @@ export default function HomeBottomCtaSection({ lang = "ar" }) {
       ? "مرحبًا مزار، أود التحدث معكم بخصوص رحلتي القادمة واختيار التجربة الأنسب"
       : "Hello Mzar, I would like to consult with you about my upcoming trip and choose the best experience"
   )}`;
+
+  const stats = [
+    {
+      icon: <Users className="w-6 h-6" />,
+      number: "+10,000",
+      label: isAr ? "زائر سعيد" : "Happy Visitors",
+    },
+    {
+      icon: <Star className="w-6 h-6" />,
+      number: "4.9 / 5",
+      label: isAr ? "متوسط التقييم" : "Average Rating",
+    },
+    {
+      icon: <Globe className="w-6 h-6" />,
+      number: "7",
+      label: isAr ? "لغات عالمية" : "Global Languages",
+    },
+    {
+      icon: <Headphones className="w-6 h-6" />,
+      number: "24/7",
+      label: isAr ? "دعم متواصل" : "Continuous Support",
+    },
+  ];
 
   return (
     <section className={styles.ctaSection}>
@@ -54,6 +78,18 @@ export default function HomeBottomCtaSection({ lang = "ar" }) {
             </small>
           </div>
         </div>
+
+        {/* Statistics Metric Strip (Extracted from #popular) */}
+        <div className={stylesNumbers.metricStrip}>
+          {stats.map((stat, idx) => (
+            <div key={idx} className={stylesNumbers.metricItem}>
+              <div className={stylesNumbers.metricIcon}>{stat.icon}</div>
+              <strong className={stylesNumbers.metricNumber}>{stat.number}</strong>
+              <span className={stylesNumbers.metricLabel}>{stat.label}</span>
+            </div>
+          ))}
+        </div>
+        
       </div>
     </section>
   );

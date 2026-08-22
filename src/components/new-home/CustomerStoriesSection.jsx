@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import styles from "./CustomerStoriesSection.module.css";
 import { 
   Check, 
@@ -17,6 +17,14 @@ export default function CustomerStoriesSection({ lang = "ar" }) {
   const isAr = lang === "ar";
   const [selectedFilter, setSelectedFilter] = useState("all");
   const [activeStoryIndex, setActiveStoryIndex] = useState(0);
+  const featuredStoryRef = useRef(null);
+
+  const handleSelectStory = (originalIndex) => {
+    setActiveStoryIndex(originalIndex);
+    if (featuredStoryRef.current) {
+      featuredStoryRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  };
 
   const WHATSAPP_NUMBER = "966580121025";
   const whatsappShareUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
@@ -207,7 +215,7 @@ export default function CustomerStoriesSection({ lang = "ar" }) {
         </div>
 
         {/* Featured Story Card */}
-        <article className={styles.featuredStory}>
+        <article ref={featuredStoryRef} className={styles.featuredStory}>
           <div className={styles.storyMedia}>
             {currentStory.youtubeUrl ? (
               <iframe
@@ -278,7 +286,7 @@ export default function CustomerStoriesSection({ lang = "ar" }) {
               <div
                 key={story.id}
                 className={`${styles.reviewCard} ${isActive ? styles.reviewCardActive : ""}`}
-                onClick={() => setActiveStoryIndex(originalIndex)}
+                onClick={() => handleSelectStory(originalIndex)}
                 role="button"
                 tabIndex={0}
               >
