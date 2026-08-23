@@ -88,7 +88,7 @@ export default function HeroSection({ lang }) {
 						}}
 					>
 						{isAr
-							? "في كل شبر من مكة المكرمة والمدينة المنورة والطائف، قصة وتاريخ حافل بالبركة. في \"مزار\"، لا نقدم لك مجرد وسيلة نقل أو حجز؛ بل نفتح لك أبواب الاكتشاف لتعيش تفاصيل السيرة واللحظات المقدسة بوعي وإشعاع إيماني فريد، دون تشتت"
+							? "في كل شبر من مكة المكرمة والمدينة المنورة والطائف، قصة وتاريخ حافل. في \"مزار\"، لا نقدم لك مجرد وسيلة نقل أو حجز؛ بل نفتح لك أبواب الاكتشاف لتعيش تفاصيل السيرة واللحظات المقدسة بوعي فريد، دون تشتت"
 							: "In every corner of Makkah, Madinah, and Taif lies a story steeped in heritage and blessings. At Mzar, we go beyond simple bookings and transport—we open the doors of discovery so you experience sacred moments with profound spiritual depth and peace of mind."}
 					</p>
 
