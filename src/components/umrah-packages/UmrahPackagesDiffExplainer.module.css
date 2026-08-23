@@ -1,0 +1,149 @@
+/* Scoped styles for UmrahPackagesDiffExplainer */
+.explainerSection {
+  padding: 80px 0;
+  background-color: #f8f6f2;
+  position: relative;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.sectionHeading {
+  text-align: center;
+  margin-bottom: 44px;
+}
+
+.eyebrow {
+  display: inline-block;
+  color: #aa9256;
+  font-weight: 800;
+  font-size: 0.95rem;
+  letter-spacing: 0.05em;
+  margin-bottom: 10px;
+  background: #ffffff;
+  padding: 4px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(170, 146, 86, 0.25);
+}
+
+.title {
+  color: #15372d;
+  font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+  font-weight: 800;
+  margin: 0;
+  line-height: 1.35;
+}
+
+/* Version Explainer 2-Card Grid */
+.versionExplainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.explainerCard {
+  background: #ffffff;
+  border-radius: 22px;
+  padding: 34px 30px;
+  border: 1px solid #e3dac8;
+  box-shadow: 0 8px 25px rgba(21, 54, 43, 0.05);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.explainerCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 36px rgba(21, 54, 43, 0.1);
+}
+
+.explainerCardPlus {
+  background: #193e33 !important;
+  color: #ffffff !important;
+  border-color: #193e33 !important;
+}
+
+.versionIcon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #eef4f0;
+  color: #315f4c;
+  display: grid;
+  place-items: center;
+  font-weight: 900;
+  font-size: 1.1rem;
+  margin-bottom: 18px;
+}
+
+.explainerCardPlus .versionIcon {
+  background: rgba(255, 255, 255, 0.15);
+  color: #f0d78f;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.explainerCard h3 {
+  font-size: 1.55rem;
+  font-weight: 800;
+  color: #15372d;
+  margin: 0 0 12px;
+}
+
+.explainerCardPlus h3 {
+  color: #ffffff;
+}
+
+.explainerCard p {
+  color: #5f6d67;
+  line-height: 1.8;
+  font-size: 1rem;
+  margin: 0 0 24px;
+  flex: 1;
+}
+
+.explainerCardPlus p {
+  color: #d1e2db;
+}
+
+.explainerLink {
+  color: #315f4c;
+  font-weight: 800;
+  font-size: 0.95rem;
+  text-decoration: underline;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: auto;
+  transition: color 0.2s ease;
+}
+
+.explainerLink:hover {
+  color: #aa9256;
+}
+
+.explainerCardPlus .explainerLink {
+  color: #f2d990;
+}
+
+.explainerCardPlus .explainerLink:hover {
+  color: #ffffff;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .explainerSection {
+    padding: 55px 0;
+  }
+
+  .versionExplainer {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .explainerCard {
+    padding: 26px 22px;
+  }
+}

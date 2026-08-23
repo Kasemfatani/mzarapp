@@ -71,7 +71,7 @@ body {
 	font-style: normal;
 	font-weight: 400;
 	background-color: var(--white-color);
-	overflow-x: hidden;
+	overflow-x: clip;
 }
 a {
 	text-decoration: none !important;

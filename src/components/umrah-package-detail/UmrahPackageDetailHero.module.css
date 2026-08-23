@@ -1,0 +1,239 @@
+/* Scoped styles for UmrahPackageDetailHero */
+.heroSection {
+  padding: 60px 0 50px;
+  background: linear-gradient(120deg, #fbf7ee 0%, #edf4ef 100%);
+  position: relative;
+  border-bottom: 1px solid #e8e2d5;
+}
+
+.container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #5f6d67;
+  font-size: 0.9rem;
+  margin-bottom: 24px;
+}
+
+.breadcrumbs a {
+  color: #5f6d67;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.breadcrumbs a:hover {
+  color: #315f4c;
+  text-decoration: underline;
+}
+
+.currentBreadcrumb {
+  color: #15372d;
+  font-weight: 800;
+}
+
+.heroGrid {
+  display: grid;
+  grid-template-columns: 1.4fr 0.8fr;
+  gap: 36px;
+  align-items: center;
+}
+
+.heroContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  color: #8c7233;
+  font-weight: 800;
+  font-size: 0.88rem;
+  letter-spacing: 0.04em;
+  margin-bottom: 12px;
+  background: #ffffff;
+  padding: 5px 16px;
+  border-radius: 999px;
+  border: 1px solid #ebdcb7;
+  width: fit-content;
+}
+
+.title {
+  font-size: clamp(2rem, 3.8vw, 3.1rem);
+  font-weight: 800;
+  line-height: 1.25;
+  margin: 0 0 14px;
+  color: #15372d;
+}
+
+.description {
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: #5f6d67;
+  margin: 0 0 22px;
+  max-width: 680px;
+}
+
+.detailChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 26px;
+}
+
+.chip {
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #15372d;
+  font-size: 0.84rem;
+  font-weight: 800;
+  border: 1px solid #dce4df;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.heroActions {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.btnWhatsapp {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 15px 30px;
+  border-radius: 14px;
+  background: #315f4c;
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 1.02rem;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 14px rgba(49, 95, 76, 0.25);
+}
+
+.btnWhatsapp:hover {
+  background: #15372d;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(21, 54, 43, 0.35);
+  color: #ffffff;
+}
+
+/* Price Card */
+.priceCard {
+  background: #16362e;
+  color: #ffffff;
+  border-radius: 24px;
+  padding: 28px 26px;
+  box-shadow: 0 16px 40px rgba(18, 48, 40, 0.2);
+  display: flex;
+  flex-direction: column;
+}
+
+.priceCardKicker {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #ead494;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 6px;
+}
+
+.mainStartingPrice {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.mainStartingPrice small {
+  font-size: 0.8rem;
+  color: #c9dbd3;
+}
+
+.priceAmount {
+  display: block;
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: #ffffff;
+  line-height: 1.1;
+  margin-top: 2px;
+}
+
+.priceAmount em {
+  font-size: 1.05rem;
+  font-style: normal;
+  font-weight: 700;
+  color: #ead494;
+  margin-inline-start: 6px;
+}
+
+.airportBreakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.airportRow {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 10px 14px;
+}
+
+.airportName {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: #ead494;
+  margin-bottom: 4px;
+}
+
+.airportRates {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 0.8rem;
+  color: #e2ece7;
+}
+
+.airportRates b {
+  color: #ffffff;
+  font-weight: 800;
+}
+
+.priceFooterNote {
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  padding-top: 12px;
+  color: #aebfb8;
+  font-size: 0.76rem;
+  line-height: 1.5;
+}
+
+/* Responsive */
+@media (max-width: 960px) {
+  .heroSection {
+    padding: 45px 0 35px;
+  }
+
+  .heroGrid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .btnWhatsapp {
+    width: 100%;
+    text-align: center;
+  }
+}

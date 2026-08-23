@@ -1,0 +1,181 @@
+/* Scoped styles for UmrahPackagesInclusions */
+.inclusionsSection {
+  padding: 80px 0;
+  background-color: #ffffff;
+  position: relative;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.sectionHeading {
+  text-align: center;
+  margin-bottom: 44px;
+}
+
+.eyebrow {
+  display: inline-block;
+  color: #aa9256;
+  font-weight: 800;
+  font-size: 0.95rem;
+  letter-spacing: 0.05em;
+  margin-bottom: 10px;
+  background: #fdfaf3;
+  padding: 4px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(170, 146, 86, 0.25);
+}
+
+.title {
+  color: #15372d;
+  font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+  font-weight: 800;
+  margin: 0;
+  line-height: 1.35;
+}
+
+/* 2-Card Inclusions/Exclusions Grid */
+.includedGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.includedCard {
+  border-radius: 22px;
+  padding: 34px 30px;
+  border: 1px solid #e3dac8;
+  box-shadow: 0 8px 25px rgba(21, 54, 43, 0.04);
+}
+
+.cardInclude {
+  background: #fbfdfc;
+  border-color: #cde0d5;
+}
+
+.cardExclude {
+  background: #fdfbfb;
+  border-color: #ebdcdb;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.headerIcon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+}
+
+.cardInclude .headerIcon {
+  background: #edf4f0;
+  color: #315f4c;
+}
+
+.cardExclude .headerIcon {
+  background: #fceeed;
+  color: #c93b2b;
+}
+
+.includedCard h3 {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 800;
+}
+
+.cardInclude h3 {
+  color: #15372d;
+}
+
+.cardExclude h3 {
+  color: #8c2619;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.listItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: #3d4a45;
+}
+
+.checkIcon {
+  color: #315f4c;
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+.xIcon {
+  color: #c93b2b;
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+/* Catalog Price Note */
+.catalogNote {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 24px;
+  border-radius: 16px;
+  background: #fbf7ed;
+  border: 1px solid #dfd2b2;
+  color: #5f6d67;
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.noteBadge {
+  color: #315f4c;
+  font-weight: 800;
+  white-space: nowrap;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #edf4f0;
+  font-size: 0.82rem;
+  border: 1px solid rgba(49, 95, 76, 0.2);
+  flex-shrink: 0;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .inclusionsSection {
+    padding: 55px 0;
+  }
+
+  .includedGrid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .includedCard {
+    padding: 24px 20px;
+  }
+
+  .catalogNote {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 16px 18px;
+  }
+}

@@ -1,0 +1,107 @@
+/* Scoped styles for TransportAddonsSection */
+.addonsSection {
+  padding: 80px 0;
+  background-color: #ffffff;
+  position: relative;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.sectionHeading {
+  text-align: center;
+  margin-bottom: 44px;
+}
+
+.eyebrow {
+  display: inline-block;
+  color: #aa9256;
+  font-weight: 800;
+  font-size: 0.95rem;
+  letter-spacing: 0.05em;
+  margin-bottom: 10px;
+  background: #fdfaf3;
+  padding: 4px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(170, 146, 86, 0.25);
+}
+
+.title {
+  color: #15372d;
+  font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+  font-weight: 800;
+  margin: 0;
+  line-height: 1.35;
+}
+
+/* 4-Addon Grid */
+.addonsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.addonCard {
+  background: #fbf9f5;
+  border: 1px solid #ebdcc5;
+  border-radius: 20px;
+  padding: 24px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 4px 14px rgba(21, 54, 43, 0.03);
+  transition: transform 0.22s ease, border-color 0.22s ease;
+}
+
+.addonCard:hover {
+  transform: translateY(-3px);
+  border-color: #aa9256;
+}
+
+.addonIcon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: #ffffff;
+  color: #315f4c;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  border: 1px solid #dce8e1;
+}
+
+.addonInfo b {
+  display: block;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #15372d;
+  margin-bottom: 3px;
+}
+
+.addonInfo small {
+  display: block;
+  color: #5f6d67;
+  font-size: 0.82rem;
+  line-height: 1.4;
+}
+
+/* Responsive */
+@media (max-width: 960px) {
+  .addonsSection {
+    padding: 60px 0;
+  }
+
+  .addonsGrid {
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+}
+
+@media (max-width: 560px) {
+  .addonsGrid {
+    grid-template-columns: 1fr;
+  }
+}

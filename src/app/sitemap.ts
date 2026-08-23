@@ -21,32 +21,22 @@ const staticRoutes: Array<{
 	changeFrequency: ChangeFrequency;
 }> = [
 	{ path: "/", priority: 1, changeFrequency: "daily" },
-	{ path: "/about-us", priority: 0.8, changeFrequency: "monthly" },
 	{ path: "/all-trips", priority: 0.9, changeFrequency: "daily" },
+	{ path: "/holy-sanctuaries-tours", priority: 0.9, changeFrequency: "weekly" },
+	{ path: "/transportation", priority: 0.9, changeFrequency: "weekly" },
+	{ path: "/umrah-packages", priority: 0.9, changeFrequency: "weekly" },
+	{ path: "/umrah", priority: 0.9, changeFrequency: "weekly" },
+	{ path: "/saira", priority: 0.8, changeFrequency: "weekly" },
 	{ path: "/blogs", priority: 0.9, changeFrequency: "daily" },
-	{ path: "/book-haram", priority: 0.8, changeFrequency: "weekly" },
-	{ path: "/book-madinah", priority: 0.8, changeFrequency: "weekly" },
+	{ path: "/about-us", priority: 0.8, changeFrequency: "monthly" },
 	{ path: "/contact-us", priority: 0.7, changeFrequency: "monthly" },
 	{ path: "/faq", priority: 0.7, changeFrequency: "monthly" },
+	{ path: "/reviews", priority: 0.7, changeFrequency: "monthly" },
 	{ path: "/gallary", priority: 0.7, changeFrequency: "monthly" },
 	{ path: "/privacy-policy", priority: 0.3, changeFrequency: "yearly" },
+	{ path: "/terms-and-conditions", priority: 0.3, changeFrequency: "yearly" },
+	{ path: "/cancellation-policy", priority: 0.3, changeFrequency: "yearly" },
 	{ path: "/account-deletion", priority: 0.3, changeFrequency: "yearly" },
-	{ path: "/reviews", priority: 0.7, changeFrequency: "monthly" },
-	{
-		path: "/terms-and-conditions",
-		priority: 0.3,
-		changeFrequency: "yearly",
-	},
-	{
-		path: "/cancellation-policy",
-		priority: 0.3,
-		changeFrequency: "yearly",
-	},
-	{
-		path: "/umrah",
-		priority: 0.4,
-		changeFrequency: "monthly",
-	},
 ];
 
 type BlogItem = {
@@ -176,6 +166,38 @@ async function getPackageEntries(): Promise<MetadataRoute.Sitemap> {
 	}
 }
 
+import { getAllUmrahPackages } from "@/data/umrahPackagesData";
+
+function getFullExperienceEntries(): MetadataRoute.Sitemap {
+	const packages = getAllUmrahPackages();
+	const entries: MetadataRoute.Sitemap = [];
+	const seenUrls = new Set<string>();
+
+	for (const pkg of packages) {
+		const paths = [`/umrah-package/${pkg.slug}`, `/umrah-package/${pkg.id}`];
+
+		for (const locale of LOCALES) {
+			for (const basePath of paths) {
+				const path = `/${locale}${basePath}`;
+				if (seenUrls.has(path)) {
+					continue;
+				}
+
+				seenUrls.add(path);
+
+				entries.push({
+					url: `${SITE_URL}${path}`,
+					lastModified: new Date(),
+					changeFrequency: "weekly",
+					priority: 0.85,
+				});
+			}
+		}
+	}
+
+	return entries;
+}
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 	const staticEntries: MetadataRoute.Sitemap = LOCALES.flatMap((locale) =>
 		staticRoutes.map((route) => {
@@ -195,5 +217,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 		getPackageEntries(),
 	]);
 
-	return [...staticEntries, ...blogEntries, ...packageEntries];
+	const fullExperienceEntries = getFullExperienceEntries();
+
+	return [...staticEntries, ...blogEntries, ...packageEntries, ...fullExperienceEntries];
 }

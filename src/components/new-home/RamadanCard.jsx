@@ -2,6 +2,7 @@
 
 import { MapPin, Clock } from "lucide-react";
 import Image from "next/image";
+import { getBookingWhatsAppUrl } from "@/lib/whatsappHelpers";
 
 const CURRENCY_SVG = (
 	<svg

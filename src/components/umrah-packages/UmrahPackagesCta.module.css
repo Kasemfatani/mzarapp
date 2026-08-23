@@ -1,0 +1,120 @@
+/* Scoped styles for UmrahPackagesCta */
+.ctaSection {
+  padding: 60px 0 90px;
+  background-color: #f8f6f2;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.ctaPanel {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 180px;
+  gap: 32px;
+  padding: 40px 48px;
+  overflow: hidden;
+  border: 1px solid #dfd2b2;
+  border-radius: 26px;
+  background: radial-gradient(circle at 10% 115%, rgba(190, 162, 95, 0.2), transparent 35%),
+              linear-gradient(110deg, #fbf7ed 0%, #f2ecdc 100%);
+  box-shadow: 0 12px 35px rgba(170, 146, 86, 0.1);
+}
+
+.ctaPanel::before {
+  content: "";
+  position: absolute;
+  top: 18px;
+  inset-inline-end: 0;
+  width: 5px;
+  height: calc(100% - 36px);
+  border-radius: 8px 0 0 8px;
+  background: linear-gradient(#c2a665, #e3d2a4);
+}
+
+.ctaCopy {
+  position: relative;
+  z-index: 1;
+}
+
+.eyebrow {
+  display: inline-block;
+  color: #aa9256;
+  font-weight: 800;
+  font-size: 0.88rem;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+  background: #ffffff;
+  padding: 3px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(170, 146, 86, 0.25);
+}
+
+.ctaCopy h2 {
+  margin: 0 0 8px;
+  color: #15372d;
+  font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.ctaCopy p {
+  margin: 0;
+  color: #5f6d67;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  max-width: 580px;
+}
+
+.ctaAction {
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+}
+
+.btnPrimary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px 32px;
+  border-radius: 14px;
+  background: #315f4c;
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 1.05rem;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  box-shadow: 0 6px 20px rgba(49, 95, 76, 0.3);
+}
+
+.btnPrimary:hover {
+  background: #15372d;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(21, 54, 43, 0.4);
+  color: #ffffff;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .ctaSection {
+    padding: 40px 0 60px;
+  }
+
+  .ctaPanel {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 32px 24px;
+    gap: 24px;
+  }
+
+  .btnPrimary {
+    width: 100%;
+    text-align: center;
+  }
+}

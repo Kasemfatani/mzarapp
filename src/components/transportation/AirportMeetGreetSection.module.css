@@ -1,0 +1,176 @@
+/* Scoped styles for AirportMeetGreetSection matching HTML design */
+.airportSection {
+  padding: 80px 0;
+  background-color: #ffffff;
+  position: relative;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Enclosing Outer Card */
+.airportServiceCard {
+  display: grid;
+  grid-template-columns: 1.25fr 0.75fr;
+  border: 1px solid #e0d5c0;
+  border-radius: 26px;
+  overflow: hidden;
+  background: #ffffff;
+  box-shadow: 0 14px 38px rgba(24, 57, 46, 0.06);
+}
+
+/* Content (First Column) */
+.airportContent {
+  padding: 44px 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.eyebrow {
+  display: inline-block;
+  color: #aa9256;
+  font-weight: 800;
+  font-size: 0.95rem;
+  letter-spacing: 0.05em;
+  margin-bottom: 12px;
+}
+
+.title {
+  color: #15372d;
+  font-size: clamp(1.8rem, 3.2vw, 2.35rem);
+  font-weight: 800;
+  margin: 0 0 14px;
+  line-height: 1.35;
+}
+
+.description {
+  color: #5f6d67;
+  font-size: 1.02rem;
+  line-height: 1.8;
+  margin: 0 0 26px;
+  max-width: 580px;
+}
+
+/* 2-Column Benefits Grid with Green Pills */
+.benefitsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.benefitPill {
+  background: #eef5f1;
+  padding: 13px 18px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  
+  gap: 10px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #15372d;
+  border: 1px solid #dce8e1;
+}
+
+.checkIcon {
+  color: #315f4c;
+  font-weight: 900;
+  flex-shrink: 0;
+}
+
+/* Visual Image Column (Second Column) */
+.airportVisual {
+  min-height: 420px;
+  background: linear-gradient(0deg, rgba(11, 43, 36, 0.45), rgba(11, 43, 36, 0.05)),
+              url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1100&q=84') center/cover;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 24px;
+}
+
+.flightBadge {
+  align-self: flex-end;
+  background: #ffffff;
+  color: #15372d;
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 800;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.meetingSign {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 18px;
+  padding: 20px 24px;
+  text-align: center;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(8px);
+}
+
+.meetingSign small {
+  display: block;
+  font-size: 0.85rem;
+  color: #718078;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.meetingSign strong {
+  display: block;
+  font-size: 1.55rem;
+  font-weight: 900;
+  color: #15372d;
+}
+
+/* Responsive */
+@media (max-width: 1000px) {
+  .airportServiceCard {
+    grid-template-columns: 1fr;
+  }
+
+  .airportContent {
+    padding: 36px 28px;
+  }
+
+  .airportVisual {
+    min-height: 320px;
+    order: -1;
+  }
+}
+
+@media (max-width: 600px) {
+  .airportContent {
+    padding: 28px 20px;
+  }
+
+  .title {
+    font-size: 1.6rem;
+  }
+
+  .description {
+    font-size: 0.94rem;
+  }
+
+  .benefitsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .meetingSign {
+    padding: 16px;
+  }
+
+  .meetingSign strong {
+    font-size: 1.3rem;
+  }
+}

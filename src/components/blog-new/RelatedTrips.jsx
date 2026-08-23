@@ -2,6 +2,7 @@
 
 import { Star, Clock, ArrowLeft, ArrowRight } from "lucide-react";
 import { useEffect, useState } from "react";
+import { getBookingWhatsAppUrl } from "@/lib/whatsappHelpers";
 
 const formatPrice = (val) => {
 	const n = Number(val);

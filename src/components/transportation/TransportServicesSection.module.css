@@ -1,0 +1,105 @@
+/* Scoped styles for TransportServicesSection */
+.servicesSection {
+  padding: 80px 0;
+  background-color: #f8f6f2;
+  position: relative;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.sectionHeading {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.eyebrow {
+  display: inline-block;
+  color: #aa9256;
+  font-weight: 800;
+  font-size: 0.95rem;
+  letter-spacing: 0.05em;
+  margin-bottom: 10px;
+  background: #ffffff;
+  padding: 4px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(170, 146, 86, 0.25);
+}
+
+.title {
+  color: #15372d;
+  font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+  font-weight: 800;
+  margin: 0;
+  line-height: 1.35;
+}
+
+/* 6-Service Grid */
+.serviceGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.serviceCard {
+  background: #ffffff;
+  border: 1px solid #e3dac8;
+  border-radius: 20px;
+  padding: 28px 24px;
+  box-shadow: 0 8px 24px rgba(21, 54, 43, 0.04);
+  transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.serviceCard:hover {
+  transform: translateY(-4px);
+  border-color: #315f4c;
+  box-shadow: 0 16px 36px rgba(21, 54, 43, 0.09);
+}
+
+.serviceIcon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: #edf4ef;
+  color: #315f4c;
+  display: grid;
+  place-items: center;
+  margin-bottom: 16px;
+}
+
+.serviceTitle {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #15372d;
+  margin: 0 0 10px;
+}
+
+.serviceDescription {
+  margin: 0;
+  color: #5f6d67;
+  font-size: 0.94rem;
+  line-height: 1.65;
+}
+
+/* Responsive */
+@media (max-width: 960px) {
+  .servicesSection {
+    padding: 60px 0;
+  }
+
+  .serviceGrid {
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+}
+
+@media (max-width: 600px) {
+  .serviceGrid {
+    grid-template-columns: 1fr;
+  }
+}

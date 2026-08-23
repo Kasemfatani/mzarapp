@@ -1,0 +1,136 @@
+/* Scoped styles for SanctuaryLicenseCard */
+.licenseSection {
+  padding: 0 0 32px;
+  background-color: #f8f6f2;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  transform: translateY(-24px);
+  position: relative;
+  z-index: 10;
+}
+
+.licenseCard {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 28px;
+  align-items: center;
+  padding: 24px 32px;
+  border: 1px solid #dfd3bd;
+  border-radius: 24px;
+  background: #ffffff;
+  box-shadow: 0 14px 36px rgba(25, 56, 47, 0.08);
+}
+
+.authorityLogoWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 80px;
+  border-inline-end: 1px solid #eee5d5;
+  padding-inline-end: 28px;
+}
+
+.authorityLogo {
+  display: block;
+  max-width: 150px;
+  height: 60px;
+  object-fit: contain;
+}
+
+.licenseInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.eyebrow {
+  display: inline-block;
+  color: #aa9256;
+  font-weight: 800;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  margin-bottom: 6px;
+}
+
+.title {
+  margin: 0 0 6px;
+  color: #15372d;
+  font-size: 1.35rem;
+  font-weight: 800;
+  line-height: 1.3;
+}
+
+.description {
+  margin: 0;
+  color: #5f6d67;
+  line-height: 1.7;
+  font-size: 0.95rem;
+}
+
+.licenseMark {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #edf4ef;
+  color: #315f4c;
+  font-weight: 900;
+  flex-shrink: 0;
+  border: 1.5px solid #dce8e1;
+}
+
+.licenseMark small {
+  font-size: 0.6rem;
+  white-space: nowrap;
+  margin-top: -2px;
+  font-weight: 800;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .licenseCard {
+    grid-template-columns: 130px 1fr;
+    gap: 20px;
+    padding: 20px 24px;
+  }
+
+  .licenseMark {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .licenseCard {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 20px 18px;
+  }
+
+  .authorityLogoWrapper {
+    justify-content: flex-start;
+    min-height: auto;
+    border-inline-end: 0;
+    border-bottom: 1px solid #eee5d5;
+    padding-inline-end: 0;
+    padding-bottom: 14px;
+  }
+
+  .authorityLogo {
+    max-width: 120px;
+    height: 48px;
+  }
+
+  .title {
+    font-size: 1.15rem;
+  }
+
+  .description {
+    font-size: 0.88rem;
+  }
+}

@@ -8,7 +8,7 @@ export default function DownloadAppSection({ lang }) {
 	const isAr = language === "ar";
 
 	return (
-		<section className="relative w-full min-h-[420px] flex items-center bg-gradient-to-b from-[#F5F7F5] to-[#F5F4F3]/20 mb-10">
+		<section className="relative w-full min-h-[420px] flex items-center bg-gradient-to-b from-[#F5F7F5] to-[#F5F4F3]/20 mb-10 border-t border-[#EFE9DC]">
 			<div className="relative z-10 container mx-auto flex flex-col md:flex-row items-center justify-around py-10 gap-8">
 				{/* Left: Text & Buttons */}
 				<div

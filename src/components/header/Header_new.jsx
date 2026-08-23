@@ -1,6 +1,6 @@
 "use client";
 
-import { Menu, X, Globe, ChevronRight, ChevronLeft } from "lucide-react";
+import { Menu, X, Globe, ChevronRight, ChevronLeft, ChevronDown } from "lucide-react";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -19,6 +19,27 @@ export default function Header() {
 	} = useCurrentLocale();
 
 	const [isWhatsModalOpen, setIsWhatsModalOpen] = useState(false);
+	const [servicesOpen, setServicesOpen] = useState(false);
+	const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
+
+	const serviceItems = [
+		{
+			label: isAr ? "باقات العمرة" : "Umrah Packages",
+			href: l("/umrah-packages"),
+		},
+		{
+			label: isAr ? "جولات الحرمين الشريفين" : "Two Holy Mosques Tours",
+			href: l("/holy-sanctuaries-tours"),
+		},
+		{
+			label: isAr ? "مسارات تاريخية وإثرائية" : "Historical & Enriching Trails",
+			href: l("/all-trips?type=1"),
+		},
+		{
+			label: isAr ? "خدمات النقل" : "Transportation Services",
+			href: l("/transportation"),
+		},
+	];
 
 	// Lock body scroll when modal is open
 	useEffect(() => {
@@ -86,7 +107,7 @@ export default function Header() {
 	};
 
 	return (
-		<>
+		<header className="md:sticky md:top-0 md:z-50 w-full">
 			{/* Top Bar */}
 			{showTopBar && (
 				<div
@@ -259,12 +280,14 @@ export default function Header() {
 						{/* Modal Body */}
 						<div className="p-6 flex flex-col gap-4">
 							{/* Option 1 */}
-							<a
-								href="https://wa.me/966580121025"
-								target="_blank"
-								rel="noopener noreferrer"
-								onClick={() => setIsWhatsModalOpen(false)}
-								className="flex items-center justify-between p-4 bg-[#F8F9FA] hover:bg-[#3C6652]/5 border border-gray-150 hover:border-[#3C6652] rounded-2xl transition-all duration-300 group hover:shadow-md cursor-pointer"
+							<button
+								type="button"
+								onClick={(e) => {
+									e.stopPropagation();
+									setIsWhatsModalOpen(false);
+									window.open("https://wa.me/966580121025", "_blank", "noopener,noreferrer");
+								}}
+								className="w-full flex items-center justify-between p-4 bg-[#F8F9FA] hover:bg-[#3C6652]/5 border border-gray-150 hover:border-[#3C6652] rounded-2xl transition-all duration-300 group hover:shadow-md cursor-pointer text-start"
 							>
 								<div className="flex items-center gap-4">
 									<div className="w-12 h-12 rounded-full bg-[#25D366]/10 flex items-center justify-center text-[#25D366] group-hover:bg-[#25D366] group-hover:text-white transition-all duration-300 shadow-md">
@@ -286,15 +309,17 @@ export default function Header() {
 										<ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-white transition-all duration-300 transform group-hover:translate-x-1" />
 									)}
 								</div>
-							</a>
+							</button>
 
 							{/* Option 2 */}
-							<a
-								href="https://wa.me/966549177484"
-								target="_blank"
-								rel="noopener noreferrer"
-								onClick={() => setIsWhatsModalOpen(false)}
-								className="flex items-center justify-between p-4 bg-[#F8F9FA] hover:bg-[#3C6652]/5 border border-gray-150 hover:border-[#3C6652] rounded-2xl transition-all duration-300 group hover:shadow-md cursor-pointer"
+							<button
+								type="button"
+								onClick={(e) => {
+									e.stopPropagation();
+									setIsWhatsModalOpen(false);
+									window.open("https://wa.me/966549177484", "_blank", "noopener,noreferrer");
+								}}
+								className="w-full flex items-center justify-between p-4 bg-[#F8F9FA] hover:bg-[#3C6652]/5 border border-gray-150 hover:border-[#3C6652] rounded-2xl transition-all duration-300 group hover:shadow-md cursor-pointer text-start"
 							>
 								<div className="flex items-center gap-4">
 									<div className="w-12 h-12 rounded-full bg-[#25D366]/10 flex items-center justify-center text-[#25D366] group-hover:bg-[#25D366] group-hover:text-white transition-all duration-300 shadow-md">
@@ -316,7 +341,7 @@ export default function Header() {
 										<ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-white transition-all duration-300 transform group-hover:translate-x-1" />
 									)}
 								</div>
-							</a>
+							</button>
 						</div>
 					</div>
 				</div>
@@ -324,7 +349,7 @@ export default function Header() {
 
 			{/* Main Header */}
 			<div
-				className="bg-white shadow-md sticky top-0 z-50"
+				className="bg-white shadow-md"
 				dir={isAr ? "rtl" : "ltr"}
 			>
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -356,6 +381,63 @@ export default function Header() {
 								>
 									{isAr ? "الرئيسية" : "Home"}
 								</a>
+
+								{/* Services Dropdown (الخدمات) */}
+								<div
+									className="relative py-2"
+									onMouseEnter={() => setServicesOpen(true)}
+									onMouseLeave={() => setServicesOpen(false)}
+								>
+									<button
+										type="button"
+										onClick={() => setServicesOpen(!servicesOpen)}
+										className="flex items-center gap-1.5 text-[#3C6652] hover:text-[#867957] transition-colors focus:outline-none"
+									>
+										<span>{isAr ? "الخدمات" : "Services"}</span>
+										<ChevronDown
+											size={16}
+											className={`transition-transform duration-200 ${
+												servicesOpen ? "rotate-180" : ""
+											}`}
+										/>
+									</button>
+
+									{/* Dropdown Menu */}
+									<div
+										className={`absolute top-full ${
+											isAr ? "right-0" : "left-0"
+										} pt-2 w-64 transition-all duration-200 z-50 ${
+											servicesOpen
+												? "opacity-100 visible translate-y-0"
+												: "opacity-0 invisible -translate-y-2 pointer-events-none"
+										}`}
+									>
+										<div className="bg-white rounded-2xl shadow-xl border border-gray-150 p-2 flex flex-col gap-1">
+											{serviceItems.map((item, idx) => (
+												<Link
+													key={idx}
+													href={item.href}
+													onClick={() => setServicesOpen(false)}
+													className="flex items-center justify-between px-4 py-2.5 rounded-xl hover:bg-[#3C6652]/5 text-gray-800 hover:text-[#3C6652] transition-colors text-sm font-semibold group/item text-start"
+												>
+													<span>{item.label}</span>
+													{isAr ? (
+														<ChevronLeft
+															size={14}
+															className="opacity-0 group-hover/item:opacity-100 text-[#3C6652] transition-opacity"
+														/>
+													) : (
+														<ChevronRight
+															size={14}
+															className="opacity-0 group-hover/item:opacity-100 text-[#3C6652] transition-opacity"
+														/>
+													)}
+												</Link>
+											))}
+										</div>
+									</div>
+								</div>
+
 								<a
 									href={l("/all-trips")}
 									className="text-[#3C6652] hover:text-[#867957] transition-colors"
@@ -429,6 +511,42 @@ export default function Header() {
 								>
 									{isAr ? "الرئيسية" : "Home"}
 								</a>
+
+								{/* Mobile Services Accordion */}
+								<div className="flex flex-col items-center">
+									<button
+										type="button"
+										onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
+										className="flex items-center justify-center gap-1.5 text-[#3C6652] hover:text-[#857856] transition-colors focus:outline-none"
+									>
+										<span>{isAr ? "الخدمات" : "Services"}</span>
+										<ChevronDown
+											size={16}
+											className={`transition-transform duration-200 ${
+												mobileServicesOpen ? "rotate-180" : ""
+											}`}
+										/>
+									</button>
+
+									{mobileServicesOpen && (
+										<div className="flex flex-col gap-1.5 py-2 px-3 bg-gray-50/90 rounded-2xl my-2 w-full max-w-xs mx-auto border border-gray-150">
+											{serviceItems.map((item, idx) => (
+												<Link
+													key={idx}
+													href={item.href}
+													onClick={() => {
+														setMobileServicesOpen(false);
+														setMobileMenuOpen(false);
+													}}
+													className="text-sm font-semibold text-gray-700 hover:text-[#3C6652] hover:bg-white py-2 px-3 rounded-xl transition-colors text-center"
+												>
+													{item.label}
+												</Link>
+											))}
+										</div>
+									)}
+								</div>
+
 								<a
 									href={l("/all-trips")}
 									className="text-[#3C6652] hover:text-[#857856] transition-colors"
@@ -477,6 +595,6 @@ export default function Header() {
 					)}
 				</div>
 			</div>
-		</>
+		</header>
 	);
 }

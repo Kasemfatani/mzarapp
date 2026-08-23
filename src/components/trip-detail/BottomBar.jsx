@@ -1,6 +1,7 @@
 import { ArrowLeft, ArrowRight, Clock, Shield } from "lucide-react";
 import { motion } from "motion/react";
 import { usePathname } from "next/navigation";
+import { getBookingWhatsAppUrl } from "@/lib/whatsappHelpers";
 
 const CURRENCY_SVG = (
 	<svg
