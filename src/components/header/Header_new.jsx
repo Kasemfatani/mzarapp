@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { useCurrentLocale } from "@/lib/useLocale";
+import { trackWhatsAppContactSelected } from "@/lib/analytics";
 
 export default function Header() {
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -285,6 +286,11 @@ export default function Header() {
 								onClick={(e) => {
 									e.stopPropagation();
 									setIsWhatsModalOpen(false);
+									trackWhatsAppContactSelected({
+										line: "support_sales_1",
+										number: "966580121025",
+										source: "header_modal",
+									});
 									window.open("https://wa.me/966580121025", "_blank", "noopener,noreferrer");
 								}}
 								className="w-full flex items-center justify-between p-4 bg-[#F8F9FA] hover:bg-[#3C6652]/5 border border-gray-150 hover:border-[#3C6652] rounded-2xl transition-all duration-300 group hover:shadow-md cursor-pointer text-start"
@@ -317,6 +323,11 @@ export default function Header() {
 								onClick={(e) => {
 									e.stopPropagation();
 									setIsWhatsModalOpen(false);
+									trackWhatsAppContactSelected({
+										line: "support_sales_2",
+										number: "966549177484",
+										source: "header_modal",
+									});
 									window.open("https://wa.me/966549177484", "_blank", "noopener,noreferrer");
 								}}
 								className="w-full flex items-center justify-between p-4 bg-[#F8F9FA] hover:bg-[#3C6652]/5 border border-gray-150 hover:border-[#3C6652] rounded-2xl transition-all duration-300 group hover:shadow-md cursor-pointer text-start"

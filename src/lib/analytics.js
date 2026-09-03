@@ -5,6 +5,22 @@ export function pushDataLayer(obj) {
 }
 
 /**
+ * Track a support-line selection from a WhatsApp contact modal.
+ * The event name is the conversion signal; line and number identify the
+ * selected WhatsApp destination.
+ */
+export function trackWhatsAppContactSelected({ line, number, source }) {
+	if (typeof window === "undefined") return;
+
+	pushDataLayer({
+		event: "whatsapp_contact_selected",
+		whatsapp_line: line,
+		whatsapp_number: String(number),
+		whatsapp_source: source,
+	});
+}
+
+/**
  * Track a GA4 view_item ecommerce event.
  * Required: id, name, start_price (number). Other fields optional.
  */

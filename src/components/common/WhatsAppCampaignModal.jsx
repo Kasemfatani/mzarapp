@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { X, ChevronRight, ChevronLeft } from "lucide-react";
 import { useCurrentLocale } from "@/lib/useLocale";
+import { trackWhatsAppContactSelected } from "@/lib/analytics";
 
 export default function WhatsAppCampaignModal() {
 	const { isAr } = useCurrentLocale();
@@ -124,8 +125,13 @@ export default function WhatsAppCampaignModal() {
 
 	if (!isOpen) return null;
 
-	const handleNumberClick = (number) => {
+	const handleNumberClick = (number, line) => {
 		setIsOpen(false);
+		trackWhatsAppContactSelected({
+			line,
+			number,
+			source: "campaign_modal",
+		});
 		const formattedText = prefilledText ? `?text=${encodeURIComponent(prefilledText)}` : "";
 		const targetUrl = `https://wa.me/${number}${formattedText}`;
 		window.open(targetUrl, "_blank", "noopener,noreferrer");
@@ -181,7 +187,7 @@ export default function WhatsAppCampaignModal() {
 				<div className="p-6 flex flex-col gap-4">
 					{/* Option 1 */}
 					<button
-						onClick={() => handleNumberClick("966580121025")}
+						onClick={() => handleNumberClick("966580121025", "support_sales_1")}
 						className="flex items-center justify-between p-4 bg-[#F8F9FA] hover:bg-[#3C6652]/5 border border-gray-150 hover:border-[#3C6652] rounded-2xl transition-all duration-300 group hover:shadow-md cursor-pointer text-start w-full"
 					>
 						<div className="flex items-center gap-4">
@@ -208,7 +214,7 @@ export default function WhatsAppCampaignModal() {
 
 					{/* Option 2 */}
 					<button
-						onClick={() => handleNumberClick("966549177484")}
+						onClick={() => handleNumberClick("966549177484", "support_sales_2")}
 						className="flex items-center justify-between p-4 bg-[#F8F9FA] hover:bg-[#3C6652]/5 border border-gray-150 hover:border-[#3C6652] rounded-2xl transition-all duration-300 group hover:shadow-md cursor-pointer text-start w-full"
 					>
 						<div className="flex items-center gap-4">
