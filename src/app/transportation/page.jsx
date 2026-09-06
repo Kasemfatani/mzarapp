@@ -6,7 +6,7 @@ import TransportServicesSection from "@/components/transportation/TransportServi
 import TransportAddonsSection from "@/components/transportation/TransportAddonsSection";
 import TransportFinalCta from "@/components/transportation/TransportFinalCta";
 import TransportFaqSection from "@/components/transportation/TransportFaqSection";
-import WhatsAppCampaignModal from "@/components/common/WhatsAppCampaignModal";
+import WhatsAppBookingRedirect from "@/components/common/WhatsAppBookingRedirect";
 
 export const revalidate = 300;
 
@@ -181,7 +181,7 @@ export default function TransportationPage() {
       <TransportAddonsSection lang={lang} />
       <TransportFinalCta lang={lang} />
       <TransportFaqSection lang={lang} />
-      <WhatsAppCampaignModal />
+      <WhatsAppBookingRedirect />
     </div>
   );
 }
