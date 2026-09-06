@@ -6,7 +6,7 @@ import { cache } from "react";
 import { getIsSaudiFromHeaders } from "@/lib/apiConfig";
 import PartnerPromoSaver from "@/components/PartnerPromoSaver";
 import { getServerLocale } from "@/lib/localeServer";
-import WhatsAppCampaignModal from "@/components/common/WhatsAppCampaignModal";
+import WhatsAppBookingRedirect from "@/components/common/WhatsAppBookingRedirect";
 
 export const revalidate = 300;
 
@@ -64,7 +64,7 @@ export default async function AllTrip({ searchParams }) {
 		<div className={lang === "en" ? "ltr" : "rtl"}>
 			{/* Save promo_code (if present) to localStorage on client */}
 			<PartnerPromoSaver promoCode={searchParams?.promo_code ?? null} />
-			<WhatsAppCampaignModal />
+			<WhatsAppBookingRedirect />
 			<PageWrapper lang={lang} data={data} isSaudi={isSaudi} />
 		</div>
 	);

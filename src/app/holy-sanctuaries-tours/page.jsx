@@ -5,7 +5,7 @@ import SanctuaryToursSection from "@/components/holy-sanctuaries/SanctuaryToursS
 import SanctuaryExperienceSteps from "@/components/holy-sanctuaries/SanctuaryExperienceSteps";
 import SanctuaryWhyMzarSection from "@/components/holy-sanctuaries/SanctuaryWhyMzarSection";
 import SanctuaryDualCta from "@/components/holy-sanctuaries/SanctuaryDualCta";
-import WhatsAppCampaignModal from "@/components/common/WhatsAppCampaignModal";
+import WhatsAppBookingRedirect from "@/components/common/WhatsAppBookingRedirect";
 
 export const revalidate = 300;
 
@@ -144,7 +144,7 @@ export default function HolySanctuariesToursPage() {
       <SanctuaryExperienceSteps lang={lang} />
       <SanctuaryWhyMzarSection lang={lang} />
       <SanctuaryDualCta lang={lang} />
-      <WhatsAppCampaignModal />
+      <WhatsAppBookingRedirect />
     </div>
   );
 }

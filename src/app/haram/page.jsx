@@ -14,7 +14,7 @@ import { API_BASE_URL_NEW } from "@/lib/apiConfig";
 import { cache } from "react";
 import { getServerLocale } from "@/lib/localeServer";
 import { getIsSaudiFromHeaders } from "@/lib/apiConfig";
-import WhatsAppCampaignModal from "@/components/common/WhatsAppCampaignModal";
+import WhatsAppBookingRedirect from "@/components/common/WhatsAppBookingRedirect";
 
 // 2. Wrap the fetch function with cache()
 const getData = cache(async (lang) => {
@@ -73,7 +73,7 @@ export default async function TourPage() {
 
 	return (
 		<div className={lang === "en" ? "ltr" : "rtl"}>
-			<WhatsAppCampaignModal />
+			<WhatsAppBookingRedirect />
 			<HeroWithInfo lang={lang} data={data} isSaudi={isSaudi} />
 			<SummaryCard lang={lang} data={data} />
 			{/* <HighlightsSection lang={lang} data={data} />

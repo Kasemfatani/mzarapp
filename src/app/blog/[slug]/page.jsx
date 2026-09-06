@@ -4,7 +4,7 @@ import SingleBlogWrapper from "@/components/blog-new/SingleBlogWrapper";
 import { BLOG_URL, getIsSaudiFromHeaders } from "@/lib/apiConfig";
 import { cache } from "react";
 import SyncLangFromSlug from "@/components/blog-new/SyncLangFromSlug";
-import WhatsAppCampaignModal from "@/components/common/WhatsAppCampaignModal";
+import WhatsAppBookingRedirect from "@/components/common/WhatsAppBookingRedirect";
 
 const getData = cache(async (lang, slug) => {
 	const res = await fetch(`${BLOG_URL}/api/blogs/${slug}`, {
@@ -122,7 +122,7 @@ export default async function Page({ params }) {
 		<>
 			{/*  Sync lang to localStorage / <html> on the client */}
 			<SyncLangFromSlug lang={lang} />
-			<WhatsAppCampaignModal />
+			<WhatsAppBookingRedirect />
 
 			{jsonLdString ? (
 				<script

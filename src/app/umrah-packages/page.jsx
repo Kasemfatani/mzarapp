@@ -5,7 +5,7 @@ import UmrahPackagesGrid from "@/components/umrah-packages/UmrahPackagesGrid";
 import UmrahPackagesDiffExplainer from "@/components/umrah-packages/UmrahPackagesDiffExplainer";
 import UmrahPackagesInclusions from "@/components/umrah-packages/UmrahPackagesInclusions";
 import UmrahPackagesCta from "@/components/umrah-packages/UmrahPackagesCta";
-import WhatsAppCampaignModal from "@/components/common/WhatsAppCampaignModal";
+import WhatsAppBookingRedirect from "@/components/common/WhatsAppBookingRedirect";
 
 export const revalidate = 3600;
 
@@ -129,7 +129,7 @@ export default async function UmrahPackagesPage() {
       <UmrahPackagesDiffExplainer lang={lang} />
       <UmrahPackagesInclusions lang={lang} />
       <UmrahPackagesCta lang={lang} />
-      <WhatsAppCampaignModal />
+      <WhatsAppBookingRedirect />
     </div>
   );
 }

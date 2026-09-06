@@ -107,6 +107,11 @@ export default function Header() {
 		window.location.href = nextPath;
 	};
 
+	const openWhatsAppModal = (e) => {
+		e.preventDefault();
+		setIsWhatsModalOpen(true);
+	};
+
 	return (
 		<header className="md:sticky md:top-0 md:z-50 w-full">
 			{/* Top Bar */}
@@ -137,6 +142,7 @@ export default function Header() {
 									target="_blank"
 									rel="noopener noreferrer"
 									className="flex items-center gap-1 hover:underline"
+									onClick={openWhatsAppModal}
 								>
 									<i className="fa-brands fa-whatsapp"></i>
 									+966580121025
@@ -147,6 +153,7 @@ export default function Header() {
 									target="_blank"
 									rel="noopener noreferrer"
 									className="flex items-center gap-1 hover:underline"
+									onClick={openWhatsAppModal}
 								>
 									<i className="fa-brands fa-whatsapp"></i>
 									+966549177484

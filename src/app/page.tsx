@@ -9,7 +9,7 @@ import HomeFaqSection from "@/components/new-home/HomeFaqSection";
 import SuccessPartnersSection from "@/components/new-home/SuccessPartnersSection";
 import DownloadAppSection from "@/components/new-home/DownloadAppSection";
 import HomeBottomCtaSection from "@/components/new-home/HomeBottomCtaSection";
-import WhatsAppCampaignModal from "@/components/common/WhatsAppCampaignModal";
+import WhatsAppBookingRedirect from "@/components/common/WhatsAppBookingRedirect";
 
 import { notFound } from "next/navigation";
 import { API_BASE_URL_NEW, BLOG_URL } from "@/lib/apiConfig";
@@ -188,7 +188,7 @@ export default async function TourPage() {
 			/>
 
 			<HeroSection lang={lang} />
-			<WhatsAppCampaignModal />
+			<WhatsAppBookingRedirect />
 			<MzarServicesSection lang={lang} />
 			<FeaturedToursSection lang={lang} topData={topData} isSaudi={isSaudi} />
 			<AudioGuideSection lang={lang} />
