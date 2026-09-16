@@ -1,8 +1,24 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import pageStyles from "./NationalDayPage.module.css";
 import styles from "./NationalDayFinalCta.module.css";
 
 export default function NationalDayFinalCta({ content }) {
 	const { finalCta } = content;
+	const [bookingIsVisible, setBookingIsVisible] = useState(false);
+
+	useEffect(() => {
+		const bookingSection = document.getElementById("booking");
+		if (!bookingSection || !("IntersectionObserver" in window)) return;
+
+		const observer = new IntersectionObserver(([entry]) => {
+			setBookingIsVisible(entry.isIntersecting);
+		});
+		observer.observe(bookingSection);
+
+		return () => observer.disconnect();
+	}, []);
 
 	return (
 		<>
@@ -17,9 +33,11 @@ export default function NationalDayFinalCta({ content }) {
 					</a>
 				</div>
 			</section>
-			<a className={`${pageStyles.button} ${styles.mobileBook}`} href="#booking">
-				{finalCta.mobileBook}
-			</a>
+			{!bookingIsVisible && (
+				<a className={`${pageStyles.button} ${styles.mobileBook}`} href="#booking">
+					{finalCta.mobileBook}
+				</a>
+			)}
 		</>
 	);
 }

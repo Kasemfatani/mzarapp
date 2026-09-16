@@ -1,4 +1,5 @@
 import { getServerLocale } from "@/lib/localeServer";
+import NationalDayBooking from "@/components/national-day/NationalDayBooking";
 import NationalDayCountdown from "@/components/national-day/NationalDayCountdown";
 import NationalDayDetails from "@/components/national-day/NationalDayDetails";
 import NationalDayFacts from "@/components/national-day/NationalDayFacts";
@@ -80,7 +81,7 @@ export default function NationalDayPage() {
 				<NationalDayVideo content={content} videoId={NATIONAL_DAY_VIDEO_ID} />
 				<NationalDayCountdown content={content} targetDate={NATIONAL_DAY_TARGET} />
 				<NationalDayFaq content={content} />
-				{/* Booking is planned for a later implementation; the existing #booking links remain. */}
+				<NationalDayBooking content={content} lang={lang} />
 				<NationalDayFinalCta content={content} />
 			</main>
 		</div>
