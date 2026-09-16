@@ -1,10 +1,7 @@
 import { createHmac, timingSafeEqual } from "node:crypto";
 import { NextResponse } from "next/server";
 import { API_BETA_URL } from "@/lib/apiConfig";
-import {
-	NATIONAL_DAY_MAX_QUANTITY,
-	NATIONAL_DAY_PRICE_SAR,
-} from "@/lib/nationalDayBookingConstants";
+import { NATIONAL_DAY_PRICE_SAR } from "@/lib/nationalDayBookingConstants";
 
 export const dynamic = "force-dynamic";
 
@@ -169,9 +166,9 @@ export async function POST(request) {
 		session.name.length > 0 &&
 		/^\d{6,15}$/.test(session.whatsapp) &&
 		/^\+\d{1,4}$/.test(session.whatsapp_country_code) &&
-		Number.isInteger(session.quantity) &&
+		Number.isSafeInteger(session.quantity) &&
 		session.quantity >= 1 &&
-		session.quantity <= NATIONAL_DAY_MAX_QUANTITY &&
+		Number.isSafeInteger(session.quantity * NATIONAL_DAY_PRICE_SAR) &&
 		session.amount === session.quantity * NATIONAL_DAY_PRICE_SAR &&
 		Number.isSafeInteger(session.created_at) &&
 		session.created_at <= now + 60_000 &&

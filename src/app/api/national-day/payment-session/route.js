@@ -1,10 +1,7 @@
 import { createHmac, randomUUID } from "node:crypto";
 import { NextResponse } from "next/server";
 import { API_BETA_URL } from "@/lib/apiConfig";
-import {
-	NATIONAL_DAY_MAX_QUANTITY,
-	NATIONAL_DAY_PRICE_SAR,
-} from "@/lib/nationalDayBookingConstants";
+import { NATIONAL_DAY_PRICE_SAR } from "@/lib/nationalDayBookingConstants";
 
 export const dynamic = "force-dynamic";
 
@@ -51,9 +48,9 @@ export async function POST(request) {
 			);
 		}
 		if (
-			!Number.isInteger(quantity) ||
+			!Number.isSafeInteger(quantity) ||
 			quantity < 1 ||
-			quantity > NATIONAL_DAY_MAX_QUANTITY
+			!Number.isSafeInteger(quantity * NATIONAL_DAY_PRICE_SAR)
 		) {
 			return NextResponse.json(
 				{ status: false, code: "invalid_quantity" },

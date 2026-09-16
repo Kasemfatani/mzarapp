@@ -6,7 +6,6 @@ import { PhoneInput } from "react-international-phone";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
 import "react-international-phone/style.css";
 import {
-	NATIONAL_DAY_MAX_QUANTITY,
 	NATIONAL_DAY_PRICE_SAR,
 	NATIONAL_DAY_SESSION_PREFIX,
 } from "@/lib/nationalDayBookingConstants";
@@ -50,7 +49,7 @@ export default function NationalDayBooking({ content, lang }) {
 	}, [loadAvailability]);
 
 	const handleQuantity = (nextQuantity) => {
-		setQuantity(Math.max(1, Math.min(NATIONAL_DAY_MAX_QUANTITY, nextQuantity)));
+		setQuantity(Math.max(1, nextQuantity));
 		setErrors((current) => ({ ...current, quantity: "" }));
 	};
 
@@ -65,7 +64,11 @@ export default function NationalDayBooking({ content, lang }) {
 		if (!cleanName || cleanName.length > 100) nextErrors.name = booking.nameRequired;
 		if (!phone.trim()) nextErrors.phone = booking.phoneRequired;
 		else if (!parsedPhone?.isValid()) nextErrors.phone = booking.phoneInvalid;
-		if (!Number.isInteger(quantity) || quantity < 1 || quantity > NATIONAL_DAY_MAX_QUANTITY) {
+		if (
+			!Number.isSafeInteger(quantity) ||
+			quantity < 1 ||
+			!Number.isSafeInteger(quantity * NATIONAL_DAY_PRICE_SAR)
+		) {
 			nextErrors.quantity = booking.quantityInvalid;
 		}
 
@@ -240,7 +243,7 @@ export default function NationalDayBooking({ content, lang }) {
 										<Minus aria-hidden="true" size={18} />
 									</button>
 									<strong aria-live="polite">{quantity}</strong>
-									<button type="button" onClick={() => handleQuantity(quantity + 1)} disabled={submitting || quantity >= NATIONAL_DAY_MAX_QUANTITY} aria-label={booking.increase}>
+									<button type="button" onClick={() => handleQuantity(quantity + 1)} disabled={submitting} aria-label={booking.increase}>
 										<Plus aria-hidden="true" size={18} />
 									</button>
 								</div>
