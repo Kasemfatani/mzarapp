@@ -1,0 +1,208 @@
+export const NATIONAL_DAY_TARGET = "2026-09-23T21:00:00+03:00";
+export const NATIONAL_DAY_VIDEO_ID = "35jgYVv8knU";
+
+export function getNationalDayContent(isAr) {
+	if (isAr) {
+		return {
+			ariaLabel: "عرض اليوم الوطني السعودي",
+			hero: {
+				campaign: "عزّنا بأصالتنا",
+				kicker: "خلف كل معلم في المسجد الحرام…",
+				title: "قصة تستحق أن تُروى",
+				lead: "عِش تجربة إثرائية داخل المسجد الحرام، وتعرّف على قصص معالمه وتاريخه وتفاصيله خلال 90 دقيقة.",
+				oldPrice: "سعر الفرد سابقًا",
+				priceUnit: "ريالًا",
+				priceNote: "فقط للشخص",
+				book: "احجز مقعدك الآن",
+				limited: "المقاعد محدودة • الحجز قبل الموعد بـ24 ساعة",
+				imageAlt: "مرشد مزار يقدم جولة إثرائية داخل المسجد الحرام",
+				imageCaption: "جولة إثرائية داخل المسجد الحرام",
+			},
+			factsAria: "تفاصيل موعد الجولة",
+			facts: [
+				{ label: "التاريخ", value: "23 سبتمبر 2026" },
+				{ label: "وقت الانطلاق", value: "9:00 مساءً" },
+				{ label: "مدة الجولة", value: "90 دقيقة" },
+				{ label: "الحجز", value: "قبل الموعد بـ24 ساعة" },
+			],
+			story: {
+				kicker: "جولة المسجد الحرام",
+				title: "أماكن نمر بها… لكن كم نعرف عن قصصها؟",
+				paragraphs: [
+					"في المسجد الحرام معالم نراها، وأماكن نمر بها، وتفاصيل تحمل وراءها تاريخًا وقصصًا قد لا نعرفها.",
+					"في جولة المسجد الحرام لن تكتفي بمشاهدة المكان. خلال 90 دقيقة، تنتقل بين محطات الجولة لتتعرّف على المسجد الحرام قديمًا وحديثًا، وقصص معالمه، وتاريخه، والمعلومات المرتبطة بكل محطة.",
+				],
+				emphasis: "لتخرج من الجولة وأنت ترى المكان بمعرفة أعمق. اكتشف المكان… وعِش قصته.",
+				book: "احجز الآن بـ96 ريالًا",
+				journeyTitle: "لماذا هذه الجولة مختلفة؟",
+				journeyItems: [
+					["اكتشف قصص المكان", "قصص ومعلومات تاريخية مرتبطة بمحطات ومعالم المسجد الحرام."],
+					["شاهد التفاصيل بمعرفة أعمق", "افهم تاريخ الأماكن التي ربما رأيتها من قبل وما وراءها."],
+					["90 دقيقة من الإثراء", "تجربة مركزة تجمع بين المكان والقصة والمعرفة."],
+					["جولة معتمدة", "تجربة منظمة وموثوقة لاكتشاف المسجد الحرام بصورة مختلفة."],
+					["وثّق تجربتك", "احصل على شهادة إتمام للجولة لتبقى ذكرى لهذه التجربة."],
+				],
+			},
+			stations: {
+				eyebrow: "محطات الجولة",
+				title: "90 دقيقة… بين معالم وقصص المسجد الحرام",
+				intro: "إلى أين تأخذك جولة المسجد الحرام؟",
+				items: [
+					["التجمع والانطلاق", "يستقبلكم المرشد السياحي عند بوابة الملك عبدالله."],
+					["المحطة الأولى: عمارة المسجد الحرام", "ساحات باب الملك فهد رحمه الله."],
+					["المحطة الثانية: قصة بناء الكعبة المشرفة", "وقفة أمام الكعبة المشرفة للتعرّف على قصة بنائها."],
+					["المحطة الثالثة: الصفا والمروة", "وقفة أمام المسعى والتعرّف على قصة الصفا والمروة."],
+					["الانتهاء من الجولة", "ختام تجربة تمتد 90 دقيقة بين المكان والقصة والمعرفة."],
+				],
+				closing: "كل محطة تراها بعينك… لكن في الجولة ستعرف قصتها.",
+			},
+			details: {
+				eyebrow: "قبل الحجز",
+				title: "كل ما تحتاج معرفته",
+				items: [
+					["المناسبة", "اليوم الوطني السعودي", "🇸🇦"],
+					["التاريخ", "23 سبتمبر 2026", "📅"],
+					["موعد الجولة", "9:00 مساءً", "🕘"],
+					["مدة التجربة", "ساعة ونصف — 90 دقيقة", "⏱️"],
+					["السعر الخاص", "96 ريالًا للشخص", "💳"],
+					["الحجز", "متاح فرديًا مع إمكانية إضافة مرافقين", "👤"],
+					["عدد المقاعد", "محدود", "🎟️"],
+					["آخر موعد للحجز", "قبل الجولة بـ24 ساعة على الأقل", "⏳"],
+				],
+			},
+			video: {
+				eyebrow: "شاهد التجربة",
+				title: "لقطات من جولة المسجد الحرام",
+				copy: "تعرّف على أجواء التجربة قبل الحجز من خلال هذا المقطع من جولة المسجد الحرام.",
+				iframeTitle: "فيديو جولة المسجد الحرام",
+			},
+			countdown: {
+				eyebrow: "موعد الجولة",
+				title: "اقتربت التجربة",
+				message: "الوقت المتبقي حتى انطلاق الجولة.",
+				started: "بدأ موعد الجولة.",
+				labels: ["يوم", "ساعة", "دقيقة", "ثانية"],
+				book: "احجز الآن",
+			},
+			faq: {
+				eyebrow: "الأسئلة الشائعة",
+				title: "أسئلة قد تدور في ذهنك",
+				items: [
+					["هل أحتاج إلى الحجز مع مجموعة؟", "لا. في هذا العرض يمكنك حجز مقعد واحد والانضمام إلى الجولة، أو إضافة مرافقين إلى الحجز نفسه. أما الحجز الاعتيادي للجولة فيبدأ من 4 أشخاص."],
+					["كم تستغرق الجولة؟", "مدة الجولة ساعة ونصف، أي 90 دقيقة."],
+					["كم سعر المقعد؟", "السعر الخاص لجولة اليوم الوطني هو 96 ريالًا فقط للشخص بدلًا من 199 ريالًا."],
+					["متى تقام الجولة؟", "يوم 23 سبتمبر 2026، الساعة 9:00 مساءً."],
+					["هل يمكنني الحجز في نفس يوم الجولة؟", "يجب إتمام الحجز قبل موعد الجولة بـ24 ساعة على الأقل، لذلك ننصح بعدم تأجيل الحجز."],
+					["هل المقاعد محدودة؟", "نعم، عدد المقاعد المتاحة محدود، ويتوقف قبول الحجوزات عند اكتمالها."],
+				],
+			},
+			finalCta: {
+				title: "اجعل يومك الوطني تجربة تُروى",
+				copy: "90 دقيقة بين معالم المسجد الحرام وقصصه وتاريخه. اكتشف المكان… وعِش قصته.",
+				book: "احجز مقعدك الآن بـ96 ريالًا",
+				mobileBook: "96 بدلًا من 199 ريالًا — احجز الآن",
+			},
+		};
+	}
+
+	return {
+		ariaLabel: "Saudi National Day offer",
+		hero: {
+			campaign: "Our Pride, Our Heritage",
+			kicker: "Behind every landmark in the Grand Mosque…",
+			title: "A Story Worth Telling",
+			lead: "Live an enriching experience inside the Grand Mosque and discover the stories, history, and details behind its landmarks in 90 minutes.",
+			oldPrice: "Previous price per person",
+			priceUnit: "SAR",
+			priceNote: "per person",
+			book: "Reserve your seat now",
+			limited: "Seats are limited • Book at least 24 hours before the tour",
+			imageAlt: "Mzar guide leading an enriching tour inside the Grand Mosque",
+			imageCaption: "An enriching tour inside the Grand Mosque",
+		},
+		factsAria: "Tour date details",
+		facts: [
+			{ label: "Date", value: "September 23, 2026" },
+			{ label: "Start time", value: "9:00 PM" },
+			{ label: "Tour duration", value: "90 minutes" },
+			{ label: "Booking", value: "At least 24 hours before" },
+		],
+		story: {
+			kicker: "Grand Mosque Tour",
+			title: "We pass by places… but how much do we know about their stories?",
+			paragraphs: [
+				"In the Grand Mosque, there are landmarks we see, places we pass, and details carrying history and stories we may not know.",
+				"On the Grand Mosque Tour, you will do more than see the place. Over 90 minutes, you will move between tour stops to discover the Grand Mosque past and present, the stories behind its landmarks, and the history connected to each stop.",
+			],
+			emphasis: "Leave the tour seeing the place with deeper knowledge. Discover the place… and live its story.",
+			book: "Book now for SAR 96",
+			journeyTitle: "What makes this tour different?",
+			journeyItems: [
+				["Discover the stories of the place", "Historical stories and information connected to the Grand Mosque's landmarks and tour stops."],
+				["See the details with deeper understanding", "Understand the history behind places you may have seen before."],
+				["90 minutes of enrichment", "A focused experience bringing together place, story, and knowledge."],
+				["An accredited tour", "A trusted, organized experience to discover the Grand Mosque in a different way."],
+				["Document your experience", "Receive a tour completion certificate to keep as a memory of the experience."],
+			],
+		},
+		stations: {
+			eyebrow: "Tour stops",
+			title: "90 minutes… among the Grand Mosque's landmarks and stories",
+			intro: "Where does the Grand Mosque Tour take you?",
+			items: [
+				["Gathering and departure", "Your tour guide will meet you at King Abdullah Gate."],
+				["First stop: Grand Mosque architecture", "The courtyards of King Fahd Gate, may Allah have mercy on him."],
+				["Second stop: The story of the Kaaba's construction", "Pause in front of the Holy Kaaba to learn the story of its construction."],
+				["Third stop: Safa and Marwah", "Pause by the Mas'a to learn the story of Safa and Marwah."],
+				["Tour conclusion", "A 90-minute experience connecting place, story, and knowledge."],
+			],
+			closing: "Every stop you see with your eyes… on this tour, you will know its story.",
+		},
+		 details: {
+			eyebrow: "Before you book",
+			title: "Everything you need to know",
+			items: [
+				["Occasion", "Saudi National Day", "🇸🇦"],
+				["Date", "September 23, 2026", "📅"],
+				["Tour time", "9:00 PM", "🕘"],
+				["Experience duration", "One and a half hours — 90 minutes", "⏱️"],
+				["Special price", "SAR 96 per person", "💳"],
+				["Booking", "Available individually, with the option to add companions", "👤"],
+				["Seats", "Limited", "🎟️"],
+				["Booking deadline", "At least 24 hours before the tour", "⏳"],
+			],
+		},
+		video: {
+			eyebrow: "See the experience",
+			title: "Highlights from the Grand Mosque Tour",
+			copy: "Get a glimpse of the tour atmosphere before you book.",
+			iframeTitle: "Grand Mosque tour video",
+		},
+		countdown: {
+			eyebrow: "Tour date",
+			title: "The experience is getting closer",
+			message: "Time remaining until the tour begins.",
+			started: "The tour has started.",
+			labels: ["Days", "Hours", "Minutes", "Seconds"],
+			book: "Book now",
+		},
+		faq: {
+			eyebrow: "Frequently asked questions",
+			title: "Questions you may have",
+			items: [
+				["Do I need to book with a group?", "No. With this offer, you can reserve one seat and join the tour, or add companions to the same booking. Regular tour bookings start at four people."],
+				["How long does the tour take?", "The tour takes one and a half hours, or 90 minutes."],
+				["How much does a seat cost?", "The special National Day Tour price is SAR 96 per person instead of SAR 199."],
+				["When does the tour take place?", "September 23, 2026, at 9:00 PM."],
+				["Can I book on the same day as the tour?", "You must complete your booking at least 24 hours before the tour, so we recommend booking early."],
+				["Are seats limited?", "Yes. The number of available seats is limited, and bookings close when capacity is reached."],
+			],
+		},
+		finalCta: {
+			title: "Make your National Day a story worth telling",
+			copy: "90 minutes among the Grand Mosque's landmarks, stories, and history. Discover the place… and live its story.",
+			book: "Reserve your seat now for SAR 96",
+			mobileBook: "SAR 96 instead of 199 — Book now",
+		},
+	};
+}

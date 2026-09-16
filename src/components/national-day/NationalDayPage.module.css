@@ -1,0 +1,119 @@
+.page {
+	--mzar-green: #3c6652;
+	--mzar-green-dark: #284a3a;
+	--mzar-green-deep: #17372a;
+	--mzar-gold: #867957;
+	--mzar-gold-light: #b9aa7a;
+	--sand: #f6f2e9;
+	--sand-dark: #ebe4d6;
+	--ink: #1d2923;
+	--muted: #66726c;
+	--line: rgba(60, 102, 82, 0.16);
+	--shadow: 0 24px 70px rgba(26, 53, 41, 0.16);
+	min-height: 1px;
+	color: var(--ink);
+	background: var(--sand);
+	font-family: "Segoe UI", Tahoma, Arial, sans-serif !important;
+	font-size: 16px;
+	line-height: 1.75;
+	overflow-x: clip;
+}
+
+/* The global layout applies custom fonts to body and headings with !important.
+   This page intentionally follows the font stack used by the source HTML. */
+.page,
+.page * {
+	font-family: "Segoe UI", Tahoma, Arial, sans-serif !important;
+}
+
+.page * {
+	box-sizing: border-box;
+}
+
+.rtl {
+	direction: rtl;
+}
+
+.ltr {
+	direction: ltr;
+}
+
+.container {
+	width: min(1180px, calc(100% - 40px));
+	margin-inline: auto;
+}
+
+.button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
+	min-height: 56px;
+	padding: 0 28px;
+	border: 1px solid transparent;
+	border-radius: 13px;
+	color: #fff;
+	background: var(--mzar-green);
+	font-weight: 800;
+	line-height: 1.2;
+	box-shadow: 0 13px 30px rgba(60, 102, 82, 0.22);
+	transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.button:hover {
+	transform: translateY(-2px);
+	color: #fff;
+	background: var(--mzar-green-dark);
+	box-shadow: 0 17px 38px rgba(60, 102, 82, 0.28);
+}
+
+.button:focus-visible {
+	outline: 3px solid var(--mzar-gold-light);
+	outline-offset: 4px;
+}
+
+.sectionIntro {
+	max-width: 760px;
+	margin-bottom: 34px;
+}
+
+.sectionIntro > span {
+	color: var(--mzar-gold);
+	font-weight: 800;
+}
+
+.sectionIntro h2 {
+	margin: 8px 0 10px;
+	color: var(--mzar-green-dark);
+	font-size: clamp(2.25rem, 4.4vw, 4.25rem);
+	line-height: 1.15;
+	letter-spacing: -0.045em;
+	text-wrap: balance;
+	font-weight: bold;
+}
+
+.sectionIntro p {
+	margin: 0;
+	color: var(--muted);
+	font-size: 1.05rem;
+}
+
+@media (max-width: 620px) {
+	.container {
+		width: min(100% - 26px, 1180px);
+	}
+
+	.sectionIntro h2 {
+		font-size: clamp(2rem, 11vw, 3.1rem);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.page {
+		scroll-behavior: auto;
+	}
+
+	.page * {
+		transition: none !important;
+	}
+}

@@ -1,0 +1,87 @@
+.finalCta {
+	padding: 0 0 82px;
+}
+
+.finalCard {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 34px;
+	overflow: hidden;
+	padding: 44px 48px;
+	border-radius: 32px;
+	color: #fff;
+	background: linear-gradient(115deg, var(--mzar-green-dark), var(--mzar-green));
+}
+
+.finalCard::after {
+	content: "96";
+	position: absolute;
+	inset: -60px auto auto -16px;
+	color: rgba(255, 255, 255, 0.05);
+	font: 900 11rem/1 Georgia, serif !important;
+}
+
+.finalCopy {
+	position: relative;
+	z-index: 1;
+}
+
+.finalCopy h2 {
+	margin: 0 0 5px;
+	color: #fff;
+	font-size: clamp(1.8rem, 3.5vw, 3rem);
+	font-weight: 700;
+	line-height: 1.15;
+}
+
+.finalCopy p {
+	margin: 0;
+	color: rgba(255, 255, 255, 0.72);
+}
+
+.finalButton {
+	position: relative;
+	z-index: 1;
+	flex: none;
+	color: var(--mzar-green-deep);
+	background: #d7c794;
+	white-space: nowrap;
+}
+
+.finalButton:hover {
+	color: var(--mzar-green-deep);
+	background: #eadcae;
+}
+
+.mobileBook {
+	display: none;
+}
+
+@media (max-width: 620px) {
+	.finalCta {
+		padding-bottom: 70px;
+	}
+
+	.finalCard {
+		align-items: flex-start;
+		flex-direction: column;
+		padding: 34px 25px;
+		border-radius: 24px;
+	}
+
+	.finalButton {
+		width: 100%;
+		white-space: normal;
+	}
+
+	.mobileBook {
+		display: flex;
+		position: fixed;
+		z-index: 20;
+		inset: auto 13px 13px;
+		min-height: 55px;
+		box-shadow: 0 15px 45px rgba(26, 53, 41, 0.35);
+	}
+}

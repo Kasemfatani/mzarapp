@@ -26,6 +26,7 @@ const staticRoutes: Array<{
 	{ path: "/transportation", priority: 0.9, changeFrequency: "weekly" },
 	{ path: "/umrah-packages", priority: 0.9, changeFrequency: "weekly" },
 	{ path: "/umrah", priority: 0.9, changeFrequency: "weekly" },
+	{ path: "/national-day", priority: 0.8, changeFrequency: "weekly" },
 	{ path: "/saira", priority: 0.8, changeFrequency: "weekly" },
 	{ path: "/blogs", priority: 0.9, changeFrequency: "daily" },
 	{ path: "/about-us", priority: 0.8, changeFrequency: "monthly" },

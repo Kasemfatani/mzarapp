@@ -1,0 +1,124 @@
+.story {
+	padding: 112px 0 92px;
+}
+
+.storyGrid {
+	display: grid;
+	grid-template-columns: 0.82fr 1.18fr;
+	align-items: center;
+	gap: 90px;
+}
+
+.storyCopy h2 {
+	margin: 8px 0 20px;
+	color: var(--mzar-green-dark);
+	font-size: clamp(2.25rem, 4.4vw, 4.25rem);
+	font-weight: 700;
+	line-height: 1.15;
+	letter-spacing: -0.045em;
+	text-wrap: balance;
+}
+
+.storyKicker {
+	color: var(--mzar-gold);
+	font-weight: 800;
+}
+
+.storyCopy > p {
+	margin: 0 0 16px;
+	color: var(--muted);
+	font-size: 1.06rem;
+}
+
+.storyCopy .emphasis {
+	color: var(--ink);
+	font-size: 1.2rem;
+	font-weight: 750;
+}
+
+.storyCopy > a {
+	margin-top: 12px;
+}
+
+.journeyCard {
+	position: relative;
+	overflow: hidden;
+	padding: 42px;
+	border-radius: 32px;
+	color: #fff;
+	background: var(--mzar-green);
+}
+
+.journeyCard::before {
+	content: "";
+	position: absolute;
+	inset: -100px -60px auto auto;
+	width: 250px;
+	height: 250px;
+	border: 1px solid rgba(255, 255, 255, 0.12);
+	border-radius: 50%;
+	box-shadow: 0 0 0 38px rgba(255, 255, 255, 0.025), 0 0 0 78px rgba(255, 255, 255, 0.02);
+}
+
+.journeyCard h3 {
+	position: relative;
+	margin: 0 0 26px;
+	font-size: 1.65rem;
+	font-weight: 700;
+}
+
+.journeyList {
+	position: relative;
+	display: grid;
+	gap: 18px;
+}
+
+.journeyItem {
+	display: grid;
+	grid-template-columns: 40px 1fr;
+	align-items: start;
+	gap: 14px;
+}
+
+.journeyNumber {
+	display: grid;
+	place-items: center;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	color: var(--mzar-green-deep);
+	background: #d7c794;
+	font-weight: 850;
+}
+
+.journeyItem strong {
+	display: block;
+	margin-top: 2px;
+}
+
+.journeyItem span:last-child {
+	color: rgba(255, 255, 255, 0.7);
+	font-size: 0.92rem;
+}
+
+@media (max-width: 950px) {
+	.storyGrid {
+		grid-template-columns: 1fr;
+		gap: 42px;
+	}
+}
+
+@media (max-width: 620px) {
+	.story {
+		padding: 78px 0 65px;
+	}
+
+	.storyCopy > a {
+		width: 100%;
+	}
+
+	.journeyCard {
+		padding: 30px 23px;
+		border-radius: 24px;
+	}
+}
