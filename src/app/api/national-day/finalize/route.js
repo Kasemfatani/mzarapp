@@ -1,6 +1,6 @@
 import { createHmac, timingSafeEqual } from "node:crypto";
 import { NextResponse } from "next/server";
-import { API_BETA_URL } from "@/lib/apiConfig";
+import { API_BASE_URL_NEW } from "@/lib/apiConfig";
 import { NATIONAL_DAY_PRICE_SAR } from "@/lib/nationalDayBookingConstants";
 
 export const dynamic = "force-dynamic";
@@ -97,7 +97,7 @@ async function verifyPaymentAndBook(session, requestUrl) {
 	let bookingResult;
 	try {
 		bookingResponse = await fetch(
-			`${API_BETA_URL}/landing/haram-offer/booking`,
+			`${API_BASE_URL_NEW}/landing/haram-offer/booking`,
 			{
 				method: "POST",
 				headers: {

@@ -1,13 +1,13 @@
 import { createHmac, randomUUID } from "node:crypto";
 import { NextResponse } from "next/server";
-import { API_BETA_URL } from "@/lib/apiConfig";
+import { API_BASE_URL_NEW } from "@/lib/apiConfig";
 import { NATIONAL_DAY_PRICE_SAR } from "@/lib/nationalDayBookingConstants";
 
 export const dynamic = "force-dynamic";
 
 async function isAvailable() {
 	const response = await fetch(
-		`${API_BETA_URL}/landing/haram-offer/check-availability`,
+		`${API_BASE_URL_NEW}/landing/haram-offer/check-availability`,
 		{ cache: "no-store", signal: AbortSignal.timeout(10000) },
 	);
 	const result = await response.json().catch(() => null);
@@ -16,7 +16,7 @@ async function isAvailable() {
 
 async function saveCustomer({ name, whatsapp, whatsappCountryCode }) {
 	try {
-		const response = await fetch(`${API_BETA_URL}/landing/customer/add`, {
+		const response = await fetch(`${API_BASE_URL_NEW}/landing/customer/add`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",

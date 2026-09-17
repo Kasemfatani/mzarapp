@@ -1,12 +1,12 @@
 import { NextResponse } from "next/server";
-import { API_BETA_URL } from "@/lib/apiConfig";
+import { API_BASE_URL_NEW } from "@/lib/apiConfig";
 
 export const dynamic = "force-dynamic";
 
 export async function GET() {
 	try {
 		const response = await fetch(
-			`${API_BETA_URL}/landing/haram-offer/check-availability`,
+			`${API_BASE_URL_NEW}/landing/haram-offer/check-availability`,
 			{ cache: "no-store", signal: AbortSignal.timeout(10000) },
 		);
 		const result = await response.json().catch(() => null);
