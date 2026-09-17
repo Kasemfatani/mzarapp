@@ -106,6 +106,9 @@ export default function NationalDayBooking({ content, lang }) {
 					setAvailability("error");
 					throw new Error("availability_unavailable");
 				}
+				if (sessionResult?.code === "customer_save_failed") {
+					throw new Error("customer_save_failed");
+				}
 				throw new Error("payment_session_failed");
 			}
 
@@ -132,6 +135,8 @@ export default function NationalDayBooking({ content, lang }) {
 				setErrors((current) => ({ ...current, form: booking.availabilityChanged }));
 			} else if (error.message === "availability_unavailable") {
 				setErrors((current) => ({ ...current, form: booking.availabilityError }));
+			} else if (error.message === "customer_save_failed") {
+				setErrors((current) => ({ ...current, form: booking.customerSaveError }));
 			} else {
 				setErrors((current) => ({ ...current, form: booking.paymentStartError }));
 			}

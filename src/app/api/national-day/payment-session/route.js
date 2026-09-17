@@ -14,6 +14,30 @@ async function isAvailable() {
 	return response.ok && result?.status === true;
 }
 
+async function saveCustomer({ name, whatsapp, whatsappCountryCode }) {
+	try {
+		const response = await fetch(`${API_BETA_URL}/landing/customer/add`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				Accept: "application/json",
+			},
+			body: JSON.stringify({
+				name,
+				whatsapp,
+				whatsapp_country_code: whatsappCountryCode,
+				package_id: 88,
+			}),
+			cache: "no-store",
+			signal: AbortSignal.timeout(15000),
+		});
+		const result = await response.json().catch(() => null);
+		return response.ok && result?.status === true;
+	} catch {
+		return false;
+	}
+}
+
 function signSession(session, secret) {
 	return createHmac("sha256", secret)
 		.update(JSON.stringify(session))
@@ -55,6 +79,18 @@ export async function POST(request) {
 			return NextResponse.json(
 				{ status: false, code: "invalid_quantity" },
 				{ status: 400 },
+			);
+		}
+
+		const customerSaved = await saveCustomer({
+			name,
+			whatsapp,
+			whatsappCountryCode,
+		});
+		if (!customerSaved) {
+			return NextResponse.json(
+				{ status: false, code: "customer_save_failed" },
+				{ status: 502 },
 			);
 		}
 
