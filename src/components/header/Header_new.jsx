@@ -231,7 +231,7 @@ export default function Header() {
 					onClick={() => setIsWhatsModalOpen(true)}
 					className="fixed-what border-none bg-transparent p-0 outline-none focus:outline-none cursor-pointer"
 					aria-label="WhatsApp Channels"
-					dir={isAr ? "rtl" : "ltr"}
+					dir={isAr ? "ltr" : "rtl"}
 				>
 					<i className="fa-brands fa-whatsapp"></i>
 				</button>
