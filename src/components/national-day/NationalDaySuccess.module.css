@@ -1,0 +1,224 @@
+.successPage {
+	min-height: 62vh;
+	display: grid;
+	place-items: center;
+	padding-top: 70px;
+	padding-bottom: 90px;
+}
+
+.resultCard {
+	width: min(760px, 100%);
+	padding: 48px;
+	border: 1px solid var(--line);
+	border-radius: 30px;
+	background: #fff;
+	box-shadow: 0 24px 70px rgba(26, 53, 41, 0.12);
+	text-align: center;
+}
+
+.checkingCard {
+	padding-block: 72px;
+}
+
+.statusIconWrap {
+	display: grid;
+	place-items: center;
+	width: 82px;
+	height: 82px;
+	margin: 0 auto 20px;
+	border-radius: 50%;
+}
+
+.statusIcon {
+	flex: none;
+}
+
+.checkingCard .statusIcon {
+	margin-bottom: 18px;
+	color: var(--mzar-green);
+}
+
+.successCard .statusIconWrap {
+	color: #087443;
+	background: #e7f7ee;
+}
+
+.warningCard .statusIconWrap {
+	color: #9a5b08;
+	background: #fff4db;
+}
+
+.resultCard h1 {
+	margin: 0 0 12px;
+	color: var(--mzar-green-dark);
+	font-size: clamp(1.8rem, 4vw, 2.7rem);
+	font-weight: 800;
+	line-height: 1.2;
+}
+
+.resultCard > p {
+	max-width: 620px;
+	margin: 0 auto;
+	color: var(--muted);
+	font-size: 1.05rem;
+}
+
+.bookingDetails {
+	margin-top: 30px;
+	padding: 18px 22px;
+	border: 1px solid var(--line);
+	border-radius: 18px;
+	background: #fbfcfb;
+	text-align: start;
+}
+
+.detailRow,
+.transactionRow {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 15px;
+	padding: 12px 0;
+	border-bottom: 1px solid rgba(60, 102, 82, 0.1);
+}
+
+.detailRow:last-child,
+.transactionRow:last-child {
+	border-bottom: 0;
+}
+
+.detailRow > span,
+.transactionRow > span {
+	color: var(--muted);
+}
+
+.detailRow > strong {
+	color: var(--mzar-green-dark);
+}
+
+.detailRow code,
+.transactionRow code {
+	color: var(--ink);
+	font-size: 0.88rem;
+	word-break: break-all;
+}
+
+.transactionRow {
+	flex-wrap: wrap;
+}
+
+.transactionRow button {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	min-height: 36px;
+	padding: 0 10px;
+	border: 1px solid rgba(60, 102, 82, 0.24);
+	border-radius: 9px;
+	color: var(--mzar-green-dark);
+	background: #fff;
+	font: inherit;
+	font-size: 0.78rem;
+	font-weight: 700;
+	cursor: pointer;
+}
+
+.actions {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	gap: 12px;
+	margin-top: 28px;
+}
+
+.primaryAction,
+.supportAction,
+.returnAction {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 48px;
+	padding: 0 20px;
+	border: 1px solid transparent;
+	border-radius: 12px;
+	font: inherit;
+	font-weight: 750;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.primaryAction {
+	color: #fff;
+	background: var(--mzar-green);
+}
+
+.supportAction {
+	border-color: var(--mzar-green);
+	color: var(--mzar-green-dark);
+	background: #fff;
+}
+
+.returnAction {
+	color: #fff;
+	background: var(--mzar-green);
+}
+
+.primaryAction:hover,
+.returnAction:hover {
+	color: #fff;
+	background: var(--mzar-green-dark);
+}
+
+.supportAction:hover {
+	background: #edf3ef;
+}
+
+.spin {
+	animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+	to { transform: rotate(360deg); }
+}
+
+@media (max-width: 620px) {
+	.successPage {
+		min-height: 58vh;
+		padding-top: 44px;
+		padding-bottom: 72px;
+	}
+
+	.resultCard {
+		padding: 34px 22px;
+		border-radius: 24px;
+	}
+
+	.checkingCard {
+		padding-block: 52px;
+	}
+
+	.bookingDetails {
+		padding: 12px 14px;
+	}
+
+	.detailRow,
+	.transactionRow {
+		align-items: flex-start;
+		flex-direction: column;
+		gap: 6px;
+	}
+
+	.transactionRow button {
+		align-self: flex-start;
+	}
+
+	.actions {
+		flex-direction: column;
+	}
+
+	.primaryAction,
+	.supportAction,
+	.returnAction {
+		width: 100%;
+	}
+}

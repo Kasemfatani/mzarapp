@@ -1,0 +1,447 @@
+.bookingSection {
+	padding: 0 0 96px;
+	scroll-margin-top: 140px;
+}
+
+.bookingShell {
+	display: grid;
+	grid-template-columns: 1.05fr 0.95fr;
+	overflow: hidden;
+	border: 1px solid var(--line);
+	border-radius: 32px;
+	background: #fff;
+	box-shadow: 0 22px 60px rgba(32, 63, 49, 0.1);
+}
+
+.bookingFormWrap {
+	padding: 44px;
+}
+
+.bookingHeading {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: 20px;
+	margin-bottom: 28px;
+}
+
+.bookingHeading > div > span,
+.summaryEyebrow {
+	color: var(--mzar-gold);
+	font-weight: 800;
+}
+
+.bookingHeading h2 {
+	margin: 2px 0 4px;
+	color: var(--mzar-green-dark);
+	font-size: clamp(2rem, 3.8vw, 3.4rem);
+	font-weight: 800;
+	line-height: 1.15;
+}
+
+.bookingHeading p {
+	margin: 0;
+	color: var(--muted);
+}
+
+.availableBadge {
+	display: inline-flex;
+	align-items: center;
+	gap: 7px;
+	flex: none;
+	padding: 8px 12px;
+	border: 1px solid #cde8d8;
+	border-radius: 999px;
+	color: #12643b;
+	background: #effaf3;
+	font-size: 0.82rem;
+	font-weight: 700;
+}
+
+.form {
+	display: grid;
+	gap: 19px;
+}
+
+.field {
+	display: grid;
+	gap: 8px;
+}
+
+.field label,
+.quantityHeading label {
+	color: var(--mzar-green-dark);
+	font-size: 0.96rem;
+	font-weight: 750;
+}
+
+.field label span {
+	margin-inline-start: 4px;
+	color: #b42318;
+}
+
+.field input {
+	width: 100%;
+	min-height: 54px;
+	padding: 0 16px;
+	border: 1px solid #dfe6e2;
+	border-radius: 13px;
+	outline: none;
+	color: var(--ink);
+	background: #fbfcfb;
+	font: inherit;
+	transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.field input:focus,
+.phoneInput:focus-within {
+	border-color: var(--mzar-green);
+	box-shadow: 0 0 0 4px rgba(60, 102, 82, 0.1);
+}
+
+.field input::placeholder {
+	color: #9ba49f;
+}
+
+.field input:disabled {
+	opacity: 0.7;
+}
+
+.phoneInput {
+	min-height: 54px;
+	border: 1px solid #dfe6e2;
+	border-radius: 13px;
+	background: #fbfcfb;
+	transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.phoneInput :global(.react-international-phone-input-container) {
+	min-height: 52px;
+	border: 0;
+	border-radius: 12px;
+	background: transparent;
+}
+
+.phoneInput :global(.react-international-phone-country-selector-button) {
+	height: 52px;
+	padding: 0 13px;
+	border: 0;
+	border-inline-end: 1px solid #e3e9e5;
+	border-radius: 12px 0 0 12px;
+	background: transparent;
+}
+
+.phoneInput :global(.react-international-phone-input) {
+	width: 100%;
+	height: 52px;
+	padding: 0 14px;
+	border: 0;
+	border-radius: 0 12px 12px 0;
+	outline: 0;
+	color: var(--ink);
+	background: transparent;
+	font: inherit;
+}
+
+.phoneInput :global(.react-international-phone-country-selector-dropdown) {
+	z-index: 30;
+	max-width: min(320px, 80vw);
+	color: var(--ink);
+}
+
+.fieldError {
+	color: #b42318;
+	font-size: 0.82rem;
+}
+
+.quantityBlock {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 18px;
+	padding: 17px 18px;
+	border: 1px solid var(--line);
+	border-radius: 16px;
+	background: var(--sand);
+}
+
+.quantityHeading {
+	display: grid;
+	gap: 3px;
+}
+
+.quantityHeading small {
+	color: var(--muted);
+	font-size: 0.76rem;
+}
+
+.quantityControl {
+	display: flex;
+	align-items: center;
+	gap: 15px;
+}
+
+.quantityControl button {
+	display: grid;
+	place-items: center;
+	width: 40px;
+	height: 40px;
+	border: 1px solid rgba(60, 102, 82, 0.2);
+	border-radius: 12px;
+	color: #fff;
+	background: var(--mzar-green);
+	cursor: pointer;
+}
+
+.quantityControl button:hover:not(:disabled) {
+	background: var(--mzar-green-dark);
+}
+
+.quantityControl button:disabled {
+	opacity: 0.4;
+	cursor: not-allowed;
+}
+
+.quantityControl strong {
+	min-width: 28px;
+	color: var(--mzar-green-dark);
+	font-size: 1.2rem;
+	text-align: center;
+}
+
+.formError {
+	margin: 0;
+	color: #b42318;
+	font-weight: 650;
+}
+
+.payButton {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
+	width: 100%;
+	min-height: 56px;
+	padding: 10px 20px;
+	border: 0;
+	border-radius: 13px;
+	color: #fff;
+	background: var(--mzar-green);
+	font: inherit;
+	font-weight: 800;
+	box-shadow: 0 13px 30px rgba(60, 102, 82, 0.22);
+	cursor: pointer;
+	transition: background 0.2s ease, opacity 0.2s ease;
+}
+
+.payButton:hover:not(:disabled) {
+	background: var(--mzar-green-dark);
+}
+
+.payButton:disabled {
+	opacity: 0.66;
+	cursor: wait;
+}
+
+.onlineOnly {
+	display: flex;
+	align-items: flex-start;
+	gap: 8px;
+	margin: -8px 0 0;
+	color: var(--muted);
+	font-size: 0.83rem;
+	text-align: center;
+}
+
+.bookingSummary {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding: 44px;
+	color: #fff;
+	background: linear-gradient(145deg, var(--mzar-green), var(--mzar-green-deep));
+}
+
+.bookingSummary h3 {
+	margin: 6px 0 25px;
+	font-size: 1.75rem;
+	font-weight: 750;
+}
+
+.bookingSummary .summaryEyebrow {
+	color: #dfd0a0;
+}
+
+.summaryRow {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 20px;
+	padding: 15px 0;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.13);
+}
+
+.summaryRow > span {
+	color: rgba(255, 255, 255, 0.72);
+}
+
+.summaryRow strong {
+	text-align: end;
+}
+
+.summaryPrice {
+	display: flex;
+	align-items: end;
+	justify-content: space-between;
+	gap: 16px;
+	margin-top: 25px;
+}
+
+.summaryPrice > span {
+	color: rgba(255, 255, 255, 0.78);
+}
+
+.summaryPrice strong {
+	color: #eadcae;
+	font-size: 2.1rem;
+	line-height: 1;
+	white-space: nowrap;
+}
+
+.summaryPrice strong bdi {
+	font-size: 1.2em;
+}
+
+.summaryNote {
+	margin: 10px 0 25px;
+	color: rgba(255, 255, 255, 0.68);
+	font-size: 0.85rem;
+	text-align: end;
+}
+
+.onlineBadge {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 9px;
+	min-height: 46px;
+	padding: 10px 15px;
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	border-radius: 12px;
+	color: #f2e6bf;
+	background: rgba(255, 255, 255, 0.08);
+	font-weight: 700;
+}
+
+.stateCard {
+	display: flex;
+	min-height: 290px;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 12px;
+	padding: 34px;
+	border: 1px solid var(--line);
+	border-radius: 28px;
+	background: #fff;
+	box-shadow: 0 18px 50px rgba(32, 63, 49, 0.08);
+	text-align: center;
+}
+
+.stateCard h2 {
+	margin: 0;
+	color: var(--mzar-green-dark);
+	font-size: clamp(1.7rem, 3.5vw, 2.5rem);
+	font-weight: 800;
+}
+
+.stateCard p {
+	max-width: 600px;
+	margin: 0;
+	color: var(--muted);
+}
+
+.loadingCard {
+	color: var(--mzar-green);
+}
+
+.stateIcon {
+	display: grid;
+	place-items: center;
+	width: 58px;
+	height: 58px;
+	border-radius: 50%;
+	color: var(--mzar-green-dark);
+	background: #edf3ef;
+}
+
+.retryButton {
+	min-height: 46px;
+	margin-top: 7px;
+	padding: 0 22px;
+	border: 1px solid var(--mzar-green);
+	border-radius: 12px;
+	color: #fff;
+	background: var(--mzar-green);
+	font: inherit;
+	font-weight: 750;
+	cursor: pointer;
+}
+
+.retryButton:hover {
+	background: var(--mzar-green-dark);
+}
+
+.spin {
+	animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+	to { transform: rotate(360deg); }
+}
+
+@media (max-width: 950px) {
+	.bookingShell {
+		grid-template-columns: 1fr;
+	}
+
+	.bookingSummary {
+		order: -1;
+	}
+}
+
+@media (max-width: 620px) {
+	.bookingSection {
+		padding-bottom: 70px;
+	}
+
+	.bookingFormWrap,
+	.bookingSummary {
+		padding: 31px 22px;
+	}
+
+	.bookingHeading {
+		flex-direction: column;
+		gap: 12px;
+	}
+
+	.bookingSummary {
+		order: 1;
+	}
+
+	.quantityBlock {
+		align-items: flex-start;
+		flex-direction: column;
+	}
+
+	.quantityControl {
+		width: 100%;
+		justify-content: space-between;
+	}
+
+	.stateCard {
+		min-height: 250px;
+		padding: 28px 20px;
+		border-radius: 24px;
+	}
+}
