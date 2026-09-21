@@ -288,8 +288,11 @@ export default function Header() {
 						{/* Modal Body */}
 						<div className="p-6 flex flex-col gap-4">
 							{/* Option 1 */}
-							<button
-								type="button"
+							<a
+								href="https://wa.me/966580121025"
+								target="_blank"
+								rel="noopener noreferrer"
+								data-no-whatsapp-intercept
 								onClick={(e) => {
 									e.stopPropagation();
 									setIsWhatsModalOpen(false);
@@ -298,7 +301,6 @@ export default function Header() {
 										number: "966580121025",
 										source: "header_modal",
 									});
-									window.open("https://wa.me/966580121025", "_blank", "noopener,noreferrer");
 								}}
 								className="w-full flex items-center justify-between p-4 bg-[#F8F9FA] hover:bg-[#3C6652]/5 border border-gray-150 hover:border-[#3C6652] rounded-2xl transition-all duration-300 group hover:shadow-md cursor-pointer text-start"
 							>
@@ -322,11 +324,14 @@ export default function Header() {
 										<ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-white transition-all duration-300 transform group-hover:translate-x-1" />
 									)}
 								</div>
-							</button>
+							</a>
 
 							{/* Option 2 */}
-							<button
-								type="button"
+							<a
+								href="https://wa.me/966549177484"
+								target="_blank"
+								rel="noopener noreferrer"
+								data-no-whatsapp-intercept
 								onClick={(e) => {
 									e.stopPropagation();
 									setIsWhatsModalOpen(false);
@@ -335,7 +340,6 @@ export default function Header() {
 										number: "966549177484",
 										source: "header_modal",
 									});
-									window.open("https://wa.me/966549177484", "_blank", "noopener,noreferrer");
 								}}
 								className="w-full flex items-center justify-between p-4 bg-[#F8F9FA] hover:bg-[#3C6652]/5 border border-gray-150 hover:border-[#3C6652] rounded-2xl transition-all duration-300 group hover:shadow-md cursor-pointer text-start"
 							>
@@ -359,7 +363,7 @@ export default function Header() {
 										<ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-white transition-all duration-300 transform group-hover:translate-x-1" />
 									)}
 								</div>
-							</button>
+							</a>
 						</div>
 					</div>
 				</div>
