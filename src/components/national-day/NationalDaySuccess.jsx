@@ -191,11 +191,11 @@ export default function NationalDaySuccess({ content, lang }) {
 		setRetryCount((count) => count + 1);
 	};
 
-	const returnHref = `/${lang}/national-day#booking`;
+	const returnHref = `/${lang}/special-day#booking`;
 	const supportHref = `https://wa.me/966580121025?text=${encodeURIComponent(
 		lang === "ar"
-			? `أحتاج إلى مساعدة بشأن حجز اليوم الوطني. رقم العملية: ${transactionId || "غير متوفر"}. مرجع الطلب: ${session?.session?.cart_id || "غير متوفر"}.`
-			: `I need help with my National Day booking. Transaction: ${transactionId || "unavailable"}. Cart reference: ${session?.session?.cart_id || "unavailable"}.`,
+			? `أحتاج إلى مساعدة بشأن حجز العرض الخاص. رقم العملية: ${transactionId || "غير متوفر"}. مرجع الطلب: ${session?.session?.cart_id || "غير متوفر"}.`
+			: `I need help with my special offer booking. Transaction: ${transactionId || "unavailable"}. Cart reference: ${session?.session?.cart_id || "unavailable"}.`,
 	)}`;
 
 	const contentByView = {

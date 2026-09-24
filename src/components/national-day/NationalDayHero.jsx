@@ -10,10 +10,10 @@ export default function NationalDayHero({ content }) {
 		<section className={`${styles.hero} ${pageStyles.container}`} aria-labelledby="national-day-title">
 			<div className={styles.heroCard}>
 				<div className={styles.heroContent}>
-					<div className={styles.campaignLabel}>
+					{/* <div className={styles.campaignLabel}>
 						<span />
 						{hero.campaign}
-					</div>
+					</div> */}
 					<p className={styles.heroKicker}>{hero.kicker}</p>
 					<h1 id="national-day-title">{hero.title}</h1>
 					<p className={styles.heroLead}>{hero.lead}</p>
