@@ -6,7 +6,7 @@ import pageStyles from "@/components/national-day/NationalDayPage.module.css";
 export function generateMetadata() {
 	const isAr = getServerLocale() === "ar";
 	return {
-		title: isAr ? "تأكيد حجز اليوم الوطني | مزار" : "National Day Booking Status | Mzar",
+		title: isAr ? "تأكيد الحجز | مزار" : "Booking Status | Mzar",
 		robots: { index: false, follow: false },
 	};
 }

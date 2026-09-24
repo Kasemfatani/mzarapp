@@ -267,7 +267,7 @@ export default function NationalDayBooking({ content, lang }) {
 					<aside className={styles.bookingSummary} aria-label={lang === "ar" ? "ملخص الحجز" : "Booking summary"}>
 						<span className={styles.summaryEyebrow}>{booking.eyebrow}</span>
 						<h3>{lang === "ar" ? "جولة المسجد الحرام" : "Grand Mosque Tour"}</h3>
-						<div className={styles.summaryRow}><span>{lang === "ar" ? "التاريخ" : "Date"}</span><strong>{lang === "ar" ? "23 سبتمبر 2026" : "September 23, 2026"}</strong></div>
+						<div className={styles.summaryRow}><span>{lang === "ar" ? "التاريخ" : "Date"}</span><strong>{lang === "ar" ? "30 سبتمبر 2026" : "September 30, 2026"}</strong></div>
 						<div className={styles.summaryRow}><span>{lang === "ar" ? "الوقت" : "Time"}</span><strong>{lang === "ar" ? "9:00 مساءً" : "9:00 PM"}</strong></div>
 						<div className={styles.summaryRow}><span>{booking.quantity}</span><strong>{quantity}</strong></div>
 						<div className={styles.summaryPrice}>

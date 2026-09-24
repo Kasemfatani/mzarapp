@@ -111,7 +111,7 @@ export async function POST(request) {
 	}
 
 	const successPath = `/${input.lang}/national-day-success?cart_id=${encodeURIComponent(session.cart_id)}`;
-	const failPath = `/${input.lang}/national-day#booking`;
+	const failPath = `/${input.lang}/special-day#booking`;
 	const returnUrl = new URL("/api/pay/clickpay/callback", appBaseUrl);
 	returnUrl.searchParams.set("successPath", successPath);
 	returnUrl.searchParams.set("failPath", failPath);
@@ -128,14 +128,14 @@ export async function POST(request) {
 		tran_type: "sale",
 		tran_class: "ecom",
 		cart_id: session.cart_id,
-		cart_description: "Saudi National Day Grand Mosque Tour",
+		cart_description: "Special Grand Mosque Tour",
 		cart_currency: "SAR",
 		cart_amount: session.amount,
 		return: returnUrl.toString(),
 		...(callbackUrl ? { callback: callbackUrl } : {}),
 		customer_details: {
 			name: "",
-			email: "national-day-booking@mzarapp.com",
+			email: "special-day-booking@mzarapp.com",
 			phone: `${session.whatsapp_country_code}${session.whatsapp}`,
 			city: "Makkah",
 			street1: "Makkah",
@@ -165,7 +165,7 @@ export async function POST(request) {
 			status: error?.response?.status,
 		});
 		return NextResponse.json(
-			{ error: "Failed to initialize National Day payment" },
+			{ error: "Failed to initialize special offer payment" },
 			{ status: error?.response?.status >= 400 ? error.response.status : 502 },
 		);
 	}
