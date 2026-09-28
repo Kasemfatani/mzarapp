@@ -1,4 +1,4 @@
-export const NATIONAL_DAY_TARGET = "2026-09-30T21:00:00+03:00";
+export const NATIONAL_DAY_TARGET = "2026-10-03T21:00:00+03:00";
 export const NATIONAL_DAY_VIDEO_ID = "35jgYVv8knU";
 
 export function getNationalDayContent(isAr) {
@@ -20,7 +20,7 @@ export function getNationalDayContent(isAr) {
 			},
 			factsAria: "تفاصيل موعد الجولة",
 			facts: [
-				{ label: "التاريخ", value: "30 سبتمبر 2026" },
+				{ label: "التاريخ", value: "3 أكتوبر 2026" },
 				{ label: "وقت الانطلاق", value: "9:00 مساءً" },
 				{ label: "مدة الجولة", value: "90 دقيقة" },
 				{ label: "الحجز", value: "قبل الموعد بـ24 ساعة" },
@@ -61,7 +61,7 @@ export function getNationalDayContent(isAr) {
 				title: "كل ما تحتاج معرفته",
 				items: [
 					["المناسبة", "خصم خاص", "🏷️"],
-					["التاريخ", "30 سبتمبر 2026", "📅"],
+					["التاريخ", "3 أكتوبر 2026", "📅"],
 					["موعد الجولة", "9:00 مساءً", "🕘"],
 					["مدة التجربة", "ساعة ونصف — 90 دقيقة", "⏱️"],
 					["السعر الخاص", "96 ريالًا للشخص", "💳"],
@@ -91,7 +91,7 @@ export function getNationalDayContent(isAr) {
 					["هل أحتاج إلى الحجز مع مجموعة؟", "لا. في هذا العرض يمكنك حجز مقعد واحد والانضمام إلى الجولة، أو إضافة مرافقين إلى الحجز نفسه. أما الحجز الاعتيادي للجولة فيبدأ من 4 أشخاص."],
 					["كم تستغرق الجولة؟", "مدة الجولة ساعة ونصف، أي 90 دقيقة."],
 					["كم سعر المقعد؟", "السعر الخاص للجولة هو 96 ريالًا فقط للشخص بدلًا من 199 ريالًا."],
-					["متى تقام الجولة؟", "يوم 30 سبتمبر 2026، الساعة 9:00 مساءً."],
+					["متى تقام الجولة؟", "يوم 3 أكتوبر 2026، الساعة 9:00 مساءً."],
 					["هل يمكنني الحجز في نفس يوم الجولة؟", "يجب إتمام الحجز قبل موعد الجولة بـ24 ساعة على الأقل، لذلك ننصح بعدم تأجيل الحجز."],
 					["هل المقاعد محدودة؟", "نعم، عدد المقاعد المتاحة محدود، ويتوقف قبول الحجوزات عند اكتمالها."],
 				],
@@ -180,7 +180,7 @@ export function getNationalDayContent(isAr) {
 		},
 		factsAria: "Tour date details",
 		facts: [
-			{ label: "Date", value: "September 30, 2026" },
+			{ label: "Date", value: "October 3, 2026" },
 			{ label: "Start time", value: "9:00 PM" },
 			{ label: "Tour duration", value: "90 minutes" },
 			{ label: "Booking", value: "At least 24 hours before" },
@@ -221,7 +221,7 @@ export function getNationalDayContent(isAr) {
 			title: "Everything you need to know",
 			items: [
 				["Occasion", "Special Discount", "🏷️"],
-				["Date", "September 30, 2026", "📅"],
+				["Date", "October 3, 2026", "📅"],
 				["Tour time", "9:00 PM", "🕘"],
 				["Experience duration", "One and a half hours — 90 minutes", "⏱️"],
 				["Special price", "SAR 96 per person", "💳"],
@@ -251,7 +251,7 @@ export function getNationalDayContent(isAr) {
 				["Do I need to book with a group?", "No. With this offer, you can reserve one seat and join the tour, or add companions to the same booking. Regular tour bookings start at four people."],
 				["How long does the tour take?", "The tour takes one and a half hours, or 90 minutes."],
 				["How much does a seat cost?", "The special tour price is SAR 96 per person instead of SAR 199."],
-				["When does the tour take place?", "September 30, 2026, at 9:00 PM."],
+				["When does the tour take place?", "October 3, 2026, at 9:00 PM."],
 				["Can I book on the same day as the tour?", "You must complete your booking at least 24 hours before the tour, so we recommend booking early."],
 				["Are seats limited?", "Yes. The number of available seats is limited, and bookings close when capacity is reached."],
 			],
