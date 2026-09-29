@@ -75,15 +75,17 @@ export default function SpecialDayPage() {
 			<main>
 				<NationalDayHero content={content} />
 				<NationalDayFacts content={content} />
+				<br />
+				<NationalDayCountdown content={content} targetDate={NATIONAL_DAY_TARGET} />
 				<NationalDayStory content={content} />
 				{/* The station section intentionally comes before the general details section. */}
 				<NationalDayStations content={content} />
 				<NationalDayDetails content={content} />
 				<NationalDayVideo content={content} videoId={NATIONAL_DAY_VIDEO_ID} />
-				<NationalDayCountdown content={content} targetDate={NATIONAL_DAY_TARGET} />
+				
 				<NationalDayFaq content={content} />
 				<NationalDayBooking content={content} lang={lang} />
-				{/* <NationalDayFinalCta content={content} /> */}
+				<NationalDayFinalCta content={content} />
 			</main>
 		</div>
 	);
