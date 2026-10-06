@@ -181,7 +181,7 @@ export default function TransportationPage() {
       <TransportAddonsSection lang={lang} />
       <TransportFinalCta lang={lang} />
       <TransportFaqSection lang={lang} />
-      <WhatsAppBookingRedirect />
+      {/* <WhatsAppBookingRedirect /> */}
     </div>
   );
 }

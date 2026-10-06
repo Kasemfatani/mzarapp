@@ -73,7 +73,7 @@ export default async function TourPage() {
 
 	return (
 		<div className={lang === "en" ? "ltr" : "rtl"}>
-			<WhatsAppBookingRedirect />
+			{/* <WhatsAppBookingRedirect /> */}
 			<HeroWithInfo lang={lang} data={data} isSaudi={isSaudi} />
 			<SummaryCard lang={lang} data={data} />
 			{/* <HighlightsSection lang={lang} data={data} />

@@ -122,7 +122,7 @@ export default async function Page({ params }) {
 		<>
 			{/*  Sync lang to localStorage / <html> on the client */}
 			<SyncLangFromSlug lang={lang} />
-			<WhatsAppBookingRedirect />
+			{/* <WhatsAppBookingRedirect /> */}
 
 			{jsonLdString ? (
 				<script
