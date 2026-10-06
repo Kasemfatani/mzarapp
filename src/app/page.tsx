@@ -188,7 +188,7 @@ export default async function TourPage() {
 			/>
 
 			<HeroSection lang={lang} />
-			<WhatsAppBookingRedirect />
+			{/* <WhatsAppBookingRedirect /> */}
 			<MzarServicesSection lang={lang} />
 			<FeaturedToursSection lang={lang} topData={topData} isSaudi={isSaudi} />
 			<AudioGuideSection lang={lang} />

@@ -154,7 +154,7 @@ export default async function UmrahPackageDetailPage({ params }) {
         packagesList={allPackages}
       />
       <UmrahPackageMobileBottomBar lang={lang} packageData={packageData} />
-      <WhatsAppBookingRedirect />
+      {/* <WhatsAppBookingRedirect /> */}
     </div>
   );
 }

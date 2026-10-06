@@ -144,7 +144,7 @@ export default function HolySanctuariesToursPage() {
       <SanctuaryExperienceSteps lang={lang} />
       <SanctuaryWhyMzarSection lang={lang} />
       <SanctuaryDualCta lang={lang} />
-      <WhatsAppBookingRedirect />
+      {/* <WhatsAppBookingRedirect /> */}
     </div>
   );
 }

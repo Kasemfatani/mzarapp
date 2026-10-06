@@ -117,7 +117,7 @@ export default async function TourPage({ params }) {
 		<div className={lang === "en" ? "ltr" : "rtl"}>
 			{/* Save promo_code (if present) to localStorage on client */}
 			{data.id === 88 && <HaramPromoSaver />}
-			<WhatsAppBookingRedirect />
+			{/* <WhatsAppBookingRedirect /> */}
 			<HeroWithInfo lang={lang} data={data} isSaudi={isSaudi} />
 			<SummaryCard lang={lang} data={data} />
 			{/* <HighlightsSection lang={lang} data={data} />

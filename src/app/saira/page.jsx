@@ -65,7 +65,7 @@ export default async function UmrahPage() {
 			<UmrahFaqSection />
 			<UmrahFinalCtaSection />
 			<UmrahFooterSection />
-			<WhatsAppBookingRedirect />
+			{/* <WhatsAppBookingRedirect /> */}
 		</div>
 	);
 }

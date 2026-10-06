@@ -129,7 +129,7 @@ export default async function UmrahPackagesPage() {
       <UmrahPackagesDiffExplainer lang={lang} />
       <UmrahPackagesInclusions lang={lang} />
       <UmrahPackagesCta lang={lang} />
-      <WhatsAppBookingRedirect />
+      {/* <WhatsAppBookingRedirect /> */}
     </div>
   );
 }
