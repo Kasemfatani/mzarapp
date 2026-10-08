@@ -2,7 +2,10 @@
 import { useState, useEffect } from "react";
 import { API_BASE_URL_NEW } from "@/lib/apiConfig";
 import Loading from "@/app/loading";
-import { set } from "date-fns";
+
+
+// Temporary restriction: remove ID 13 from this set when the gift becomes available.
+const TEMPORARILY_UNAVAILABLE_GIFT_IDS = new Set(["13"]);
 
 export default function GiftSelectionStep({
 	lang = "ar",
@@ -58,13 +61,15 @@ export default function GiftSelectionStep({
 		};
 
 		fetchItems();
+		
+		
 		return () => {
 			cancelled = true;
 		};
 	}, []);
 
 	const submitSelection = async () => {
-		if (!selected) {
+		if (!selected || TEMPORARILY_UNAVAILABLE_GIFT_IDS.has(String(selected))) {
 			setError(t.pickOne);
 			return;
 		}
@@ -117,6 +122,8 @@ export default function GiftSelectionStep({
 		}
 	};
 
+	console.log(items);
+
 	return (
 		<section className=" container mx-auto w-full relative z-10 bg-white p-3 rounded-2xl shadow-2xl py-6 -mt-[18px] md:-mt-[120px] mb-12 md:mb-16">
 			<div className=" px-4 py-2 text-white">
@@ -141,60 +148,51 @@ export default function GiftSelectionStep({
 					<div className="mb-4 text-black text-center">{t.loadFailed}</div>
 				) : (
 					<div className="flex flex-wrap justify-center gap-6">
-						{items.map((item) => (
-							<label
-								key={item.id}
-								onClick={() => {
-									setSelected(item.id);
-									setGiftName(item.name);
-									setGiftDescription(item.description);
-									setTypeId(item.type_id);
-								}}
-								onKeyDown={(e) => {
-									if (e.key === "Enter" || e.key === " ") {
-										e.preventDefault();
+						{items.map((item) => {
+							const isUnavailable = TEMPORARILY_UNAVAILABLE_GIFT_IDS.has(String(item.id));
+							return (
+								<label
+									key={item.id}
+									onClick={() => {
+										if (isUnavailable) return;
 										setSelected(item.id);
 										setGiftName(item.name);
 										setGiftDescription(item.description);
 										setTypeId(item.type_id);
-									}
-								}}
-								tabIndex={0}
-								role="radio"
-								aria-checked={selected === item.id}
-								className="w-full md:w-1/3 max-w-[380px] bg-white shadow-2xl rounded-2xl overflow-hidden border border-white/20 cursor-pointer hover:bg-white/15 transition select-none focus:outline-none focus:ring-2 focus:ring-[var(--main-color)]"
-							>
-								<div className="h-auto w-full relative">
-									<img
-										src={item.image || "/hotel/Hero2.webp"}
-										alt={item.name || ""}
-										className="w-full h-full object-cover"
-									/>
-									{item.category && (
-										<span className="absolute top-3 left-3 bg-white/80 text-xs px-2 py-1 rounded-md font-semibold text-black">
-											{item.category}
-										</span>
-									)}
-								</div>
-								<div className="py-8 px-4 flex items-center gap-4">
-									<input
-										type="radio"
-										name="gift"
-										checked={selected === item.id}
-										onChange={() => {
+									}}
+									onKeyDown={(e) => {
+										if (isUnavailable) return;
+										if (e.key === "Enter" || e.key === " ") {
+											e.preventDefault();
 											setSelected(item.id);
+											setGiftName(item.name);
+											setGiftDescription(item.description);
 											setTypeId(item.type_id);
-										}}
-										className="w-5 h-5 accent-[var(--main-color)]"
-										aria-hidden="true"
-									/>
-									<span className="font-semibold text-black">{item.name}</span>
-								</div>
-								<p className=" border-t text-black py-8 px-4">
-									{item.description}
-								</p>
-							</label>
-						))}
+										}
+									}}
+									tabIndex={isUnavailable ? -1 : 0}
+									role="radio"
+									aria-checked={selected === item.id}
+									aria-disabled={isUnavailable}
+									className={`w-full md:w-1/3 max-w-[380px] bg-white shadow-2xl rounded-2xl overflow-hidden border border-white/20 transition select-none focus:outline-none focus:ring-2 focus:ring-[var(--main-color)] ${isUnavailable ? "cursor-not-allowed opacity-60 grayscale" : "cursor-pointer hover:bg-white/15"}`}
+								>
+									<div className="h-auto w-full relative">
+										<img src={item.image || "/hotel/Hero2.webp"} alt={item.name || ""} className="w-full h-full object-cover" />
+										{item.category && <span className="absolute top-3 left-3 bg-white/80 text-xs px-2 py-1 rounded-md font-semibold text-black">{item.category}</span>}
+										{isUnavailable && (
+											<span className="absolute top-3 right-3 bg-gray-900/80 text-xs px-2 py-1 rounded-md font-semibold text-white">
+												{isAr ? "غير متاحة" : "Not available"}
+											</span>
+										)}
+									</div>
+									<div className="py-8 px-4 flex items-center gap-4">
+										<input type="radio" name="gift" checked={selected === item.id} disabled={isUnavailable} onChange={() => { if (isUnavailable) return; setSelected(item.id); setTypeId(item.type_id); }} className="w-5 h-5 accent-[var(--main-color)]" aria-hidden="true" />
+										<span className="font-semibold text-black">{item.name}</span>
+									</div>
+									<p className="border-t text-black py-8 px-4">{item.description}</p>
+								</label>
+							);
+						})}
 					</div>
 				)}
 
