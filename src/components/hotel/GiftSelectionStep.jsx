@@ -5,7 +5,7 @@ import Loading from "@/app/loading";
 
 
 // Temporary restriction: remove ID 13 from this set when the gift becomes available.
-const TEMPORARILY_UNAVAILABLE_GIFT_IDS = new Set(["13"]);
+const TEMPORARILY_UNAVAILABLE_GIFT_IDS = new Set([]);
 
 export default function GiftSelectionStep({
 	lang = "ar",
