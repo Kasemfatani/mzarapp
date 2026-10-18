@@ -34,7 +34,7 @@ export function BusTripPriceSummary({
 				)}
 				{paymentMethod === "cash" && (
 					<div className={styles.cashFeeLine}>
-						<span>{isAr ? "رسوم نقدية — مرة واحدة" : "Cash fee — once per booking"}</span>
+						<span>{isAr ? "رسوم الدفع النقدي" : "Cash payment fee"}</span>
 						<strong>+ {price(BUS_CASH_FEE_SAR)}</strong>
 					</div>
 				)}
