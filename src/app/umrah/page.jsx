@@ -13,7 +13,7 @@ import UmrahFinalCtaSection from "@/components/umrah/UmrahFinalCtaSection";
 import UmrahFooterSection from "@/components/umrah/UmrahFooterSection";
 import UmrahSectionReveal from "@/components/umrah/UmrahSectionReveal";
 import WhatsAppBookingRedirect from "@/components/common/WhatsAppBookingRedirect";
-import { Cormorant_Garamond, DM_Sans, Noto_Naskh_Arabic } from "next/font/google";
+import { Cormorant_Garamond, DM_Sans, Noto_Naskh_Arabic } from "@/lib/umrahFonts";
 
 const dmSans = DM_Sans({
 	subsets: ["latin"],

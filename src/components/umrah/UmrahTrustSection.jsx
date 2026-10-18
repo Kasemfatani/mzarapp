@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { Cormorant_Garamond, DM_Sans } from "next/font/google";
+import { Cormorant_Garamond, DM_Sans } from "@/lib/umrahFonts";
 import Flag from "react-world-flags";
 
 const cormorant = Cormorant_Garamond({
