@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { TripSummaryCard } from "@/components/book-components/TripSummaryCard";
 import { BookingForm } from "@/components/book-components/BookingForm";
 import { PriceCalculationBox } from "@/components/book-components/PriceCalculationBox";
@@ -22,6 +22,8 @@ import { handleInvalidForm } from "@/lib/formUtils";
 import { format, addDays, startOfToday } from "date-fns";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
 import PromoCodeSection from "@/components/book-path-new/PromoCodeSection";
+import BusTripBookingCard from "@/components/trip-detail/bus/BusTripBookingCard";
+import { BUS_CASH_FEE_SAR, getBusAdultGroup, getBusTripQuote } from "@/components/trip-detail/bus/busTripPricing";
 
 const STORAGE_KEY = "bookTour.selection";
 
@@ -91,7 +93,13 @@ export default function BookTourPage({
 	lang,
 	isSaudi = true,
 	countryCode = "SA",
+	variant = "default",
+	selectedDeparture = "morning",
+	onDepartureChange,
 }) {
+	const isSidebar = variant === "sidebar";
+	const agePrices = busData?.group_age_prices || [];
+	const adultGroup = getBusAdultGroup(agePrices);
 	const [leftSeats, setLeftSeats] = useState(null);
 	const [loading, setLoading] = useState(false);
 	const [disabledDays, setDisabledDays] = useState([0, 1, 2, 3, 4, 5, 6]);
@@ -101,6 +109,12 @@ export default function BookTourPage({
 	const [promoCode, setPromoCode] = useState("");
 	const [promoApplied, setPromoApplied] = useState(false);
 	const [promoDiscountPercent, setPromoDiscountPercent] = useState(0);
+	const [paymentMethod, setPaymentMethod] = useState("online");
+	const clearBusPromo = useCallback(() => {
+		setPromoCode("");
+		setPromoApplied(false);
+		setPromoDiscountPercent(0);
+	}, []);
 
 	const [isPartOneSubmitted, setIsPartOneSubmitted] = useState(false);
 
@@ -153,15 +167,20 @@ export default function BookTourPage({
 	const today = startOfToday();
 	const defaultDate = addDays(today, 1);
 
-	// seed group counts: default 1 adult, others 0
+	// The bus detail page charges adults only; under-12 child counts stay out of this flow.
 	const seedCounts =
 		(busData?.group_age_prices || []).map((g, idx) => ({
 			id: g.id,
-			quantity: idx === 0 ? 1 : 0,
+			quantity: isSidebar
+				? String(g.id) === String(adultGroup?.id) ? 1 : 0
+				: idx === 0 ? 1 : 0,
 		})) || [];
 
 	const form = useForm({
-		resolver: zodResolver(getSchema(lang || "en", leftSeats ?? 20)),
+		resolver: zodResolver(getSchema(
+			lang || "en",
+			isSidebar ? Number(leftSeats ?? busData?.max_people_count ?? 45) : leftSeats ?? 20,
+		)),
 		defaultValues: {
 			date: undefined,
 			time: undefined,
@@ -177,6 +196,14 @@ export default function BookTourPage({
 		shouldFocusError: false,
 		mode: "onSubmit",
 	});
+
+	useEffect(() => {
+		if (!isSidebar || form.getValues("meetingPoint")) return;
+		const points = busData?.gathering_points || [];
+		if (points.length === 1) {
+			form.setValue("meetingPoint", { id: points[0].id, name: points[0].name });
+		}
+	}, [form, isSidebar, busData]);
 
 	// keep people = sum(group_age_counts)
 	useEffect(() => {
@@ -285,10 +312,23 @@ export default function BookTourPage({
 	const onConfirm = (method) =>
 		form.handleSubmit(
 			async (values) => {
+				const submittedAgeCounts = isSidebar
+					? (values.group_age_counts || [])
+							.filter((row) => String(row.id) === String(adultGroup?.id))
+							.map((row) => ({ ...row, quantity: Number(row.quantity || 0) }))
+					: values.group_age_counts || [];
+				const bookingValues = isSidebar
+					? {
+							...values,
+							people: submittedAgeCounts.reduce((sum, row) => sum + row.quantity, 0),
+							group_age_counts: submittedAgeCounts,
+						}
+					: values;
+
 				// prevent booking when requested people > available seats
 				if (
 					typeof leftSeats === "number" &&
-					Number(values.people || 0) > Number(leftSeats)
+					Number(bookingValues.people || 0) > Number(leftSeats)
 				) {
 					toast.error(
 						lang === "ar"
@@ -306,9 +346,12 @@ export default function BookTourPage({
 						meetingPoint: values.meetingPoint,
 						lang,
 						bus_id: busData?.id,
-						people: values.people,
+						people: bookingValues.people,
+						paymentMethod: method,
+						cashFeeSAR: isSidebar && method === "cash" ? BUS_CASH_FEE_SAR : 0,
+						pricingMode: isSidebar ? "trip-96-reference" : "legacy",
 						// store age counts
-						group_age_counts: values.group_age_counts,
+						group_age_counts: bookingValues.group_age_counts,
 					};
 					localStorage.setItem(STORAGE_KEY, JSON.stringify(selection));
 
@@ -326,9 +369,34 @@ export default function BookTourPage({
 						? whatsappParsed.countryCallingCode
 						: "";
 
+					if (isSidebar) {
+						const customerResponse = await fetch(
+							`${API_BASE_URL_NEW}/landing/customer/add`,
+							{
+								method: "POST",
+								headers: { "Content-Type": "application/json", lang: lang || "en" },
+								body: JSON.stringify({
+									name: bookingValues.name,
+									whatsapp,
+									whatsapp_country_code,
+									package_id: busData?.id,
+								}),
+							},
+						);
+						const customerResult = await customerResponse.json();
+						if (!customerResponse.ok || !customerResult?.status) {
+							throw new Error(
+								customerResult?.message ||
+									(lang === "ar"
+										? "تعذر حفظ معلومات الحجز"
+										: "Could not save your booking details."),
+							);
+						}
+					}
+
 					// Build booking payload (+ group_age_counts)
 					const payload = {
-						name: values.name,
+						name: bookingValues.name,
 						phone: null,
 						whatsapp,
 						phone_country_code: null,
@@ -339,10 +407,10 @@ export default function BookTourPage({
 						gathering_point_id: Number(selection.meetingPoint?.id),
 						people_count: selection.people,
 						payment_method: method === "cash" ? "cash" : "online",
-						country_id: values.country_id, // send selected country id
+						...(!isSidebar ? { country_id: values.country_id } : {}),
 
 						promo_code: promoCode ? promoCode : null,
-						group_age_counts: (values.group_age_counts || []).map((r) => ({
+						group_age_counts: bookingValues.group_age_counts.map((r) => ({
 							id: Number(r.id),
 							quantity: Number(r.quantity || 0),
 						})),
@@ -383,14 +451,15 @@ export default function BookTourPage({
 							cart_id: cartId,
 							ticket,
 							// customer_email: values.email,
-							customer_name: values.name,
+							customer_name: bookingValues.name,
 							customer_whatsapp: whatsapp_country_code + whatsapp,
 						}),
 					);
 
-					// Payment amount: sum(group price * qty)
+					// Payment amount: keep the legacy calculation for standalone booking pages;
+					// the integrated trip-96 page uses its tax-inclusive quote and cash fee.
 					const prices = busData?.group_age_prices || [];
-					const counts = values.group_age_counts || [];
+					const counts = bookingValues.group_age_counts || [];
 					const base = counts.reduce((sum, r) => {
 						const gp = prices.find((p) => p.id === r.id);
 						return sum + Number(gp?.price || 0) * Number(r.quantity || 0);
@@ -402,44 +471,31 @@ export default function BookTourPage({
 					);
 					const totalBeforeTax = Number((base - discountAmount).toFixed(2));
 
-					// --- Standard Cash Calculation ---
-					// tax applied after discount
 					const taxRate = Number(busData?.tax ?? 0);
-					const taxAmount = Number((taxRate * totalBeforeTax).toFixed(2));
-					// Initial Total (Cash)
-					let finalTotal = Number((totalBeforeTax + taxAmount).toFixed(2));
-
-					// Apply 5% discount if paying online (Calculated on Base)
-					if (method === "online") {
-						// 1. Calculate 5% discount on the Original Base
-						const onlineDiscount = Number((base * 0.05).toFixed(2));
-
-						// 2. New Taxable Base = Base - PromoDiscount - OnlineDiscount
-						const onlineTaxable = Number(
-							(base - discountAmount - onlineDiscount).toFixed(2),
-						);
-
-						// 3. New Tax
-						const onlineTax = Number((taxRate * onlineTaxable).toFixed(2));
-
-						// 4. New Total
-						finalTotal = Number((onlineTaxable + onlineTax).toFixed(2));
-
-						console.log(
-							"Applying 5% Online Discount (On Base).",
-							"Base:",
-							base,
-							"Online Discount (5%):",
-							onlineDiscount,
-							"Promo Discount:",
-							discountAmount,
-							"New Taxable:",
-							onlineTaxable,
-							"New Tax:",
-							onlineTax,
-							"New Final Total:",
-							finalTotal,
-						);
+					let taxAmount;
+					let finalTotal;
+					let cashFeeSAR = 0;
+					if (isSidebar) {
+						const quote = getBusTripQuote({
+							adultUnitPrice: adultGroup?.price,
+							adultCount: bookingValues.people,
+							taxRate,
+							promoDiscountPercent,
+							paymentMethod: method,
+						});
+						taxAmount = quote.taxSAR;
+						finalTotal = quote.totalSAR;
+						cashFeeSAR = quote.cashFeeSAR;
+					} else {
+						// Existing standalone booking pages retain their original tax and payment rules.
+						taxAmount = Number((taxRate * totalBeforeTax).toFixed(2));
+						finalTotal = Number((totalBeforeTax + taxAmount).toFixed(2));
+						if (method === "online") {
+							const onlineDiscount = Number((base * 0.05).toFixed(2));
+							const onlineTaxable = Number((base - discountAmount - onlineDiscount).toFixed(2));
+							const onlineTax = Number((taxRate * onlineTaxable).toFixed(2));
+							finalTotal = Number((onlineTaxable + onlineTax).toFixed(2));
+						}
 					}
 
 					// persist useful info for success page analytics / debugging
@@ -456,6 +512,9 @@ export default function BookTourPage({
 								finalTotal,
 								promoCode: promoCode || storedPrev.promoCode || "",
 								tax: taxAmount,
+								paymentMethod: method,
+								cashFeeSAR,
+								pricingMode: isSidebar ? "trip-96-reference" : "legacy",
 								people: selection.people || storedPrev.people || 1,
 							}),
 						);
@@ -550,10 +609,46 @@ export default function BookTourPage({
 		if (typeof window !== "undefined") window.history.back();
 	};
 
-	if (loading || !busData) return <Loading />;
+	if ((!isSidebar && loading) || !busData) return <Loading />;
 
 	const people = form.watch("people") || 1;
 	const groupCounts = form.watch("group_age_counts") || [];
+
+	if (isSidebar) {
+		return (
+			<BusTripBookingCard
+				busData={busData}
+				lang={lang}
+				form={form}
+				countryCode={countryCode}
+				times={dayTimes}
+				gatheringPoints={busData.gathering_points || []}
+				leftSeats={leftSeats}
+				tax={typeof busData.tax === "number" ? busData.tax : 0}
+				maxDate={busData.last_date}
+				maxPeopleCount={busData.max_people_count}
+				adultGroup={adultGroup}
+				selectedDeparture={selectedDeparture}
+				onDepartureChange={onDepartureChange}
+				adultQuantity={Number(groupCounts.find((row) => String(row.id) === String(adultGroup?.id))?.quantity || 0)}
+				promoCode={promoCode}
+				promoDiscountPercent={promoDiscountPercent}
+				paymentMethod={paymentMethod}
+				onPromoApplied={({ code, discountPercent }) => {
+					setPromoCode(code);
+					setPromoApplied(true);
+					setPromoDiscountPercent(Number(discountPercent || 0));
+				}}
+				onPromoCleared={clearBusPromo}
+				onPaymentMethodChange={(method) => {
+					setPaymentMethod(method);
+					clearBusPromo();
+				}}
+				onSubmitBooking={onConfirm(paymentMethod)}
+				loading={loading}
+			/>
+		);
+	}
 
 	return (
 		<div className={lang === "en" ? "ltr" : "rtl"}>

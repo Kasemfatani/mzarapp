@@ -16,7 +16,7 @@ export default function HomeBottomCtaSection({ lang = "ar" }) {
   const stats = [
     {
       icon: <Users className="w-6 h-6" />,
-      number: "+10,000",
+      number: "+25,000",
       label: isAr ? "زائر سعيد" : "Happy Visitors",
     },
     {

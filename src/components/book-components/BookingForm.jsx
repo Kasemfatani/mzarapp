@@ -63,6 +63,7 @@ export function BookingForm({
 	tax = 0,
 	isSaudi = true,
 	maxDate = addDays(new Date(), 14),
+	compact = false,
 }) {
 	// auto-select nearest gathering point (if user hasn't picked one)
 	// useEffect(() => {
@@ -242,12 +243,12 @@ export function BookingForm({
 	// --- END NEW ---
 
 	return (
-		<div className="bg-white rounded-[20px] shadow-[0px_20px_25px_-5px_rgba(0,0,0,0.1)] border-[0.8px] border-[rgba(243,244,246,0.6)] w-full">
-			<div className="p-8 flex flex-col gap-6">
+		<div className={compact ? "w-full" : "bg-white rounded-[20px] shadow-[0px_20px_25px_-5px_rgba(0,0,0,0.1)] border-[0.8px] border-[rgba(243,244,246,0.6)] w-full"}>
+			<div className={compact ? "flex flex-col gap-4" : "p-8 flex flex-col gap-6"}>
 				{/* Header */}
-				<div className="flex flex-col md:flex-row items-center justify-between w-full gap-2">
+				<div className={compact ? "flex w-full flex-col items-start justify-between gap-2" : "flex flex-col md:flex-row items-center justify-between w-full gap-2"}>
 					<div className="flex flex-col">
-						<h3 className="text-[#3c6652] text-[30px] tracking-[-0.45px]">
+						<h3 className={compact ? "text-lg font-semibold tracking-[-0.2px] text-[#3c6652]" : "text-[#3c6652] text-[30px] tracking-[-0.45px]"}>
 							{isAr ? "اختر موعد رحلتك" : "Choose Your Trip Date"}{" "}
 						</h3>
 						<p className="text-[#4a5565]">
@@ -256,15 +257,15 @@ export function BookingForm({
 								: "Select the date and time that suits you"}{" "}
 						</p>
 					</div>
-					<div className="bg-[rgba(231,211,175,0.2)] border-[0.8px] border-[#e7d3af] rounded-full px-2 py-2">
+					{!compact && <div className="bg-[rgba(231,211,175,0.2)] border-[0.8px] border-[#e7d3af] rounded-full px-2 py-2">
 						<p className="text-[#867957]">
 							{isAr ? "خطوة 2 من  2" : "Step 2 of 2"}
 						</p>
-					</div>
+					</div>}
 				</div>
 
 				<Form {...form}>
-					<form className="flex flex-col gap-6">
+					<form className={compact ? "flex flex-col gap-4" : "flex flex-col gap-6"}>
 						{/* Meeting Point Selection */}
 						<div className="flex flex-col gap-2">
 							<div className="flex items-center gap-3">
@@ -281,7 +282,7 @@ export function BookingForm({
 								id="meetingPoint"
 								render={({ field }) => (
 									<FormItem>
-										<div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+										<div className={compact ? "grid grid-cols-1 gap-2" : "grid grid-cols-1 md:grid-cols-2 gap-2"}>
 											{gatheringPoints.map((point) => {
 												const active = field.value?.id === point.id;
 												return (
@@ -300,8 +301,8 @@ export function BookingForm({
 																shouldValidate: false,
 															});
 														}}
-														className={cn(
-															"bg-white rounded-[10px] px-6 py-4 flex items-center justify-between cursor-pointer transition-all",
+													className={cn(
+														compact ? "flex cursor-pointer items-center justify-between rounded-[10px] bg-white px-3 py-3 transition-all" : "bg-white rounded-[10px] px-6 py-4 flex items-center justify-between cursor-pointer transition-all",
 															active
 																? "border-2 border-[#3c6652] bg-[#fffff5]"
 																: "border border-[rgba(4,67,67,0.32)] hover:border-[#867957]",
@@ -323,7 +324,7 @@ export function BookingForm({
 																target="_blank"
 																rel="noopener noreferrer"
 																onClick={(e) => e.stopPropagation()}
-																className="bg-[#3c6652] text-white rounded-[15px] px-4 py-2 hover:bg-[#2d4d3d] transition-colors text-sm"
+														className={compact ? "rounded-lg bg-[#3c6652] px-2 py-1.5 text-xs text-white transition-colors hover:bg-[#2d4d3d]" : "bg-[#3c6652] text-white rounded-[15px] px-4 py-2 hover:bg-[#2d4d3d] transition-colors text-sm"}
 															>
 																{isAr ? "عرض الموقع" : "View location"}
 															</a>
@@ -363,7 +364,7 @@ export function BookingForm({
 									<FormItem>
 										<div
 											id="time"
-											className="flex flex-col sm:flex-row md:items-stretch justify-between gap-4"
+												className={compact ? "flex flex-col justify-between gap-2" : "flex flex-col sm:flex-row md:items-stretch justify-between gap-4"}
 										>
 											{/* if there are no times for that day at all */}
 											{(times || []).length === 0 && (
@@ -441,7 +442,7 @@ export function BookingForm({
 									return (
 										<div
 											key={g.id}
-											className="flex flex-col md:flex-row items-center justify-between gap-2 py-3 px-4"
+											className={compact ? "flex flex-row items-center justify-between gap-2 px-3 py-2" : "flex flex-col md:flex-row items-center justify-between gap-2 py-3 px-4"}
 										>
 											<div className="flex flex-col">
 												<p className="text-[#111827] font-medium">{g.name}</p>
@@ -458,12 +459,12 @@ export function BookingForm({
 															: "USD per person"}
 												</p>
 											</div>
-											<div className="flex items-center gap-4">
+											<div className={compact ? "flex items-center gap-2" : "flex items-center gap-4"}>
 												<button
 													type="button"
 													onClick={() => setQty(g.id, q + 1)}
 													className={cn(
-														"w-10 h-10 rounded-full bg-[#3c6652] text-white text-xl leading-none flex items-center justify-center",
+														compact ? "h-8 w-8 rounded-full bg-[#3c6652] text-lg leading-none text-white flex items-center justify-center" : "w-10 h-10 rounded-full bg-[#3c6652] text-white text-xl leading-none flex items-center justify-center",
 														typeof leftSeats === "number" &&
 															totalPeople >= leftSeats &&
 															"opacity-50 cursor-not-allowed",
@@ -479,14 +480,14 @@ export function BookingForm({
 												>
 													+
 												</button>
-												<span className="min-w-[20px] text-lg font-semibold text-[#111827] text-center">
+													<span className={compact ? "min-w-[18px] text-center font-semibold text-[#111827]" : "min-w-[20px] text-lg font-semibold text-[#111827] text-center"}>
 													{q}
 												</span>
 												{/** enforce minimum per group (id 1 => min 1) */}
 												<button
 													type="button"
 													onClick={() => setQty(g.id, q - 1)}
-													className="w-10 h-10 rounded-full bg-[#f5f0ea] text-[#111827]/80 text-xl leading-none flex items-center justify-center"
+													className={compact ? "h-8 w-8 rounded-full bg-[#f5f0ea] text-lg leading-none text-[#111827]/80 flex items-center justify-center" : "w-10 h-10 rounded-full bg-[#f5f0ea] text-[#111827]/80 text-xl leading-none flex items-center justify-center"}
 													disabled={q <= (g.id === 1 ? 1 : 0)}
 												>
 													−
