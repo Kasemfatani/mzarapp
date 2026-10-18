@@ -6,17 +6,18 @@ export function ActionButtons({
 	onCancel,
 	loading = false,
 	lang,
+	compact = false,
 }) {
 	const isAr = lang === "ar";
 	return (
-		<div className="flex flex-col gap-3 w-full">
+		<div className="flex w-full flex-col gap-3">
 			{/* Primary Actions */}
-			<div className="flex flex-col md:flex-row gap-3 w-full">
+			<div className={compact ? "flex w-full flex-col gap-2" : "flex flex-col md:flex-row gap-3 w-full"}>
 				{/* Pay Now (online) */}
 				<button
 					onClick={onConfirm}
 					disabled={loading}
-					className="w-full bg-[#3c6652] rounded-[30px] shadow-[0px_15px_25px_-15px_rgba(0,0,0,0.2)] px-8 py-4 flex items-center justify-center gap-2 hover:bg-[#2d4d3d] transition-colors"
+					className={compact ? "flex min-h-11 w-full items-center justify-center gap-2 rounded-lg bg-[#3c6652] px-4 py-3 text-white transition-colors hover:bg-[#2d4d3d]" : "w-full bg-[#3c6652] rounded-[30px] shadow-[0px_15px_25px_-15px_rgba(0,0,0,0.2)] px-8 py-4 flex items-center justify-center gap-2 hover:bg-[#2d4d3d] transition-colors"}
 				>
 					<p className="text-white">
 						{isAr
@@ -34,15 +35,15 @@ export function ActionButtons({
 				<button
 					onClick={onPayCash}
 					disabled={loading}
-					className="w-full bg-[#3c6652] rounded-[30px] shadow-[0px_15px_25px_-15px_rgba(0,0,0,0.2)] px-8 py-4 flex items-center justify-center gap-2 hover:bg-[#2d4d3d] transition-colors"
+					className={compact ? "flex min-h-11 w-full items-center justify-center gap-2 rounded-lg border border-[#3c6652] bg-white px-4 py-3 text-[#3c6652] transition-colors hover:bg-[#f6f8f3]" : "w-full bg-[#3c6652] rounded-[30px] shadow-[0px_15px_25px_-15px_rgba(0,0,0,0.2)] px-8 py-4 flex items-center justify-center gap-2 hover:bg-[#2d4d3d] transition-colors"}
 				>
-					<p className="text-white">{isAr ? "الدفع نقدا" : "Pay cash"}</p>
+					<p className={compact ? "text-[#3c6652]" : "text-white"}>{isAr ? "الدفع نقدا" : "Pay cash"}</p>
 					{/* <CheckCircle2 className="w-7 h-7 text-white" strokeWidth={2.33} /> */}
 				</button>
 			</div>
 
 			{/* Cancel Button */}
-			<button
+			{!compact && <button
 				onClick={onCancel}
 				className="w-full rounded-[20px] py-2 flex items-center justify-center gap-3 hover:bg-red-50 transition-colors"
 			>
@@ -50,10 +51,10 @@ export function ActionButtons({
 				<p className="text-[#b52b2b]">
 					{isAr ? "إلغاء والعودة" : "Cancel and Go Back"}
 				</p>
-			</button>
+			</button>}
 
 			{/* Info Note */}
-			<div className="bg-[#fffcf5] border-[0.8px] border-[#fef3c7] rounded-[16.4px] px-6 py-2 text-center">
+			<div className={compact ? "rounded-lg border border-[#fef3c7] bg-[#fffcf5] px-3 py-2 text-center text-xs" : "bg-[#fffcf5] border-[0.8px] border-[#fef3c7] rounded-[16.4px] px-6 py-2 text-center"}>
 				<p className="text-[#4a5565]">
 					{isAr
 						? "لن يتم خصم أي مبلغ حتى تأكيد الحجز نهائياً"
@@ -62,8 +63,8 @@ export function ActionButtons({
 			</div>
 
 			{/* Privacy Notice */}
-			<div className="text-center px-4">
-				<p className="text-[#4a5565] text-sm">
+			<div className={compact ? "px-1 text-center" : "text-center px-4"}>
+				<p className={compact ? "text-xs leading-relaxed text-[#4a5565]" : "text-[#4a5565] text-sm"}>
 					{isAr ? "سياسة الحجز والإلغاء" : "Booking and Cancellation Policy"}
 					<span className="text-[#b52b2b]"> * </span>
 					{isAr

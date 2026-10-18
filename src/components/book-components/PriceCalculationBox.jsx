@@ -35,6 +35,7 @@ export function PriceCalculationBox({
 	promoDiscountPercent = 0, // %
 	lang = "en",
 	isSaudi = true,
+	compact = false,
 }) {
 	const isAr = lang === "ar";
 
@@ -87,18 +88,18 @@ export function PriceCalculationBox({
 
 	return (
 		<div
-			className="relative rounded-[20px] border-[1.6px] border-[rgba(231,211,175,0.6)] shadow-[0px_20px_25px_-5px_rgba(0,0,0,0.1),0px_8px_10px_-6px_rgba(0,0,0,0.1)] overflow-hidden w-full"
+			className={compact ? "relative w-full overflow-hidden rounded-xl border border-[rgba(231,211,175,0.6)]" : "relative rounded-[20px] border-[1.6px] border-[rgba(231,211,175,0.6)] shadow-[0px_20px_25px_-5px_rgba(0,0,0,0.1),0px_8px_10px_-6px_rgba(0,0,0,0.1)] overflow-hidden w-full"}
 			style={{
 				backgroundImage:
 					"linear-gradient(146.179deg, rgba(231, 211, 175, 0.4) 0%, rgba(231, 211, 175, 0.25) 50%, rgb(255, 255, 255) 100%), linear-gradient(90deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.3) 100%)",
 			}}
 		>
-			<div className="relative p-0 md:p-6 py-4 md:py-6 flex flex-col gap-4">
+			<div className={compact ? "relative flex flex-col gap-3 p-3" : "relative p-0 md:p-6 py-4 md:py-6 flex flex-col gap-4"}>
 				{/* Header */}
-				<div className="flex items-center justify-between px-6">
-					<div className="flex items-center gap-4">
+				<div className={compact ? "flex items-center justify-between" : "flex items-center justify-between px-6"}>
+					<div className={compact ? "flex items-center gap-2" : "flex items-center gap-4"}>
 						<div className="flex flex-col items-start">
-							<h3 className="text-[#3c6652] text-2xl tracking-[-0.24px]">
+							<h3 className={compact ? "text-base font-semibold text-[#3c6652]" : "text-[#3c6652] text-2xl tracking-[-0.24px]"}>
 								{isAr ? "ملخص الأسعار" : "Price Summary"}
 							</h3>
 							<p className="text-[#4a5565]">
@@ -106,9 +107,9 @@ export function PriceCalculationBox({
 							</p>
 						</div>
 
-						<div className="bg-gradient-to-b from-[#3c6652] to-[#2d4d3d] rounded-full w-14 h-14 flex items-center justify-center">
+						<div className={compact ? "flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-b from-[#3c6652] to-[#2d4d3d]" : "bg-gradient-to-b from-[#3c6652] to-[#2d4d3d] rounded-full w-14 h-14 flex items-center justify-center"}>
 							<svg
-								className="w-7 h-7 text-white"
+								className={compact ? "h-5 w-5 text-white" : "w-7 h-7 text-white"}
 								fill="none"
 								viewBox="0 0 28 28"
 							>
@@ -146,7 +147,7 @@ export function PriceCalculationBox({
 				<div className="h-px bg-[#E6D2AF]" />
 
 				{/* Price Items */}
-				<div className="px-1 md:px-6 flex flex-col gap-2">
+				<div className={compact ? "flex flex-col gap-1" : "px-1 md:px-6 flex flex-col gap-2"}>
 					{/* per-group breakdown */}
 					{(groupAgeCounts || [])
 						.filter((r) => Number(r.quantity || 0) > 0)
@@ -157,7 +158,7 @@ export function PriceCalculationBox({
 							return (
 								<div
 									key={r.id}
-									className="flex items-center justify-between border-b border-[#e6d2af] pb-4 pt-4"
+									className={compact ? "flex items-center justify-between gap-2 border-b border-[#e6d2af] py-2 text-sm" : "flex items-center justify-between border-b border-[#e6d2af] pb-4 pt-4"}
 								>
 									<p className="text-[#364153]">
 										{gp?.name} × {r.quantity}
@@ -171,7 +172,7 @@ export function PriceCalculationBox({
 
 					{/* Promo discount (optional) */}
 					{promoDiscountPercent > 0 && (
-						<div className="flex items-center justify-between border-b border-[#e6d2af] pb-4 pt-4">
+						<div className={compact ? "flex items-center justify-between gap-2 border-b border-[#e6d2af] py-2 text-sm" : "flex items-center justify-between border-b border-[#e6d2af] pb-4 pt-4"}>
 							<p className="text-[#364153]">
 								{isAr ? "خصم" : "Discount"} ({promoDiscountPercent}%)
 							</p>
@@ -182,7 +183,7 @@ export function PriceCalculationBox({
 					)}
 
 					{/* Total (after promo, before tax) */}
-					<div className="flex items-center justify-between border-b border-[#e6d2af] pb-4 pt-4">
+					<div className={compact ? "flex items-center justify-between gap-2 border-b border-[#e6d2af] py-2 text-sm" : "flex items-center justify-between border-b border-[#e6d2af] pb-4 pt-4"}>
 						<p className="text-[#364153]">
 							{isAr ? "إجمالي السعر" : "Total Price"}
 						</p>
@@ -192,7 +193,7 @@ export function PriceCalculationBox({
 					</div>
 
 					{/* Tax */}
-					<div className="flex items-center justify-between border-b border-[#e6d2af] pb-4 pt-4">
+					<div className={compact ? "flex items-center justify-between gap-2 border-b border-[#e6d2af] py-2 text-sm" : "flex items-center justify-between border-b border-[#e6d2af] pb-4 pt-4"}>
 						<p className="text-[#364153]">
 							{isAr ? "الضريبة" : "Tax"}
 							{typeof tax === "number"
@@ -205,7 +206,7 @@ export function PriceCalculationBox({
 					</div>
 
 					{/* Standard Final total (Cash) */}
-					<div className="flex items-center justify-between py-2">
+					<div className={compact ? "flex items-center justify-between gap-2 py-2 text-sm" : "flex items-center justify-between py-2"}>
 						<div className="flex flex-col items-start">
 							<p className="text-[#4a5565]">
 								{isAr ? "المجموع" : "Total"}{" "}
@@ -220,13 +221,13 @@ export function PriceCalculationBox({
 					</div>
 
 					{/* Online Total with Discount */}
-					<div className="bg-gradient-to-br from-[#3c6652] to-[#1e3a2d] rounded-[18px] px-2 md:px-6 py-4 flex items-center justify-between shadow-lg relative overflow-hidden group">
+					<div className={compact ? "relative flex items-center justify-between gap-2 overflow-hidden rounded-xl bg-gradient-to-br from-[#3c6652] to-[#1e3a2d] px-3 py-3" : "bg-gradient-to-br from-[#3c6652] to-[#1e3a2d] rounded-[18px] px-2 md:px-6 py-4 flex items-center justify-between shadow-lg relative overflow-hidden group"}>
 						{/* Shimmer effect overlay */}
 						<div className="absolute inset-0 bg-white/10 skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
 
 						<div className="flex flex-col items-start relative z-10">
 							<div className="flex items-center gap-2 mb-1">
-								<p className="text-white font-bold text-base">
+								<p className={compact ? "text-sm font-bold text-white" : "text-white font-bold text-base"}>
 									{isAr ? "ادفع إلكترونياً (وفر 5%)" : "Pay Online (Save 5%)"}
 								</p>
 							</div>
@@ -247,7 +248,7 @@ export function PriceCalculationBox({
 					</div>
 
 					{/* Final note */}
-					<div className="bg-[#f0fdf4] border-[0.8px] border-[#b9f8cf] rounded-[16.4px] px-6 py-2 flex items-center gap-2 mt-2">
+					<div className={compact ? "mt-1 flex items-center gap-2 rounded-lg border border-[#b9f8cf] bg-[#f0fdf4] px-3 py-2 text-xs" : "bg-[#f0fdf4] border-[0.8px] border-[#b9f8cf] rounded-[16.4px] px-6 py-2 flex items-center gap-2 mt-2"}>
 						<p className="text-[#4a5565]">
 							{isAr
 								? "السعر نهائي بدون أي رسوم إضافية مخفية"

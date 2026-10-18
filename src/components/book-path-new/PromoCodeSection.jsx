@@ -10,6 +10,7 @@ export default function PromoCodeSection({
 	onApplied = () => {},
 	onCleared = () => {},
 	promo_type = "trip",
+	compact = false,
 }) {
 	const isAr = lang === "ar";
 	const [code, setCode] = useState(value || "");
@@ -109,15 +110,15 @@ export default function PromoCodeSection({
 	};
 
 	return (
-		<div className="rounded-[20px] border border-[#e7d3af] bg-white shadow-md p-4 md:p-5">
-			<h4 className="text-[#3c6652] text-lg md:text-xl font-semibold mb-1">
+		<div className={compact ? "rounded-xl border border-[#e7d3af] bg-white p-3" : "rounded-[20px] border border-[#e7d3af] bg-white shadow-md p-4 md:p-5"}>
+			<h4 className={compact ? "mb-2 text-base font-semibold text-[#3c6652]" : "text-[#3c6652] text-lg md:text-xl font-semibold mb-1"}>
 				{isAr ? "هل لديك كود خصم؟" : "Do you have a promo code?"}
 			</h4>
-			<p className="text-[#6a7282] mb-3">
+			{!compact && <p className="text-[#6a7282] mb-3">
 				{isAr
 					? "أدخل الكود للاستفادة من أفضل سعر متاح"
 					: "Enter the code to get the best available price"}
-			</p>
+			</p>}
 
 			<div className={`flex items-center gap-2 `}>
 				<Input
@@ -154,7 +155,7 @@ export default function PromoCodeSection({
 			)}
 
 			{/* benefits row */}
-			<div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-2 text-[#364153] text-sm">
+			{!compact && <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-2 text-[#364153] text-sm">
 				<div className="flex items-center justify-center gap-2 bg-[#f7f6f2] rounded-xl py-2">
 					<CheckCircle2 className="w-4 h-4 text-[#3c6652]" />
 					<span>{isAr ? "خصم معتمد من مزار" : "Mzar verified discount"}</span>
@@ -169,7 +170,7 @@ export default function PromoCodeSection({
 					<RotateCcw className="w-4 h-4 text-[#3c6652]" />
 					<span>{isAr ? "استرداد آمن" : "Secure refund"}</span>
 				</div>
-			</div>
+			</div>}
 		</div>
 	);
 }

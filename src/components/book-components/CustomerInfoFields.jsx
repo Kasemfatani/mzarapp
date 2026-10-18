@@ -38,6 +38,7 @@ export function CustomerInfoFields({
 	packageId,
 	onPartOneSubmit,
 	packageName,
+	compact = false,
 }) {
 	const isAr = lang === "ar";
 	const [nationalityOpen, setNationalityOpen] = useState(false);
@@ -130,7 +131,7 @@ export function CustomerInfoFields({
 	};
 
 	return (
-		<div className="bg-white rounded-[20px] shadow-[0px_20px_25px_-5px_rgba(0,0,0,0.1),0px_8px_10px_-6px_rgba(0,0,0,0.1)] border-[0.8px] border-[rgba(243,244,246,0.6)] w-full">
+		<div className={compact ? "w-full" : "bg-white rounded-[20px] shadow-[0px_20px_25px_-5px_rgba(0,0,0,0.1),0px_8px_10px_-6px_rgba(0,0,0,0.1)] border-[0.8px] border-[rgba(243,244,246,0.6)] w-full"}>
 			{/* when save, show floating whatsapp link with prefilled text */}
 			{savedWhats && (
 				<FixedWhatsLink
@@ -140,11 +141,11 @@ export function CustomerInfoFields({
 					countryName={savedWhats.countryName || ""}
 				/>
 			)}
-			<div className="p-6 flex flex-col gap-8">
+			<div className={compact ? "flex flex-col gap-4" : "p-6 flex flex-col gap-8"}>
 				{/* Header */}
-				<div className="flex flex-col md:flex-row items-center justify-between  gap-2">
+				<div className={compact ? "flex flex-col items-start justify-between gap-2" : "flex flex-col md:flex-row items-center justify-between gap-2"}>
 					<div className="flex flex-col">
-						<h3 className="text-[#3c6652] text-2xl tracking-[-0.24px]">
+						<h3 className={compact ? "text-lg font-semibold tracking-[-0.2px] text-[#3c6652]" : "text-[#3c6652] text-2xl tracking-[-0.24px]"}>
 							{isAr ? "معلوماتك الشخصية" : "Your Personal Information"}
 						</h3>
 						<p className="text-[#4a5565]">
@@ -153,15 +154,15 @@ export function CustomerInfoFields({
 								: "We need some information to complete your booking"}
 						</p>
 					</div>
-					<div className="bg-[rgba(231,211,175,0.2)] border-[0.8px] border-[#e7d3af] rounded-full px-2 py-1">
+					{!compact && <div className="bg-[rgba(231,211,175,0.2)] border-[0.8px] border-[#e7d3af] rounded-full px-2 py-1">
 						<p className="text-[#867957]">
 							{isAr ? "خطوة 1 من 2" : "Step 1 of 2"}
 						</p>
-					</div>
+					</div>}
 				</div>
 
 				<Form {...form}>
-					<form className="flex flex-col gap-4">
+					<form className={compact ? "flex flex-col gap-3" : "flex flex-col gap-4"}>
 						{/* Full Name */}
 						<FormField
 							control={form.control}
@@ -194,7 +195,7 @@ export function CustomerInfoFields({
 						/>
 
 						{/* WhatsApp + Nationality row */}
-						<div className="flex flex-col md:flex-row gap-4">
+						<div className={compact ? "flex flex-col gap-3" : "flex flex-col md:flex-row gap-4"}>
 							{/* WhatsApp only */}
 							<FormField
 								control={form.control}
