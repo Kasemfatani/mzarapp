@@ -37,7 +37,7 @@ export const busTripCopy = {
 		eyebrow: "الجولات الإثرائية مع مزار",
 		title: "اكتشف معالم مكة… بلغتك",
 		heroDescription: "إرشاد سياحي صوتي بلغتك، يروي لك حكاية كل معلم على الطريق.",
-		languages: "العربية · الإنجليزية · الفرنسية · التركية",
+		languages: "العربية · الإنجليزية · الفرنسية · التركية · الملايو",
 		book: "احجز جولتك",
 		sponsorLabel: "هذه المبادرة برعاية",
 		sponsorAlt: "الهيئة الملكية لمدينة مكة المكرمة والمشاعر المقدسة",
@@ -75,7 +75,7 @@ export const busTripCopy = {
 			{
 				question: "هل يتوفر الإرشاد الصوتي بلغتي؟",
 				answer:
-					"يوفر مزار إرشادًا سياحيًا صوتيًا بالعربية والإنجليزية والفرنسية والتركية، للتعرف على المعالم وقصصها.",
+					"يوفر مزار إرشادًا سياحيًا صوتيًا بالعربية والإنجليزية والفرنسية والتركية والملايو، للتعرف على المعالم وقصصها.",
 			},
 			{
 				question: "هل الأطفال مجانًا؟",
@@ -109,7 +109,7 @@ export const busTripCopy = {
 		title: "Discover Makkah. In your language.",
 		heroDescription:
 			"Audio tour guidance in your language, bringing each landmark’s story to life.",
-		languages: "Arabic · English · French · Turkish",
+		languages: "Arabic · English · French · Turkish · Malay",
 		book: "Book your tour",
 		sponsorLabel: "This initiative is sponsored by",
 		sponsorAlt: "Royal Commission for Makkah City and Holy Sites",
@@ -147,7 +147,7 @@ export const busTripCopy = {
 			{
 				question: "Is audio guidance available in my language?",
 				answer:
-					"Mzar offers audio tour guidance in Arabic, English, French and Turkish to help you discover the landmarks and their stories.",
+					"Mzar offers audio tour guidance in Arabic, English, French, Turkish, and Malay to help you discover the landmarks and their stories.",
 			},
 			{
 				question: "Are children free?",
