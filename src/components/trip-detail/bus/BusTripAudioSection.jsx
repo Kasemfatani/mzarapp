@@ -1,10 +1,11 @@
+import { Headphones } from "lucide-react";
 import styles from "./BusTripDetail.module.css";
 
 export default function BusTripAudioSection({ copy }) {
 	return (
 		<section className={`${styles.section} ${styles.guidanceSection}`}>
 			<div className={styles.guidanceIcon} aria-hidden="true">
-				♫
+				<Headphones size={24} strokeWidth={2} />
 			</div>
 			<div>
 				<p className={styles.eyebrow}>{copy.guidanceEyebrow}</p>

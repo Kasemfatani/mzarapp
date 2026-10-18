@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { Headphones } from "lucide-react";
 import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
 import { Form } from "@/components/ui/form";
@@ -242,7 +243,7 @@ export default function BusTripBookingCard({
 					<span>{isAr ? "للبالغ • شامل الضريبة" : "per adult • tax included"}</span>
 				</div>
 				<div className={styles.audioNote}>
-					<span aria-hidden="true">♬</span>
+					<span aria-hidden="true"><Headphones size={16} strokeWidth={2} /></span>
 					{isAr ? "يشمل إرشادًا سياحيًا صوتيًا بلغتك" : "Includes audio tour guidance in your language"}
 				</div>
 			</div>

@@ -12,14 +12,14 @@ export const busTripStops = [
 ];
 
 export const busTripDepartures = [
-	{
-		id: "morning",
-		icon: "☀",
-		ar: "الجولة الصباحية",
-		en: "Morning tour",
-		arTime: "٧:٠٠ صباحًا",
-		enTime: "7:00 AM",
-	},
+	// {
+	// 	id: "morning",
+	// 	icon: "☀",
+	// 	ar: "الجولة الصباحية",
+	// 	en: "Morning tour",
+	// 	arTime: "٧:٠٠ صباحًا",
+	// 	enTime: "7:00 AM",
+	// },
 	{
 		id: "evening",
 		icon: "☾",
