@@ -17,6 +17,7 @@ import { getIsSaudiFromHeaders } from "@/lib/apiConfig";
 import { getServerLocale } from "@/lib/localeServer";
 import HaramPromoSaver from "@/components/common/HaramPromoSaver";
 import WhatsAppBookingRedirect from "@/components/common/WhatsAppBookingRedirect";
+import BusTripDetailPage from "@/components/trip-detail/bus/BusTripDetailPage";
 
 // 2. Wrap the fetch function with cache()
 const getData = cache(async (id, lang) => {
@@ -35,6 +36,26 @@ const getData = cache(async (id, lang) => {
 	return json?.data || null;
 });
 
+const getBusBookingData = cache(async (lang) => {
+	try {
+		const res = await fetch(
+			`${API_BASE_URL_NEW}/landing/landing-bus-trip/booking-data?package_id=96`,
+			{
+				headers: { lang },
+				signal: AbortSignal.timeout(8000),
+				next: { revalidate: 300 },
+			},
+		);
+
+		if (!res.ok) return null;
+		const json = await res.json();
+		return json?.status === true ? json?.data || null : null;
+	} catch (error) {
+		console.error("Failed to load bus trip booking data:", error);
+		return null;
+	}
+});
+
 // Helper to determine language (keep this logic centralized)
 function determineLang() {
 	return getServerLocale();
@@ -46,6 +67,17 @@ export async function generateMetadata({ params }) {
 	const { id } = params || {};
 	if (!id) return {};
 	const lang = determineLang();
+	if (id === "96") {
+		return lang === "ar"
+			? {
+				title: "جولات مكة الإثرائية بالحافلة | مزار",
+				description: "اكتشف معالم مكة في جولة إثرائية بالحافلة مع إرشاد صوتي بلغتك.",
+			}
+			: {
+				title: "Makkah Enrichment Bus Tour | Mzar",
+				description: "Discover Makkah's landmarks on an enriching bus tour with audio guidance in your language.",
+			};
+	}
 	const data = await getData(id, lang);
 	if (!data) return {};
 	return {
@@ -78,6 +110,24 @@ export default async function TourPage({ params }) {
 
 	const lang = determineLang();
 	const isAr = lang === "ar";
+
+	if (id === "96") {
+		const [{ isSaudi, countryCode }, busData] = await Promise.all([
+			getIsSaudiFromHeaders(headers()),
+			getBusBookingData(lang),
+		]);
+
+		return (
+			<div className={isAr ? "rtl" : "ltr"}>
+				<BusTripDetailPage
+					lang={lang}
+					busData={busData}
+					isSaudi={isSaudi}
+					countryCode={countryCode || "SA"}
+				/>
+			</div>
+		);
+	}
 
 	// Call the cached function again—it will reuse the result from generateMetadata
 	const data = await getData(id, lang);

@@ -1,0 +1,638 @@
+.card {
+	width: 100%;
+	border: 1px solid #e3e8e1;
+	border-top: 3px solid #968456;
+	border-radius: 15px;
+	background: #fff;
+	box-shadow: 0 10px 30px rgb(36 75 48 / 8%);
+	color: #233c32;
+	padding: 22px;
+}
+
+.card * {
+	box-sizing: border-box;
+}
+
+.cardHeader {
+	margin-bottom: 16px;
+}
+
+.eyebrow {
+	margin: 0 0 3px;
+	color: #968456;
+	font-size: 12px;
+	font-weight: 700;
+}
+
+.cardHeader h2 {
+	margin: 0;
+	color: #233c32;
+	font-size: 22px;
+	font-weight: 700;
+	line-height: 1.35;
+}
+
+.unitPrice {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	gap: 3px 7px;
+	margin: 12px 0 13px;
+}
+
+.unitPrice strong {
+	color: #3c6652;
+	font-size: 28px;
+	line-height: 1.15;
+}
+
+.unitPrice span {
+	color: #738079;
+	font-size: 12px;
+}
+
+.audioNote {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	border-radius: 8px;
+	background: #edf3e8;
+	color: #3c6652;
+	font-size: 12px;
+	line-height: 1.55;
+	padding: 9px 10px;
+}
+
+.audioNote span {
+	font-size: 16px;
+}
+
+.fields {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+
+.field {
+	display: flex;
+	min-width: 0;
+	flex-direction: column;
+	gap: 6px;
+}
+
+.field > span,
+.field > label > span,
+.fieldset legend {
+	color: #233c32;
+	font-size: 13px;
+	font-weight: 700;
+}
+
+.field input,
+.field select,
+.promoRow input {
+	width: 100%;
+	min-width: 0;
+	height: 44px;
+	border: 1px solid #dbe2d8;
+	border-radius: 8px;
+	background: #fff;
+	color: #233c32;
+	font: inherit;
+	font-size: 14px;
+	padding: 8px 11px;
+}
+
+.field input::placeholder,
+.promoRow input::placeholder {
+	color: #9ba29c;
+	font-size: 13px;
+}
+
+.field input:focus,
+.field select:focus,
+.promoRow input:focus {
+	border-color: #3c6652;
+	outline: 2px solid rgb(60 102 82 / 17%);
+}
+
+.field select {
+	appearance: auto;
+	cursor: pointer;
+}
+
+.fieldset {
+	min-width: 0;
+	border: 0;
+	margin: 0;
+	padding: 0;
+}
+
+.fieldset legend {
+	margin-bottom: 7px;
+	padding: 0;
+}
+
+.timeOptions {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 8px;
+}
+
+.singleTimeOption {
+	grid-template-columns: minmax(0, 1fr);
+}
+
+.timeOption {
+	display: flex;
+	min-height: 54px;
+	align-items: center;
+	gap: 9px;
+	border: 1px solid #dbe2d8;
+	border-radius: 9px;
+	background: #f8f9f5;
+	color: #233c32;
+	cursor: pointer;
+	font: inherit;
+	font-size: 13px;
+	line-height: 1.5;
+	padding: 9px 10px;
+	text-align: start;
+}
+
+.timeOption:hover {
+	border-color: #968456;
+}
+
+.activeOption {
+	border-color: #3c6652;
+	background: #eef4ed;
+	color: #3c6652;
+	font-weight: 700;
+}
+
+.timeOption > input {
+	width: 16px;
+	height: 16px;
+	flex: 0 0 16px;
+	margin: 0;
+	accent-color: #3c6652;
+}
+
+.timeOptionCopy {
+	display: flex;
+	min-width: 0;
+	flex-direction: column;
+}
+
+.timeOptionCopy strong {
+	font-size: 12px;
+}
+
+.timeOptionCopy small {
+	color: #738079;
+	font-size: 11px;
+}
+
+.hint {
+	grid-column: 1 / -1;
+	margin: 0;
+	color: #738079;
+	font-size: 12px;
+	line-height: 1.6;
+}
+
+.mapLink {
+	width: fit-content;
+	border-bottom: 1px solid currentColor;
+	color: #3c6652;
+	font-size: 12px;
+	text-decoration: none;
+}
+
+.counterField {
+	border-top: 1px solid #e3e8e1;
+	border-bottom: 1px solid #e3e8e1;
+	padding: 11px 0 10px;
+}
+
+.counterHeading,
+.counterRow,
+.counter {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 10px;
+}
+
+.counterHeading strong {
+	font-size: 13px;
+}
+
+.counterHeading > span {
+	color: #3c6652;
+	font-size: 11px;
+}
+
+.counterRow {
+	margin-top: 9px;
+}
+
+.counterRow p {
+	display: flex;
+	min-width: 0;
+	flex-direction: column;
+	margin: 0;
+	font-size: 13px;
+	font-weight: 600;
+}
+
+.counterRow p small {
+	margin-top: 2px;
+	color: #738079;
+	font-size: 11px;
+	font-weight: 400;
+}
+
+.counter {
+	flex: 0 0 auto;
+	gap: 11px;
+	direction: ltr;
+}
+
+.counter button {
+	display: grid;
+	width: 31px;
+	height: 31px;
+	place-items: center;
+	border: 1px solid #e3e8e1;
+	border-radius: 7px;
+	background: #f5f7f2;
+	color: #3c6652;
+	cursor: pointer;
+	font: inherit;
+	font-size: 20px;
+	line-height: 1;
+}
+
+.counter button:disabled {
+	cursor: not-allowed;
+	opacity: 0.42;
+}
+
+.counter output {
+	min-width: 18px;
+	font-size: 14px;
+	font-weight: 700;
+	text-align: center;
+}
+
+.childrenNote {
+	margin: 6px 0 0;
+	color: #738079;
+	font-size: 11px;
+	line-height: 1.6;
+}
+
+.phoneInput {
+	width: 100%;
+	direction: ltr;
+}
+
+.phoneInput :global(.react-international-phone-input-container) {
+	position: relative;
+	display: flex;
+	width: 100%;
+	height: 44px;
+	align-items: stretch;
+	border: 1px solid #dbe2d8;
+	border-radius: 9px;
+	background: #fff;
+	overflow: visible;
+}
+
+.phoneInput:focus-within :global(.react-international-phone-input-container) {
+	border-color: #3c6652;
+	box-shadow: 0 0 0 2px rgb(60 102 82 / 17%);
+}
+
+.phoneInput :global(.react-international-phone-country-selector-button) {
+	width: 52px;
+	min-width: 52px;
+	height: 100% !important;
+	padding: 0 0.6rem !important;
+	box-sizing: border-box;
+	border: 0 !important;
+	border-radius: 8px 0 0 8px !important;
+	background: #f8f9f5;
+	box-shadow: inset -1px 0 #e3e8e1;
+}
+
+.phoneInput :global(.react-international-phone-country-selector-button:hover),
+.phoneInput :global(.react-international-phone-country-selector-button:focus) {
+	background: #eef4ed;
+}
+
+.phoneInput :global(.react-international-phone-country-selector-dropdown) {
+	z-index: 20 !important;
+	width: min(300px, calc(100vw - 48px));
+	max-width: calc(100vw - 48px);
+	box-sizing: border-box;
+}
+
+.phoneInput :global(.react-international-phone-input-container .react-international-phone-input) {
+	width: 0;
+	min-width: 0;
+	height: 100%;
+	flex: 1 1 auto;
+	border: 0 !important;
+	border-radius: 0 8px 8px 0 !important;
+	background: #fff;
+	font: inherit;
+	font-size: 14px;
+	line-height: 1.25;
+	padding: 0 12px;
+}
+
+.phoneInput :global(.react-international-phone-input:focus) {
+	outline: 0;
+	box-shadow: none;
+}
+
+.promoField {
+	padding-top: 1px;
+}
+
+.promoLabel,
+.paymentMethods legend {
+	display: block;
+	margin: 0 0 7px;
+	color: #233c32;
+	font-size: 13px;
+	font-weight: 700;
+}
+
+.promoRow {
+	display: flex;
+	gap: 8px;
+}
+
+.promoRow button {
+	flex: 0 0 auto;
+	min-width: 76px;
+	border: 1px solid #cad6c6;
+	border-radius: 8px;
+	background: #f1f5ec;
+	color: #3c6652;
+	cursor: pointer;
+	font: inherit;
+	font-size: 13px;
+	font-weight: 700;
+	padding: 0 12px;
+}
+
+.promoRow button:disabled {
+	cursor: not-allowed;
+	opacity: 0.5;
+}
+
+.promoApplied,
+.successText {
+	color: #237548;
+	font-size: 12px;
+}
+
+.paymentMethods {
+	min-width: 0;
+	border: 0;
+	margin: 0;
+	padding: 0;
+}
+
+.paymentMethods legend {
+	padding: 0;
+}
+
+.paymentChoices {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 8px;
+}
+
+.paymentChoice {
+	display: flex;
+	min-width: 0;
+	min-height: 58px;
+	align-items: center;
+	gap: 8px;
+	border: 1px solid #dbe2d8;
+	border-radius: 9px;
+	background: #fff;
+	color: #233c32;
+	cursor: pointer;
+	padding: 9px 10px;
+	transition: border-color 120ms ease, background-color 120ms ease;
+}
+
+.paymentChoice input {
+	width: 16px;
+	height: 16px;
+	flex: 0 0 16px;
+	margin: 0;
+	accent-color: #3c6652;
+}
+
+.selectedPaymentChoice {
+	border-color: #3c6652;
+	background: #eef4ed;
+}
+
+.paymentChoiceCopy {
+	display: flex;
+	min-width: 0;
+	flex-direction: column;
+	line-height: 1.4;
+}
+
+.paymentChoiceCopy strong {
+	font-size: 12px;
+}
+
+.paymentChoiceCopy small {
+	margin-top: 2px;
+	color: #738079;
+	font-size: 10px;
+}
+
+.priceSummary {
+	border-top: 1px solid #e3e8e1;
+	padding-top: 4px;
+}
+
+.priceLines {
+	padding: 4px 0 8px;
+}
+
+.priceLines > div {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: 8px;
+	color: #536159;
+	font-size: 12px;
+	padding: 7px 0;
+}
+
+.priceLines > div strong {
+	color: #536159;
+	font-weight: 600;
+	text-align: end;
+}
+
+.priceLines .discountLine strong {
+	color: #3c6652;
+}
+
+.priceLines .cashFeeLine {
+	color: #536159;
+}
+
+.priceLines .cashFeeLine strong {
+	color: #233c32;
+}
+
+.finalTotal {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+	border-top: 1px solid #e3e8e1;
+	color: #233c32;
+	padding: 12px 0 3px;
+}
+
+.finalTotal > div {
+	display: flex;
+	flex-direction: column;
+}
+
+.finalTotal > div strong {
+	font-size: 15px;
+}
+
+.finalTotal > div span {
+	margin-top: 3px;
+	color: #738079;
+	font-size: 11px;
+}
+
+.finalTotal > strong {
+	color: #3c6652;
+	font-size: 25px;
+	font-weight: 800;
+	white-space: nowrap;
+}
+
+.currencyNote {
+	margin: 6px 0 0;
+	color: #738079;
+	font-size: 10px;
+	line-height: 1.5;
+}
+
+.selectionRecap {
+	display: flex;
+	flex-direction: column;
+	gap: 3px;
+	border-radius: 8px;
+	background: #f5f7f2;
+	color: #536159;
+	font-size: 11px;
+	line-height: 1.45;
+	padding: 9px 11px;
+}
+
+.bookingSubmit {
+	width: 100%;
+	min-height: 52px;
+	border: 1px solid #3c6652;
+	border-radius: 10px;
+	background: #3c6652;
+	color: #fff;
+	cursor: pointer;
+	font: inherit;
+	font-size: 14px;
+	font-weight: 700;
+	padding: 12px 15px;
+}
+
+.bookingSubmit:hover:not(:disabled) {
+	background: #2d4d3d;
+}
+
+.bookingSubmit:disabled {
+	cursor: not-allowed;
+	opacity: 0.55;
+}
+
+.trustNote,
+.terms {
+	margin: -4px 0 0;
+	color: #738079;
+	font-size: 11px;
+	line-height: 1.65;
+	text-align: center;
+}
+
+.terms {
+	margin-top: -6px;
+}
+
+.terms a {
+	color: #3c6652;
+	text-decoration: underline;
+	text-underline-offset: 2px;
+}
+
+.error {
+	color: #b42318;
+	font-size: 12px;
+	line-height: 1.5;
+}
+
+@media (max-width: 1000px) {
+	.card {
+		padding: 18px;
+	}
+}
+
+@media (max-width: 760px) {
+	.card {
+		padding: 18px 16px;
+	}
+
+	.cardHeader h2 {
+		font-size: 21px;
+	}
+
+	.unitPrice strong {
+		font-size: 26px;
+	}
+}
+
+@media (max-width: 360px) {
+	.paymentChoices {
+		gap: 6px;
+	}
+
+	.paymentChoice {
+		gap: 6px;
+		padding: 8px 6px;
+	}
+
+	.counterHeading {
+		align-items: flex-start;
+		flex-direction: column;
+		gap: 3px;
+	}
+}
