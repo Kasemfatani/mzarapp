@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { Cormorant_Garamond, DM_Sans } from "next/font/google";
+import { Cormorant_Garamond, DM_Sans } from "@/lib/umrahFonts";
 
 const cormorant = Cormorant_Garamond({
 	subsets: ["latin"],

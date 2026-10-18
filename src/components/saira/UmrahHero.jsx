@@ -5,7 +5,7 @@ import {
 	Cormorant_Garamond,
 	DM_Sans,
 	Noto_Naskh_Arabic,
-} from "next/font/google";
+} from "@/lib/umrahFonts";
 
 const cormorant = Cormorant_Garamond({
 	subsets: ["latin"],
