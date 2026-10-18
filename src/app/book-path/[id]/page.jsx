@@ -2,7 +2,7 @@ import { cookies, headers } from "next/headers";
 
 import { API_BASE_URL_NEW } from "@/lib/apiConfig";
 import { API_BETA_URL } from "@/lib/apiConfig";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { cache } from "react";
 
 import BookWrapper from "@/components/book-path-new/BookWrapper";
@@ -51,6 +51,9 @@ export default async function Page({ params }) {
 	if (!id) return notFound();
 
 	const lang = determineLang();
+	if (String(id) === "45") {
+		redirect(`/${lang}/trip-detail/45#booking`);
+	}
 	
 	
 		// Call the cached function again—it will reuse the result from generateMetadata

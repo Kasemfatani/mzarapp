@@ -17,6 +17,7 @@ import { getIsSaudiFromHeaders } from "@/lib/apiConfig";
 import { getServerLocale } from "@/lib/localeServer";
 import HaramPromoSaver from "@/components/common/HaramPromoSaver";
 import WhatsAppBookingRedirect from "@/components/common/WhatsAppBookingRedirect";
+import PrivateTourPage from "@/components/private-tour/PrivateTourPage";
 
 // 2. Wrap the fetch function with cache()
 const getData = cache(async (id, lang) => {
@@ -83,6 +84,23 @@ export default async function TourPage({ params }) {
 	const data = await getData(id, lang);
 	// console.log("Trip Detail Data:", data);
 	if (!data) notFound();
+
+	if (String(id) === "45") {
+		const bookingResponse = await fetch(
+			`${API_BASE_URL_NEW}/landing/trip/booking-data?package_id=45`,
+			{ headers: { lang }, cache: "no-store" },
+		).catch(() => null);
+		const bookingJson = bookingResponse?.ok
+			? await bookingResponse.json().catch(() => null)
+			: null;
+		return (
+			<PrivateTourPage
+				lang={lang}
+				trip={data}
+				bookingData={bookingJson?.data ?? null}
+			/>
+		);
+	}
 
 	// const loader = PATH_IMPORTS[Number(id)];
 	// if (!loader) return notFound();
