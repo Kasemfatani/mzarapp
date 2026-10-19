@@ -6,6 +6,7 @@ import {
   Moon, 
   Landmark, 
   Compass, 
+  Bus,
   Car, 
   Users, 
   Star, 
@@ -31,7 +32,7 @@ export default function MzarServicesSection({ lang = "ar" }) {
     { id: "all", label: isAr ? "عرض جميع الخدمات" : "Show All Services" },
     { id: "complete", label: isAr ? "أبحث عن رحلة متكاملة" : "Looking for a Full Package" },
     { id: "short", label: isAr ? "أريد جولة قصيرة" : "Want a Short Tour" },
-    { id: "transport", label: isAr ? "أحتاج وسيلة نقل" : "Need Transportation" },
+    // { id: "transport", label: isAr ? "أحتاج وسيلة نقل" : "Need Transportation" },
     { id: "family", label: isAr ? "أبحث عن نشاط عائلي" : "Looking for Family Activity" },
   ];
 
@@ -88,22 +89,39 @@ export default function MzarServicesSection({ lang = "ar" }) {
       href: "/all-trips?type=1",
     },
     {
-      id: "transport",
+      id: "bus-tour",
       isMain: false,
-      visualClass: styles.serviceVisualTransport,
-      label: isAr ? "تنقل مطمئن" : "Reliable Transfer",
-      icon: <Car className="w-5 h-5" />,
-      needs: ["transport", "complete"],
-      title: isAr ? "خدمات النقل" : "Transportation Services",
+      visualClass: styles.serviceVisualBusTour,
+      label: isAr ? "جولة بالحافلة" : "Bus Tour",
+      icon: <Bus className="w-5 h-5" />,
+      needs: ["family"],
+      title: isAr ? "جولة مكة الإثرائية بالحافلة" : "Makkah Enrichment Bus Tour",
       description: isAr
-        ? "استقبال المطارات، النقل بين المدن، ومركبات للأفراد والعائلات والمجموعات."
-        : "Airport pick-up, intercity transfers, and premium vehicles for individuals, families, and groups.",
-      facts: isAr 
-        ? ["1 - 49 راكبًا", "فئات متنوعة"]
-        : ["1 - 49 Passengers", "Diverse Fleet"],
-      linkText: isAr ? "استعرض المركبات" : "View Vehicles",
-      href: "/transportation",
+        ? "جولة جماعية لزيارة ١٠ معالم في مكة بحافلة مكيّفة وإرشاد صوتي بخمس لغات."
+        : "Explore 10 Makkah landmarks on a shared, air-conditioned bus tour with audio guidance in five languages.",
+      facts: isAr
+        ? ["١٠ معالم", "٥ ساعات", "٥ لغات"]
+        : ["10 Landmarks", "5 Hours", "5 Languages"],
+      linkText: isAr ? "احجز جولتك" : "Book Your Tour",
+      href: `/${lang}/trip-detail/96`,
     },
+    // {
+    //   id: "transport",
+    //   isMain: false,
+    //   visualClass: styles.serviceVisualTransport,
+    //   label: isAr ? "تنقل مطمئن" : "Reliable Transfer",
+    //   icon: <Car className="w-5 h-5" />,
+    //   needs: ["transport", "complete"],
+    //   title: isAr ? "خدمات النقل" : "Transportation Services",
+    //   description: isAr
+    //     ? "استقبال المطارات، النقل بين المدن، ومركبات للأفراد والعائلات والمجموعات."
+    //     : "Airport pick-up, intercity transfers, and premium vehicles for individuals, families, and groups.",
+    //   facts: isAr 
+    //     ? ["1 - 49 راكبًا", "فئات متنوعة"]
+    //     : ["1 - 49 Passengers", "Diverse Fleet"],
+    //   linkText: isAr ? "استعرض المركبات" : "View Vehicles",
+    //   href: "/transportation",
+    // },
   ];
 
   // const stats = [

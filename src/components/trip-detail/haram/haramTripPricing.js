@@ -8,9 +8,13 @@ function roundMoney(value) {
 	return Number((Number(value || 0) + Number.EPSILON).toFixed(2));
 }
 
+function roundUpToWholeRiyal(value) {
+	return Math.ceil(roundMoney(value));
+}
+
 export function getHaramOfferPrices({ price = 0, taxRate = 0 }) {
-	// The current price includes VAT. The crossed-out reference price is a fixed display value.
-	const currentPrice = roundMoney(Number(price) * (1 + Number(taxRate || 0)));
+	// Round the VAT-inclusive per-person amount up to a whole Riyal. The crossed-out reference price is fixed display copy.
+	const currentPrice = roundUpToWholeRiyal(Number(price) * (1 + Number(taxRate || 0)));
 
 	return { currentPrice };
 }
@@ -37,7 +41,10 @@ export function getHaramQuote({
 	const subtotal = roundMoney(Number(price) * Number(people));
 	const discount = roundMoney(subtotal * (Number(discountPercent) / 100));
 	const taxableAmount = roundMoney(Math.max(0, subtotal - discount));
-	const tax = roundMoney(taxableAmount * Number(taxRate || 0));
+	const perPersonTaxableAmount = Number(people) > 0 ? taxableAmount / Number(people) : 0;
+	const perPersonTotal = roundUpToWholeRiyal(perPersonTaxableAmount * (1 + Number(taxRate || 0)));
+	const totalBeforeCashFee = roundMoney(perPersonTotal * Number(people));
+	const tax = roundMoney(totalBeforeCashFee - taxableAmount);
 	const cashFee = paymentMethod === "cash" ? HARAM_CASH_FEE_SAR : 0;
 
 	return {
@@ -46,7 +53,7 @@ export function getHaramQuote({
 		taxableAmount,
 		tax,
 		cashFee,
-		total: roundMoney(taxableAmount + tax + cashFee),
+		total: roundMoney(totalBeforeCashFee + cashFee),
 	};
 }
 
@@ -55,7 +62,7 @@ export function formatHaramMoney(amountSAR, lang = "en") {
 	const amount = isArabic ? Number(amountSAR) : Number(amountSAR) / SAR_PER_USD;
 	if (isArabic) {
 		const formattedAmount = new Intl.NumberFormat("ar-SA", {
-			minimumFractionDigits: 2,
+			minimumFractionDigits: 0,
 			maximumFractionDigits: 2,
 		}).format(Number.isFinite(amount) ? amount : 0);
 		return `${formattedAmount} ريال`;
@@ -64,6 +71,7 @@ export function formatHaramMoney(amountSAR, lang = "en") {
 	return new Intl.NumberFormat("en-US", {
 		style: "currency",
 		currency: "USD",
+		minimumFractionDigits: 0,
 		maximumFractionDigits: 2,
 	}).format(Number.isFinite(amount) ? amount : 0);
 }
