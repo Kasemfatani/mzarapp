@@ -1,16 +1,11 @@
 import { ChevronDown } from "lucide-react";
-import { formatHaramEndTime, formatHaramTime } from "./haramTripSchedule";
+import { formatHaramTime } from "./haramTripSchedule";
 import { formatHaramMoney, getHaramOfferPrices } from "./haramTripPricing";
 import styles from "./HaramTripDetail.module.css";
 
 export default function HaramTripFaqSection({ copy, bookingData, schedule, lang }) {
 	const time = formatHaramTime(schedule?.time?.time || "20:30:00", lang, { longPeriod: true });
-	const endTime = formatHaramEndTime(
-		schedule?.time?.time || "20:30:00",
-		bookingData?.duration,
-		lang,
-		{ longPeriod: true },
-	);
+	const endTime = formatHaramTime("22:15", lang, { longPeriod: true });
 	const { currentPrice } = getHaramOfferPrices({
 		price: bookingData?.price,
 		taxRate: bookingData?.tax,
