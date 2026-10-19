@@ -290,7 +290,7 @@ export default function HaramTripBookingSection({
 					lang,
 					cart_id: cartId,
 					customer_details: {
-						name: name.trim(),
+						name: "",
 						email: "customer@gmail.com",
 						whatsapp: fullNumber,
 					},
