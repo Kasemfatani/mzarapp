@@ -83,39 +83,129 @@ function determineLang() {
 	return getServerLocale();
 }
 
+const SITE_ORIGIN = "https://www.mzarapp.com";
+const TRIP_SHARE_ASSETS = {
+	45: {
+		image: "/private-tour/hero.jpg",
+		width: 1200,
+		height: 1200,
+		alt: {
+			ar: "معالم المشاعر المقدسة في مكة",
+			en: "Sacred sites in Makkah",
+		},
+	},
+	88: {
+		image: "/trip-detail/88/haram.jpg",
+		width: 600,
+		height: 474,
+		alt: {
+			ar: "الكعبة المشرفة في المسجد الحرام",
+			en: "The Holy Kaaba at Al-Masjid Al-Haram",
+		},
+	},
+	96: {
+		image: "/trip-detail/96/tour.jpg",
+		width: 4898,
+		height: 3265,
+		alt: {
+			ar: "حافلة مزار للجولات الإثرائية في مكة",
+			en: "Mzar enrichment tour bus in Makkah",
+		},
+	},
+};
 
-// Add: use API data for page metadata
+function getAbsoluteShareImageUrl(imagePath) {
+	const fallback = new URL("/share.png", SITE_ORIGIN).toString();
+	if (typeof imagePath !== "string" || !imagePath.trim()) return fallback;
+
+	try {
+		const imageUrl = new URL(imagePath.trim(), SITE_ORIGIN);
+		if (imageUrl.protocol !== "https:" && imageUrl.protocol !== "http:") {
+			return fallback;
+		}
+		if (imageUrl.protocol === "http:") imageUrl.protocol = "https:";
+		return imageUrl.toString();
+	} catch {
+		return fallback;
+	}
+}
+
+function getTripDetailUrl(lang, id) {
+	return new URL(`/${lang}/trip-detail/${encodeURIComponent(id)}`, SITE_ORIGIN).toString();
+}
+
+function getMetadataText(value) {
+	return typeof value === "string" ? value.trim() : "";
+}
+
 export async function generateMetadata({ params }) {
-	const { id } = params || {};
+	const id = String(params?.id || "");
 	if (!id) return {};
 	const lang = determineLang();
+	const isArabic = lang === "ar";
+	let data = null;
+	let title;
+	let description;
+
 	if (id === "96") {
-		return lang === "ar"
-			? {
-				title: "جولات مكة الإثرائية بالحافلة | مزار",
-				description: "اكتشف معالم مكة في جولة إثرائية بالحافلة مع إرشاد صوتي بلغتك.",
-			}
-			: {
-				title: "Makkah Enrichment Bus Tour | Mzar",
-				description: "Discover Makkah's landmarks on an enriching bus tour with audio guidance in your language.",
-			};
+		title = isArabic ? "جولات مكة الإثرائية بالحافلة | مزار" : "Makkah Enrichment Bus Tour | Mzar";
+		description = isArabic
+			? "اكتشف معالم مكة في جولة إثرائية بالحافلة مع إرشاد صوتي بلغتك."
+			: "Discover Makkah's landmarks on an enriching bus tour with audio guidance in your language.";
+	} else if (id === "88") {
+		title = isArabic ? "جولة معالم المسجد الحرام | مزار" : "Grand Mosque Landmarks Tour | Mzar";
+		description = isArabic
+			? "اكتشف معالم المسجد الحرام وقصصه في جولة معرفية مع مرشد سياحي معتمد."
+			: "Explore the landmarks and stories of the Grand Mosque on a guided tour with a certified guide.";
+	} else {
+		data = await getData(id, lang);
+		if (!data) return {};
+		title = getMetadataText(data.meta_title) || getMetadataText(data.name) || (isArabic ? "تجارب مزار السياحية" : "Mzar Experiences");
+		description = getMetadataText(data.meta_description) || getMetadataText(data.short_description) || (
+			isArabic
+				? "اكتشف تجربة مزار واحجز جولتك في مكة المكرمة والمدينة المنورة."
+				: "Discover a Mzar experience and book your tour in Makkah and Madinah."
+		);
 	}
-	if (id === "88") {
-		return lang === "ar"
-			? {
-				title: "جولة معالم المسجد الحرام | مزار",
-				description: "اكتشف معالم المسجد الحرام وقصصه في جولة معرفية مع مرشد سياحي معتمد.",
-			}
-			: {
-				title: "Grand Mosque Landmarks Tour | Mzar",
-				description: "Explore the landmarks and stories of the Grand Mosque on a guided tour with a certified guide.",
-			};
-	}
-	const data = await getData(id, lang);
-	if (!data) return {};
+
+	const asset = TRIP_SHARE_ASSETS[id];
+	const canonicalUrl = getTripDetailUrl(lang, id);
+	const imageUrl = getAbsoluteShareImageUrl(asset?.image || data?.image);
+	const imageAlt = asset?.alt?.[lang] || getMetadataText(data?.name) || title;
+	const englishUrl = getTripDetailUrl("en", id);
+	const arabicUrl = getTripDetailUrl("ar", id);
+
 	return {
-		title: data.meta_title || "",
-		description: data.meta_description || "",
+		title,
+		description,
+		alternates: {
+			canonical: canonicalUrl,
+			languages: {
+				en: englishUrl,
+				ar: arabicUrl,
+			},
+		},
+		openGraph: {
+			title,
+			description,
+			url: canonicalUrl,
+			siteName: isArabic ? "تطبيق مزار" : "MzarApp",
+			locale: isArabic ? "ar_SA" : "en_US",
+			alternateLocale: isArabic ? "en_US" : "ar_SA",
+			type: "website",
+			images: [{
+				url: imageUrl,
+				alt: imageAlt,
+				width: asset?.width,
+				height: asset?.height,
+			}],
+		},
+		twitter: {
+			card: "summary_large_image",
+			title,
+			description,
+			images: [imageUrl],
+		},
 	};
 }
 
