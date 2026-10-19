@@ -38,6 +38,12 @@ export function middleware(request: NextRequest) {
 
 	if (localeMatch) {
 		const locale = localeMatch[1] as "en" | "ar";
+		if (/^\/(en|ar)\/book-haram\/?$/.test(pathname)) {
+			const redirectUrl = request.nextUrl.clone();
+			redirectUrl.pathname = `/${locale}/trip-detail/88`;
+			redirectUrl.hash = "booking";
+			return NextResponse.redirect(redirectUrl, 307);
+		}
 		if (/^\/(en|ar)\/book-path\/45\/?$/.test(pathname)) {
 			const redirectUrl = request.nextUrl.clone();
 			redirectUrl.pathname = `/${locale}/trip-detail/45`;
@@ -66,8 +72,13 @@ export function middleware(request: NextRequest) {
 
 	const locale = detectLocale(request);
 	const redirectUrl = request.nextUrl.clone();
-	redirectUrl.pathname =
-		pathname === "/" ? `/${locale}` : `/${locale}${pathname}`;
+	if (/^\/book-haram\/?$/.test(pathname)) {
+		redirectUrl.pathname = `/${locale}/trip-detail/88`;
+		redirectUrl.hash = "booking";
+	} else {
+		redirectUrl.pathname =
+			pathname === "/" ? `/${locale}` : `/${locale}${pathname}`;
+	}
 
 	const response = NextResponse.redirect(redirectUrl, 307);
 	response.cookies.set("lang", locale, {

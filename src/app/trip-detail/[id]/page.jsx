@@ -19,6 +19,8 @@ import HaramPromoSaver from "@/components/common/HaramPromoSaver";
 import WhatsAppBookingRedirect from "@/components/common/WhatsAppBookingRedirect";
 import BusTripDetailPage from "@/components/trip-detail/bus/BusTripDetailPage";
 import PrivateTourPage from "@/components/private-tour/PrivateTourPage";
+import HaramTripDetailPage from "@/components/trip-detail/haram/HaramTripDetailPage";
+import { getHaramSchedule } from "@/components/trip-detail/haram/haramTripSchedule";
 
 // 2. Wrap the fetch function with cache()
 const getData = cache(async (id, lang) => {
@@ -57,6 +59,25 @@ const getBusBookingData = cache(async (lang) => {
 	}
 });
 
+const getHaramBookingData = cache(async (lang) => {
+	try {
+		const res = await fetch(
+			`${API_BASE_URL_NEW}/landing/landing-guided-tour/booking-data?package_id=88`,
+			{
+				headers: { lang },
+				signal: AbortSignal.timeout(8000),
+				next: { revalidate: 300 },
+			},
+		);
+		if (!res.ok) return null;
+		const json = await res.json();
+		return json?.status === true ? json?.data || null : null;
+	} catch (error) {
+		console.error("Failed to load Haram trip booking data:", error);
+		return null;
+	}
+});
+
 // Helper to determine language (keep this logic centralized)
 function determineLang() {
 	return getServerLocale();
@@ -77,6 +98,17 @@ export async function generateMetadata({ params }) {
 			: {
 				title: "Makkah Enrichment Bus Tour | Mzar",
 				description: "Discover Makkah's landmarks on an enriching bus tour with audio guidance in your language.",
+			};
+	}
+	if (id === "88") {
+		return lang === "ar"
+			? {
+				title: "جولة معالم المسجد الحرام | مزار",
+				description: "اكتشف معالم المسجد الحرام وقصصه في جولة معرفية مع مرشد سياحي معتمد.",
+			}
+			: {
+				title: "Grand Mosque Landmarks Tour | Mzar",
+				description: "Explore the landmarks and stories of the Grand Mosque on a guided tour with a certified guide.",
 			};
 	}
 	const data = await getData(id, lang);
@@ -111,6 +143,25 @@ export default async function TourPage({ params }) {
 
 	const lang = determineLang();
 	const isAr = lang === "ar";
+
+	if (id === "88") {
+		const [{ countryCode }, bookingData] = await Promise.all([
+			getIsSaudiFromHeaders(headers()),
+			getHaramBookingData(lang),
+		]);
+		const initialSchedule = getHaramSchedule(bookingData, new Date());
+		return (
+			<div className={isAr ? "rtl" : "ltr"}>
+				<HaramPromoSaver />
+				<HaramTripDetailPage
+					lang={lang}
+					bookingData={bookingData}
+					initialSchedule={initialSchedule}
+					countryCode={countryCode || "SA"}
+				/>
+			</div>
+		);
+	}
 
 	if (id === "96") {
 		const [{ isSaudi, countryCode }, busData] = await Promise.all([
