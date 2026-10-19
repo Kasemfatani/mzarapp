@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { ArrowRight, ArrowLeft } from "lucide-react";
 import { formatHaramDate, formatHaramTime } from "./haramTripSchedule";
-import { formatHaramMoney } from "./haramTripPricing";
+import { formatHaramMoney, getHaramOfferPrices } from "./haramTripPricing";
 import styles from "./HaramTripDetail.module.css";
 
 export default function HaramTripMobileCta({ copy, bookingData, schedule, lang }) {
@@ -16,7 +16,10 @@ export default function HaramTripMobileCta({ copy, bookingData, schedule, lang }
 		return () => observer.disconnect();
 	}, []);
 	if (bookingVisible) return null;
-	const perPerson = Number(bookingData?.price || 0) * (1 + Number(bookingData?.tax || 0));
+	const { currentPrice: perPerson } = getHaramOfferPrices({
+		price: bookingData?.price,
+		taxRate: bookingData?.tax,
+	});
 	return (
 		<div className={styles.mobileBar}>
 			<div className={styles.mobileBarMeta}>
