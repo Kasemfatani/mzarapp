@@ -6,7 +6,7 @@ import "react-international-phone/style.css";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
 import { API_BASE_URL_NEW } from "@/lib/apiConfig";
 import { formatHaramDate, formatHaramTime, getHaramSchedule, HARAM_TIME_ID } from "./haramTripSchedule";
-import { formatHaramMoney, getHaramOfferPrices, getHaramQuote, HARAM_REFERENCE_PRICE_MARKUP_PERCENT } from "./haramTripPricing";
+import { formatHaramMoney, formatHaramReferencePrice, getHaramOfferPrices, getHaramQuote, HARAM_REFERENCE_PRICE_MARKUP_PERCENT } from "./haramTripPricing";
 import styles from "./HaramTripDetail.module.css";
 
 const STORAGE_KEY = "bookHaramain.selection";
@@ -330,7 +330,7 @@ export default function HaramTripBookingSection({
 					<h2 id="haram-booking-title">{copy.bookingTitle}</h2>
 					<div className={styles.priceLine}>
 						<strong>{money(offer.currentPrice)}</strong>
-						<del>{money(offer.originalPrice)}</del>
+						<del>{formatHaramReferencePrice(lang)}</del>
 						<span>{copy.pricePerPerson}</span>
 					</div>
 					<p className={styles.taxNote}>{copy.vatIncluded}</p>

@@ -1,17 +1,30 @@
 export const HARAM_CASH_FEE_SAR = 5;
 export const HARAM_REFERENCE_PRICE_MARKUP_PERCENT = 25;
 const SAR_PER_USD = 3.75;
+const HARAM_REFERENCE_PRICE_SAR = 199;
+const HARAM_REFERENCE_PRICE_USD = 53;
 
 function roundMoney(value) {
 	return Number((Number(value || 0) + Number.EPSILON).toFixed(2));
 }
 
 export function getHaramOfferPrices({ price = 0, taxRate = 0 }) {
-	// The API price is VAT-exclusive. The current price includes VAT; only the reference price adds 25%.
+	// The current price includes VAT. The crossed-out reference price is a fixed display value.
 	const currentPrice = roundMoney(Number(price) * (1 + Number(taxRate || 0)));
-	const originalPrice = roundMoney(currentPrice * (1 + HARAM_REFERENCE_PRICE_MARKUP_PERCENT / 100));
 
-	return { currentPrice, originalPrice };
+	return { currentPrice };
+}
+
+export function formatHaramReferencePrice(lang = "en") {
+	if (lang === "ar") {
+		return `${new Intl.NumberFormat("ar-SA", { maximumFractionDigits: 0 }).format(HARAM_REFERENCE_PRICE_SAR)} ريال`;
+	}
+
+	return new Intl.NumberFormat("en-US", {
+		style: "currency",
+		currency: "USD",
+		maximumFractionDigits: 0,
+	}).format(HARAM_REFERENCE_PRICE_USD);
 }
 
 export function getHaramQuote({

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { ArrowDown, Clock3, MapPin, ShieldCheck, Star } from "lucide-react";
-import { formatHaramMoney, getHaramOfferPrices, HARAM_REFERENCE_PRICE_MARKUP_PERCENT } from "./haramTripPricing";
+import { formatHaramMoney, formatHaramReferencePrice, getHaramOfferPrices, HARAM_REFERENCE_PRICE_MARKUP_PERCENT } from "./haramTripPricing";
 import styles from "./HaramTripDetail.module.css";
 
 export default function HaramTripHero({ copy, bookingData, lang }) {
@@ -41,7 +41,7 @@ export default function HaramTripHero({ copy, bookingData, lang }) {
 					</div>
 					<div className={styles.heroOfferPrice}>
 						<strong>{money(offer.currentPrice)}</strong>
-						<del>{money(offer.originalPrice)}</del>
+						<del>{formatHaramReferencePrice(lang)}</del>
 						<span>{copy.pricePerPerson}</span>
 						<small>{copy.vatIncluded}</small>
 					</div>
