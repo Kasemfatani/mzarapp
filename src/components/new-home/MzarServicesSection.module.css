@@ -156,6 +156,10 @@
   background-image: url('/new-home/transport.webp');
 }
 
+.serviceVisualBusTour {
+  background-image: url('/trip-detail/96/tour.jpg');
+}
+
 /* Main Tile (Umrah Packages) - Full Cover Image */
 .serviceTileMain {
   min-height: 420px;
