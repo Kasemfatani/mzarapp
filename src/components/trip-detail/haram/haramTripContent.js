@@ -46,7 +46,7 @@ export const haramTripCopy = {
 		routeDescription:
 			"مسار معرفي يجمع أبرز معالم المسجد الحرام في تجربة واحدة.",
 		route: [
-			["البداية · 8:45 م", "بوابة الملك عبدالله", "نتعارف، ونوزّع السماعات، ونعرّفك بمسار الجولة."],
+			["البداية · 8:30 م", "بوابة الملك عبدالله", "نتعارف، ونوزّع السماعات، ونعرّفك بمسار الجولة."],
 			["المحطة الثانية", "ساحات باب الملك فهد", "تأمّل العمارة والمآذن، وتعرّف على قصة التوسعات."],
 			["المحطة الثالثة", "الكعبة المشرفة", "اكتشف تاريخ بنائها وأبرز المعالم المرتبطة بها."],
 			["المحطة الرابعة", "الصفا والمروة", "استمع إلى قصة زمزم وسعي هاجر ومعاني المكان."],
@@ -185,7 +185,7 @@ export const haramTripCopy = {
 		routeDescription:
 			"A guided route through some of the Grand Mosque’s most meaningful landmarks.",
 		route: [
-			["START · 8:45 PM", "King Abdullah Gate", "Meet your guide, collect your headset and get to know the route."],
+			["START · 8:30 PM", "King Abdullah Gate", "Meet your guide, collect your headset and get to know the route."],
 			["SECOND STOP", "King Fahd Gate courtyards", "Explore the architecture, minarets and history of the expansions."],
 			["THIRD STOP", "The Holy Kaaba", "Discover its construction history and the landmarks around it."],
 			["FOURTH STOP", "Safa and Marwa", "Hear the story of Zamzam and Hajar’s journey between the two hills."],
