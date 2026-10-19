@@ -18,9 +18,12 @@ import { getServerLocale } from "@/lib/localeServer";
 import HaramPromoSaver from "@/components/common/HaramPromoSaver";
 import WhatsAppBookingRedirect from "@/components/common/WhatsAppBookingRedirect";
 import BusTripDetailPage from "@/components/trip-detail/bus/BusTripDetailPage";
+import { getBusAdultGroup, getBusTripQuote } from "@/components/trip-detail/bus/busTripPricing";
 import PrivateTourPage from "@/components/private-tour/PrivateTourPage";
+import TripDetailJsonLd from "@/components/trip-detail/TripDetailJsonLd";
 import HaramTripDetailPage from "@/components/trip-detail/haram/HaramTripDetailPage";
-import { getHaramSchedule } from "@/components/trip-detail/haram/haramTripSchedule";
+import { formatHaramDate, formatHaramTime, getHaramSchedule } from "@/components/trip-detail/haram/haramTripSchedule";
+import { getHaramOfferPrices } from "@/components/trip-detail/haram/haramTripPricing";
 
 // 2. Wrap the fetch function with cache()
 const getData = cache(async (id, lang) => {
@@ -78,44 +81,224 @@ const getHaramBookingData = cache(async (lang) => {
 	}
 });
 
+const getPrivateTourBookingData = cache(async (lang) => {
+	try {
+		const res = await fetch(
+			`${API_BASE_URL_NEW}/landing/trip/booking-data?package_id=45`,
+			{ headers: { lang }, cache: "no-store" },
+		);
+		if (!res.ok) return null;
+		const json = await res.json();
+		return json?.data || null;
+	} catch (error) {
+		console.error("Failed to load private tour booking data:", error);
+		return null;
+	}
+});
+
 // Helper to determine language (keep this logic centralized)
 function determineLang() {
 	return getServerLocale();
 }
 
+const SITE_ORIGIN = "https://www.mzarapp.com";
+const TRIP_SHARE_ASSETS = {
+	45: {
+		image: "/private-tour/hero.jpg",
+		width: 1200,
+		height: 1200,
+		alt: {
+			ar: "معالم المشاعر المقدسة في مكة",
+			en: "Sacred sites in Makkah",
+		},
+	},
+	88: {
+		image: "/trip-detail/88/haram.jpg",
+		width: 600,
+		height: 474,
+		alt: {
+			ar: "الكعبة المشرفة في المسجد الحرام",
+			en: "The Holy Kaaba at Al-Masjid Al-Haram",
+		},
+	},
+	96: {
+		image: "/trip-detail/96/tour.jpg",
+		width: 4898,
+		height: 3265,
+		alt: {
+			ar: "حافلة مزار للجولات الإثرائية في مكة",
+			en: "Mzar enrichment tour bus in Makkah",
+		},
+	},
+};
 
-// Add: use API data for page metadata
+function getAbsoluteShareImageUrl(imagePath) {
+	const fallback = new URL("/share.png", SITE_ORIGIN).toString();
+	if (typeof imagePath !== "string" || !imagePath.trim()) return fallback;
+
+	try {
+		const imageUrl = new URL(imagePath.trim(), SITE_ORIGIN);
+		if (imageUrl.protocol !== "https:" && imageUrl.protocol !== "http:") {
+			return fallback;
+		}
+		if (imageUrl.protocol === "http:") imageUrl.protocol = "https:";
+		return imageUrl.toString();
+	} catch {
+		return fallback;
+	}
+}
+
+function getTripDetailUrl(lang, id) {
+	return new URL(`/${lang}/trip-detail/${encodeURIComponent(id)}`, SITE_ORIGIN).toString();
+}
+
+function getMetadataText(value) {
+	return typeof value === "string" ? value.trim() : "";
+}
+
+function formatMetadataPrice(amountSAR, lang) {
+	const amount = Number(amountSAR);
+	if (!Number.isFinite(amount) || amount <= 0) return "";
+	if (lang === "ar") {
+		const amountText = new Intl.NumberFormat("ar-SA", { maximumFractionDigits: 0 }).format(amount);
+		return `${amountText} ريالًا`;
+	}
+	return new Intl.NumberFormat("en-US", {
+		style: "currency",
+		currency: "USD",
+		minimumFractionDigits: 0,
+		maximumFractionDigits: 0,
+	}).format(amount / 3.75);
+}
+
+function getBusMetadataDescription(busData, lang) {
+	const adultGroup = getBusAdultGroup(busData?.group_age_prices || []);
+	const personPrice = getBusTripQuote({
+		adultUnitPrice: adultGroup?.price,
+		taxRate: busData?.tax,
+	}).unitGrossSAR;
+	const priceText = formatMetadataPrice(personPrice, lang);
+
+	return lang === "ar"
+		? `اكتشف ١٠ معالم في مكة مع مزار وإرشاد سياحي صوتي بلغتك. انطلق من فندق أنجم مكة في الجولات الصباحية ٧ صباحًا أو المسائية ٤ عصرًا، واحجز بخطوة واحدة${priceText ? ` ابتداءً من ${priceText} للشخص` : ""}. الأطفال دون ١٢ سنة مجانًا، والدفع أونلاين أو نقدًا.`
+		: `Explore 10 Makkah landmarks with Mzar and multilingual audio guidance. Depart from Anjum Hotel Makkah at 7 AM or 4 PM and book in one step${priceText ? `, from ${priceText} per paying adult` : ""}. Children under 12 are free; pay online or in cash.`;
+}
+
+function getHaramMetadataDescription(bookingData, lang, schedule) {
+	const time = formatHaramTime(schedule?.time?.time || "20:30:00", lang, { longPeriod: true });
+	const dateText = schedule ? formatHaramDate(schedule.date, lang) : "";
+	const personPrice = getHaramOfferPrices({
+		price: bookingData?.price,
+		taxRate: bookingData?.tax,
+	}).currentPrice;
+	const priceText = formatMetadataPrice(personPrice, lang);
+
+	return lang === "ar"
+		? `اكتشف قصص الكعبة ومعالم المسجد الحرام مع مرشد معتمد. ${dateText ? `موعد الجولة القادمة ${dateText}` : "تُقام الجولة أيام الأربعاء"}، الساعة ${time} بتوقيت السعودية، لمدة 90 دقيقة${priceText ? `. ${priceText} للشخص شامل الضريبة` : ""}. احجز بثلاث بيانات فقط.`
+		: `Discover the stories of the Kaaba and the Grand Mosque with a certified guide. ${dateText ? `Next tour: ${dateText}` : "Wednesdays"} at ${time} Saudi time (UTC+3), for 90 minutes${priceText ? `. ${priceText} per person, VAT included` : ""}. Book in three details.`;
+}
+
+function getHaramMetadataTitle(bookingData, lang) {
+	const currentPrice = getHaramOfferPrices({
+		price: bookingData?.price,
+		taxRate: bookingData?.tax,
+	}).currentPrice;
+	const priceText = formatMetadataPrice(currentPrice, lang);
+	if (lang === "ar") {
+		const titlePrice = priceText ? priceText.replace(/ ريالًا$/, " ريال") : "";
+		return `جولة معالم المسجد الحرام${titlePrice ? ` | عرض ${titlePrice}` : ""} | مزار`;
+	}
+	return `Grand Mosque Guided Tour${priceText ? ` | ${priceText} Special Offer` : ""} | Mzar`;
+}
+
+function getPrivateTourMetadataDescription(data, bookingData, lang) {
+	const minGuests = Math.max(1, Number(data?.min_people_count) || 4);
+	const priceText = formatMetadataPrice(
+		bookingData?.price_per_person ?? data?.price_with_ticket,
+		lang,
+	);
+	return lang === "ar"
+		? `جولة خاصة لمدة ٤ ساعات في مكة، مع الاستقبال من مقر الإقامة، وإرشاد صوتي ونصي بست لغات، وتذكرة معرض الوحي لكل مشارك${priceText ? `. ابتداءً من ${priceText} للفرد` : ""}. الحد الأدنى ${new Intl.NumberFormat("ar-SA").format(minGuests)} أشخاص.`
+		: `Private 4-hour Makkah tour with accommodation pickup, audio and text guidance in six languages, and a Revelation Exhibition ticket for every guest${priceText ? `. From ${priceText} per person` : ""}. Minimum ${minGuests} guests.`;
+}
+
 export async function generateMetadata({ params }) {
-	const { id } = params || {};
+	const id = String(params?.id || "");
 	if (!id) return {};
 	const lang = determineLang();
+	const isArabic = lang === "ar";
+	let data = null;
+	let title;
+	let description;
+
 	if (id === "96") {
-		return lang === "ar"
-			? {
-				title: "جولات مكة الإثرائية بالحافلة | مزار",
-				description: "اكتشف معالم مكة في جولة إثرائية بالحافلة مع إرشاد صوتي بلغتك.",
-			}
-			: {
-				title: "Makkah Enrichment Bus Tour | Mzar",
-				description: "Discover Makkah's landmarks on an enriching bus tour with audio guidance in your language.",
-			};
+		const busData = await getBusBookingData(lang);
+		title = isArabic
+			? "جولة معالم مكة بإرشاد سياحي صوتي بلغتك | مزار"
+			: "Makkah Landmarks Tour with Multilingual Audio Guidance | Mzar";
+		description = getBusMetadataDescription(busData, lang);
+	} else if (id === "88") {
+		const bookingData = await getHaramBookingData(lang);
+		const schedule = getHaramSchedule(bookingData, new Date());
+		title = getHaramMetadataTitle(bookingData, lang);
+		description = getHaramMetadataDescription(bookingData, lang, schedule);
+	} else {
+		data = await getData(id, lang);
+		if (!data) return {};
+		if (id === "45") {
+			const bookingData = await getPrivateTourBookingData(lang);
+			title = isArabic
+				? "جولة خاصة في المشاعر المقدسة ومعرض الوحي | مزار"
+				: "Private Makkah Sacred Sites Tour & Revelation Exhibition | Mzar";
+			description = getPrivateTourMetadataDescription(data, bookingData, lang);
+		} else {
+			title = getMetadataText(data.meta_title) || getMetadataText(data.name) || (isArabic ? "تجارب مزار السياحية" : "Mzar Experiences");
+			description = getMetadataText(data.meta_description) || getMetadataText(data.short_description) || (
+				isArabic
+					? "اكتشف تجربة مزار واحجز جولتك في مكة المكرمة والمدينة المنورة."
+					: "Discover a Mzar experience and book your tour in Makkah and Madinah."
+			);
+		}
 	}
-	if (id === "88") {
-		return lang === "ar"
-			? {
-				title: "جولة معالم المسجد الحرام | مزار",
-				description: "اكتشف معالم المسجد الحرام وقصصه في جولة معرفية مع مرشد سياحي معتمد.",
-			}
-			: {
-				title: "Grand Mosque Landmarks Tour | Mzar",
-				description: "Explore the landmarks and stories of the Grand Mosque on a guided tour with a certified guide.",
-			};
-	}
-	const data = await getData(id, lang);
-	if (!data) return {};
+
+	const asset = TRIP_SHARE_ASSETS[id];
+	const canonicalUrl = getTripDetailUrl(lang, id);
+	const imageUrl = getAbsoluteShareImageUrl(asset?.image || data?.image);
+	const imageAlt = asset?.alt?.[lang] || getMetadataText(data?.name) || title;
+	const englishUrl = getTripDetailUrl("en", id);
+	const arabicUrl = getTripDetailUrl("ar", id);
+
 	return {
-		title: data.meta_title || "",
-		description: data.meta_description || "",
+		title,
+		description,
+		alternates: {
+			canonical: canonicalUrl,
+			languages: {
+				en: englishUrl,
+				ar: arabicUrl,
+			},
+		},
+		openGraph: {
+			title,
+			description,
+			url: canonicalUrl,
+			siteName: isArabic ? "تطبيق مزار" : "MzarApp",
+			locale: isArabic ? "ar_SA" : "en_US",
+			alternateLocale: isArabic ? "en_US" : "ar_SA",
+			type: "website",
+			images: [{
+				url: imageUrl,
+				alt: imageAlt,
+				width: asset?.width,
+				height: asset?.height,
+			}],
+		},
+		twitter: {
+			card: "summary_large_image",
+			title,
+			description,
+			images: [imageUrl],
+		},
 	};
 }
 
@@ -150,16 +333,29 @@ export default async function TourPage({ params }) {
 			getHaramBookingData(lang),
 		]);
 		const initialSchedule = getHaramSchedule(bookingData, new Date());
+		const tripTitle = getHaramMetadataTitle(bookingData, lang);
 		return (
-			<div className={isAr ? "rtl" : "ltr"}>
-				<HaramPromoSaver />
-				<HaramTripDetailPage
+			<>
+				<TripDetailJsonLd
+					id="88"
 					lang={lang}
+					url={getTripDetailUrl(lang, id)}
+					name={tripTitle}
+					description={getHaramMetadataDescription(bookingData, lang, initialSchedule)}
+					imageUrl={getAbsoluteShareImageUrl(TRIP_SHARE_ASSETS["88"].image)}
 					bookingData={bookingData}
-					initialSchedule={initialSchedule}
-					countryCode={countryCode || "SA"}
+					schedule={initialSchedule}
 				/>
-			</div>
+				<div className={isAr ? "rtl" : "ltr"}>
+					<HaramPromoSaver />
+					<HaramTripDetailPage
+						lang={lang}
+						bookingData={bookingData}
+						initialSchedule={initialSchedule}
+						countryCode={countryCode || "SA"}
+					/>
+				</div>
+			</>
 		);
 	}
 
@@ -168,16 +364,30 @@ export default async function TourPage({ params }) {
 			getIsSaudiFromHeaders(headers()),
 			getBusBookingData(lang),
 		]);
+		const tripTitle = isAr
+			? "جولة معالم مكة بإرشاد سياحي صوتي بلغتك | مزار"
+			: "Makkah Landmarks Tour with Multilingual Audio Guidance | Mzar";
 
 		return (
-			<div className={isAr ? "rtl" : "ltr"}>
-				<BusTripDetailPage
+			<>
+				<TripDetailJsonLd
+					id="96"
 					lang={lang}
+					url={getTripDetailUrl(lang, id)}
+					name={tripTitle}
+					description={getBusMetadataDescription(busData, lang)}
+					imageUrl={getAbsoluteShareImageUrl(TRIP_SHARE_ASSETS["96"].image)}
 					busData={busData}
-					isSaudi={isSaudi}
-					countryCode={countryCode || "SA"}
 				/>
-			</div>
+				<div className={isAr ? "rtl" : "ltr"}>
+					<BusTripDetailPage
+						lang={lang}
+						busData={busData}
+						isSaudi={isSaudi}
+						countryCode={countryCode || "SA"}
+					/>
+				</div>
+			</>
 		);
 	}
 
@@ -187,19 +397,28 @@ export default async function TourPage({ params }) {
 	if (!data) notFound();
 
 	if (String(id) === "45") {
-		const bookingResponse = await fetch(
-			`${API_BASE_URL_NEW}/landing/trip/booking-data?package_id=45`,
-			{ headers: { lang }, cache: "no-store" },
-		).catch(() => null);
-		const bookingJson = bookingResponse?.ok
-			? await bookingResponse.json().catch(() => null)
-			: null;
+		const privateBookingData = await getPrivateTourBookingData(lang);
+		const tripTitle = isAr
+			? "جولة خاصة في المشاعر المقدسة ومعرض الوحي | مزار"
+			: "Private Makkah Sacred Sites Tour & Revelation Exhibition | Mzar";
 		return (
-			<PrivateTourPage
-				lang={lang}
-				trip={data}
-				bookingData={bookingJson?.data ?? null}
-			/>
+			<>
+				<TripDetailJsonLd
+					id="45"
+					lang={lang}
+					url={getTripDetailUrl(lang, id)}
+					name={tripTitle}
+					description={getPrivateTourMetadataDescription(data, privateBookingData, lang)}
+					imageUrl={getAbsoluteShareImageUrl(TRIP_SHARE_ASSETS["45"].image)}
+					tripData={data}
+					bookingData={privateBookingData}
+				/>
+				<PrivateTourPage
+					lang={lang}
+					trip={data}
+					bookingData={privateBookingData}
+				/>
+			</>
 		);
 	}
 

@@ -6,9 +6,9 @@ import { trackViewItem, trackBeginCheckout } from "@/lib/analytics";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
 import PrivateTourLayout from "./PrivateTourLayout";
 import { copy } from "./private-tour-copy";
+import { formatPrivateTourMoney, getPrivateTourFaqItems } from "./privateTourFaqData";
 
 const STORAGE_KEY = "path.selection";
-const SAR_PER_USD = 3.75;
 
 const localDate = () => new Intl.DateTimeFormat("sv-SE", { timeZone: "Asia/Riyadh", year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date());
 
@@ -64,9 +64,7 @@ export default function PrivateTourPage({ lang = "en", trip, bookingData }) {
     const fee = payment === "cash" ? 5 : 0;
     return { subtotal, discount, fee, total: Number((subtotal - discount + fee).toFixed(2)), tax: 0 };
   }, [priceWithTicket, people, promo, payment]);
-  const displayMoney = value => isAr
-    ? `${new Intl.NumberFormat("ar-SA", { maximumFractionDigits: 2 }).format(Number(value || 0))} ريال`
-    : new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(Number(value || 0) / SAR_PER_USD);
+  const displayMoney = value => formatPrivateTourMoney(value, lang);
   const startingPrice = Number.isFinite(priceWithTicket) && priceWithTicket > 0 ? priceWithTicket : 0;
 
   async function applyPromo() {
@@ -117,13 +115,7 @@ export default function PrivateTourPage({ lang = "en", trip, bookingData }) {
     } catch (cause) { setError(cause.message || t.error); setBusy(false); }
   }
 
-  const faqItems = [
-    [isAr ? "هل الجولة خاصة بمجموعتي؟" : "Is the tour private?", isAr ? `نعم، المركبة مخصصة لمجموعتك. عدد المشاركين من ${minGuests} إلى ${maxGuests} أشخاص.` : `Yes. The vehicle is reserved for your group of ${minGuests}–${maxGuests} guests.`],
-    [isAr ? "ماذا يشمل السعر؟" : "What does the price include?", isAr ? `يشمل سعر ${displayMoney(startingPrice)} للفرد الضريبة وتذكرة معرض الوحي لكل مشارك.` : `${displayMoney(startingPrice)} per guest, including VAT and a Revelation Exhibition ticket for each guest. Payment is processed in SAR.`],
-    [isAr ? "كيف أدفع؟ وهل توجد رسوم إضافية؟" : "How can I pay? Are there extra fees?", isAr ? "الدفع الإلكتروني دون رسوم إضافية. الدفع النقدي يضيف ٥ ريالات مرة واحدة على الحجز." : "Online payment has no extra fee. Cash adds SAR 5 once per booking."],
-    [isAr ? "كيف أستخدم الإرشاد الصوتي؟" : "How do I access the audio guidance?", isAr ? "استخدم تطبيق مزار للإرشاد الصوتي والنصي بست لغات." : "Use the Mzar app for smart audio and text guidance in six languages."],
-    [isAr ? "من أين تبدأ الجولة؟" : "Where does the tour start?", isAr ? "الاستقبال والعودة من مقر إقامتكم المتفق عليه في مكة. مدة الجولة أربع ساعات." : "Pickup and return are at your agreed accommodation in Makkah. The tour lasts four hours."],
-  ];
+  const faqItems = getPrivateTourFaqItems({ lang, minGuests, maxGuests, price: startingPrice });
   const booking = <>
     <div className="book-head">
       <span className="eyebrow">{isAr ? "تجربتك تبدأ هنا" : "YOUR EXPERIENCE STARTS HERE"}</span>
