@@ -69,7 +69,7 @@ const getHaramBookingData = cache(async (lang) => {
 			{
 				headers: { lang },
 				signal: AbortSignal.timeout(8000),
-				next: { revalidate: 300 },
+				cache: "no-store",
 			},
 		);
 		if (!res.ok) return null;
