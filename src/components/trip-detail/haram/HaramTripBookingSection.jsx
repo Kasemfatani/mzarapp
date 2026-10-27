@@ -337,7 +337,7 @@ export default function HaramTripBookingSection({
 					<div className={styles.scheduleBox}>
 						<div className={styles.scheduleHeader}><span>{copy.detailLabels[0]}</span><span className={styles.scheduleDot} /></div>
 						<strong>{dateText}</strong>
-						<span>{copy.wednesdayOnly} · {timeText || "8:30 PM"}</span>
+						<span>{copy.nextTour} · {timeText || "8:30 PM"}</span>
 						<small>{copy.saudiTime}</small>
 					</div>
 					<div className={styles.availabilityLine} aria-live="polite">

@@ -194,8 +194,8 @@ function getHaramMetadataDescription(bookingData, lang, schedule) {
 	const priceText = formatMetadataPrice(personPrice, lang);
 
 	return lang === "ar"
-		? `اكتشف قصص الكعبة ومعالم المسجد الحرام مع مرشد معتمد. ${dateText ? `موعد الجولة القادمة ${dateText}` : "تُقام الجولة أيام الأربعاء"}، الساعة ${time} بتوقيت السعودية، لمدة 90 دقيقة${priceText ? `. ${priceText} للشخص شامل الضريبة` : ""}. احجز بثلاث بيانات فقط.`
-		: `Discover the stories of the Kaaba and the Grand Mosque with a certified guide. ${dateText ? `Next tour: ${dateText}` : "Wednesdays"} at ${time} Saudi time (UTC+3), for 90 minutes${priceText ? `. ${priceText} per person, VAT included` : ""}. Book in three details.`;
+		? `اكتشف قصص الكعبة ومعالم المسجد الحرام مع مرشد معتمد. ${dateText ? `موعد الجولة القادمة ${dateText}، ` : ""}الساعة ${time} بتوقيت السعودية، لمدة 90 دقيقة${priceText ? `. ${priceText} للشخص شامل الضريبة` : ""}. احجز بثلاث بيانات فقط.`
+		: `Discover the stories of the Kaaba and the Grand Mosque with a certified guide. ${dateText ? `Next tour: ${dateText} at ` : "Tours depart at "}${time} Saudi time (UTC+3), for 90 minutes${priceText ? `. ${priceText} per person, VAT included` : ""}. Book in three details.`;
 }
 
 function getHaramMetadataTitle(bookingData, lang) {

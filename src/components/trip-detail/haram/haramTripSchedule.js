@@ -36,28 +36,30 @@ export function getHaramSchedule(bookingData, now = new Date()) {
 	const time = bookingData?.times?.find(
 		(option) => Number(option?.id) === HARAM_TIME_ID,
 	);
-	const days = (bookingData?.days || []).map((day) => (Number(day) === 7 ? 0 : Number(day)));
+	const days = (Array.isArray(bookingData?.days) ? bookingData.days : [])
+		.map(Number)
+		.filter((day) => Number.isInteger(day) && day >= 1 && day <= 7)
+		.map((day) => day % 7);
 	const departureMinutes = getTimeMinutes(time?.time);
 
-	if (!time || departureMinutes === null || !days.includes(3)) return null;
+	if (!time || departureMinutes === null || days.length === 0) return null;
 
 	const parts = getPartsInRiyadh(now);
 	const todayIndex = WEEKDAY_INDEX[parts.weekday];
 	if (typeof todayIndex !== "number") return null;
 
-	let daysUntilWednesday = (3 - todayIndex + 7) % 7;
 	const minutesNow = Number(parts.hour) * 60 + Number(parts.minute);
 	const cutoffMinutes = departureMinutes - 60;
-
-	if (daysUntilWednesday === 0 && minutesNow >= cutoffMinutes) {
-		daysUntilWednesday = 7;
-	}
+	const daysUntilTour = Math.min(...days.map((day) => {
+		const offset = (day - todayIndex + 7) % 7;
+		return offset === 0 && minutesNow >= cutoffMinutes ? 7 : offset;
+	}));
 
 	const date = new Date(
 		Date.UTC(
 			Number(parts.year),
 			Number(parts.month) - 1,
-			Number(parts.day) + daysUntilWednesday,
+			Number(parts.day) + daysUntilTour,
 		),
 	)
 		.toISOString()
