@@ -52,7 +52,9 @@ export function middleware(request: NextRequest) {
 		}
 		const rewrittenPath = pathname.replace(/^\/(en|ar)/, "") || "/";
 		const rewriteUrl = request.nextUrl.clone();
-		rewriteUrl.pathname = rewrittenPath;
+		rewriteUrl.pathname = /^\/mzar-hajjexpo2026\/?$/.test(rewrittenPath)
+			? "/mzar-hajjexpo2026-exhibition.html"
+			: rewrittenPath;
 		const requestHeaders = new Headers(request.headers);
 		requestHeaders.set("x-locale", locale);
 
