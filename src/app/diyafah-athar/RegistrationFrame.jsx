@@ -10,9 +10,14 @@ export default function RegistrationFrame() {
     const onMessage = (event) => {
       if (
         event.origin !== window.location.origin ||
-        event.source !== frame.current?.contentWindow ||
-        event.data?.type !== "diyafah-athar-height"
+        event.source !== frame.current?.contentWindow
       ) return;
+
+      if (event.data?.type === "diyafah-athar-success") {
+        frame.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+        return;
+      }
+      if (event.data?.type !== "diyafah-athar-height") return;
 
       const nextHeight = Number(event.data.height);
       if (Number.isFinite(nextHeight) && nextHeight > 0 && nextHeight < 10000) {
