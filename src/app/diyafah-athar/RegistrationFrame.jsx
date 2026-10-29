@@ -2,7 +2,10 @@
 
 import { useEffect, useRef, useState } from "react";
 
-export default function RegistrationFrame() {
+export default function RegistrationFrame({
+  src = "/hajj-con/diyafah-athar-standalone.html",
+  title = "تسجيل مبادرة ضيافة وأثر",
+}) {
   const frame = useRef(null);
   const [height, setHeight] = useState(1400);
 
@@ -32,8 +35,8 @@ export default function RegistrationFrame() {
     <main style={{ width: "100%" }}>
       <iframe
         ref={frame}
-        src="/hajj-con/diyafah-athar-standalone.html"
-        title="تسجيل مبادرة ضيافة وأثر"
+        src={src}
+        title={title}
         style={{ display: "block", width: "100%", height, border: 0 }}
       />
     </main>

@@ -74,6 +74,7 @@ export default function Header() {
 		bare === "/umrah" ||
 		bare === "/mzar-hajjexpo2026" ||
 		bare === "/diyafah-athar" ||
+		bare === "/diyafah-athar-participation" ||
 		bare === "/saira"
 	) {
 		return null;
