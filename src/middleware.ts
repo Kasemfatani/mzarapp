@@ -54,7 +54,9 @@ export function middleware(request: NextRequest) {
 		const rewriteUrl = request.nextUrl.clone();
 		rewriteUrl.pathname = /^\/mzar-hajjexpo2026\/?$/.test(rewrittenPath)
 			? "/mzar-hajjexpo2026-exhibition.html"
-			: rewrittenPath;
+			: /^\/hadiyah\/?$/.test(rewrittenPath)
+				? "/mzar-landing.html"
+				: rewrittenPath;
 		const requestHeaders = new Headers(request.headers);
 		requestHeaders.set("x-locale", locale);
 

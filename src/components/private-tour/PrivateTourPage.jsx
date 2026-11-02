@@ -44,6 +44,27 @@ export default function PrivateTourPage({ lang = "en", trip, bookingData }) {
   }, [trip.id]);
 
   useEffect(() => {
+    try {
+      const queryCode = new URLSearchParams(window.location.search).get("promo_code")?.trim();
+      const savedCode = localStorage.getItem("partnerPromoCode");
+      const expiry = Number.parseInt(localStorage.getItem("partnerPromoCodeExpiry") || "0", 10);
+
+      if (queryCode) {
+        localStorage.setItem("partnerPromoCode", queryCode);
+        localStorage.setItem("partnerPromoCodeExpiry", String(Date.now() + 24 * 60 * 60 * 1000));
+        setPromoCode(queryCode);
+      } else if (savedCode && expiry && Date.now() <= expiry) {
+        setPromoCode(savedCode);
+      } else if (savedCode) {
+        localStorage.removeItem("partnerPromoCode");
+        localStorage.removeItem("partnerPromoCodeExpiry");
+      }
+    } catch {
+      // Keep the booking form usable when local storage is unavailable.
+    }
+  }, []);
+
+  useEffect(() => {
     if (!date || !timeId) { setAvailability("idle"); return; }
     const controller = new AbortController();
     const params = new URLSearchParams({ package_id: "45", date, time_id: timeId });
