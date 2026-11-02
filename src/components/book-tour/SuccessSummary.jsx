@@ -227,6 +227,7 @@ export default function SuccessSummary({ initialLang = "en" }) {
 				customer_id: sel.customer_id,
 				process_id: sel.process_id,
 				transaction_id: tranId,
+				...(sel.partner_id ? { partner_id: sel.partner_id } : {}),
 			};
 			console.log("Finalizing booking with payload:", payload);
 

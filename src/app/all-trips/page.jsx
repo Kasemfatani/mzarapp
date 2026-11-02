@@ -62,8 +62,11 @@ export default async function AllTrip({ searchParams }) {
 
 	return (
 		<div className={lang === "en" ? "ltr" : "rtl"}>
-			{/* Save promo_code (if present) to localStorage on client */}
-			<PartnerPromoSaver promoCode={searchParams?.promo_code ?? null} />
+			{/* Save partner promo and attribution query params in localStorage. */}
+			<PartnerPromoSaver
+				promoCode={searchParams?.promo_code ?? null}
+				partnerId={searchParams?.partner_id ?? null}
+			/>
 			{/* <WhatsAppBookingRedirect /> */}
 			<PageWrapper lang={lang} data={data} isSaudi={isSaudi} />
 		</div>

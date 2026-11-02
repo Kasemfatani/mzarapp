@@ -21,6 +21,7 @@ import { trackAddToCart } from "@/lib/analytics";
 import { handleInvalidForm } from "@/lib/formUtils";
 import { format, addDays, startOfToday } from "date-fns";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
+import { getPartnerId } from "@/lib/partnerAttribution";
 
 const STORAGE_KEY = "bookHaramain.selection";
 
@@ -173,11 +174,13 @@ export default function BookTourPage({
 			async (values) => {
 				try {
 					setLoading(true); // set loading true on submit
+					const partnerId = getPartnerId();
 					const selection = {
 						date: format(values.date, "yyyy-MM-dd"),
 						time: values.time,
 						tour_id: busData?.id,
 						people: values.people,
+						...(partnerId ? { partner_id: partnerId } : {}),
 					};
 					localStorage.setItem(STORAGE_KEY, JSON.stringify(selection));
 
@@ -206,6 +209,7 @@ export default function BookTourPage({
 						payment_type: method === "cash" ? "cash" : "online",
 						promo_code: promoCode ? promoCode : null, // add promo code
 						country_id: values.country_id, // send selected country id
+						...(partnerId ? { partner_id: partnerId } : {}),
 					};
 					console.log("Booking payload:", payload);
 

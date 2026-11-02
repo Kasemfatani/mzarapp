@@ -24,6 +24,7 @@ import { parsePhoneNumberFromString } from "libphonenumber-js";
 import PromoCodeSection from "@/components/book-path-new/PromoCodeSection";
 import BusTripBookingCard from "@/components/trip-detail/bus/BusTripBookingCard";
 import { BUS_CASH_FEE_SAR, getBusAdultGroup, getBusTripQuote } from "@/components/trip-detail/bus/busTripPricing";
+import { getPartnerId } from "@/lib/partnerAttribution";
 
 const STORAGE_KEY = "bookTour.selection";
 
@@ -340,6 +341,7 @@ export default function BookTourPage({
 
 				try {
 					setLoading(true); // set loading true on submit
+					const partnerId = getPartnerId();
 					const selection = {
 						date: format(values.date, "yyyy-MM-dd"),
 						time: values.time,
@@ -352,6 +354,7 @@ export default function BookTourPage({
 						pricingMode: isSidebar ? "trip-96-reference" : "legacy",
 						// store age counts
 						group_age_counts: bookingValues.group_age_counts,
+						...(partnerId ? { partner_id: partnerId } : {}),
 					};
 					localStorage.setItem(STORAGE_KEY, JSON.stringify(selection));
 
@@ -414,6 +417,7 @@ export default function BookTourPage({
 							id: Number(r.id),
 							quantity: Number(r.quantity || 0),
 						})),
+						...(partnerId ? { partner_id: partnerId } : {}),
 					};
 					console.log("Booking payload:", payload);
 

@@ -7,6 +7,7 @@ import { parsePhoneNumberFromString } from "libphonenumber-js";
 import { API_BASE_URL_NEW } from "@/lib/apiConfig";
 import { formatHaramDate, formatHaramTime, getHaramSchedule, HARAM_TIME_ID } from "./haramTripSchedule";
 import { formatHaramMoney, formatHaramReferencePrice, getHaramOfferPrices, getHaramQuote, HARAM_REFERENCE_PRICE_MARKUP_PERCENT } from "./haramTripPricing";
+import { getPartnerId } from "@/lib/partnerAttribution";
 import styles from "./HaramTripDetail.module.css";
 
 const STORAGE_KEY = "bookHaramain.selection";
@@ -218,6 +219,7 @@ export default function HaramTripBookingSection({
 
 		setBusy(true);
 		try {
+			const partnerId = getPartnerId();
 			const { seats: latestSeats, minSeats: latestMinSeats } = await recheckAvailability();
 			if (latestSeats < latestMinSeats || count < latestMinSeats || count > latestSeats) {
 				setMessage(copy.availabilityChanged);
@@ -254,6 +256,7 @@ export default function HaramTripBookingSection({
 				people_count: count,
 				payment_type: paymentMethod,
 				promo_code: appliedPromo > 0 ? promoCode.trim() : null,
+				...(partnerId ? { partner_id: partnerId } : {}),
 			};
 			const bookingResponse = await fetch(`${API_BASE_URL_NEW}/landing/landing-guided-tour/booking`, {
 				method: "POST",
@@ -289,6 +292,7 @@ export default function HaramTripBookingSection({
 				tax: finalQuote.tax,
 				promoCode: appliedPromo > 0 ? promoCode.trim() : "",
 				paymentMethod,
+				...(partnerId ? { partner_id: partnerId } : {}),
 			};
 			localStorage.setItem(STORAGE_KEY, JSON.stringify(selection));
 
