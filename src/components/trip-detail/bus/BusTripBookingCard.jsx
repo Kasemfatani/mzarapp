@@ -111,9 +111,23 @@ export default function BusTripBookingCard({
 
 	useEffect(() => {
 		try {
+			const queryPromo = new URLSearchParams(window.location.search)
+				.get("promo_code")
+				?.trim();
+			if (queryPromo) {
+				const expiry = Date.now() + 24 * 60 * 60 * 1000;
+				localStorage.setItem("partnerPromoCode", queryPromo);
+				localStorage.setItem("partnerPromoCodeExpiry", String(expiry));
+				setPromo(queryPromo);
+				return;
+			}
+
 			const partnerPromo = localStorage.getItem("partnerPromoCode");
-			const expiry = localStorage.getItem("partnerPromoCodeExpiry");
-			if (partnerPromo && expiry && Date.now() <= Number.parseInt(expiry, 10)) {
+			const expiry = Number.parseInt(
+				localStorage.getItem("partnerPromoCodeExpiry") || "0",
+				10,
+			);
+			if (partnerPromo && expiry && Date.now() <= expiry) {
 				setPromo(partnerPromo);
 			} else if (partnerPromo) {
 				localStorage.removeItem("partnerPromoCode");

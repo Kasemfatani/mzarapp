@@ -66,11 +66,26 @@ export default function HaramTripBookingSection({
 
 	useEffect(() => {
 		try {
-			const queryCode = new URLSearchParams(window.location.search).get("promo_code");
-			const storedCode = localStorage.getItem("haramPromoCode");
-			const expiry = Number(localStorage.getItem("haramPromoCodeExpiry") || 0);
-			const saved = storedCode && expiry > Date.now() ? storedCode : "";
-			const initialCode = queryCode || saved;
+			const queryCode = new URLSearchParams(window.location.search)
+				.get("promo_code")
+				?.trim();
+			const readStoredCode = (codeKey, expiryKey) => {
+				const code = localStorage.getItem(codeKey);
+				const expiry = Number(localStorage.getItem(expiryKey) || 0);
+				if (!code) return "";
+				if (!expiry || expiry <= Date.now()) {
+					localStorage.removeItem(codeKey);
+					localStorage.removeItem(expiryKey);
+					return "";
+				}
+				return code;
+			};
+			const haramCode = readStoredCode("haramPromoCode", "haramPromoCodeExpiry");
+			const partnerCode = readStoredCode(
+				"partnerPromoCode",
+				"partnerPromoCodeExpiry",
+			);
+			const initialCode = queryCode || haramCode || partnerCode;
 			if (initialCode) setPromoCode(initialCode);
 		} catch {
 			// Keep the booking usable when storage is unavailable.
