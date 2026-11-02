@@ -222,6 +222,7 @@ export default function SuccessSummary({ initialLang = "en" }) {
 				customer_id: sel.customer_id,
 				ref_no: sel.ref_no,
 				transaction_id: tranId,
+				...(sel.partner_id ? { partner_id: sel.partner_id } : {}),
 			};
 
 			console.log("Finalizing haram booking with payload:", payload);

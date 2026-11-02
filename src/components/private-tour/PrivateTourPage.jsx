@@ -7,6 +7,7 @@ import { parsePhoneNumberFromString } from "libphonenumber-js";
 import PrivateTourLayout from "./PrivateTourLayout";
 import { copy } from "./private-tour-copy";
 import { formatPrivateTourMoney, getPrivateTourFaqItems } from "./privateTourFaqData";
+import { getPartnerId } from "@/lib/partnerAttribution";
 
 const STORAGE_KEY = "path.selection";
 
@@ -111,9 +112,10 @@ export default function PrivateTourPage({ lang = "en", trip, bookingData }) {
     if (name.trim().length < 2 || !/^\d{7,12}$/.test(whatsapp)) { setError(t.error); return; }
     setBusy(true);
     try {
-      const selection = { date, time, vehicle, tour_id: 45, people, add_ons: addons, is_express: false };
+      const partnerId = getPartnerId();
+      const selection = { date, time, vehicle, tour_id: 45, people, add_ons: addons, is_express: false, ...(partnerId ? { partner_id: partnerId } : {}) };
       localStorage.setItem(STORAGE_KEY, JSON.stringify(selection));
-      const payload = { name: name.trim(), phone: null, whatsapp, phone_country_code: null, whatsapp_country_code: countryCode, package_id: 45, date, time_id: time.id, transportation_type_id: vehicle.id, people_count: people, payment_type: payment === "cash" ? "cash" : "online", promo_code: promo?.code || null, add_ons: addons, is_express: false };
+      const payload = { name: name.trim(), phone: null, whatsapp, phone_country_code: null, whatsapp_country_code: countryCode, package_id: 45, date, time_id: time.id, transportation_type_id: vehicle.id, people_count: people, payment_type: payment === "cash" ? "cash" : "online", promo_code: promo?.code || null, add_ons: addons, is_express: false, ...(partnerId ? { partner_id: partnerId } : {}) };
       const response = await fetch(`${API_BASE_URL_NEW}/landing/trip/booking`, { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json", lang }, body: JSON.stringify(payload) });
       const json = await response.json();
       if (!response.ok || !json.status || !json.data?.trip_id || !json.data?.customer_id || !json.data?.ref_no) throw new Error(json.message || t.error);

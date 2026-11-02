@@ -25,10 +25,13 @@
   <script>
     
 document.addEventListener('DOMContentLoaded', async function() {
-  // Persist a partner promo from the landing URL for 24 hours.
+  // Persist a partner promo and partner attribution from the landing URL for 24 hours.
   let landingPromoCode = '';
+  let landingPartnerId = '';
+  let landingPartnerIdExpiry = 0;
   try {
-    landingPromoCode = (new URLSearchParams(window.location.search).get('promo_code') || '').trim();
+    const landingParams = new URLSearchParams(window.location.search);
+    landingPromoCode = (landingParams.get('promo_code') || '').trim();
     if (landingPromoCode) {
       localStorage.setItem('partnerPromoCode', landingPromoCode);
       localStorage.setItem('partnerPromoCodeExpiry', String(Date.now() + 24 * 60 * 60 * 1000));
@@ -40,9 +43,25 @@ document.addEventListener('DOMContentLoaded', async function() {
         localStorage.removeItem('partnerPromoCodeExpiry');
       }
     }
+
+    landingPartnerId = (landingParams.get('partner_id') || '').trim();
+    if (/^\d+$/.test(landingPartnerId) && Number.isSafeInteger(Number(landingPartnerId)) && Number(landingPartnerId) > 0) {
+      landingPartnerIdExpiry = Date.now() + 24 * 60 * 60 * 1000;
+      localStorage.setItem('partnerId', String(Number(landingPartnerId)));
+      localStorage.setItem('partnerIdExpiry', String(landingPartnerIdExpiry));
+      landingPartnerId = String(Number(landingPartnerId));
+    } else {
+      landingPartnerId = '';
+      const savedPartnerId = localStorage.getItem('partnerId');
+      const partnerExpiry = Number.parseInt(localStorage.getItem('partnerIdExpiry') || '0', 10);
+      if (savedPartnerId && (!partnerExpiry || Date.now() > partnerExpiry)) {
+        localStorage.removeItem('partnerId');
+        localStorage.removeItem('partnerIdExpiry');
+      }
+    }
   } catch (e) { /* local storage may be unavailable */ }
 
-  // Pass the saved promo to internal booking links.
+  // Pass saved attribution values to internal booking links.
   window.addEventListener('click', function(event) {
     try {
       const anchor = event.composedPath().find((node) => node instanceof HTMLAnchorElement);
@@ -52,10 +71,16 @@ document.addEventListener('DOMContentLoaded', async function() {
         const expiry = Number.parseInt(localStorage.getItem('partnerPromoCodeExpiry') || '0', 10);
         return savedCode && expiry && Date.now() <= expiry ? savedCode : '';
       })();
-      if (!promo) return;
+      const partnerId = (landingPartnerId && Date.now() <= landingPartnerIdExpiry ? landingPartnerId : '') || (() => {
+        const savedPartnerId = localStorage.getItem('partnerId');
+        const expiry = Number.parseInt(localStorage.getItem('partnerIdExpiry') || '0', 10);
+        return savedPartnerId && expiry && Date.now() <= expiry ? savedPartnerId : '';
+      })();
+      if (!promo && !partnerId) return;
       const destination = new URL(anchor.href, window.location.href);
       if (destination.origin !== window.location.origin || destination.pathname === window.location.pathname) return;
-      destination.searchParams.set('promo_code', promo);
+      if (promo) destination.searchParams.set('promo_code', promo);
+      if (partnerId) destination.searchParams.set('partner_id', partnerId);
       anchor.href = destination.pathname + destination.search + destination.hash;
     } catch (e) { /* leave the link usable if URL/storage access fails */ }
   }, true);

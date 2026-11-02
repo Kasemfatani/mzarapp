@@ -22,6 +22,7 @@ import { handleInvalidForm } from "@/lib/formUtils";
 import { format, addDays, startOfToday } from "date-fns";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
 import { getAddonUnitPrice } from "@/lib/addonPricing"; // <-- NEW import
+import { getPartnerId } from "@/lib/partnerAttribution";
 
 const STORAGE_KEY = "path.selection";
 
@@ -229,6 +230,7 @@ export default function BookTourPage({
 			async (values) => {
 				try {
 					setLoading(true); // set loading true on submit
+					const partnerId = getPartnerId();
 					const selection = {
 						date: format(values.date, "yyyy-MM-dd"),
 						time: values.time,
@@ -237,6 +239,7 @@ export default function BookTourPage({
 						people: values.people,
 						is_express: values.is_express,
 						add_ons: values.add_ons || selectedAddons,
+						...(partnerId ? { partner_id: partnerId } : {}),
 						// optional store address
 						// address_name: values.address_name,
 						// address_lat: values.address_lat,
@@ -269,6 +272,7 @@ export default function BookTourPage({
 						people_count: selection.people,
 						payment_type: method === "cash" ? "cash" : "online",
 						promo_code: promoApplied ? promoCode : null, // <-- include promo
+						...(partnerId ? { partner_id: partnerId } : {}),
 						add_ons: values.add_ons || selectedAddons,
 						is_express: !!values.is_express,
 						// new address fields in payload
