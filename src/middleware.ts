@@ -56,6 +56,8 @@ export function middleware(request: NextRequest) {
 			? "/mzar-hajjexpo2026-exhibition.html"
 			: /^\/hadiyah\/?$/.test(rewrittenPath)
 				? "/mzar-landing.html"
+				: /^\/invitation\/?$/.test(rewrittenPath)
+					? "/invitation.html"
 				: rewrittenPath;
 		const requestHeaders = new Headers(request.headers);
 		requestHeaders.set("x-locale", locale);
