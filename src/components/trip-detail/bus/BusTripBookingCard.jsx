@@ -66,7 +66,7 @@ export default function BusTripBookingCard({
 	maxPeopleCount = 45,
 	adultGroup,
 	adultQuantity = 1,
-	selectedDeparture = "morning",
+	selectedDeparture = "evening",
 	onDepartureChange,
 	promoCode = "",
 	promoDiscountPercent = 0,
@@ -148,7 +148,7 @@ export default function BusTripBookingCard({
 			if (selectedDeparture === "morning") {
 				return /morning|\bam\b|صباح|07:|7:00|٧:٠٠|٧ صباح/.test(label);
 			}
-			return /evening|afternoon|\bpm\b|مساء|عصر|16:|4:00|٤:٠٠|٤ عصر/.test(label);
+			return /evening|afternoon|\bpm\b|مساء|عصر|15:|3:00|٣:٠٠|3 عصر/.test(label);
 		});
 		const selectedTime = preferredTime || (times.length === 1 ? times[0] : undefined);
 		if (selectedTime) {

@@ -180,8 +180,8 @@ function getBusMetadataDescription(busData, lang) {
 	const priceText = formatMetadataPrice(personPrice, lang);
 
 	return lang === "ar"
-		? `اكتشف ١٠ معالم في مكة مع مزار وإرشاد سياحي صوتي بلغتك. انطلق من فندق أنجم مكة في الجولات الصباحية ٧ صباحًا أو المسائية ٤ عصرًا، واحجز بخطوة واحدة${priceText ? ` ابتداءً من ${priceText} للشخص` : ""}. الأطفال دون ١٢ سنة مجانًا، والدفع أونلاين أو نقدًا.`
-		: `Explore 10 Makkah landmarks with Mzar and multilingual audio guidance. Depart from Anjum Hotel Makkah at 7 AM or 4 PM and book in one step${priceText ? `, from ${priceText} per paying adult` : ""}. Children under 12 are free; pay online or in cash.`;
+		? `اكتشف ١٠ معالم في مكة مع مزار وإرشاد سياحي صوتي بلغتك. انطلق من فندق أنجم مكة في الجولة المسائية الساعة ٣ عصرًا، واحجز بخطوة واحدة${priceText ? ` ابتداءً من ${priceText} للشخص` : ""}. الأطفال دون ١٢ سنة مجانًا، والدفع أونلاين أو نقدًا.`
+		: `Explore 10 Makkah landmarks with Mzar and multilingual audio guidance. The evening tour departs from Anjum Hotel Makkah at 3 PM${priceText ? `, from ${priceText} per paying adult` : ""}. Children under 12 are free; pay online or in cash.`;
 }
 
 function getHaramMetadataDescription(bookingData, lang, schedule) {

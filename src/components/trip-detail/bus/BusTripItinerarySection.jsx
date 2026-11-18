@@ -60,8 +60,8 @@ export default function BusTripItinerarySection({ copy, lang, selectedId, onSele
 			</div>
 			<p className={styles.itineraryNote}>
 				{isAr
-					? "المحطات مشتركة للصباحية والمسائية حاليًا، ويمكن تخصيص كل مسار مستقلًا."
-					: "Both departures currently share these stops. Each route can be updated independently."}
+					? "موعد انطلاق هذه الجولة في الفترة المسائية فقط."
+					: "This tour currently departs in the evening only."}
 			</p>
 		</section>
 	);
