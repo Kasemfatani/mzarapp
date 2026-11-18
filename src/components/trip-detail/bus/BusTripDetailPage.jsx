@@ -21,7 +21,7 @@ export default function BusTripDetailPage({
 }) {
 	const copy = busTripCopy[lang === "ar" ? "ar" : "en"];
 	const isAr = lang === "ar";
-	const [selectedDeparture, setSelectedDeparture] = useState("morning");
+	const [selectedDeparture, setSelectedDeparture] = useState("evening");
 	const breadcrumbLinks = isAr
 		? ["/ar/", "/ar/all-trips"]
 		: ["/en/", "/en/all-trips"];

@@ -12,21 +12,13 @@ export const busTripStops = [
 ];
 
 export const busTripDepartures = [
-	// {
-	// 	id: "morning",
-	// 	icon: "☀",
-	// 	ar: "الجولة الصباحية",
-	// 	en: "Morning tour",
-	// 	arTime: "٧:٠٠ صباحًا",
-	// 	enTime: "7:00 AM",
-	// },
 	{
 		id: "evening",
 		icon: "☾",
 		ar: "الجولة المسائية",
 		en: "Evening tour",
-		arTime: "٤:٠٠ عصرًا",
-		enTime: "4:00 PM",
+		arTime: "٣:٠٠ عصرًا",
+		enTime: "3:00 PM",
 	},
 ];
 
@@ -50,12 +42,12 @@ export const busTripCopy = {
 		itineraryEyebrow: "رحلتك، محطة بمحطة",
 		itineraryTitle: "وجهات الجولة",
 		itineraryDescription:
-			"اختر الفترة للاطلاع على مسارها وموعد انطلاقها.",
+			"تعرّف على مسار الجولة المسائية وموعد انطلاقها.",
 		meetingEyebrow: "بداية رحلتك من هنا",
 		meetingTitle: "نقاط التجمع والانطلاق",
 		meetingDescription: "الموقع ووقت الانطلاق أمامك بوضوح، قبل تأكيد الحجز.",
 		meetingPoint: "فندق أنجم مكة",
-		meetingHours: "الصباحية ٧:٠٠ ص | المسائية ٤:٠٠ م",
+		meetingHours: "الجولة المسائية ٣:٠٠ عصرًا",
 		viewMap: "عرض الموقع على الخريطة",
 		factsEyebrow: "",
 		factsTitle: "تجربة متكاملة، وحجز بسيط",
@@ -70,7 +62,7 @@ export const busTripCopy = {
 			{
 				question: "متى تنطلق الجولة ومن أين؟",
 				answer:
-					"تنطلق الجولة الصباحية الساعة ٧:٠٠ صباحًا والمسائية الساعة ٤:٠٠ عصرًا بتوقيت مكة، من نقطة التجمع المختارة في الحجز. نقطة التجمع الحالية: فندق أنجم مكة.",
+					"تنطلق الجولة المسائية الساعة ٣:٠٠ عصرًا بتوقيت مكة، من نقطة التجمع المختارة في الحجز. نقطة التجمع الحالية: فندق أنجم مكة.",
 			},
 			{
 				question: "هل يتوفر الإرشاد الصوتي بلغتي؟",
@@ -122,12 +114,12 @@ export const busTripCopy = {
 		itineraryEyebrow: "Your journey, stop by stop",
 		itineraryTitle: "Tour itinerary",
 		itineraryDescription:
-			"Choose a departure to explore its route and departure time.",
+			"Explore the evening tour route and departure time.",
 		meetingEyebrow: "Your journey starts here",
 		meetingTitle: "Meeting & departure points",
 		meetingDescription: "Know exactly where and when to meet before confirming.",
 		meetingPoint: "Anjum Hotel Makkah",
-		meetingHours: "Morning 7:00 AM | Evening 4:00 PM",
+		meetingHours: "Evening tour · 3:00 PM",
 		viewMap: "View location on map",
 		factsEyebrow: "",
 		factsTitle: "A complete experience. A simple booking.",
@@ -142,7 +134,7 @@ export const busTripCopy = {
 			{
 				question: "When and where does the tour depart?",
 				answer:
-					"Morning tours depart at 7:00 AM and evening tours at 4:00 PM, Makkah time, from your selected meeting point. The current meeting point is Anjum Hotel Makkah.",
+					"The evening tour departs at 3:00 PM Makkah time from your selected meeting point. The current meeting point is Anjum Hotel Makkah.",
 			},
 			{
 				question: "Is audio guidance available in my language?",

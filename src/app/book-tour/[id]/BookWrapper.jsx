@@ -95,7 +95,7 @@ export default function BookTourPage({
 	isSaudi = true,
 	countryCode = "SA",
 	variant = "default",
-	selectedDeparture = "morning",
+	selectedDeparture = "evening",
 	onDepartureChange,
 }) {
 	const isSidebar = variant === "sidebar";
