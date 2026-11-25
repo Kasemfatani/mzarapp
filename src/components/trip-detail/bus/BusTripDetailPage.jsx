@@ -21,7 +21,7 @@ export default function BusTripDetailPage({
 }) {
 	const copy = busTripCopy[lang === "ar" ? "ar" : "en"];
 	const isAr = lang === "ar";
-	const [selectedDeparture, setSelectedDeparture] = useState("evening");
+	const [selectedTourId, setSelectedTourId] = useState("anjum");
 	const breadcrumbLinks = isAr
 		? ["/ar/", "/ar/all-trips"]
 		: ["/en/", "/en/all-trips"];
@@ -49,10 +49,10 @@ export default function BusTripDetailPage({
 						<BusTripItinerarySection
 							copy={copy}
 							lang={lang}
-							selectedId={selectedDeparture}
-							onSelect={setSelectedDeparture}
+							selectedId={selectedTourId}
+							onSelect={setSelectedTourId}
 						/>
-						<BusTripMeetingSection copy={copy} />
+						<BusTripMeetingSection copy={copy} lang={lang} />
 						<BusTripFactsSection copy={copy} />
 						<BusTripFaqSection copy={copy} lang={lang} />
 					</div>
@@ -63,8 +63,7 @@ export default function BusTripDetailPage({
 							busData={busData}
 							isSaudi={isSaudi}
 							countryCode={countryCode}
-							selectedDeparture={selectedDeparture}
-							onDepartureChange={setSelectedDeparture}
+							selectedDeparture="evening"
 							sidebar
 						/>
 					</aside>

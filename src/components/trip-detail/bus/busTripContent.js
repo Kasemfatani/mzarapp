@@ -13,10 +13,24 @@ export const busTripStops = [
 
 export const busTripDepartures = [
 	{
-		id: "evening",
+		id: "fairmont",
 		icon: "☾",
-		ar: "الجولة المسائية",
-		en: "Evening tour",
+		ar: "الجولة المسائية (فندق فيرمونت مكة)",
+		en: "Evening tour (Fairmont Hotel)",
+		meetingPoint: { ar: "فندق فيرمونت مكة", en: "Fairmont Hotel" },
+		meetingHours: { ar: "الجولة المسائية · ٢:٣٠ عصرًا", en: "Evening tour · 2:30 PM" },
+		mapUrl: "https://www.google.com/maps/search/?api=1&query=21.417885863054618,39.824727179945164",
+		arTime: "٢:٣٠ عصرًا",
+		enTime: "2:30 PM",
+	},
+	{
+		id: "anjum",
+		icon: "☾",
+		ar: "الجولة المسائية (فندق أنجم مكة)",
+		en: "Evening tour (Anjum Hotel)",
+		meetingPoint: { ar: "فندق أنجم مكة", en: "Anjum Hotel Makkah" },
+		meetingHours: { ar: "الجولة المسائية · ٣:٠٠ عصرًا", en: "Evening tour · 3:00 PM" },
+		mapUrl: "https://www.google.com/maps/search/?api=1&query=21.42441532155061,39.81894701951807",
 		arTime: "٣:٠٠ عصرًا",
 		enTime: "3:00 PM",
 	},
@@ -42,12 +56,10 @@ export const busTripCopy = {
 		itineraryEyebrow: "رحلتك، محطة بمحطة",
 		itineraryTitle: "وجهات الجولة",
 		itineraryDescription:
-			"تعرّف على مسار الجولة المسائية وموعد انطلاقها.",
+			"اختر نقطة التجمع للاطلاع على موعد الانطلاق ومسار الجولة.",
 		meetingEyebrow: "بداية رحلتك من هنا",
 		meetingTitle: "نقاط التجمع والانطلاق",
-		meetingDescription: "الموقع ووقت الانطلاق أمامك بوضوح، قبل تأكيد الحجز.",
-		meetingPoint: "فندق أنجم مكة",
-		meetingHours: "الجولة المسائية ٣:٠٠ عصرًا",
+		meetingDescription: "اختر نقطة التجمع الأنسب لك؛ يختلف موعد الانطلاق حسب الفندق.",
 		viewMap: "عرض الموقع على الخريطة",
 		factsEyebrow: "",
 		factsTitle: "تجربة متكاملة، وحجز بسيط",
@@ -62,7 +74,7 @@ export const busTripCopy = {
 			{
 				question: "متى تنطلق الجولة ومن أين؟",
 				answer:
-					"تنطلق الجولة المسائية الساعة ٣:٠٠ عصرًا بتوقيت مكة، من نقطة التجمع المختارة في الحجز. نقطة التجمع الحالية: فندق أنجم مكة.",
+					"تنطلق الجولات المسائية بتوقيت مكة الساعة ٢:٣٠ عصرًا من فندق فيرمونت مكة، أو الساعة ٣:٠٠ عصرًا من فندق أنجم مكة. اختر نقطة التجمع المناسبة عند الحجز.",
 			},
 			{
 				question: "هل يتوفر الإرشاد الصوتي بلغتي؟",
@@ -95,12 +107,12 @@ export const busTripCopy = {
 		itineraryLabel: "محطة",
 	},
 	en: {
-		breadcrumb: ["Home", "Experiences", "Makkah enrichment tours"],
+		breadcrumb: ["Home", "Experiences", "Makkah Sightseeing Bus tour"],
 		badge: "Makkah · Shared tour",
 		eyebrow: "Mzar enrichment tours",
-		title: "Discover Makkah. In your language.",
+		title: "Makkah Sightseeing Bus tour",
 		heroDescription:
-			"Audio tour guidance in your language, bringing each landmark’s story to life.",
+			"Explore Makkah with audio guidance in your language. Choose a 2:30 PM departure from Fairmont Hotel or 3:00 PM from Anjum Hotel.",
 		languages: "Arabic · English · French · Turkish · Malay",
 		book: "Book your tour",
 		sponsorLabel: "This initiative is sponsored by",
@@ -114,12 +126,10 @@ export const busTripCopy = {
 		itineraryEyebrow: "Your journey, stop by stop",
 		itineraryTitle: "Tour itinerary",
 		itineraryDescription:
-			"Explore the evening tour route and departure time.",
+			"Choose a meeting point to see its departure time and tour route.",
 		meetingEyebrow: "Your journey starts here",
 		meetingTitle: "Meeting & departure points",
-		meetingDescription: "Know exactly where and when to meet before confirming.",
-		meetingPoint: "Anjum Hotel Makkah",
-		meetingHours: "Evening tour · 3:00 PM",
+		meetingDescription: "Choose your preferred meeting point; departure time depends on the hotel.",
 		viewMap: "View location on map",
 		factsEyebrow: "",
 		factsTitle: "A complete experience. A simple booking.",
@@ -134,7 +144,7 @@ export const busTripCopy = {
 			{
 				question: "When and where does the tour depart?",
 				answer:
-					"The evening tour departs at 3:00 PM Makkah time from your selected meeting point. The current meeting point is Anjum Hotel Makkah.",
+					"The evening tours depart at 2:30 PM from Fairmont Hotel and 3:00 PM from Anjum Hotel, Makkah time. Choose the matching meeting point when booking.",
 			},
 			{
 				question: "Is audio guidance available in my language?",
@@ -157,7 +167,7 @@ export const busTripCopy = {
 			},
 		],
 		bookingEyebrow: "Start your booking",
-		bookingTitle: "Book your enrichment tour",
+		bookingTitle: "Book your Makkah sightseeing bus tour",
 		bookingDescription:
 			"Choose a date and meeting point, then complete your booking details. Current availability and pricing appear in the form.",
 		bookingUnavailable:
