@@ -24,7 +24,7 @@ export default function BusTripItinerarySection({ copy, lang, selectedId, onSele
 						aria-pressed={selectedId === item.id}
 						onClick={() => onSelect(item.id)}
 					>
-						<span>{item.icon} {isAr ? item.ar : item.en}</span>
+						<span> {isAr ? item.ar : item.en}</span>
 						<small>{isAr ? item.arTime : item.enTime}</small>
 					</button>
 				))}
