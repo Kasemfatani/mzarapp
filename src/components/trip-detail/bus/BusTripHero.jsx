@@ -8,7 +8,7 @@ export default function BusTripHero({ copy, lang }) {
 		<section className={styles.hero} aria-labelledby="bus-trip-title">
 			<Image
 				src="/trip-detail/96/tour.jpg"
-				alt={isAr ? "حافلة مزار للجولات الإثرائية في مكة" : "Mzar enrichment tour bus in Makkah"}
+				alt={isAr ? "حافلة مزار للجولات الإثرائية في مكة" : "Makkah sightseeing bus tour"}
 			fill
 				priority
 				sizes="(max-width: 760px) 100vw, 1200px"

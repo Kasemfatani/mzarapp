@@ -1,4 +1,4 @@
-import { busTripCopy, busTripStops } from "./bus/busTripContent";
+import { busTripCopy, busTripDepartures, busTripStops } from "./bus/busTripContent";
 import { getBusAdultGroup, getBusTripQuote } from "./bus/busTripPricing";
 import { haramTripCopy } from "./haram/haramTripContent";
 import { getHaramTripFaqItems } from "./haram/haramTripFaqData";
@@ -160,7 +160,7 @@ export function buildTripDetailStructuredData({
 			name: id === "88"
 				? (lang === "ar" ? "جولة معالم المسجد الحرام" : "Grand Mosque Guided Tour")
 				: id === "96"
-					? (lang === "ar" ? "جولة معالم مكة" : "Makkah Landmarks Tour")
+					? (lang === "ar" ? "جولة معالم مكة" : "Makkah Sightseeing Bus tour")
 					: (lang === "ar" ? "جولة خاصة في المشاعر المقدسة ومعرض الوحي" : "Private Makkah Sacred Sites Tour & Revelation Exhibition"),
 			description,
 			inLanguage: lang,
@@ -172,14 +172,18 @@ export function buildTripDetailStructuredData({
 				: id === "96"
 					? (lang === "ar" ? "السياحة الثقافية" : "Cultural tourism")
 					: (lang === "ar" ? "مجموعات خاصة من ٤ أشخاص فأكثر" : "Private groups of four or more"),
-			tripOrigin: {
-				"@type": "Place",
-				name: id === "88"
-					? (lang === "ar" ? "بوابة الملك عبدالله، المسجد الحرام" : "King Abdullah Gate, Al-Masjid Al-Haram")
-					: id === "96"
-						? (lang === "ar" ? "فندق أنجم مكة" : "Anjum Hotel Makkah")
-						: (lang === "ar" ? "مقر الإقامة المتفق عليه في مكة" : "Agreed accommodation in Makkah"),
-			},
+			tripOrigin: id === "96"
+				? busTripDepartures.map((departure) => ({
+						"@type": "Place",
+						name: departure.meetingPoint[lang],
+						url: departure.mapUrl,
+					}))
+				: {
+						"@type": "Place",
+						name: id === "88"
+							? (lang === "ar" ? "بوابة الملك عبدالله، المسجد الحرام" : "King Abdullah Gate, Al-Masjid Al-Haram")
+							: (lang === "ar" ? "مقر الإقامة المتفق عليه في مكة" : "Agreed accommodation in Makkah"),
+					},
 			itinerary: {
 				"@type": "ItemList",
 				itemListElement: itinerary.map(({ name: stopName, description: stopDescription, itemType }, index) => ({

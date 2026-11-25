@@ -180,8 +180,8 @@ function getBusMetadataDescription(busData, lang) {
 	const priceText = formatMetadataPrice(personPrice, lang);
 
 	return lang === "ar"
-		? `اكتشف ١٠ معالم في مكة مع مزار وإرشاد سياحي صوتي بلغتك. انطلق من فندق أنجم مكة في الجولة المسائية الساعة ٣ عصرًا، واحجز بخطوة واحدة${priceText ? ` ابتداءً من ${priceText} للشخص` : ""}. الأطفال دون ١٢ سنة مجانًا، والدفع أونلاين أو نقدًا.`
-		: `Explore 10 Makkah landmarks with Mzar and multilingual audio guidance. The evening tour departs from Anjum Hotel Makkah at 3 PM${priceText ? `, from ${priceText} per paying adult` : ""}. Children under 12 are free; pay online or in cash.`;
+		? `اكتشف معالم مكة في جولتين مسائيتين بإرشاد سياحي صوتي بلغتك. الانطلاق الساعة ٢:٣٠ عصرًا من فندق فيرمونت مكة أو ٣:٠٠ عصرًا من فندق أنجم مكة${priceText ? `، ابتداءً من ${priceText} للشخص` : ""}. الأطفال دون ١٢ سنة مجانًا، والدفع أونلاين أو نقدًا.`
+		: `Discover Makkah on an evening sightseeing bus tour with multilingual audio guidance. Depart at 2:30 PM from Fairmont Hotel or 3:00 PM from Anjum Hotel${priceText ? `, from ${priceText} per paying adult` : ""}. Children under 12 are free; pay online or in cash.`;
 }
 
 function getHaramMetadataDescription(bookingData, lang, schedule) {
@@ -235,7 +235,7 @@ export async function generateMetadata({ params }) {
 		const busData = await getBusBookingData(lang);
 		title = isArabic
 			? "جولة معالم مكة بإرشاد سياحي صوتي بلغتك | مزار"
-			: "Makkah Landmarks Tour with Multilingual Audio Guidance | Mzar";
+			: "Makkah Sightseeing Bus tour | Mzar";
 		description = getBusMetadataDescription(busData, lang);
 	} else if (id === "88") {
 		const bookingData = await getHaramBookingData(lang);
@@ -366,7 +366,7 @@ export default async function TourPage({ params }) {
 		]);
 		const tripTitle = isAr
 			? "جولة معالم مكة بإرشاد سياحي صوتي بلغتك | مزار"
-			: "Makkah Landmarks Tour with Multilingual Audio Guidance | Mzar";
+			: "Makkah Sightseeing Bus tour | Mzar";
 
 		return (
 			<>

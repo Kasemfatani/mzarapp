@@ -1,9 +1,9 @@
 import styles from "./BusTripDetail.module.css";
+import { busTripDepartures } from "./busTripContent";
 
-const MEETING_POINT_MAP =
-	"https://www.google.com/maps/search/?api=1&query=21.42441532155061,39.81894701951807";
+export default function BusTripMeetingSection({ copy, lang }) {
+	const language = lang === "ar" ? "ar" : "en";
 
-export default function BusTripMeetingSection({ copy }) {
 	return (
 		<section className={styles.section} aria-labelledby="bus-meeting-title">
 			<p className={styles.eyebrow}>{copy.meetingEyebrow}</p>
@@ -11,20 +11,24 @@ export default function BusTripMeetingSection({ copy }) {
 				{copy.meetingTitle}
 			</h2>
 			<p className={styles.sectionText}>{copy.meetingDescription}</p>
-			<div className={styles.meetingCard}>
-				<div className={styles.meetingName}>
-					<span className={styles.pinIcon} aria-hidden="true">
-						⌖
-					</span>
-					<div>
-						<strong>{copy.meetingPoint}</strong>
-						<p className={styles.meetingHours}>{copy.meetingHours}</p>
-					</div>
-				</div>
-				<a href={MEETING_POINT_MAP} target="_blank" rel="noreferrer" className={styles.mapLink}>
-					{copy.viewMap}
-					<span aria-hidden="true">↗</span>
-				</a>
+			<div className={styles.meetingList}>
+				{busTripDepartures.map((departure) => (
+					<article className={styles.meetingCard} key={departure.id}>
+						<div className={styles.meetingName}>
+							<span className={styles.pinIcon} aria-hidden="true">
+								⌖
+							</span>
+							<div>
+								<strong>{departure.meetingPoint[language]}</strong>
+								<p className={styles.meetingHours}>{departure.meetingHours[language]}</p>
+							</div>
+						</div>
+						<a href={departure.mapUrl} target="_blank" rel="noreferrer" className={styles.mapLink}>
+							{copy.viewMap}
+							<span aria-hidden="true">↗</span>
+						</a>
+					</article>
+				))}
 			</div>
 		</section>
 	);

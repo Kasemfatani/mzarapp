@@ -24,7 +24,7 @@ export default function BusTripItinerarySection({ copy, lang, selectedId, onSele
 						aria-pressed={selectedId === item.id}
 						onClick={() => onSelect(item.id)}
 					>
-						<span>{item.icon} {isAr ? item.ar : item.en}</span>
+						<span> {isAr ? item.ar : item.en}</span>
 						<small>{isAr ? item.arTime : item.enTime}</small>
 					</button>
 				))}
@@ -45,7 +45,9 @@ export default function BusTripItinerarySection({ copy, lang, selectedId, onSele
 				))}
 			</ol>
 			<div className={styles.routeFooter}>
-				<span>{isAr ? "انطلق من فندق أنجم مكة" : "Depart from Anjum Hotel Makkah"}</span>
+				<span>
+					{isAr ? `انطلق من ${departure.meetingPoint.ar}` : `Depart from ${departure.meetingPoint.en}`}
+				</span>
 				<button
 					type="button"
 					className={styles.routeLink}
@@ -60,8 +62,8 @@ export default function BusTripItinerarySection({ copy, lang, selectedId, onSele
 			</div>
 			<p className={styles.itineraryNote}>
 				{isAr
-					? "موعد انطلاق هذه الجولة في الفترة المسائية فقط."
-					: "This tour currently departs in the evening only."}
+					? "تنطلق الجولتان المسائيتان من نقطتي التجمع الموضحتين أعلاه."
+					: "Both evening departures follow this route from their listed meeting points."}
 			</p>
 		</section>
 	);
